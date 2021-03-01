@@ -1,0 +1,6 @@
+framework module Pods_AcuityEngine {
+  umbrella header "Pods-AcuityEngine-umbrella.h"
+
+  export *
+  module * { export * }
+}

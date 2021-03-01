@@ -1,0 +1,939 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 51;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		08B879B268566B06F141D3F3 /* Pods_AcuityEngine.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2674AE460659ECA36794A9A0 /* Pods_AcuityEngine.framework */; };
+		7A22C1B525E786F10028319D /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7A22C1B325E786F10028319D /* Main.storyboard */; };
+		7A22C1B825E786F10028319D /* AcuityEngine.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 7A22C1B625E786F10028319D /* AcuityEngine.xcdatamodeld */; };
+		7A22C1BA25E786F20028319D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7A22C1B925E786F20028319D /* Assets.xcassets */; };
+		7A22C1BD25E786F20028319D /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7A22C1BB25E786F20028319D /* LaunchScreen.storyboard */; };
+		7A22C20725E788AF0028319D /* CardioProblemData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A22C1DD25E788AE0028319D /* CardioProblemData.swift */; };
+		7A22C20825E788AF0028319D /* CardioProblem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A22C1DE25E788AE0028319D /* CardioProblem.swift */; };
+		7A22C20925E788AF0028319D /* CardioProblemCalculation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A22C1DF25E788AE0028319D /* CardioProblemCalculation.swift */; };
+		7A22C20A25E788AF0028319D /* CardioManager+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A22C1E025E788AE0028319D /* CardioManager+Extension.swift */; };
+		7A22C20B25E788AF0028319D /* CardioValue.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A22C1E125E788AE0028319D /* CardioValue.swift */; };
+		7A22C20C25E788AF0028319D /* CardioSymptoms.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A22C1E325E788AE0028319D /* CardioSymptoms.swift */; };
+		7A22C20D25E788AF0028319D /* CardioSymptomCalculation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A22C1E425E788AE0028319D /* CardioSymptomCalculation.swift */; };
+		7A22C20E25E788AF0028319D /* CardioSymptomsPainData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A22C1E525E788AE0028319D /* CardioSymptomsPainData.swift */; };
+		7A22C20F25E788AF0028319D /* CardioIMP.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A22C1E725E788AE0028319D /* CardioIMP.swift */; };
+		7A22C21025E788AF0028319D /* CardioIMPData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A22C1E825E788AE0028319D /* CardioIMPData.swift */; };
+		7A22C21125E788AF0028319D /* CardioIMPCalculation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A22C1E925E788AE0028319D /* CardioIMPCalculation.swift */; };
+		7A22C21225E788AF0028319D /* CardioManagerProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A22C1EA25E788AF0028319D /* CardioManagerProtocol.swift */; };
+		7A22C21325E788AF0028319D /* CardioManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A22C1EB25E788AF0028319D /* CardioManager.swift */; };
+		7A22C21425E788AF0028319D /* CardioData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A22C1EC25E788AF0028319D /* CardioData.swift */; };
+		7A22C21525E788AF0028319D /* CardioLab.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A22C1EE25E788AF0028319D /* CardioLab.swift */; };
+		7A22C21625E788AF0028319D /* CardioLabData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A22C1EF25E788AF0028319D /* CardioLabData.swift */; };
+		7A22C21725E788AF0028319D /* CardioLabCalculation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A22C1F025E788AF0028319D /* CardioLabCalculation.swift */; };
+		7A22C21825E788AF0028319D /* RespiratoryManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A22C1F225E788AF0028319D /* RespiratoryManager.swift */; };
+		7A22C21925E788AF0028319D /* RespiratoryValue.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A22C1F325E788AF0028319D /* RespiratoryValue.swift */; };
+		7A22C21A25E788AF0028319D /* RespiratoryData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A22C1F425E788AF0028319D /* RespiratoryData.swift */; };
+		7A22C21B25E788AF0028319D /* RespiratoryIMP.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A22C1F625E788AF0028319D /* RespiratoryIMP.swift */; };
+		7A22C21C25E788AF0028319D /* RespiratoryIMPData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A22C1F725E788AF0028319D /* RespiratoryIMPData.swift */; };
+		7A22C21D25E788AF0028319D /* RespiratoryIMPCalculation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A22C1F825E788AF0028319D /* RespiratoryIMPCalculation.swift */; };
+		7A22C21E25E788AF0028319D /* RespiratoryManager+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A22C1F925E788AF0028319D /* RespiratoryManager+Extension.swift */; };
+		7A22C21F25E788AF0028319D /* RespiratoryProblem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A22C1FB25E788AF0028319D /* RespiratoryProblem.swift */; };
+		7A22C22025E788AF0028319D /* RespiratoryProblemData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A22C1FC25E788AF0028319D /* RespiratoryProblemData.swift */; };
+		7A22C22125E788AF0028319D /* RespiratoryProblemCalculation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A22C1FD25E788AF0028319D /* RespiratoryProblemCalculation.swift */; };
+		7A22C22225E788AF0028319D /* RespiratorySymptomsPainData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A22C1FF25E788AF0028319D /* RespiratorySymptomsPainData.swift */; };
+		7A22C22325E788AF0028319D /* RespiratorySymptoms.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A22C20025E788AF0028319D /* RespiratorySymptoms.swift */; };
+		7A22C22425E788AF0028319D /* RespiratorySymptomCalculation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A22C20125E788AF0028319D /* RespiratorySymptomCalculation.swift */; };
+		7A22C22525E788AF0028319D /* RespiratoryLab.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A22C20325E788AF0028319D /* RespiratoryLab.swift */; };
+		7A22C22625E788AF0028319D /* RespiratoryLabCalculation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A22C20425E788AF0028319D /* RespiratoryLabCalculation.swift */; };
+		7A22C22725E788AF0028319D /* RespiratoryLabData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A22C20525E788AF0028319D /* RespiratoryLabData.swift */; };
+		7A22C22825E788AF0028319D /* RespiratoryManagerProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A22C20625E788AF0028319D /* RespiratoryManagerProtocol.swift */; };
+		7A22C22D25E788CE0028319D /* HealthKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7A22C22C25E788CE0028319D /* HealthKit.framework */; };
+		7A22C24C25E794500028319D /* CardioViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A22C24A25E794500028319D /* CardioViewModel.swift */; };
+		7A22C24D25E794500028319D /* RespiratoryViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A22C24B25E794500028319D /* RespiratoryViewModel.swift */; };
+		7A22C25125E794670028319D /* PullUpDisplayCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A22C25025E794670028319D /* PullUpDisplayCell.swift */; };
+		7A22C25B25E798450028319D /* HKSetupAssistance.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A22C25A25E798450028319D /* HKSetupAssistance.swift */; };
+		7A22C25E25E7985C0028319D /* Utility.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A22C25D25E7985C0028319D /* Utility.swift */; };
+		7A22C26325E7987A0028319D /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A22C26225E7987A0028319D /* Constants.swift */; };
+		7A240EFC25E7AB18002A5CF9 /* AcuityMainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A240EF625E7AB18002A5CF9 /* AcuityMainViewController.swift */; };
+		7A240EFD25E7AB18002A5CF9 /* HealthDataViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A240EF825E7AB18002A5CF9 /* HealthDataViewController.swift */; };
+		7A240EFE25E7AB18002A5CF9 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A240EFB25E7AB18002A5CF9 /* LoginViewController.swift */; };
+		7A240F0325E7AB41002A5CF9 /* PullUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A240F0225E7AB41002A5CF9 /* PullUpViewController.swift */; };
+		7A240F0825E7AB58002A5CF9 /* AcuityDetailPullUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A240F0625E7AB58002A5CF9 /* AcuityDetailPullUpViewController.swift */; };
+		7A240F0925E7AB58002A5CF9 /* AcuityDetailPullUp.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7A240F0725E7AB58002A5CF9 /* AcuityDetailPullUp.storyboard */; };
+		7A6AF7FE25E7A2C2001FB132 /* RotaryWheel.m in Sources */ = {isa = PBXBuildFile; fileRef = 7A6AF7F925E7A2C2001FB132 /* RotaryWheel.m */; };
+		7A6AF7FF25E7A2C2001FB132 /* Chevron.m in Sources */ = {isa = PBXBuildFile; fileRef = 7A6AF7FB25E7A2C2001FB132 /* Chevron.m */; };
+		7A6AF81A25E7A572001FB132 /* UISegmentedControl+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A6AF81925E7A572001FB132 /* UISegmentedControl+Extensions.swift */; };
+		7A6AF82425E7A634001FB132 /* Header.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A6AF82225E7A634001FB132 /* Header.swift */; };
+		7A6AF82525E7A634001FB132 /* Header.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7A6AF82325E7A634001FB132 /* Header.xib */; };
+		7A6AF82825E7A6A2001FB132 /* MyWellScore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A6AF82725E7A6A2001FB132 /* MyWellScore.swift */; };
+		7AB9E76325E7AC5700BCA3C1 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AB9E76125E7AC5700BCA3C1 /* AppDelegate.swift */; };
+		7AB9E76425E7AC5700BCA3C1 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AB9E76225E7AC5700BCA3C1 /* SceneDelegate.swift */; };
+		7AB9E78825E7B39900BCA3C1 /* String+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AB9E78325E7B39900BCA3C1 /* String+Extensions.swift */; };
+		7AB9E78925E7B39900BCA3C1 /* Array+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AB9E78425E7B39900BCA3C1 /* Array+Extensions.swift */; };
+		7AB9E78A25E7B39900BCA3C1 /* UIView+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AB9E78525E7B39900BCA3C1 /* UIView+Extensions.swift */; };
+		7AB9E78B25E7B39900BCA3C1 /* UIViewController+Alert.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AB9E78625E7B39900BCA3C1 /* UIViewController+Alert.swift */; };
+		7AB9E78C25E7B39900BCA3C1 /* UIStoryboard+Instantiable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AB9E78725E7B39900BCA3C1 /* UIStoryboard+Instantiable.swift */; };
+		7AB9E7A325E7BB7300BCA3C1 /* AcuityDisplayModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AB9E7A225E7BB7300BCA3C1 /* AcuityDisplayModel.swift */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		2674AE460659ECA36794A9A0 /* Pods_AcuityEngine.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_AcuityEngine.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		2E9A2C77FCE70E2F05B2179B /* Pods-AcuityEngine.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-AcuityEngine.debug.xcconfig"; path = "Target Support Files/Pods-AcuityEngine/Pods-AcuityEngine.debug.xcconfig"; sourceTree = "<group>"; };
+		5E581811A157C643B3DE3D9C /* Pods-AcuityEngine.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-AcuityEngine.release.xcconfig"; path = "Target Support Files/Pods-AcuityEngine/Pods-AcuityEngine.release.xcconfig"; sourceTree = "<group>"; };
+		7A22C1AA25E786F10028319D /* AcuityEngine.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = AcuityEngine.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		7A22C1B425E786F10028319D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		7A22C1B725E786F10028319D /* AcuityEngine.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = AcuityEngine.xcdatamodel; sourceTree = "<group>"; };
+		7A22C1B925E786F20028319D /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		7A22C1BC25E786F20028319D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		7A22C1BE25E786F20028319D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		7A22C1DD25E788AE0028319D /* CardioProblemData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CardioProblemData.swift; sourceTree = "<group>"; };
+		7A22C1DE25E788AE0028319D /* CardioProblem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CardioProblem.swift; sourceTree = "<group>"; };
+		7A22C1DF25E788AE0028319D /* CardioProblemCalculation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CardioProblemCalculation.swift; sourceTree = "<group>"; };
+		7A22C1E025E788AE0028319D /* CardioManager+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "CardioManager+Extension.swift"; sourceTree = "<group>"; };
+		7A22C1E125E788AE0028319D /* CardioValue.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CardioValue.swift; sourceTree = "<group>"; };
+		7A22C1E325E788AE0028319D /* CardioSymptoms.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CardioSymptoms.swift; sourceTree = "<group>"; };
+		7A22C1E425E788AE0028319D /* CardioSymptomCalculation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CardioSymptomCalculation.swift; sourceTree = "<group>"; };
+		7A22C1E525E788AE0028319D /* CardioSymptomsPainData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CardioSymptomsPainData.swift; sourceTree = "<group>"; };
+		7A22C1E725E788AE0028319D /* CardioIMP.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CardioIMP.swift; sourceTree = "<group>"; };
+		7A22C1E825E788AE0028319D /* CardioIMPData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CardioIMPData.swift; sourceTree = "<group>"; };
+		7A22C1E925E788AE0028319D /* CardioIMPCalculation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CardioIMPCalculation.swift; sourceTree = "<group>"; };
+		7A22C1EA25E788AF0028319D /* CardioManagerProtocol.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CardioManagerProtocol.swift; sourceTree = "<group>"; };
+		7A22C1EB25E788AF0028319D /* CardioManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CardioManager.swift; sourceTree = "<group>"; };
+		7A22C1EC25E788AF0028319D /* CardioData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CardioData.swift; sourceTree = "<group>"; };
+		7A22C1EE25E788AF0028319D /* CardioLab.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CardioLab.swift; sourceTree = "<group>"; };
+		7A22C1EF25E788AF0028319D /* CardioLabData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CardioLabData.swift; sourceTree = "<group>"; };
+		7A22C1F025E788AF0028319D /* CardioLabCalculation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CardioLabCalculation.swift; sourceTree = "<group>"; };
+		7A22C1F225E788AF0028319D /* RespiratoryManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RespiratoryManager.swift; sourceTree = "<group>"; };
+		7A22C1F325E788AF0028319D /* RespiratoryValue.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RespiratoryValue.swift; sourceTree = "<group>"; };
+		7A22C1F425E788AF0028319D /* RespiratoryData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RespiratoryData.swift; sourceTree = "<group>"; };
+		7A22C1F625E788AF0028319D /* RespiratoryIMP.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RespiratoryIMP.swift; sourceTree = "<group>"; };
+		7A22C1F725E788AF0028319D /* RespiratoryIMPData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RespiratoryIMPData.swift; sourceTree = "<group>"; };
+		7A22C1F825E788AF0028319D /* RespiratoryIMPCalculation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RespiratoryIMPCalculation.swift; sourceTree = "<group>"; };
+		7A22C1F925E788AF0028319D /* RespiratoryManager+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "RespiratoryManager+Extension.swift"; sourceTree = "<group>"; };
+		7A22C1FB25E788AF0028319D /* RespiratoryProblem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RespiratoryProblem.swift; sourceTree = "<group>"; };
+		7A22C1FC25E788AF0028319D /* RespiratoryProblemData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RespiratoryProblemData.swift; sourceTree = "<group>"; };
+		7A22C1FD25E788AF0028319D /* RespiratoryProblemCalculation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RespiratoryProblemCalculation.swift; sourceTree = "<group>"; };
+		7A22C1FF25E788AF0028319D /* RespiratorySymptomsPainData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RespiratorySymptomsPainData.swift; sourceTree = "<group>"; };
+		7A22C20025E788AF0028319D /* RespiratorySymptoms.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RespiratorySymptoms.swift; sourceTree = "<group>"; };
+		7A22C20125E788AF0028319D /* RespiratorySymptomCalculation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RespiratorySymptomCalculation.swift; sourceTree = "<group>"; };
+		7A22C20325E788AF0028319D /* RespiratoryLab.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RespiratoryLab.swift; sourceTree = "<group>"; };
+		7A22C20425E788AF0028319D /* RespiratoryLabCalculation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RespiratoryLabCalculation.swift; sourceTree = "<group>"; };
+		7A22C20525E788AF0028319D /* RespiratoryLabData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RespiratoryLabData.swift; sourceTree = "<group>"; };
+		7A22C20625E788AF0028319D /* RespiratoryManagerProtocol.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RespiratoryManagerProtocol.swift; sourceTree = "<group>"; };
+		7A22C22A25E788CE0028319D /* AcuityEngine.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = AcuityEngine.entitlements; sourceTree = "<group>"; };
+		7A22C22C25E788CE0028319D /* HealthKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = HealthKit.framework; path = System/Library/Frameworks/HealthKit.framework; sourceTree = SDKROOT; };
+		7A22C24A25E794500028319D /* CardioViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CardioViewModel.swift; sourceTree = "<group>"; };
+		7A22C24B25E794500028319D /* RespiratoryViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RespiratoryViewModel.swift; sourceTree = "<group>"; };
+		7A22C25025E794670028319D /* PullUpDisplayCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PullUpDisplayCell.swift; sourceTree = "<group>"; };
+		7A22C25A25E798450028319D /* HKSetupAssistance.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HKSetupAssistance.swift; sourceTree = "<group>"; };
+		7A22C25D25E7985C0028319D /* Utility.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Utility.swift; sourceTree = "<group>"; };
+		7A22C26225E7987A0028319D /* Constants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
+		7A240EF625E7AB18002A5CF9 /* AcuityMainViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AcuityMainViewController.swift; sourceTree = "<group>"; };
+		7A240EF825E7AB18002A5CF9 /* HealthDataViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HealthDataViewController.swift; sourceTree = "<group>"; };
+		7A240EFB25E7AB18002A5CF9 /* LoginViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
+		7A240F0225E7AB41002A5CF9 /* PullUpViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PullUpViewController.swift; sourceTree = "<group>"; };
+		7A240F0625E7AB58002A5CF9 /* AcuityDetailPullUpViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AcuityDetailPullUpViewController.swift; sourceTree = "<group>"; };
+		7A240F0725E7AB58002A5CF9 /* AcuityDetailPullUp.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = AcuityDetailPullUp.storyboard; sourceTree = "<group>"; };
+		7A6AF7F925E7A2C2001FB132 /* RotaryWheel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RotaryWheel.m; sourceTree = "<group>"; };
+		7A6AF7FA25E7A2C2001FB132 /* Chevron.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Chevron.h; sourceTree = "<group>"; };
+		7A6AF7FB25E7A2C2001FB132 /* Chevron.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Chevron.m; sourceTree = "<group>"; };
+		7A6AF7FC25E7A2C2001FB132 /* RotaryWheel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RotaryWheel.h; sourceTree = "<group>"; };
+		7A6AF7FD25E7A2C2001FB132 /* AcuityEngine-Bridging-Header.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "AcuityEngine-Bridging-Header.h"; sourceTree = "<group>"; };
+		7A6AF81925E7A572001FB132 /* UISegmentedControl+Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UISegmentedControl+Extensions.swift"; sourceTree = "<group>"; };
+		7A6AF82225E7A634001FB132 /* Header.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Header.swift; sourceTree = "<group>"; };
+		7A6AF82325E7A634001FB132 /* Header.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = Header.xib; sourceTree = "<group>"; };
+		7A6AF82725E7A6A2001FB132 /* MyWellScore.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MyWellScore.swift; sourceTree = "<group>"; };
+		7AB9E76125E7AC5700BCA3C1 /* AppDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		7AB9E76225E7AC5700BCA3C1 /* SceneDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
+		7AB9E78325E7B39900BCA3C1 /* String+Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "String+Extensions.swift"; sourceTree = "<group>"; };
+		7AB9E78425E7B39900BCA3C1 /* Array+Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Array+Extensions.swift"; sourceTree = "<group>"; };
+		7AB9E78525E7B39900BCA3C1 /* UIView+Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIView+Extensions.swift"; sourceTree = "<group>"; };
+		7AB9E78625E7B39900BCA3C1 /* UIViewController+Alert.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIViewController+Alert.swift"; sourceTree = "<group>"; };
+		7AB9E78725E7B39900BCA3C1 /* UIStoryboard+Instantiable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIStoryboard+Instantiable.swift"; sourceTree = "<group>"; };
+		7AB9E7A225E7BB7300BCA3C1 /* AcuityDisplayModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AcuityDisplayModel.swift; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		7A22C1A725E786F10028319D /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				7A22C22D25E788CE0028319D /* HealthKit.framework in Frameworks */,
+				08B879B268566B06F141D3F3 /* Pods_AcuityEngine.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		7A22C1A125E786F10028319D = {
+			isa = PBXGroup;
+			children = (
+				7A22C1AC25E786F10028319D /* AcuityEngine */,
+				7A22C1AB25E786F10028319D /* Products */,
+				7A22C22B25E788CE0028319D /* Frameworks */,
+				BE8F74FDC050DC06E099C075 /* Pods */,
+			);
+			sourceTree = "<group>";
+		};
+		7A22C1AB25E786F10028319D /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				7A22C1AA25E786F10028319D /* AcuityEngine.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		7A22C1AC25E786F10028319D /* AcuityEngine */ = {
+			isa = PBXGroup;
+			children = (
+				7A6AF7FD25E7A2C2001FB132 /* AcuityEngine-Bridging-Header.h */,
+				7A22C22A25E788CE0028319D /* AcuityEngine.entitlements */,
+				7A22C1CD25E787AD0028319D /* Resources */,
+				7A22C1C525E787520028319D /* Classes */,
+				7A22C1BB25E786F20028319D /* LaunchScreen.storyboard */,
+				7A22C1BE25E786F20028319D /* Info.plist */,
+				7A22C1B625E786F10028319D /* AcuityEngine.xcdatamodeld */,
+			);
+			path = AcuityEngine;
+			sourceTree = "<group>";
+		};
+		7A22C1C525E787520028319D /* Classes */ = {
+			isa = PBXGroup;
+			children = (
+				7A22C26125E7986D0028319D /* Constants */,
+				7A22C1DA25E788910028319D /* HealthSystems */,
+				7A22C1CC25E787940028319D /* WebService */,
+				7A22C1CB25E7878F0028319D /* Utility */,
+				7A22C1CA25E787870028319D /* Extensions */,
+				7A22C1C925E787810028319D /* View */,
+				7A22C1C825E7877A0028319D /* Model */,
+				7A22C24925E794500028319D /* ViewModel */,
+				7A240EF425E7AB18002A5CF9 /* ViewController */,
+				7A22C1C625E787690028319D /* Database */,
+			);
+			path = Classes;
+			sourceTree = "<group>";
+		};
+		7A22C1C625E787690028319D /* Database */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Database;
+			sourceTree = "<group>";
+		};
+		7A22C1C825E7877A0028319D /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				7AB9E7A225E7BB7300BCA3C1 /* AcuityDisplayModel.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		7A22C1C925E787810028319D /* View */ = {
+			isa = PBXGroup;
+			children = (
+				7A6AF82125E7A634001FB132 /* Header */,
+				7A22C1B325E786F10028319D /* Main.storyboard */,
+				7A240F0725E7AB58002A5CF9 /* AcuityDetailPullUp.storyboard */,
+				7A6AF7F825E7A2C2001FB132 /* Rotary Wheel */,
+				7A22C24F25E794670028319D /* Cell */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		7A22C1CA25E787870028319D /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				7A6AF81925E7A572001FB132 /* UISegmentedControl+Extensions.swift */,
+				7AB9E78425E7B39900BCA3C1 /* Array+Extensions.swift */,
+				7AB9E78325E7B39900BCA3C1 /* String+Extensions.swift */,
+				7AB9E78725E7B39900BCA3C1 /* UIStoryboard+Instantiable.swift */,
+				7AB9E78525E7B39900BCA3C1 /* UIView+Extensions.swift */,
+				7AB9E78625E7B39900BCA3C1 /* UIViewController+Alert.swift */,
+			);
+			path = Extensions;
+			sourceTree = "<group>";
+		};
+		7A22C1CB25E7878F0028319D /* Utility */ = {
+			isa = PBXGroup;
+			children = (
+				7A22C25D25E7985C0028319D /* Utility.swift */,
+			);
+			path = Utility;
+			sourceTree = "<group>";
+		};
+		7A22C1CC25E787940028319D /* WebService */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = WebService;
+			sourceTree = "<group>";
+		};
+		7A22C1CD25E787AD0028319D /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				7A22C1CE25E787C00028319D /* Fonts */,
+				7A22C1B925E786F20028319D /* Assets.xcassets */,
+			);
+			path = Resources;
+			sourceTree = "<group>";
+		};
+		7A22C1CE25E787C00028319D /* Fonts */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Fonts;
+			sourceTree = "<group>";
+		};
+		7A22C1DA25E788910028319D /* HealthSystems */ = {
+			isa = PBXGroup;
+			children = (
+				7A6AF82725E7A6A2001FB132 /* MyWellScore.swift */,
+				7A22C25A25E798450028319D /* HKSetupAssistance.swift */,
+				7A22C1DB25E788AE0028319D /* Cardio */,
+				7A22C1F125E788AF0028319D /* Respiratory */,
+			);
+			path = HealthSystems;
+			sourceTree = "<group>";
+		};
+		7A22C1DB25E788AE0028319D /* Cardio */ = {
+			isa = PBXGroup;
+			children = (
+				7A22C1DC25E788AE0028319D /* CardioProblemData */,
+				7A22C1E025E788AE0028319D /* CardioManager+Extension.swift */,
+				7A22C1E125E788AE0028319D /* CardioValue.swift */,
+				7A22C1E225E788AE0028319D /* CardioSymptomsData */,
+				7A22C1E625E788AE0028319D /* CardioIMPData */,
+				7A22C1EA25E788AF0028319D /* CardioManagerProtocol.swift */,
+				7A22C1EB25E788AF0028319D /* CardioManager.swift */,
+				7A22C1EC25E788AF0028319D /* CardioData.swift */,
+				7A22C1ED25E788AF0028319D /* CardioLabData */,
+			);
+			path = Cardio;
+			sourceTree = "<group>";
+		};
+		7A22C1DC25E788AE0028319D /* CardioProblemData */ = {
+			isa = PBXGroup;
+			children = (
+				7A22C1DD25E788AE0028319D /* CardioProblemData.swift */,
+				7A22C1DE25E788AE0028319D /* CardioProblem.swift */,
+				7A22C1DF25E788AE0028319D /* CardioProblemCalculation.swift */,
+			);
+			path = CardioProblemData;
+			sourceTree = "<group>";
+		};
+		7A22C1E225E788AE0028319D /* CardioSymptomsData */ = {
+			isa = PBXGroup;
+			children = (
+				7A22C1E325E788AE0028319D /* CardioSymptoms.swift */,
+				7A22C1E425E788AE0028319D /* CardioSymptomCalculation.swift */,
+				7A22C1E525E788AE0028319D /* CardioSymptomsPainData.swift */,
+			);
+			path = CardioSymptomsData;
+			sourceTree = "<group>";
+		};
+		7A22C1E625E788AE0028319D /* CardioIMPData */ = {
+			isa = PBXGroup;
+			children = (
+				7A22C1E725E788AE0028319D /* CardioIMP.swift */,
+				7A22C1E825E788AE0028319D /* CardioIMPData.swift */,
+				7A22C1E925E788AE0028319D /* CardioIMPCalculation.swift */,
+			);
+			path = CardioIMPData;
+			sourceTree = "<group>";
+		};
+		7A22C1ED25E788AF0028319D /* CardioLabData */ = {
+			isa = PBXGroup;
+			children = (
+				7A22C1EE25E788AF0028319D /* CardioLab.swift */,
+				7A22C1EF25E788AF0028319D /* CardioLabData.swift */,
+				7A22C1F025E788AF0028319D /* CardioLabCalculation.swift */,
+			);
+			path = CardioLabData;
+			sourceTree = "<group>";
+		};
+		7A22C1F125E788AF0028319D /* Respiratory */ = {
+			isa = PBXGroup;
+			children = (
+				7A22C1F225E788AF0028319D /* RespiratoryManager.swift */,
+				7A22C1F325E788AF0028319D /* RespiratoryValue.swift */,
+				7A22C1F425E788AF0028319D /* RespiratoryData.swift */,
+				7A22C1F525E788AF0028319D /* RespiratoryIMPData */,
+				7A22C1F925E788AF0028319D /* RespiratoryManager+Extension.swift */,
+				7A22C1FA25E788AF0028319D /* RespiratoryProblemData */,
+				7A22C1FE25E788AF0028319D /* RespiratorySymptomsData */,
+				7A22C20225E788AF0028319D /* RespiratoryLabData */,
+				7A22C20625E788AF0028319D /* RespiratoryManagerProtocol.swift */,
+			);
+			path = Respiratory;
+			sourceTree = "<group>";
+		};
+		7A22C1F525E788AF0028319D /* RespiratoryIMPData */ = {
+			isa = PBXGroup;
+			children = (
+				7A22C1F625E788AF0028319D /* RespiratoryIMP.swift */,
+				7A22C1F725E788AF0028319D /* RespiratoryIMPData.swift */,
+				7A22C1F825E788AF0028319D /* RespiratoryIMPCalculation.swift */,
+			);
+			path = RespiratoryIMPData;
+			sourceTree = "<group>";
+		};
+		7A22C1FA25E788AF0028319D /* RespiratoryProblemData */ = {
+			isa = PBXGroup;
+			children = (
+				7A22C1FB25E788AF0028319D /* RespiratoryProblem.swift */,
+				7A22C1FC25E788AF0028319D /* RespiratoryProblemData.swift */,
+				7A22C1FD25E788AF0028319D /* RespiratoryProblemCalculation.swift */,
+			);
+			path = RespiratoryProblemData;
+			sourceTree = "<group>";
+		};
+		7A22C1FE25E788AF0028319D /* RespiratorySymptomsData */ = {
+			isa = PBXGroup;
+			children = (
+				7A22C1FF25E788AF0028319D /* RespiratorySymptomsPainData.swift */,
+				7A22C20025E788AF0028319D /* RespiratorySymptoms.swift */,
+				7A22C20125E788AF0028319D /* RespiratorySymptomCalculation.swift */,
+			);
+			path = RespiratorySymptomsData;
+			sourceTree = "<group>";
+		};
+		7A22C20225E788AF0028319D /* RespiratoryLabData */ = {
+			isa = PBXGroup;
+			children = (
+				7A22C20325E788AF0028319D /* RespiratoryLab.swift */,
+				7A22C20425E788AF0028319D /* RespiratoryLabCalculation.swift */,
+				7A22C20525E788AF0028319D /* RespiratoryLabData.swift */,
+			);
+			path = RespiratoryLabData;
+			sourceTree = "<group>";
+		};
+		7A22C22B25E788CE0028319D /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				7A22C22C25E788CE0028319D /* HealthKit.framework */,
+				2674AE460659ECA36794A9A0 /* Pods_AcuityEngine.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		7A22C24925E794500028319D /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				7A22C24A25E794500028319D /* CardioViewModel.swift */,
+				7A22C24B25E794500028319D /* RespiratoryViewModel.swift */,
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		7A22C24F25E794670028319D /* Cell */ = {
+			isa = PBXGroup;
+			children = (
+				7A22C25025E794670028319D /* PullUpDisplayCell.swift */,
+			);
+			path = Cell;
+			sourceTree = "<group>";
+		};
+		7A22C26125E7986D0028319D /* Constants */ = {
+			isa = PBXGroup;
+			children = (
+				7A22C26225E7987A0028319D /* Constants.swift */,
+			);
+			path = Constants;
+			sourceTree = "<group>";
+		};
+		7A240EF425E7AB18002A5CF9 /* ViewController */ = {
+			isa = PBXGroup;
+			children = (
+				7AB9E76025E7AC5700BCA3C1 /* Delegate */,
+				7A240F0525E7AB58002A5CF9 /* Pullup */,
+				7AB9E76B25E7AD5300BCA3C1 /* Base Controller */,
+				7A240EF525E7AB18002A5CF9 /* Acuity Main */,
+				7A240EF725E7AB18002A5CF9 /* Fetch Health Data */,
+				7A240EF925E7AB18002A5CF9 /* Profile */,
+				7A240EFA25E7AB18002A5CF9 /* Login */,
+			);
+			path = ViewController;
+			sourceTree = "<group>";
+		};
+		7A240EF525E7AB18002A5CF9 /* Acuity Main */ = {
+			isa = PBXGroup;
+			children = (
+				7A240EF625E7AB18002A5CF9 /* AcuityMainViewController.swift */,
+			);
+			path = "Acuity Main";
+			sourceTree = "<group>";
+		};
+		7A240EF725E7AB18002A5CF9 /* Fetch Health Data */ = {
+			isa = PBXGroup;
+			children = (
+				7A240EF825E7AB18002A5CF9 /* HealthDataViewController.swift */,
+			);
+			path = "Fetch Health Data";
+			sourceTree = "<group>";
+		};
+		7A240EF925E7AB18002A5CF9 /* Profile */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Profile;
+			sourceTree = "<group>";
+		};
+		7A240EFA25E7AB18002A5CF9 /* Login */ = {
+			isa = PBXGroup;
+			children = (
+				7A240EFB25E7AB18002A5CF9 /* LoginViewController.swift */,
+			);
+			path = Login;
+			sourceTree = "<group>";
+		};
+		7A240F0525E7AB58002A5CF9 /* Pullup */ = {
+			isa = PBXGroup;
+			children = (
+				7A240F0625E7AB58002A5CF9 /* AcuityDetailPullUpViewController.swift */,
+			);
+			path = Pullup;
+			sourceTree = "<group>";
+		};
+		7A6AF7F825E7A2C2001FB132 /* Rotary Wheel */ = {
+			isa = PBXGroup;
+			children = (
+				7A6AF7F925E7A2C2001FB132 /* RotaryWheel.m */,
+				7A6AF7FA25E7A2C2001FB132 /* Chevron.h */,
+				7A6AF7FB25E7A2C2001FB132 /* Chevron.m */,
+				7A6AF7FC25E7A2C2001FB132 /* RotaryWheel.h */,
+			);
+			path = "Rotary Wheel";
+			sourceTree = "<group>";
+		};
+		7A6AF82125E7A634001FB132 /* Header */ = {
+			isa = PBXGroup;
+			children = (
+				7A6AF82225E7A634001FB132 /* Header.swift */,
+				7A6AF82325E7A634001FB132 /* Header.xib */,
+			);
+			path = Header;
+			sourceTree = "<group>";
+		};
+		7AB9E76025E7AC5700BCA3C1 /* Delegate */ = {
+			isa = PBXGroup;
+			children = (
+				7AB9E76125E7AC5700BCA3C1 /* AppDelegate.swift */,
+				7AB9E76225E7AC5700BCA3C1 /* SceneDelegate.swift */,
+			);
+			path = Delegate;
+			sourceTree = "<group>";
+		};
+		7AB9E76B25E7AD5300BCA3C1 /* Base Controller */ = {
+			isa = PBXGroup;
+			children = (
+				7A240F0225E7AB41002A5CF9 /* PullUpViewController.swift */,
+			);
+			path = "Base Controller";
+			sourceTree = "<group>";
+		};
+		BE8F74FDC050DC06E099C075 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				2E9A2C77FCE70E2F05B2179B /* Pods-AcuityEngine.debug.xcconfig */,
+				5E581811A157C643B3DE3D9C /* Pods-AcuityEngine.release.xcconfig */,
+			);
+			path = Pods;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		7A22C1A925E786F10028319D /* AcuityEngine */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 7A22C1C125E786F20028319D /* Build configuration list for PBXNativeTarget "AcuityEngine" */;
+			buildPhases = (
+				75CBA97085C5A444EC2658DA /* [CP] Check Pods Manifest.lock */,
+				7A22C1A625E786F10028319D /* Sources */,
+				7A22C1A725E786F10028319D /* Frameworks */,
+				7A22C1A825E786F10028319D /* Resources */,
+				8A3BE120981C58A505FF7F18 /* [CP] Embed Pods Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = AcuityEngine;
+			productName = AcuityEngine;
+			productReference = 7A22C1AA25E786F10028319D /* AcuityEngine.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		7A22C1A225E786F10028319D /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastSwiftUpdateCheck = 1240;
+				LastUpgradeCheck = 1240;
+				TargetAttributes = {
+					7A22C1A925E786F10028319D = {
+						CreatedOnToolsVersion = 12.4;
+					};
+				};
+			};
+			buildConfigurationList = 7A22C1A525E786F10028319D /* Build configuration list for PBXProject "AcuityEngine" */;
+			compatibilityVersion = "Xcode 9.3";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = 7A22C1A125E786F10028319D;
+			productRefGroup = 7A22C1AB25E786F10028319D /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				7A22C1A925E786F10028319D /* AcuityEngine */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		7A22C1A825E786F10028319D /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				7A22C1BD25E786F20028319D /* LaunchScreen.storyboard in Resources */,
+				7A6AF82525E7A634001FB132 /* Header.xib in Resources */,
+				7A22C1BA25E786F20028319D /* Assets.xcassets in Resources */,
+				7A22C1B525E786F10028319D /* Main.storyboard in Resources */,
+				7A240F0925E7AB58002A5CF9 /* AcuityDetailPullUp.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		75CBA97085C5A444EC2658DA /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-AcuityEngine-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		8A3BE120981C58A505FF7F18 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-AcuityEngine/Pods-AcuityEngine-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-AcuityEngine/Pods-AcuityEngine-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-AcuityEngine/Pods-AcuityEngine-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		7A22C1A625E786F10028319D /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				7A22C25B25E798450028319D /* HKSetupAssistance.swift in Sources */,
+				7A240EFC25E7AB18002A5CF9 /* AcuityMainViewController.swift in Sources */,
+				7A22C21A25E788AF0028319D /* RespiratoryData.swift in Sources */,
+				7A22C22125E788AF0028319D /* RespiratoryProblemCalculation.swift in Sources */,
+				7A22C24C25E794500028319D /* CardioViewModel.swift in Sources */,
+				7A22C21025E788AF0028319D /* CardioIMPData.swift in Sources */,
+				7A22C21325E788AF0028319D /* CardioManager.swift in Sources */,
+				7A22C22525E788AF0028319D /* RespiratoryLab.swift in Sources */,
+				7AB9E76325E7AC5700BCA3C1 /* AppDelegate.swift in Sources */,
+				7A22C21525E788AF0028319D /* CardioLab.swift in Sources */,
+				7A22C20C25E788AF0028319D /* CardioSymptoms.swift in Sources */,
+				7A22C22825E788AF0028319D /* RespiratoryManagerProtocol.swift in Sources */,
+				7A22C22025E788AF0028319D /* RespiratoryProblemData.swift in Sources */,
+				7A240F0825E7AB58002A5CF9 /* AcuityDetailPullUpViewController.swift in Sources */,
+				7AB9E78A25E7B39900BCA3C1 /* UIView+Extensions.swift in Sources */,
+				7A22C25125E794670028319D /* PullUpDisplayCell.swift in Sources */,
+				7A22C21725E788AF0028319D /* CardioLabCalculation.swift in Sources */,
+				7A240EFE25E7AB18002A5CF9 /* LoginViewController.swift in Sources */,
+				7A6AF7FE25E7A2C2001FB132 /* RotaryWheel.m in Sources */,
+				7A22C20825E788AF0028319D /* CardioProblem.swift in Sources */,
+				7A22C21F25E788AF0028319D /* RespiratoryProblem.swift in Sources */,
+				7A22C21225E788AF0028319D /* CardioManagerProtocol.swift in Sources */,
+				7A22C21E25E788AF0028319D /* RespiratoryManager+Extension.swift in Sources */,
+				7A22C22425E788AF0028319D /* RespiratorySymptomCalculation.swift in Sources */,
+				7A22C22725E788AF0028319D /* RespiratoryLabData.swift in Sources */,
+				7A22C22225E788AF0028319D /* RespiratorySymptomsPainData.swift in Sources */,
+				7A22C25E25E7985C0028319D /* Utility.swift in Sources */,
+				7A22C21425E788AF0028319D /* CardioData.swift in Sources */,
+				7AB9E78C25E7B39900BCA3C1 /* UIStoryboard+Instantiable.swift in Sources */,
+				7A6AF82425E7A634001FB132 /* Header.swift in Sources */,
+				7AB9E76425E7AC5700BCA3C1 /* SceneDelegate.swift in Sources */,
+				7A22C20725E788AF0028319D /* CardioProblemData.swift in Sources */,
+				7A22C20F25E788AF0028319D /* CardioIMP.swift in Sources */,
+				7A22C21125E788AF0028319D /* CardioIMPCalculation.swift in Sources */,
+				7A22C24D25E794500028319D /* RespiratoryViewModel.swift in Sources */,
+				7A22C22325E788AF0028319D /* RespiratorySymptoms.swift in Sources */,
+				7A22C21625E788AF0028319D /* CardioLabData.swift in Sources */,
+				7A22C22625E788AF0028319D /* RespiratoryLabCalculation.swift in Sources */,
+				7AB9E78925E7B39900BCA3C1 /* Array+Extensions.swift in Sources */,
+				7A6AF81A25E7A572001FB132 /* UISegmentedControl+Extensions.swift in Sources */,
+				7A6AF82825E7A6A2001FB132 /* MyWellScore.swift in Sources */,
+				7A22C20B25E788AF0028319D /* CardioValue.swift in Sources */,
+				7A240F0325E7AB41002A5CF9 /* PullUpViewController.swift in Sources */,
+				7AB9E78825E7B39900BCA3C1 /* String+Extensions.swift in Sources */,
+				7A22C20A25E788AF0028319D /* CardioManager+Extension.swift in Sources */,
+				7A22C20D25E788AF0028319D /* CardioSymptomCalculation.swift in Sources */,
+				7A22C21C25E788AF0028319D /* RespiratoryIMPData.swift in Sources */,
+				7A22C21825E788AF0028319D /* RespiratoryManager.swift in Sources */,
+				7A22C21925E788AF0028319D /* RespiratoryValue.swift in Sources */,
+				7A240EFD25E7AB18002A5CF9 /* HealthDataViewController.swift in Sources */,
+				7A22C21D25E788AF0028319D /* RespiratoryIMPCalculation.swift in Sources */,
+				7A6AF7FF25E7A2C2001FB132 /* Chevron.m in Sources */,
+				7A22C20E25E788AF0028319D /* CardioSymptomsPainData.swift in Sources */,
+				7AB9E7A325E7BB7300BCA3C1 /* AcuityDisplayModel.swift in Sources */,
+				7A22C20925E788AF0028319D /* CardioProblemCalculation.swift in Sources */,
+				7A22C1B825E786F10028319D /* AcuityEngine.xcdatamodeld in Sources */,
+				7AB9E78B25E7B39900BCA3C1 /* UIViewController+Alert.swift in Sources */,
+				7A22C26325E7987A0028319D /* Constants.swift in Sources */,
+				7A22C21B25E788AF0028319D /* RespiratoryIMP.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXVariantGroup section */
+		7A22C1B325E786F10028319D /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				7A22C1B425E786F10028319D /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+		7A22C1BB25E786F20028319D /* LaunchScreen.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				7A22C1BC25E786F20028319D /* Base */,
+			);
+			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		7A22C1BF25E786F20028319D /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.4;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		7A22C1C025E786F20028319D /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.4;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		7A22C1C225E786F20028319D /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 2E9A2C77FCE70E2F05B2179B /* Pods-AcuityEngine.debug.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = AcuityEngine/AcuityEngine.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				INFOPLIST_FILE = AcuityEngine/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.bhoomi.AcuityEngine;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "AcuityEngine/AcuityEngine-Bridging-Header.h";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		7A22C1C325E786F20028319D /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 5E581811A157C643B3DE3D9C /* Pods-AcuityEngine.release.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = AcuityEngine/AcuityEngine.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				INFOPLIST_FILE = AcuityEngine/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.bhoomi.AcuityEngine;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "AcuityEngine/AcuityEngine-Bridging-Header.h";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		7A22C1A525E786F10028319D /* Build configuration list for PBXProject "AcuityEngine" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				7A22C1BF25E786F20028319D /* Debug */,
+				7A22C1C025E786F20028319D /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		7A22C1C125E786F20028319D /* Build configuration list for PBXNativeTarget "AcuityEngine" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				7A22C1C225E786F20028319D /* Debug */,
+				7A22C1C325E786F20028319D /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+
+/* Begin XCVersionGroup section */
+		7A22C1B625E786F10028319D /* AcuityEngine.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				7A22C1B725E786F10028319D /* AcuityEngine.xcdatamodel */,
+			);
+			currentVersion = 7A22C1B725E786F10028319D /* AcuityEngine.xcdatamodel */;
+			path = AcuityEngine.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
+	};
+	rootObject = 7A22C1A225E786F10028319D /* Project object */;
+}
