@@ -23,7 +23,7 @@ class HealthDataViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        self.view.backgroundColor = ColorSchema.kMainThemeColor
         navigationItem.hidesBackButton = true
         //fetch data from healthkit and load in tableview
         self.loadHealthData()
@@ -137,11 +137,8 @@ extension HealthDataViewController: UITableViewDelegate, UITableViewDataSource {
         default:
             cell.displayData(cardioData: CardioManager.sharedManager.cardioData)
         }
-        // if let _ = CardioManager.sharedManager.cardioData{
-        
-        // }
-        
-        
+        cell.selectionStyle = .none
+
         return cell
     }
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath)  {
@@ -150,7 +147,7 @@ extension HealthDataViewController: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        tableView.estimatedRowHeight = 160
+        tableView.estimatedRowHeight = 180
         tableView.rowHeight = UITableView.automaticDimension
         return UITableView.automaticDimension
     }

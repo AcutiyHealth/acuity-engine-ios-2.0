@@ -6,7 +6,16 @@
 //
 
 import UIKit
+extension UIView {
+   func roundCorners(corners: UIRectCorner, radius: CGFloat) {
+        let path = UIBezierPath(roundedRect: bounds, byRoundingCorners: corners, cornerRadii: CGSize(width: radius, height: radius))
+        let mask = CAShapeLayer()
+        mask.path = path.cgPath
+        layer.mask = mask
+    }
+}
 @available(iOS 10.0, *)
+
 public class SOPullUpControl {
     
     public init() {}
@@ -52,7 +61,7 @@ public class SOPullUpControl {
     let pullUpViewTag = -1996
     // main view
     var parentView: UIView?
-    
+    public var isExpanded: Bool = false
     public func setupCard(from view: UIView) {
         
         endCardHeight   = (dataSource?.pullUpViewExpandedViewHeight?()) ?? defaultpullUpViewHeight
@@ -60,7 +69,7 @@ public class SOPullUpControl {
         
         parentView = view
         // Add Visual Effects View
-        visualEffectView = UIVisualEffectView()
+        //visualEffectView = UIVisualEffectView()
         
         // Add CardViewController xib to the bottom of the screen, clipping bounds so that the corners can be rounded
         guard let safePullUpViewController = dataSource?.pullUpViewController() else {return}
@@ -68,11 +77,11 @@ public class SOPullUpControl {
         pullUpVC.view.tag = pullUpViewTag
         
         view.addSubview(pullUpVC.view)
-        
+       
         pullUpVC.view.frame = CGRect(x: 0, y: heightView - startCardHeight, width: widthView, height: endCardHeight)
         pullUpVC.view.clipsToBounds = true
-        pullUpVC.view.layer.cornerRadius = 25
-        
+        pullUpVC.view.roundCorners(corners: [.topLeft, .topRight], radius: 25)
+     
         // Add tap and pan recognizers
         let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(handleCardTap(recognzier:)))
         let panGestureRecognizer = UIPanGestureRecognizer(target: self, action: #selector(handleCardPan(recognizer:)))
@@ -100,14 +109,19 @@ public class SOPullUpControl {
             }
         }
     }
-    
+    public func tapOnHandle(){
+        let tapGestureRecognizer = UITapGestureRecognizer()
+        self.handleCardTap(recognzier: tapGestureRecognizer)
+    }
      // used to change the status of pullUpView to expanded
     public func expanded() {
+        isExpanded = true
         animateTransitionIfNeeded(state: .expanded, duration: 0.9)
     }
     
     // used to change the status of pullUpView to collapsed
     public func collapsed() {
+        isExpanded = false
         animateTransitionIfNeeded(state: .collapsed, duration: 0.9)
     }
 }

@@ -21,21 +21,57 @@ func unescapeJSONString(_ string: String) -> String {
 }
 
 //MARK: Chart Segment Color
-func getThemeColor(index: String?) -> UIColor? {
-    let indexValue = Int(index ?? "") ?? 0
+func getThemeColor(index: String?,isForWheel:Bool) -> UIColor? {
+    let indexValue = Double(index ?? "") ?? 0
     if indexValue > 0 && indexValue <= 75 {
-        return ChartColor.REDCOLOR
+        if isForWheel{
+            return WheelColor.REDCOLOR
+        }else{
+            return ChartColor.REDCOLOR
+        }
     } else if indexValue > 75 && indexValue <= 85 {
-        return ChartColor.YELLOWCOLOR
+        if isForWheel{
+            return WheelColor.YELLOWCOLOR
+        }else{
+            return ChartColor.YELLOWCOLOR
+        }
+        
     } else {
-        return ChartColor.GREENCOLOR
+        if isForWheel{
+            return WheelColor.GREENCOLOR
+        }else{
+            return ChartColor.GREENCOLOR
+        }
+        
     }
 }
 
- func isiPhone() -> Bool{
+func isiPhone() -> Bool{
     
     if UIDevice.current.userInterfaceIdiom == .phone {
         return true
     }
     return false
+}
+
+
+func getDateMediumFormat(time:Double)->String{
+    
+    let date = Date(timeIntervalSince1970: time)
+    let dateFormatter = DateFormatter()
+    
+    dateFormatter.dateStyle = DateFormatter.Style.medium //Set date style
+    dateFormatter.timeZone = .current
+    let localDate = dateFormatter.string(from: date)
+    return localDate
+    
+}
+
+func getDateWithTime(date:Date)->String{
+    
+    let formatter = DateFormatter()
+    formatter.dateFormat = "M/dd/yyyy hh:mm a"
+    let localDate = formatter.string(from: date)
+    return localDate
+    
 }

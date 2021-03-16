@@ -1,0 +1,177 @@
+//
+//  ConditionsListViewController.swift
+//  AcuityEngine
+//
+//  Created by Bhoomi Jagani on 04/03/21.
+//
+
+import UIKit
+
+class AddSymptomViewController: UIViewController {
+    
+    @IBOutlet weak var tblSymptoms: UITableView!
+    @IBOutlet weak var subview: UIView!
+    @IBOutlet weak var lblTitle: UILabel!
+    
+    //Btn for Start and date time
+    @IBOutlet weak var btnStart: UIButton!
+    @IBOutlet weak var btnEnd: UIButton!
+    @IBOutlet weak var lblStart: UILabel!
+    @IBOutlet weak var lblEnd: UILabel!
+    @IBOutlet weak var btnSave: SaveButton!
+    
+    var selectedButton: UIButton?
+    var startDate:Date?
+    var endDate:Date?
+    
+    //Date picker view...
+    @IBOutlet weak var viewDatePicker: UIView!
+    @IBOutlet weak var datePicker: UIDatePicker!
+    
+    
+    @IBOutlet weak var btnHeight: NSLayoutConstraint!
+    //List of symptoms type...
+    var symptomsArray : [SymptomsTextValue] = [SymptomsTextValue.Severe,SymptomsTextValue.Moderate,SymptomsTextValue.Mild,SymptomsTextValue.Present,SymptomsTextValue.Not_Present]
+    
+    //Selected Sympotms type value....
+    var selectedSymptoms = -1
+    
+    //Get from SymptomsVC for selected symptoms....
+    var symptomsModel:Symptoms?{
+        didSet{
+            loadSymptomsData()
+        }
+    }
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        datePicker.maximumDate = Date()
+        
+        let dateStr = getDateWithTime(date: datePicker.date)
+        btnEnd.setTitle(dateStr, for: .normal)
+        btnStart.setTitle(dateStr, for: .normal)
+        
+        //set fonts..
+        setFontForLabel()
+        if !UIDevice.current.hasNotch{
+            btnHeight .constant = 50
+        }
+        // Do any additional setup after loading the view.
+    }
+    
+    func setFontForLabel(){
+        lblTitle.font = Fonts.kAcuityDetailTitleFont
+        lblStart.font = Fonts.kCellTitleFont
+        lblEnd.font = Fonts.kCellTitleFont
+        btnEnd.titleLabel?.font =  Fonts.kValueFont
+        btnStart.titleLabel?.font =  Fonts.kValueFont
+    }
+    func loadSymptomsData(){
+        guard let symptomsModel = symptomsModel else {
+            return
+        }
+        lblTitle.text = symptomsModel.title
+        tblSymptoms.reloadData()
+        
+        //Make btn disable or enable...
+        makeSaveBtnEnableOrDisable()
+    }
+    
+    func makeSaveBtnEnableOrDisable(){
+        if selectedSymptoms < 0{
+            btnSave.isEnabled = false
+            
+        }else{
+            btnSave.isEnabled = true
+            
+        }
+    }
+    
+    @IBAction func btnSaveClick(sender:UIButton){
+        //Create Symptoms model to save data...
+       // let _ = SymptomsModel(title: lblTitle.text ?? "", textValue: SymptomsTextValue(rawValue: symptomsArray[selectedSymptoms].rawValue)!, startTime: startDate?.timeIntervalSince1970 ?? 0, endTime: endDate?.timeIntervalSince1970 ?? 0)
+    }
+}
+
+//MARK: Table view
+extension AddSymptomViewController:UITableViewDelegate,UITableViewDataSource{
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return symptomsArray.count
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        guard let cell: LabelDisplayCell = tableView.dequeueReusableCell(withIdentifier: "LabelDisplayCell", for: indexPath as IndexPath) as? LabelDisplayCell else {
+            fatalError("AcuityDetailDisplayCell cell is not found")
+        }
+        let symptom = symptomsArray[indexPath.row]
+        cell.displayData(title: symptom.rawValue )
+        cell.selectionStyle = .none
+        cell.tintColor = UIColor.white
+        return cell
+    }
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        
+        //Remove previously selected cell's accessorytype...
+        if selectedSymptoms > -1{
+            let previouslySelectedindexPath = IndexPath(row: selectedSymptoms, section: 0)
+            if let cell = tableView.cellForRow(at: previouslySelectedindexPath) {
+                cell.accessoryType = .none
+                
+            }
+        }
+        //Make new cell's accessoryType to checkmark
+        if let cell = tableView.cellForRow(at: indexPath) {
+            selectedSymptoms = indexPath.row
+            cell.accessoryType = .checkmark
+        }
+        //Make save button selected/deselected as per selectedSymptoms's value
+        makeSaveBtnEnableOrDisable()
+    }
+    
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return 50
+    }
+    
+}
+
+//MARK: Date Picker
+extension AddSymptomViewController{
+    
+    @IBAction func btnStartDateClick(sender:UIButton){
+        viewDatePicker.isHidden = false
+        selectedButton = btnStart
+    }
+    
+    @IBAction func btnEndDateClick(sender:UIButton){
+        viewDatePicker.isHidden = false
+        selectedButton = btnEnd
+    }
+    
+    @IBAction func cancelBtnClicked(_ button: UIBarButtonItem?) {
+        viewDatePicker.isHidden = true
+    }
+    
+    @IBAction func doneBtnClicked(_ button: UIBarButtonItem?) {
+        viewDatePicker.isHidden = true
+        
+        let dateStr = getDateWithTime(date: datePicker.date)
+        
+        if selectedButton == btnEnd{
+            endDate = datePicker.date
+            btnEnd.setTitle(dateStr, for: .normal)
+            if let startDate = startDate,let endDate = endDate{
+                if endDate<startDate{
+                    self.startDate = datePicker.date
+                    btnStart.setTitle(dateStr, for: .normal)
+                }
+            }
+        }
+        else{
+            startDate = datePicker.date
+            btnStart.setTitle(dateStr, for: .normal)
+            
+        }
+        
+    }
+    
+}

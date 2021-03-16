@@ -17,7 +17,7 @@ enum RespiratoryLabsType:String {
     case HCO3 = "HCO3"
     case O2 = "O2"
 }
-enum RespiratoryProblemType:String {
+enum RespiratoryConditionType:String {
     case COPD = "COPD"
     case asthma = "Asthma"
     case pneumonia = "pneumonia"
@@ -26,7 +26,7 @@ enum RespiratoryProblemType:String {
     case smoking = "Smoking"
 }
 
-enum RespiratoryIMPDataType:String {
+enum RespiratoryVitalsType:String {
     
     case respiratoryRate = "respiratoryRate"
     case supplementOxygen = "supplementOxygen"

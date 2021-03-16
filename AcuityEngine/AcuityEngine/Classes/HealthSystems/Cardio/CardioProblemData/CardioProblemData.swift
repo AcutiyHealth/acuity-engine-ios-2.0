@@ -9,14 +9,14 @@ import Foundation
 import HealthKitReporter
 // Available from 13.6
 
-class CardioProblemData:CardioProblemCalculation {
+class CardioConditionData:CardioConditionCalculation {
     override var value:Double{
         didSet{
             super.value = value
         }
     }
     
-     init(type:CardioProblemType) {
+     init(type:CardioConditionType) {
         super.init()
         
         switch type {

@@ -11,10 +11,10 @@ import HealthKitReporter
 class RespiratoryIMPCalculation {
     
     var relativeValue:Double = 100 //G26 // It is define in excel sheet given by client
-    var IMPDataType: RespiratoryIMPDataType = .heartRate // calculate based on symtomps type
+    var VitalsType: RespiratoryVitalsType = .heartRate // calculate based on symtomps type
     var value:Double = -1{
         didSet{
-            switch IMPDataType {
+            switch VitalsType {
             case .heartRate:
                 self.calculatedValue = getHeartRateValue().rawValue
             case .respiratoryRate:

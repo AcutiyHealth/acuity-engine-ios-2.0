@@ -23,7 +23,7 @@ class RespiratoryManager: NSObject {
     var readIMPCategoryDataDone: (() -> Void)?
     var readSymptomsDataDone: (() -> Void)?
     var readLabDataDone: (() -> Void)?
-    var readProblemDataDone: (() -> Void)?
+    var readConditionDataDone: (() -> Void)?
     
     private lazy var heartRateType: HKQuantityType? = HKObjectType.quantityType(forIdentifier: .heartRate)
     
@@ -53,7 +53,7 @@ class RespiratoryManager: NSObject {
                                         //calculate that notification falls in today
                                         
                                         if isTimeStampInToday{
-                                            let highHeartRate = RespiratoryIMPData(type: RespiratoryIMPDataType.highHeartRate)
+                                            let highHeartRate = RespiratoryVitals(type: RespiratoryVitalsType.highHeartRate)
                                             highHeartRate.value = 1
                                             self?.respiratoryData.respiratoryIMP.highHeartRateData = highHeartRate
                                             
@@ -66,7 +66,7 @@ class RespiratoryManager: NSObject {
                                             //calculate that notification falls in today
                                             
                                             if isTimeStampInToday{
-                                                let lowHeartRate = RespiratoryIMPData(type: RespiratoryIMPDataType.lowHeartRate)
+                                                let lowHeartRate = RespiratoryVitals(type: RespiratoryVitalsType.lowHeartRate)
                                                 lowHeartRate.value = 1
                                                 self?.respiratoryData.respiratoryIMP.lowHeartRateData = lowHeartRate
                                             }
@@ -78,7 +78,7 @@ class RespiratoryManager: NSObject {
                                             //calculate that notification falls in today
                                             
                                             if isTimeStampInToday{
-                                                let irregularRhymesNotification = RespiratoryIMPData(type: RespiratoryIMPDataType.irregularRhymesNotification)
+                                                let irregularRhymesNotification = RespiratoryVitals(type: RespiratoryVitalsType.irregularRhymesNotification)
                                                 irregularRhymesNotification.value = 1
                                                 self?.respiratoryData.respiratoryIMP.irregularRhymesNotificationData = irregularRhymesNotification
                                             }
@@ -146,7 +146,7 @@ class RespiratoryManager: NSObject {
                                                     
                                                     if try QuantityType.make(from: preferredUnit.identifier) == QuantityType.respiratoryRate {
                                                         
-                                                        let respiratoryRate = RespiratoryIMPData(type: RespiratoryIMPDataType.respiratoryRate)
+                                                        let respiratoryRate = RespiratoryVitals(type: RespiratoryVitalsType.respiratoryRate)
                                                         respiratoryRate.value = Double(element.harmonized.value)
                                                         self?.respiratoryData.respiratoryIMP.respiratoryRateData = respiratoryRate
                                                         
@@ -155,7 +155,7 @@ class RespiratoryManager: NSObject {
                                                         
                                                     } else  if try QuantityType.make(from: preferredUnit.identifier) == QuantityType.peakExpiratoryFlowRate {
                                                         
-                                                        let peakFlowRate = RespiratoryIMPData(type: RespiratoryIMPDataType.peakFlowRate)
+                                                        let peakFlowRate = RespiratoryVitals(type: RespiratoryVitalsType.peakFlowRate)
                                                         peakFlowRate.value = Double(element.harmonized.value)
                                                         self?.respiratoryData.respiratoryIMP.peakFlowRateData = peakFlowRate
                                                         
@@ -164,7 +164,7 @@ class RespiratoryManager: NSObject {
                                                         
                                                     } else  if try QuantityType.make(from: preferredUnit.identifier) == QuantityType.vo2Max {
                                                         
-                                                        let vo2Max = RespiratoryIMPData(type: RespiratoryIMPDataType.vo2Max)
+                                                        let vo2Max = RespiratoryVitals(type: RespiratoryVitalsType.vo2Max)
                                                         vo2Max.value = Double(element.harmonized.value)
                                                         self?.respiratoryData.respiratoryIMP.vO2MaxData = vo2Max
                                                         
@@ -173,7 +173,7 @@ class RespiratoryManager: NSObject {
                                                         
                                                     } else  if try QuantityType.make(from: preferredUnit.identifier) == QuantityType.heartRate {
                                                         
-                                                        let heartRate = RespiratoryIMPData(type: RespiratoryIMPDataType.heartRate)
+                                                        let heartRate = RespiratoryVitals(type: RespiratoryVitalsType.heartRate)
                                                         heartRate.value = Double(element.harmonized.value)
                                                         self?.respiratoryData.respiratoryIMP.heartRateData = heartRate
                                                         
@@ -182,7 +182,7 @@ class RespiratoryManager: NSObject {
                                                     }
                                                     else  if try QuantityType.make(from: preferredUnit.identifier) == QuantityType.sixMinuteWalkTestDistance {
                                                         
-                                                        let sixMinWalk = RespiratoryIMPData(type: RespiratoryIMPDataType.sixMinWalk)
+                                                        let sixMinWalk = RespiratoryVitals(type: RespiratoryVitalsType.sixMinWalk)
                                                         sixMinWalk.value = Double(element.harmonized.value)
                                                         self?.respiratoryData.respiratoryIMP.sixMinWalkData = sixMinWalk
                                                         
@@ -191,7 +191,7 @@ class RespiratoryManager: NSObject {
                                                     }
                                                     else  if try QuantityType.make(from: preferredUnit.identifier) == QuantityType.forcedExpiratoryVolume1 {
                                                         
-                                                        let fev1 = RespiratoryIMPData(type: RespiratoryIMPDataType.fev1)
+                                                        let fev1 = RespiratoryVitals(type: RespiratoryVitalsType.fev1)
                                                         fev1.value = Double(element.harmonized.value)
                                                         self?.respiratoryData.respiratoryIMP.FEV1Data = fev1
                                                         
@@ -200,7 +200,7 @@ class RespiratoryManager: NSObject {
                                                     }
                                                     else  if try QuantityType.make(from: preferredUnit.identifier) == QuantityType.inhalerUsage {
                                                         
-                                                        let inhalerUsage = RespiratoryIMPData(type: RespiratoryIMPDataType.inhalerUsage)
+                                                        let inhalerUsage = RespiratoryVitals(type: RespiratoryVitalsType.inhalerUsage)
                                                         inhalerUsage.value = Double(element.harmonized.value)
                                                         self?.respiratoryData.respiratoryIMP.inhalerUsageData = inhalerUsage
                                                         
@@ -357,47 +357,47 @@ class RespiratoryManager: NSObject {
         
     }
     
-    func readProblemData(completion: @escaping (Bool, HealthkitSetupError?) -> Swift.Void){
-        respiratoryData.respiratoryProblem.COPDData = RespiratoryProblemData(type: RespiratoryProblemType.COPD)
-        respiratoryData.respiratoryProblem.COPDData?.value = 1
-        respiratoryData.respiratoryProblem.allergicRhiniitisData = RespiratoryProblemData(type: RespiratoryProblemType.allergicRhiniitis)
-        respiratoryData.respiratoryProblem.allergicRhiniitisData?.value = 0
-        respiratoryData.respiratoryProblem.asthmaData = RespiratoryProblemData(type: RespiratoryProblemType.asthma)
-        respiratoryData.respiratoryProblem.asthmaData?.value = 0
-        respiratoryData.respiratoryProblem.pneumoniaData = RespiratoryProblemData(type: RespiratoryProblemType.pneumonia)
-        respiratoryData.respiratoryProblem.pneumoniaData?.value = 0
-        respiratoryData.respiratoryProblem.pulmonaryEmbolismData = RespiratoryProblemData(type: RespiratoryProblemType.pulmonaryEmbolism)
-        respiratoryData.respiratoryProblem.pulmonaryEmbolismData?.value = 0
-        respiratoryData.respiratoryProblem.smoking = RespiratoryProblemData(type: RespiratoryProblemType.smoking)
-        respiratoryData.respiratoryProblem.smoking?.value = 0
+    func readConditionData(completion: @escaping (Bool, HealthkitSetupError?) -> Swift.Void){
+        respiratoryData.respiratoryCondition.COPDData = RespiratoryConditionData(type: RespiratoryConditionType.COPD)
+        respiratoryData.respiratoryCondition.COPDData?.value = 1
+        respiratoryData.respiratoryCondition.allergicRhiniitisData = RespiratoryConditionData(type: RespiratoryConditionType.allergicRhiniitis)
+        respiratoryData.respiratoryCondition.allergicRhiniitisData?.value = 0
+        respiratoryData.respiratoryCondition.asthmaData = RespiratoryConditionData(type: RespiratoryConditionType.asthma)
+        respiratoryData.respiratoryCondition.asthmaData?.value = 0
+        respiratoryData.respiratoryCondition.pneumoniaData = RespiratoryConditionData(type: RespiratoryConditionType.pneumonia)
+        respiratoryData.respiratoryCondition.pneumoniaData?.value = 0
+        respiratoryData.respiratoryCondition.pulmonaryEmbolismData = RespiratoryConditionData(type: RespiratoryConditionType.pulmonaryEmbolism)
+        respiratoryData.respiratoryCondition.pulmonaryEmbolismData?.value = 0
+        respiratoryData.respiratoryCondition.smoking = RespiratoryConditionData(type: RespiratoryConditionType.smoking)
+        respiratoryData.respiratoryCondition.smoking?.value = 0
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) { // Change `2.0` to the desired number of seconds.
             // Code you want to be delayed
-            self.readProblemDataDone?()
+            self.readConditionDataDone?()
         }
     }
     
     func setDefaultValueRespiratoryData(){
         
         //set IMP data
-        respiratoryData.respiratoryIMP.heartRateData = RespiratoryIMPData(type: RespiratoryIMPDataType.heartRate)
+        respiratoryData.respiratoryIMP.heartRateData = RespiratoryVitals(type: RespiratoryVitalsType.heartRate)
         respiratoryData.respiratoryIMP.heartRateData?.value = 40
         
-        respiratoryData.respiratoryIMP.highHeartRateData = RespiratoryIMPData(type: RespiratoryIMPDataType.highHeartRate)
+        respiratoryData.respiratoryIMP.highHeartRateData = RespiratoryVitals(type: RespiratoryVitalsType.highHeartRate)
         respiratoryData.respiratoryIMP.highHeartRateData?.value = 0
         
-        respiratoryData.respiratoryIMP.lowHeartRateData = RespiratoryIMPData(type: RespiratoryIMPDataType.lowHeartRate)
+        respiratoryData.respiratoryIMP.lowHeartRateData = RespiratoryVitals(type: RespiratoryVitalsType.lowHeartRate)
         respiratoryData.respiratoryIMP.lowHeartRateData?.value = 0
         
-        respiratoryData.respiratoryIMP.irregularRhymesNotificationData = RespiratoryIMPData(type: RespiratoryIMPDataType.irregularRhymesNotification)
+        respiratoryData.respiratoryIMP.irregularRhymesNotificationData = RespiratoryVitals(type: RespiratoryVitalsType.irregularRhymesNotification)
         respiratoryData.respiratoryIMP.irregularRhymesNotificationData?.value = 0
         
-        respiratoryData.respiratoryIMP.vO2MaxData = RespiratoryIMPData(type: RespiratoryIMPDataType.vo2Max)
+        respiratoryData.respiratoryIMP.vO2MaxData = RespiratoryVitals(type: RespiratoryVitalsType.vo2Max)
         respiratoryData.respiratoryIMP.vO2MaxData?.value = 30
         
-        respiratoryData.respiratoryIMP.FEV1Data = RespiratoryIMPData(type: RespiratoryIMPDataType.fev1)
+        respiratoryData.respiratoryIMP.FEV1Data = RespiratoryVitals(type: RespiratoryVitalsType.fev1)
         respiratoryData.respiratoryIMP.FEV1Data?.value = 2.5
         
-        respiratoryData.respiratoryIMP.inhalerUsageData = RespiratoryIMPData(type: RespiratoryIMPDataType.inhalerUsage)
+        respiratoryData.respiratoryIMP.inhalerUsageData = RespiratoryVitals(type: RespiratoryVitalsType.inhalerUsage)
         respiratoryData.respiratoryIMP.inhalerUsageData?.value = 0
         
         //set Symptom data
@@ -425,16 +425,16 @@ class RespiratoryManager: NSObject {
         readLabData { (success, error) in
             
         }
-        readProblemData{ (success, error) in
+        readConditionData{ (success, error) in
             
         }
-        print("getMaxIMPDataScore respiratoryIMP---\n \(respiratoryData.respiratoryIMP.getMaxIMPDataScore())")
-        print("totalIMPDataScore respiratoryIMP---\n \(respiratoryData.respiratoryIMP.totalIMPDataScore())")
+        print("getMaxVitalsScore respiratoryIMP---\n \(respiratoryData.respiratoryIMP.getMaxVitalsScore())")
+        print("totalVitalsScore respiratoryIMP---\n \(respiratoryData.respiratoryIMP.totalVitalsScore())")
         print("getMaxSymptomDataScore respiratorySymptoms---\n \(respiratoryData.respiratorySymptoms.getMaxSymptomDataScore())")
         print("totalSymptomDataScore respiratorySymptoms---\n \(respiratoryData.respiratorySymptoms.totalSymptomDataScore())")
         
-        print("getMaxProblemDataScore respiratoryProblem---\n \(respiratoryData.respiratoryProblem.getMaxProblemDataScore())")
-        print("totalProblemDataScore respiratoryProblem---\n \(respiratoryData.respiratoryProblem.totalProblemDataScore())")
+        print("getMaxConditionDataScore respiratoryCondition---\n \(respiratoryData.respiratoryCondition.getMaxConditionDataScore())")
+        print("totalConditionDataScore respiratoryCondition---\n \(respiratoryData.respiratoryCondition.totalConditionDataScore())")
         
         print("getMaxLabDataScore respiratoryLab---\n \(respiratoryData.respiratoryLab.getMaxLabDataScore())")
         print("totalLabDataScore respiratoryLab---\n \(respiratoryData.respiratoryLab.totalLabDataScore())")

@@ -48,6 +48,10 @@ class CardioSymptoms {
         return totalSymptomScore;
     }
     
-    
+    func dictionaryRepresentation()->[SymptomsModel]{
+      
+        let objModel = AcuityDetailConditionViewModel()
+        return objModel.getSymptomsData()
+           
+    }
 }
-

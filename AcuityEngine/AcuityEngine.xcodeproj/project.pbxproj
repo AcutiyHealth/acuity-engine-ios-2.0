@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		08B879B268566B06F141D3F3 /* Pods_AcuityEngine.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2674AE460659ECA36794A9A0 /* Pods_AcuityEngine.framework */; };
+		7A08B6D925F1BE3500F9EA20 /* SymptomsListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A08B6D825F1BE3500F9EA20 /* SymptomsListViewController.swift */; };
+		7A0AC40925F06A73009EDE25 /* ProfileModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A0AC40825F06A73009EDE25 /* ProfileModels.swift */; };
 		7A22C1B525E786F10028319D /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7A22C1B325E786F10028319D /* Main.storyboard */; };
 		7A22C1B825E786F10028319D /* AcuityEngine.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 7A22C1B625E786F10028319D /* AcuityEngine.xcdatamodeld */; };
 		7A22C1BA25E786F20028319D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7A22C1B925E786F20028319D /* Assets.xcassets */; };
@@ -59,12 +61,51 @@
 		7A240F0325E7AB41002A5CF9 /* PullUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A240F0225E7AB41002A5CF9 /* PullUpViewController.swift */; };
 		7A240F0825E7AB58002A5CF9 /* AcuityDetailPullUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A240F0625E7AB58002A5CF9 /* AcuityDetailPullUpViewController.swift */; };
 		7A240F0925E7AB58002A5CF9 /* AcuityDetailPullUp.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7A240F0725E7AB58002A5CF9 /* AcuityDetailPullUp.storyboard */; };
+		7A29432925F45AB7007C5B30 /* SFProDisplay-BoldItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 7A477B5125F26C2D00B3E369 /* SFProDisplay-BoldItalic.ttf */; };
+		7A29432B25F45ABF007C5B30 /* SFProDisplay-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 7A477B5825F26C2E00B3E369 /* SFProDisplay-Regular.ttf */; };
+		7A29432C25F45ABF007C5B30 /* SFProDisplay-HeavyItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 7A477B5725F26C2E00B3E369 /* SFProDisplay-HeavyItalic.ttf */; };
+		7A29432D25F45ABF007C5B30 /* SFProDisplay-LightItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 7A477B5625F26C2E00B3E369 /* SFProDisplay-LightItalic.ttf */; };
+		7A29432E25F45ABF007C5B30 /* SFProDisplay-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 7A29432025F45751007C5B30 /* SFProDisplay-Bold.ttf */; };
+		7A29432F25F45ABF007C5B30 /* SFProDisplay-Ultralight.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 7A477B5425F26C2E00B3E369 /* SFProDisplay-Ultralight.ttf */; };
+		7A29433025F45ABF007C5B30 /* SFProDisplay-Semibold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 7A477B5925F26C2E00B3E369 /* SFProDisplay-Semibold.ttf */; };
+		7A29433125F45ABF007C5B30 /* SFProDisplay-ThinItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 7A477B5225F26C2E00B3E369 /* SFProDisplay-ThinItalic.ttf */; };
+		7A29433225F45ABF007C5B30 /* SFProDisplay-Medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 7A29431F25F45751007C5B30 /* SFProDisplay-Medium.ttf */; };
+		7A29433325F45ABF007C5B30 /* SFProDisplay-MediumItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 7A477B5325F26C2E00B3E369 /* SFProDisplay-MediumItalic.ttf */; };
+		7A3EE0E725F8C01100F1FB49 /* AcuityDetailValueViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A3EE0E625F8C01100F1FB49 /* AcuityDetailValueViewModel.swift */; };
+		7A3EE0EB25F8DC8F00F1FB49 /* VisualEffectView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A3EE0EA25F8DC8F00F1FB49 /* VisualEffectView.swift */; };
+		7A477AF425F20D9F00B3E369 /* LabelTitle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A477AF025F20D9F00B3E369 /* LabelTitle.swift */; };
+		7A477B1625F20E0C00B3E369 /* UIFont+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A477B1525F20E0C00B3E369 /* UIFont+Extensions.swift */; };
+		7A477B4F25F25A9B00B3E369 /* SaveButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A477B4E25F25A9B00B3E369 /* SaveButton.swift */; };
+		7A54BD9F25F6F76F00A22B80 /* AddVitalViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A54BD9E25F6F76F00A22B80 /* AddVitalViewModel.swift */; };
+		7A54BDA225F6F88600A22B80 /* VitalModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A54BDA125F6F88600A22B80 /* VitalModel.swift */; };
+		7A57976F25ED14D300BCCD12 /* AcuityMainViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A57976E25ED14D300BCCD12 /* AcuityMainViewModel.swift */; };
+		7A57977225ED1F7500BCCD12 /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A57977125ED1F7500BCCD12 /* ProfileViewController.swift */; };
+		7A57977525ED24E800BCCD12 /* Profile.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7A57977425ED24E800BCCD12 /* Profile.storyboard */; };
+		7A65AED125F5CCFE0075D846 /* CloseButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A65AED025F5CCFE0075D846 /* CloseButton.swift */; };
+		7A65AEFB25F61E5C0075D846 /* BRUSHSCI_1.TTF in Resources */ = {isa = PBXBuildFile; fileRef = 7A477B5525F26C2E00B3E369 /* BRUSHSCI_1.TTF */; };
+		7A65AF1B25F64AA90075D846 /* VitalsListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A65AF1A25F64AA90075D846 /* VitalsListViewController.swift */; };
+		7A65AF1F25F64AE60075D846 /* AddVitalsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A65AF1E25F64AE60075D846 /* AddVitalsViewController.swift */; };
 		7A6AF7FE25E7A2C2001FB132 /* RotaryWheel.m in Sources */ = {isa = PBXBuildFile; fileRef = 7A6AF7F925E7A2C2001FB132 /* RotaryWheel.m */; };
 		7A6AF7FF25E7A2C2001FB132 /* Chevron.m in Sources */ = {isa = PBXBuildFile; fileRef = 7A6AF7FB25E7A2C2001FB132 /* Chevron.m */; };
 		7A6AF81A25E7A572001FB132 /* UISegmentedControl+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A6AF81925E7A572001FB132 /* UISegmentedControl+Extensions.swift */; };
 		7A6AF82425E7A634001FB132 /* Header.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A6AF82225E7A634001FB132 /* Header.swift */; };
 		7A6AF82525E7A634001FB132 /* Header.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7A6AF82325E7A634001FB132 /* Header.xib */; };
 		7A6AF82825E7A6A2001FB132 /* MyWellScore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A6AF82725E7A6A2001FB132 /* MyWellScore.swift */; };
+		7A6DB63B25F68AAA00C69E8A /* UIScrollView+TPKeyboardAvoidingAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 7A6DB63925F68AAA00C69E8A /* UIScrollView+TPKeyboardAvoidingAdditions.m */; };
+		7A6DB63D25F6914E00C69E8A /* Vitals.txt in Resources */ = {isa = PBXBuildFile; fileRef = 7AA14CDC25F65570005AC56A /* Vitals.txt */; };
+		7A88C07525F85AD10047E207 /* AcuityDetailConditionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A88C07425F85AD10047E207 /* AcuityDetailConditionViewController.swift */; };
+		7A88C08125F85BE60047E207 /* AcuityDetailConditionViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A88C08025F85BE60047E207 /* AcuityDetailConditionViewModel.swift */; };
+		7A88C08525F85C0C0047E207 /* AcuityDetailValueViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A88C08425F85C0B0047E207 /* AcuityDetailValueViewController.swift */; };
+		7A92701E25EF8FB100295E2F /* ProfileOptionSelectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A92701D25EF8FB100295E2F /* ProfileOptionSelectionViewController.swift */; };
+		7AA14CF025F659E8005AC56A /* TPKeyboardAvoidingScrollView.m in Sources */ = {isa = PBXBuildFile; fileRef = 7AA14CEE25F659E7005AC56A /* TPKeyboardAvoidingScrollView.m */; };
+		7AAC74E825EE2C08004ACF7A /* HandleView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7AAC74E725EE2C08004ACF7A /* HandleView.xib */; };
+		7AAC74EB25EE2C15004ACF7A /* HandleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AAC74EA25EE2C15004ACF7A /* HandleView.swift */; };
+		7AAE1A7225F0DA79005E47A1 /* AddOptionSelectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AAE1A7125F0DA79005E47A1 /* AddOptionSelectionViewController.swift */; };
+		7AAE1A7625F0DB77005E47A1 /* ConditionsListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AAE1A7525F0DB77005E47A1 /* ConditionsListViewController.swift */; };
+		7AAE1A7925F0DB85005E47A1 /* AddSymptomViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AAE1A7825F0DB85005E47A1 /* AddSymptomViewController.swift */; };
+		7AAE1A7C25F0DE6F005E47A1 /* Add.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7AAE1A7B25F0DE6F005E47A1 /* Add.storyboard */; };
+		7AAE1A7F25F0E717005E47A1 /* AddProblemssymptomsModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AAE1A7E25F0E717005E47A1 /* AddProblemssymptomsModel.swift */; };
+		7AAE1A8F25F0EB44005E47A1 /* Conditions.txt in Resources */ = {isa = PBXBuildFile; fileRef = 7AAE1A8E25F0EB44005E47A1 /* Conditions.txt */; };
 		7AB9E76325E7AC5700BCA3C1 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AB9E76125E7AC5700BCA3C1 /* AppDelegate.swift */; };
 		7AB9E76425E7AC5700BCA3C1 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AB9E76225E7AC5700BCA3C1 /* SceneDelegate.swift */; };
 		7AB9E78825E7B39900BCA3C1 /* String+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AB9E78325E7B39900BCA3C1 /* String+Extensions.swift */; };
@@ -72,13 +113,18 @@
 		7AB9E78A25E7B39900BCA3C1 /* UIView+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AB9E78525E7B39900BCA3C1 /* UIView+Extensions.swift */; };
 		7AB9E78B25E7B39900BCA3C1 /* UIViewController+Alert.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AB9E78625E7B39900BCA3C1 /* UIViewController+Alert.swift */; };
 		7AB9E78C25E7B39900BCA3C1 /* UIStoryboard+Instantiable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AB9E78725E7B39900BCA3C1 /* UIStoryboard+Instantiable.swift */; };
-		7AB9E7A325E7BB7300BCA3C1 /* AcuityDisplayModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AB9E7A225E7BB7300BCA3C1 /* AcuityDisplayModel.swift */; };
+		7AB9E7A325E7BB7300BCA3C1 /* AcuityModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AB9E7A225E7BB7300BCA3C1 /* AcuityModels.swift */; };
+		7ACB360E25EFA1600002327C /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7ACB360D25EFA1600002327C /* SettingsViewController.swift */; };
+		7ACB361125EFA16E0002327C /* TermsOfServiceViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7ACB361025EFA16E0002327C /* TermsOfServiceViewController.swift */; };
+		7AFB024B25F116A800EEEA6A /* Symptoms.txt in Resources */ = {isa = PBXBuildFile; fileRef = 7AFB024A25F116A800EEEA6A /* Symptoms.txt */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		2674AE460659ECA36794A9A0 /* Pods_AcuityEngine.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_AcuityEngine.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		2E9A2C77FCE70E2F05B2179B /* Pods-AcuityEngine.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-AcuityEngine.debug.xcconfig"; path = "Target Support Files/Pods-AcuityEngine/Pods-AcuityEngine.debug.xcconfig"; sourceTree = "<group>"; };
 		5E581811A157C643B3DE3D9C /* Pods-AcuityEngine.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-AcuityEngine.release.xcconfig"; path = "Target Support Files/Pods-AcuityEngine/Pods-AcuityEngine.release.xcconfig"; sourceTree = "<group>"; };
+		7A08B6D825F1BE3500F9EA20 /* SymptomsListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = SymptomsListViewController.swift; path = "AcuityEngine/Classes/ViewController/Add/Add Symptoms/SymptomsListViewController.swift"; sourceTree = SOURCE_ROOT; };
+		7A0AC40825F06A73009EDE25 /* ProfileModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileModels.swift; sourceTree = "<group>"; };
 		7A22C1AA25E786F10028319D /* AcuityEngine.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = AcuityEngine.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		7A22C1B425E786F10028319D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		7A22C1B725E786F10028319D /* AcuityEngine.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = AcuityEngine.xcdatamodel; sourceTree = "<group>"; };
@@ -133,6 +179,30 @@
 		7A240F0225E7AB41002A5CF9 /* PullUpViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PullUpViewController.swift; sourceTree = "<group>"; };
 		7A240F0625E7AB58002A5CF9 /* AcuityDetailPullUpViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AcuityDetailPullUpViewController.swift; sourceTree = "<group>"; };
 		7A240F0725E7AB58002A5CF9 /* AcuityDetailPullUp.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = AcuityDetailPullUp.storyboard; sourceTree = "<group>"; };
+		7A29431F25F45751007C5B30 /* SFProDisplay-Medium.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SFProDisplay-Medium.ttf"; sourceTree = "<group>"; };
+		7A29432025F45751007C5B30 /* SFProDisplay-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SFProDisplay-Bold.ttf"; sourceTree = "<group>"; };
+		7A3EE0E625F8C01100F1FB49 /* AcuityDetailValueViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AcuityDetailValueViewModel.swift; sourceTree = "<group>"; };
+		7A3EE0EA25F8DC8F00F1FB49 /* VisualEffectView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VisualEffectView.swift; sourceTree = "<group>"; };
+		7A477AF025F20D9F00B3E369 /* LabelTitle.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LabelTitle.swift; sourceTree = "<group>"; };
+		7A477B1525F20E0C00B3E369 /* UIFont+Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIFont+Extensions.swift"; sourceTree = "<group>"; };
+		7A477B4E25F25A9B00B3E369 /* SaveButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SaveButton.swift; sourceTree = "<group>"; };
+		7A477B5125F26C2D00B3E369 /* SFProDisplay-BoldItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SFProDisplay-BoldItalic.ttf"; sourceTree = "<group>"; };
+		7A477B5225F26C2E00B3E369 /* SFProDisplay-ThinItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SFProDisplay-ThinItalic.ttf"; sourceTree = "<group>"; };
+		7A477B5325F26C2E00B3E369 /* SFProDisplay-MediumItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SFProDisplay-MediumItalic.ttf"; sourceTree = "<group>"; };
+		7A477B5425F26C2E00B3E369 /* SFProDisplay-Ultralight.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SFProDisplay-Ultralight.ttf"; sourceTree = "<group>"; };
+		7A477B5525F26C2E00B3E369 /* BRUSHSCI_1.TTF */ = {isa = PBXFileReference; lastKnownFileType = file; path = BRUSHSCI_1.TTF; sourceTree = "<group>"; };
+		7A477B5625F26C2E00B3E369 /* SFProDisplay-LightItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SFProDisplay-LightItalic.ttf"; sourceTree = "<group>"; };
+		7A477B5725F26C2E00B3E369 /* SFProDisplay-HeavyItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SFProDisplay-HeavyItalic.ttf"; sourceTree = "<group>"; };
+		7A477B5825F26C2E00B3E369 /* SFProDisplay-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SFProDisplay-Regular.ttf"; sourceTree = "<group>"; };
+		7A477B5925F26C2E00B3E369 /* SFProDisplay-Semibold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SFProDisplay-Semibold.ttf"; sourceTree = "<group>"; };
+		7A54BD9E25F6F76F00A22B80 /* AddVitalViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddVitalViewModel.swift; sourceTree = "<group>"; };
+		7A54BDA125F6F88600A22B80 /* VitalModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VitalModel.swift; sourceTree = "<group>"; };
+		7A57976E25ED14D300BCCD12 /* AcuityMainViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AcuityMainViewModel.swift; sourceTree = "<group>"; };
+		7A57977125ED1F7500BCCD12 /* ProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
+		7A57977425ED24E800BCCD12 /* Profile.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Profile.storyboard; sourceTree = "<group>"; };
+		7A65AED025F5CCFE0075D846 /* CloseButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CloseButton.swift; sourceTree = "<group>"; };
+		7A65AF1A25F64AA90075D846 /* VitalsListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VitalsListViewController.swift; sourceTree = "<group>"; };
+		7A65AF1E25F64AE60075D846 /* AddVitalsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddVitalsViewController.swift; sourceTree = "<group>"; };
 		7A6AF7F925E7A2C2001FB132 /* RotaryWheel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RotaryWheel.m; sourceTree = "<group>"; };
 		7A6AF7FA25E7A2C2001FB132 /* Chevron.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Chevron.h; sourceTree = "<group>"; };
 		7A6AF7FB25E7A2C2001FB132 /* Chevron.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Chevron.m; sourceTree = "<group>"; };
@@ -142,6 +212,23 @@
 		7A6AF82225E7A634001FB132 /* Header.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Header.swift; sourceTree = "<group>"; };
 		7A6AF82325E7A634001FB132 /* Header.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = Header.xib; sourceTree = "<group>"; };
 		7A6AF82725E7A6A2001FB132 /* MyWellScore.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MyWellScore.swift; sourceTree = "<group>"; };
+		7A6DB63925F68AAA00C69E8A /* UIScrollView+TPKeyboardAvoidingAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIScrollView+TPKeyboardAvoidingAdditions.m"; sourceTree = "<group>"; };
+		7A6DB63A25F68AAA00C69E8A /* UIScrollView+TPKeyboardAvoidingAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIScrollView+TPKeyboardAvoidingAdditions.h"; sourceTree = "<group>"; };
+		7A88C07425F85AD10047E207 /* AcuityDetailConditionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AcuityDetailConditionViewController.swift; sourceTree = "<group>"; };
+		7A88C08025F85BE60047E207 /* AcuityDetailConditionViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AcuityDetailConditionViewModel.swift; sourceTree = "<group>"; };
+		7A88C08425F85C0B0047E207 /* AcuityDetailValueViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AcuityDetailValueViewController.swift; sourceTree = "<group>"; };
+		7A92701D25EF8FB100295E2F /* ProfileOptionSelectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileOptionSelectionViewController.swift; sourceTree = "<group>"; };
+		7AA14CDC25F65570005AC56A /* Vitals.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = Vitals.txt; sourceTree = "<group>"; };
+		7AA14CEE25F659E7005AC56A /* TPKeyboardAvoidingScrollView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TPKeyboardAvoidingScrollView.m; sourceTree = "<group>"; };
+		7AA14CEF25F659E7005AC56A /* TPKeyboardAvoidingScrollView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TPKeyboardAvoidingScrollView.h; sourceTree = "<group>"; };
+		7AAC74E725EE2C08004ACF7A /* HandleView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = HandleView.xib; sourceTree = "<group>"; };
+		7AAC74EA25EE2C15004ACF7A /* HandleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HandleView.swift; sourceTree = "<group>"; };
+		7AAE1A7125F0DA79005E47A1 /* AddOptionSelectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddOptionSelectionViewController.swift; sourceTree = "<group>"; };
+		7AAE1A7525F0DB77005E47A1 /* ConditionsListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConditionsListViewController.swift; sourceTree = "<group>"; };
+		7AAE1A7825F0DB85005E47A1 /* AddSymptomViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddSymptomViewController.swift; sourceTree = "<group>"; };
+		7AAE1A7B25F0DE6F005E47A1 /* Add.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Add.storyboard; sourceTree = "<group>"; };
+		7AAE1A7E25F0E717005E47A1 /* AddProblemssymptomsModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddProblemssymptomsModel.swift; sourceTree = "<group>"; };
+		7AAE1A8E25F0EB44005E47A1 /* Conditions.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Conditions.txt; sourceTree = "<group>"; };
 		7AB9E76125E7AC5700BCA3C1 /* AppDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		7AB9E76225E7AC5700BCA3C1 /* SceneDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
 		7AB9E78325E7B39900BCA3C1 /* String+Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "String+Extensions.swift"; sourceTree = "<group>"; };
@@ -149,7 +236,10 @@
 		7AB9E78525E7B39900BCA3C1 /* UIView+Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIView+Extensions.swift"; sourceTree = "<group>"; };
 		7AB9E78625E7B39900BCA3C1 /* UIViewController+Alert.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIViewController+Alert.swift"; sourceTree = "<group>"; };
 		7AB9E78725E7B39900BCA3C1 /* UIStoryboard+Instantiable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIStoryboard+Instantiable.swift"; sourceTree = "<group>"; };
-		7AB9E7A225E7BB7300BCA3C1 /* AcuityDisplayModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AcuityDisplayModel.swift; sourceTree = "<group>"; };
+		7AB9E7A225E7BB7300BCA3C1 /* AcuityModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AcuityModels.swift; sourceTree = "<group>"; };
+		7ACB360D25EFA1600002327C /* SettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
+		7ACB361025EFA16E0002327C /* TermsOfServiceViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TermsOfServiceViewController.swift; sourceTree = "<group>"; };
+		7AFB024A25F116A800EEEA6A /* Symptoms.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Symptoms.txt; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -200,6 +290,7 @@
 		7A22C1C525E787520028319D /* Classes */ = {
 			isa = PBXGroup;
 			children = (
+				7AA14CEC25F659C5005AC56A /* 3rd party */,
 				7A22C26125E7986D0028319D /* Constants */,
 				7A22C1DA25E788910028319D /* HealthSystems */,
 				7A22C1CC25E787940028319D /* WebService */,
@@ -217,6 +308,9 @@
 		7A22C1C625E787690028319D /* Database */ = {
 			isa = PBXGroup;
 			children = (
+				7AAE1A8E25F0EB44005E47A1 /* Conditions.txt */,
+				7AA14CDC25F65570005AC56A /* Vitals.txt */,
+				7AFB024A25F116A800EEEA6A /* Symptoms.txt */,
 			);
 			path = Database;
 			sourceTree = "<group>";
@@ -224,7 +318,10 @@
 		7A22C1C825E7877A0028319D /* Model */ = {
 			isa = PBXGroup;
 			children = (
-				7AB9E7A225E7BB7300BCA3C1 /* AcuityDisplayModel.swift */,
+				7AB9E7A225E7BB7300BCA3C1 /* AcuityModels.swift */,
+				7A0AC40825F06A73009EDE25 /* ProfileModels.swift */,
+				7AAE1A7E25F0E717005E47A1 /* AddProblemssymptomsModel.swift */,
+				7A54BDA125F6F88600A22B80 /* VitalModel.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -232,11 +329,16 @@
 		7A22C1C925E787810028319D /* View */ = {
 			isa = PBXGroup;
 			children = (
+				7A477B4D25F25A8600B3E369 /* Buttons */,
+				7A477AEF25F20D9F00B3E369 /* Labels */,
+				7A6AF7F825E7A2C2001FB132 /* Rotary Wheel */,
+				7A22C24F25E794670028319D /* Cell */,
+				7AAC74E625EE2BF5004ACF7A /* Handle View */,
 				7A6AF82125E7A634001FB132 /* Header */,
 				7A22C1B325E786F10028319D /* Main.storyboard */,
 				7A240F0725E7AB58002A5CF9 /* AcuityDetailPullUp.storyboard */,
-				7A6AF7F825E7A2C2001FB132 /* Rotary Wheel */,
-				7A22C24F25E794670028319D /* Cell */,
+				7A57977425ED24E800BCCD12 /* Profile.storyboard */,
+				7AAE1A7B25F0DE6F005E47A1 /* Add.storyboard */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -272,17 +374,10 @@
 		7A22C1CD25E787AD0028319D /* Resources */ = {
 			isa = PBXGroup;
 			children = (
-				7A22C1CE25E787C00028319D /* Fonts */,
+				7A477AF925F20DC500B3E369 /* Fonts */,
 				7A22C1B925E786F20028319D /* Assets.xcassets */,
 			);
 			path = Resources;
-			sourceTree = "<group>";
-		};
-		7A22C1CE25E787C00028319D /* Fonts */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Fonts;
 			sourceTree = "<group>";
 		};
 		7A22C1DA25E788910028319D /* HealthSystems */ = {
@@ -445,8 +540,9 @@
 		7A240EF425E7AB18002A5CF9 /* ViewController */ = {
 			isa = PBXGroup;
 			children = (
+				7AAE1A6C25F0D510005E47A1 /* Add */,
 				7AB9E76025E7AC5700BCA3C1 /* Delegate */,
-				7A240F0525E7AB58002A5CF9 /* Pullup */,
+				7A240F0525E7AB58002A5CF9 /* Acuity Detail */,
 				7AB9E76B25E7AD5300BCA3C1 /* Base Controller */,
 				7A240EF525E7AB18002A5CF9 /* Acuity Main */,
 				7A240EF725E7AB18002A5CF9 /* Fetch Health Data */,
@@ -460,6 +556,7 @@
 			isa = PBXGroup;
 			children = (
 				7A240EF625E7AB18002A5CF9 /* AcuityMainViewController.swift */,
+				7A57976E25ED14D300BCCD12 /* AcuityMainViewModel.swift */,
 			);
 			path = "Acuity Main";
 			sourceTree = "<group>";
@@ -475,6 +572,10 @@
 		7A240EF925E7AB18002A5CF9 /* Profile */ = {
 			isa = PBXGroup;
 			children = (
+				7A57977125ED1F7500BCCD12 /* ProfileViewController.swift */,
+				7ACB361025EFA16E0002327C /* TermsOfServiceViewController.swift */,
+				7ACB360D25EFA1600002327C /* SettingsViewController.swift */,
+				7A92701D25EF8FB100295E2F /* ProfileOptionSelectionViewController.swift */,
 			);
 			path = Profile;
 			sourceTree = "<group>";
@@ -487,12 +588,64 @@
 			path = Login;
 			sourceTree = "<group>";
 		};
-		7A240F0525E7AB58002A5CF9 /* Pullup */ = {
+		7A240F0525E7AB58002A5CF9 /* Acuity Detail */ = {
 			isa = PBXGroup;
 			children = (
 				7A240F0625E7AB58002A5CF9 /* AcuityDetailPullUpViewController.swift */,
+				7A88C07425F85AD10047E207 /* AcuityDetailConditionViewController.swift */,
+				7A88C08025F85BE60047E207 /* AcuityDetailConditionViewModel.swift */,
+				7A88C08425F85C0B0047E207 /* AcuityDetailValueViewController.swift */,
+				7A3EE0E625F8C01100F1FB49 /* AcuityDetailValueViewModel.swift */,
 			);
-			path = Pullup;
+			path = "Acuity Detail";
+			sourceTree = "<group>";
+		};
+		7A477AEF25F20D9F00B3E369 /* Labels */ = {
+			isa = PBXGroup;
+			children = (
+				7A477AF025F20D9F00B3E369 /* LabelTitle.swift */,
+				7A3EE0EA25F8DC8F00F1FB49 /* VisualEffectView.swift */,
+				7A477B1525F20E0C00B3E369 /* UIFont+Extensions.swift */,
+			);
+			path = Labels;
+			sourceTree = "<group>";
+		};
+		7A477AF925F20DC500B3E369 /* Fonts */ = {
+			isa = PBXGroup;
+			children = (
+				7A477B5525F26C2E00B3E369 /* BRUSHSCI_1.TTF */,
+				7A477B5125F26C2D00B3E369 /* SFProDisplay-BoldItalic.ttf */,
+				7A477B5725F26C2E00B3E369 /* SFProDisplay-HeavyItalic.ttf */,
+				7A477B5625F26C2E00B3E369 /* SFProDisplay-LightItalic.ttf */,
+				7A477B5325F26C2E00B3E369 /* SFProDisplay-MediumItalic.ttf */,
+				7A477B5825F26C2E00B3E369 /* SFProDisplay-Regular.ttf */,
+				7A477B5925F26C2E00B3E369 /* SFProDisplay-Semibold.ttf */,
+				7A477B5225F26C2E00B3E369 /* SFProDisplay-ThinItalic.ttf */,
+				7A29432025F45751007C5B30 /* SFProDisplay-Bold.ttf */,
+				7A29431F25F45751007C5B30 /* SFProDisplay-Medium.ttf */,
+				7A477B5425F26C2E00B3E369 /* SFProDisplay-Ultralight.ttf */,
+			);
+			name = Fonts;
+			path = "../../../../../../../Old Projects/ios/LearnIt-IOS-develop/learnIt/Resource/Fonts";
+			sourceTree = "<group>";
+		};
+		7A477B4D25F25A8600B3E369 /* Buttons */ = {
+			isa = PBXGroup;
+			children = (
+				7A477B4E25F25A9B00B3E369 /* SaveButton.swift */,
+				7A65AED025F5CCFE0075D846 /* CloseButton.swift */,
+			);
+			path = Buttons;
+			sourceTree = "<group>";
+		};
+		7A65AF1925F64A820075D846 /* Vitals */ = {
+			isa = PBXGroup;
+			children = (
+				7A65AF1A25F64AA90075D846 /* VitalsListViewController.swift */,
+				7A65AF1E25F64AE60075D846 /* AddVitalsViewController.swift */,
+				7A54BD9E25F6F76F00A22B80 /* AddVitalViewModel.swift */,
+			);
+			path = Vitals;
 			sourceTree = "<group>";
 		};
 		7A6AF7F825E7A2C2001FB132 /* Rotary Wheel */ = {
@@ -513,6 +666,62 @@
 				7A6AF82325E7A634001FB132 /* Header.xib */,
 			);
 			path = Header;
+			sourceTree = "<group>";
+		};
+		7AA14CEC25F659C5005AC56A /* 3rd party */ = {
+			isa = PBXGroup;
+			children = (
+				7AA14CED25F659D6005AC56A /* Scrollview */,
+			);
+			path = "3rd party";
+			sourceTree = "<group>";
+		};
+		7AA14CED25F659D6005AC56A /* Scrollview */ = {
+			isa = PBXGroup;
+			children = (
+				7AA14CEF25F659E7005AC56A /* TPKeyboardAvoidingScrollView.h */,
+				7AA14CEE25F659E7005AC56A /* TPKeyboardAvoidingScrollView.m */,
+				7A6DB63A25F68AAA00C69E8A /* UIScrollView+TPKeyboardAvoidingAdditions.h */,
+				7A6DB63925F68AAA00C69E8A /* UIScrollView+TPKeyboardAvoidingAdditions.m */,
+			);
+			path = Scrollview;
+			sourceTree = "<group>";
+		};
+		7AAC74E625EE2BF5004ACF7A /* Handle View */ = {
+			isa = PBXGroup;
+			children = (
+				7AAC74E725EE2C08004ACF7A /* HandleView.xib */,
+				7AAC74EA25EE2C15004ACF7A /* HandleView.swift */,
+			);
+			path = "Handle View";
+			sourceTree = "<group>";
+		};
+		7AAE1A6C25F0D510005E47A1 /* Add */ = {
+			isa = PBXGroup;
+			children = (
+				7A65AF1925F64A820075D846 /* Vitals */,
+				7AAE1A6E25F0D521005E47A1 /* Add Problems */,
+				7AAE1A6D25F0D517005E47A1 /* Add Symptoms */,
+				7AAE1A7125F0DA79005E47A1 /* AddOptionSelectionViewController.swift */,
+			);
+			path = Add;
+			sourceTree = "<group>";
+		};
+		7AAE1A6D25F0D517005E47A1 /* Add Symptoms */ = {
+			isa = PBXGroup;
+			children = (
+				7AAE1A7825F0DB85005E47A1 /* AddSymptomViewController.swift */,
+				7A08B6D825F1BE3500F9EA20 /* SymptomsListViewController.swift */,
+			);
+			path = "Add Symptoms";
+			sourceTree = "<group>";
+		};
+		7AAE1A6E25F0D521005E47A1 /* Add Problems */ = {
+			isa = PBXGroup;
+			children = (
+				7AAE1A7525F0DB77005E47A1 /* ConditionsListViewController.swift */,
+			);
+			path = "Add Problems";
 			sourceTree = "<group>";
 		};
 		7AB9E76025E7AC5700BCA3C1 /* Delegate */ = {
@@ -600,10 +809,27 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				7A65AEFB25F61E5C0075D846 /* BRUSHSCI_1.TTF in Resources */,
+				7A29432C25F45ABF007C5B30 /* SFProDisplay-HeavyItalic.ttf in Resources */,
+				7A57977525ED24E800BCCD12 /* Profile.storyboard in Resources */,
 				7A22C1BD25E786F20028319D /* LaunchScreen.storyboard in Resources */,
+				7A29433225F45ABF007C5B30 /* SFProDisplay-Medium.ttf in Resources */,
 				7A6AF82525E7A634001FB132 /* Header.xib in Resources */,
+				7A29432F25F45ABF007C5B30 /* SFProDisplay-Ultralight.ttf in Resources */,
+				7A29432B25F45ABF007C5B30 /* SFProDisplay-Regular.ttf in Resources */,
 				7A22C1BA25E786F20028319D /* Assets.xcassets in Resources */,
+				7AAE1A8F25F0EB44005E47A1 /* Conditions.txt in Resources */,
+				7A29432925F45AB7007C5B30 /* SFProDisplay-BoldItalic.ttf in Resources */,
 				7A22C1B525E786F10028319D /* Main.storyboard in Resources */,
+				7AAC74E825EE2C08004ACF7A /* HandleView.xib in Resources */,
+				7AAE1A7C25F0DE6F005E47A1 /* Add.storyboard in Resources */,
+				7A29432D25F45ABF007C5B30 /* SFProDisplay-LightItalic.ttf in Resources */,
+				7A29433125F45ABF007C5B30 /* SFProDisplay-ThinItalic.ttf in Resources */,
+				7A29432E25F45ABF007C5B30 /* SFProDisplay-Bold.ttf in Resources */,
+				7A29433025F45ABF007C5B30 /* SFProDisplay-Semibold.ttf in Resources */,
+				7A29433325F45ABF007C5B30 /* SFProDisplay-MediumItalic.ttf in Resources */,
+				7A6DB63D25F6914E00C69E8A /* Vitals.txt in Resources */,
+				7AFB024B25F116A800EEEA6A /* Symptoms.txt in Resources */,
 				7A240F0925E7AB58002A5CF9 /* AcuityDetailPullUp.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -661,35 +887,55 @@
 				7A240EFC25E7AB18002A5CF9 /* AcuityMainViewController.swift in Sources */,
 				7A22C21A25E788AF0028319D /* RespiratoryData.swift in Sources */,
 				7A22C22125E788AF0028319D /* RespiratoryProblemCalculation.swift in Sources */,
+				7A08B6D925F1BE3500F9EA20 /* SymptomsListViewController.swift in Sources */,
 				7A22C24C25E794500028319D /* CardioViewModel.swift in Sources */,
+				7A65AF1F25F64AE60075D846 /* AddVitalsViewController.swift in Sources */,
 				7A22C21025E788AF0028319D /* CardioIMPData.swift in Sources */,
+				7A0AC40925F06A73009EDE25 /* ProfileModels.swift in Sources */,
 				7A22C21325E788AF0028319D /* CardioManager.swift in Sources */,
 				7A22C22525E788AF0028319D /* RespiratoryLab.swift in Sources */,
 				7AB9E76325E7AC5700BCA3C1 /* AppDelegate.swift in Sources */,
+				7A65AED125F5CCFE0075D846 /* CloseButton.swift in Sources */,
+				7AAE1A7F25F0E717005E47A1 /* AddProblemssymptomsModel.swift in Sources */,
 				7A22C21525E788AF0028319D /* CardioLab.swift in Sources */,
 				7A22C20C25E788AF0028319D /* CardioSymptoms.swift in Sources */,
 				7A22C22825E788AF0028319D /* RespiratoryManagerProtocol.swift in Sources */,
 				7A22C22025E788AF0028319D /* RespiratoryProblemData.swift in Sources */,
 				7A240F0825E7AB58002A5CF9 /* AcuityDetailPullUpViewController.swift in Sources */,
+				7A6DB63B25F68AAA00C69E8A /* UIScrollView+TPKeyboardAvoidingAdditions.m in Sources */,
 				7AB9E78A25E7B39900BCA3C1 /* UIView+Extensions.swift in Sources */,
+				7AAE1A7225F0DA79005E47A1 /* AddOptionSelectionViewController.swift in Sources */,
 				7A22C25125E794670028319D /* PullUpDisplayCell.swift in Sources */,
 				7A22C21725E788AF0028319D /* CardioLabCalculation.swift in Sources */,
 				7A240EFE25E7AB18002A5CF9 /* LoginViewController.swift in Sources */,
+				7A477B4F25F25A9B00B3E369 /* SaveButton.swift in Sources */,
 				7A6AF7FE25E7A2C2001FB132 /* RotaryWheel.m in Sources */,
 				7A22C20825E788AF0028319D /* CardioProblem.swift in Sources */,
+				7A88C08125F85BE60047E207 /* AcuityDetailConditionViewModel.swift in Sources */,
+				7A57976F25ED14D300BCCD12 /* AcuityMainViewModel.swift in Sources */,
+				7A57977225ED1F7500BCCD12 /* ProfileViewController.swift in Sources */,
+				7ACB360E25EFA1600002327C /* SettingsViewController.swift in Sources */,
+				7AAC74EB25EE2C15004ACF7A /* HandleView.swift in Sources */,
+				7ACB361125EFA16E0002327C /* TermsOfServiceViewController.swift in Sources */,
 				7A22C21F25E788AF0028319D /* RespiratoryProblem.swift in Sources */,
+				7A477B1625F20E0C00B3E369 /* UIFont+Extensions.swift in Sources */,
 				7A22C21225E788AF0028319D /* CardioManagerProtocol.swift in Sources */,
+				7AAE1A7925F0DB85005E47A1 /* AddSymptomViewController.swift in Sources */,
+				7A65AF1B25F64AA90075D846 /* VitalsListViewController.swift in Sources */,
 				7A22C21E25E788AF0028319D /* RespiratoryManager+Extension.swift in Sources */,
 				7A22C22425E788AF0028319D /* RespiratorySymptomCalculation.swift in Sources */,
 				7A22C22725E788AF0028319D /* RespiratoryLabData.swift in Sources */,
 				7A22C22225E788AF0028319D /* RespiratorySymptomsPainData.swift in Sources */,
 				7A22C25E25E7985C0028319D /* Utility.swift in Sources */,
 				7A22C21425E788AF0028319D /* CardioData.swift in Sources */,
+				7AA14CF025F659E8005AC56A /* TPKeyboardAvoidingScrollView.m in Sources */,
 				7AB9E78C25E7B39900BCA3C1 /* UIStoryboard+Instantiable.swift in Sources */,
 				7A6AF82425E7A634001FB132 /* Header.swift in Sources */,
 				7AB9E76425E7AC5700BCA3C1 /* SceneDelegate.swift in Sources */,
 				7A22C20725E788AF0028319D /* CardioProblemData.swift in Sources */,
+				7A54BDA225F6F88600A22B80 /* VitalModel.swift in Sources */,
 				7A22C20F25E788AF0028319D /* CardioIMP.swift in Sources */,
+				7A477AF425F20D9F00B3E369 /* LabelTitle.swift in Sources */,
 				7A22C21125E788AF0028319D /* CardioIMPCalculation.swift in Sources */,
 				7A22C24D25E794500028319D /* RespiratoryViewModel.swift in Sources */,
 				7A22C22325E788AF0028319D /* RespiratorySymptoms.swift in Sources */,
@@ -700,17 +946,24 @@
 				7A6AF82825E7A6A2001FB132 /* MyWellScore.swift in Sources */,
 				7A22C20B25E788AF0028319D /* CardioValue.swift in Sources */,
 				7A240F0325E7AB41002A5CF9 /* PullUpViewController.swift in Sources */,
+				7A3EE0EB25F8DC8F00F1FB49 /* VisualEffectView.swift in Sources */,
 				7AB9E78825E7B39900BCA3C1 /* String+Extensions.swift in Sources */,
 				7A22C20A25E788AF0028319D /* CardioManager+Extension.swift in Sources */,
+				7A3EE0E725F8C01100F1FB49 /* AcuityDetailValueViewModel.swift in Sources */,
 				7A22C20D25E788AF0028319D /* CardioSymptomCalculation.swift in Sources */,
 				7A22C21C25E788AF0028319D /* RespiratoryIMPData.swift in Sources */,
 				7A22C21825E788AF0028319D /* RespiratoryManager.swift in Sources */,
+				7A88C08525F85C0C0047E207 /* AcuityDetailValueViewController.swift in Sources */,
+				7A92701E25EF8FB100295E2F /* ProfileOptionSelectionViewController.swift in Sources */,
+				7A54BD9F25F6F76F00A22B80 /* AddVitalViewModel.swift in Sources */,
 				7A22C21925E788AF0028319D /* RespiratoryValue.swift in Sources */,
 				7A240EFD25E7AB18002A5CF9 /* HealthDataViewController.swift in Sources */,
 				7A22C21D25E788AF0028319D /* RespiratoryIMPCalculation.swift in Sources */,
 				7A6AF7FF25E7A2C2001FB132 /* Chevron.m in Sources */,
 				7A22C20E25E788AF0028319D /* CardioSymptomsPainData.swift in Sources */,
-				7AB9E7A325E7BB7300BCA3C1 /* AcuityDisplayModel.swift in Sources */,
+				7A88C07525F85AD10047E207 /* AcuityDetailConditionViewController.swift in Sources */,
+				7AAE1A7625F0DB77005E47A1 /* ConditionsListViewController.swift in Sources */,
+				7AB9E7A325E7BB7300BCA3C1 /* AcuityModels.swift in Sources */,
 				7A22C20925E788AF0028319D /* CardioProblemCalculation.swift in Sources */,
 				7A22C1B825E786F10028319D /* AcuityEngine.xcdatamodeld in Sources */,
 				7AB9E78B25E7B39900BCA3C1 /* UIViewController+Alert.swift in Sources */,
@@ -864,17 +1117,21 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = AcuityEngine/AcuityEngine.entitlements;
-				CODE_SIGN_STYLE = Automatic;
+				CODE_SIGN_IDENTITY = "iPhone Distribution";
+				CODE_SIGN_STYLE = Manual;
+				DEVELOPMENT_TEAM = 56FBZFEBV5;
 				INFOPLIST_FILE = AcuityEngine/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.6;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.bhoomi.AcuityEngine;
+				PRODUCT_BUNDLE_IDENTIFIER = com.devdigital.acuityhealthengineenterprise;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = AcuityHealthEngineEnterpriseDistribution;
 				SWIFT_OBJC_BRIDGING_HEADER = "AcuityEngine/AcuityEngine-Bridging-Header.h";
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
 		};
@@ -885,17 +1142,21 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = AcuityEngine/AcuityEngine.entitlements;
-				CODE_SIGN_STYLE = Automatic;
+				CODE_SIGN_IDENTITY = "iPhone Distribution";
+				CODE_SIGN_STYLE = Manual;
+				DEVELOPMENT_TEAM = 56FBZFEBV5;
 				INFOPLIST_FILE = AcuityEngine/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.6;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.bhoomi.AcuityEngine;
+				PRODUCT_BUNDLE_IDENTIFIER = com.devdigital.acuityhealthengineenterprise;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = AcuityHealthEngineEnterpriseDistribution;
 				SWIFT_OBJC_BRIDGING_HEADER = "AcuityEngine/AcuityEngine-Bridging-Header.h";
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
 		};

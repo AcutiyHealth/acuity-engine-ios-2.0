@@ -26,7 +26,7 @@ class CardioManager: CardioManagerProtocol {
     var readBloodPressureDone: (() -> Void)?
     var readSymptomsDataDone: (() -> Void)?
     var readLabDataDone: (() -> Void)?
-    var readProblemDataDone: (() -> Void)?
+    var readConditionDataDone: (() -> Void)?
     
     private lazy var heartRateType: HKQuantityType? = HKObjectType.quantityType(forIdentifier: .heartRate)
     
@@ -61,7 +61,7 @@ class CardioManager: CardioManagerProtocol {
                                             //calculate that notification falls in today
                                             
                                             if isTimeStampInToday{
-                                                let highHeartRate = CardioIMPData(type: CardioIMPDataType.highHeartRate)
+                                                let highHeartRate = CardioVitals(type: CardioVitalsType.highHeartRate)
                                                 highHeartRate.value = 1
                                                 self?.cardioData.cardioIMP.highHeartRateData = highHeartRate
                                             }
@@ -74,7 +74,7 @@ class CardioManager: CardioManagerProtocol {
                                             let isTimeStampInToday = HKSetupAssistance.calculateNotificationIsInToday(elementTimeStamp: element.endTimestamp)
                                               
                                               if isTimeStampInToday{
-                                                let lowHeartRate = CardioIMPData(type: CardioIMPDataType.lowHeartRate)
+                                                let lowHeartRate = CardioVitals(type: CardioVitalsType.lowHeartRate)
                                                 lowHeartRate.value = 1
                                                 self?.cardioData.cardioIMP.lowHeartRateData = lowHeartRate
                                             }
@@ -88,7 +88,7 @@ class CardioManager: CardioManagerProtocol {
                                               //calculate that notification falls in today
                                               
                                               if isTimeStampInToday{
-                                                let irregularRhymesNotification = CardioIMPData(type: CardioIMPDataType.irregularRhymesNotification)
+                                                let irregularRhymesNotification = CardioVitals(type: CardioVitalsType.irregularRhymesNotification)
                                                 irregularRhymesNotification.value = 1
                                                 self?.cardioData.cardioIMP.irregularRhythmNotificationData = irregularRhymesNotification
                                             }
@@ -150,7 +150,7 @@ class CardioManager: CardioManagerProtocol {
                                                     
                                                     if try QuantityType.make(from: preferredUnit.identifier) == QuantityType.bloodPressureSystolic {
                                                         
-                                                        let systolicBP = CardioIMPData(type: CardioIMPDataType.systolicBP)
+                                                        let systolicBP = CardioVitals(type: CardioVitalsType.systolicBP)
                                                         systolicBP.value = Double(element.harmonized.value)
                                                         self?.cardioData.cardioIMP.systolicBloodPressureData = systolicBP
                                                         
@@ -159,7 +159,7 @@ class CardioManager: CardioManagerProtocol {
                                                         
                                                     } else  if try QuantityType.make(from: preferredUnit.identifier) == QuantityType.bloodPressureDiastolic {
                                                         
-                                                        let diastolicBP = CardioIMPData(type: CardioIMPDataType.diastolicBP)
+                                                        let diastolicBP = CardioVitals(type: CardioVitalsType.diastolicBP)
                                                         diastolicBP.value = Double(element.harmonized.value)
                                                         self?.cardioData.cardioIMP.diastolicBloodPressureData = diastolicBP
                                                         
@@ -168,7 +168,7 @@ class CardioManager: CardioManagerProtocol {
                                                         
                                                     } else  if try QuantityType.make(from: preferredUnit.identifier) == QuantityType.vo2Max {
                                                         
-                                                        let vo2Max = CardioIMPData(type: CardioIMPDataType.vo2Max)
+                                                        let vo2Max = CardioVitals(type: CardioVitalsType.vo2Max)
                                                         vo2Max.value = Double(element.harmonized.value)
                                                         self?.cardioData.cardioIMP.vO2MaxData = vo2Max
                                                         
@@ -177,7 +177,7 @@ class CardioManager: CardioManagerProtocol {
                                                         
                                                     } else  if try QuantityType.make(from: preferredUnit.identifier) == QuantityType.heartRate {
                                                         
-                                                        let heartRate = CardioIMPData(type: CardioIMPDataType.heartRate)
+                                                        let heartRate = CardioVitals(type: CardioVitalsType.heartRate)
                                                         heartRate.value = Double(element.harmonized.value)
                                                         self?.cardioData.cardioIMP.heartRateData = heartRate
                                                         
@@ -415,46 +415,46 @@ class CardioManager: CardioManagerProtocol {
         
     }
     
-    func readProblemData(completion: @escaping (Bool, HealthkitSetupError?) -> Void){
-        cardioData.cardioProblem.arrhythmiaData = CardioProblemData(type: .arrhythmia)
-        cardioData.cardioProblem.arrhythmiaData?.value = 0
-        cardioData.cardioProblem.hyperTenstionData = CardioProblemData(type: .hypertension)
-        cardioData.cardioProblem.hyperTenstionData?.value = 0
-        cardioData.cardioProblem.heartFailureData = CardioProblemData(type: .heartFailure)
-        cardioData.cardioProblem.heartFailureData?.value = 0
-        cardioData.cardioProblem.arteryDieseaseData = CardioProblemData(type: .arteryDisease)
-        cardioData.cardioProblem.arteryDieseaseData?.value = 0
+    func readConditionData(completion: @escaping (Bool, HealthkitSetupError?) -> Void){
+        cardioData.cardioCondition.arrhythmiaData = CardioConditionData(type: .arrhythmia)
+        cardioData.cardioCondition.arrhythmiaData?.value = 0
+        cardioData.cardioCondition.hyperTenstionData = CardioConditionData(type: .hypertension)
+        cardioData.cardioCondition.hyperTenstionData?.value = 0
+        cardioData.cardioCondition.heartFailureData = CardioConditionData(type: .heartFailure)
+        cardioData.cardioCondition.heartFailureData?.value = 0
+        cardioData.cardioCondition.arteryDieseaseData = CardioConditionData(type: .arteryDisease)
+        cardioData.cardioCondition.arteryDieseaseData?.value = 0
         completion(true,nil)
     }
     
     func setDefaultValueCardioData(){
         
         //set IMP data
-        cardioData.cardioIMP.heartRateData = CardioIMPData(type: CardioIMPDataType.heartRate)
+        cardioData.cardioIMP.heartRateData = CardioVitals(type: CardioVitalsType.heartRate)
         cardioData.cardioIMP.heartRateData?.value = 80
         //print("(cardioData.cardioIMP.heartRateData?.maxScore)---\n \(String(describing: cardioData.cardioIMP.heartRateData?.maxScore))")
         //High heart rate
-        cardioData.cardioIMP.highHeartRateData = CardioIMPData(type: CardioIMPDataType.highHeartRate)
+        cardioData.cardioIMP.highHeartRateData = CardioVitals(type: CardioVitalsType.highHeartRate)
         cardioData.cardioIMP.highHeartRateData?.value = 1
         //print("(cardioData.cardioIMP.highHeartRateData?.maxScore)---\n \(String(describing: cardioData.cardioIMP.highHeartRateData?.maxScore))")
         //low heart rate
-        cardioData.cardioIMP.lowHeartRateData = CardioIMPData(type: CardioIMPDataType.lowHeartRate)
+        cardioData.cardioIMP.lowHeartRateData = CardioVitals(type: CardioVitalsType.lowHeartRate)
         cardioData.cardioIMP.lowHeartRateData?.value = 0
         //print("(cardioData.cardioIMP.lowHeartRateData?.maxScore)---\n \(String(describing: cardioData.cardioIMP.lowHeartRateData?.maxScore))")
         //High heart rate
-        cardioData.cardioIMP.irregularRhythmNotificationData = CardioIMPData(type: CardioIMPDataType.irregularRhymesNotification)
+        cardioData.cardioIMP.irregularRhythmNotificationData = CardioVitals(type: CardioVitalsType.irregularRhymesNotification)
         cardioData.cardioIMP.irregularRhythmNotificationData?.value = 0
         //print("(cardioData.cardioIMP.irregularRhythmNotificationData?.maxScore)---\n \(String(describing: cardioData.cardioIMP.irregularRhythmNotificationData?.maxScore))")
         //High heart rate
-        cardioData.cardioIMP.vO2MaxData = CardioIMPData(type: CardioIMPDataType.vo2Max)
+        cardioData.cardioIMP.vO2MaxData = CardioVitals(type: CardioVitalsType.vo2Max)
         cardioData.cardioIMP.vO2MaxData?.value = 35
         //print("(cardioData.cardioIMP.vO2MaxData?.maxScore)---\n \(String(describing: cardioData.cardioIMP.vO2MaxData?.maxScore))")
         //High heart rate
-        cardioData.cardioIMP.systolicBloodPressureData = CardioIMPData(type: CardioIMPDataType.systolicBP)
+        cardioData.cardioIMP.systolicBloodPressureData = CardioVitals(type: CardioVitalsType.systolicBP)
         cardioData.cardioIMP.systolicBloodPressureData?.value = 90
         //print("(cardioData.cardioIMP.systolicBloodPressureData?.maxScore)---\n \(String(describing: cardioData.cardioIMP.systolicBloodPressureData?.maxScore))")
         //High heart rate
-        cardioData.cardioIMP.diastolicBloodPressureData = CardioIMPData(type: CardioIMPDataType.diastolicBP)
+        cardioData.cardioIMP.diastolicBloodPressureData = CardioVitals(type: CardioVitalsType.diastolicBP)
         cardioData.cardioIMP.diastolicBloodPressureData?.value = 84
         //print("(cardioData.cardioIMP.diastolicBloodPressureData?.maxScore)---\n \(String(describing: cardioData.cardioIMP.diastolicBloodPressureData?.maxScore))")
         
@@ -501,17 +501,17 @@ class CardioManager: CardioManagerProtocol {
         readLabData { (success, error) in
             
         }
-        readProblemData{ (success, error) in
+        readConditionData{ (success, error) in
             
         }
         
-        //print("getMaxIMPDataScore cardioIMP---\n \(cardioData.cardioIMP.getMaxIMPDataScore())")
-        //print("totalIMPDataScore cardioIMP---\n \(cardioData.cardioIMP.totalIMPDataScore())")
+        //print("getMaxVitalsScore cardioIMP---\n \(cardioData.cardioIMP.getMaxVitalsScore())")
+        //print("totalVitalsScore cardioIMP---\n \(cardioData.cardioIMP.totalVitalsScore())")
         //print("getMaxSymptomDataScore cardioSymptoms---\n \(cardioData.cardioSymptoms.getMaxSymptomDataScore())")
         //print("totalSymptomDataScore cardioSymptoms---\n \(cardioData.cardioSymptoms.totalSymptomDataScore())")
         
-        //print("getMaxProblemDataScore cardioProblem---\n \(cardioData.cardioProblem.getMaxProblemDataScore())")
-        //print("totalProblemDataScore cardioProblem---\n \(cardioData.cardioProblem.totalProblemDataScore())")
+        //print("getMaxConditionDataScore cardioCondition---\n \(cardioData.cardioCondition.getMaxConditionDataScore())")
+        //print("totalConditionDataScore cardioCondition---\n \(cardioData.cardioCondition.totalConditionDataScore())")
         
         //print("getMaxLabDataScore cardioLab---\n \(cardioData.cardioLab.getMaxLabDataScore())")
         //print("totalLabDataScore cardioLab---\n \(cardioData.cardioLab.totalLabDataScore())")

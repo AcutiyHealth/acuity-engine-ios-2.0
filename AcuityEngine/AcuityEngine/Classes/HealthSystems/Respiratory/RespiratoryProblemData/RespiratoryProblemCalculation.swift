@@ -8,7 +8,7 @@
 import Foundation
 import HealthKitReporter
 
-class RespiratoryProblemCalculation {
+class RespiratoryConditionCalculation {
     
     var relativeValue:Double = 100 //G26 // It is define in excel sheet given by client
     
@@ -40,19 +40,19 @@ class RespiratoryProblemCalculation {
         }
     }
     
-    private func getSymptomsValue() -> ProblemsValue {
+    private func getSymptomsValue() -> ConditionValue {
         
         
         //=IF(H3="Yes",B3*G3,C3*G3)
         
         switch value {
         case 0:
-            return ProblemsValue.No
+            return ConditionValue.No
         case 1:
-            return ProblemsValue.Yes
+            return ConditionValue.Yes
         
         default:
-            return ProblemsValue.No
+            return ConditionValue.No
         }
         
     }

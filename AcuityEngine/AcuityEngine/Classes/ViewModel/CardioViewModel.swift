@@ -32,8 +32,8 @@ class CardioViewModel: CardioViewModelProtocol {
         CardioManager.sharedManager.readLabDataDone = {
             //self.cardioDataLoaded?()
         }
-        //Read Problem data
-        CardioManager.sharedManager.readProblemDataDone = {
+        //Read Condition data
+        CardioManager.sharedManager.readConditionDataDone = {
             //self.cardioDataLoaded?()
         }
         //Read Symptoms data
@@ -44,7 +44,7 @@ class CardioViewModel: CardioViewModelProtocol {
     
     func readAllCardioData(){
         CardioManager.sharedManager.resetCardioData()
-        CardioManager.sharedManager.readProblemData{ (success, error) in
+        CardioManager.sharedManager.readConditionData{ (success, error) in
             self.cardioDataLoaded?(success,error)
         }
         CardioManager.sharedManager.readSymptomsData{ (success, error) in
