@@ -8,14 +8,14 @@
 import Foundation
 import HealthKitReporter
 
-class RespiratoryProblemData:RespiratoryProblemCalculation {
+class RespiratoryConditionData:RespiratoryConditionCalculation {
     override var value:Double{
         didSet{
             super.value = value
         }
     }
     
-     init(type:RespiratoryProblemType) {
+     init(type:RespiratoryConditionType) {
         super.init()
         
         switch type {

@@ -13,6 +13,8 @@
 
 #define kChevronHeight 170
 #define kChevronWidth 82
+#define kAcuityCircleWidth  360
+#define kAcuityCircleHeight  360
 #define BLUECOLORLABELTITLE [UIColor colorWithRed:41.0/255.0 green:121.0/255.0 blue:255.0/255.0 alpha:1.0]
 #define SUBMENUITEMTITLECOLOR [UIColor colorWithRed:206.0/255.0 green:216.0/255.0 blue:220.0/255.0 alpha:1.0]
 #define MENULISTBACKGROUNDCOLOR [UIColor colorWithRed:69.0/255.0 green:90.0/255.0 blue:100.0/255.0 alpha:1.0]
@@ -106,7 +108,7 @@ chevrons will be used for smooth rotating, using min, mid and max value.
         chevronImageView.userInteractionEnabled = YES;
         chevronImageView.backgroundColor = [UIColor clearColor];
         
-        NSString *strThemeColor = [self getThemeColor:[[arrBodySystems objectAtIndex:i] objectForKey:@"index"]];
+        NSString *strThemeColor = [self getThemeColor:[[arrBodySystems objectAtIndex:i] objectForKey:@"score"]];
         
         if([[strThemeColor uppercaseString] isEqualToString:@"RED"]){
             if(i != selectedSystem){
@@ -131,13 +133,18 @@ chevrons will be used for smooth rotating, using min, mid and max value.
         UITapGestureRecognizer *tapGestureRecognizer =[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(recognizeChevronGesture:)];
         tapGestureRecognizer.delegate = (id)self;
         [chevronImageView addGestureRecognizer:tapGestureRecognizer];
-        
-        UIImageView *imageView = [[UIImageView alloc] initWithFrame:CGRectMake(20, 10, 38,25)];
+        CGFloat x = 22;
+        if (self.frame.size.width<290) {
+            x = 18;
+        }
+        UIImageView *imageView = [[UIImageView alloc] initWithFrame:CGRectMake(x*self.bounds.size.width/kAcuityCircleWidth, 8, 38,25)];
         [imageView setUserInteractionEnabled:NO];
         [imageView setTag:9999];
+       
         //cardiovascular
         //[imageView setImage:[UIImage imageNamed:@"cardiovascular.png"]];
         [imageView setImage:[UIImage imageNamed:[[arrBodySystems objectAtIndex:i] objectForKey:@"image"]]];
+        [imageView setContentMode:UIViewContentModeScaleAspectFit];
         imageView.backgroundColor = UIColor.clearColor;
         [chevronView addSubview:chevronImageView];
         [chevronView addSubview:imageView];
@@ -158,17 +165,19 @@ chevrons will be used for smooth rotating, using min, mid and max value.
     _whiteCircleContainerView = [[UIView alloc] initWithFrame:CGRectMake(0,0,self.frame.size.width, self.frame.size.height)];
     [_whiteCircleContainerView setBackgroundColor:[UIColor clearColor]];
     
-    roundbackGroundView = [[UIView alloc] initWithFrame:CGRectMake(40,40, _whiteCircleContainerView.frame.size.width - 80, _whiteCircleContainerView.frame.size.height - 80)];
+    roundbackGroundView = [[UIView alloc] initWithFrame:CGRectMake(30,30, _whiteCircleContainerView.frame.size.width - 75, _whiteCircleContainerView.frame.size.height - 75)];
     roundbackGroundView.layer.cornerRadius = roundbackGroundView.frame.size.height/2;
+    roundbackGroundView.center = CGPointMake(_whiteCircleContainerView.center.x, _whiteCircleContainerView.center.y);
     roundbackGroundView.backgroundColor = UIColor.clearColor;
     [roundbackGroundView setUserInteractionEnabled:NO];
     [self addSubview:roundbackGroundView];
     
-   UIImageView *whiteCircleImageView = [[UIImageView alloc] initWithFrame:CGRectMake(40,40, _whiteCircleContainerView.frame.size.width - 80, _whiteCircleContainerView.frame.size.height - 80)];
+   UIImageView *whiteCircleImageView = [[UIImageView alloc] initWithFrame:CGRectMake(30,30, _whiteCircleContainerView.frame.size.width - 75, _whiteCircleContainerView.frame.size.height - 75)];
     whiteCircleImageView.image = [UIImage imageNamed:@"white_circle"];
     [whiteCircleImageView setUserInteractionEnabled:NO];
     whiteCircleImageView.layer.anchorPoint = CGPointMake(0.5f,0.5f);
     [whiteCircleImageView setBackgroundColor:[UIColor clearColor]];
+    whiteCircleImageView.center = CGPointMake(_whiteCircleContainerView.center.x, _whiteCircleContainerView.center.y);
     [_whiteCircleContainerView addSubview:whiteCircleImageView];
     [self addSubview:_whiteCircleContainerView];
     
@@ -185,7 +194,8 @@ chevrons will be used for smooth rotating, using min, mid and max value.
        [container setUserInteractionEnabled:NO];
         _whiteCircleContainerView.userInteractionEnabled = YES;
     }
-    roundbackGroundView.backgroundColor = [RotaryWheel getThemeColor:[[arrBodySystems objectAtIndex:selectedSystem] objectForKey:@"index"]];
+    roundbackGroundView.backgroundColor = [RotaryWheel getThemeColor:[[arrBodySystems objectAtIndex:selectedSystem] objectForKey:@"score"]];
+    NSLog(@"roundbackGroundView.backgroundColor-->%@",roundbackGroundView.backgroundColor);
     [self.delegate wheelDidChangeValue:selectedSystem];
 }
 + (UIColor *)getThemeColor:(NSString *)index {
@@ -409,7 +419,7 @@ This method will return color string based on index value.
             if([[arrView objectAtIndex:j] isKindOfClass:[UIImageView class]] && [[arrView objectAtIndex:j] tag] != 9999){
                 UIImageView *imgView = [arrView objectAtIndex:j];
                 
-                NSString *strThemeColor = [self getThemeColor:[[arrBodySystems objectAtIndex:i] objectForKey:@"index"]];
+                NSString *strThemeColor = [self getThemeColor:[[arrBodySystems objectAtIndex:i] objectForKey:@"score"]];
                 
                 if([[strThemeColor uppercaseString] isEqualToString:@"RED"]){
                     if(i != selectedNumber){
@@ -499,7 +509,7 @@ currentValue is the value of selected system after rotation.
                     currentValue = c.value;
                 }
             }
-            roundbackGroundView.backgroundColor = [RotaryWheel getThemeColor:[[arrBodySystems objectAtIndex:currentValue] objectForKey:@"index"]];
+            roundbackGroundView.backgroundColor = [RotaryWheel getThemeColor:[[arrBodySystems objectAtIndex:currentValue] objectForKey:@"score"]];
             [self redrawWheel:currentValue];
             [self.delegate wheelDidChangeValue:currentValue];
             
@@ -586,7 +596,7 @@ currentValue is the value of selected system after rotation.
                     }
                 }
             }
-            roundbackGroundView.backgroundColor = [UIColor greenColor];//[AcuityUtility getThemeColor:[[arrBodySystems objectAtIndex:currentValue] objectForKey:@"index"]];
+            roundbackGroundView.backgroundColor = [RotaryWheel getThemeColor:[[arrBodySystems objectAtIndex:currentValue] objectForKey:@"score"]];
             [self.delegate wheelDidChangeValue:currentValue];
             
             [UIView beginAnimations:nil context:NULL];
@@ -613,7 +623,7 @@ currentValue is the value of selected system after rotation.
     if(_needToRotateChevron){
         [self transformWheel:_needToRotateChevron andselectedIndex:(int)touchedView.tag andPreviousIndex:currentValue];
         currentValue = (int)touchedView.tag;
-        roundbackGroundView.backgroundColor = [RotaryWheel getThemeColor:[[arrBodySystems objectAtIndex:selectedSystem] objectForKey:@"index"]];
+        roundbackGroundView.backgroundColor = [RotaryWheel getThemeColor:[[arrBodySystems objectAtIndex:selectedSystem] objectForKey:@"score"]];
         [self.delegate wheelDidChangeValue:(int)touchedView.tag];
     }
     else{
@@ -621,7 +631,7 @@ currentValue is the value of selected system after rotation.
         currentValue = (int)touchedView.tag+currentValue;
         if(currentValue > numberOfSections-1)
             currentValue = currentValue-numberOfSections;
-        roundbackGroundView.backgroundColor = [RotaryWheel getThemeColor:[[arrBodySystems objectAtIndex:selectedSystem] objectForKey:@"index"]];
+        roundbackGroundView.backgroundColor = [RotaryWheel getThemeColor:[[arrBodySystems objectAtIndex:selectedSystem] objectForKey:@"score"]];
         [self.delegate wheelDidChangeValue:currentValue];
     }
 }

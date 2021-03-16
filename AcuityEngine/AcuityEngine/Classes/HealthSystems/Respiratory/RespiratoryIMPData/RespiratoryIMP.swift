@@ -1,5 +1,5 @@
 //
-//  CardioIMPData.swift
+//  CardioVitals.swift
 //  HealthKitDemo
 //
 //  Created by Paresh Patel on 05/02/21.
@@ -12,20 +12,20 @@ import UIKit
 class RespiratoryIMP {
     
     
-    var respiratoryRateData:RespiratoryIMPData?
-    var biPAPorcPAPData:RespiratoryIMPData?
-    var supplementOxygenData:RespiratoryIMPData?
-    var heartRateData:RespiratoryIMPData?
-    var irregularRhymesNotificationData:RespiratoryIMPData?
-    var highHeartRateData:RespiratoryIMPData?
-    var lowHeartRateData:RespiratoryIMPData?
-    var peakFlowRateData:RespiratoryIMPData?
-    var sixMinWalkData:RespiratoryIMPData?
-    var FEV1Data:RespiratoryIMPData?
-    var vO2MaxData:RespiratoryIMPData?
-    var inhalerUsageData:RespiratoryIMPData?
+    var respiratoryRateData:RespiratoryVitals?
+    var biPAPorcPAPData:RespiratoryVitals?
+    var supplementOxygenData:RespiratoryVitals?
+    var heartRateData:RespiratoryVitals?
+    var irregularRhymesNotificationData:RespiratoryVitals?
+    var highHeartRateData:RespiratoryVitals?
+    var lowHeartRateData:RespiratoryVitals?
+    var peakFlowRateData:RespiratoryVitals?
+    var sixMinWalkData:RespiratoryVitals?
+    var FEV1Data:RespiratoryVitals?
+    var vO2MaxData:RespiratoryVitals?
+    var inhalerUsageData:RespiratoryVitals?
     
-    func totalIMPDataScore() -> Double {
+    func totalVitalsScore() -> Double {
         let totalIMPScore1 =  Double(respiratoryRateData?.score ?? 0) +  Double(biPAPorcPAPData?.score ?? 0)
         let totalIMPScore2 = Double(supplementOxygenData?.score ?? 0) +  Double(heartRateData?.score ?? 0)
         let totalIMPScore3 =  Double(irregularRhymesNotificationData?.score ?? 0) +  Double(highHeartRateData?.score ?? 0) +  Double(lowHeartRateData?.score ?? 0)
@@ -36,7 +36,7 @@ class RespiratoryIMP {
         return totalIMPScore;
     }
     
-    func getMaxIMPDataScore() -> Double {
+    func getMaxVitalsScore() -> Double {
         let totalIMPScore1 =  Double(respiratoryRateData?.maxScore ?? 0) +  Double(biPAPorcPAPData?.maxScore ?? 0)
         let totalIMPScore2 = Double(supplementOxygenData?.maxScore ?? 0) +  Double(heartRateData?.maxScore ?? 0)
         let totalIMPScore3 =  Double(irregularRhymesNotificationData?.maxScore ?? 0) +  Double(highHeartRateData?.maxScore ?? 0) +  Double(lowHeartRateData?.maxScore ?? 0)

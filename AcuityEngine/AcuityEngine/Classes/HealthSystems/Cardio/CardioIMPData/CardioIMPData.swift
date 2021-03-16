@@ -9,16 +9,16 @@ import Foundation
 import HealthKitReporter
 // Available from 13.6
 
-class CardioIMPData:CardioIMPCalculation {
+class CardioVitals:CardioIMPCalculation {
     override var value:Double{
         didSet{
             super.value = value
         }
     }
     
-     init(type:CardioIMPDataType) {
+     init(type:CardioVitalsType) {
         super.init()
-        super.IMPDataType = type
+        super.VitalsType = type
         switch type {
         case .heartRate:
             self.relativeValue = 100
@@ -39,6 +39,12 @@ class CardioIMPData:CardioIMPCalculation {
        
         
     }
-        
+    
+    func getStartDate()->String{
+        return getDateMediumFormat(time: startTimeStamp)
+    }
+    func getEndDate()->String{
+        return getDateMediumFormat(time: endTimeStamp)
+    }
 }
 

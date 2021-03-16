@@ -34,5 +34,11 @@ class CardioLab {
         
         return totalLabScore;
     }
-    
+   
+    func dictionaryRepresentation()->[LabModel]{
+      
+        let objModel = AcuityDetailConditionViewModel()
+        return objModel.getLabData()
+           
+    }
 }

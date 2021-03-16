@@ -150,12 +150,12 @@ open class Chart: UIControl {
     /**
     Height of the area at the bottom of the chart, containing the labels for the x-axis.
     */
-    open var bottomInset: CGFloat = 20
+    open var bottomInset: CGFloat = 0
 
     /**
     Height of the area at the top of the chart, acting a padding to make place for the top y-axis label.
     */
-    open var topInset: CGFloat = 20
+    open var topInset: CGFloat = 0
 
     /**
     Width of the chart's lines.
@@ -206,7 +206,7 @@ open class Chart: UIControl {
     /**
     Alpha component for the area color.
     */
-    open var areaAlphaComponent: CGFloat = 0.1
+    open var areaAlphaComponent: CGFloat = 1
 
     // MARK: Private variables
 

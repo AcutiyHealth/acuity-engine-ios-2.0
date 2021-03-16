@@ -32,8 +32,8 @@ class RespiratoryViewModel: RespiratoryViewModelProtocol {
         RespiratoryManager.sharedManager.readLabDataDone = {
             //self.respiratoryDataLoaded?()
         }
-        //Read Problem data
-        RespiratoryManager.sharedManager.readProblemDataDone = {
+        //Read Condition data
+        RespiratoryManager.sharedManager.readConditionDataDone = {
             //self.respiratoryDataLoaded?()
         }
         //Read Symptoms data
@@ -57,7 +57,7 @@ class RespiratoryViewModel: RespiratoryViewModelProtocol {
         RespiratoryManager.sharedManager.readLabData{ (success, error) in
             self.respiratoryDataLoaded?(success,error)
         }
-        RespiratoryManager.sharedManager.readProblemData{ (success, error) in
+        RespiratoryManager.sharedManager.readConditionData{ (success, error) in
             self.respiratoryDataLoaded?(success,error)
         }
         

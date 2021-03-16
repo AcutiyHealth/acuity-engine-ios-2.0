@@ -9,7 +9,7 @@ import UIKit
 
 class CardioData {
     var cardioIMP:CardioIMP = CardioIMP()
-    var cardioProblem:CardioProblem = CardioProblem()
+    var cardioCondition:CardioCondition = CardioCondition()
     var cardioSymptoms:CardioSymptoms = CardioSymptoms()
     var cardioLab:CardioLab = CardioLab()
     
@@ -27,12 +27,12 @@ class CardioData {
     var maxScore = 100
     
     func totalScore() -> Double{
-        let totalScoreIMPData = cardioIMP.totalIMPDataScore()
-        let totalProblemData = cardioProblem.totalProblemDataScore()
+        let totalScoreVitals = cardioIMP.totalVitalsScore()
+        let totalConditionData = cardioCondition.totalConditionDataScore()
         let totalLabData = cardioLab.totalLabDataScore()
         let totalsymptomData = cardioSymptoms.totalSymptomDataScore()
         
-        let totalScore1 = totalScoreIMPData + totalProblemData
+        let totalScore1 = totalScoreVitals + totalConditionData
         let totalScore2 =  totalLabData + totalsymptomData
         let totalScore = totalScore1 + totalScore2
         print("totalScore=======\(totalScore)")
@@ -41,15 +41,15 @@ class CardioData {
     }
     
     func maxTotalScore() -> Double{
-        let maxScoreIMPData = cardioIMP.getMaxIMPDataScore()
-        let maxProblemData = cardioProblem.getMaxProblemDataScore()
+        let maxScoreVitals = cardioIMP.getMaxVitalsScore()
+        let maxConditionData = cardioCondition.getMaxConditionDataScore()
         let maxLabData = cardioLab.getMaxLabDataScore()
         let maxsymptomData = cardioSymptoms.getMaxSymptomDataScore() 
         
-        let totalMaxScore = maxScoreIMPData  + maxProblemData  + maxLabData + maxsymptomData
+        let totalMaxScore = maxScoreVitals  + maxConditionData  + maxLabData + maxsymptomData
         
         
-        print("totalMaxScore=======\(totalMaxScore) maxScoreIMPData===\(maxScoreIMPData)  maxProblemData===\(maxProblemData)  maxLabData === \(maxLabData) maxsymptomData===\(maxsymptomData)")
+        print("totalMaxScore=======\(totalMaxScore) maxScoreVitals===\(maxScoreVitals)  maxConditionData===\(maxConditionData)  maxLabData === \(maxLabData) maxsymptomData===\(maxsymptomData)")
         return totalMaxScore
         
     }
@@ -64,4 +64,9 @@ class CardioData {
         return (1-score)*100
     }
     
+    func dictionaryRepresentation()->[String:Any]{
+      
+       return [MetricsType.Conditions.rawValue:cardioCondition.dictionaryRepresentation(),MetricsType.Sympotms.rawValue:cardioSymptoms.dictionaryRepresentation(),MetricsType.LabData.rawValue:cardioLab.dictionaryRepresentation(),MetricsType.Vitals.rawValue:cardioIMP.dictionaryRepresentation()] as [String : Any]
+     
+    }
 }

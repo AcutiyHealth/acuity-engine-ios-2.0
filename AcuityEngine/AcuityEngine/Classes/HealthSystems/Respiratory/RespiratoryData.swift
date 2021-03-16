@@ -9,7 +9,7 @@ import UIKit
 
 class RespiratoryData {
     var respiratoryIMP:RespiratoryIMP = RespiratoryIMP()
-    var respiratoryProblem:RespiratoryProblem = RespiratoryProblem()
+    var respiratoryCondition:RespiratoryCondition = RespiratoryCondition()
     var respiratorySymptoms:RespiratorySymptoms = RespiratorySymptoms()
     var respiratoryLab:RespiratoryLab = RespiratoryLab()
     
@@ -27,12 +27,12 @@ class RespiratoryData {
     var maxScore = 100
     
     func totalScore() -> Double{
-        let totalScoreIMPData = respiratoryIMP.totalIMPDataScore()
-        let totalProblemData = respiratoryProblem.totalProblemDataScore()
+        let totalScoreVitals = respiratoryIMP.totalVitalsScore()
+        let totalConditionData = respiratoryCondition.totalConditionDataScore()
         let totalLabData = respiratoryLab.totalLabDataScore()
         let totalsymptomData = respiratorySymptoms.totalSymptomDataScore()
         
-        let totalScore1 = totalScoreIMPData + totalProblemData
+        let totalScore1 = totalScoreVitals + totalConditionData
         let totalScore2 =  totalLabData + totalsymptomData
         let totalScore = totalScore1 + totalScore2
         print("totalScore=======\(totalScore)")
@@ -41,15 +41,15 @@ class RespiratoryData {
     }
     
     func maxTotalScore() -> Double{
-        let maxScoreIMPData = respiratoryIMP.getMaxIMPDataScore()
-        let maxProblemData = respiratoryProblem.getMaxProblemDataScore()
+        let maxScoreVitals = respiratoryIMP.getMaxVitalsScore()
+        let maxConditionData = respiratoryCondition.getMaxConditionDataScore()
         let maxLabData = respiratoryLab.getMaxLabDataScore()
         let maxsymptomData = respiratorySymptoms.getMaxSymptomDataScore()
         
-        let totalMaxScore = maxScoreIMPData  + maxProblemData  + maxLabData + maxsymptomData
+        let totalMaxScore = maxScoreVitals  + maxConditionData  + maxLabData + maxsymptomData
         
         
-        print("totalMaxScore=======\(totalMaxScore) maxScoreIMPData===\(maxScoreIMPData)  maxProblemData===\(maxProblemData)  maxLabData === \(maxLabData) maxsymptomData===\(maxsymptomData)")
+        print("totalMaxScore=======\(totalMaxScore) maxScoreVitals===\(maxScoreVitals)  maxConditionData===\(maxConditionData)  maxLabData === \(maxLabData) maxsymptomData===\(maxsymptomData)")
         return totalMaxScore
         
     }

@@ -9,19 +9,23 @@ import Foundation
 import UIKit
 import UIKit
 
+protocol HeaderDelegate {
+    func btnAddClickedCallBack()
+    func btnProfileClickedCallBack()
+}
 
 class Header: UIView {
     
     // Our custom view from the XIB file
     var view: UIView!
-    
+    var delegate:HeaderDelegate?
     // Outlets
-    
+    @IBOutlet weak var lblMyWell: UILabel!
     @IBOutlet weak var lblSystemName: UILabel!
     @IBOutlet weak var lblSystemScore: UILabel!
     @IBOutlet weak var containerViewMain: UIView!
     @IBOutlet weak var ContainverViewSub: UIView!
-    
+    @IBOutlet weak var centerMyWellConstraint:NSLayoutConstraint!
     
     override init(frame: CGRect) {
         // 1. setup any properties here
@@ -41,7 +45,7 @@ class Header: UIView {
         
         // 3. Setup view from .xib file
         xibSetup()
-//        self.view = loadViewFromNib() as! CustomView
+        //        self.view = loadViewFromNib() as! CustomView
     }
     
     func xibSetup() {
@@ -66,17 +70,23 @@ class Header: UIView {
         return view
     }
     
-    
-    /*
-    // Only override drawRect: if you perform custom drawing.
-    // An empty implementation adversely affects performance during animation.
-    override func drawRect(rect: CGRect) {
-    
-    // If you add custom drawing, it'll be behind any view loaded from XIB
-    
-    
+    @IBAction func btnAddClicked(sender:UIButton){
+        delegate?.btnAddClickedCallBack()
     }
-    */
+    
+    @IBAction func btnProfileClicked(sender:UIButton){
+        delegate?.btnProfileClickedCallBack()
+    }
+    /*
+     // Only override drawRect: if you perform custom drawing.
+     // An empty implementation adversely affects performance during animation.
+     override func drawRect(rect: CGRect) {
+     
+     // If you add custom drawing, it'll be behind any view loaded from XIB
+     
+     
+     }
+     */
     
 }
 

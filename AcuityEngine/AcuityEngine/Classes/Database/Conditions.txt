@@ -1,0 +1,72 @@
+Acne
+Addison'S Disease
+Allergic Rhiniitis
+Allergic Rhnitis
+Anemia
+Anxiety
+Arrhythmia
+Asthma
+Bipolar Disorder
+Bph
+Bronchitis
+Cancer (Of Any Type)
+Cellulitis
+Chronic Kidney Diease
+Chronic Kidney Disease
+Congestive Heart Failure
+Copd
+Coronary Artery Disease
+Covid
+Crohns Disease
+Decreased Vision
+Dehydration
+Dementia
+Depression
+Diabetes
+Diverticular Disease
+Eczema
+Electrolyte Disorders
+Erectile Dysfunction
+Gastroentritis
+Gerd
+Gout
+Hearing Loss
+Hx Of Stroke
+Hyperlipidemia
+Hypertension
+Hyperthyroidism
+Hypothyroidism
+Irritable Bowel Disease
+Kidney Stones
+Low Potassium
+Low Sodium
+Memory Loss
+Menopause
+Muscular Sprain/Strain
+Neuropathy
+Nose Bleed
+Obese
+Obesity/Overweight
+Osteoarthritis
+Osteomyelitis
+Osteoporosis
+Overweight
+Pharangitis
+Pneumonia
+Polycystic Kidney Disease
+Polycystic Ovarian Disease
+Protein Malnutrition
+Psoriasis
+Pulmonary Embolism
+Rash
+Rheumatoid Arthritis
+Sedintary Lifestyle
+Single
+Sinusitis
+Sleep Apnea
+Smoking
+Ulcerative Colitis
+Unemployed
+Unsafe Housing
+Uti
+Vertigo

@@ -11,7 +11,7 @@ extension SOPullUpControl {
 
     // Handle tap gesture recognizer
     @objc
-    func handleCardTap(recognzier:UITapGestureRecognizer) {
+    public func handleCardTap(recognzier:UITapGestureRecognizer) {
         switch recognzier.state {
         // Animate card when tap finishes
         case .ended:
@@ -43,6 +43,7 @@ extension SOPullUpControl {
     
     func animateTransitionIfNeeded (state:PullUpStatus, duration:TimeInterval) {
          // Check if frame animator is empty
+        //self.visualEffectView.backgroundColor = UIColor.clear
          if runningAnimations.isEmpty {
              // Create a UIViewPropertyAnimator depending on the state of the popover view
              let frameAnimator = UIViewPropertyAnimator(duration: duration, dampingRatio: 1) {
@@ -50,11 +51,11 @@ extension SOPullUpControl {
                  case .expanded:
                      // If expanding set popover y to the ending height and blur background
                     self.pullUpVC.view.frame.origin.y = self.heightView - self.endCardHeight
-                     self.visualEffectView.effect = UIBlurEffect(style: .dark)
+                   //  self.visualEffectView.effect = UIBlurEffect(style: .extraLight)
                  case .collapsed:
                      // If collapsed set popover y to the starting height and remove background blur
                     self.pullUpVC.view.frame.origin.y =  self.heightView -    self.startCardHeight
-                     self.visualEffectView.effect = nil
+                    // self.visualEffectView.effect = UIBlurEffect(style: .extraLight)
                  }
              }
              // Complete animation frame
@@ -90,7 +91,7 @@ extension SOPullUpControl {
              // Pause animation and update the progress to the fraction complete percentage
              animator.pauseAnimation()
              animationProgressWhenInterrupted = animator.fractionComplete
-
+            print("animationProgressWhenInterrupted==\(animationProgressWhenInterrupted)")
          }
      }
      
@@ -100,7 +101,7 @@ extension SOPullUpControl {
          for animator in runningAnimations {
              // Update the fraction complete value to the current progress
              animator.fractionComplete = fractionCompleted + animationProgressWhenInterrupted
-           
+            print("animator.fractionComplete==\(fractionCompleted)")
          }
      }
      

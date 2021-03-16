@@ -13,12 +13,12 @@ protocol RespiratoryManagerProtocol {
     var readBloodPressureDone: (() -> Void)? { get set }
     var readSymptomsDataDone: (() -> Void)? { get set }
     var readLabDataDone: (() -> Void)? { get set }
-    var readProblemDataDone: (() -> Void)? { get set }
+    var readConditionDataDone: (() -> Void)? { get set }
     
     func readIrregularHeartData()
     func readBloodPressure()
     func readSymptomsData()
     func readLabData()
-    func readProblemData()
+    func readConditionData()
     
 }

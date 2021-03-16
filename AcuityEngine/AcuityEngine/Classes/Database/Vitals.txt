@@ -1,0 +1,6 @@
+Blood Pressure
+Heart Rate
+VO2 Max
+High Heart Rate
+Low Heart Rate
+Irregular Rhythm Notification

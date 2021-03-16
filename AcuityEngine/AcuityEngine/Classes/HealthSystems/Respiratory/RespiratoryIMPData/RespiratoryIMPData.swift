@@ -9,16 +9,16 @@ import Foundation
 import HealthKitReporter
 // Available from 13.6
 
-class RespiratoryIMPData:RespiratoryIMPCalculation {
+class RespiratoryVitals:RespiratoryIMPCalculation {
     override var value:Double{
         didSet{
             super.value = value
         }
     }
     
-     init(type:RespiratoryIMPDataType) {
+     init(type:RespiratoryVitalsType) {
         super.init()
-        super.IMPDataType = type
+        super.VitalsType = type
         switch type {
         case .respiratoryRate:
             self.relativeValue = 0

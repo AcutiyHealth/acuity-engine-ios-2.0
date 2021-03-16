@@ -24,7 +24,7 @@ enum CardioLabsType:String {
     
 }
 
-enum CardioProblemType:String {
+enum CardioConditionType:String {
     case hypertension = "hypertension"
     case arrhythmia  = "Arrhythmia "
     case heartFailure = "heartFailure"
@@ -32,7 +32,7 @@ enum CardioProblemType:String {
 }
 
 
-enum CardioIMPDataType:String {
+enum CardioVitalsType:String {
     case heartRate = "heartRate"
     case systolicBP = "systolicBP"
     case diastolicBP = "diastolicBP"
