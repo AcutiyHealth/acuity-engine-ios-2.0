@@ -36,8 +36,27 @@ class VitalsListViewController: UIViewController {
     
     func loadVitalsData(){
         
-        vitalsArray = [VitalModel(name: VitalsName.BloodPressure),VitalModel(name: VitalsName.lowHeartRate),VitalModel(name: VitalsName.highHeartRate),VitalModel(name: VitalsName.irregularRhymesNotification),VitalModel(name: VitalsName.heartRate),VitalModel(name: VitalsName.vo2Max),VitalModel(name: VitalsName.peakflowRate),VitalModel(name: VitalsName.FEV1),VitalModel(name: VitalsName.InhalerUsage),VitalModel(name: VitalsName.Temperature),VitalModel(name: VitalsName.BMI),VitalModel(name: VitalsName.bloodSuger),VitalModel(name: VitalsName.weight),VitalModel(name: VitalsName.BloodOxygenLevel)]
-        
+        vitalsArray = [VitalModel(name: VitalsName.BloodPressure),
+                       VitalModel(name: VitalsName.heartRate),
+                       VitalModel(name: VitalsName.vo2Max),
+                       VitalModel(name: VitalsName.peakflowRate),
+                       VitalModel(name: VitalsName.InhalerUsage),
+                       VitalModel(name: VitalsName.Temperature),
+                       VitalModel(name: VitalsName.BMI),
+                       VitalModel(name: VitalsName.bloodSuger),
+                       VitalModel(name: VitalsName.weight),
+                       VitalModel(name: VitalsName.OxygenSaturation),
+                       VitalModel(name: VitalsName.respiratoryRate)]
+        if #available(iOS 14.0, *) {
+            vitalsArray.append(VitalModel(name: VitalsName.stepLength))
+        }
+        /*
+         VitalModel(name: VitalsName.lowHeartRate),
+         VitalModel(name: VitalsName.highHeartRate),
+         VitalModel(name: VitalsName.irregularRhymesNotification),
+         VitalModel(name: VitalsName.headPhoneAudioLevel),
+         */
+         
     }
 }
 extension VitalsListViewController:UITableViewDelegate,UITableViewDataSource{

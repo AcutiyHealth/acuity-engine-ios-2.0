@@ -73,6 +73,7 @@
 		7A29433325F45ABF007C5B30 /* SFProDisplay-MediumItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 7A477B5325F26C2E00B3E369 /* SFProDisplay-MediumItalic.ttf */; };
 		7A3EE0E725F8C01100F1FB49 /* AcuityDetailValueViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A3EE0E625F8C01100F1FB49 /* AcuityDetailValueViewModel.swift */; };
 		7A3EE0EB25F8DC8F00F1FB49 /* VisualEffectView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A3EE0EA25F8DC8F00F1FB49 /* VisualEffectView.swift */; };
+		7A473A4026008E7200AD0B77 /* HKWriterManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A473A3F26008E7200AD0B77 /* HKWriterManager.swift */; };
 		7A477AF425F20D9F00B3E369 /* LabelTitle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A477AF025F20D9F00B3E369 /* LabelTitle.swift */; };
 		7A477B1625F20E0C00B3E369 /* UIFont+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A477B1525F20E0C00B3E369 /* UIFont+Extensions.swift */; };
 		7A477B4F25F25A9B00B3E369 /* SaveButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A477B4E25F25A9B00B3E369 /* SaveButton.swift */; };
@@ -183,6 +184,7 @@
 		7A29432025F45751007C5B30 /* SFProDisplay-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SFProDisplay-Bold.ttf"; sourceTree = "<group>"; };
 		7A3EE0E625F8C01100F1FB49 /* AcuityDetailValueViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AcuityDetailValueViewModel.swift; sourceTree = "<group>"; };
 		7A3EE0EA25F8DC8F00F1FB49 /* VisualEffectView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VisualEffectView.swift; sourceTree = "<group>"; };
+		7A473A3F26008E7200AD0B77 /* HKWriterManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HKWriterManager.swift; sourceTree = "<group>"; };
 		7A477AF025F20D9F00B3E369 /* LabelTitle.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LabelTitle.swift; sourceTree = "<group>"; };
 		7A477B1525F20E0C00B3E369 /* UIFont+Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIFont+Extensions.swift"; sourceTree = "<group>"; };
 		7A477B4E25F25A9B00B3E369 /* SaveButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SaveButton.swift; sourceTree = "<group>"; };
@@ -385,6 +387,7 @@
 			children = (
 				7A6AF82725E7A6A2001FB132 /* MyWellScore.swift */,
 				7A22C25A25E798450028319D /* HKSetupAssistance.swift */,
+				7A473A3F26008E7200AD0B77 /* HKWriterManager.swift */,
 				7A22C1DB25E788AE0028319D /* Cardio */,
 				7A22C1F125E788AF0028319D /* Respiratory */,
 			);
@@ -943,6 +946,7 @@
 				7A22C22625E788AF0028319D /* RespiratoryLabCalculation.swift in Sources */,
 				7AB9E78925E7B39900BCA3C1 /* Array+Extensions.swift in Sources */,
 				7A6AF81A25E7A572001FB132 /* UISegmentedControl+Extensions.swift in Sources */,
+				7A473A4026008E7200AD0B77 /* HKWriterManager.swift in Sources */,
 				7A6AF82825E7A6A2001FB132 /* MyWellScore.swift in Sources */,
 				7A22C20B25E788AF0028319D /* CardioValue.swift in Sources */,
 				7A240F0325E7AB41002A5CF9 /* PullUpViewController.swift in Sources */,

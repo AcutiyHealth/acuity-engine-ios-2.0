@@ -190,7 +190,7 @@
 		016BE47DC30D5A63ABEAA381BE2EC528 /* Combine.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Combine.swift; path = Source/Combine.swift; sourceTree = "<group>"; };
 		0180AE764B2BF3278A26B65057FAD6E1 /* HTTPHeaders.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = HTTPHeaders.swift; path = Source/HTTPHeaders.swift; sourceTree = "<group>"; };
 		0252459371CA4BDB79051170B5C857AD /* SVIndefiniteAnimatedView.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = SVIndefiniteAnimatedView.m; path = SVProgressHUD/SVIndefiniteAnimatedView.m; sourceTree = "<group>"; };
-		0386647CB37914AEC8D0A23E3BF2B668 /* SwiftChart.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = SwiftChart.framework; path = SwiftChart.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		0386647CB37914AEC8D0A23E3BF2B668 /* SwiftChart.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = SwiftChart.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		081F08F026AD432F10762B3CABD970FC /* SeriesSampleRetriever.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = SeriesSampleRetriever.swift; path = HealthKitReporter/Classes/Service/Retriever/SeriesSampleRetriever.swift; sourceTree = "<group>"; };
 		0862B274B79508D227937D2719D688EB /* Alamofire-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Alamofire-dummy.m"; sourceTree = "<group>"; };
 		09C76477B903CF9E28CDF4E1A6BF4902 /* MultipartUpload.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = MultipartUpload.swift; path = Source/MultipartUpload.swift; sourceTree = "<group>"; };
@@ -235,7 +235,7 @@
 		3CBBFC7B0CCCBE48F7E351FC39E2B5BA /* Extensions+HKCategorySample.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = "Extensions+HKCategorySample.swift"; path = "HealthKitReporter/Classes/Decorator/Extensions+HKCategorySample.swift"; sourceTree = "<group>"; };
 		3CFEE50EEB1CC9093D0C1A7B1020C8BF /* Original.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Original.swift; path = HealthKitReporter/Classes/Model/Original.swift; sourceTree = "<group>"; };
 		4012075FCA4B540AE452BD54CD4578BC /* SVProgressHUD.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = SVProgressHUD.debug.xcconfig; sourceTree = "<group>"; };
-		414D7DD0DA5581301732C4FA52D8A2E7 /* HealthKitReporter.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = HealthKitReporter.framework; path = HealthKitReporter.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		414D7DD0DA5581301732C4FA52D8A2E7 /* HealthKitReporter.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = HealthKitReporter.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		47FA2C61D0229DCEFF5E8E528297CBE5 /* SVRadialGradientLayer.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = SVRadialGradientLayer.m; path = SVProgressHUD/SVRadialGradientLayer.m; sourceTree = "<group>"; };
 		486CDBCCB8D08CF9FA103B757200411F /* SVProgressHUD-Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "SVProgressHUD-Info.plist"; sourceTree = "<group>"; };
 		49322A25C715C807D26F6A2A72F65420 /* ObjectType.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = ObjectType.swift; path = HealthKitReporter/Classes/Model/Type/ObjectType.swift; sourceTree = "<group>"; };
@@ -256,7 +256,7 @@
 		5B55AC0B2BE83D2F45979938B5EBBCE1 /* PullUpController+Animation.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = "PullUpController+Animation.swift"; path = "SOPullUpView/Classes/PullUpController+Animation.swift"; sourceTree = "<group>"; };
 		5BEC99C073312531CA576BA4EB126470 /* Session.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Session.swift; path = Source/Session.swift; sourceTree = "<group>"; };
 		5BF000F9126A6DF8E2C523F6D144EBD3 /* SVProgressAnimatedView.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = SVProgressAnimatedView.h; path = SVProgressHUD/SVProgressAnimatedView.h; sourceTree = "<group>"; };
-		5D797E9A5C5782CE845840781FA1CC81 /* Alamofire.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = Alamofire.framework; path = Alamofire.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		5D797E9A5C5782CE845840781FA1CC81 /* Alamofire.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Alamofire.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		5D831DDBEA73E71568C8DB9F2ADB0AC9 /* Extensions+String.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = "Extensions+String.swift"; path = "HealthKitReporter/Classes/Decorator/Extensions+String.swift"; sourceTree = "<group>"; };
 		5E94434FF3C2C317F9E8B1956CD7B762 /* Source.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Source.swift; path = HealthKitReporter/Classes/Model/Payload/Source.swift; sourceTree = "<group>"; };
 		66D4F8DD4425618C23A8040EEDC1C910 /* CachedResponseHandler.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = CachedResponseHandler.swift; path = Source/CachedResponseHandler.swift; sourceTree = "<group>"; };
@@ -296,7 +296,7 @@
 		98136FBEDBEF51A0E23FB82EC5FC70B6 /* Extensions+Date.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = "Extensions+Date.swift"; path = "HealthKitReporter/Classes/Decorator/Extensions+Date.swift"; sourceTree = "<group>"; };
 		9A37ECDB0A33EC1AF1CC1B20F322A591 /* OperationQueue+Alamofire.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = "OperationQueue+Alamofire.swift"; path = "Source/OperationQueue+Alamofire.swift"; sourceTree = "<group>"; };
 		9B3C366BCE391C28504A3D3DBE0BB0DE /* Extensions+HKStatistics.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = "Extensions+HKStatistics.swift"; path = "HealthKitReporter/Classes/Decorator/Extensions+HKStatistics.swift"; sourceTree = "<group>"; };
-		9D940727FF8FB9C785EB98E56350EF41 /* Podfile */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; indentWidth = 2; lastKnownFileType = text; name = Podfile; path = ../Podfile; sourceTree = SOURCE_ROOT; tabWidth = 2; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
+		9D940727FF8FB9C785EB98E56350EF41 /* Podfile */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; indentWidth = 2; name = Podfile; path = ../Podfile; sourceTree = SOURCE_ROOT; tabWidth = 2; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
 		9D943F0A0600E527482D46DA3D79641E /* SOPullUpView-Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "SOPullUpView-Info.plist"; sourceTree = "<group>"; };
 		9E19E56E1BC193F0FA9B79E9EB04CE45 /* UpdateFrequency.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = UpdateFrequency.swift; path = HealthKitReporter/Classes/Model/UpdateFrequency.swift; sourceTree = "<group>"; };
 		A105BDEAE861A8B5B5D184A4969C3210 /* WorkoutEvent.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = WorkoutEvent.swift; path = HealthKitReporter/Classes/Model/Payload/WorkoutEvent.swift; sourceTree = "<group>"; };
@@ -318,7 +318,7 @@
 		B0193F85D9B5FFD9D60E7B738C5F9E3C /* SVProgressAnimatedView.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = SVProgressAnimatedView.m; path = SVProgressHUD/SVProgressAnimatedView.m; sourceTree = "<group>"; };
 		B1AEAC8E4A58FADA8827341C50D4AB11 /* Pods-AcuityEngine.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.module; path = "Pods-AcuityEngine.modulemap"; sourceTree = "<group>"; };
 		B1B35FCA0BD1D6EBBC18849010F6C440 /* Device.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Device.swift; path = HealthKitReporter/Classes/Model/Payload/Device.swift; sourceTree = "<group>"; };
-		B3D1036FA74DCA70DEFA22BC7FABCD60 /* Pods_AcuityEngine.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = Pods_AcuityEngine.framework; path = "Pods-AcuityEngine.framework"; sourceTree = BUILT_PRODUCTS_DIR; };
+		B3D1036FA74DCA70DEFA22BC7FABCD60 /* Pods_AcuityEngine.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_AcuityEngine.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		B5157F1C47DB28563AC1DFE59D5D5556 /* SVIndefiniteAnimatedView.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = SVIndefiniteAnimatedView.h; path = SVProgressHUD/SVIndefiniteAnimatedView.h; sourceTree = "<group>"; };
 		BBDACCF3A63149291C741FDAB0D18CCB /* Extensions+HKQuantitiySample.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = "Extensions+HKQuantitiySample.swift"; path = "HealthKitReporter/Classes/Decorator/Extensions+HKQuantitiySample.swift"; sourceTree = "<group>"; };
 		BBF0265A62CE04BD6A74A1002E89D6AA /* SwiftChart.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.module; path = SwiftChart.modulemap; sourceTree = "<group>"; };
@@ -329,7 +329,7 @@
 		C2A7D6B148CC86CD7A418ECA5C039D8C /* QuantityType.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = QuantityType.swift; path = HealthKitReporter/Classes/Model/Type/Sample/QuantityType.swift; sourceTree = "<group>"; };
 		C5813761A99F13F047A5CCEAB4EC7EC7 /* CategoryType.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = CategoryType.swift; path = HealthKitReporter/Classes/Model/Type/Sample/CategoryType.swift; sourceTree = "<group>"; };
 		C5913126DFB13DC5BF24BE6140A9F4C4 /* URLRequest+Alamofire.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = "URLRequest+Alamofire.swift"; path = "Source/URLRequest+Alamofire.swift"; sourceTree = "<group>"; };
-		C7A90F89E2732CA4176620ACFA4C47CD /* SOPullUpView.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = SOPullUpView.framework; path = SOPullUpView.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		C7A90F89E2732CA4176620ACFA4C47CD /* SOPullUpView.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = SOPullUpView.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		CB6E5E64BA35F2247D4F96F6A84DACD8 /* Pods-AcuityEngine-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Pods-AcuityEngine-umbrella.h"; sourceTree = "<group>"; };
 		D0BF1D4BD86980E7B6EB657F2BBF7925 /* SOPullUpView.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.module; path = SOPullUpView.modulemap; sourceTree = "<group>"; };
 		D2887E3412AD6B8189424871A2CEA778 /* SOPullUpViewDataSource.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = SOPullUpViewDataSource.swift; path = SOPullUpView/Classes/Protocols/SOPullUpViewDataSource.swift; sourceTree = "<group>"; };
@@ -342,7 +342,7 @@
 		DF3CEC3AEA68BB70283B2C50E1E9BDCF /* DocumentType.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = DocumentType.swift; path = HealthKitReporter/Classes/Model/Type/Sample/DocumentType.swift; sourceTree = "<group>"; };
 		E79A2DE8C6C32F7DEE44ACAB370E9B46 /* HealthKitReporter.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = HealthKitReporter.swift; path = HealthKitReporter/Classes/HealthKitReporter.swift; sourceTree = "<group>"; };
 		E8465176CF4A0B13CF7C871B4D9B4085 /* RetryPolicy.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = RetryPolicy.swift; path = Source/RetryPolicy.swift; sourceTree = "<group>"; };
-		E97D43C46A45EE515A4DA3AF94398441 /* SVProgressHUD.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = SVProgressHUD.framework; path = SVProgressHUD.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		E97D43C46A45EE515A4DA3AF94398441 /* SVProgressHUD.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = SVProgressHUD.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		EA35668FCF9FA509F7023E9FAE96316C /* URLConvertible+URLRequestConvertible.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = "URLConvertible+URLRequestConvertible.swift"; path = "Source/URLConvertible+URLRequestConvertible.swift"; sourceTree = "<group>"; };
 		EB2E4B179D741E1E8039139CC63FD238 /* SVRadialGradientLayer.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = SVRadialGradientLayer.h; path = SVProgressHUD/SVRadialGradientLayer.h; sourceTree = "<group>"; };
 		ECF0C1A35E13D71ED39BC3B800C1B3C3 /* SessionDelegate.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = SessionDelegate.swift; path = Source/SessionDelegate.swift; sourceTree = "<group>"; };
@@ -527,7 +527,6 @@
 				139C06183BA0E7C45BABFB9C4B869A09 /* WorkoutType.swift */,
 				AA86C5FC69535848951A91FB2793AA77 /* Support Files */,
 			);
-			name = HealthKitReporter;
 			path = HealthKitReporter;
 			sourceTree = "<group>";
 		};
@@ -583,7 +582,6 @@
 				ED73CD6B7483002AACA3BDEC8393EE95 /* ChartSeries.swift */,
 				42A41232E3317546F07C03CCFEC04114 /* Support Files */,
 			);
-			name = SwiftChart;
 			path = SwiftChart;
 			sourceTree = "<group>";
 		};
@@ -596,7 +594,6 @@
 				8F34A5976F4EB571E9C851924D89F501 /* SOPullUpViewDelegate.swift */,
 				56B3D48B3E2990D02D92CA73E06E30C3 /* Support Files */,
 			);
-			name = SOPullUpView;
 			path = SOPullUpView;
 			sourceTree = "<group>";
 		};
@@ -670,7 +667,6 @@
 				C13DD7784E9D2A79E99428B7C517D050 /* Validation.swift */,
 				B42F3996EB7CE9F6EE0A08C342511368 /* Support Files */,
 			);
-			name = Alamofire;
 			path = Alamofire;
 			sourceTree = "<group>";
 		};
@@ -723,7 +719,6 @@
 				C003EE73B767FA7C766E42255849F986 /* Resources */,
 				0C1C2EDF8EBD46CCD10F68F1B5CE6A25 /* Support Files */,
 			);
-			name = SVProgressHUD;
 			path = SVProgressHUD;
 			sourceTree = "<group>";
 		};
@@ -1239,7 +1234,7 @@
 				GCC_PREFIX_HEADER = "Target Support Files/SwiftChart/SwiftChart-prefix.pch";
 				INFOPLIST_FILE = "Target Support Files/SwiftChart/SwiftChart-Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 8.3;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -1273,7 +1268,7 @@
 				GCC_PREFIX_HEADER = "Target Support Files/SOPullUpView/SOPullUpView-prefix.pch";
 				INFOPLIST_FILE = "Target Support Files/SOPullUpView/SOPullUpView-Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -1342,7 +1337,7 @@
 				GCC_PREFIX_HEADER = "Target Support Files/SVProgressHUD/SVProgressHUD-prefix.pch";
 				INFOPLIST_FILE = "Target Support Files/SVProgressHUD/SVProgressHUD-Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -1541,7 +1536,7 @@
 				GCC_PREFIX_HEADER = "Target Support Files/SVProgressHUD/SVProgressHUD-prefix.pch";
 				INFOPLIST_FILE = "Target Support Files/SVProgressHUD/SVProgressHUD-Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -1646,7 +1641,7 @@
 				GCC_PREFIX_HEADER = "Target Support Files/SwiftChart/SwiftChart-prefix.pch";
 				INFOPLIST_FILE = "Target Support Files/SwiftChart/SwiftChart-Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 8.3;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -1718,7 +1713,7 @@
 				GCC_PREFIX_HEADER = "Target Support Files/SOPullUpView/SOPullUpView-prefix.pch";
 				INFOPLIST_FILE = "Target Support Files/SOPullUpView/SOPullUpView-Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
