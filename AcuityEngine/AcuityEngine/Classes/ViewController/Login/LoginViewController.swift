@@ -54,16 +54,15 @@ extension LoginViewController: ASAuthorizationControllerDelegate {
     func authorizationController(controller: ASAuthorizationController, didCompleteWithAuthorization authorization: ASAuthorization) {
         if let appleIDCredential = authorization.credential as? ASAuthorizationAppleIDCredential {
             // Create an account as per your requirement
-            let appleId = appleIDCredential.user
+            /*let appleId = appleIDCredential.user
             let appleUserFirstName = appleIDCredential.fullName?.givenName
             let appleUserLastName = appleIDCredential.fullName?.familyName
-            let appleUserEmail = appleIDCredential.email
+            let appleUserEmail = appleIDCredential.email*/
             moveToHealhDataScreen()
             //Write your code
         } else if let passwordCredential = authorization.credential as? ASPasswordCredential {
-            let appleUsername = passwordCredential.user
-            let applePassword = passwordCredential.password
-            //Write your code
+            /*let appleUsername = passwordCredential.user
+            let applePassword = passwordCredential.password*/
             moveToHealhDataScreen()
         }
     }

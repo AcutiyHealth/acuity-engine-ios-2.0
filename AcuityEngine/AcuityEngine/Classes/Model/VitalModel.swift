@@ -12,70 +12,92 @@ class VitalModel
 {
     
     var name: VitalsName!
-    var healthObjectType: HKObjectType?
-    var bloodPressureHealthObjectType: [HKObjectType]?
+    var healthQuantityType: HKQuantityTypeIdentifier?
+    var healthCategoryType: HKCategoryTypeIdentifier?
+    
     init(name:VitalsName) {
         self.name = name
         getObjectType(name: self.name)
     }
     
     func getObjectType(name:VitalsName){
-    
+        
         switch name {
         case .heartRate: do {
-            healthObjectType = HKObjectType.quantityType(forIdentifier: .heartRate)!
+            healthQuantityType =  .heartRate
         }
         case .highHeartRate: do {
-            healthObjectType = HKObjectType.categoryType(forIdentifier: .highHeartRateEvent)!
+            healthCategoryType = .highHeartRateEvent
         }
         case .BloodPressure: do {
-            healthObjectType = HKObjectType.quantityType(forIdentifier: .bloodPressureSystolic)!
+            healthQuantityType = .bloodPressureSystolic
+        }
+        case .BloodPressureDiastolic: do {
+            healthQuantityType = .bloodPressureDiastolic
         }
         case .lowHeartRate: do {
-            healthObjectType = HKObjectType.categoryType(forIdentifier: .lowHeartRateEvent)!
+            healthCategoryType = .lowHeartRateEvent
         }
         case .vo2Max: do {
-            healthObjectType = HKObjectType.quantityType(forIdentifier: .vo2Max)!
+            healthQuantityType = .vo2Max
         }
         case .irregularRhymesNotification: do {
-            healthObjectType = HKObjectType.categoryType(forIdentifier: .irregularHeartRhythmEvent)!
+            healthCategoryType = .irregularHeartRhythmEvent
         }
-        case .peakflowRate: break
-           
-        case .FEV1: break
+        case .peakflowRate:
+            healthQuantityType = .peakExpiratoryFlowRate
             
-        case .InhalerUsage:break
             
-        case .Temperature:break
+        case .InhalerUsage:
+            healthQuantityType = .inhalerUsage
             
-        case .BMI:break
+        case .Temperature:
+            healthQuantityType = .bodyTemperature
             
-        case .bloodSuger:break
+        case .BMI:
+            healthQuantityType = .bodyMassIndex
             
-        case .weight:break
+        case .bloodSuger:
+            healthQuantityType = .bloodGlucose
             
-        case .BloodOxygenLevel:break
+        case .weight:
+            healthQuantityType = .bodyMass
+        case .OxygenSaturation:
+            healthQuantityType = .oxygenSaturation
+        case .respiratoryRate:
+            healthQuantityType = .respiratoryRate
+        case .stepLength:
+            if #available(iOS 14.0, *) {
+                healthQuantityType = .walkingStepLength
+            } else {
+                // Fallback on earlier versions
+                break
+            }
+        case .headPhoneAudioLevel:
+            healthQuantityType = .headphoneAudioExposure
             
         }
-       
     }
 }
 
 
-    enum VitalsName:String {
-        case heartRate = "Heart Rate"
-        case BloodPressure = "Blood Pressure"
-        case highHeartRate = "High Heart Rate"
-        case lowHeartRate = "Low Heart Rate"
-        case vo2Max = "VO2 Max"
-        case irregularRhymesNotification = "Irregular Rhymes Notification"
-        case peakflowRate = "Peak Flow  Rate(L/min) - male"
-        case FEV1 = "FEV1 (L)"
-        case InhalerUsage = "Inhaler usage (times/day)"
-        case Temperature = "Temperature"
-        case BMI = "Body Mass Index"
-        case bloodSuger = "Blood Sugar"
-        case weight = "Weight"
-        case BloodOxygenLevel = "Blood Oxygen Level"
-    }
+enum VitalsName:String {
+    case heartRate = "Heart Rate"
+    case BloodPressure = "Blood Pressure"
+    case BloodPressureDiastolic = "Blood Pressure Diastolic"
+    case highHeartRate = "High Heart Rate"
+    case lowHeartRate = "Low Heart Rate"
+    case vo2Max = "VO2 Max"
+    case irregularRhymesNotification = "Irregular Rhymes Notification"
+    case respiratoryRate = "Respiratory Rate (breaths/min)"
+    case peakflowRate = "Peak Flow  Rate(L/min) - male"
+    case InhalerUsage = "Inhaler usage (times/day)"
+    case Temperature = "Temperature"
+    case BMI = "Body Mass Index"
+    case bloodSuger = "Blood Sugar"
+    case weight = "Weight"
+    case OxygenSaturation = "Oxygen saturation"
+    case stepLength = "Step Length"
+    case headPhoneAudioLevel = "Headphone Audio Levels"
+}
 

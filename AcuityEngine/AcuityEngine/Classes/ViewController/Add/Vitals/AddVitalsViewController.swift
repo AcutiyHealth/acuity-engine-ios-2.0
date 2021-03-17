@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import HealthKit
 
 class AddVitalsViewController: UIViewController {
     
@@ -43,11 +44,12 @@ class AddVitalsViewController: UIViewController {
     //Get from SymptomsVC for selected symptoms....
     var vitalModel:VitalModel?{
         didSet{
-           
+            
             loadVitalsData()
             
         }
     }
+    let appName = Bundle.main.infoDictionary?["CFBundleDisplayName"] as? String ?? "AcuityEngine"
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -61,7 +63,7 @@ class AddVitalsViewController: UIViewController {
         setFontForLabel()
         
         if !UIDevice.current.hasNotch{
-            btnHeight .constant = 50
+            btnHeight.constant = 50
         }
         // Do any additional setup after loading the view.
     }
@@ -72,11 +74,11 @@ class AddVitalsViewController: UIViewController {
             viewEnd.isHidden = true
             
         }
-        else if vitalModel?.name == VitalsName.heartRate || vitalModel?.name == VitalsName.InhalerUsage || vitalModel?.name == VitalsName.peakflowRate || vitalModel?.name == VitalsName.FEV1 || vitalModel?.name == VitalsName.BMI || vitalModel?.name == VitalsName.Temperature || vitalModel?.name == VitalsName.weight || vitalModel?.name == VitalsName.bloodSuger || vitalModel?.name == VitalsName.BloodOxygenLevel || vitalModel?.name == VitalsName.vo2Max{
+        else if vitalModel?.name == VitalsName.heartRate || vitalModel?.name == VitalsName.InhalerUsage || vitalModel?.name == VitalsName.peakflowRate ||  vitalModel?.name == VitalsName.BMI || vitalModel?.name == VitalsName.Temperature || vitalModel?.name == VitalsName.weight || vitalModel?.name == VitalsName.bloodSuger || vitalModel?.name == VitalsName.OxygenSaturation || vitalModel?.name == VitalsName.vo2Max || vitalModel?.name == VitalsName.respiratoryRate  || vitalModel?.name == VitalsName.headPhoneAudioLevel || vitalModel?.name == VitalsName.stepLength {
             vitalsView.isHidden = false
             bloddPressureView.isHidden = true
             viewEnd.isHidden = true
-         
+            
         }
         else if vitalModel?.name == VitalsName.irregularRhymesNotification || vitalModel?.name == VitalsName.highHeartRate || vitalModel?.name == VitalsName.lowHeartRate{
             vitalsView.isHidden = true
@@ -114,7 +116,7 @@ class AddVitalsViewController: UIViewController {
         btnSave.isEnabled = false
         //view will be change as per vital
         showViewAsPerVital()
-      
+        
     }
     
     func makeSaveBtnEnableOrDisable(){
@@ -122,8 +124,68 @@ class AddVitalsViewController: UIViewController {
     }
     
     @IBAction func btnSaveClick(sender:UIButton){
+        let objWriterManager = HKWriterManager()
         //Create Symptoms model to save data...
         //let _ = SymptomsModel(title: lblTitle.text ?? "", value: SymptomsTextValue(rawValue: symptomsArray[selectedSymptoms].rawValue)!, startTime: startDate?.timeIntervalSince1970 ?? 0, endTime: endDate?.timeIntervalSince1970 ?? 0)
+        let quantityValue = Double(self.txtFieldValue.text ?? "0")
+        let bpSystolic = Double(self.txtFieldBP1.text ?? "0") ?? 0
+        let bpDiastolic = Double(self.txtFieldBP2.text ?? "0") ?? 0
+        HKSetupAssistance.authorizeHealthKitForAddVitals { [weak self] (success, error) in
+            
+            if success{
+                
+                    if self?.vitalModel?.name == VitalsName.heartRate ||
+                    self?.vitalModel?.name == VitalsName.InhalerUsage ||
+                    self?.vitalModel?.name == VitalsName.peakflowRate ||
+                    self?.vitalModel?.name == VitalsName.BMI ||
+                    self?.vitalModel?.name == VitalsName.Temperature ||
+                    self?.vitalModel?.name == VitalsName.weight || self?.vitalModel?.name == VitalsName.bloodSuger ||
+                    self?.vitalModel?.name == VitalsName.OxygenSaturation ||
+                    self?.vitalModel?.name == VitalsName.vo2Max ||
+                    self?.vitalModel?.name == VitalsName.respiratoryRate || self?.vitalModel?.name == VitalsName.stepLength {
+                    
+                        objWriterManager.saveQuantityData(value: quantityValue ?? 0, quantityTypeIdentifier: self?.vitalModel?.healthQuantityType, date: self?.startDate ?? Date()) { (error) in
+                            guard let vitalModel = self?.vitalModel else { return  }
+                        if (error == nil){
+                            //show alert
+                            let message = "\(String(describing: vitalModel.name!.rawValue)) saved in health kit"
+                            self?.showAlertForDataSaved(message:message)
+                        
+                        }else{
+                            let message = "\(String(describing: vitalModel.name!.rawValue)) is not authorized. You can authorized it by making Turn on from Settings -> Health -> DATA -> \(self?.appName ?? "") -> Health Data"
+                            self?.showAlertForDataSaved(message:message)
+                        }
+                    }
+                    
+                }
+                else if  self?.vitalModel?.name == VitalsName.BloodPressure  {
+                    objWriterManager.storeBloodPressure(systolic: bpSystolic, diastolic: bpDiastolic, date: self?.startDate ?? Date()) { (error) in
+                        if (error == nil){
+                            //show alert
+                            self?.showAlertForDataSaved(message: "Blood Pressure saved in health kit")
+                        }
+                    }
+                }
+            }else{
+                print(error ?? "")
+            }
+        }
+    }
+    
+    func showAlertForDataSaved(message:String){
+        
+            //show alert
+        DispatchQueue.main.async {
+         
+            let okAction = UIAlertAction(title: "OK", style: .default, handler: nil)
+            
+            // Please enable camera access from Settings > AppName > Camera to take photos
+         
+            let vc = self.parent
+            vc?.presentAlert(title: "\(self.appName)",
+                message: message,
+                actions: okAction)
+        }
     }
     @IBAction func editingChanged(_ textField: UITextField) {
         if textField.text?.count == 1 {
@@ -149,7 +211,7 @@ class AddVitalsViewController: UIViewController {
             }
             btnSave.isEnabled = true
         }
-       
+        
     }
 }
 
