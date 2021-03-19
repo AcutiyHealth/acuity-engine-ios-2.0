@@ -22,7 +22,7 @@ class VitalsListViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
- 
+        
         //Load Vitals from File
         loadVitalsData()
         //
@@ -56,7 +56,7 @@ class VitalsListViewController: UIViewController {
          VitalModel(name: VitalsName.irregularRhymesNotification),
          VitalModel(name: VitalsName.headPhoneAudioLevel),
          */
-         
+        
     }
 }
 extension VitalsListViewController:UITableViewDelegate,UITableViewDataSource{
@@ -89,12 +89,12 @@ extension VitalsListViewController:UITableViewDelegate,UITableViewDataSource{
         addVitalsVC = UIStoryboard(name: Storyboard.add.rawValue, bundle: nil).instantiateViewController(withIdentifier: "AddVitalsViewController") as? AddVitalsViewController
         self.addChild(addVitalsVC!)
         addVitalsVC?.view.frame = CGRect(x: 0, y: 0, width: self.view.frame.size.width, height: self.view.frame.size.height)
-
+        
         self.view.addSubview((addVitalsVC?.view)!)
         addVitalsVC?.view.setNeedsDisplay()
         addVitalsVC?.didMove(toParent: self)
         addVitalsVC?.view.tag = 111
-
+        
         //Pass selected Symptoms to AddSymptomViewController
         let vitalData = vitalsArray[index]
         addVitalsVC?.vitalModel = vitalData
@@ -102,7 +102,7 @@ extension VitalsListViewController:UITableViewDelegate,UITableViewDataSource{
         //Hide main view of Detail Pullup class
         
         tblVitals.isHidden = true
-       
+        
         
         if let handler = handler{
             handler(true)

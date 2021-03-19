@@ -49,7 +49,7 @@ class AddVitalsViewController: UIViewController {
             
         }
     }
-    let appName = Bundle.main.infoDictionary?["CFBundleDisplayName"] as? String ?? "AcuityEngine"
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -124,9 +124,11 @@ class AddVitalsViewController: UIViewController {
     }
     
     @IBAction func btnSaveClick(sender:UIButton){
+        
+        //Create Object For HKWriterManager
         let objWriterManager = HKWriterManager()
-        //Create Symptoms model to save data...
-        //let _ = SymptomsModel(title: lblTitle.text ?? "", value: SymptomsTextValue(rawValue: symptomsArray[selectedSymptoms].rawValue)!, startTime: startDate?.timeIntervalSince1970 ?? 0, endTime: endDate?.timeIntervalSince1970 ?? 0)
+        
+        //Get value of textfield in variable...
         let quantityValue = Double(self.txtFieldValue.text ?? "0")
         let bpSystolic = Double(self.txtFieldBP1.text ?? "0") ?? 0
         let bpDiastolic = Double(self.txtFieldBP2.text ?? "0") ?? 0
@@ -134,7 +136,7 @@ class AddVitalsViewController: UIViewController {
             
             if success{
                 
-                    if self?.vitalModel?.name == VitalsName.heartRate ||
+                if self?.vitalModel?.name == VitalsName.heartRate ||
                     self?.vitalModel?.name == VitalsName.InhalerUsage ||
                     self?.vitalModel?.name == VitalsName.peakflowRate ||
                     self?.vitalModel?.name == VitalsName.BMI ||
@@ -144,15 +146,15 @@ class AddVitalsViewController: UIViewController {
                     self?.vitalModel?.name == VitalsName.vo2Max ||
                     self?.vitalModel?.name == VitalsName.respiratoryRate || self?.vitalModel?.name == VitalsName.stepLength {
                     
-                        objWriterManager.saveQuantityData(value: quantityValue ?? 0, quantityTypeIdentifier: self?.vitalModel?.healthQuantityType, date: self?.startDate ?? Date()) { (error) in
-                            guard let vitalModel = self?.vitalModel else { return  }
+                    objWriterManager.saveQuantityData(value: quantityValue ?? 0, quantityTypeIdentifier: self?.vitalModel?.healthQuantityType, date: self?.startDate ?? Date()) { (error) in
+                        guard let vitalModel = self?.vitalModel else { return  }
                         if (error == nil){
                             //show alert
                             let message = "\(String(describing: vitalModel.name!.rawValue)) saved in health kit"
                             self?.showAlertForDataSaved(message:message)
-                        
+                            
                         }else{
-                            let message = "\(String(describing: vitalModel.name!.rawValue)) is not authorized. You can authorized it by making Turn on from Settings -> Health -> DATA -> \(self?.appName ?? "") -> Health Data"
+                            let message = "\(String(describing: vitalModel.name!.rawValue)) is not authorized. You can authorized it by making Turn on from Settings -> Health -> DATA -> \(appName) -> Health Data"
                             self?.showAlertForDataSaved(message:message)
                         }
                     }
@@ -174,17 +176,17 @@ class AddVitalsViewController: UIViewController {
     
     func showAlertForDataSaved(message:String){
         
-            //show alert
+        //show alert
         DispatchQueue.main.async {
-         
+            
             let okAction = UIAlertAction(title: "OK", style: .default, handler: nil)
             
             // Please enable camera access from Settings > AppName > Camera to take photos
-         
+            
             let vc = self.parent
-            vc?.presentAlert(title: "\(self.appName)",
-                message: message,
-                actions: okAction)
+            vc?.presentAlert(title: "\(appName)",
+                             message: message,
+                             actions: okAction)
         }
     }
     @IBAction func editingChanged(_ textField: UITextField) {
