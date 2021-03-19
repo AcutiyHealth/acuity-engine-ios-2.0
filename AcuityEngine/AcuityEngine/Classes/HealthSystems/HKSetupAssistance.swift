@@ -141,7 +141,7 @@ class HKSetupAssistance {
         }
     }
     //MARK: check authorization for Add Vitals
-    class func authorizeHealthKitForAddVitals(completion: @escaping (Bool, Error?) -> Swift.Void) {
+    class func authorizeHealthKitForAddVitals(quantityTypeIdentifier:HKQuantityTypeIdentifier,completion: @escaping (Bool, Error?) -> Swift.Void) {
         
         //1. Check to see if HealthKit Is Available on this device
         guard HealthKit.HKHealthStore.isHealthDataAvailable() else {
@@ -151,54 +151,12 @@ class HKSetupAssistance {
         
         //2. Prepare the data types that will interact with HealthKit
         
-        guard  let heartRate  = HKObjectType.quantityType(forIdentifier: .heartRate),
-               //let highHeartRateEvent = HKObjectType.categoryType(forIdentifier: .highHeartRateEvent),
-               let bloodPressureSystolic = HKObjectType.quantityType(forIdentifier: .bloodPressureSystolic),
-               let bloodPressureDiastolic = HKObjectType.quantityType(forIdentifier: .bloodPressureDiastolic),
-               //let lowHeartRateEvent = HKObjectType.categoryType(forIdentifier: .lowHeartRateEvent),
-               let vo2Max = HKObjectType.quantityType(forIdentifier: .vo2Max),
-               //let irregularHeartRhythmEvent = HKObjectType.categoryType(forIdentifier: .irregularHeartRhythmEvent),
-               let peakExpiratoryFlowRate = HKObjectType.quantityType(forIdentifier: .peakExpiratoryFlowRate),
-               let inhalerUsage = HKObjectType.quantityType(forIdentifier: .inhalerUsage),
-               let bodyTemperature = HKObjectType.quantityType(forIdentifier: .bodyTemperature),
-               let bodyMassIndex = HKObjectType.quantityType(forIdentifier: .bodyMassIndex),
-               let bloodGlucose = HKObjectType.quantityType(forIdentifier: .bloodGlucose),
-               let bodyMass = HKObjectType.quantityType(forIdentifier: .bodyMass),
-               let oxygenSaturation = HKObjectType.quantityType(forIdentifier: .oxygenSaturation),
-               let respiratoryRate = HKObjectType.quantityType(forIdentifier: .respiratoryRate),
-               let headphoneAudioExposure = HKObjectType.quantityType(forIdentifier: .headphoneAudioExposure)
-        
-        else {
+        guard  let quantityToWrite  = HKObjectType.quantityType(forIdentifier:quantityTypeIdentifier)     else {
             
             completion(false, HealthkitSetupError.dataTypeNotAvailable)
             return
         }
-        
-        //let walkingStepLength  = HKObjectType.quantityType(forIdentifier: .walkingStepLength)
-        //3. Prepare a list of types you want HealthKit to read and write
-        var healthKitTypesToWrite: Set<HKSampleType> = [heartRate,
-                                                        bloodPressureSystolic,bloodPressureDiastolic,
-                                                        vo2Max,
-                                                        peakExpiratoryFlowRate,
-                                                        inhalerUsage,
-                                                        bodyTemperature,
-                                                        bodyMassIndex,
-                                                        bloodGlucose,
-                                                        bodyMass,oxygenSaturation
-                                                        ,
-                                                        respiratoryRate,
-                                                        headphoneAudioExposure
-        ]
-        //step length
-        if #available(iOS 14.0, *) {
-            guard  let stepLength  = HKObjectType.quantityType(forIdentifier: .walkingStepLength) else {
-                
-                completion(false, HealthkitSetupError.dataTypeNotAvailable)
-                return
-            }
-            healthKitTypesToWrite.insert(stepLength)
-        }
-        
+        let healthKitTypesToWrite: Set<HKSampleType> = [quantityToWrite]
         let healthKitTypesToRead: Set<HKObjectType> = []
         
         //4. Request Authorization
@@ -206,7 +164,9 @@ class HKSetupAssistance {
                                             read: healthKitTypesToRead) { (success, error) in
             completion(success, error)
         }
+        
     }
+    
     class func calculateNotificationIsInToday(elementTimeStamp:Double)->Bool {
         let fallsBetween = Date().timeIntervalSince1970 - elementTimeStamp
         if fallsBetween<=86400{

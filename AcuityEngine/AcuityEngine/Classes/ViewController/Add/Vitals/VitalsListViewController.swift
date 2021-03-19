@@ -22,7 +22,7 @@ class VitalsListViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
- 
+        
         //Load Vitals from File
         loadVitalsData()
         //
@@ -36,6 +36,9 @@ class VitalsListViewController: UIViewController {
     
     func loadVitalsData(){
         
+        //List all vitals from Doc sheet for 14 systems..
+        //VitalModel contain Name,quantityTypeIdentifier for each vital..
+        //quantityTypeIdentifier will use to authorize and save in Healthkit...
         vitalsArray = [VitalModel(name: VitalsName.BloodPressure),
                        VitalModel(name: VitalsName.heartRate),
                        VitalModel(name: VitalsName.vo2Max),
@@ -50,13 +53,7 @@ class VitalsListViewController: UIViewController {
         if #available(iOS 14.0, *) {
             vitalsArray.append(VitalModel(name: VitalsName.stepLength))
         }
-        /*
-         VitalModel(name: VitalsName.lowHeartRate),
-         VitalModel(name: VitalsName.highHeartRate),
-         VitalModel(name: VitalsName.irregularRhymesNotification),
-         VitalModel(name: VitalsName.headPhoneAudioLevel),
-         */
-         
+        
     }
 }
 extension VitalsListViewController:UITableViewDelegate,UITableViewDataSource{
@@ -89,12 +86,12 @@ extension VitalsListViewController:UITableViewDelegate,UITableViewDataSource{
         addVitalsVC = UIStoryboard(name: Storyboard.add.rawValue, bundle: nil).instantiateViewController(withIdentifier: "AddVitalsViewController") as? AddVitalsViewController
         self.addChild(addVitalsVC!)
         addVitalsVC?.view.frame = CGRect(x: 0, y: 0, width: self.view.frame.size.width, height: self.view.frame.size.height)
-
+        
         self.view.addSubview((addVitalsVC?.view)!)
         addVitalsVC?.view.setNeedsDisplay()
         addVitalsVC?.didMove(toParent: self)
         addVitalsVC?.view.tag = 111
-
+        
         //Pass selected Symptoms to AddSymptomViewController
         let vitalData = vitalsArray[index]
         addVitalsVC?.vitalModel = vitalData
@@ -102,7 +99,7 @@ extension VitalsListViewController:UITableViewDelegate,UITableViewDataSource{
         //Hide main view of Detail Pullup class
         
         tblVitals.isHidden = true
-       
+        
         
         if let handler = handler{
             handler(true)
