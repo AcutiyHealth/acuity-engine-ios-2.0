@@ -111,7 +111,7 @@ extension VitalsListViewController:UITableViewDelegate,UITableViewDataSource{
             handler(true)
         }
     }
-    func removeAddSymptomsViewController(){
+    func removeAddVitalsViewController(){
         if addVitalsVC != nil{
             tblVitals.isHidden = false
             addVitalsVC?.view.removeFromSuperview()

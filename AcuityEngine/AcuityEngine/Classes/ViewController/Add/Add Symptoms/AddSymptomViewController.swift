@@ -88,7 +88,10 @@ class AddSymptomViewController: UIViewController {
         }
         
         let timeInterval = endDate.timeIntervalSince(startDate)
-        let intervalDays = timeInterval > 0 ? timeInterval / 24 / 60 / 60 : 0
+        let days:Int = 24
+        let minutes:Int = 60
+        let seconds:Int = 60
+        let intervalDays = timeInterval > 0 ? Int(timeInterval) / days / minutes / seconds : 0
         guard let symptomsModel = self.symptomsModel else { return  }
         if symptomsModel.title == SymptomsName.chestPain ||
             symptomsModel.title == SymptomsName.bladder_Incontinence ||
@@ -134,11 +137,13 @@ class AddSymptomViewController: UIViewController {
                     if (error == nil){
                         //show alert
                         let message = "\(name) saved in health kit"
-                        self?.showAlertForDataSaved(message:message)
+                        let okAction = self?.getOKActionForSymptomsList()
+                        self?.showAlertForDataSaved(message:message,okAction: okAction!)
                         
                     }else{
                         let message = "\(name) is not authorized. You can authorized it by making Turn on from Settings -> Health -> DATA -> \(appName) -> Health Data"
-                        self?.showAlertForDataSaved(message:message)
+                        let okAction = UIAlertAction(title: "OK", style: .default, handler: nil)
+                        self?.showAlertForDataSaved(message:message,okAction: okAction)
                     }
                 }
             }else{
@@ -147,13 +152,22 @@ class AddSymptomViewController: UIViewController {
         }
         
     }
+    func getOKActionForSymptomsList()->UIAlertAction{
+        let okAction = UIAlertAction(title: "OK", style: .default){ (_) in
+            if let parentVC = self.parent {
+                if let parentVC = parentVC as? SymptomsListViewController {
+                    // parentVC is someViewController
+                    parentVC.removeAddSymptomsViewController()
+                }
+            }
+        }
+        return okAction
+    }
     
-    func showAlertForDataSaved(message:String){
+    func showAlertForDataSaved(message:String,okAction:UIAlertAction){
         
         //show alert
         DispatchQueue.main.async {
-            
-            let okAction = UIAlertAction(title: "OK", style: .default, handler: nil)
             
             let vc = self.parent
             vc?.presentAlert(title: "\(appName)",
