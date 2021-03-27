@@ -36,6 +36,9 @@ class VitalsListViewController: UIViewController {
     
     func loadVitalsData(){
         
+        //List all vitals from Doc sheet for 14 systems..
+        //VitalModel contain Name,quantityTypeIdentifier for each vital..
+        //quantityTypeIdentifier will use to authorize and save in Healthkit...
         vitalsArray = [VitalModel(name: VitalsName.BloodPressure),
                        VitalModel(name: VitalsName.heartRate),
                        VitalModel(name: VitalsName.vo2Max),

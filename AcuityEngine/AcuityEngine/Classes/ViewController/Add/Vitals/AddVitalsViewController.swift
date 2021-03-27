@@ -130,10 +130,19 @@ class AddVitalsViewController: UIViewController {
         
         //Get value of textfield in variable...
         let quantityValue = Double(self.txtFieldValue.text ?? "0")
+        //Textfiled for blood presure..
         let bpSystolic = Double(self.txtFieldBP1.text ?? "0") ?? 0
         let bpDiastolic = Double(self.txtFieldBP2.text ?? "0") ?? 0
-        HKSetupAssistance.authorizeHealthKitForAddVitals { [weak self] (success, error) in
+        
+        //Get quantityTypeIdentifier for all vital to store and authorize
+        guard let healthQuantityType = self.vitalModel?.healthQuantityType else {return}
+        guard let vitalModel = self.vitalModel else { return  }
+        
+        //Authorzie all vital by it's quantityTypeIdentifier
+        HKSetupAssistance.authorizeHealthKitForAddVitals(quantityTypeIdentifier: healthQuantityType, completion: { [weak self] (success, error) in
             
+            //Authorize successful, then save it in Healthkit...
+            //If they didn't authorize show alrert to authorize it from settings..
             if success{
                 
                 if self?.vitalModel?.name == VitalsName.heartRate ||
@@ -147,7 +156,7 @@ class AddVitalsViewController: UIViewController {
                     self?.vitalModel?.name == VitalsName.respiratoryRate || self?.vitalModel?.name == VitalsName.stepLength {
                     
                     objWriterManager.saveQuantityData(value: quantityValue ?? 0, quantityTypeIdentifier: self?.vitalModel?.healthQuantityType, date: self?.startDate ?? Date()) { (error) in
-                        guard let vitalModel = self?.vitalModel else { return  }
+                        
                         if (error == nil){
                             //show alert
                             let message = "\(String(describing: vitalModel.name!.rawValue)) saved in health kit"
@@ -160,18 +169,38 @@ class AddVitalsViewController: UIViewController {
                     }
                     
                 }
+                //If it's blood pressure....
+                //For Systolic current vital model has quantityTypeIdentifier set to Systolic.
+                //Blood pressure needs Systolic and Diastolic to save in healthkit
+                //Systolic was authorize in first step...Diastolic need to authorize...
+                
                 else if  self?.vitalModel?.name == VitalsName.BloodPressure  {
-                    objWriterManager.storeBloodPressure(systolic: bpSystolic, diastolic: bpDiastolic, date: self?.startDate ?? Date()) { (error) in
-                        if (error == nil){
-                            //show alert
-                            self?.showAlertForDataSaved(message: "Blood Pressure saved in health kit")
+                    
+                    //bloodPressureDiastolic will authorize...
+                    let healthQuantityType:HKQuantityTypeIdentifier = .bloodPressureDiastolic
+                    HKSetupAssistance.authorizeHealthKitForAddVitals(quantityTypeIdentifier: healthQuantityType, completion: { [weak self] (success, error) in
+                        
+                        //If success in authorization..save it in healthkit...
+                        //Both bpSystolic and bpDiastolic...
+                        if success{
+                            
+                            objWriterManager.storeBloodPressure(systolic: bpSystolic, diastolic: bpDiastolic, date: self?.startDate ?? Date()) { [self] (error) in
+                                if (error == nil){
+                                    //show alert
+                                    self?.showAlertForDataSaved(message: "Blood Pressure saved in health kit")
+                                }
+                                else{
+                                    let message = "\(String(describing: vitalModel.name!.rawValue)) is not authorized. You can authorized it by making Turn on from Settings -> Health -> DATA -> \(self?.appName ?? "") -> Health Data"
+                                    self?.showAlertForDataSaved(message:message)
+                                }
+                            }
                         }
-                    }
+                    })
                 }
             }else{
                 print(error ?? "")
             }
-        }
+        })
     }
     
     func showAlertForDataSaved(message:String){
