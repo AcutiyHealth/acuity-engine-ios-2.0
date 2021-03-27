@@ -53,6 +53,12 @@ class VitalsListViewController: UIViewController {
         if #available(iOS 14.0, *) {
             vitalsArray.append(VitalModel(name: VitalsName.stepLength))
         }
+        /*
+         VitalModel(name: VitalsName.lowHeartRate),
+         VitalModel(name: VitalsName.highHeartRate),
+         VitalModel(name: VitalsName.irregularRhymesNotification),
+         VitalModel(name: VitalsName.headPhoneAudioLevel),
+         */
         
     }
 }
@@ -105,7 +111,7 @@ extension VitalsListViewController:UITableViewDelegate,UITableViewDataSource{
             handler(true)
         }
     }
-    func removeAddSymptomsViewController(){
+    func removeAddVitalsViewController(){
         if addVitalsVC != nil{
             tblVitals.isHidden = false
             addVitalsVC?.view.removeFromSuperview()

@@ -49,7 +49,7 @@ class AddVitalsViewController: UIViewController {
             
         }
     }
-    let appName = Bundle.main.infoDictionary?["CFBundleDisplayName"] as? String ?? "AcuityEngine"
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -124,6 +124,8 @@ class AddVitalsViewController: UIViewController {
     }
     
     @IBAction func btnSaveClick(sender:UIButton){
+        
+        //Create Object For HKWriterManager
         let objWriterManager = HKWriterManager()
         
         //Textfield For all vitals except blood pressure
@@ -158,11 +160,13 @@ class AddVitalsViewController: UIViewController {
                         if (error == nil){
                             //show alert
                             let message = "\(String(describing: vitalModel.name!.rawValue)) saved in health kit"
-                            self?.showAlertForDataSaved(message:message)
+                            let okAction = self?.getOKActionForVitalList()
+                            self?.showAlertForDataSaved(message:message,okAction: okAction!)
                             
                         }else{
-                            let message = "\(String(describing: vitalModel.name!.rawValue)) is not authorized. You can authorized it by making Turn on from Settings -> Health -> DATA -> \(self?.appName ?? "") -> Health Data"
-                            self?.showAlertForDataSaved(message:message)
+                            let message = "\(String(describing: vitalModel.name!.rawValue)) is not authorized. You can authorized it by making Turn on from Settings -> Health -> DATA -> \(appName) -> Health Data"
+                            let okAction = UIAlertAction(title: "OK", style: .default, handler: nil)
+                            self?.showAlertForDataSaved(message:message,okAction: okAction)
                         }
                     }
                     
@@ -185,11 +189,13 @@ class AddVitalsViewController: UIViewController {
                             objWriterManager.storeBloodPressure(systolic: bpSystolic, diastolic: bpDiastolic, date: self?.startDate ?? Date()) { [self] (error) in
                                 if (error == nil){
                                     //show alert
-                                    self?.showAlertForDataSaved(message: "Blood Pressure saved in health kit")
+                                    let okAction = self?.getOKActionForVitalList()
+                                    self?.showAlertForDataSaved(message: "Blood Pressure saved in health kit",okAction: okAction!)
                                 }
                                 else{
-                                    let message = "\(String(describing: vitalModel.name!.rawValue)) is not authorized. You can authorized it by making Turn on from Settings -> Health -> DATA -> \(self?.appName ?? "") -> Health Data"
-                                    self?.showAlertForDataSaved(message:message)
+                                    let message = "\(String(describing: vitalModel.name!.rawValue)) is not authorized. You can authorized it by making Turn on from Settings -> Health -> DATA -> \(appName ?? "") -> Health Data"
+                                    let okAction = UIAlertAction(title: "OK", style: .default, handler: nil)
+                                    self?.showAlertForDataSaved(message:message,okAction: okAction)
                                 }
                             }
                         }
@@ -201,17 +207,30 @@ class AddVitalsViewController: UIViewController {
         })
     }
     
-    func showAlertForDataSaved(message:String){
+    func getOKActionForVitalList()->UIAlertAction{
+        let okAction = UIAlertAction(title: "OK", style: .default){ (_) in
+            if let parentVC = self.parent {
+                if let parentVC = parentVC as? VitalsListViewController {
+                    // parentVC is someViewController
+                    parentVC.removeAddVitalsViewController()
+                }
+            }
+        }
+        return okAction
+    }
+    
+    
+    func showAlertForDataSaved(message:String,okAction:UIAlertAction){
         
         //show alert
         DispatchQueue.main.async {
             
-            let okAction = UIAlertAction(title: "OK", style: .default, handler: nil)
+         
             
             // Please enable camera access from Settings > AppName > Camera to take photos
             
             let vc = self.parent
-            vc?.presentAlert(title: "\(self.appName)",
+            vc?.presentAlert(title: "\(appName)",
                              message: message,
                              actions: okAction)
         }

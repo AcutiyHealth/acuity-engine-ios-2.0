@@ -11,21 +11,21 @@ import UIKit
 typealias CompletionaddSymptomsViewOpen = (_ open: Bool?) -> Void
 
 class SymptomsListViewController: UIViewController {
-
+    
     @IBOutlet weak var tblSymptoms: UITableView!
     @IBOutlet weak var lblTitle: UILabel!
     @IBOutlet weak var symptomView: UIView!
-    var arrayOfStringsSymptom: [String] = []
+    var arrayOfStringsSymptom: [SymptomsName] = []
     var symptomArray : [Symptoms] = []
     var addSymptomsVC : AddSymptomViewController?
     var handler: CompletionaddSymptomsViewOpen?
-   
+    
     
     @IBOutlet weak var btnClose: UIButton!
     
     override func viewDidLoad() {
         super.viewDidLoad()
- 
+        
         //Set title
         setFontForLabel()
         //Load Symptoms from File
@@ -43,18 +43,15 @@ class SymptomsListViewController: UIViewController {
     
     func loadSymptomsData(){
         
-           do {
-               // Fetch data from Txt file and convert it in array to display in tableview
-               if let path = Bundle.main.path(forResource: "Symptoms", ofType: "txt"){
-                   let data = try String(contentsOfFile:path, encoding: String.Encoding.utf8)
-                arrayOfStringsSymptom = data.components(separatedBy: "\n")
-                print(arrayOfStringsSymptom)
-               }
-           } catch let err as NSError {
-               // do something with Error
-               print(err)
-           }
-     
+        do {
+            // Fetch data from Txt file and convert it in array to display in tableview
+            /* if let path = Bundle.main.path(forResource: "Symptoms", ofType: "txt"){
+             let data = try String(contentsOfFile:path, encoding: String.Encoding.utf8)
+             arrayOfStringsSymptom = data.components(separatedBy: "\n")*/
+            
+            arrayOfStringsSymptom = getSymptomsArray()
+            print(arrayOfStringsSymptom)
+        }
         
         for item in arrayOfStringsSymptom{
             let Symptom = Symptoms(title: item)
@@ -73,7 +70,7 @@ extension SymptomsListViewController:UITableViewDelegate,UITableViewDataSource{
             fatalError("AcuityDetailDisplayCell cell is not found")
         }
         let symptomsData = symptomArray[indexPath.row]
-        cell.displayData(title: symptomsData.title ?? "")
+        cell.displayData(title: symptomsData.title?.rawValue ?? "")
         cell.selectionStyle = .none
         
         return cell
@@ -93,12 +90,12 @@ extension SymptomsListViewController:UITableViewDelegate,UITableViewDataSource{
         addSymptomsVC = UIStoryboard(name: Storyboard.add.rawValue, bundle: nil).instantiateViewController(withIdentifier: "AddSymptomViewController") as? AddSymptomViewController
         self.addChild(addSymptomsVC!)
         addSymptomsVC?.view.frame = CGRect(x: 0, y: 0, width: self.view.frame.size.width, height: self.view.frame.size.height)
-
+        
         self.view.addSubview((addSymptomsVC?.view)!)
         addSymptomsVC?.view.setNeedsDisplay()
         addSymptomsVC?.didMove(toParent: self)
         addSymptomsVC?.view.tag = 111
-
+        
         //Pass selected Symptoms to AddSymptomViewController
         let symptomsData = symptomArray[index]
         addSymptomsVC?.symptomsModel = symptomsData
@@ -106,7 +103,7 @@ extension SymptomsListViewController:UITableViewDelegate,UITableViewDataSource{
         //Hide main view of Detail Pullup class
         
         symptomView.isHidden = true
-       
+        
         
         if let handler = handler{
             handler(true)

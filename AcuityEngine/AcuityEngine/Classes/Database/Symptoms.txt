@@ -1,34 +1,27 @@
 Abdominal Cramps
-Abdominal Pain
 Acne
-Altered Mental Status
 Bladder Incontinence
 Bloating
 Body And Muscle Ache
 Chest Pain
-Chills
-Congestion
-Constipation
-Cough
-Diarrhea
-Dizziness
+chills
+constipation
+cough
+diarrhea
+dizziness
 Dry Skin
-Dysuria
-Fainting
-Fatigue
-Fever
+fainting
+fatigue
+fever
 Hair Loss
-Headache
-Heartburn
+headache
+heartburn
 Hot Flashes
 Loss Of Smell
-Loss Of Taste
-Loss Of Taste
 Lower Back Pain
 Memory Lapse
 Mood Changes
-Myalgia
-Nausea
+nausea
 Rapid Or Fluttering Heartbeat
 Rash
 Runny Nose
@@ -36,6 +29,4 @@ Shortness Of Breath
 Skipped Heart Beat
 Sleep Changes
 Sore Throat
-Vomiting
-Weakness
-Wheeze
+vomiting

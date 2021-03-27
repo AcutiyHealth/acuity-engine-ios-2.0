@@ -74,9 +74,9 @@ class HKWriterManager {
         //step length
         if #available(iOS 14.0, *) {
             if quantityTypeIdentifier.rawValue == HKQuantityTypeIdentifier.walkingStepLength.rawValue
-           {
-               quantity = saveStepLength(value: value)
-           }
+            {
+                quantity = saveStepLength(value: value)
+            }
         }
         
         guard let quantityType = HKObjectType.quantityType(forIdentifier: quantityTypeIdentifier) else { return  }
@@ -181,6 +181,53 @@ class HKWriterManager {
                 completion(nil)
                 print("Successfully saved \(diastolicType.identifier) Sample")
             }
+        }
+    }
+}
+
+extension HKWriterManager{
+    func saveSymptomsData(categoryValue: SymptomsTextValue,caegoryTypeIdentifier:HKCategoryTypeIdentifier?,
+                          startdate: Date,endDate: Date,
+                          completion: @escaping (Error?) -> Swift.Void) {
+        
+        guard let caegoryTypeIdentifier = caegoryTypeIdentifier else {
+            fatalError("No identifier found")
+        }
+                
+        guard let categoryType = HKObjectType.categoryType(forIdentifier: caegoryTypeIdentifier) else { return  }
+        let value = getSymptomsValue(value: categoryValue)
+        let sample = HKCategorySample(type: categoryType, value: value, start: startdate, end: endDate)
+       
+        HKSetupAssistance.healthKitStore.save(sample) { (success, error) in
+            
+            if let error = error {
+                completion(error)
+                print("Error Saving Sample \(caegoryTypeIdentifier): \(error.localizedDescription)")
+            } else {
+                completion(nil)
+                print("Successfully saved \(caegoryTypeIdentifier) Sample")
+            }
+        }
+       
+    }
+    
+    private func getSymptomsValue(value:SymptomsTextValue) -> Int {
+        
+        
+        //=if(H9="Severe",B9*G9,if(H9="Moderate",C9*G9,if(H9="Mild",D9*G9,if(H9="Present",E9*G9,if(H9="Not Present",F9*G9)))))
+        
+        switch value {
+        case SymptomsTextValue.Present:
+            return 0
+        case SymptomsTextValue.Not_Present:
+            return 1
+        case SymptomsTextValue.Mild:
+            return 2
+        case SymptomsTextValue.Moderate:
+            return 3
+        case SymptomsTextValue.Severe:
+            return 4
+      
         }
     }
 }

@@ -176,4 +176,4 @@ struct Fonts {
 }
 
 let dayArray = ["Mon","Tue","Wed","Thu","Fri","Sat","Sun"]
-
+let appName = Bundle.main.infoDictionary?["CFBundleDisplayName"] as? String ?? "AcuityEngine"
