@@ -4,24 +4,24 @@ Bladder Incontinence
 Bloating
 Body And Muscle Ache
 Chest Pain
-chills
-constipation
-cough
-diarrhea
-dizziness
+Chills
+Constipation
+Cough
+Diarrhea
+Dizziness
 Dry Skin
-fainting
-fatigue
-fever
+Fainting
+Fatigue
+Fever
 Hair Loss
-headache
-heartburn
+Headache
+Heartburn
 Hot Flashes
 Loss Of Smell
 Lower Back Pain
 Memory Lapse
 Mood Changes
-nausea
+Nausea
 Rapid Or Fluttering Heartbeat
 Rash
 Runny Nose
@@ -29,4 +29,4 @@ Shortness Of Breath
 Skipped Heart Beat
 Sleep Changes
 Sore Throat
-vomiting
+Vomiting

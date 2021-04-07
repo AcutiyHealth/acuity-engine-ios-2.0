@@ -8,37 +8,76 @@
 import UIKit
 
 class CardioLab {
-    var potassiumLevelData:CardioLabData?
-    var bPeptideData:CardioLabData?
-    var troponinLevelData:CardioLabData?
-    var bloodOxygenLevelData:CardioLabData?
-    var magnesiumLevelData:CardioLabData?
-    var hemoglobinLevelData:CardioLabData?
+    var potassiumLevelData:[CardioLabData] = []
+    var bPeptideData:[CardioLabData]  = []
+    var sodiumData:[CardioLabData] = []
+    var chlorideData:[CardioLabData] = []
+    var albuminData:[CardioLabData] = []
+    var microalbuminData:[CardioLabData] = []
+    var hemoglobinData:[CardioLabData] = []
+    
+    var arrayDayWiseScoreTotal:[Double] = []
     
     func totalLabDataScore() -> Double {
-        let totalLabScore1 =  Double(potassiumLevelData?.score ?? 0) +  Double(bPeptideData?.score ?? 0)
-        let totalLabScore2 = Double(troponinLevelData?.score ?? 0) +  Double(bloodOxygenLevelData?.score ?? 0)
-        let totalLabScore3 =  Double(magnesiumLevelData?.score ?? 0) +  Double(hemoglobinLevelData?.score ?? 0)
+        let potassiumLevel = (Double(potassiumLevelData.average(\.score) ).isNaN ? 0 : Double(potassiumLevelData.average(\.score) ) )
+        let bPeptide = (Double(bPeptideData.average(\.score)) .isNaN ? 0 : Double(bPeptideData.average(\.score)))
+        let sodium = (Double(sodiumData.average(\.score)).isNaN ? 0 : Double(sodiumData.average(\.score)))
+        let chloride = (Double(chlorideData.average(\.score)).isNaN ? 0 :  Double(chlorideData.average(\.score)))
+        let albumin = (Double(albuminData.average(\.score)).isNaN ? 0 : Double(albuminData.average(\.score)))
+        let microalbumin = (Double(microalbuminData.average(\.score)).isNaN ? 0 : Double(microalbuminData.average(\.score)))
+        let hemoglobin = (Double(hemoglobinData.average(\.score)).isNaN ? 0 : Double(hemoglobinData.average(\.score)))
         
-        let totalLabScore = totalLabScore1 + totalLabScore2 + totalLabScore3
         
-        return totalLabScore;
+        let totalLabScore1 = potassiumLevel + bPeptide
+        let totalLabScore2 =  albumin + microalbumin
+        let totalLabScore3 = sodium + chloride + hemoglobin
+        
+        return Double(totalLabScore1  + totalLabScore3 + totalLabScore2);
     }
     
     func getMaxLabDataScore() -> Double {
-        let totalLabScore1 =  Double(potassiumLevelData?.maxScore ?? 0) +  Double(bPeptideData?.maxScore ?? 0)
-        let totalLabScore2 = Double(troponinLevelData?.maxScore ?? 0) +  Double(bloodOxygenLevelData?.maxScore ?? 0)
-        let totalLabScore3 =  Double(magnesiumLevelData?.maxScore ?? 0) +  Double(hemoglobinLevelData?.maxScore ?? 0)
+        let potassiumLevel = CardioLabRelativeImportance.potassiumLevel.getConvertedValueFromPercentage()
+        let bPeptide = CardioLabRelativeImportance.bPeptide.getConvertedValueFromPercentage()
+        let sodium = CardioLabRelativeImportance.sodium.getConvertedValueFromPercentage()
+        let chloride = CardioLabRelativeImportance.chloride.getConvertedValueFromPercentage()
+        let albumin = CardioLabRelativeImportance.albumin.getConvertedValueFromPercentage()
+        let microalbumin = CardioLabRelativeImportance.microalbumin.getConvertedValueFromPercentage()
+        let hemoglobin = CardioLabRelativeImportance.hemoglobin.getConvertedValueFromPercentage()
         
-        let totalLabScore = totalLabScore1 + totalLabScore2 + totalLabScore3
         
-        return totalLabScore;
+        let totalLabScore1 = potassiumLevel + bPeptide
+        let totalLabScore2 =  albumin + microalbumin
+        let totalLabScore3 = sodium + chloride + hemoglobin
+        
+        return Double(totalLabScore1  + totalLabScore3 + totalLabScore2);
     }
-   
+    
+    func totalLabScoreForDays(days:SegmentValueForGraph) -> [Double] {
+        
+        //print(totalAmount) // 4500.0
+        
+        arrayDayWiseScoreTotal = []
+        
+        var cardioLab:[Metrix] = []
+        
+        cardioLab.append(contentsOf: potassiumLevelData)
+        cardioLab.append(contentsOf: bPeptideData)
+        cardioLab.append(contentsOf: albuminData)
+        cardioLab.append(contentsOf: microalbuminData)
+        cardioLab.append(contentsOf: sodiumData)
+        cardioLab.append(contentsOf: chlorideData)
+        cardioLab.append(contentsOf: hemoglobinData)
+        
+        arrayDayWiseScoreTotal = daywiseFilterMetrixsData(days: days, array: cardioLab, metriXType: MetricsType.LabData)
+        cardioLab = []
+        
+        return arrayDayWiseScoreTotal
+    }
+    
     func dictionaryRepresentation()->[LabModel]{
-      
+        
         let objModel = AcuityDetailConditionViewModel()
         return objModel.getLabData()
-           
+        
     }
 }

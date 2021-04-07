@@ -27,6 +27,7 @@ enum SymptomsValue:Double {
     case Not_Present = 0
     
 }
+
 enum SymptomsTextValue:String {
     case Severe = "Severe"
     case Moderate = "Moderate"
@@ -58,11 +59,17 @@ struct ImageSet {
     static let wheel1 = UIImage(named:"wheel_option_1.png")
     static let wheel2 = UIImage(named:"wheel_option_2.png")
 }
+enum PullUpType {
+    case Detail
+    case Profile
+    case Add
+}
 
 enum SegmentValueForGraph:String {
     case SevenDays = "7 Days"
-    case ThirtyDays = "30 Days"
+    case ThirtyDays = "1 Month"
     case ThreeMonths = "3 Months"
+    case OneDay = "31 Day"
 }
 enum MetricsType:String {
     case Sympotms = "Symptoms"

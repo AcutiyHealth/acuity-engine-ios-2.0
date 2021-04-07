@@ -10,12 +10,6 @@ import Foundation
 import UIKit
 import SOPullUpView
 
-enum PullUpType {
-    case Detail
-    case Profie
-    case Add
-}
-
 
 class PullUpViewController: UIViewController {
     
@@ -92,7 +86,7 @@ extension PullUpViewController: SOPullUpViewDataSource {
                     return detailVC
                 }
             }
-        case .Profie:
+        case .Profile:
             do{
                
                 if  (self.pullUpController.pullUpVC != nil),self.pullUpController.pullUpVC.isKind(of: ProfileOptionSelectionViewController.self){

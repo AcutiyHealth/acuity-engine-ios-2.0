@@ -37,13 +37,6 @@ class DataDisplayCell: UITableViewCell {
             systemScore.text = String(format: "System Score: %.2f", (cardioData?.cardioSystemScore)!)
             weightedSystemScore.text = String(format: "Weighted System Score: %.2f", (cardioData?.cardioWeightedSystemScore)!)
         }
-        else if cardioData.isKind(of: RespiratoryData.self){
-            let respiratoryData = cardioData as? RespiratoryData
-            titleLabel.text = "Respiratory"
-            relativeImportance.text = "Relative Importance: \(String(describing: respiratoryData!.respiratoryRelativeImportance))"
-            systemScore.text = String(format: "System Score: %.2f", (respiratoryData?.respiratorySystemScore)!)
-            weightedSystemScore.text = String(format: "Weighted System Score: %.2f", (respiratoryData?.respiratoryWeightedSystemScore)!)
-        }
     }
     
     override func setSelected(_ selected: Bool, animated: Bool) {

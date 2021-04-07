@@ -68,13 +68,13 @@ class AddVitalsViewController: UIViewController {
         // Do any additional setup after loading the view.
     }
     func showViewAsPerVital(){
-        if vitalModel?.name == VitalsName.BloodPressure {
+        if vitalModel?.name == VitalsName.bloodPressure {
             vitalsView.isHidden = true
             bloddPressureView.isHidden = false
             viewEnd.isHidden = true
             
         }
-        else if vitalModel?.name == VitalsName.heartRate || vitalModel?.name == VitalsName.InhalerUsage || vitalModel?.name == VitalsName.peakflowRate ||  vitalModel?.name == VitalsName.BMI || vitalModel?.name == VitalsName.Temperature || vitalModel?.name == VitalsName.weight || vitalModel?.name == VitalsName.bloodSuger || vitalModel?.name == VitalsName.OxygenSaturation || vitalModel?.name == VitalsName.vo2Max || vitalModel?.name == VitalsName.respiratoryRate  || vitalModel?.name == VitalsName.headPhoneAudioLevel || vitalModel?.name == VitalsName.stepLength {
+        else if vitalModel?.name == VitalsName.heartRate || vitalModel?.name == VitalsName.InhalerUsage || vitalModel?.name == VitalsName.peakflowRate ||  vitalModel?.name == VitalsName.BMI || vitalModel?.name == VitalsName.Temperature || vitalModel?.name == VitalsName.weight || vitalModel?.name == VitalsName.bloodSuger || vitalModel?.name == VitalsName.oxygenSaturation || vitalModel?.name == VitalsName.vo2Max || vitalModel?.name == VitalsName.respiratoryRate  || vitalModel?.name == VitalsName.headPhoneAudioLevel || vitalModel?.name == VitalsName.stepLength {
             vitalsView.isHidden = false
             bloddPressureView.isHidden = true
             viewEnd.isHidden = true
@@ -151,7 +151,7 @@ class AddVitalsViewController: UIViewController {
                     self?.vitalModel?.name == VitalsName.BMI ||
                     self?.vitalModel?.name == VitalsName.Temperature ||
                     self?.vitalModel?.name == VitalsName.weight || self?.vitalModel?.name == VitalsName.bloodSuger ||
-                    self?.vitalModel?.name == VitalsName.OxygenSaturation ||
+                    self?.vitalModel?.name == VitalsName.oxygenSaturation ||
                     self?.vitalModel?.name == VitalsName.vo2Max ||
                     self?.vitalModel?.name == VitalsName.respiratoryRate || self?.vitalModel?.name == VitalsName.stepLength {
                     
@@ -176,7 +176,7 @@ class AddVitalsViewController: UIViewController {
                 //Blood pressure needs Systolic and Diastolic to save in healthkit
                 //Systolic was authorize in first step...Diastolic need to authorize...
                 
-                else if  self?.vitalModel?.name == VitalsName.BloodPressure  {
+                else if  self?.vitalModel?.name == VitalsName.bloodPressure  {
                     
                     //bloodPressureDiastolic will authorize...
                     let healthQuantityType:HKQuantityTypeIdentifier = .bloodPressureDiastolic
@@ -242,7 +242,7 @@ class AddVitalsViewController: UIViewController {
                 return
             }
         }
-        if vitalModel?.name == VitalsName.BloodPressure {
+        if vitalModel?.name == VitalsName.bloodPressure {
             guard
                 let _ = txtFieldBP1.text,(txtFieldBP2.text != nil),!txtFieldBP2.text!.isEmpty,!txtFieldBP1.text!.isEmpty
             else {

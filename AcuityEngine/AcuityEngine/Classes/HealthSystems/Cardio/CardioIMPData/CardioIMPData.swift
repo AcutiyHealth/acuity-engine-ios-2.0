@@ -9,34 +9,43 @@ import Foundation
 import HealthKitReporter
 // Available from 13.6
 
-class CardioVitals:CardioIMPCalculation {
-    override var value:Double{
-        didSet{
-            super.value = value
-        }
-    }
+struct CardioVitalRelativeImportance {
+    static let bloodPressureSystolic:Double = 70
+    static let bloodPressureDiastolic:Double = 70
+    static let heartRate:Double = 60
+    static let irregularRhymesNotification:Double = 40
+    static let highHeartRate:Double = 20
+    static let lowHeartRate:Double = 20
+    static let vo2Max:Double = 40
+    static let oxygenSaturation:Double = 30
+}
+
+class CardioVitals:IMPCalculation {
     
-     init(type:CardioVitalsType) {
+    
+    init(type:VitalsName) {
         super.init()
-        super.VitalsType = type
+        super.title = type
         switch type {
+        case .bloodPressureSystolic:
+            self.relativeValue = CardioVitalRelativeImportance.bloodPressureSystolic
+        case .bloodPressureDiastolic:
+            self.relativeValue = CardioVitalRelativeImportance.bloodPressureDiastolic
         case .heartRate:
-            self.relativeValue = 100
-        case .lowHeartRate:
-            self.relativeValue = 20
-        case .highHeartRate:
-            self.relativeValue = 30
-        case .systolicBP:
-            self.relativeValue = 70
-        case .diastolicBP:
-            self.relativeValue = 70
+            self.relativeValue = CardioVitalRelativeImportance.heartRate
         case .irregularRhymesNotification:
-            self.relativeValue = 80
+            self.relativeValue = CardioVitalRelativeImportance.irregularRhymesNotification
+        case .highHeartRate:
+            self.relativeValue = CardioVitalRelativeImportance.highHeartRate
+        case .lowHeartRate:
+            self.relativeValue = CardioVitalRelativeImportance.lowHeartRate
         case .vo2Max:
-            self.relativeValue = 20
-      
+            self.relativeValue = CardioVitalRelativeImportance.vo2Max
+        case .oxygenSaturation:
+            self.relativeValue = CardioVitalRelativeImportance.oxygenSaturation
+        default:break
         }
-       
+        
         
     }
     

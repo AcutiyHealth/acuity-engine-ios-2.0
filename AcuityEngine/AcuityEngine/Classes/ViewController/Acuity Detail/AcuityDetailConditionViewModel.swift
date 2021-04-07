@@ -44,43 +44,52 @@ class AcuityDetailConditionViewModel: NSObject
 }
     
     func getSymptomsData()->[SymptomsModel] {
-        var arrSymptoms:[SymptomsModel] = []
+        /*var arrSymptoms:[SymptomsModel] = []
           
-        let symptom1 =  SymptomsModel(title: SymptomsName.chestPain.rawValue, value: .Mild)
-        let symptom2 =  SymptomsModel(title: SymptomsName.skippedHeartBeat.rawValue, value: .Not_Present)
-        let symptom3 =  SymptomsModel(title: SymptomsName.dizziness.rawValue, value: .Not_Present)
-        let symptom4 =  SymptomsModel(title: SymptomsName.fatigue.rawValue, value: .Not_Present)
-        let symptom5 =  SymptomsModel(title: SymptomsName.rapidHeartbeat.rawValue, value: .Mild)
-        let symptom6 =  SymptomsModel(title: SymptomsName.fainting.rawValue, value: .Not_Present)
-        let symptom9 =  SymptomsModel(title: SymptomsName.nausea.rawValue, value: .Mild)
-        let symptom10 =  SymptomsModel(title: SymptomsName.vomiting.rawValue, value: .Not_Present)
-        let symptom11 =  SymptomsModel(title: SymptomsName.memoryLapse.rawValue, value: .Severe)
-        let symptom12 =  SymptomsModel(title: SymptomsName.shortnessOfBreath.rawValue, value: .Mild)
-        let symptom13 =  SymptomsModel(title: SymptomsName.headache.rawValue, value: .Moderate)
-        let symptom14 =  SymptomsModel(title: SymptomsName.heartburn.rawValue, value: .Present)
-        let symptom15 =  SymptomsModel(title: SymptomsName.sleepChanges.rawValue, value: .Not_Present)
+        let symptom1 =  SymptomsModel(title: "Chest Pain", value: .Mild)
+        let symptom2 =  SymptomsModel(title: "Skipped Heart Beat", value: .Not_Present)
+        let symptom3 =  SymptomsModel(title: "Dizziness", value: .Not_Present)
+        let symptom4 =  SymptomsModel(title: "Fatigue", value: .Not_Present)
+        let symptom5 =  SymptomsModel(title: "Rapid or Fluttering Heartbeat", value: .Mild)
+        let symptom6 =  SymptomsModel(title: "Fainting", value: .Not_Present)
+        let symptom9 =  SymptomsModel(title: "Nausea", value: .Mild)
+        let symptom10 =  SymptomsModel(title: "Vomiting", value: .Not_Present)
+        let symptom11 =  SymptomsModel(title: "Memory Lapse", value: .Severe)
+        let symptom12 =  SymptomsModel(title: "Shortness Of Breath", value: .Mild)
+        let symptom13 =  SymptomsModel(title: "Headache", value: .Moderate)
+        let symptom14 =  SymptomsModel(title: "Heartburn", value: .Present)
+        let symptom15 =  SymptomsModel(title: "Sleep Changes ", value: .Not_Present)
         arrSymptoms = [symptom1,symptom2,symptom3,symptom4,symptom5,symptom6,symptom9,symptom10,symptom11,symptom12,symptom13,symptom14,symptom15]
-       return arrSymptoms
+       return arrSymptoms*/
+        if MyWellScore.sharedManager.selectedSystem == SystemName.Cardiovascular{
+            return CardioManager.sharedManager.cardioData.cardioSymptoms.dictionaryRepresentation()
+        }
+        return []
 }
     
     func getVitals()->[VitalsModel] {
         var arrVitals:[VitalsModel] = []
           
-        let imp1 =  VitalsModel(title: VitalsName.BloodPressure.rawValue, value: "90")
+       /* let imp1 =  VitalsModel(title: "S Blood Pressure", value: "90")
         imp1.color = ChartColor.GREENCOLOR
-        let imp2 =  VitalsModel(title: VitalsName.BloodPressureDiastolic.rawValue, value: "84")
+        let imp2 =  VitalsModel(title: "D Blood Pressure", value: "84")
         imp2.color = ChartColor.GREENCOLOR
-        let imp3 =  VitalsModel(title: VitalsName.heartRate.rawValue, value: "80")
+        let imp3 =  VitalsModel(title: "Heart Rate", value: "80")
         imp3.color = ChartColor.GREENCOLOR
-        let imp4 =  VitalsModel(title: VitalsName.irregularRhymesNotification.rawValue, value: "No")
+        let imp4 =  VitalsModel(title: "Irregular Rhythm Notification", value: "No")
         imp4.color = ChartColor.GREENCOLOR
-        let imp5 =  VitalsModel(title: VitalsName.highHeartRate.rawValue, value: "Yes")
+        let imp5 =  VitalsModel(title: "High heart rate", value: "Yes")
         imp5.color = ChartColor.REDCOLOR
-        let imp6 =  VitalsModel(title: VitalsName.lowHeartRate.rawValue, value: "No")
+        let imp6 =  VitalsModel(title: "Low heart rate", value: "No")
         imp6.color = ChartColor.GREENCOLOR
-        let imp7 =  VitalsModel(title: VitalsName.vo2Max.rawValue, value: "35")
+        let imp7 =  VitalsModel(title: "VO2 Max", value: "35")
         imp7.color = ChartColor.YELLOWCOLOR
         arrVitals = [imp1,imp2,imp3,imp4,imp5,imp6,imp7]
-       return arrVitals
+       return arrVitals*/
+        
+        if MyWellScore.sharedManager.selectedSystem == SystemName.Cardiovascular{
+            return CardioManager.sharedManager.cardioData.cardioIMP.dictionaryRepresentation()
+        }
+        return []
 }
 }

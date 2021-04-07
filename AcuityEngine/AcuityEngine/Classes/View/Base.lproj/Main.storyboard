@@ -22,7 +22,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <view userInteractionEnabled="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="nGo-hK-v8U" userLabel="systemscore">
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="nGo-hK-v8U" userLabel="systemscore">
                                 <rect key="frame" x="0.0" y="73" width="414" height="136"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="MyWell" textAlignment="center" lineBreakMode="clip" baselineAdjustment="alignBaselines" minimumFontSize="18" translatesAutoresizingMaskIntoConstraints="NO" id="dt5-Yn-Qwx" customClass="LabelTitle" customModule="AcuityEngine" customModuleProvider="target">
@@ -58,6 +58,18 @@
                                             </userDefinedRuntimeAttribute>
                                         </userDefinedRuntimeAttributes>
                                     </label>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="KH0-bd-QUV">
+                                        <rect key="frame" x="374" y="48" width="40" height="40"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="40" id="dLq-rB-Vge"/>
+                                            <constraint firstAttribute="width" constant="40" id="wTD-R6-k7x"/>
+                                        </constraints>
+                                        <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <state key="normal" image="arrow.clockwise" catalog="system"/>
+                                        <connections>
+                                            <action selector="btnRefreshClickWithSender:" destination="dEo-za-797" eventType="touchUpInside" id="g0v-5M-VB7"/>
+                                        </connections>
+                                    </button>
                                 </subviews>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
@@ -68,19 +80,22 @@
                                     <constraint firstItem="ZSF-PR-nZa" firstAttribute="height" secondItem="nGo-hK-v8U" secondAttribute="height" multiplier="0.674825" id="Jt1-Iw-0aB"/>
                                     <constraint firstAttribute="bottom" secondItem="oZA-fc-ng0" secondAttribute="bottom" constant="14" id="KCN-gu-AtK"/>
                                     <constraint firstItem="dt5-Yn-Qwx" firstAttribute="height" secondItem="nGo-hK-v8U" secondAttribute="height" multiplier="0.330882" id="OD0-Rw-nOQ"/>
+                                    <constraint firstAttribute="trailing" secondItem="KH0-bd-QUV" secondAttribute="trailing" id="XNh-Yy-fF2"/>
                                     <constraint firstAttribute="bottom" secondItem="ZSF-PR-nZa" secondAttribute="bottom" constant="5" id="kbN-ui-0h2"/>
                                     <constraint firstItem="ZSF-PR-nZa" firstAttribute="width" secondItem="nGo-hK-v8U" secondAttribute="width" multiplier="0.483092" id="ll1-uO-Utx"/>
                                     <constraint firstItem="oZA-fc-ng0" firstAttribute="leading" secondItem="ZSF-PR-nZa" secondAttribute="trailing" id="m8P-2e-fJN"/>
                                     <constraint firstItem="oZA-fc-ng0" firstAttribute="width" secondItem="nGo-hK-v8U" secondAttribute="width" multiplier="0.135266" id="qRr-dg-wVB"/>
                                     <constraint firstItem="ZSF-PR-nZa" firstAttribute="top" secondItem="dt5-Yn-Qwx" secondAttribute="bottom" id="qjw-ZQ-WQH"/>
                                     <constraint firstItem="ZSF-PR-nZa" firstAttribute="centerX" secondItem="nGo-hK-v8U" secondAttribute="centerX" id="r9o-f7-jqF"/>
+                                    <constraint firstItem="KH0-bd-QUV" firstAttribute="centerY" secondItem="nGo-hK-v8U" secondAttribute="centerY" id="voG-oe-hL8"/>
                                 </constraints>
                             </view>
-                            <stackView hidden="YES" opaque="NO" contentMode="scaleToFill" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="xsb-dP-zG1" userLabel="stackview score">
-                                <rect key="frame" x="66" y="97" width="282" height="60"/>
+                            <stackView hidden="YES" opaque="NO" contentMode="scaleToFill" alignment="center" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="xsb-dP-zG1" userLabel="stackview score">
+                                <rect key="frame" x="64.5" y="97" width="285" height="60"/>
                                 <subviews>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="251" text="MyWell" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="LUG-EK-yTE" customClass="LabelTitle" customModule="AcuityEngine" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="0.0" width="198.5" height="60"/>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="251" text="MyWell  Score" textAlignment="natural" lineBreakMode="clip" baselineAdjustment="alignBaselines" minimumFontSize="9" translatesAutoresizingMaskIntoConstraints="NO" id="LUG-EK-yTE" customClass="LabelTitle" customModule="AcuityEngine" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="9.5" width="217.5" height="41"/>
+                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                         <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <nil key="highlightedColor"/>
@@ -90,19 +105,9 @@
                                             </userDefinedRuntimeAttribute>
                                         </userDefinedRuntimeAttributes>
                                     </label>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Score" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="am0-yL-91E" customClass="LabelTitle" customModule="AcuityEngine" customModuleProvider="target">
-                                        <rect key="frame" x="208.5" y="0.0" width="44.5" height="60"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                        <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                        <nil key="highlightedColor"/>
-                                        <userDefinedRuntimeAttributes>
-                                            <userDefinedRuntimeAttribute type="number" keyPath="sizeOfFont">
-                                                <real key="value" value="34"/>
-                                            </userDefinedRuntimeAttribute>
-                                        </userDefinedRuntimeAttributes>
-                                    </label>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="77" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mFL-b9-59D" customClass="LabelTitle" customModule="AcuityEngine" customModuleProvider="target">
-                                        <rect key="frame" x="263" y="0.0" width="19" height="60"/>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="77" textAlignment="natural" lineBreakMode="clip" baselineAdjustment="alignBaselines" minimumFontSize="9" translatesAutoresizingMaskIntoConstraints="NO" id="mFL-b9-59D" customClass="LabelTitle" customModule="AcuityEngine" customModuleProvider="target">
+                                        <rect key="frame" x="227.5" y="0.0" width="57.5" height="60"/>
+                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                         <color key="textColor" red="1" green="0.59607843137254901" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                         <nil key="highlightedColor"/>
@@ -115,15 +120,14 @@
                                 </subviews>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
-                                    <constraint firstAttribute="width" constant="282" id="phe-dg-NeA"/>
                                     <constraint firstAttribute="height" constant="60" id="rgj-ob-VJn"/>
                                 </constraints>
                             </stackView>
                             <stackView hidden="YES" opaque="NO" contentMode="scaleToFill" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="jAW-Sn-xR1" userLabel="Stackview add">
-                                <rect key="frame" x="143.5" y="97" width="127.5" height="60"/>
+                                <rect key="frame" x="114" y="97" width="186" height="60"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="MyWell" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="nJj-lr-2jm" customClass="LabelTitle" customModule="AcuityEngine" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="0.0" width="55.5" height="60"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="114" height="60"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                         <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <nil key="highlightedColor"/>
@@ -134,7 +138,7 @@
                                         </userDefinedRuntimeAttributes>
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Add" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="UkG-Wt-uMI">
-                                        <rect key="frame" x="65.5" y="0.0" width="62" height="60"/>
+                                        <rect key="frame" x="124" y="0.0" width="62" height="60"/>
                                         <fontDescription key="fontDescription" name="BrushScriptMT" family="Brush Script MT" pointSize="42"/>
                                         <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <nil key="highlightedColor"/>
@@ -147,10 +151,10 @@
                                 </constraints>
                             </stackView>
                             <stackView hidden="YES" opaque="NO" contentMode="scaleToFill" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="zqI-uL-Sd7" userLabel="Stackview profile">
-                                <rect key="frame" x="127.5" y="97" width="159.5" height="60"/>
+                                <rect key="frame" x="98" y="97" width="218" height="60"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="MyWell" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="M3Q-ea-BUb" customClass="LabelTitle" customModule="AcuityEngine" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="0.0" width="55.5" height="60"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="114" height="60"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                         <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <nil key="highlightedColor"/>
@@ -161,7 +165,7 @@
                                         </userDefinedRuntimeAttributes>
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Profile" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ZJ5-c1-AeB">
-                                        <rect key="frame" x="65.5" y="0.0" width="94" height="60"/>
+                                        <rect key="frame" x="124" y="0.0" width="94" height="60"/>
                                         <fontDescription key="fontDescription" name="BrushScriptMT" family="Brush Script MT" pointSize="42"/>
                                         <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <nil key="highlightedColor"/>
@@ -208,11 +212,13 @@
                             </mask>
                         </variation>
                     </view>
+                    <navigationItem key="navigationItem" id="Zge-Mt-QKG"/>
                     <connections>
                         <outlet property="headerView" destination="kTw-yv-8XS" id="Qft-o4-8W0"/>
                         <outlet property="lblMyWell" destination="dt5-Yn-Qwx" id="U4z-Yx-PbP"/>
                         <outlet property="lblScore" destination="ZSF-PR-nZa" id="bKg-QL-oeW"/>
                         <outlet property="lblScoreText" destination="oZA-fc-ng0" id="ifl-AE-Xh8"/>
+                        <outlet property="lblScoreTextWhenPopup" destination="LUG-EK-yTE" id="5IV-8v-1qS"/>
                         <outlet property="lblScoreWhenPopup" destination="mFL-b9-59D" id="n8Z-vr-Re4"/>
                         <outlet property="mainScoreView" destination="nGo-hK-v8U" id="LUE-nW-T5B"/>
                         <outlet property="stackAddView" destination="jAW-Sn-xR1" id="onu-lS-WxA"/>
@@ -344,7 +350,7 @@
                                     <color key="titleColor" red="0.99418604649999998" green="0.98837209299999995" blue="1" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                 </state>
                                 <connections>
-                                    <segue destination="LB7-Qu-N65" kind="show" id="09b-Mm-OxK"/>
+                                    <segue destination="dEo-za-797" kind="show" id="rLl-JV-TCE"/>
                                 </connections>
                             </button>
                         </subviews>
@@ -383,16 +389,13 @@
     </scenes>
     <designables>
         <designable name="LUG-EK-yTE">
-            <size key="intrinsicContentSize" width="114" height="41"/>
+            <size key="intrinsicContentSize" width="217.5" height="41"/>
         </designable>
         <designable name="M3Q-ea-BUb">
             <size key="intrinsicContentSize" width="114" height="41"/>
         </designable>
         <designable name="ZSF-PR-nZa">
             <size key="intrinsicContentSize" width="332.5" height="119.5"/>
-        </designable>
-        <designable name="am0-yL-91E">
-            <size key="intrinsicContentSize" width="90.5" height="41"/>
         </designable>
         <designable name="dt5-Yn-Qwx">
             <size key="intrinsicContentSize" width="114" height="41"/>
@@ -408,6 +411,7 @@
         </designable>
     </designables>
     <resources>
+        <image name="arrow.clockwise" catalog="system" width="115" height="128"/>
         <systemColor name="systemBlueColor">
             <color red="0.0" green="0.47843137254901963" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>

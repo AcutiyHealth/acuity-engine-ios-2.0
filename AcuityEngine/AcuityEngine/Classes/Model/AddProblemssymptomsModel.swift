@@ -221,6 +221,7 @@ func getSymptomsArray()->[SymptomsName]{
                            SymptomsName.fatigue,
                            SymptomsName.fever,
                            SymptomsName.headache,
+                           SymptomsName.heartburn,
                            SymptomsName.hotFlashes,
                            SymptomsName.lossOfSmell,
                            SymptomsName.lowerBackPain,

@@ -43,7 +43,7 @@ public class HealthKitWriter {
      - Parameter completion: block notifies about operation status
      */
     public func addCategory(
-        _ samples: [Category],
+        _ samples: [CategoryData],
         from: Device?,
         to workout: Workout,
         completion: @escaping StatusCompletionBlock
@@ -96,7 +96,7 @@ public class HealthKitWriter {
             if let quantity = sample as? Quantity {
                 healthStore.delete(try quantity.asOriginal(), withCompletion: completion)
             }
-            if let category = sample as? Category {
+            if let category = sample as? CategoryData {
                 healthStore.delete(try category.asOriginal(), withCompletion: completion)
             }
             if let workout = sample as? Workout {
@@ -140,7 +140,7 @@ public class HealthKitWriter {
             if let quantity = sample as? Quantity {
                 healthStore.save(try quantity.asOriginal(), withCompletion: completion)
             }
-            if let category = sample as? Category {
+            if let category = sample as? CategoryData {
                 healthStore.save(try category.asOriginal(), withCompletion: completion)
             }
             if let workout = sample as? Workout {
