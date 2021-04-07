@@ -29,10 +29,13 @@ class VitalModel
         case .highHeartRate: do {
             healthCategoryType = .highHeartRateEvent
         }
-        case .BloodPressure: do {
+        case .bloodPressure: do {
             healthQuantityType = .bloodPressureSystolic
         }
-        case .BloodPressureDiastolic: do {
+        case .bloodPressureSystolic: do {
+            healthQuantityType = .bloodPressureSystolic
+        }
+        case .bloodPressureDiastolic: do {
             healthQuantityType = .bloodPressureDiastolic
         }
         case .lowHeartRate: do {
@@ -62,7 +65,7 @@ class VitalModel
             
         case .weight:
             healthQuantityType = .bodyMass
-        case .OxygenSaturation:
+        case .oxygenSaturation:
             healthQuantityType = .oxygenSaturation
         case .respiratoryRate:
             healthQuantityType = .respiratoryRate
@@ -83,20 +86,21 @@ class VitalModel
 
 enum VitalsName:String {
     case heartRate = "Heart Rate"
-    case BloodPressure = "Blood Pressure"
-    case BloodPressureDiastolic = "Blood Pressure Diastolic"
+    case bloodPressure = "Blood Pressure"
+    case bloodPressureSystolic = "Blood Pressure Systolic"
+    case bloodPressureDiastolic = "Blood Pressure Diastolic"
     case highHeartRate = "High Heart Rate"
     case lowHeartRate = "Low Heart Rate"
     case vo2Max = "VO2 Max"
     case irregularRhymesNotification = "Irregular Rhymes Notification"
     case respiratoryRate = "Respiratory Rate (breaths/min)"
-    case peakflowRate = "Peak Flow  Rate(L/min) - male"
-    case InhalerUsage = "Inhaler usage (times/day)"
+    case peakflowRate = "Peak Flow Rate(L/min) - male"
+    case InhalerUsage = "Inhaler Usage (times/day)"
     case Temperature = "Temperature"
     case BMI = "Body Mass Index"
     case bloodSuger = "Blood Sugar"
     case weight = "Weight"
-    case OxygenSaturation = "Oxygen saturation"
+    case oxygenSaturation = "Oxygen Saturation"
     case stepLength = "Step Length"
     case headPhoneAudioLevel = "Headphone Audio Levels"
 }

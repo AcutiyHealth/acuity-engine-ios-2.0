@@ -21,7 +21,7 @@ class RespiratoryViewModel: RespiratoryViewModelProtocol {
     func fetchAndLoadRespiratoryData(){
         readAllespiratoryData()
         //Read IMP Data bloodpressure
-        RespiratoryManager.sharedManager.readIMPQuantityDataDone = {
+       /* RespiratoryManager.sharedManager.readIMPQuantityDataDone = {
             //self.reloadTable()
         }
         //Read IMP Data heartrate
@@ -39,11 +39,11 @@ class RespiratoryViewModel: RespiratoryViewModelProtocol {
         //Read Symptoms data
         RespiratoryManager.sharedManager.readSymptomsDataDone = {
             //self.reloadTable()
-        }
+        }*/
     }
     
     func readAllespiratoryData(){
-        RespiratoryManager.sharedManager.resetRespiratoryData()
+       /* RespiratoryManager.sharedManager.resetRespiratoryData()
        
         RespiratoryManager.sharedManager.readIMPCategoryData{ (success, error) in
             self.respiratoryDataLoaded?(success,error)
@@ -59,7 +59,7 @@ class RespiratoryViewModel: RespiratoryViewModelProtocol {
         }
         RespiratoryManager.sharedManager.readConditionData{ (success, error) in
             self.respiratoryDataLoaded?(success,error)
-        }
+        }*/
         
         //RespiratoryManager.sharedManager.setDefaultValueRespiratoryData()
     }

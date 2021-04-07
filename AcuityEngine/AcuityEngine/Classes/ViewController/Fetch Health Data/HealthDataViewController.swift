@@ -26,17 +26,17 @@ class HealthDataViewController: UIViewController {
         self.view.backgroundColor = ColorSchema.kMainThemeColor
         navigationItem.hidesBackButton = true
         //fetch data from healthkit and load in tableview
-        self.loadHealthData()
+        //self.loadHealthData()
     }
     
     @IBAction func btnRefresh(){
-        self.loadHealthData()
+        //self.loadHealthData()
     }
     
     func loadHealthData(){
         
         //Load cardio data....
-        viewModelCardio.fetchAndLoadCardioData()
+        viewModelCardio.fetchAndLoadCardioData(days: MyWellScore.sharedManager.daysToCalculateSystemScore)
         viewModelCardio.cardioDataLoaded = {(success,error) in
             if success && error == nil{
                 self.reloadTable()
@@ -121,7 +121,7 @@ class HealthDataViewController: UIViewController {
 extension HealthDataViewController: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 2
+        return 1
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -131,11 +131,15 @@ extension HealthDataViewController: UITableViewDelegate, UITableViewDataSource {
         }
         switch indexPath.row {
         case 0:
-            cell.displayData(cardioData: CardioManager.sharedManager.cardioData)
-        case 1:
-            cell.displayData(cardioData: RespiratoryManager.sharedManager.respiratoryData)
+            cell.titleLabel.text = "Cardio"
+            cell.relativeImportance.text = "Relative Importance: \(String(describing: 0))"
+            cell.systemScore.text = String(format: "System Score: %.2f", (0.0))
+            cell.weightedSystemScore.text = String(format: "Weighted System Score: %.2f", (0.0))
+//        case 1:
+//            cell.displayData(cardioData: RespiratoryManager.sharedManager.respiratoryData)
         default:
-            cell.displayData(cardioData: CardioManager.sharedManager.cardioData)
+            break
+           // cell.displayData(cardioData: CardioManager.sharedManager.cardioData)
         }
         cell.selectionStyle = .none
 

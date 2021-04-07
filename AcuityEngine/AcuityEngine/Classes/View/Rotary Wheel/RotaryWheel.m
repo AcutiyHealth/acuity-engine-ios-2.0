@@ -170,6 +170,7 @@ chevrons will be used for smooth rotating, using min, mid and max value.
     roundbackGroundView.center = CGPointMake(_whiteCircleContainerView.center.x, _whiteCircleContainerView.center.y);
     roundbackGroundView.backgroundColor = UIColor.clearColor;
     [roundbackGroundView setUserInteractionEnabled:NO];
+    
     [self addSubview:roundbackGroundView];
     
    UIImageView *whiteCircleImageView = [[UIImageView alloc] initWithFrame:CGRectMake(30,30, _whiteCircleContainerView.frame.size.width - 75, _whiteCircleContainerView.frame.size.height - 75)];
@@ -195,9 +196,19 @@ chevrons will be used for smooth rotating, using min, mid and max value.
         _whiteCircleContainerView.userInteractionEnabled = YES;
     }
     roundbackGroundView.backgroundColor = [RotaryWheel getThemeColor:[[arrBodySystems objectAtIndex:selectedSystem] objectForKey:@"score"]];
-    NSLog(@"roundbackGroundView.backgroundColor-->%@",roundbackGroundView.backgroundColor);
+    [self makeviewRounded:whiteCircleImageView];
+    [self makeviewRounded:roundbackGroundView];
+    [self makeviewRounded:_whiteCircleContainerView];
+    
     [self.delegate wheelDidChangeValue:selectedSystem];
 }
+#pragma mark - Make Rounded view
+-(void)makeviewRounded:(UIView* )view{
+    view.layer.cornerRadius = view.frame.size.width/2;
+    view.clipsToBounds = true;
+}
+
+#pragma mark -
 + (UIColor *)getThemeColor:(NSString *)index {
     int indexValue = [index intValue];
     if (indexValue > 0 && indexValue <= 75) {
@@ -316,7 +327,7 @@ chevrons will be used for smooth rotating, using min, mid and max value.
             mid -= fanWidth;
         }
         
-        NSLog(@"Chevron : %@",[chevron description]);
+        //NSLog(@"Chevron : %@",[chevron description]);
         
         [chevrons addObject:chevron];
     }
@@ -393,10 +404,18 @@ This method will return color string based on index value.
     if(needToRotateChevron){
         double requiredRotationAngle = (numberOfSections-(selectedIndex-previousIndex))*(2*M_PI/numberOfSections);
         container.transform = CGAffineTransformRotate(container.transform, requiredRotationAngle);
+        currentValue = selectedIndex;
+        roundbackGroundView.backgroundColor = [RotaryWheel getThemeColor:[[arrBodySystems objectAtIndex:selectedSystem] objectForKey:@"score"]];
+        [self.delegate wheelDidChangeValue:selectedIndex];
     }
     else{
         double requiredRotationAngle = (selectedIndex-previousIndex)*(2*M_PI/numberOfSections);
         _whiteCircleContainerView.transform = CGAffineTransformRotate(_whiteCircleContainerView.transform,requiredRotationAngle);
+        currentValue = selectedIndex+currentValue;
+        if(currentValue > numberOfSections-1)
+            currentValue = currentValue-numberOfSections;
+        roundbackGroundView.backgroundColor = [RotaryWheel getThemeColor:[[arrBodySystems objectAtIndex:selectedSystem] objectForKey:@"score"]];
+        [self.delegate wheelDidChangeValue:currentValue];
     }
 }
 
@@ -622,17 +641,11 @@ currentValue is the value of selected system after rotation.
     UIView *touchedView = gestureRecognizer.view;
     if(_needToRotateChevron){
         [self transformWheel:_needToRotateChevron andselectedIndex:(int)touchedView.tag andPreviousIndex:currentValue];
-        currentValue = (int)touchedView.tag;
-        roundbackGroundView.backgroundColor = [RotaryWheel getThemeColor:[[arrBodySystems objectAtIndex:selectedSystem] objectForKey:@"score"]];
-        [self.delegate wheelDidChangeValue:(int)touchedView.tag];
+       
     }
     else{
         [self transformWheel:_needToRotateChevron andselectedIndex:(int)touchedView.tag andPreviousIndex:0];
-        currentValue = (int)touchedView.tag+currentValue;
-        if(currentValue > numberOfSections-1)
-            currentValue = currentValue-numberOfSections;
-        roundbackGroundView.backgroundColor = [RotaryWheel getThemeColor:[[arrBodySystems objectAtIndex:selectedSystem] objectForKey:@"score"]];
-        [self.delegate wheelDidChangeValue:currentValue];
+        
     }
 }
 

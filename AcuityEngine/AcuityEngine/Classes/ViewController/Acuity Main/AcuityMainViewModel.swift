@@ -30,7 +30,7 @@ class AcuityMainViewModel: NSObject {
         let dictCardiovascular =   AcuityDisplayModel()
         dictCardiovascular.id = "0"
         dictCardiovascular.name = SystemName.Cardiovascular
-        dictCardiovascular.score = String(format: "%.2f", (CardioManager.sharedManager.cardioData.cardioWeightedSystemScore))
+        dictCardiovascular.score = String(format: "%.2f", (CardioManager.sharedManager.cardioData.cardioSystemScore))
         //dictCardiovascular.index = "89"
         dictCardiovascular.image = AcuityImages.kCardiovascular
         dictCardiovascular.metricCardio = metricCardio
@@ -38,7 +38,7 @@ class AcuityMainViewModel: NSObject {
         let dictRespiratory =   AcuityDisplayModel()
         dictRespiratory.id = "15"
         dictRespiratory.name = SystemName.Respiratory
-        dictRespiratory.score = String(format: "%.2f", (RespiratoryManager.sharedManager.respiratoryData.respiratoryWeightedSystemScore))
+        dictRespiratory.score = String(format: "%.2f", 88)
         //dictRespiratory.index = "23"
         dictRespiratory.image = AcuityImages.kRespiratory
         dictRespiratory.metricCardio = metricCardio
@@ -134,9 +134,8 @@ class AcuityMainViewModel: NSObject {
         dictHeent.image = AcuityImages.kHeent
         dictHeent.metricCardio = metricCardio
         
-        
-        
         arrBodySystems.append(dictCardiovascular.dictionaryRepresentation())
+        arrBodySystems.append(dictRespiratory.dictionaryRepresentation())
         arrBodySystems.append(dictGastrointestinal.dictionaryRepresentation())
         arrBodySystems.append(dictGenitourinary.dictionaryRepresentation())
         arrBodySystems.append(dictEndocrine.dictionaryRepresentation())
@@ -150,7 +149,7 @@ class AcuityMainViewModel: NSObject {
         
         arrBodySystems.append(dictIntegumentary.dictionaryRepresentation())
         arrBodySystems.append(dictMusculatory.dictionaryRepresentation())
-        arrBodySystems.append(dictRespiratory.dictionaryRepresentation())
+        
         
         return arrBodySystems
     }

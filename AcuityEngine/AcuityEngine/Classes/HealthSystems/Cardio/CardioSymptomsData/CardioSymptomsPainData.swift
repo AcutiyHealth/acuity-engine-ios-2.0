@@ -9,54 +9,72 @@ import Foundation
 import HealthKitReporter
 // Available from 13.6
 
-class CardioSymptomsPainData:CardioSymptomCalculation {
-    override var value:Double{
-        didSet{
-            super.value = value
-        }
-    }
-    override var startTime:Double{
-        didSet{
-            super.startTime = startTime
-        }
-    }
-    override var endTime:Double{
-        didSet{
-            super.endTime = endTime
-        }
-    }
+
+struct CardioSymptomsRelativeImportance {
+    static let chestPain:Double = 50
+    static let skippedHeartBeat:Double = 40
+    static let dizziness:Double = 20
+    static let fatigue:Double = 40
+    static let rapidHeartbeat:Double = 40
+    static let fainting:Double = 40
+    static let nausea:Double = 40
+    static let vomiting:Double = 10
+    static let memoryLapse:Double = 5
+    static let shortnessOfBreath:Double = 40
+    static let headache:Double = 30
+    static let heartburn:Double = 10
+    static let sleepChanges:Double = 5
+}
+
+class CardioSymptomsPainData:SymptomCalculation {
+   
+    var title:String = ""
+
      init(type:CategoryType) {
         super.init()
         super.symptomsType = type
         switch type {
         case .chestTightnessOrPain:
-            self.relativeValue = 40
+            self.title = SymptomsName.chestPain.rawValue
+            self.relativeValue = CardioSymptomsRelativeImportance.chestPain
         case .skippedHeartbeat:
-            self.relativeValue = 40
+            self.title = SymptomsName.skippedHeartBeat.rawValue
+            self.relativeValue = CardioSymptomsRelativeImportance.skippedHeartBeat
         case .dizziness:
-            self.relativeValue = 40
+            self.title = SymptomsName.dizziness.rawValue
+            self.relativeValue = CardioSymptomsRelativeImportance.dizziness
         case .fatigue:
-            self.relativeValue = 40
+            self.title = SymptomsName.fatigue.rawValue
+            self.relativeValue = CardioSymptomsRelativeImportance.fatigue
         case .rapidPoundingOrFlutteringHeartbeat:
-            self.relativeValue = 40
+            self.title = SymptomsName.rapidHeartbeat.rawValue
+            self.relativeValue = CardioSymptomsRelativeImportance.rapidHeartbeat
         case .fainting:
-            self.relativeValue = 40
+            self.title = SymptomsName.fainting.rawValue
+            self.relativeValue = CardioSymptomsRelativeImportance.fainting
         case .nausea:
-            self.relativeValue = 30
+            self.title = SymptomsName.nausea.rawValue
+            self.relativeValue = CardioSymptomsRelativeImportance.nausea
         case .vomiting:
-            self.relativeValue = 10
+            self.title = SymptomsName.vomiting.rawValue
+            self.relativeValue = CardioSymptomsRelativeImportance.vomiting
         case .memoryLapse:
-            self.relativeValue = 60
+            self.title = SymptomsName.memoryLapse.rawValue
+            self.relativeValue = CardioSymptomsRelativeImportance.memoryLapse
         case .shortnessOfBreath:
-            self.relativeValue = 10
+            self.title = SymptomsName.shortnessOfBreath.rawValue
+            self.relativeValue = CardioSymptomsRelativeImportance.shortnessOfBreath
         case .headache:
-            self.relativeValue = 10
+            self.title = SymptomsName.headache.rawValue
+            self.relativeValue = CardioSymptomsRelativeImportance.headache
         case .heartburn:
-            self.relativeValue = 10
+            self.title = SymptomsName.heartburn.rawValue
+            self.relativeValue = CardioSymptomsRelativeImportance.heartburn
         case .sleepChanges:
-            self.relativeValue = 30
+            self.title = SymptomsName.sleepChanges.rawValue
+            self.relativeValue = CardioSymptomsRelativeImportance.sleepChanges
         default:
-            self.relativeValue = 40
+            break
         }
        
         

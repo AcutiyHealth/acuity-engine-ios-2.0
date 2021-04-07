@@ -12,12 +12,12 @@ class AcuityDetailValueViewController: UIViewController {
     
     // MARK: - Outlet
     
-
-    @IBOutlet weak var systemMetricsTable: UITableView!
-    @IBOutlet weak var titleLbl: UILabel!
-  
+    
+    @IBOutlet weak var tblSystemMetrics: UITableView!
+    @IBOutlet weak var lblTitle: UILabel!
+    @IBOutlet weak var lblNoDataAvailable: UILabel!
     @IBOutlet weak var mainView: UIView!
-  
+    
     //Condition data
     var arrConditions:[ConditionsModel] = []
     //Symptoms Data
@@ -46,23 +46,25 @@ class AcuityDetailValueViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setFontForLabel()
-      
+        
     }
     
     
     func setFontForLabel(){
-        titleLbl.font = Fonts.kAcuityDetailTitleFont
+        lblTitle.font = Fonts.kAcuityDetailTitleFont
+        lblNoDataAvailable.font = Fonts.kValueFont
+        
     }
     
-
+    
     //MARK: show system data in tableview
     func showSystemData(){
         guard let metrixItem = metrixItem else {
             return
         }
-        titleLbl.text = metrixItem.title
+        lblTitle.text = metrixItem.title
         
-       
+        
         switch metrixItem.metrixType {
         case .Vitals:
             do{
@@ -89,9 +91,14 @@ class AcuityDetailValueViewController: UIViewController {
     }
     
     func reloadTableView(){
-        self.systemMetricsTable.reloadData()
+        if arrConditions.count > 0 ||  arrLabs.count > 0 ||  arrSymptoms.count > 0 || arrVitals.count > 0{
+            tblSystemMetrics.backgroundView = nil
+        }else{
+            tblSystemMetrics.backgroundView = lblNoDataAvailable
+        }
+        self.tblSystemMetrics.reloadData()
     }
-   
+    
 }
 
 // MARK: - UITableViewDelegate , UITableViewDataSource
@@ -134,50 +141,50 @@ extension AcuityDetailValueViewController: UITableViewDelegate, UITableViewDataS
             fatalError("AcuityDetailDisplayCell cell is not found")
         }
         switch metrixItem?.metrixType {
-            case .Vitals:
-                do{
-                  
-                    let item = arrVitals[indexPath.row]
-                    cell.displayData(timeStamp: item.startTime, value: "\(String(describing: item.value ?? ""))", color: item.color)
-                    cell.selectionStyle = .none
-                }
-            case .Conditions:
-                do{
-                   
-                    let item = arrConditions[indexPath.row]
-                    cell.displayData(timeStamp: item.startTime, value: "\(String(describing: item.value))", color: item.color)
-                    cell.selectionStyle = .none
-                }
-            case .Sympotms:
-                do{
-                   
-                    let item = arrSymptoms[indexPath.row]
-                    cell.displayData(timeStamp: item.startTime, value: item.textValue?.rawValue ?? "", color: item.color)
-                    cell.selectionStyle = .none
-                }
-            case .LabData:
-                do{
-                   
-                    let item = arrLabs[indexPath.row]
-                    cell.displayData(timeStamp: item.startTime, value: "\(String(describing: item.value ?? ""))", color: item.color)
-                    cell.selectionStyle = .none
-                }
-           
-               
+        case .Vitals:
+            do{
+                
+                let item = arrVitals[indexPath.row]
+                cell.displayData(timeStamp: item.startTime, value: "\(String(describing: item.value ?? ""))", color: item.color)
+                cell.selectionStyle = .none
+            }
+        case .Conditions:
+            do{
+                
+                let item = arrConditions[indexPath.row]
+                cell.displayData(timeStamp: item.startTime, value: "\(String(describing: item.value))", color: item.color)
+                cell.selectionStyle = .none
+            }
+        case .Sympotms:
+            do{
+                
+                let item = arrSymptoms[indexPath.row]
+                cell.displayData(timeStamp: item.endTime, value: item.textValue?.rawValue ?? "", color: item.color)
+                cell.selectionStyle = .none
+            }
+        case .LabData:
+            do{
+                
+                let item = arrLabs[indexPath.row]
+                cell.displayData(timeStamp: item.startTime, value: "\(String(describing: item.value ?? ""))", color: item.color)
+                cell.selectionStyle = .none
+            }
+            
+            
         case .none:
             do{
                 
             }
         }
-           
+        
         cell.backgroundColor = UIColor.clear
         return cell
     }
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 40
     }
-   
-  
+    
+    
 }
 
 

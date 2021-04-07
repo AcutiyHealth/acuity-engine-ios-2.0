@@ -11,12 +11,12 @@ import HealthKit
 public struct Correlation: Identifiable, Sample {
     public struct Harmonized: Codable {
         public let quantitySamples: [Quantity]
-        public let categorySamples: [Category]
+        public let categorySamples: [CategoryData]
         public let metadata: [String: String]?
 
         public init(
             quantitySamples: [Quantity],
-            categorySamples: [Category],
+            categorySamples: [CategoryData],
             metadata: [String: String]?
         ) {
             self.quantitySamples = quantitySamples

@@ -39,7 +39,7 @@ class VitalsListViewController: UIViewController {
         //List all vitals from Doc sheet for 14 systems..
         //VitalModel contain Name,quantityTypeIdentifier for each vital..
         //quantityTypeIdentifier will use to authorize and save in Healthkit...
-        vitalsArray = [VitalModel(name: VitalsName.BloodPressure),
+        vitalsArray = [VitalModel(name: VitalsName.bloodPressure),
                        VitalModel(name: VitalsName.heartRate),
                        VitalModel(name: VitalsName.vo2Max),
                        VitalModel(name: VitalsName.peakflowRate),
@@ -48,7 +48,7 @@ class VitalsListViewController: UIViewController {
                        VitalModel(name: VitalsName.BMI),
                        VitalModel(name: VitalsName.bloodSuger),
                        VitalModel(name: VitalsName.weight),
-                       VitalModel(name: VitalsName.OxygenSaturation),
+                       VitalModel(name: VitalsName.oxygenSaturation),
                        VitalModel(name: VitalsName.respiratoryRate)]
         if #available(iOS 14.0, *) {
             vitalsArray.append(VitalModel(name: VitalsName.stepLength))
