@@ -23,9 +23,15 @@ protocol VitalProtocol {
     func totalVitalsScore() -> Double
     func totalVitalsScoreForDays(days:SegmentValueForGraph) -> [Double]
     func getMaxVitalsScore() -> Double
-    func getVitalModel(item:CardioVitals)->VitalsModel
-    func saveVitalsInArray(item:IMPCalculation)->VitalsModel
     func getArrayDataForVitals(days:SegmentValueForGraph,title:String) -> [VitalsModel]
     func dictionaryRepresentation()->[VitalsModel]
 }
 
+
+protocol SymptomsProtocol {
+    func totalSymptomDataScore() -> Double
+    func totalSymptomsScoreForDays(days:SegmentValueForGraph) -> [Double]
+    func getMaxSymptomDataScore() -> Double
+    func getArrayDataForSymptoms(days:SegmentValueForGraph,title:String) -> [SymptomsModel]
+    func dictionaryRepresentation()->[SymptomsModel]
+}

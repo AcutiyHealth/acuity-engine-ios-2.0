@@ -88,7 +88,7 @@ class AcuityDetailConditionViewModel: NSObject
        return arrVitals*/
         
         if MyWellScore.sharedManager.selectedSystem == SystemName.Cardiovascular{
-            return CardioManager.sharedManager.cardioData.cardioIMP.dictionaryRepresentation()
+            return CardioManager.sharedManager.cardioData.cardioVital.dictionaryRepresentation()
         }
         return []
 }

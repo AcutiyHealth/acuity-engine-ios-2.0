@@ -44,18 +44,18 @@ class SymptomCalculation:Metrix {
         
     }
     
-    func getSymptomSleepChangeValue() -> CardioSymptomsSleepChangeValue {
+    func getSymptomSleepChangeValue() -> SymptomsSleepChangeValue {
         
         
         //=if(H21="Severe",B21*G21,if(H21="Moderate",C21*G21,if(H21="Mild",D21*G21,if(H21="Present",E21*G21,if(H21="Not Present",F21*G21)))))
         
         switch value {
         case 0:
-            return CardioSymptomsSleepChangeValue.Present
+            return SymptomsSleepChangeValue.Present
         case 1:
-            return CardioSymptomsSleepChangeValue.Not_Present
+            return SymptomsSleepChangeValue.Not_Present
         default:
-            return CardioSymptomsSleepChangeValue.Not_Present
+            return SymptomsSleepChangeValue.Not_Present
         }
         
     }

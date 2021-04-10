@@ -35,6 +35,7 @@ class LabCalculation:Metrix {
                 self.calculatedValue = getWBCValue().rawValue
             case .neutrophil:
                 self.calculatedValue = getNeutrophilValue().rawValue
+            default:break
             }
         }
     }//H9 // -1 is default value, so we can compare with 0

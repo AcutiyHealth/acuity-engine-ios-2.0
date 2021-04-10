@@ -9,10 +9,7 @@ import Foundation
 import HealthKitReporter
 import HealthKit
 
-enum CardioSymptomsSleepChangeValue:Double {
-    case Present = 1
-    case Not_Present = 0
-}
+
 
 enum CardioLabsType:String {
     case bloodOxygenLevel = "Blood oxygen level"

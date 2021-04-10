@@ -36,21 +36,21 @@ class CardioManager: NSObject {
   
         if quantityType == QuantityType.bloodPressureSystolic {
             
-            let systolicBP = CardioVitals(type: VitalsName.bloodPressureSystolic)
+            let systolicBP = CardioVitalsData(type: VitalsName.bloodPressureSystolic)
             systolicBP.value = Double(element.harmonized.value)
             systolicBP.startTimeStamp = element.startTimestamp
-            self.cardioData.cardioIMP.systolicBloodPressureData.append(systolicBP)
+            self.cardioData.cardioVital.systolicBloodPressureData.append(systolicBP)
             
             
             print("---------\n bloodPressureSystolic \nValue \(systolicBP.value)\n Score \(systolicBP.score)\n Max Score\(systolicBP.maxScore ?? 0.0) \n---------")
         }
         else if quantityType == QuantityType.bloodPressureDiastolic {
             
-            let diastolicBP = CardioVitals(type: VitalsName.bloodPressureDiastolic)
+            let diastolicBP = CardioVitalsData(type: VitalsName.bloodPressureDiastolic)
             diastolicBP.value = Double(element.harmonized.value)
             diastolicBP.startTimeStamp = element.startTimestamp
             print("diastolicBP date",getDateMediumFormat(time: diastolicBP.startTimeStamp))
-            self.cardioData.cardioIMP.diastolicBloodPressureData.append(diastolicBP)
+            self.cardioData.cardioVital.diastolicBloodPressureData.append(diastolicBP)
             
             
             
@@ -59,10 +59,10 @@ class CardioManager: NSObject {
         }
         else if quantityType == QuantityType.vo2Max {
             
-            let vo2Max = CardioVitals(type: VitalsName.vo2Max)
+            let vo2Max = CardioVitalsData(type: VitalsName.vo2Max)
             vo2Max.value = Double(element.harmonized.value)
             vo2Max.startTimeStamp = element.startTimestamp
-            self.cardioData.cardioIMP.vO2MaxData.append(vo2Max)
+            self.cardioData.cardioVital.vO2MaxData.append(vo2Max)
             
             
             
@@ -72,19 +72,19 @@ class CardioManager: NSObject {
         }
         else if quantityType == QuantityType.heartRate {
             
-            let heartRate = CardioVitals(type: VitalsName.heartRate)
+            let heartRate = CardioVitalsData(type: VitalsName.heartRate)
             heartRate.value = Double(element.harmonized.value)
             heartRate.startTimeStamp = element.startTimestamp
-            self.cardioData.cardioIMP.heartRateData.append(heartRate)
+            self.cardioData.cardioVital.heartRateData.append(heartRate)
             
             //print("---------\n HeartRateData \nValue \(heartRate.value)\n Score \(heartRate.score)\n Max Score\(heartRate.maxScore ?? 0.0) \n---------")
         }
         else if quantityType == QuantityType.oxygenSaturation {
             
-            let oxygenSaturation = CardioVitals(type: VitalsName.oxygenSaturation)
+            let oxygenSaturation = CardioVitalsData(type: VitalsName.oxygenSaturation)
             oxygenSaturation.value = Double(element.harmonized.value)
             oxygenSaturation.startTimeStamp = element.startTimestamp
-            self.cardioData.cardioIMP.oxygenSaturationData.append(oxygenSaturation)
+            self.cardioData.cardioVital.oxygenSaturationData.append(oxygenSaturation)
             
             //print("---------\n HeartRateData \nValue \(heartRate.value)\n Score \(heartRate.score)\n Max Score\(heartRate.maxScore ?? 0.0) \n---------")
         }
@@ -98,29 +98,29 @@ class CardioManager: NSObject {
         
         if categoryType == CategoryType.highHeartRateEvent {
             
-            let highHeartRate = CardioVitals(type: VitalsName.highHeartRate)
+            let highHeartRate = CardioVitalsData(type: VitalsName.highHeartRate)
             highHeartRate.value = 1
             highHeartRate.startTimeStamp = startTimeStamp
             highHeartRate.endTimeStamp = endTimeStamp
-            self.cardioData.cardioIMP.highHeartRateData.append(highHeartRate)
+            self.cardioData.cardioVital.highHeartRateData.append(highHeartRate)
             
             
         } else  if categoryType == CategoryType.lowHeartRateEvent {
             
-            let lowHeartRate = CardioVitals(type: VitalsName.lowHeartRate)
+            let lowHeartRate = CardioVitalsData(type: VitalsName.lowHeartRate)
             lowHeartRate.value = 1
             lowHeartRate.startTimeStamp = startTimeStamp
             lowHeartRate.endTimeStamp = endTimeStamp
-            self.cardioData.cardioIMP.lowHeartRateData.append(lowHeartRate)
+            self.cardioData.cardioVital.lowHeartRateData.append(lowHeartRate)
             
             
         } else  if categoryType == CategoryType.irregularHeartRhythmEvent {
             
-            let irregularRhymesNotification = CardioVitals(type: VitalsName.irregularRhymesNotification)
+            let irregularRhymesNotification = CardioVitalsData(type: VitalsName.irregularRhymesNotification)
             irregularRhymesNotification.value = 1
             irregularRhymesNotification.startTimeStamp = startTimeStamp
             irregularRhymesNotification.endTimeStamp = endTimeStamp
-            self.cardioData.cardioIMP.irregularRhythmNotificationData.append(irregularRhymesNotification)
+            self.cardioData.cardioVital.irregularRhythmNotificationData.append(irregularRhymesNotification)
             
         }
         
