@@ -1,5 +1,5 @@
 //
-//  RespiratoryLab.swift
+//  CardioLab.swift
 //  HealthKitDemo
 //
 //  Created by Paresh Patel on 05/02/21.
@@ -8,31 +8,65 @@
 import UIKit
 
 class RespiratoryLab {
-    var bicarbonateData:RespiratoryLabData?
-    var PaO2Data:RespiratoryLabData?
-    var PaCO2Data:RespiratoryLabData?
-    var HCO3Data:RespiratoryLabData?
-    var O2SatData:RespiratoryLabData?
-    var bloodOxygenLevelData:RespiratoryLabData?
+    
+    var sodiumData:[CardioLabData] = []
+    var carbonDioxideData:[CardioLabData]  = []
+    var chlorideData:[CardioLabData] = []
+    var WBCData:[CardioLabData] = []
+    var neutrophilData:[CardioLabData] = []
+
+    var arrayDayWiseScoreTotal:[Double] = []
     
     func totalLabDataScore() -> Double {
-        let totalLabScore1 =  Double(bicarbonateData?.score ?? 0) +  Double(PaO2Data?.score ?? 0)
-        let totalLabScore2 = Double(PaCO2Data?.score ?? 0) +  Double(HCO3Data?.score ?? 0)
-        let totalLabScore3 =  Double(O2SatData?.score ?? 0) +  Double(bloodOxygenLevelData?.score ?? 0)
+        let carbonDioxide = (Double(carbonDioxideData.average(\.score) ).isNaN ? 0 : Double(carbonDioxideData.average(\.score) ) )
+        let WBC = (Double(WBCData.average(\.score)) .isNaN ? 0 : Double(WBCData.average(\.score)))
+        let sodium = (Double(sodiumData.average(\.score)).isNaN ? 0 : Double(sodiumData.average(\.score)))
+        let chloride = (Double(chlorideData.average(\.score)).isNaN ? 0 :  Double(chlorideData.average(\.score)))
+        let neutrophil = (Double(neutrophilData.average(\.score)).isNaN ? 0 : Double(neutrophilData.average(\.score)))
         
-        let totalLabScore = totalLabScore1 + totalLabScore2 + totalLabScore3
+        let totalLabScore1 = carbonDioxide + WBC
+        let totalLabScore2 = sodium + chloride + neutrophil
         
-        return totalLabScore;
+        return Double(totalLabScore1  + totalLabScore2);
     }
     
     func getMaxLabDataScore() -> Double {
-        let totalLabScore1 =  Double(bicarbonateData?.maxScore ?? 0) +  Double(PaO2Data?.maxScore ?? 0)
-        let totalLabScore2 = Double(PaCO2Data?.maxScore ?? 0) +  Double(HCO3Data?.maxScore ?? 0)
-        let totalLabScore3 =  Double(O2SatData?.maxScore ?? 0) +  Double(bloodOxygenLevelData?.maxScore ?? 0)
+        let carbonDioxide = RespiratoryLabRelativeImportance.carbonDioxide.getConvertedValueFromPercentage()
+        let WBC =  RespiratoryLabRelativeImportance.WBC.getConvertedValueFromPercentage()
+        let sodium =  RespiratoryLabRelativeImportance.sodium.getConvertedValueFromPercentage()
+        let chloride =  RespiratoryLabRelativeImportance.chloride.getConvertedValueFromPercentage()
+        let neutrophil =  RespiratoryLabRelativeImportance.neutrophil.getConvertedValueFromPercentage()
         
-        let totalLabScore = totalLabScore1 + totalLabScore2 + totalLabScore3
+        let totalLabScore1 = carbonDioxide + WBC
+        let totalLabScore2 = sodium + chloride + neutrophil
         
-        return totalLabScore;
+        return Double(totalLabScore1  + totalLabScore2);
     }
     
+    func totalLabScoreForDays(days:SegmentValueForGraph) -> [Double] {
+        
+        //print(totalAmount) // 4500.0
+        
+        arrayDayWiseScoreTotal = []
+        
+        var cardioLab:[Metrix] = []
+        
+        cardioLab.append(contentsOf: carbonDioxideData)
+        cardioLab.append(contentsOf: WBCData)
+        cardioLab.append(contentsOf: neutrophilData)
+        cardioLab.append(contentsOf: sodiumData)
+        cardioLab.append(contentsOf: chlorideData)
+        
+        arrayDayWiseScoreTotal = daywiseFilterMetrixsData(days: days, array: cardioLab, metriXType: MetricsType.LabData)
+        cardioLab = []
+        
+        return arrayDayWiseScoreTotal
+    }
+    
+    func dictionaryRepresentation()->[LabModel]{
+        
+        let objModel = AcuityDetailConditionViewModel()
+        return objModel.getLabData()
+        
+    }
 }

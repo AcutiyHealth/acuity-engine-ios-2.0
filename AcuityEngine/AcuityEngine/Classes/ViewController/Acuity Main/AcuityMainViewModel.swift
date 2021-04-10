@@ -26,7 +26,6 @@ class AcuityMainViewModel: NSObject {
         var arrBodySystems:[[String:Any]] = []
         
         let metricCardio = CardioManager.sharedManager.cardioData.dictionaryRepresentation()
-        
         let dictCardiovascular =   AcuityDisplayModel()
         dictCardiovascular.id = "0"
         dictCardiovascular.name = SystemName.Cardiovascular
@@ -35,13 +34,14 @@ class AcuityMainViewModel: NSObject {
         dictCardiovascular.image = AcuityImages.kCardiovascular
         dictCardiovascular.metricCardio = metricCardio
         
+        let metricRespiratory = RespiratoryManager.sharedManager.respiratoryData.dictionaryRepresentation()
         let dictRespiratory =   AcuityDisplayModel()
         dictRespiratory.id = "15"
         dictRespiratory.name = SystemName.Respiratory
-        dictRespiratory.score = String(format: "%.2f", 88)
+        dictRespiratory.score = String(format: "%.2f", (RespiratoryManager.sharedManager.respiratoryData.respiratorySystemScore))
         //dictRespiratory.index = "23"
         dictRespiratory.image = AcuityImages.kRespiratory
-        dictRespiratory.metricCardio = metricCardio
+        dictRespiratory.metricCardio = metricRespiratory
         
         
         let dictGastrointestinal =   AcuityDisplayModel()

@@ -183,10 +183,22 @@ class AcuityDetailPullUpViewController: UIViewController {
         var scoreText = String(format: "0.00")
         var data = [(x:0, y:0.0)]
         
+        print("<--------------------showScoreAndChartData-------------------->")
         if MyWellScore.sharedManager.selectedSystem == SystemName.Cardiovascular{
             let systemScore = CardioManager.sharedManager.cardioData.totalSystemScoreWithDays(days: MyWellScore.sharedManager.daysToCalculateSystemScore)
             scoreText = String(format: "%.2f", systemScore)
             let arraySystemScore = CardioManager.sharedManager.cardioData.arrayDayWiseSystemScore
+            var i = 0;
+            for item in arraySystemScore{
+                data.append((x:i,y:item))
+                i = i + 1
+            }
+            
+        }
+        else if MyWellScore.sharedManager.selectedSystem == SystemName.Respiratory{
+            let systemScore = RespiratoryManager.sharedManager.respiratoryData.totalSystemScoreWithDays(days: MyWellScore.sharedManager.daysToCalculateSystemScore)
+            scoreText = String(format: "%.2f", systemScore)
+            let arraySystemScore = RespiratoryManager.sharedManager.respiratoryData.arrayDayWiseSystemScore
             var i = 0;
             for item in arraySystemScore{
                 data.append((x:i,y:item))
