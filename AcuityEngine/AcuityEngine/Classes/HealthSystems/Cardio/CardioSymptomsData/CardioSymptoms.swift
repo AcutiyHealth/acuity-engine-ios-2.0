@@ -7,7 +7,7 @@
 
 import UIKit
 
-class CardioSymptoms {
+class CardioSymptoms:SymptomsProtocol {
     var chestPainData:[CardioSymptomsPainData] = []
     var skippedHeartBeatData:[CardioSymptomsPainData] = []
     var dizzinessData:[CardioSymptomsPainData] = []

@@ -20,8 +20,8 @@ struct CardioConditionRelativeImportance {
 }
 
 class CardioConditionData:ConditionCalculation {
-   
-     init(type:CardioConditionType) {
+    
+    init(type:ConditionType) {
         super.init()
         
         switch type {
@@ -39,10 +39,12 @@ class CardioConditionData:ConditionCalculation {
             self.relativeValue = CardioConditionRelativeImportance.diabetes
         case .hyperlipidemia:
             self.relativeValue = CardioConditionRelativeImportance.hyperlipidemia
+        default:break
+            
         }
-       
+        
         
     }
-        
+    
 }
 

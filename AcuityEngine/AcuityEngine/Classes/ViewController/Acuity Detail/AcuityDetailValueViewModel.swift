@@ -67,7 +67,7 @@ class AcuityDetailValueViewModel: NSObject
         var arrVitals:[VitalsModel] = []
       
         if MyWellScore.sharedManager.selectedSystem == SystemName.Cardiovascular{
-            arrVitals = CardioManager.sharedManager.cardioData.cardioIMP.getArrayDataForVitals(days:MyWellScore.sharedManager.daysToCalculateSystemScore, title: title)
+            arrVitals = CardioManager.sharedManager.cardioData.cardioVital.getArrayDataForVitals(days:MyWellScore.sharedManager.daysToCalculateSystemScore, title: title)
         }
        
        return arrVitals

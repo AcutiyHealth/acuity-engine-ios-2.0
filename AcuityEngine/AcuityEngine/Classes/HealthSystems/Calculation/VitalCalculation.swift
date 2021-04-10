@@ -8,7 +8,7 @@
 import Foundation
 import HealthKitReporter
 
-class IMPCalculation:Metrix {
+class VitalCalculation:Metrix {
  
     var title: VitalsName = .heartRate // calculate based on symtomps type
     override var value:Double{
