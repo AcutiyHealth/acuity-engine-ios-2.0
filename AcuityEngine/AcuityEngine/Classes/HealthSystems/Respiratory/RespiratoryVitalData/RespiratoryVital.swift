@@ -1,5 +1,5 @@
 //
-//  RespiratoryVitals.swift
+//  RespiratoryVitalsData.swift
 //  HealthKitDemo
 //
 //  Created by Paresh Patel on 05/02/21.
@@ -10,15 +10,15 @@ import UIKit
 
 
 class RespiratoryVital:VitalProtocol {
-    var systolicBloodPressureData:[RespiratoryVitals] = []
-    var diastolicBloodPressureData:[RespiratoryVitals] = []
-    var respiratoryRateData:[RespiratoryVitals] = []
-    var oxygenSaturationData:[RespiratoryVitals] = []
-    var heartRateData:[RespiratoryVitals] = []
-    var irregularRhythmNotificationData:[RespiratoryVitals] = []
-    var peakFlowRateData:[RespiratoryVitals] = []
-    var vO2MaxData:[RespiratoryVitals] = []
-    var inhalerUsageData:[RespiratoryVitals] = []
+    var systolicBloodPressureData:[RespiratoryVitalsData] = []
+    var diastolicBloodPressureData:[RespiratoryVitalsData] = []
+    var respiratoryRateData:[RespiratoryVitalsData] = []
+    var oxygenSaturationData:[RespiratoryVitalsData] = []
+    var heartRateData:[RespiratoryVitalsData] = []
+    var irregularRhythmNotificationData:[RespiratoryVitalsData] = []
+    var peakFlowRateData:[RespiratoryVitalsData] = []
+    var vO2MaxData:[RespiratoryVitalsData] = []
+    var inhalerUsageData:[RespiratoryVitalsData] = []
     var totalScore:[Double] = []
     var arrayDayWiseScoreTotal:[Double] = []
     
@@ -124,7 +124,7 @@ class RespiratoryVital:VitalProtocol {
         
         return arrVital
     }
-    func getVitalModel(item:RespiratoryVitals)->VitalsModel{
+    func getVitalModel(item:RespiratoryVitalsData)->VitalsModel{
         let impData =  VitalsModel(title: item.title.rawValue, value: String(format: "%.2f", item.value))
         impData.color = item.getUIColorFromCalculatedValue()
         return impData

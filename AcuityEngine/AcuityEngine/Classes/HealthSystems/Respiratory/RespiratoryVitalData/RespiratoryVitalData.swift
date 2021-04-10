@@ -21,7 +21,7 @@ struct RespiratoryVitalRelativeImportance {
     static let inhalerUsage:Double = 20
 }
 
-class RespiratoryVitals:VitalCalculation {
+class RespiratoryVitalsData:VitalCalculation {
     
     
     init(type:VitalsName) {

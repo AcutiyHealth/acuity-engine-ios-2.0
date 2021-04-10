@@ -32,7 +32,7 @@ class RespiratoryManager: NSObject {
         
         if quantityType == QuantityType.bloodPressureSystolic {
             
-            let systolicBP = RespiratoryVitals(type: VitalsName.bloodPressureSystolic)
+            let systolicBP = RespiratoryVitalsData(type: VitalsName.bloodPressureSystolic)
             systolicBP.value = Double(element.harmonized.value)
             systolicBP.startTimeStamp = element.startTimestamp
             self.respiratoryData.respiratoryVital.systolicBloodPressureData.append(systolicBP)
@@ -41,7 +41,7 @@ class RespiratoryManager: NSObject {
         }
         else if quantityType == QuantityType.bloodPressureDiastolic {
             
-            let diastolicBP = RespiratoryVitals(type: VitalsName.bloodPressureDiastolic)
+            let diastolicBP = RespiratoryVitalsData(type: VitalsName.bloodPressureDiastolic)
             diastolicBP.value = Double(element.harmonized.value)
             diastolicBP.startTimeStamp = element.startTimestamp
             self.respiratoryData.respiratoryVital.diastolicBloodPressureData.append(diastolicBP)
@@ -49,7 +49,7 @@ class RespiratoryManager: NSObject {
         }
         else if quantityType == QuantityType.respiratoryRate {
             
-            let respiratoryRate = RespiratoryVitals(type: VitalsName.respiratoryRate)
+            let respiratoryRate = RespiratoryVitalsData(type: VitalsName.respiratoryRate)
             respiratoryRate.value = Double(element.harmonized.value)
             respiratoryRate.startTimeStamp = element.startTimestamp
             self.respiratoryData.respiratoryVital.respiratoryRateData.append(respiratoryRate)
@@ -57,7 +57,7 @@ class RespiratoryManager: NSObject {
         }
         else if quantityType == QuantityType.oxygenSaturation {
             
-            let oxygenSaturation = RespiratoryVitals(type: VitalsName.oxygenSaturation)
+            let oxygenSaturation = RespiratoryVitalsData(type: VitalsName.oxygenSaturation)
             oxygenSaturation.value = Double(element.harmonized.value)
             oxygenSaturation.startTimeStamp = element.startTimestamp
             self.respiratoryData.respiratoryVital.oxygenSaturationData.append(oxygenSaturation)
@@ -65,7 +65,7 @@ class RespiratoryManager: NSObject {
         }
         else if quantityType == QuantityType.heartRate {
             
-            let heartRate = RespiratoryVitals(type: VitalsName.heartRate)
+            let heartRate = RespiratoryVitalsData(type: VitalsName.heartRate)
             heartRate.value = Double(element.harmonized.value)
             heartRate.startTimeStamp = element.startTimestamp
             self.respiratoryData.respiratoryVital.heartRateData.append(heartRate)
@@ -73,7 +73,7 @@ class RespiratoryManager: NSObject {
         }
         else if quantityType == QuantityType.peakExpiratoryFlowRate {
             
-            let peakExpiratoryFlowRate = RespiratoryVitals(type: VitalsName.peakflowRate)
+            let peakExpiratoryFlowRate = RespiratoryVitalsData(type: VitalsName.peakflowRate)
             peakExpiratoryFlowRate.value = Double(element.harmonized.value)
             peakExpiratoryFlowRate.startTimeStamp = element.startTimestamp
             self.respiratoryData.respiratoryVital.peakFlowRateData.append(peakExpiratoryFlowRate)
@@ -81,7 +81,7 @@ class RespiratoryManager: NSObject {
         }
         else if quantityType == QuantityType.vo2Max {
             
-            let vo2Max = RespiratoryVitals(type: VitalsName.vo2Max)
+            let vo2Max = RespiratoryVitalsData(type: VitalsName.vo2Max)
             vo2Max.value = Double(element.harmonized.value)
             vo2Max.startTimeStamp = element.startTimestamp
             self.respiratoryData.respiratoryVital.vO2MaxData.append(vo2Max)
@@ -89,7 +89,7 @@ class RespiratoryManager: NSObject {
         }
         else if quantityType == QuantityType.inhalerUsage {
             
-            let inhalerUsage = RespiratoryVitals(type: VitalsName.InhalerUsage)
+            let inhalerUsage = RespiratoryVitalsData(type: VitalsName.InhalerUsage)
             inhalerUsage.value = Double(element.harmonized.value)
             inhalerUsage.startTimeStamp = element.startTimestamp
             self.respiratoryData.respiratoryVital.inhalerUsageData.append(inhalerUsage)
@@ -102,7 +102,7 @@ class RespiratoryManager: NSObject {
         
         if categoryType == CategoryType.irregularHeartRhythmEvent {
             
-            let irregularRhymesNotification = RespiratoryVitals(type: VitalsName.irregularRhymesNotification)
+            let irregularRhymesNotification = RespiratoryVitalsData(type: VitalsName.irregularRhymesNotification)
             irregularRhymesNotification.value = 1
             irregularRhymesNotification.startTimeStamp = startTimeStamp
             irregularRhymesNotification.endTimeStamp = endTimeStamp
