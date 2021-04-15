@@ -107,6 +107,10 @@ class AcuityMainViewController: PullUpViewController, UIScrollViewDelegate,Rotar
             if success && error == nil{
                 //Set up Circle View
                 DispatchQueue.main.async {
+                    
+                    //Do my well score caclulation....
+                    MyWellScore.sharedManager.myWellScoreCalculation()
+                    
                     self?.setUpAcuityCircleView()
                     //Hide Progress HUD
                     progrssHUD.dismiss(animated: true)

@@ -194,8 +194,11 @@ extension HKWriterManager{
             fatalError("No identifier found")
         }
                 
+        //Category Type
         guard let categoryType = HKObjectType.categoryType(forIdentifier: caegoryTypeIdentifier) else { return  }
+        //Value for Category
         let value = getSymptomsValue(value: categoryValue)
+        //Create sample for Category
         let sample = HKCategorySample(type: categoryType, value: value, start: startdate, end: endDate)
        
         HKSetupAssistance.healthKitStore.save(sample) { (success, error) in
@@ -212,9 +215,6 @@ extension HKWriterManager{
     }
     
     private func getSymptomsValue(value:SymptomsTextValue) -> Int {
-        
-        
-        //=if(H9="Severe",B9*G9,if(H9="Moderate",C9*G9,if(H9="Mild",D9*G9,if(H9="Present",E9*G9,if(H9="Not Present",F9*G9)))))
         
         switch value {
         case SymptomsTextValue.Present:

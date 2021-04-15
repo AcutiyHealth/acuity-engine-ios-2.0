@@ -18,6 +18,8 @@ class VitalCalculation:Metrix {
                 self.calculatedValue = getHeartRateValue().rawValue
             case .bloodPressure:
                 self.calculatedValue = getSBloodPressureValue().rawValue
+            case .bloodPressureSystolic:
+                self.calculatedValue = getSBloodPressureValue().rawValue
             case .bloodPressureDiastolic:
                 self.calculatedValue = getDBloodPressureValue().rawValue
             case .highHeartRate:
