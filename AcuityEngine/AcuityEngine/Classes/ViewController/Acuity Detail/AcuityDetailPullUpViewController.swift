@@ -32,8 +32,6 @@ class AcuityDetailPullUpViewController: UIViewController {
     @IBOutlet weak var tblVitals: UITableView!
     @IBOutlet weak var tblLab: UITableView!
     
-    //Close button for Acuity detail value...
-    var btnClose:UIButton?
     
     //Object of Acuity detial value viewcontroller...
     var detailConditionVC : AcuityDetailConditionViewController?
@@ -109,6 +107,12 @@ class AcuityDetailPullUpViewController: UIViewController {
         MyWellScore.sharedManager.selectedSystem = acuityModel.name ?? SystemName.Cardiovascular
         
         //generate array of arrConditions,lab,imp data,arrSymptoms
+        self.arrConditions = []
+        self.arrSymptoms = []
+        self.arrLabs = []
+        self.arrVitals = []
+        self.reloadTableView()
+        reloadTables()
         
         self.arrConditions = systemMetricsData![MetricsType.Conditions.rawValue] as! [ConditionsModel]
         self.arrSymptoms = systemMetricsData![MetricsType.Sympotms.rawValue] as! [SymptomsModel]
@@ -160,13 +164,15 @@ class AcuityDetailPullUpViewController: UIViewController {
         if arrVitals.count <= 0 {
             setNoDataInfoIfRecordsNotExists(tblView: tblVitals)
         }
+        reloadTables()
+    }
+    func reloadTables(){
         
         self.tblLab.reloadData()
         self.tblCondition.reloadData()
         self.tblSymptom.reloadData()
         self.tblVitals.reloadData()
     }
-    
     func setNoDataInfoIfRecordsNotExists(tblView:UITableView)
     {
         let noDataLabel : UILabel = UILabel()
@@ -176,13 +182,14 @@ class AcuityDetailPullUpViewController: UIViewController {
         noDataLabel.textColor = UIColor.white
         noDataLabel.textAlignment = .center
         tblView.backgroundView = noDataLabel
-       
+        
     }
     
     func showScoreAndChartData(){
         var scoreText = String(format: "0.00")
         var data = [(x:0, y:0.0)]
         
+        print("<--------------------showScoreAndChartData-------------------->")
         if MyWellScore.sharedManager.selectedSystem == SystemName.Cardiovascular{
             let systemScore = CardioManager.sharedManager.cardioData.totalSystemScoreWithDays(days: MyWellScore.sharedManager.daysToCalculateSystemScore)
             scoreText = String(format: "%.2f", systemScore)
@@ -194,6 +201,19 @@ class AcuityDetailPullUpViewController: UIViewController {
             }
             
         }
+        else if MyWellScore.sharedManager.selectedSystem == SystemName.Respiratory{
+            let systemScore = RespiratoryManager.sharedManager.respiratoryData.totalSystemScoreWithDays(days: MyWellScore.sharedManager.daysToCalculateSystemScore)
+            scoreText = String(format: "%.2f", systemScore)
+            let arraySystemScore = RespiratoryManager.sharedManager.respiratoryData.arrayDayWiseSystemScore
+            var i = 0;
+            for item in arraySystemScore{
+                data.append((x:i,y:item))
+                i = i + 1
+            }
+            
+        }
+          
+        
         switch MyWellScore.sharedManager.daysToCalculateSystemScore {
         case .SevenDays:
             do{
@@ -305,20 +325,19 @@ extension AcuityDetailPullUpViewController: UITableViewDelegate, UITableViewData
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         
-        if tableView == tblCondition {
+        if tableView == tblCondition && arrConditions.count>0 {
             let count = Int(tblCondition.frame.height/cellHeight)
-            return arrConditions.count  >= count ? count : 3
-        } else if  tableView == tblSymptom {
+            return arrConditions.count  >= count ? count : arrConditions.count
+        } else if  tableView == tblSymptom && arrSymptoms.count>0{
             let count = Int(tblSymptom.frame.height/cellHeight)
-            return arrSymptoms.count >= count ? count : 3
-        } else if  tableView == tblVitals {
+            return arrSymptoms.count >= count ? count : arrSymptoms.count
+        } else if  tableView == tblVitals  && arrVitals.count>0{
             let count = Int(tblVitals.frame.height/cellHeight)
-            return arrVitals.count  >= count ? count : 3
-        } else if  tableView == tblLab {
+            return arrVitals.count  >= count ? count : arrVitals.count
+        } else if  tableView == tblLab  && arrLabs.count>0{
             let count = Int(tblLab.frame.height/cellHeight)
-            return arrLabs.count  >= count ? count : 3
+            return arrLabs.count  >= count ? count : arrLabs.count
         }
-        
         return  0
     }
     
@@ -366,7 +385,6 @@ extension AcuityDetailPullUpViewController: UITableViewDelegate, UITableViewData
         detailConditionVC?.view.frame.size = CGSize(width: visualEffectView.frame.size.width, height: visualEffectView.frame.size.height)
         visualEffectView.addSubview((detailConditionVC?.view)!)
         detailConditionVC?.didMove(toParent: self)
-        
         //PAss metrix Item to display data...
         detailConditionVC?.metrixType = metrixType
         
@@ -376,6 +394,7 @@ extension AcuityDetailPullUpViewController: UITableViewDelegate, UITableViewData
         detailConditionVC?.setHandler(handler: { [weak self] (open) in
             if open ?? false{
                 self?.visualEffectView.bringSubviewToFront((self?.handleArea)!)
+                self?.setupBackButton()
             }else{
                 self?.detailConditionVC?.view.removeFromSuperview()
                 self?.detailConditionVC?.removeFromParent()
@@ -384,39 +403,42 @@ extension AcuityDetailPullUpViewController: UITableViewDelegate, UITableViewData
         visualEffectView.bringSubviewToFront(handleArea)
     }
     
+    func setupBackButton(){
+        handleArea.btnBack!.isHidden = false
+        handleArea.btnBack!.addTarget(self, action: #selector(btnBackClickedInAcuityValueViewController), for: UIControl.Event.touchUpInside)
+    }
+    
     func setUpCloseButton(){
-        //Add close button target
-        btnClose = CloseButton()
-        let rect = (btnClose!.frame)
-        let originX = Double(handleArea.frame.size.width - (rect.size.width)-20)
-        let originY = Double(handleArea.frame.size.height - (rect.size.height))/2
+        handleArea.btnClose!.isHidden = false
+        handleArea.btnClose!.addTarget(self, action: #selector(btnCloseClickedInAcuityValueViewController), for: UIControl.Event.touchUpInside)
         
-        btnClose!.frame = CGRect(origin: CGPoint(x: originX, y: originY), size: rect.size)
-        
-        btnClose!.addTarget(self, action: #selector(btnCloseClickedInAcuityValueViewController), for: UIControl.Event.touchUpInside)
-        
-        handleArea.addSubview(btnClose!)
     }
     //MARK: Btn close click
     @objc func btnCloseClickedInAcuityValueViewController(){
         if detailConditionVC != nil{
+            
+            handleArea.btnClose?.isHidden = true
+            handleArea.btnBack?.isHidden = true
+            detailConditionVC?.view.removeFromSuperview()
+            detailConditionVC?.removeFromParent()
+            mainView.isHidden = false
+            
+            //    }
+            
+        }
+    }
+    //MARK: Btn Back click
+    @objc func btnBackClickedInAcuityValueViewController(){
+        if detailConditionVC != nil{
             if let _:UIView = detailConditionVC?.view.viewWithTag(111) {
+                handleArea.btnBack?.isHidden = true
                 self.detailConditionVC?.removeDetailValueViewController()
-            }
-            else{
-                btnClose?.removeFromSuperview()
-                detailConditionVC?.view.removeFromSuperview()
-                detailConditionVC?.removeFromParent()
-                mainView.isHidden = false
-                
             }
             
         }
     }
 }
 extension AcuityDetailPullUpViewController: ChartDelegate {
-    
-    // Chart delegate
     
     // Chart delegate
     

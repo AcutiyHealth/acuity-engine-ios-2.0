@@ -22,6 +22,8 @@ class MyWellScore: NSObject {
     //ViewModel Respiratory
     private let viewModelRespiratory = RespiratoryViewModel()
     
+    
+    //Load health data by value seelcted from Segment in Pullup segment control
     func loadHealthData(days:SegmentValueForGraph,completion: @escaping (Bool, HealthkitSetupError?) -> Swift.Void) {
         
         print("call loadHealthData")
@@ -34,14 +36,13 @@ class MyWellScore: NSObject {
         
         let dispatchGroup = DispatchGroup()
         dispatchGroup.enter()
-        //Load cardio data....
+        
+        //Load all system data....
         viewModelCardio.fetchAndLoadCardioData(days: days)
         
         viewModelCardio.cardioDataLoaded = {(success,error) in
             successValue = success
             errorValue = error
-            //Temporary code..remove it once all calculation done...
-            self.temporaryWellScoreCalculation()
             completion(successValue,errorValue)
         }
         
@@ -55,9 +56,12 @@ class MyWellScore: NSObject {
         }
     }
     
-    //MARK: Temporary Code
-    func temporaryWellScoreCalculation(){
-        MyWellScore.sharedManager.myWellScore = CardioManager.sharedManager.cardioData.cardioWeightedSystemScore
-        
+    //MARK: My Well Score calculation
+    func myWellScoreCalculation(){
+        let totalWeightedSystemScore = CardioManager.sharedManager.cardioData.cardioWeightedSystemScore + RespiratoryManager.sharedManager.respiratoryData.respiratoryWeightedSystemScore
+         let totalMaxScore = CardioManager.sharedManager.cardioData.maxScore + RespiratoryManager.sharedManager.respiratoryData.maxScore
+        let abnormalFraction = totalWeightedSystemScore / totalMaxScore
+        MyWellScore.sharedManager.myWellScore = abnormalFraction * 100
+        print("<--------------------MyWellScore.sharedManager.myWellScore-------------------->",MyWellScore.sharedManager.myWellScore)
     }
 }

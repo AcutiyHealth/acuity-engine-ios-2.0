@@ -37,7 +37,6 @@
 		7A473A4026008E7200AD0B77 /* HKWriterManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A473A3F26008E7200AD0B77 /* HKWriterManager.swift */; };
 		7A477AF425F20D9F00B3E369 /* LabelTitle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A477AF025F20D9F00B3E369 /* LabelTitle.swift */; };
 		7A477B1625F20E0C00B3E369 /* UIFont+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A477B1525F20E0C00B3E369 /* UIFont+Extensions.swift */; };
-		7A477B4F25F25A9B00B3E369 /* SaveButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A477B4E25F25A9B00B3E369 /* SaveButton.swift */; };
 		7A4A11032621968900E43BD9 /* CommonSystemCalculation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A4A11022621968900E43BD9 /* CommonSystemCalculation.swift */; };
 		7A4A1122262196D600E43BD9 /* CardioManager+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A4A110F262196D600E43BD9 /* CardioManager+Extension.swift */; };
 		7A4A1123262196D600E43BD9 /* CardioValue.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A4A1110262196D600E43BD9 /* CardioValue.swift */; };
@@ -48,16 +47,26 @@
 		7A4A1129262196D600E43BD9 /* CardioData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A4A1117262196D600E43BD9 /* CardioData.swift */; };
 		7A4A112A262196D600E43BD9 /* CardioLab.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A4A1119262196D600E43BD9 /* CardioLab.swift */; };
 		7A4A112B262196D600E43BD9 /* CardioLabData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A4A111A262196D600E43BD9 /* CardioLabData.swift */; };
-		7A4A11482621B76F00E43BD9 /* CardioCondition.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A4A11462621B76F00E43BD9 /* CardioCondition.swift */; };
-		7A4A11492621B76F00E43BD9 /* CardioConditionData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A4A11472621B76F00E43BD9 /* CardioConditionData.swift */; };
-		7A4A11642621B98900E43BD9 /* CardioVitalsData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A4A11622621B98900E43BD9 /* CardioVitalsData.swift */; };
 		7A4A11652621B98900E43BD9 /* CardioVital.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A4A11632621B98900E43BD9 /* CardioVital.swift */; };
+		7A4A11FC2621C40100E43BD9 /* RespiratoryVital.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A4A11EE2621C40100E43BD9 /* RespiratoryVital.swift */; };
+		7A4A11FD2621C40100E43BD9 /* RespiratoryVitalData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A4A11EF2621C40100E43BD9 /* RespiratoryVitalData.swift */; };
+		7A4A11FE2621C40100E43BD9 /* RespiratoryManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A4A11F02621C40100E43BD9 /* RespiratoryManager.swift */; };
+		7A4A11FF2621C40100E43BD9 /* RespiratoryData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A4A11F12621C40100E43BD9 /* RespiratoryData.swift */; };
+		7A4A12002621C40100E43BD9 /* RespiratoryCondition.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A4A11F32621C40100E43BD9 /* RespiratoryCondition.swift */; };
+		7A4A12012621C40100E43BD9 /* RespiratoryConditionData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A4A11F42621C40100E43BD9 /* RespiratoryConditionData.swift */; };
+		7A4A12022621C40100E43BD9 /* RespiratorySymptomsPainData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A4A11F62621C40100E43BD9 /* RespiratorySymptomsPainData.swift */; };
+		7A4A12032621C40100E43BD9 /* RespiratorySymptoms.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A4A11F72621C40100E43BD9 /* RespiratorySymptoms.swift */; };
+		7A4A12042621C40100E43BD9 /* RespiratoryLab.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A4A11F92621C40100E43BD9 /* RespiratoryLab.swift */; };
+		7A4A12052621C40100E43BD9 /* RespiratoryLabData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A4A11FA2621C40100E43BD9 /* RespiratoryLabData.swift */; };
+		7A4A12062621C40100E43BD9 /* RespiratoryManagerProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A4A11FB2621C40100E43BD9 /* RespiratoryManagerProtocol.swift */; };
+		7A4A12102621C44200E43BD9 /* CardioVitalsData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A4A120F2621C44200E43BD9 /* CardioVitalsData.swift */; };
+		7A4A12142621C4AB00E43BD9 /* CardioCondition.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A4A12122621C4AB00E43BD9 /* CardioCondition.swift */; };
+		7A4A12152621C4AB00E43BD9 /* CardioConditionData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A4A12132621C4AB00E43BD9 /* CardioConditionData.swift */; };
 		7A54BD9F25F6F76F00A22B80 /* AddVitalViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A54BD9E25F6F76F00A22B80 /* AddVitalViewModel.swift */; };
 		7A54BDA225F6F88600A22B80 /* VitalModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A54BDA125F6F88600A22B80 /* VitalModel.swift */; };
 		7A57976F25ED14D300BCCD12 /* AcuityMainViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A57976E25ED14D300BCCD12 /* AcuityMainViewModel.swift */; };
 		7A57977225ED1F7500BCCD12 /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A57977125ED1F7500BCCD12 /* ProfileViewController.swift */; };
 		7A57977525ED24E800BCCD12 /* Profile.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7A57977425ED24E800BCCD12 /* Profile.storyboard */; };
-		7A65AED125F5CCFE0075D846 /* CloseButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A65AED025F5CCFE0075D846 /* CloseButton.swift */; };
 		7A65AF1B25F64AA90075D846 /* VitalsListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A65AF1A25F64AA90075D846 /* VitalsListViewController.swift */; };
 		7A65AF1F25F64AE60075D846 /* AddVitalsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A65AF1E25F64AE60075D846 /* AddVitalsViewController.swift */; };
 		7A6AF7FE25E7A2C2001FB132 /* RotaryWheel.m in Sources */ = {isa = PBXBuildFile; fileRef = 7A6AF7F925E7A2C2001FB132 /* RotaryWheel.m */; };
@@ -107,6 +116,7 @@
 		7AE4174E261DC2A40086D4B3 /* SystemDataProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AE4174C261DC2A40086D4B3 /* SystemDataProtocol.swift */; };
 		7AE4175F261DC30A0086D4B3 /* ReadMetricsList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AE4175E261DC30A0086D4B3 /* ReadMetricsList.swift */; };
 		7AEB001726047A91008951DC /* HKManagerReadVitals.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AEB001626047A91008951DC /* HKManagerReadVitals.swift */; };
+		7AEFA799262852A30047040B /* CustomButtons.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AEFA798262852A30047040B /* CustomButtons.swift */; };
 		7AFB024B25F116A800EEEA6A /* Symptoms.txt in Resources */ = {isa = PBXBuildFile; fileRef = 7AFB024A25F116A800EEEA6A /* Symptoms.txt */; };
 /* End PBXBuildFile section */
 
@@ -146,7 +156,6 @@
 		7A473A3F26008E7200AD0B77 /* HKWriterManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HKWriterManager.swift; sourceTree = "<group>"; };
 		7A477AF025F20D9F00B3E369 /* LabelTitle.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LabelTitle.swift; sourceTree = "<group>"; };
 		7A477B1525F20E0C00B3E369 /* UIFont+Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIFont+Extensions.swift"; sourceTree = "<group>"; };
-		7A477B4E25F25A9B00B3E369 /* SaveButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SaveButton.swift; sourceTree = "<group>"; };
 		7A4A11022621968900E43BD9 /* CommonSystemCalculation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CommonSystemCalculation.swift; sourceTree = "<group>"; };
 		7A4A110F262196D600E43BD9 /* CardioManager+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "CardioManager+Extension.swift"; sourceTree = "<group>"; };
 		7A4A1110262196D600E43BD9 /* CardioValue.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CardioValue.swift; sourceTree = "<group>"; };
@@ -157,16 +166,26 @@
 		7A4A1117262196D600E43BD9 /* CardioData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CardioData.swift; sourceTree = "<group>"; };
 		7A4A1119262196D600E43BD9 /* CardioLab.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CardioLab.swift; sourceTree = "<group>"; };
 		7A4A111A262196D600E43BD9 /* CardioLabData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CardioLabData.swift; sourceTree = "<group>"; };
-		7A4A11462621B76F00E43BD9 /* CardioCondition.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CardioCondition.swift; sourceTree = "<group>"; };
-		7A4A11472621B76F00E43BD9 /* CardioConditionData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CardioConditionData.swift; sourceTree = "<group>"; };
-		7A4A11622621B98900E43BD9 /* CardioVitalsData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CardioVitalsData.swift; sourceTree = "<group>"; };
 		7A4A11632621B98900E43BD9 /* CardioVital.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CardioVital.swift; sourceTree = "<group>"; };
+		7A4A11EE2621C40100E43BD9 /* RespiratoryVital.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RespiratoryVital.swift; sourceTree = "<group>"; };
+		7A4A11EF2621C40100E43BD9 /* RespiratoryVitalData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RespiratoryVitalData.swift; sourceTree = "<group>"; };
+		7A4A11F02621C40100E43BD9 /* RespiratoryManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RespiratoryManager.swift; sourceTree = "<group>"; };
+		7A4A11F12621C40100E43BD9 /* RespiratoryData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RespiratoryData.swift; sourceTree = "<group>"; };
+		7A4A11F32621C40100E43BD9 /* RespiratoryCondition.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RespiratoryCondition.swift; sourceTree = "<group>"; };
+		7A4A11F42621C40100E43BD9 /* RespiratoryConditionData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RespiratoryConditionData.swift; sourceTree = "<group>"; };
+		7A4A11F62621C40100E43BD9 /* RespiratorySymptomsPainData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RespiratorySymptomsPainData.swift; sourceTree = "<group>"; };
+		7A4A11F72621C40100E43BD9 /* RespiratorySymptoms.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RespiratorySymptoms.swift; sourceTree = "<group>"; };
+		7A4A11F92621C40100E43BD9 /* RespiratoryLab.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RespiratoryLab.swift; sourceTree = "<group>"; };
+		7A4A11FA2621C40100E43BD9 /* RespiratoryLabData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RespiratoryLabData.swift; sourceTree = "<group>"; };
+		7A4A11FB2621C40100E43BD9 /* RespiratoryManagerProtocol.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RespiratoryManagerProtocol.swift; sourceTree = "<group>"; };
+		7A4A120F2621C44200E43BD9 /* CardioVitalsData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CardioVitalsData.swift; sourceTree = "<group>"; };
+		7A4A12122621C4AB00E43BD9 /* CardioCondition.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CardioCondition.swift; sourceTree = "<group>"; };
+		7A4A12132621C4AB00E43BD9 /* CardioConditionData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CardioConditionData.swift; sourceTree = "<group>"; };
 		7A54BD9E25F6F76F00A22B80 /* AddVitalViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddVitalViewModel.swift; sourceTree = "<group>"; };
 		7A54BDA125F6F88600A22B80 /* VitalModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VitalModel.swift; sourceTree = "<group>"; };
 		7A57976E25ED14D300BCCD12 /* AcuityMainViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AcuityMainViewModel.swift; sourceTree = "<group>"; };
 		7A57977125ED1F7500BCCD12 /* ProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
 		7A57977425ED24E800BCCD12 /* Profile.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Profile.storyboard; sourceTree = "<group>"; };
-		7A65AED025F5CCFE0075D846 /* CloseButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CloseButton.swift; sourceTree = "<group>"; };
 		7A65AF1A25F64AA90075D846 /* VitalsListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VitalsListViewController.swift; sourceTree = "<group>"; };
 		7A65AF1E25F64AE60075D846 /* AddVitalsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddVitalsViewController.swift; sourceTree = "<group>"; };
 		7A6AF7F925E7A2C2001FB132 /* RotaryWheel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RotaryWheel.m; sourceTree = "<group>"; };
@@ -221,6 +240,7 @@
 		7AE4174C261DC2A40086D4B3 /* SystemDataProtocol.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SystemDataProtocol.swift; sourceTree = "<group>"; };
 		7AE4175E261DC30A0086D4B3 /* ReadMetricsList.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ReadMetricsList.swift; sourceTree = "<group>"; };
 		7AEB001626047A91008951DC /* HKManagerReadVitals.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HKManagerReadVitals.swift; sourceTree = "<group>"; };
+		7AEFA798262852A30047040B /* CustomButtons.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomButtons.swift; sourceTree = "<group>"; };
 		7AFB024A25F116A800EEEA6A /* Symptoms.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Symptoms.txt; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -240,6 +260,7 @@
 		7A02E49B260C9DCC00CD216C /* Calculation */ = {
 			isa = PBXGroup;
 			children = (
+				7A4A11EC2621C40100E43BD9 /* Respiratory */,
 				7A02E498260C9C4000CD216C /* Metrix.swift */,
 				7A22C1DF25E788AE0028319D /* ConditionCalculation.swift */,
 				7A22C1E425E788AE0028319D /* SymptomCalculation.swift */,
@@ -502,8 +523,7 @@
 		7A477B4D25F25A8600B3E369 /* Buttons */ = {
 			isa = PBXGroup;
 			children = (
-				7A477B4E25F25A9B00B3E369 /* SaveButton.swift */,
-				7A65AED025F5CCFE0075D846 /* CloseButton.swift */,
+				7AEFA798262852A30047040B /* CustomButtons.swift */,
 			);
 			path = Buttons;
 			sourceTree = "<group>";
@@ -528,8 +548,8 @@
 		7A4A110B262196D600E43BD9 /* CardioConditionData */ = {
 			isa = PBXGroup;
 			children = (
-				7A4A11462621B76F00E43BD9 /* CardioCondition.swift */,
-				7A4A11472621B76F00E43BD9 /* CardioConditionData.swift */,
+				7A4A12122621C4AB00E43BD9 /* CardioCondition.swift */,
+				7A4A12132621C4AB00E43BD9 /* CardioConditionData.swift */,
 			);
 			path = CardioConditionData;
 			sourceTree = "<group>";
@@ -555,10 +575,61 @@
 		7A4A11612621B98900E43BD9 /* CardioVitalData */ = {
 			isa = PBXGroup;
 			children = (
-				7A4A11622621B98900E43BD9 /* CardioVitalsData.swift */,
+				7A4A120F2621C44200E43BD9 /* CardioVitalsData.swift */,
 				7A4A11632621B98900E43BD9 /* CardioVital.swift */,
 			);
 			path = CardioVitalData;
+			sourceTree = "<group>";
+		};
+		7A4A11EC2621C40100E43BD9 /* Respiratory */ = {
+			isa = PBXGroup;
+			children = (
+				7A4A11ED2621C40100E43BD9 /* RespiratoryVitalData */,
+				7A4A11F02621C40100E43BD9 /* RespiratoryManager.swift */,
+				7A4A11F12621C40100E43BD9 /* RespiratoryData.swift */,
+				7A4A11F22621C40100E43BD9 /* RespiratoryCondition */,
+				7A4A11F52621C40100E43BD9 /* RespiratorySymptomsData */,
+				7A4A11F82621C40100E43BD9 /* RespiratoryLabData */,
+				7A4A11FB2621C40100E43BD9 /* RespiratoryManagerProtocol.swift */,
+			);
+			name = Respiratory;
+			path = AcuityEngine/Classes/HealthSystems/Respiratory;
+			sourceTree = SOURCE_ROOT;
+		};
+		7A4A11ED2621C40100E43BD9 /* RespiratoryVitalData */ = {
+			isa = PBXGroup;
+			children = (
+				7A4A11EE2621C40100E43BD9 /* RespiratoryVital.swift */,
+				7A4A11EF2621C40100E43BD9 /* RespiratoryVitalData.swift */,
+			);
+			path = RespiratoryVitalData;
+			sourceTree = "<group>";
+		};
+		7A4A11F22621C40100E43BD9 /* RespiratoryCondition */ = {
+			isa = PBXGroup;
+			children = (
+				7A4A11F32621C40100E43BD9 /* RespiratoryCondition.swift */,
+				7A4A11F42621C40100E43BD9 /* RespiratoryConditionData.swift */,
+			);
+			path = RespiratoryCondition;
+			sourceTree = "<group>";
+		};
+		7A4A11F52621C40100E43BD9 /* RespiratorySymptomsData */ = {
+			isa = PBXGroup;
+			children = (
+				7A4A11F62621C40100E43BD9 /* RespiratorySymptomsPainData.swift */,
+				7A4A11F72621C40100E43BD9 /* RespiratorySymptoms.swift */,
+			);
+			path = RespiratorySymptomsData;
+			sourceTree = "<group>";
+		};
+		7A4A11F82621C40100E43BD9 /* RespiratoryLabData */ = {
+			isa = PBXGroup;
+			children = (
+				7A4A11F92621C40100E43BD9 /* RespiratoryLab.swift */,
+				7A4A11FA2621C40100E43BD9 /* RespiratoryLabData.swift */,
+			);
+			path = RespiratoryLabData;
 			sourceTree = "<group>";
 		};
 		7A65AF1925F64A820075D846 /* Vitals */ = {
@@ -828,33 +899,35 @@
 				7A240EFC25E7AB18002A5CF9 /* AcuityMainViewController.swift in Sources */,
 				7A08B6D925F1BE3500F9EA20 /* SymptomsListViewController.swift in Sources */,
 				7A22C24C25E794500028319D /* CardioViewModel.swift in Sources */,
+				7A4A12042621C40100E43BD9 /* RespiratoryLab.swift in Sources */,
 				7A65AF1F25F64AE60075D846 /* AddVitalsViewController.swift in Sources */,
-				7A4A11482621B76F00E43BD9 /* CardioCondition.swift in Sources */,
 				7A0AC40925F06A73009EDE25 /* ProfileModels.swift in Sources */,
 				7A4A1126262196D600E43BD9 /* CardioSymptomsPainData.swift in Sources */,
 				7AB9E76325E7AC5700BCA3C1 /* AppDelegate.swift in Sources */,
-				7A65AED125F5CCFE0075D846 /* CloseButton.swift in Sources */,
 				7AE4174D261DC2A40086D4B3 /* SystemConstant.swift in Sources */,
 				7AAE1A7F25F0E717005E47A1 /* AddProblemssymptomsModel.swift in Sources */,
 				7A4A1128262196D600E43BD9 /* CardioManager.swift in Sources */,
 				7A240F0825E7AB58002A5CF9 /* AcuityDetailPullUpViewController.swift in Sources */,
 				7A6DB63B25F68AAA00C69E8A /* UIScrollView+TPKeyboardAvoidingAdditions.m in Sources */,
 				7A4A1129262196D600E43BD9 /* CardioData.swift in Sources */,
-				7A4A11642621B98900E43BD9 /* CardioVitalsData.swift in Sources */,
 				7AB9E78A25E7B39900BCA3C1 /* UIView+Extensions.swift in Sources */,
+				7A4A11FF2621C40100E43BD9 /* RespiratoryData.swift in Sources */,
 				7AAE1A7225F0DA79005E47A1 /* AddOptionSelectionViewController.swift in Sources */,
+				7A4A11FE2621C40100E43BD9 /* RespiratoryManager.swift in Sources */,
 				7A4A1124262196D600E43BD9 /* CardioSymptoms.swift in Sources */,
 				7A22C25125E794670028319D /* PullUpDisplayCell.swift in Sources */,
 				7AE4175F261DC30A0086D4B3 /* ReadMetricsList.swift in Sources */,
+				7A4A12062621C40100E43BD9 /* RespiratoryManagerProtocol.swift in Sources */,
 				7A22C21725E788AF0028319D /* LabCalculation.swift in Sources */,
 				7A240EFE25E7AB18002A5CF9 /* LoginViewController.swift in Sources */,
-				7A477B4F25F25A9B00B3E369 /* SaveButton.swift in Sources */,
 				7A6AF7FE25E7A2C2001FB132 /* RotaryWheel.m in Sources */,
 				7A88C08125F85BE60047E207 /* AcuityDetailConditionViewModel.swift in Sources */,
+				7A4A12142621C4AB00E43BD9 /* CardioCondition.swift in Sources */,
 				7A57976F25ED14D300BCCD12 /* AcuityMainViewModel.swift in Sources */,
 				7A57977225ED1F7500BCCD12 /* ProfileViewController.swift in Sources */,
 				7ACB360E25EFA1600002327C /* SettingsViewController.swift in Sources */,
 				7AAC74EB25EE2C15004ACF7A /* HandleView.swift in Sources */,
+				7A4A12012621C40100E43BD9 /* RespiratoryConditionData.swift in Sources */,
 				7A4A1123262196D600E43BD9 /* CardioValue.swift in Sources */,
 				7A4A1122262196D600E43BD9 /* CardioManager+Extension.swift in Sources */,
 				7A4A11652621B98900E43BD9 /* CardioVital.swift in Sources */,
@@ -866,6 +939,7 @@
 				7A22C25E25E7985C0028319D /* Utility.swift in Sources */,
 				7A4A112B262196D600E43BD9 /* CardioLabData.swift in Sources */,
 				7AA14CF025F659E8005AC56A /* TPKeyboardAvoidingScrollView.m in Sources */,
+				7A4A12002621C40100E43BD9 /* RespiratoryCondition.swift in Sources */,
 				7AB9E78C25E7B39900BCA3C1 /* UIStoryboard+Instantiable.swift in Sources */,
 				7A6AF82425E7A634001FB132 /* Header.swift in Sources */,
 				7AB9E76425E7AC5700BCA3C1 /* SceneDelegate.swift in Sources */,
@@ -876,7 +950,12 @@
 				7A22C24D25E794500028319D /* RespiratoryViewModel.swift in Sources */,
 				7AB9E78925E7B39900BCA3C1 /* Array+Extensions.swift in Sources */,
 				7A6AF81A25E7A572001FB132 /* UISegmentedControl+Extensions.swift in Sources */,
+				7AEFA799262852A30047040B /* CustomButtons.swift in Sources */,
+				7A4A11FD2621C40100E43BD9 /* RespiratoryVitalData.swift in Sources */,
 				7AEB001726047A91008951DC /* HKManagerReadVitals.swift in Sources */,
+				7A4A12102621C44200E43BD9 /* CardioVitalsData.swift in Sources */,
+				7A4A12022621C40100E43BD9 /* RespiratorySymptomsPainData.swift in Sources */,
+				7A4A12032621C40100E43BD9 /* RespiratorySymptoms.swift in Sources */,
 				7A473A4026008E7200AD0B77 /* HKWriterManager.swift in Sources */,
 				7A6AF82825E7A6A2001FB132 /* MyWellScore.swift in Sources */,
 				7A240F0325E7AB41002A5CF9 /* PullUpViewController.swift in Sources */,
@@ -886,17 +965,19 @@
 				7AB9E78825E7B39900BCA3C1 /* String+Extensions.swift in Sources */,
 				7A3EE0E725F8C01100F1FB49 /* AcuityDetailValueViewModel.swift in Sources */,
 				7A22C20D25E788AF0028319D /* SymptomCalculation.swift in Sources */,
+				7A4A12152621C4AB00E43BD9 /* CardioConditionData.swift in Sources */,
 				7A88C08525F85C0C0047E207 /* AcuityDetailValueViewController.swift in Sources */,
 				7A92701E25EF8FB100295E2F /* ProfileOptionSelectionViewController.swift in Sources */,
 				7A54BD9F25F6F76F00A22B80 /* AddVitalViewModel.swift in Sources */,
+				7A4A11FC2621C40100E43BD9 /* RespiratoryVital.swift in Sources */,
 				7A240EFD25E7AB18002A5CF9 /* HealthDataViewController.swift in Sources */,
 				7A4A1127262196D600E43BD9 /* CardioManagerProtocol.swift in Sources */,
 				7A6AF7FF25E7A2C2001FB132 /* Chevron.m in Sources */,
 				7A88C07525F85AD10047E207 /* AcuityDetailConditionViewController.swift in Sources */,
-				7A4A11492621B76F00E43BD9 /* CardioConditionData.swift in Sources */,
 				7AAE1A7625F0DB77005E47A1 /* ConditionsListViewController.swift in Sources */,
 				7AB9E7A325E7BB7300BCA3C1 /* AcuityModels.swift in Sources */,
 				7A02E499260C9C4000CD216C /* Metrix.swift in Sources */,
+				7A4A12052621C40100E43BD9 /* RespiratoryLabData.swift in Sources */,
 				7A22C20925E788AF0028319D /* ConditionCalculation.swift in Sources */,
 				7A22C1B825E786F10028319D /* AcuityEngine.xcdatamodeld in Sources */,
 				7AB9E78B25E7B39900BCA3C1 /* UIViewController+Alert.swift in Sources */,

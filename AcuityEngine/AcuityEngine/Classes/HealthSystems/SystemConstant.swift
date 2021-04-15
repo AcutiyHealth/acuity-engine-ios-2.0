@@ -9,11 +9,28 @@ import Foundation
 import HealthKitReporter
 import HealthKit
 
-enum SymptomsSleepChangeValue:Double {
+enum CardioSymptomsSleepChangeValue:Double {
     case Present = 1
     case Not_Present = 0
 }
 
+enum CardioVitalsType:String {
+    case heartRate = "heartRate"
+    case systolicBP = "systolicBP"
+    case diastolicBP = "diastolicBP"
+    case highHeartRate = "highHeartRate"
+    case lowHeartRate = "lowHeartRate"
+    case vo2Max = "vo2Max"
+    case irregularRhymesNotification = "irregularRhymesNotification"
+}
+
+func CardioLabDataSampleType()->[HKSampleType]{
+    [
+        
+        HKObjectType.clinicalType(forIdentifier: .labResultRecord)!,
+        
+    ]
+}
 
 enum ConditionType:String {
     case asthma = "COPD/Asthma"

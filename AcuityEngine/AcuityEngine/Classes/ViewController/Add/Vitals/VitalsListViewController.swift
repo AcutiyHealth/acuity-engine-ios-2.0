@@ -117,6 +117,12 @@ extension VitalsListViewController:UITableViewDelegate,UITableViewDataSource{
             addVitalsVC?.view.removeFromSuperview()
             addVitalsVC?.removeFromParent()
         }
+        if let parentVC = self.parent {
+            if let parentVC = parentVC as? AddOptionSelectionViewController {
+                // parentVC is someViewController
+                parentVC.removeBackButton()
+            }
+        }
     }
 }
 

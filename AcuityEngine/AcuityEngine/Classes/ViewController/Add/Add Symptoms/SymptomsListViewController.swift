@@ -115,6 +115,12 @@ extension SymptomsListViewController:UITableViewDelegate,UITableViewDataSource{
             addSymptomsVC?.view.removeFromSuperview()
             addSymptomsVC?.removeFromParent()
         }
+        if let parentVC = self.parent {
+            if let parentVC = parentVC as? AddOptionSelectionViewController {
+                // parentVC is someViewController
+                parentVC.removeBackButton()
+            }
+        }
     }
 }
 
