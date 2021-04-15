@@ -14,17 +14,6 @@ enum CardioSymptomsSleepChangeValue:Double {
     case Not_Present = 0
 }
 
-enum CardioConditionType:String {
-    case hypertension = "hypertension"
-    case arrhythmia  = "Arrhythmia "
-    case heartFailure = "Congestive Heart Failure"
-    case hyperlipidemia = "Hyperlipidemia"
-    case anemia = "Anemia"
-    case diabetes = "Diabetes"
-    case arteryDisease = "Coronary Artery Disease/Peripheral Vascular Disease"
-}
-
-
 enum CardioVitalsType:String {
     case heartRate = "heartRate"
     case systolicBP = "systolicBP"
@@ -43,7 +32,7 @@ func CardioLabDataSampleType()->[HKSampleType]{
     ]
 }
 
-enum RespiratoryConditionType:String {
+enum ConditionType:String {
     case asthma = "COPD/Asthma"
     case respiratoryInfection = "Upper respiratory infection"
     case pneumonia = "Bronchitis/pneumonia"
@@ -53,11 +42,22 @@ enum RespiratoryConditionType:String {
     case sleepApnea = "sleep apnea"
     case heartFailure = "Congestive heart failure"
     case coronaryArteryDisease = "Coronary artery disease"
+    case hypertension = "hypertension"
+    case arrhythmia  = "Arrhythmia"
+    case hyperlipidemia = "Hyperlipidemia"
+    case anemia = "Anemia"
+    case diabetes = "Diabetes"
+    case arteryDisease = "Coronary Artery Disease/Peripheral Vascular Disease"
+    case kidneyDiease = "kidney diease"
+    case kidneyStones = "kidney stones"
+    case electrolyteDisorders = "electrolyte disorders"
+    case underweightOrMalnutrition = "underweight/malnutrition"
+    case UTI = "UTI"
 }
 
 enum LabType:String {
     case sodium = "Sodium"
-    case carbonDioxide = "carbon dioxide (CMP) mEq/L"
+    case carbonDioxidemEqL = "carbon dioxide (CMP) mEq/L"
     case chloride = "chloride"
     case WBC = "WBC's"
     case neutrophil = "Neutrophil %"
@@ -66,5 +66,13 @@ enum LabType:String {
     case microalbumin = "microalbumin/creat ratio"
     case bPeptide = "B-peptide"
     case hemoglobin = "Hemoglobin"
+    case BUN = "BUN (mg/dL)"
+    case creatinine = "Creatinine"
+    case bloodGlucose = "blood glucose"
+    case carbonDioxide = "carbon dioxide"
+    case calcium = "Calcium"
+    case anionGap = "Anion gap"
+    case eGFR = "eGFR"
+   
 }
 

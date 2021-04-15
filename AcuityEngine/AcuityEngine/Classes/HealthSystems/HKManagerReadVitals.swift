@@ -2,7 +2,7 @@
 //  CardioManager.swift
 //  HealthKitDemo
 //
-//  Created by Paresh Patel on 03/02/21.
+//  Created by Bhoomi Jagani on 15/03/21.
 //
 
 
@@ -29,6 +29,7 @@ class HKManagerReadVitals: NSObject {
     
     func resetData(){
         CardioManager.sharedManager.resetCardioData()
+        RespiratoryManager.sharedManager.resetRespiratoryData()
     }
     
     func readVitalsData(days:SegmentValueForGraph,completion: @escaping (Bool, HealthkitSetupError?) -> Swift.Void) {
@@ -82,7 +83,11 @@ class HKManagerReadVitals: NSObject {
                                         
                                         if category == CategoryType.highHeartRateEvent || category == CategoryType.lowHeartRateEvent  || category == CategoryType.irregularHeartRhythmEvent {
                                             
+                                            //save data For Cardio
                                             CardioManager.sharedManager.saveCategoryData(categoryType: category, value: 1, startTimeStamp: element.startTimestamp,endTimeStamp: element.endTimestamp)
+                                            
+                                            //Save data for Respiratory
+                                            RespiratoryManager.sharedManager.saveCategoryData(categoryType: category, value: 1, startTimeStamp: element.startTimestamp,endTimeStamp: element.endTimestamp)
                                             
                                         }
                                     }
@@ -188,7 +193,13 @@ class HKManagerReadVitals: NSObject {
                                                     do {
                                                         
                                                         let identifier =  try QuantityType.make(from: preferredUnit.identifier)
+                                                        
+                                                        //save data For Cardio
                                                         CardioManager.sharedManager.saveQuantityInArray(quantityType: identifier, element: element)
+                                                        
+                                                        //save data For Respiratory
+                                                        RespiratoryManager.sharedManager.saveQuantityInArray(quantityType: identifier, element: element)
+                                                        
                                                     } catch {
                                                         //print(error)
                                                     }

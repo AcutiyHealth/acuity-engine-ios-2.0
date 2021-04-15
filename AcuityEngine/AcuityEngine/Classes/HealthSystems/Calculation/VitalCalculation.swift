@@ -8,7 +8,7 @@
 import Foundation
 import HealthKitReporter
 
-class IMPCalculation:Metrix {
+class VitalCalculation:Metrix {
  
     var title: VitalsName = .heartRate // calculate based on symtomps type
     override var value:Double{
@@ -17,6 +17,8 @@ class IMPCalculation:Metrix {
             case .heartRate:
                 self.calculatedValue = getHeartRateValue().rawValue
             case .bloodPressure:
+                self.calculatedValue = getSBloodPressureValue().rawValue
+            case .bloodPressureSystolic:
                 self.calculatedValue = getSBloodPressureValue().rawValue
             case .bloodPressureDiastolic:
                 self.calculatedValue = getDBloodPressureValue().rawValue
