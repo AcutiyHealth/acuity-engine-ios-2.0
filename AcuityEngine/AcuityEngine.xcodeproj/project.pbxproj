@@ -37,7 +37,6 @@
 		7A473A4026008E7200AD0B77 /* HKWriterManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A473A3F26008E7200AD0B77 /* HKWriterManager.swift */; };
 		7A477AF425F20D9F00B3E369 /* LabelTitle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A477AF025F20D9F00B3E369 /* LabelTitle.swift */; };
 		7A477B1625F20E0C00B3E369 /* UIFont+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A477B1525F20E0C00B3E369 /* UIFont+Extensions.swift */; };
-		7A477B4F25F25A9B00B3E369 /* SaveButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A477B4E25F25A9B00B3E369 /* SaveButton.swift */; };
 		7A4A11032621968900E43BD9 /* CommonSystemCalculation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A4A11022621968900E43BD9 /* CommonSystemCalculation.swift */; };
 		7A4A1122262196D600E43BD9 /* CardioManager+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A4A110F262196D600E43BD9 /* CardioManager+Extension.swift */; };
 		7A4A1123262196D600E43BD9 /* CardioValue.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A4A1110262196D600E43BD9 /* CardioValue.swift */; };
@@ -68,7 +67,6 @@
 		7A57976F25ED14D300BCCD12 /* AcuityMainViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A57976E25ED14D300BCCD12 /* AcuityMainViewModel.swift */; };
 		7A57977225ED1F7500BCCD12 /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A57977125ED1F7500BCCD12 /* ProfileViewController.swift */; };
 		7A57977525ED24E800BCCD12 /* Profile.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7A57977425ED24E800BCCD12 /* Profile.storyboard */; };
-		7A65AED125F5CCFE0075D846 /* CloseButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A65AED025F5CCFE0075D846 /* CloseButton.swift */; };
 		7A65AF1B25F64AA90075D846 /* VitalsListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A65AF1A25F64AA90075D846 /* VitalsListViewController.swift */; };
 		7A65AF1F25F64AE60075D846 /* AddVitalsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A65AF1E25F64AE60075D846 /* AddVitalsViewController.swift */; };
 		7A6AF7FE25E7A2C2001FB132 /* RotaryWheel.m in Sources */ = {isa = PBXBuildFile; fileRef = 7A6AF7F925E7A2C2001FB132 /* RotaryWheel.m */; };
@@ -118,6 +116,7 @@
 		7AE4174E261DC2A40086D4B3 /* SystemDataProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AE4174C261DC2A40086D4B3 /* SystemDataProtocol.swift */; };
 		7AE4175F261DC30A0086D4B3 /* ReadMetricsList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AE4175E261DC30A0086D4B3 /* ReadMetricsList.swift */; };
 		7AEB001726047A91008951DC /* HKManagerReadVitals.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AEB001626047A91008951DC /* HKManagerReadVitals.swift */; };
+		7AEFA799262852A30047040B /* CustomButtons.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AEFA798262852A30047040B /* CustomButtons.swift */; };
 		7AFB024B25F116A800EEEA6A /* Symptoms.txt in Resources */ = {isa = PBXBuildFile; fileRef = 7AFB024A25F116A800EEEA6A /* Symptoms.txt */; };
 /* End PBXBuildFile section */
 
@@ -157,7 +156,6 @@
 		7A473A3F26008E7200AD0B77 /* HKWriterManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HKWriterManager.swift; sourceTree = "<group>"; };
 		7A477AF025F20D9F00B3E369 /* LabelTitle.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LabelTitle.swift; sourceTree = "<group>"; };
 		7A477B1525F20E0C00B3E369 /* UIFont+Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIFont+Extensions.swift"; sourceTree = "<group>"; };
-		7A477B4E25F25A9B00B3E369 /* SaveButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SaveButton.swift; sourceTree = "<group>"; };
 		7A4A11022621968900E43BD9 /* CommonSystemCalculation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CommonSystemCalculation.swift; sourceTree = "<group>"; };
 		7A4A110F262196D600E43BD9 /* CardioManager+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "CardioManager+Extension.swift"; sourceTree = "<group>"; };
 		7A4A1110262196D600E43BD9 /* CardioValue.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CardioValue.swift; sourceTree = "<group>"; };
@@ -188,7 +186,6 @@
 		7A57976E25ED14D300BCCD12 /* AcuityMainViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AcuityMainViewModel.swift; sourceTree = "<group>"; };
 		7A57977125ED1F7500BCCD12 /* ProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
 		7A57977425ED24E800BCCD12 /* Profile.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Profile.storyboard; sourceTree = "<group>"; };
-		7A65AED025F5CCFE0075D846 /* CloseButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CloseButton.swift; sourceTree = "<group>"; };
 		7A65AF1A25F64AA90075D846 /* VitalsListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VitalsListViewController.swift; sourceTree = "<group>"; };
 		7A65AF1E25F64AE60075D846 /* AddVitalsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddVitalsViewController.swift; sourceTree = "<group>"; };
 		7A6AF7F925E7A2C2001FB132 /* RotaryWheel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RotaryWheel.m; sourceTree = "<group>"; };
@@ -243,6 +240,7 @@
 		7AE4174C261DC2A40086D4B3 /* SystemDataProtocol.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SystemDataProtocol.swift; sourceTree = "<group>"; };
 		7AE4175E261DC30A0086D4B3 /* ReadMetricsList.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ReadMetricsList.swift; sourceTree = "<group>"; };
 		7AEB001626047A91008951DC /* HKManagerReadVitals.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HKManagerReadVitals.swift; sourceTree = "<group>"; };
+		7AEFA798262852A30047040B /* CustomButtons.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomButtons.swift; sourceTree = "<group>"; };
 		7AFB024A25F116A800EEEA6A /* Symptoms.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Symptoms.txt; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -525,8 +523,7 @@
 		7A477B4D25F25A8600B3E369 /* Buttons */ = {
 			isa = PBXGroup;
 			children = (
-				7A477B4E25F25A9B00B3E369 /* SaveButton.swift */,
-				7A65AED025F5CCFE0075D846 /* CloseButton.swift */,
+				7AEFA798262852A30047040B /* CustomButtons.swift */,
 			);
 			path = Buttons;
 			sourceTree = "<group>";
@@ -907,7 +904,6 @@
 				7A0AC40925F06A73009EDE25 /* ProfileModels.swift in Sources */,
 				7A4A1126262196D600E43BD9 /* CardioSymptomsPainData.swift in Sources */,
 				7AB9E76325E7AC5700BCA3C1 /* AppDelegate.swift in Sources */,
-				7A65AED125F5CCFE0075D846 /* CloseButton.swift in Sources */,
 				7AE4174D261DC2A40086D4B3 /* SystemConstant.swift in Sources */,
 				7AAE1A7F25F0E717005E47A1 /* AddProblemssymptomsModel.swift in Sources */,
 				7A4A1128262196D600E43BD9 /* CardioManager.swift in Sources */,
@@ -924,7 +920,6 @@
 				7A4A12062621C40100E43BD9 /* RespiratoryManagerProtocol.swift in Sources */,
 				7A22C21725E788AF0028319D /* LabCalculation.swift in Sources */,
 				7A240EFE25E7AB18002A5CF9 /* LoginViewController.swift in Sources */,
-				7A477B4F25F25A9B00B3E369 /* SaveButton.swift in Sources */,
 				7A6AF7FE25E7A2C2001FB132 /* RotaryWheel.m in Sources */,
 				7A88C08125F85BE60047E207 /* AcuityDetailConditionViewModel.swift in Sources */,
 				7A4A12142621C4AB00E43BD9 /* CardioCondition.swift in Sources */,
@@ -955,6 +950,7 @@
 				7A22C24D25E794500028319D /* RespiratoryViewModel.swift in Sources */,
 				7AB9E78925E7B39900BCA3C1 /* Array+Extensions.swift in Sources */,
 				7A6AF81A25E7A572001FB132 /* UISegmentedControl+Extensions.swift in Sources */,
+				7AEFA799262852A30047040B /* CustomButtons.swift in Sources */,
 				7A4A11FD2621C40100E43BD9 /* RespiratoryVitalData.swift in Sources */,
 				7AEB001726047A91008951DC /* HKManagerReadVitals.swift in Sources */,
 				7A4A12102621C44200E43BD9 /* CardioVitalsData.swift in Sources */,

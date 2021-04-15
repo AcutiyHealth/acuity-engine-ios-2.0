@@ -205,24 +205,22 @@ class AcuityMainViewController: PullUpViewController, UIScrollViewDelegate,Rotar
         wheel = RotaryWheel(frame: CGRect(x: (CGFloat(Screen.screenWidth) - ChartSize.kAcuityCircleWidth)/2, y: (CGFloat(Screen.screenHeight) - ChartSize.kAcuityCircleHeight)/2 , width: ChartSize.kAcuityCircleWidth, height: ChartSize.kAcuityCircleHeight), andDelegate: self, withSections: Int32(arrSelectedBodySystem.count), bodySystems: mutableBodySystemArray, selectedSystem: Int32(selSystem), needToRotateChevron: rotateChevron)
         
         //To show blue circle view
-        let innerView = UIView(frame: CGRect(x: 10, y: 10, width: (wheel?.roundbackGroundView.frame.size.width)!-18, height: (wheel?.roundbackGroundView.frame.size.height)!-18 ))
-        innerView.center = (wheel?.roundbackGroundView.center)!
+        let innerView = UIView(frame: CGRect(x: 39, y: 36, width: (wheel?.whiteCircleContainerView.frame.size.width)!-78, height: (wheel?.whiteCircleContainerView.frame.size.height)!-75 ))
+        //innerView.center = (wheel?.roundbackGroundView.center)!
         innerView.backgroundColor = ColorSchema.kMainThemeColor
-        innerView.layer.cornerRadius = innerView.frame.size.height / 2
+        innerView.layer.cornerRadius = innerView.frame.size.width / 2
         innerView.clipsToBounds = true;
-        
-        btnWheelSelection.frame = CGRect(x: Int(innerView.frame.size.width)/2 - btnWheelSelectionWidth/2, y: Int(innerView.frame.size.height)/2 - btnWheelSelectionHeight/2, width: btnWheelSelectionWidth, height: btnWheelSelectionHeight)
+        innerView.layer.masksToBounds = true;
+        innerView.isUserInteractionEnabled = false
+        btnWheelSelection.frame = CGRect(x: Int(innerView.frame.size.width)/2, y: Int(innerView.frame.size.height)/2, width: btnWheelSelectionWidth, height: btnWheelSelectionHeight)
+        btnWheelSelection.center = wheel?.whiteCircleContainerView.center ?? CGPoint(x: 0, y: 0)
         btnWheelSelection.setImage(ImageSet.wheel2, for: UIControl.State.selected)
         btnWheelSelection.setImage(ImageSet.wheel1, for: UIControl.State.normal)
         btnWheelSelection.addTarget(self, action: #selector(btnWheelSelectionClicked), for: UIControl.Event.touchUpInside)
         
-        innerView.addSubview(btnWheelSelection)
-        wheel?.addSubview(innerView)
+        wheel?.addSubview(btnWheelSelection)
+        wheel?.whiteCircleContainerView?.addSubview(innerView)
         
-        
-        innerView.setNeedsLayout()
-        innerView.isUserInteractionEnabled = true
-        //roundView.setNeedsDisplay()
         
         if ((wheel) != nil){
             
