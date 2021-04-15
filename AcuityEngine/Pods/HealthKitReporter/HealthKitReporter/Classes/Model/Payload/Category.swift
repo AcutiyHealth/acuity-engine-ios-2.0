@@ -8,7 +8,7 @@
 import Foundation
 import HealthKit
 
-public struct Category: Identifiable, Sample {
+public struct CategoryData: Identifiable, Sample {
     public struct Harmonized: Codable {
         public let value: Int
         public let description: String
@@ -35,12 +35,12 @@ public struct Category: Identifiable, Sample {
 
     public static func collect(
         results: [HKSample]
-    ) -> [Category] {
-        var samples = [Category]()
+    ) -> [CategoryData] {
+        var samples = [CategoryData]()
         if let categorySamples = results as? [HKCategorySample] {
             for categorySample in categorySamples {
                 do {
-                    let sample = try Category(
+                    let sample = try CategoryData(
                         categorySample: categorySample
                     )
                     samples.append(sample)
@@ -81,7 +81,7 @@ public struct Category: Identifiable, Sample {
     }
 }
 // MARK: - Original
-extension Category: Original {
+extension CategoryData: Original {
     func asOriginal() throws -> HKCategorySample {
         guard let type = identifier.objectType?.original as? HKCategoryType else {
             throw HealthKitError.invalidType(
@@ -99,10 +99,10 @@ extension Category: Original {
     }
 }
 // MARK: - Payload
-extension Category: Payload {
+extension CategoryData: Payload {
     public static func make(
         from dictionary: [String : Any]
-    ) throws -> Category {
+    ) throws -> CategoryData {
         guard
             let uuid = dictionary["uuid"] as? String,
             let identifier = dictionary["identifier"] as? String,
@@ -114,7 +114,7 @@ extension Category: Payload {
             throw HealthKitError.invalidValue("Invalid dictionary: \(dictionary)")
         }
         let device = dictionary["device"] as? [String: Any]
-        return Category(
+        return CategoryData(
             uuid: uuid,
             identifier: identifier,
             startTimestamp: startTimestamp.secondsSince1970,
@@ -128,10 +128,10 @@ extension Category: Payload {
     }
 }
 // MARK: - Payload
-extension Category.Harmonized: Payload {
+extension CategoryData.Harmonized: Payload {
     public static func make(
         from dictionary: [String : Any]
-    ) throws -> Category.Harmonized {
+    ) throws -> CategoryData.Harmonized {
         guard
             let value = dictionary["value"] as? Int,
             let description = dictionary["description"] as? String,
@@ -139,7 +139,7 @@ extension Category.Harmonized: Payload {
         else {
             throw HealthKitError.invalidValue("Invalid dictionary: \(dictionary)")
         }
-        return Category.Harmonized(
+        return CategoryData.Harmonized(
             value: value,
             description: description,
             metadata: metadata

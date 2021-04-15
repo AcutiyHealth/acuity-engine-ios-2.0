@@ -11,60 +11,49 @@ protocol CardioViewModelProtocol {
     
     var cardioDataLoaded: ((Bool, HealthkitSetupError?) -> Void)? { get set }
     
-    func fetchAndLoadCardioData()
+    func fetchAndLoadCardioData(days: SegmentValueForGraph)
 }
 class CardioViewModel: CardioViewModelProtocol {
     var cardioDataLoaded: ((Bool, HealthkitSetupError?) -> Void)?
     
     //MARK: - Internal Properties
+ 
     
-    func fetchAndLoadCardioData(){
-        readAllCardioData()
-        //Read IMP Data bloodpressure
-        CardioManager.sharedManager.readBloodPressureDone = {
-            //self.reloadTable()
+    func fetchAndLoadCardioData(days: SegmentValueForGraph){
+        
+        var successValue:Bool = false
+        var errorValue:HealthkitSetupError? = nil
+        
+        let dispatchGroup = DispatchGroup()
+        
+        //Reset All Data.....
+        HKManagerReadVitals.sharedManager.resetData()
+        
+        dispatchGroup.enter()
+        HKManagerReadVitals.sharedManager.readVitalsData(days: days) { (success, error) in
+            //CardioManager.sharedManager.cardioData.totalScore()
+            successValue = success
+            errorValue = error
+            dispatchGroup.leave()
         }
-        //Read IMP Data heartrate
-        CardioManager.sharedManager.readIrregularHeartDataDone = {
-            //self.reloadTable()
-        }
-        //Read Lab data
-        CardioManager.sharedManager.readLabDataDone = {
-            //self.cardioDataLoaded?()
-        }
-        //Read Condition data
-        CardioManager.sharedManager.readConditionDataDone = {
-            //self.cardioDataLoaded?()
-        }
-        //Read Symptoms data
-        CardioManager.sharedManager.readSymptomsDataDone = {
-            //self.reloadTable()
-        }
-    }
-    
-    func readAllCardioData(){
-        CardioManager.sharedManager.resetCardioData()
-        CardioManager.sharedManager.readConditionData{ (success, error) in
-            self.cardioDataLoaded?(success,error)
-        }
-        CardioManager.sharedManager.readSymptomsData{ (success, error) in
-            self.cardioDataLoaded?(success,error)
-        }
-        CardioManager.sharedManager.readBloodPressure { (success, error) in
-            self.cardioDataLoaded?(success,error)
-        }
-        CardioManager.sharedManager.readIrregularHeartData{ (success, error) in
-            self.cardioDataLoaded?(success,error)
+        dispatchGroup.enter()
+        HKManagerReadSymptoms.sharedManager.readSymptomsData(days: days, completion: { (success, error) in
+            successValue = success
+            errorValue = error
+            dispatchGroup.leave()
+        })
+        dispatchGroup.notify(queue: .main) {
+            
+            DispatchQueue.main.async {
+                print("Complete all reading of data")
+                print("Complete all reading of data", separator: "//////////", terminator: "////////")
+               
+                //let _ = CardioManager.sharedManager.cardioData.totalSystemScoreWithDays(days: MyWellScore.sharedManager.daysToCalculateSystemScore)
+                self.cardioDataLoaded?(successValue,errorValue)
+            }
         }
         
-        CardioManager.sharedManager.readLabData{ (success, error) in
-            self.cardioDataLoaded?(success,error)
-        }
-        
-        CardioManager.sharedManager.readLabDataTemp{ (success, error) in
-            self.cardioDataLoaded?(success,error)
-        }
-        //CardioManager.sharedManager.setDefaultValueCardioData()
+      
     }
     
 }

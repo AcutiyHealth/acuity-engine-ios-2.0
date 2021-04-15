@@ -14,7 +14,7 @@ extension HKSample {
             return try Quantity(quantitySample: quantitiy)
         }
         if let category = self as? HKCategorySample {
-            return try Category(categorySample: category)
+            return try CategoryData(categorySample: category)
         }
         if let workout = self as? HKWorkout {
             return try Workout(workout: workout)

@@ -21,8 +21,8 @@ class AddSymptomViewController: UIViewController {
     @IBOutlet weak var btnSave: SaveButton!
     
     var selectedButton: UIButton?
-    var startDate:Date?
-    var endDate:Date?
+    var startDate:Date = Date()
+    var endDate:Date = Date()
     
     //Date picker view...
     @IBOutlet weak var viewDatePicker: UIView!
@@ -70,7 +70,7 @@ class AddSymptomViewController: UIViewController {
         guard let symptomsModel = symptomsModel else {
             return
         }
-        lblTitle.text = symptomsModel.title
+        lblTitle.text = symptomsModel.title?.rawValue
         tblSymptoms.reloadData()
         
         //Make btn disable or enable...
@@ -78,6 +78,7 @@ class AddSymptomViewController: UIViewController {
     }
     
     func makeSaveBtnEnableOrDisable(){
+        
         if selectedSymptoms < 0{
             btnSave.isEnabled = false
             
@@ -85,11 +86,94 @@ class AddSymptomViewController: UIViewController {
             btnSave.isEnabled = true
             
         }
+        
+        let timeInterval = endDate.timeIntervalSince(startDate)
+        let days:Int = 24
+        let minutes:Int = 60
+        let seconds:Int = 60
+        let intervalDays = timeInterval > 0 ? Int(timeInterval) / days / minutes / seconds : 0
+        guard let symptomsModel = self.symptomsModel else { return  }
+        if symptomsModel.title == SymptomsName.chestPain ||
+            symptomsModel.title == SymptomsName.bladder_Incontinence ||
+            symptomsModel.title == SymptomsName.body_Ache ||
+            symptomsModel.title == SymptomsName.chills  ||
+            symptomsModel.title == SymptomsName.cough ||
+            symptomsModel.title == SymptomsName.dizziness ||
+            symptomsModel.title == SymptomsName.fainting ||
+            symptomsModel.title == SymptomsName.fever ||
+            symptomsModel.title == SymptomsName.hairLoss ||
+            symptomsModel.title == SymptomsName.heartburn ||
+            symptomsModel.title == SymptomsName.lossOfSmell ||
+            symptomsModel.title == SymptomsName.runnyNose ||
+            symptomsModel.title == SymptomsName.shortnessOfBreath ||
+            symptomsModel.title == SymptomsName.skippedHeartBeat ||
+            symptomsModel.title == SymptomsName.soreThroat ||
+            symptomsModel.title == SymptomsName.memoryLapse ||
+            symptomsModel.title == SymptomsName.vomiting
+        {
+            //For above symptoms days diffrence > 4 is not allowed.
+            if intervalDays > 4{
+                btnSave.isEnabled = false
+            }
+        }else{
+            //For other symptoms days diffrence > 14 is not allowed.
+            if intervalDays > 14{
+                btnSave.isEnabled = false
+            }
+        }
     }
     
     @IBAction func btnSaveClick(sender:UIButton){
-        //Create Symptoms model to save data...
-       // let _ = SymptomsModel(title: lblTitle.text ?? "", textValue: SymptomsTextValue(rawValue: symptomsArray[selectedSymptoms].rawValue)!, startTime: startDate?.timeIntervalSince1970 ?? 0, endTime: endDate?.timeIntervalSince1970 ?? 0)
+        
+        //Create Object For HKWriterManager
+        let objWriterManager = HKWriterManager()
+        let symptomValue = symptomsArray[selectedSymptoms]
+        guard let symptomsModel = self.symptomsModel else { return  }
+        
+        HKSetupAssistance.authorizeHealthKitForAddSymptoms(caegoryTypeIdentifier: symptomsModel.healthCategoryType!) { [weak self] (success, error) in
+            if success{
+                objWriterManager.saveSymptomsData(categoryValue: symptomValue, caegoryTypeIdentifier: symptomsModel.healthCategoryType, startdate: self?.startDate ?? Date(), endDate: self?.endDate ?? Date()) { (error) in
+                    guard let name = symptomsModel.title?.rawValue else {return}
+                    if (error == nil){
+                        //show alert
+                        let message = "\(name) saved in health kit"
+                        let okAction = self?.getOKActionForSymptomsList()
+                        self?.showAlertForDataSaved(message:message,okAction: okAction!)
+                        
+                    }else{
+                        let message = "\(name) is not authorized. You can authorized it by making Turn on from Settings -> Health -> DATA -> \(appName) -> Health Data"
+                        let okAction = UIAlertAction(title: "OK", style: .default, handler: nil)
+                        self?.showAlertForDataSaved(message:message,okAction: okAction)
+                    }
+                }
+            }else{
+                
+            }
+        }
+        
+    }
+    func getOKActionForSymptomsList()->UIAlertAction{
+        let okAction = UIAlertAction(title: "OK", style: .default){ (_) in
+            if let parentVC = self.parent {
+                if let parentVC = parentVC as? SymptomsListViewController {
+                    // parentVC is someViewController
+                    parentVC.removeAddSymptomsViewController()
+                }
+            }
+        }
+        return okAction
+    }
+    
+    func showAlertForDataSaved(message:String,okAction:UIAlertAction){
+        
+        //show alert
+        DispatchQueue.main.async {
+            
+            let vc = self.parent
+            vc?.presentAlert(title: "\(appName)",
+                             message: message,
+                             actions: okAction)
+        }
     }
 }
 
@@ -159,19 +243,19 @@ extension AddSymptomViewController{
         if selectedButton == btnEnd{
             endDate = datePicker.date
             btnEnd.setTitle(dateStr, for: .normal)
-            if let startDate = startDate,let endDate = endDate{
-                if endDate<startDate{
-                    self.startDate = datePicker.date
-                    btnStart.setTitle(dateStr, for: .normal)
-                }
+            //if let startDate = startDate,let endDate = endDate{
+            if endDate<startDate{
+                self.startDate = datePicker.date
+                btnStart.setTitle(dateStr, for: .normal)
             }
+            //}
         }
         else{
             startDate = datePicker.date
             btnStart.setTitle(dateStr, for: .normal)
-            
         }
         
+        makeSaveBtnEnableOrDisable()
     }
     
 }

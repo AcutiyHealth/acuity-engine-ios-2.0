@@ -125,7 +125,7 @@ public class HealthKitReader {
             )
         ],
         limit: Int = HKObjectQueryNoLimit,
-        resultsHandler: @escaping CategoryResultsHandler
+        resultsHandler: @escaping CategoryDataResultsHandler
     ) throws -> SampleQuery {
         guard let sampleType = type.original as? HKCategoryType else {
             throw HealthKitError.invalidType("\(type) can not be represented as HKCategoryType")
@@ -143,7 +143,7 @@ public class HealthKitReader {
                 resultsHandler([], error)
                 return
             }
-            let samples = Category.collect(results: results)
+            let samples = CategoryData.collect(results: results)
             resultsHandler(samples, nil)
         }
         return query

@@ -56,37 +56,24 @@ class AcuityDetailValueViewModel: NSObject
     func getSymptomsData(title:String)->[SymptomsModel] {
         var arrSymptoms:[SymptomsModel] = []
           
-        let symptom1 =  SymptomsModel(title: title, value: .Mild)
-        symptom1.startTime = Date().timeIntervalSince1970 - 86400
-        let symptom2 =  SymptomsModel(title: title, value: .Not_Present)
-        symptom2.startTime = Date().timeIntervalSince1970 - 86400 * 2
-        let symptom3 =  SymptomsModel(title: title, value: .Not_Present)
-        symptom3.startTime = Date().timeIntervalSince1970 - 86400 * 3
-        let symptom4 =  SymptomsModel(title: title, value: .Not_Present)
-        symptom4.startTime = Date().timeIntervalSince1970 - 86400 * 4
-        let symptom5 =  SymptomsModel(title: title, value: .Mild)
-        symptom5.startTime = Date().timeIntervalSince1970 - 86400 * 5
-        arrSymptoms = [symptom1,symptom2,symptom3,symptom4,symptom5]
+        if MyWellScore.sharedManager.selectedSystem == SystemName.Cardiovascular{
+            arrSymptoms = CardioManager.sharedManager.cardioData.cardioSymptoms.getArrayDataForSymptoms(days:MyWellScore.sharedManager.daysToCalculateSystemScore, title: title)
+        }
+        else if MyWellScore.sharedManager.selectedSystem == SystemName.Respiratory{
+            arrSymptoms = RespiratoryManager.sharedManager.respiratoryData.respiratorySymptoms.getArrayDataForSymptoms(days:MyWellScore.sharedManager.daysToCalculateSystemScore, title: title)
+        }
        return arrSymptoms
 }
     
     func getVitals(title:String)->[VitalsModel] {
         var arrVitals:[VitalsModel] = []
-          
-        let imp1 =  VitalsModel(title: title, value: "140")
-        imp1.startTime = Date().timeIntervalSince1970 - 86400
-        imp1.color = ChartColor.YELLOWCOLOR
-        let imp2 =  VitalsModel(title: title, value: "84")
-        imp2.startTime = Date().timeIntervalSince1970 - 86400 * 2
-        imp2.color = ChartColor.REDCOLOR
-        let imp3 =  VitalsModel(title: title, value: "90")
-        imp3.startTime = Date().timeIntervalSince1970 - 86400 * 3
-        imp3.color = ChartColor.GREENCOLOR
-        let imp4 =  VitalsModel(title: title, value: "95")
-        imp4.startTime = Date().timeIntervalSince1970 - 86400 * 4
-        imp4.color = ChartColor.GREENCOLOR
-
-        arrVitals = [imp1,imp2,imp3,imp4]
+      
+        if MyWellScore.sharedManager.selectedSystem == SystemName.Cardiovascular{
+            arrVitals = CardioManager.sharedManager.cardioData.cardioVital.getArrayDataForVitals(days:MyWellScore.sharedManager.daysToCalculateSystemScore, title: title)
+        }
+        else if MyWellScore.sharedManager.selectedSystem == SystemName.Respiratory{
+            arrVitals = RespiratoryManager.sharedManager.respiratoryData.respiratoryVital.getArrayDataForVitals(days:MyWellScore.sharedManager.daysToCalculateSystemScore, title: title)
+        }
        return arrVitals
 }
 }

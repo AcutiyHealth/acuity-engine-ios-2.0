@@ -137,11 +137,11 @@ public typealias StatisticsCompeltionHandler = (
 ) -> Void
 /**
  - Parameters:
- - samples: category sample array. Empty by default
+ - samples: CategoryData sample array. Empty by default
  - error: error (optional)
  */
-public typealias CategoryResultsHandler = (
-    _ samples: [Category],
+public typealias CategoryDataResultsHandler = (
+    _ samples: [CategoryData],
     _ error: Error?
 ) -> Void
 /**

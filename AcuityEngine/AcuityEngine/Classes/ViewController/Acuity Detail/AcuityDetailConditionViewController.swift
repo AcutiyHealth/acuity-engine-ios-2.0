@@ -12,8 +12,8 @@ class AcuityDetailConditionViewController: UIViewController {
     // MARK: - Outlet
     
     
-    @IBOutlet weak var systemMetricsTable: UITableView!
-    @IBOutlet weak var titleLbl: UILabel!
+    @IBOutlet weak var tblSystemMetrics: UITableView!
+    @IBOutlet weak var lblTitle: UILabel!
     
     @IBOutlet weak var mainView: UIView!
     
@@ -31,7 +31,7 @@ class AcuityDetailConditionViewController: UIViewController {
     var handler: CompletionDetailConditionViewOpen?
     var detailValueVC: AcuityDetailValueViewController?
     //Get data from parent view controller.
-    var systemName:MetricsType?{
+    var metrixType:MetricsType?{
         didSet{
             self.showSystemData()
         }
@@ -47,21 +47,21 @@ class AcuityDetailConditionViewController: UIViewController {
     
     
     func setFontForLabel(){
-        titleLbl.font = Fonts.kAcuityDetailTitleFont
+        lblTitle.font = Fonts.kAcuityDetailTitleFont
     }
     
     
     //MARK: show system data in tableview
     func showSystemData(){
-        guard let systemName = systemName else {
+        guard let metrixType = metrixType else {
             return
         }
-        titleLbl.text = systemName.rawValue
+        lblTitle.text = metrixType.rawValue
         
-        if systemName == .Conditions{
+        if metrixType == .Conditions{
             arrConditions = viewModelObj.getConditionData()
         }
-        switch systemName {
+        switch metrixType {
         case .Vitals:
             do{
                 arrVitals = viewModelObj.getVitals()
@@ -83,7 +83,7 @@ class AcuityDetailConditionViewController: UIViewController {
     }
     
     func reloadTableView(){
-        self.systemMetricsTable.reloadData()
+        self.tblSystemMetrics.reloadData()
     }
     func setHandler(handler: @escaping CompletionDetailConditionViewOpen){
         self.handler = handler
@@ -94,10 +94,10 @@ class AcuityDetailConditionViewController: UIViewController {
 
 extension AcuityDetailConditionViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        guard let systemName = systemName else {
+        guard let metrixType = metrixType else {
             return 0
         }
-        switch systemName {
+        switch metrixType {
         case .Vitals:
             do{
                 return arrVitals.count
@@ -124,7 +124,7 @@ extension AcuityDetailConditionViewController: UITableViewDelegate, UITableViewD
         guard var cell = (tableView.dequeueReusableCell(withIdentifier: "AcuityDetailValueDisplayCell") as? AcuityDetailValueDisplayCell)  else {
             fatalError("AcuityDetailDisplayCell cell is not found")
         }
-        switch self.systemName {
+        switch self.metrixType {
         case .Vitals:
             do{
                 let item = arrVitals[indexPath.row]
@@ -165,43 +165,39 @@ extension AcuityDetailConditionViewController: UITableViewDelegate, UITableViewD
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
         //open detail value screen
-        if indexPath.row == 0{
+        //if indexPath.row == 0{
         openValueDetailScreen()
-        switch systemName
+        switch metrixType
         {
         case .Vitals:
             do{
                 
-                let item = arrVitals[0]
-                detailValueVC?.metrixItem = AcuityDetailPulllUpModel(title: item.title ?? "", value: item.value ?? "", metrixType: (systemName ?? .none)!)
+                let item = arrVitals[indexPath.row]
+                detailValueVC?.metrixItem = AcuityDetailPulllUpModel(title: item.title ?? "", value: item.value ?? "", metrixType: (metrixType ?? .none)!)
             }
         case .Conditions:
             do{
                 
-                let item = arrConditions[0]
-                detailValueVC?.metrixItem = AcuityDetailPulllUpModel(title: item.title ?? "", value: item.textValue, metrixType: (systemName ?? .none)!)
+                let item = arrConditions[indexPath.row]
+                detailValueVC?.metrixItem = AcuityDetailPulllUpModel(title: item.title ?? "", value: item.textValue, metrixType: (metrixType ?? .none)!)
             }
         case .Sympotms:
             do{
                 
-                let item = arrSymptoms[0]
-                detailValueVC?.metrixItem = AcuityDetailPulllUpModel(title: item.title ?? "", value: item.textValue?.rawValue ?? "", metrixType: (systemName ?? .none)!)
+                let item = arrSymptoms[indexPath.row]
+                detailValueVC?.metrixItem = AcuityDetailPulllUpModel(title: item.title ?? "", value: item.textValue?.rawValue ?? "", metrixType: (metrixType ?? .none)!)
             }
         case .LabData:
             do{
                 
-                let item = arrLabs[0]
-                detailValueVC?.metrixItem = AcuityDetailPulllUpModel(title: item.title ?? "", value: item.value ?? "", metrixType: (systemName ?? .none)!)
+                let item = arrLabs[indexPath.row]
+                detailValueVC?.metrixItem = AcuityDetailPulllUpModel(title: item.title ?? "", value: item.value ?? "", metrixType: (metrixType ?? .none)!)
             }
             
         case .none:
-            do{
-                
-                let item = arrLabs[0]
-                detailValueVC?.metrixItem = AcuityDetailPulllUpModel(title: item.title ?? "", value: item.value ?? "", metrixType: (systemName ?? .none)!)
-            }
+            break;
         }
-        }
+        //}
         
     }
     
@@ -217,14 +213,8 @@ extension AcuityDetailConditionViewController: UITableViewDelegate, UITableViewD
         detailValueVC?.didMove(toParent: self)
         detailValueVC?.view.tag = 111
         
-        //Pass selected Symptoms to AddSymptomViewController
-        //        let symptomsData = symptomArray[index]
-        //        detailValueVC?.symptomsModel = symptomsData
-        //setUpCloseButton(frame:btnFrame , btnImage:btnImage , btnTintColor:btnTintColor! )
-        //Hide main view of Detail Pullup class
-        
+        //Main view of Self class needs to be hidden to show subve=iew..
         mainView.isHidden = true
-        
         
         if let handler = handler{
             handler(true)

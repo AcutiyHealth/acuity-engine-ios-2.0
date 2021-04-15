@@ -9,7 +9,6 @@
 
 import UIKit
 
-
 let btnWheelSelectionWidth = 84
 let btnWheelSelectionHeight = 84
 
@@ -25,7 +24,6 @@ class AcuityMainViewController: PullUpViewController, UIScrollViewDelegate,Rotar
     
     @IBOutlet var lblScore: UILabel!
     @IBOutlet var lblMyWell: UILabel!
-    @IBOutlet var lblScoreWhenPopup: UILabel!
     @IBOutlet var lblScoreText: UILabel!
     
     //Stackview....
@@ -33,6 +31,10 @@ class AcuityMainViewController: PullUpViewController, UIScrollViewDelegate,Rotar
     @IBOutlet var subScoreView: UIView!
     @IBOutlet var stackProfileView: UIView!
     @IBOutlet var stackAddView: UIView!
+    
+    //SubScoreview Views
+    @IBOutlet var lblScoreWhenPopup: UILabel!
+    @IBOutlet var lblScoreTextWhenPopup: UILabel!
     
     //save last selected index in wheel...
     var lastSelectedIndex = 0
@@ -54,55 +56,109 @@ class AcuityMainViewController: PullUpViewController, UIScrollViewDelegate,Rotar
         //Load super viewdidLoad
         super.viewDidLoad()
         
+        //set UI color for main view
+        setUIColorForMainView()
+        
+        setFontForMyWellScore()
+        
         headerView.delegate = self
         //Set pullup view height
         self.expandedViewHeight = viewModelAcuityMain.getExpandedViewHeight(expandedViewHeight: (self.expandedViewHeight), headerViewHeight: subScoreView.frame.maxY)
         self.reloadCardView()
         
         //Set up Circle View
-        self.setUpAcuityCircleView()
+        self.callLoadHealthData()
         
         //Add notification for Pullup view open/close
         NotificationCenter.default.addObserver(self, selector: #selector(self.showSubScoreView), name: Notification.Name("pullUpOpen"), object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(self.showMainScoreView), name: Notification.Name("pullUpClose"), object: nil)
+        //Add notification for show AcuityDetailPopup when close Profile or Add Popup
         NotificationCenter.default.addObserver(self, selector: #selector(self.showAcuityDetailPopup), name: Notification.Name("showAcuityDetailPopup"), object: nil)
+        
+        //Add notification when segment change from popup
+        NotificationCenter.default.addObserver(self, selector: #selector(self.callLoadHealthData), name: Notification.Name("refreshCircleView"), object: nil)
     }
     
     deinit {
         if (headerView != nil){
             headerView.delegate = nil
         }
+        
+        wheel = nil
+        wheel?.delegate = nil
+        arrBodySystems = []
+        arrSortedArray = []
+        
     }
-    //MARK:
+    
+    //MARK: Load Health Data
+    @objc  func callLoadHealthData(){
+        self.loadHealthData(days: MyWellScore.sharedManager.daysToCalculateSystemScore, completion: { (success, error) in
+            
+        })
+        
+    }
+    func loadHealthData(days:SegmentValueForGraph,completion: @escaping (Bool, HealthkitSetupError?) -> Swift.Void){
+        
+        //Show Progress HUD
+        let progrssHUD = showIndicatorInView(view: self.view)
+        
+        MyWellScore.sharedManager.loadHealthData(days: days) {[weak self] (success, error) in
+            if success && error == nil{
+                //Set up Circle View
+                DispatchQueue.main.async {
+                    
+                    //Do my well score caclulation....
+                    MyWellScore.sharedManager.myWellScoreCalculation()
+                    
+                    self?.setUpAcuityCircleView()
+                    //Hide Progress HUD
+                    progrssHUD.dismiss(animated: true)
+                    completion(success,error)
+                }
+                
+            }
+        }
+        
+    }
     
     //MARK: set up Acuity circle view...
     
-    func setUpAcuityCircleView() {
+    @objc func setUpAcuityCircleView() {
         
-        //set UI color for main view
-        setUIColorForMainView()
-        setFontForMyWellScore()
         
-        //Set up body system data with default value...
-        arrBodySystems = viewModelAcuityMain.setupBodySystemData()
+        //Select system index from array of arrBodySystems
+        let acuityId = strSelectedAcuityId
+        var selSystem = 0
         
-        //If body sytem more than 0 create wheel..
-        if arrBodySystems.count>0{
+        //When Center wheel button selected..sort all data in Array Body System to Green,Red,Yellow..
+        if btnWheelSelection.isSelected == true {
             
-            //Id of selected system..
-            strSelectedAcuityId = (arrBodySystems[0]["id"]) as? String
+            sortArrayBodySystem()
+            selSystem = viewModelAcuityMain.arrayIndexFromBodySystem(bodyStystem: arrSortedArray!, andAcuityId: acuityId ?? "0")
             
-            //[self setIndexImageView1Image];
-            setAcuityIndexRemainingImageViewImages()
+            btnWheelSelected(selectedSystemIndex: selSystem)
+            wheel?.transform(true, andselectedIndex: Int32(selSystem), andPreviousIndex: wheel?.currentValue ?? 0)
             
-            //Select system index from array of arrBodySystems
-            let acuityId = arrBodySystems[0]["id"] as? String
-            let selSystem = viewModelAcuityMain.arrayIndexFromBodySystem(bodyStystem: arrBodySystems, andAcuityId: acuityId ?? "0")
+        }
+        else{
+            //When Center wheel button not selected.
+            //Set up body system data with default value...
+            arrBodySystems = viewModelAcuityMain.setupBodySystemData()
             
-            //setup wheel
-            setupWheel(selSystem: selSystem, bodyStystems: arrBodySystems, needToRotateChevron: true)
-            btnWheelSelection.isSelected = true
-            self.btnWheelSelectionClicked(btnWheelSelection)
+            //If body sytem more than 0 create wheel..
+            if arrBodySystems.count>0{
+                
+                //Select system index from array of arrBodySystems
+                
+                let selSystem = viewModelAcuityMain.arrayIndexFromBodySystem(bodyStystem: arrBodySystems, andAcuityId: acuityId ?? "0")
+                
+                btnWheelNotSelected(selectedSystemIndex: selSystem)
+                
+                //Transform wheel to selected System...
+                wheel?.transform(true, andselectedIndex: Int32(selSystem), andPreviousIndex: wheel?.currentValue ?? 0)
+                
+            }
             
             //display scrore data...
             displayMyWellScoreData()
@@ -121,15 +177,23 @@ class AcuityMainViewController: PullUpViewController, UIScrollViewDelegate,Rotar
             lblScore.font = lblScore.font.withSize((self.view.frame.height * 100)/896)
             lblMyWell.font = lblMyWell.font.withSize((self.view.frame.height * 34)/896)
             lblScoreText.font = lblScoreText.font.withSize((self.view.frame.height * 22)/896)
+            lblScoreTextWhenPopup.font = lblScoreText.font.withSize((self.view.frame.height * 40)/896)
+            lblScoreWhenPopup.font = lblScoreText.font.withSize((self.view.frame.height * 60)/896)
         }
     }
-    //MARK: show data in header..
+    
+    //MARK: Refresh button click
+    @IBAction func btnRefreshClick(sender:UIButton){
+        callLoadHealthData()
+    }
+    //MARK: Show data in header..
     func displayMyWellScoreData(){
         //self.headerView.lblSystemScore!.text = String(format: "%.2f", (MyWellScore.sharedManager.myWellScore))
         lblScore.text = String(format: "%.2f", (MyWellScore.sharedManager.myWellScore))
+        lblScoreWhenPopup.text = String(format: "%.2f", (MyWellScore.sharedManager.myWellScore))
     }
     
-    //MARK: draw wheel..
+    //MARK: Draw Wheel..
     func setupWheel(selSystem:Int, bodyStystems arrSelectedBodySystem:[[String:Any]], needToRotateChevron rotateChevron:Bool){
         
         if (wheel != nil){
@@ -140,16 +204,16 @@ class AcuityMainViewController: PullUpViewController, UIScrollViewDelegate,Rotar
         
         wheel = RotaryWheel(frame: CGRect(x: (CGFloat(Screen.screenWidth) - ChartSize.kAcuityCircleWidth)/2, y: (CGFloat(Screen.screenHeight) - ChartSize.kAcuityCircleHeight)/2 , width: ChartSize.kAcuityCircleWidth, height: ChartSize.kAcuityCircleHeight), andDelegate: self, withSections: Int32(arrSelectedBodySystem.count), bodySystems: mutableBodySystemArray, selectedSystem: Int32(selSystem), needToRotateChevron: rotateChevron)
         
-        //To shw blue circle view
+        //To show blue circle view
         let innerView = UIView(frame: CGRect(x: 10, y: 10, width: (wheel?.roundbackGroundView.frame.size.width)!-18, height: (wheel?.roundbackGroundView.frame.size.height)!-18 ))
         innerView.center = (wheel?.roundbackGroundView.center)!
         innerView.backgroundColor = ColorSchema.kMainThemeColor
         innerView.layer.cornerRadius = innerView.frame.size.height / 2
-        
+        innerView.clipsToBounds = true;
         
         btnWheelSelection.frame = CGRect(x: Int(innerView.frame.size.width)/2 - btnWheelSelectionWidth/2, y: Int(innerView.frame.size.height)/2 - btnWheelSelectionHeight/2, width: btnWheelSelectionWidth, height: btnWheelSelectionHeight)
-        btnWheelSelection.setImage(ImageSet.wheel2, for: UIControl.State.normal)
-        btnWheelSelection.setImage(ImageSet.wheel1, for: UIControl.State.selected)
+        btnWheelSelection.setImage(ImageSet.wheel2, for: UIControl.State.selected)
+        btnWheelSelection.setImage(ImageSet.wheel1, for: UIControl.State.normal)
         btnWheelSelection.addTarget(self, action: #selector(btnWheelSelectionClicked), for: UIControl.Event.touchUpInside)
         
         innerView.addSubview(btnWheelSelection)
@@ -169,52 +233,62 @@ class AcuityMainViewController: PullUpViewController, UIScrollViewDelegate,Rotar
         }
     }
     
+    //MARK: Center Wheel Button
     @objc @IBAction func btnWheelSelectionClicked(_ sender: Any) {
-        arrSortedArray = arrBodySystems
-        if btnWheelSelection.isSelected == true {
-            btnWheelSelection.isSelected = false
-            setupWheel(selSystem: 0, bodyStystems: arrBodySystems, needToRotateChevron: true)
-            if arrBodySystems.count>0{
-                let item = arrBodySystems[0]
-                let index:String = (item["score"] as? String ?? "")
-                self.setBackGroundColorRoundView(index:index )
-            }
-        }else{
-            btnWheelSelection.isSelected = true
-            arrSortedArray = viewModelAcuityMain.returnSortedArrayUsingIndexandSequence(bodySystemArray: arrBodySystems)
-            setupWheel(selSystem: 0, bodyStystems: arrSortedArray ?? arrBodySystems, needToRotateChevron: true)
-            if arrSortedArray?.count ?? 0>0{
-                let item = arrSortedArray?[0]
-                let index:String = (item?["score"] as? String ?? "")
-                self.setBackGroundColorRoundView(index:index )
-            }
+        
+        if btnWheelSelection.isSelected == false {
+            btnWheelSelected(selectedSystemIndex: 0)
+        }
+        else{
+            btnWheelNotSelected(selectedSystemIndex: 0)
+        }
+        btnWheelSelection.isSelected = !btnWheelSelection.isSelected
+    }
+    
+    func btnWheelSelected(selectedSystemIndex:Int){
+        arrSortedArray = viewModelAcuityMain.returnSortedArrayUsingIndexandSequence(bodySystemArray: arrBodySystems)
+        setupWheel(selSystem: selectedSystemIndex, bodyStystems: arrSortedArray ?? arrBodySystems, needToRotateChevron: true)
+        if arrSortedArray?.count ?? 0>0{
+            let item = arrSortedArray?[0]
+            let index:String = (item?["score"] as? String ?? "")
+            self.setBackGroundColorRoundView(index:index )
+        }
+    }
+    
+    func btnWheelNotSelected(selectedSystemIndex:Int){
+        
+        setupWheel(selSystem: selectedSystemIndex, bodyStystems: arrBodySystems, needToRotateChevron: true)
+        if arrBodySystems.count>0{
+            let item = arrBodySystems[0]
+            let index:String = (item["score"] as? String ?? "")
+            self.setBackGroundColorRoundView(index:index )
         }
     }
     //MARK: Sorting of body system array
-    func setAcuityIndexRemainingImageViewImages(){
+    func sortArrayBodySystem(){
         arrSortedArray = viewModelAcuityMain.returnSortedArrayUsingIndexandSequence(bodySystemArray: arrBodySystems)
         
     }
     
-    //MARK: set background color in round view
+    //MARK: Seet background color in round view
     func setBackGroundColorRoundView(index:String){
         let themeColor = getThemeColor(index: index,isForWheel: true)
         wheel?.roundbackGroundView.backgroundColor = themeColor;
-        
-        mainScoreView.isHidden = false
-        subScoreView.isHidden = true
-        stackAddView.isHidden = true
-        stackProfileView.isHidden = true
-        
+        if pullUpController.isExpanded{
+            showSubScoreView()
+        }else{
+            showMainScoreView()
+        }
     }
-    //MARK: show Main Score view
+    
+    //MARK: Notifications Methods..
     @objc func showMainScoreView(){
         
         self.mainScoreView.isHidden = false
         self.subScoreView.isHidden = true
         self.stackAddView.isHidden = true
         self.stackProfileView.isHidden = true
-        
+        self.pullUpController.isExpanded = false
     }
     @objc func showAcuityDetailPopup(){
         self.wheelDidChangeValue(Int32(self.lastSelectedIndex))
@@ -226,7 +300,7 @@ class AcuityMainViewController: PullUpViewController, UIScrollViewDelegate,Rotar
         self.subScoreView.isHidden = false
         self.stackAddView.isHidden = true
         self.stackProfileView.isHidden = true
-        
+        self.pullUpController.isExpanded = true
         
     }
     //MARK: Wheel change delegate method..
@@ -237,7 +311,7 @@ class AcuityMainViewController: PullUpViewController, UIScrollViewDelegate,Rotar
             
             self?.lastSelectedIndex = Int(newValue)
             
-            if ((self?.btnWheelSelection.isSelected) != nil) {
+            if self?.btnWheelSelection.isSelected == true {
                 if (self?.arrSortedArray!.count)!>newValue{
                     item = self?.arrSortedArray?[Int(newValue)]
                     let index:String = (item?["score"] as? String ?? "")
@@ -265,7 +339,7 @@ class AcuityMainViewController: PullUpViewController, UIScrollViewDelegate,Rotar
                 //set selected system data..
                 //IT's from PullViewController..When user change system in didSet it will change data...
                 self?.selectPullUpType = .Detail
-                self?.reloadCardView()
+                self?.openDetailPullUpViewController()
                 self?.systemData = item
                 
             }
@@ -273,7 +347,13 @@ class AcuityMainViewController: PullUpViewController, UIScrollViewDelegate,Rotar
         }
     }
     
-    
+    func openDetailPullUpViewController(){
+        if  (self.pullUpController.pullUpVC != nil),!self.pullUpController.pullUpVC.isKind(of: AcuityDetailPullUpViewController.self){
+            
+            self.reloadCardView()
+            
+        }
+    }
     
 }
 
@@ -300,7 +380,7 @@ extension AcuityMainViewController:HeaderDelegate{
         stackAddView.isHidden = true
         stackProfileView.isHidden = false
         
-        self.selectPullUpType = .Profie
+        self.selectPullUpType = .Profile
         //if pullUpController.isE
         if  (self.pullUpController.pullUpVC != nil),self.pullUpController.pullUpVC.isKind(of: ProfileOptionSelectionViewController.self){
             if !pullUpController.isExpanded{

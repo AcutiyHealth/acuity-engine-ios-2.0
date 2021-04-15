@@ -9,7 +9,7 @@ import Foundation
 import HealthKit
 
 extension HKCategorySample: Harmonizable {
-    typealias Harmonized = Category.Harmonized
+    typealias Harmonized = CategoryData.Harmonized
     
     func harmonize() throws -> Harmonized {
         let type = try categoryType.parsed()

@@ -116,7 +116,8 @@ extension AddOptionSelectionViewController: UITableViewDelegate, UITableViewData
         //Add detail value view as child view
         symptomsVC = UIStoryboard(name: Storyboard.add.rawValue, bundle: nil).instantiateViewController(withIdentifier: "SymptomsListViewController") as? SymptomsListViewController
         self.addChild(symptomsVC!)
-        symptomsVC?.view.frame = CGRect(x: 0, y: 0, width: visualEffectView.frame.size.width, height: visualEffectView.frame.size.height)
+        let originY:CGFloat = 15
+        symptomsVC?.view.frame = CGRect(x: 0, y: originY, width: visualEffectView.frame.size.width, height: visualEffectView.frame.size.height-originY)
         visualEffectView.addSubview((symptomsVC?.view)!)
         symptomsVC?.didMove(toParent: self)
         
@@ -144,7 +145,8 @@ extension AddOptionSelectionViewController: UITableViewDelegate, UITableViewData
         //Add detail value view as child view
         vitalsVC = UIStoryboard(name: Storyboard.add.rawValue, bundle: nil).instantiateViewController(withIdentifier: "VitalsListViewController") as? VitalsListViewController
         self.addChild(vitalsVC!)
-        vitalsVC?.view.frame = CGRect(x: 0, y: 0, width: visualEffectView.frame.size.width, height: visualEffectView.frame.size.height)
+        let originY:CGFloat = 15
+        vitalsVC?.view.frame = CGRect(x: 0, y: originY, width: visualEffectView.frame.size.width, height: visualEffectView.frame.size.height-originY)
         visualEffectView.addSubview((vitalsVC?.view)!)
         vitalsVC?.didMove(toParent: self)
         
@@ -170,7 +172,8 @@ extension AddOptionSelectionViewController: UITableViewDelegate, UITableViewData
         //Add detail value view as child view
         conditionsVC = UIStoryboard(name: Storyboard.add.rawValue, bundle: nil).instantiateViewController(withIdentifier: "ConditionsListViewController") as? ConditionsListViewController
         self.addChild(conditionsVC!)
-        conditionsVC?.view.frame = CGRect(x: 0, y: 0, width: visualEffectView.frame.size.width, height: visualEffectView.frame.size.height)
+        let originY:CGFloat = 15
+        conditionsVC?.view.frame = CGRect(x: 0, y:originY, width: visualEffectView.frame.size.width, height: visualEffectView.frame.size.height-originY)
         visualEffectView.addSubview((conditionsVC?.view)!)
         conditionsVC?.didMove(toParent: self)
         
@@ -214,7 +217,7 @@ extension AddOptionSelectionViewController: UITableViewDelegate, UITableViewData
         }
         if vitalsVC != nil{
             if let _:UIView = vitalsVC?.view.viewWithTag(111) {
-                self.vitalsVC?.removeAddSymptomsViewController()
+                self.vitalsVC?.removeAddVitalsViewController()
             }
             else{
                 removeCloseButton()

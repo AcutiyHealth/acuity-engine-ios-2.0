@@ -19,10 +19,10 @@ extension HKCorrelation: Harmonizable {
                 quantityArray.append(quantity)
             }
         }
-        var categoryArray = [Category]()
+        var categoryArray = [CategoryData]()
         if let categorySamples = objects as? Set<HKCategorySample> {
             for element in categorySamples {
-                let category = try Category(categorySample: element)
+                let category = try CategoryData(categorySample: element)
                 categoryArray.append(category)
             }
         }

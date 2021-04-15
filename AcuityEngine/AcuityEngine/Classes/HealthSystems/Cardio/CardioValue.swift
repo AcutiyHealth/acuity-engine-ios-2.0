@@ -9,11 +9,6 @@ import Foundation
 import HealthKitReporter
 import HealthKit
 
-enum CardioSymptomsSleepChangeValue:Double {
-    case Present = 1
-    case Not_Present = 0
-}
-
 enum CardioLabsType:String {
     case bloodOxygenLevel = "Blood oxygen level"
     case potassiumLevel = "Potassium level"
@@ -32,15 +27,6 @@ enum CardioConditionType:String {
 }
 
 
-enum CardioVitalsType:String {
-    case heartRate = "heartRate"
-    case systolicBP = "systolicBP"
-    case diastolicBP = "diastolicBP"
-    case highHeartRate = "highHeartRate"
-    case lowHeartRate = "lowHeartRate"
-    case vo2Max = "vo2Max"
-    case irregularRhymesNotification = "irregularRhymesNotification"
-}
 
 func CardioSymptomsReadValue() -> [CategoryType]{
     [CategoryType.chestTightnessOrPain,CategoryType.skippedHeartbeat,
@@ -63,11 +49,5 @@ func CardioBloodPressureCategoryType() -> [QuantityType]{
 func CardioLabDataeCategoryType() -> [QuantityType]{
     [QuantityType.oxygenSaturation,QuantityType.dietaryPotassium,QuantityType.dietaryMagnesium]
 }
-func CardioLabDataSampleType()->[HKSampleType]{
-    [
-        
-        HKObjectType.clinicalType(forIdentifier: .labResultRecord)!,
-        
-    ]
-}
+
 
