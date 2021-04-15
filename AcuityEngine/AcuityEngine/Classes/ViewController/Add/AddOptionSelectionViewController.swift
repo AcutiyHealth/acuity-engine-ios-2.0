@@ -13,12 +13,10 @@ class AddOptionSelectionViewController:UIViewController{
     
     // MARK: - Outlet
     @IBOutlet weak var addOptionTableView: UITableView!
-    @IBOutlet weak var handleArea: UIView!
+    @IBOutlet weak var handleArea: HandleView!
     @IBOutlet weak var mainView: UIView!
     @IBOutlet weak var visualEffectView: UIView!
     
-    //Close button for Acuity detail value...
-    var btnClose:UIButton?
     
     //Object of Profilevalue viewcontroller...
     var symptomsVC : SymptomsListViewController?
@@ -58,7 +56,7 @@ extension AddOptionSelectionViewController: SOPullUpViewDelegate {
         case .expanded: break
             
         }
-       
+        
     }
     
     func pullUpHandleArea(_ sender: UIViewController) -> UIView {
@@ -78,16 +76,16 @@ extension AddOptionSelectionViewController: UITableViewDelegate, UITableViewData
             fatalError("AcuityDetailDisplayCell cell is not found")
         }
         cell.displayData(title: addOptionArray[indexPath.row])
-      
+        
         
         cell.selectionStyle = .none
         
         return cell
     }
     
-//    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-//        return 200
-//    }
+    //    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+    //        return 200
+    //    }
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
         switch AddOption(rawValue: addOptionArray[indexPath.row]){
@@ -129,6 +127,7 @@ extension AddOptionSelectionViewController: UITableViewDelegate, UITableViewData
         mainView.isHidden = true
         symptomsVC?.setHandler(handler: { [weak self] (open) in
             if open ?? false{
+                self?.setupBackButton()
                 self?.visualEffectView.bringSubviewToFront((self?.handleArea)!)
             }else{
                 self?.symptomsVC?.view.removeFromSuperview()
@@ -152,11 +151,12 @@ extension AddOptionSelectionViewController: UITableViewDelegate, UITableViewData
         
         //Add close button target
         setUpCloseButton()
-     
+       
         //Hide main view of Detail Pullup class
         mainView.isHidden = true
         vitalsVC?.setHandler(handler: { [weak self] (open) in
             if open ?? false{
+                self?.setupBackButton()
                 self?.visualEffectView.bringSubviewToFront((self?.handleArea)!)
             }else{
                 self?.vitalsVC?.view.removeFromSuperview()
@@ -178,67 +178,95 @@ extension AddOptionSelectionViewController: UITableViewDelegate, UITableViewData
         conditionsVC?.didMove(toParent: self)
         
         //Add close button target
-       setUpCloseButton()
-      
+        setUpCloseButton()
+        
         //Hide main view of Detail Pullup class
         mainView.isHidden = true
         
         visualEffectView.bringSubviewToFront(handleArea)
     }
+    func setupBackButton(){
+        handleArea.btnBack!.isHidden = false
+        handleArea.btnBack!.addTarget(self, action: #selector(btnBackClickedInAddOptionVC), for: UIControl.Event.touchUpInside)
+    }
     
     func setUpCloseButton(){
-        //Add close button target
-        btnClose = CloseButton()
-        let rect = (btnClose!.frame)
-        let originX = Double(handleArea.frame.size.width - (rect.size.width)-20)
-        let originY = Double(handleArea.frame.size.height - (rect.size.height))/2
+        handleArea.btnClose!.isHidden = false
+        handleArea.btnClose!.addTarget(self, action: #selector(btnCloseClickedInAddOptionVC), for: UIControl.Event.touchUpInside)
         
-        btnClose!.frame = CGRect(origin: CGPoint(x: originX, y: originY), size: rect.size)
-      
-        btnClose!.addTarget(self, action: #selector(btnCloseClickedInAddOptionVC), for: UIControl.Event.touchUpInside)
-         
-        handleArea.addSubview(btnClose!)
     }
     
     //MARK: Btn close click
     @objc func btnCloseClickedInAddOptionVC(){
         
         if symptomsVC != nil{
+            removeSymptomsView()
+        }
+        if vitalsVC != nil{
+            removeVitalView()
+        }
+        if conditionsVC != nil{
+            removeConditionView()
+        }
+        
+    }
+    //MARK: Btn Back click
+    @objc func btnBackClickedInAddOptionVC(){
+        
+        if symptomsVC != nil{
             if let _:UIView = symptomsVC?.view.viewWithTag(111) {
                 self.symptomsVC?.removeAddSymptomsViewController()
-            }
-            else{
-                removeCloseButton()
-                self.symptomsVC?.symptomView?.removeFromSuperview()
-                self.symptomsVC?.view.removeFromSuperview()
-                self.symptomsVC?.removeFromParent()
-                self.symptomsVC = nil
+            }else{
+                removeSymptomsView()
+                
             }
         }
         if vitalsVC != nil{
             if let _:UIView = vitalsVC?.view.viewWithTag(111) {
                 self.vitalsVC?.removeAddVitalsViewController()
-            }
-            else{
-                removeCloseButton()
-                self.vitalsVC?.tblVitals?.removeFromSuperview()
-                self.vitalsVC?.view.removeFromSuperview()
-                self.vitalsVC?.removeFromParent()
-                self.vitalsVC = nil
+            }else{
+                removeVitalView()
             }
         }
         if conditionsVC != nil{
-            removeCloseButton()
-            conditionsVC?.view.removeFromSuperview()
-            conditionsVC?.removeFromParent()
-            self.conditionsVC = nil
         }
-            
+        removeBackButton()
     }
     
+    func removeVitalView(){
+        
+        self.vitalsVC?.tblVitals?.removeFromSuperview()
+        self.vitalsVC?.view.removeFromSuperview()
+        self.vitalsVC?.removeFromParent()
+        self.vitalsVC = nil
+        removeCloseButton()
+        removeBackButton()
+        
+    }
+    func removeSymptomsView(){
+        
+        self.symptomsVC?.symptomView?.removeFromSuperview()
+        self.symptomsVC?.view.removeFromSuperview()
+        self.symptomsVC?.removeFromParent()
+        self.symptomsVC = nil
+        removeCloseButton()
+        removeBackButton()
+    }
+    
+    func removeConditionView(){
+        
+        conditionsVC?.view.removeFromSuperview()
+        conditionsVC?.removeFromParent()
+        self.conditionsVC = nil
+        removeCloseButton()
+        removeBackButton()
+    }
     func removeCloseButton(){
         mainView.isHidden = false
-        btnClose?.removeFromSuperview()
-    
+        handleArea.btnClose!.isHidden = true
+        
+    }
+    func removeBackButton(){
+        handleArea.btnBack!.isHidden = true
     }
 }

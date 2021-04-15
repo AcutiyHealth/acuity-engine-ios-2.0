@@ -26,6 +26,8 @@ class AcuityMainViewModel: NSObject {
         var arrBodySystems:[[String:Any]] = []
         
         let metricCardio = CardioManager.sharedManager.cardioData.dictionaryRepresentation()
+        let metricTemp = [MetricsType.Conditions.rawValue:CardioManager.sharedManager.cardioData.cardioCondition.dictionaryRepresentation(),MetricsType.Sympotms.rawValue:[],MetricsType.LabData.rawValue:CardioManager.sharedManager.cardioData.cardioLab.dictionaryRepresentation(),MetricsType.Vitals.rawValue:[]] as [String : Any]
+        
         let dictCardiovascular =   AcuityDisplayModel()
         dictCardiovascular.id = "0"
         dictCardiovascular.name = SystemName.Cardiovascular
@@ -43,6 +45,14 @@ class AcuityMainViewModel: NSObject {
         dictRespiratory.image = AcuityImages.kRespiratory
         dictRespiratory.metricCardio = metricRespiratory
         
+        let dictRenal =   AcuityDisplayModel()
+        dictRenal.id = "20"
+        dictRenal.name = SystemName.Renal
+        dictRenal.score = "84"
+        //dictRespiratory.index = "23"
+        dictRenal.image = AcuityImages.kRenal
+        dictRenal.metricCardio = metricTemp
+        
         
         let dictGastrointestinal =   AcuityDisplayModel()
         dictGastrointestinal.id = "45"
@@ -50,7 +60,7 @@ class AcuityMainViewModel: NSObject {
         dictGastrointestinal.score = "84"
         //dictGastrointestinal.index = "38"
         dictGastrointestinal.image = AcuityImages.kGastrointestinal
-        dictGastrointestinal.metricCardio = metricCardio
+        dictGastrointestinal.metricCardio = metricTemp
         
         let dictGenitourinary =   AcuityDisplayModel()
         dictGenitourinary.id = "32"
@@ -58,7 +68,7 @@ class AcuityMainViewModel: NSObject {
         dictGenitourinary.score = "29"
         //dictGenitourinary.index = "98"
         dictGenitourinary.image = AcuityImages.kGenitourinary
-        dictGenitourinary.metricCardio = metricCardio
+        dictGenitourinary.metricCardio = metricTemp
         
         let dictEndocrine =   AcuityDisplayModel()
         dictEndocrine.id = "46"
@@ -66,7 +76,7 @@ class AcuityMainViewModel: NSObject {
         dictEndocrine.score = "89"
         //dictEndocrine.index = "90"
         dictEndocrine.image = AcuityImages.kEndocrine
-        dictEndocrine.metricCardio = metricCardio
+        dictEndocrine.metricCardio = metricTemp
         
         let dictNuerological =   AcuityDisplayModel()
         dictNuerological.id = "78"
@@ -74,7 +84,7 @@ class AcuityMainViewModel: NSObject {
         dictNuerological.score = "56"
         //dictNuerological.index = "82"
         dictNuerological.image = AcuityImages.kNuerological
-        dictNuerological.metricCardio = metricCardio
+        dictNuerological.metricCardio = metricTemp
         
         let dictHaematology =   AcuityDisplayModel()
         dictHaematology.id = "36"
@@ -82,7 +92,7 @@ class AcuityMainViewModel: NSObject {
         dictHaematology.score = "91"
         //dictHaematology.index = "91"
         dictHaematology.image = AcuityImages.kHematology
-        dictHaematology.metricCardio = metricCardio
+        dictHaematology.metricCardio = metricTemp
         
         
         let dictMusculatory =   AcuityDisplayModel()
@@ -91,7 +101,7 @@ class AcuityMainViewModel: NSObject {
         dictMusculatory.score = "68"
         //dictMusculatory.index = "68"
         dictMusculatory.image = AcuityImages.kMusculatory
-        dictMusculatory.metricCardio = metricCardio
+        dictMusculatory.metricCardio = metricTemp
         
         
         let dictIntegumentary =   AcuityDisplayModel()
@@ -100,7 +110,7 @@ class AcuityMainViewModel: NSObject {
         dictIntegumentary.score = "90"
         //dictIntegumentary.index = "92"
         dictIntegumentary.image = AcuityImages.kIntegumentary
-        dictIntegumentary.metricCardio = metricCardio
+        dictIntegumentary.metricCardio = metricTemp
         
         let dictFluids =   AcuityDisplayModel()
         dictFluids.id = "432"
@@ -108,7 +118,7 @@ class AcuityMainViewModel: NSObject {
         dictFluids.score = "74"
         //dictFluids.index = "74"
         dictFluids.image = AcuityImages.kFluids
-        dictFluids.metricCardio = metricCardio
+        dictFluids.metricCardio = metricTemp
         
         let dictInfectious =   AcuityDisplayModel()
         dictInfectious.id = "98"
@@ -116,15 +126,15 @@ class AcuityMainViewModel: NSObject {
         dictInfectious.score = "98"
         //dictInfectious.index = "98"
         dictInfectious.image = AcuityImages.kIDs
-        dictInfectious.metricCardio = metricCardio
+        dictInfectious.metricCardio = metricTemp
         
         let dictDisposition =   AcuityDisplayModel()
         dictDisposition.id = "248"
-        dictDisposition.name = SystemName.DispositionInformation
+        dictDisposition.name = SystemName.SocialDeterminantsofHealth
         dictDisposition.score = "84"
         //dictDisposition.index = "84"
         dictDisposition.image = AcuityImages.kDisposition
-        dictDisposition.metricCardio = metricCardio
+        dictDisposition.metricCardio = metricTemp
         
         let dictHeent =   AcuityDisplayModel()
         dictHeent.id = "111"
@@ -132,10 +142,11 @@ class AcuityMainViewModel: NSObject {
         dictHeent.score = "78"
         //dictHeent.index = "78"
         dictHeent.image = AcuityImages.kHeent
-        dictHeent.metricCardio = metricCardio
+        dictHeent.metricCardio = metricTemp
         
         arrBodySystems.append(dictCardiovascular.dictionaryRepresentation())
         arrBodySystems.append(dictRespiratory.dictionaryRepresentation())
+        arrBodySystems.append(dictRenal.dictionaryRepresentation())
         arrBodySystems.append(dictGastrointestinal.dictionaryRepresentation())
         arrBodySystems.append(dictGenitourinary.dictionaryRepresentation())
         arrBodySystems.append(dictEndocrine.dictionaryRepresentation())
