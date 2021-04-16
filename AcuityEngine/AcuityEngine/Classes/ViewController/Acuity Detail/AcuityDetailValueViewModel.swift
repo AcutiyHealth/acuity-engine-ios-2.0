@@ -61,6 +61,8 @@ class AcuityDetailValueViewModel: NSObject
         }
         else if MyWellScore.sharedManager.selectedSystem == SystemName.Respiratory{
             arrSymptoms = RespiratoryManager.sharedManager.respiratoryData.respiratorySymptoms.getArrayDataForSymptoms(days:MyWellScore.sharedManager.daysToCalculateSystemScore, title: title)
+        }else if MyWellScore.sharedManager.selectedSystem == SystemName.Renal{
+            arrSymptoms = RenalManager.sharedManager.renalData.renalSymptoms.getArrayDataForSymptoms(days:MyWellScore.sharedManager.daysToCalculateSystemScore, title: title)
         }
        return arrSymptoms
 }
@@ -73,6 +75,9 @@ class AcuityDetailValueViewModel: NSObject
         }
         else if MyWellScore.sharedManager.selectedSystem == SystemName.Respiratory{
             arrVitals = RespiratoryManager.sharedManager.respiratoryData.respiratoryVital.getArrayDataForVitals(days:MyWellScore.sharedManager.daysToCalculateSystemScore, title: title)
+        }
+        else if MyWellScore.sharedManager.selectedSystem == SystemName.Renal{
+            arrVitals = RenalManager.sharedManager.renalData.renalVital.getArrayDataForVitals(days:MyWellScore.sharedManager.daysToCalculateSystemScore, title: title)
         }
        return arrVitals
 }

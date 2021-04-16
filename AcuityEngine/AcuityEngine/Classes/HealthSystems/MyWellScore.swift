@@ -58,10 +58,26 @@ class MyWellScore: NSObject {
     
     //MARK: My Well Score calculation
     func myWellScoreCalculation(){
-        let totalWeightedSystemScore = CardioManager.sharedManager.cardioData.cardioWeightedSystemScore + RespiratoryManager.sharedManager.respiratoryData.respiratoryWeightedSystemScore
-         let totalMaxScore = CardioManager.sharedManager.cardioData.maxScore + RespiratoryManager.sharedManager.respiratoryData.maxScore
+        let totalWeightedSystemScore = getTotalWeightedSystemScore()
+        let totalMaxScore = getTotalMaxScore()
         let abnormalFraction = totalWeightedSystemScore / totalMaxScore
         MyWellScore.sharedManager.myWellScore = abnormalFraction * 100
         print("<--------------------MyWellScore.sharedManager.myWellScore-------------------->",MyWellScore.sharedManager.myWellScore)
+    }
+    
+    func getTotalMaxScore()->Double{
+        let maxScoreCardioData = CardioManager.sharedManager.cardioData.maxScore
+        let maxScoreRespiratoryData = RespiratoryManager.sharedManager.respiratoryData.maxScore
+        let maxScoreRenalData = RenalManager.sharedManager.renalData.maxScore
+        let totalMaxScore = maxScoreCardioData +  maxScoreRespiratoryData + maxScoreRenalData
+        return totalMaxScore
+    }
+    
+    func getTotalWeightedSystemScore()->Double{
+        let cardioWeightedSystemScore = CardioManager.sharedManager.cardioData.cardioWeightedSystemScore
+        let respiratoryWeightedSystemScore = RespiratoryManager.sharedManager.respiratoryData.respiratoryWeightedSystemScore
+        let renalWeightedSystemScore = RenalManager.sharedManager.renalData.renalWeightedSystemScore
+        let totalWeightedSystemScore = cardioWeightedSystemScore + respiratoryWeightedSystemScore + renalWeightedSystemScore
+        return totalWeightedSystemScore
     }
 }

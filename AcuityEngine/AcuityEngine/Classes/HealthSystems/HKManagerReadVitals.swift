@@ -200,6 +200,9 @@ class HKManagerReadVitals: NSObject {
                                                         //save data For Respiratory
                                                         RespiratoryManager.sharedManager.saveQuantityInArray(quantityType: identifier, element: element)
                                                         
+                                                        //save data For Renal
+                                                        RenalManager.sharedManager.saveQuantityInArray(quantityType: identifier, element: element)
+                                                        
                                                     } catch {
                                                         //print(error)
                                                     }

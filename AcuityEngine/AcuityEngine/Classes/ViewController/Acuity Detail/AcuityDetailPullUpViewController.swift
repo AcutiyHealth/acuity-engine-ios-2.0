@@ -212,8 +212,17 @@ class AcuityDetailPullUpViewController: UIViewController {
             }
             
         }
-          
-        
+        else if MyWellScore.sharedManager.selectedSystem == SystemName.Renal{
+            let systemScore = RenalManager.sharedManager.renalData.totalSystemScoreWithDays(days: MyWellScore.sharedManager.daysToCalculateSystemScore)
+            scoreText = String(format: "%.2f", systemScore)
+            let arraySystemScore = RenalManager.sharedManager.renalData.arrayDayWiseSystemScore
+            var i = 0;
+            for item in arraySystemScore{
+                data.append((x:i,y:item))
+                i = i + 1
+            }
+            
+        }
         switch MyWellScore.sharedManager.daysToCalculateSystemScore {
         case .SevenDays:
             do{
