@@ -1,5 +1,5 @@
 //
-//  CardioVitals.swift
+//  CardioVitalsData.swift
 //  HealthKitDemo
 //
 //  Created by Paresh Patel on 05/02/21.
@@ -20,14 +20,14 @@ class CardioVital:VitalProtocol {
      VO2 Max
      Oxygen saturation
      */
-    var heartRateData:[CardioVitals] = []
-    var systolicBloodPressureData:[CardioVitals] = []
-    var diastolicBloodPressureData:[CardioVitals] = []
-    var irregularRhythmNotificationData:[CardioVitals] = []
-    var highHeartRateData:[CardioVitals] = []
-    var lowHeartRateData:[CardioVitals] = []
-    var vO2MaxData:[CardioVitals] = []
-    var oxygenSaturationData:[CardioVitals] = []
+    var heartRateData:[CardioVitalsData] = []
+    var systolicBloodPressureData:[CardioVitalsData] = []
+    var diastolicBloodPressureData:[CardioVitalsData] = []
+    var irregularRhythmNotificationData:[CardioVitalsData] = []
+    var highHeartRateData:[CardioVitalsData] = []
+    var lowHeartRateData:[CardioVitalsData] = []
+    var vO2MaxData:[CardioVitalsData] = []
+    var oxygenSaturationData:[CardioVitalsData] = []
     var totalScore:[Double] = []
     var arrayDayWiseScoreTotal:[Double] = []
     
