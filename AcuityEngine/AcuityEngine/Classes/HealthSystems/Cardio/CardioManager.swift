@@ -36,7 +36,7 @@ class CardioManager: NSObject {
   
         if quantityType == QuantityType.bloodPressureSystolic {
             
-            let systolicBP = CardioVitalsData(type: VitalsName.bloodPressureSystolic)
+            let systolicBP = CardioVitals(type: VitalsName.bloodPressureSystolic)
             systolicBP.value = Double(element.harmonized.value)
             systolicBP.startTimeStamp = element.startTimestamp
             self.cardioData.cardioVital.systolicBloodPressureData.append(systolicBP)
@@ -46,7 +46,7 @@ class CardioManager: NSObject {
         }
         else if quantityType == QuantityType.bloodPressureDiastolic {
             
-            let diastolicBP = CardioVitalsData(type: VitalsName.bloodPressureDiastolic)
+            let diastolicBP = CardioVitals(type: VitalsName.bloodPressureDiastolic)
             diastolicBP.value = Double(element.harmonized.value)
             diastolicBP.startTimeStamp = element.startTimestamp
             print("diastolicBP date",getDateMediumFormat(time: diastolicBP.startTimeStamp))
@@ -59,7 +59,7 @@ class CardioManager: NSObject {
         }
         else if quantityType == QuantityType.vo2Max {
             
-            let vo2Max = CardioVitalsData(type: VitalsName.vo2Max)
+            let vo2Max = CardioVitals(type: VitalsName.vo2Max)
             vo2Max.value = Double(element.harmonized.value)
             vo2Max.startTimeStamp = element.startTimestamp
             self.cardioData.cardioVital.vO2MaxData.append(vo2Max)
@@ -72,7 +72,7 @@ class CardioManager: NSObject {
         }
         else if quantityType == QuantityType.heartRate {
             
-            let heartRate = CardioVitalsData(type: VitalsName.heartRate)
+            let heartRate = CardioVitals(type: VitalsName.heartRate)
             heartRate.value = Double(element.harmonized.value)
             heartRate.startTimeStamp = element.startTimestamp
             self.cardioData.cardioVital.heartRateData.append(heartRate)
@@ -81,7 +81,7 @@ class CardioManager: NSObject {
         }
         else if quantityType == QuantityType.oxygenSaturation {
             
-            let oxygenSaturation = CardioVitalsData(type: VitalsName.oxygenSaturation)
+            let oxygenSaturation = CardioVitals(type: VitalsName.oxygenSaturation)
             oxygenSaturation.value = Double(element.harmonized.value)
             oxygenSaturation.startTimeStamp = element.startTimestamp
             self.cardioData.cardioVital.oxygenSaturationData.append(oxygenSaturation)
@@ -98,7 +98,7 @@ class CardioManager: NSObject {
         
         if categoryType == CategoryType.highHeartRateEvent {
             
-            let highHeartRate = CardioVitalsData(type: VitalsName.highHeartRate)
+            let highHeartRate = CardioVitals(type: VitalsName.highHeartRate)
             highHeartRate.value = 1
             highHeartRate.startTimeStamp = startTimeStamp
             highHeartRate.endTimeStamp = endTimeStamp
@@ -107,7 +107,7 @@ class CardioManager: NSObject {
             
         } else  if categoryType == CategoryType.lowHeartRateEvent {
             
-            let lowHeartRate = CardioVitalsData(type: VitalsName.lowHeartRate)
+            let lowHeartRate = CardioVitals(type: VitalsName.lowHeartRate)
             lowHeartRate.value = 1
             lowHeartRate.startTimeStamp = startTimeStamp
             lowHeartRate.endTimeStamp = endTimeStamp
@@ -116,7 +116,7 @@ class CardioManager: NSObject {
             
         } else  if categoryType == CategoryType.irregularHeartRhythmEvent {
             
-            let irregularRhymesNotification = CardioVitalsData(type: VitalsName.irregularRhymesNotification)
+            let irregularRhymesNotification = CardioVitals(type: VitalsName.irregularRhymesNotification)
             irregularRhymesNotification.value = 1
             irregularRhymesNotification.startTimeStamp = startTimeStamp
             irregularRhymesNotification.endTimeStamp = endTimeStamp
@@ -135,7 +135,6 @@ class CardioManager: NSObject {
         
         switch category {
         case .chestTightnessOrPain:
-            totalSum = totalSum + chestPainData.value
             CardioManager.sharedManager.cardioData.cardioSymptoms.chestPainData.append(chestPainData)
         case .skippedHeartbeat:
             CardioManager.sharedManager.cardioData.cardioSymptoms.skippedHeartBeatData.append(chestPainData)

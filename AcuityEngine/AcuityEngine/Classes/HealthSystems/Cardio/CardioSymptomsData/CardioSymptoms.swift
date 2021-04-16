@@ -8,6 +8,21 @@
 import UIKit
 
 class CardioSymptoms:SymptomsProtocol {
+    /*
+     Chest pain (1/6)
+     Skipped heart beat
+     dizziness
+     fatigue
+     Rapid or fluttering heartbeat
+     fainting
+     nausea
+     vomiting
+     Memory lapse
+     Shortness of breath
+     Headache
+     Heartburn
+     Sleep changes
+     */
     var chestPainData:[CardioSymptomsPainData] = []
     var skippedHeartBeatData:[CardioSymptomsPainData] = []
     var dizzinessData:[CardioSymptomsPainData] = []
@@ -77,23 +92,69 @@ class CardioSymptoms:SymptomsProtocol {
         
         //print(totalAmount) // 4500.0
         arrayDayWiseScoreTotal = []
-        var cardioSymptomCalculation:[Metrix] = []
-        cardioSymptomCalculation.append(contentsOf: chestPainData)
-        cardioSymptomCalculation.append(contentsOf: skippedHeartBeatData)
-        cardioSymptomCalculation.append(contentsOf: dizzinessData)
-        cardioSymptomCalculation.append(contentsOf: fatigueData)
-        cardioSymptomCalculation.append(contentsOf: rapidHeartBeatData)
-        cardioSymptomCalculation.append(contentsOf: faintingData)
-        cardioSymptomCalculation.append(contentsOf: nauseaData)
-        cardioSymptomCalculation.append(contentsOf: vomitingData)
-        cardioSymptomCalculation.append(contentsOf: memoryLapseData)
-        cardioSymptomCalculation.append(contentsOf: shortBreathData)
-        cardioSymptomCalculation.append(contentsOf: headacheData)
-        cardioSymptomCalculation.append(contentsOf: heartBurnData)
-        cardioSymptomCalculation.append(contentsOf: sleepChangesData)
-        arrayDayWiseScoreTotal = daywiseFilterMetrixsData(days: days, array: cardioSymptomCalculation, metriXType: MetricsType.Sympotms)
+        /*var cardioSymptomCalculation:[Metrix] = []
+         cardioSymptomCalculation.append(contentsOf: chestPainData)
+         cardioSymptomCalculation.append(contentsOf: skippedHeartBeatData)
+         cardioSymptomCalculation.append(contentsOf: dizzinessData)
+         cardioSymptomCalculation.append(contentsOf: fatigueData)
+         cardioSymptomCalculation.append(contentsOf: rapidHeartBeatData)
+         cardioSymptomCalculation.append(contentsOf: faintingData)
+         cardioSymptomCalculation.append(contentsOf: nauseaData)
+         cardioSymptomCalculation.append(contentsOf: vomitingData)
+         cardioSymptomCalculation.append(contentsOf: memoryLapseData)
+         cardioSymptomCalculation.append(contentsOf: shortBreathData)
+         cardioSymptomCalculation.append(contentsOf: headacheData)
+         cardioSymptomCalculation.append(contentsOf: heartBurnData)
+         cardioSymptomCalculation.append(contentsOf: sleepChangesData)
+         arrayDayWiseScoreTotal = daywiseFilterMetrixsData(days: days, array: cardioSymptomCalculation, metriXType: MetricsType.Sympotms)
+         
+         cardioSymptomCalculation = []*/
         
-        cardioSymptomCalculation = []
+        var now = MyWellScore.sharedManager.todaysDate
+        let getComponentAndLoop = getNumberOfTimesLoopToExecute(days: days)
+        let component:Calendar.Component = getComponentAndLoop["component"] as! Calendar.Component
+        let noOfTimesLoopExecute:Int = getComponentAndLoop["noOfTimesLoopExecute"] as! Int
+        
+        for _ in 0...noOfTimesLoopExecute-1{
+            
+            let day = Calendar.current.date(byAdding: component, value: -1, to: now)!
+            
+            let timeIntervalByLastMonth:Double = day.timeIntervalSince1970
+            //print("timeIntervalByLastMonth",getDateMediumFormat(time:timeIntervalByLastMonth))
+            let timeIntervalByNow:Double = now.timeIntervalSince1970
+            //print("timeIntervalByNow",getDateMediumFormat(time:timeIntervalByNow))
+            now = day
+            //chestPainData
+            let scoreChestPainData = getScoreForSymptomsDataWithGivenDateRange(sampleItem: chestPainData, timeIntervalByLastMonth: timeIntervalByLastMonth, timeIntervalByNow: timeIntervalByNow)
+            //skippedHeartBeatData
+            let scoreSkippedHeartBeatData = getScoreForSymptomsDataWithGivenDateRange(sampleItem: skippedHeartBeatData, timeIntervalByLastMonth: timeIntervalByLastMonth, timeIntervalByNow: timeIntervalByNow)
+            //dizzinessData
+            let scoredizzinessData = getScoreForSymptomsDataWithGivenDateRange(sampleItem: dizzinessData, timeIntervalByLastMonth: timeIntervalByLastMonth, timeIntervalByNow: timeIntervalByNow)
+            //fatigueData
+            let scoreFatigueData = getScoreForSymptomsDataWithGivenDateRange(sampleItem: fatigueData, timeIntervalByLastMonth: timeIntervalByLastMonth, timeIntervalByNow: timeIntervalByNow)
+            //rapidHeartBeatData
+            let scoreRapidHeartBeatData = getScoreForSymptomsDataWithGivenDateRange(sampleItem: rapidHeartBeatData, timeIntervalByLastMonth: timeIntervalByLastMonth, timeIntervalByNow: timeIntervalByNow)
+            //faintingData
+            let scoreFaintingData = getScoreForSymptomsDataWithGivenDateRange(sampleItem: faintingData, timeIntervalByLastMonth: timeIntervalByLastMonth, timeIntervalByNow: timeIntervalByNow)
+            //nauseaData
+            let scoreNauseaData = getScoreForSymptomsDataWithGivenDateRange(sampleItem: nauseaData, timeIntervalByLastMonth: timeIntervalByLastMonth, timeIntervalByNow: timeIntervalByNow)
+            //vomitingData
+            let scoreVomitingData = getScoreForSymptomsDataWithGivenDateRange(sampleItem: vomitingData, timeIntervalByLastMonth: timeIntervalByLastMonth, timeIntervalByNow: timeIntervalByNow)
+            //memoryLapseData
+            let scoreMemoryLapseData = getScoreForSymptomsDataWithGivenDateRange(sampleItem: memoryLapseData, timeIntervalByLastMonth: timeIntervalByLastMonth, timeIntervalByNow: timeIntervalByNow)
+            //shortBreathData
+            let scoreShortBreathData = getScoreForSymptomsDataWithGivenDateRange(sampleItem: shortBreathData, timeIntervalByLastMonth: timeIntervalByLastMonth, timeIntervalByNow: timeIntervalByNow)
+            //headacheData
+            let scoreHeadacheData = getScoreForSymptomsDataWithGivenDateRange(sampleItem: headacheData, timeIntervalByLastMonth: timeIntervalByLastMonth, timeIntervalByNow: timeIntervalByNow)
+            //heartBurnData
+            let scoreHeartBurnData = getScoreForSymptomsDataWithGivenDateRange(sampleItem: heartBurnData, timeIntervalByLastMonth: timeIntervalByLastMonth, timeIntervalByNow: timeIntervalByNow)
+            //sleepChangesData
+            let scoreSleepChangesData = getScoreForSymptomsDataWithGivenDateRange(sampleItem: sleepChangesData, timeIntervalByLastMonth: timeIntervalByLastMonth, timeIntervalByNow: timeIntervalByNow)
+            
+            let totalScore = scoreChestPainData + scoreSkippedHeartBeatData + scoredizzinessData + scoreFatigueData + scoreRapidHeartBeatData + scoreFaintingData + scoreNauseaData + scoreVomitingData + scoreMemoryLapseData + scoreShortBreathData + scoreHeadacheData + scoreHeartBurnData + scoreSleepChangesData
+            arrayDayWiseScoreTotal.append(totalScore)
+        }
+        
         
         
         return arrayDayWiseScoreTotal
@@ -155,7 +216,7 @@ class CardioSymptoms:SymptomsProtocol {
             let symptom = sleepChangesData[0]
             arrSymptoms.append(SymptomsModel(title: symptom.title, value: SymptomsValue(rawValue: symptom.getSymptomSleepChangeValue().rawValue)!))
         }
-      
+        
         return arrSymptoms
     }
     func getSymptomsModel(symptom:CardioSymptomsPainData)->SymptomsModel{
@@ -230,7 +291,7 @@ func filterArrayWithSelectedSegmentInGraph(days:SegmentValueForGraph,array:[Symp
     
     filteredArray = array.filter { item in
         //let timeInterval = item.endTimeStamp
-      filterConditionForSymptoms(sampleItem: item, timeIntervalByLastMonth: timeIntervalByLastMonth, timeIntervalByNow: timeIntervalByNow)
+        filterConditionForSymptoms(sampleItem: item, timeIntervalByLastMonth: timeIntervalByLastMonth, timeIntervalByNow: timeIntervalByNow)
     }
     
     return filteredArray

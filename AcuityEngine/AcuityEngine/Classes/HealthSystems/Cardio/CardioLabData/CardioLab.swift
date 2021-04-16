@@ -8,6 +8,15 @@
 import UIKit
 
 class CardioLab {
+    /*
+     Potassium level
+     Sodium
+     chloride
+     Albumin (
+     microalbumin/creat ratio
+     B-peptide
+     Hemoglobin
+     */
     var potassiumLevelData:[CardioLabData] = []
     var bPeptideData:[CardioLabData]  = []
     var sodiumData:[CardioLabData] = []

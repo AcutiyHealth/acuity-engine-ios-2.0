@@ -10,24 +10,37 @@ import HealthKitReporter
 import HealthKit
 
 func ReadSymptomsValue() -> [CategoryType]{
-    [CategoryType.chestTightnessOrPain,
-     CategoryType.skippedHeartbeat,
-     CategoryType.coughing,
+    [CategoryType.abdominalCramps,
+     CategoryType.acne,
+     CategoryType.bladderIncontinence,
+     CategoryType.bloating,
+     CategoryType.generalizedBodyAche,
+     CategoryType.chestTightnessOrPain,
      CategoryType.chills,
+     CategoryType.constipation,
+     CategoryType.coughing,
+     CategoryType.diarrhea,
      CategoryType.dizziness,
-     CategoryType.fatigue,
-     CategoryType.rapidPoundingOrFlutteringHeartbeat,
+     CategoryType.drySkin,
      CategoryType.fainting,
-     CategoryType.nausea,
-     CategoryType.vomiting,
-     CategoryType.memoryLapse,
-     CategoryType.shortnessOfBreath,
-     CategoryType.runnyNose,
-     CategoryType.soreThroat,
+     CategoryType.fatigue,
      CategoryType.fever,
+     CategoryType.hairLoss,
      CategoryType.headache,
      CategoryType.heartburn,
-     CategoryType.sleepChanges
+     CategoryType.hotFlashes,
+     CategoryType.lossOfSmell,
+     CategoryType.lowerBackPain,
+     CategoryType.memoryLapse,
+     CategoryType.moodChanges,
+     CategoryType.nausea,
+     CategoryType.rapidPoundingOrFlutteringHeartbeat,
+     CategoryType.runnyNose,
+     CategoryType.shortnessOfBreath,
+     CategoryType.skippedHeartbeat,
+     CategoryType.sleepChanges,
+     CategoryType.soreThroat,
+     CategoryType.vomiting
     ]
 }
 
@@ -49,7 +62,7 @@ func ReadVitalsQuantityType() -> [QuantityType]{
      QuantityType.oxygenSaturation,
      QuantityType.respiratoryRate,
      QuantityType.walkingStepLength,
-]
+    ]
 }
 
 func ReadLabDataCategoryType() -> [QuantityType]{
