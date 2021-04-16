@@ -18,7 +18,7 @@ class HandleView: UIView {
     // Outlets
    
     @IBOutlet weak var btnClose: UIButton!
-    
+    @IBOutlet weak var btnBack: UIButton!
     override init(frame: CGRect) {
         // 1. setup any properties here
         

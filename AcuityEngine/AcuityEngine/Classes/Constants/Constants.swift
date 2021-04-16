@@ -39,17 +39,18 @@ enum SymptomsTextValue:String {
 enum SystemName:String {
     case Cardiovascular = "Cardiovascular"
     case Respiratory = "Respiratory"
+    case Renal = "Renal"
     case Gastrointestinal = "Gastrointestinal"
     case Genitourinary = "Genitourinary"
     case Endocrine = "Endocrine"
-    case Nuerological = "Nuerological"
-    case Haematology = "Haematology"
-    case Musculatory = "Musculatory"
+    case Nuerological = "Neurological"
+    case Haematology = "Hematology"
+    case Musculatory = "Musculoskeletal"
     case Integumentary = "Integumentary"
     case Fluids = "Fluids"
     case InfectiousDisease = "Infectious Disease"
-    case DispositionInformation = "Disposition Information"
-    case Heent = "Heent"
+    case SocialDeterminantsofHealth = "Social Determinants of Health"
+    case Heent = "Head,Eyes,Ears,Nose,Throat"
 }
 enum ConditionValueText:String {
     case Yes = "Yes"
@@ -147,6 +148,7 @@ struct AcuityData {
 struct AcuityImages {
     static let kCardiovascular = "cardiovascular.png"
     static let kRespiratory = "respiratory.png"
+    static let kRenal = "renal.png"
     static let kGastrointestinal = "gastrointestinal.png"
     static let kGenitourinary = "genitourinary.png"
     static let kEndocrine = "endocrine.png"

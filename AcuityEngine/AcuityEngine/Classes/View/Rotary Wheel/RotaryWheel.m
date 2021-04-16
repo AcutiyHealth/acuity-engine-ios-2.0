@@ -11,8 +11,8 @@
 #import <QuartzCore/QuartzCore.h>
 #import "Chevron.h"
 
-#define kChevronHeight 170
-#define kChevronWidth 82
+#define kChevronHeight 180
+#define kChevronWidth 80
 #define kAcuityCircleWidth  360
 #define kAcuityCircleHeight  360
 #define BLUECOLORLABELTITLE [UIColor colorWithRed:41.0/255.0 green:121.0/255.0 blue:255.0/255.0 alpha:1.0]
@@ -83,7 +83,13 @@ chevrons will be used for smooth rotating, using min, mid and max value.
     _panGestureRecognizer =[[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(recognizeCircularViewGesture:)];
     _panGestureRecognizer.delegate = (id)self;
     [container addGestureRecognizer:_panGestureRecognizer];
-    
+    /*
+     In this, circle will have 360 degree and number of angle will be number of sections. so chevron width(kChevronWidth) will be change accordingly. kChevronHeight is kAcuityCircleHeight/2
+     Arc length = Angle * Radius
+     kChevronWidth = Angle * kChevronHeight
+     If 14 system is there... Angle = (2 * 3.14)/14 so It will be 0.4485.
+     kChevronWidth = 0.4485 * 180 = 80
+     */
     CGFloat angleSize = 2*M_PI/numberOfSections;
     
     for (int i = 0; i < numberOfSections; i++) {
@@ -137,7 +143,7 @@ chevrons will be used for smooth rotating, using min, mid and max value.
         if (self.frame.size.width<290) {
             x = 18;
         }
-        UIImageView *imageView = [[UIImageView alloc] initWithFrame:CGRectMake(x*self.bounds.size.width/kAcuityCircleWidth, 8, 38,25)];
+        UIImageView *imageView = [[UIImageView alloc] initWithFrame:CGRectMake(x*self.bounds.size.width/kAcuityCircleWidth, 5, 38,25)];
         [imageView setUserInteractionEnabled:NO];
         [imageView setTag:9999];
        
@@ -165,7 +171,7 @@ chevrons will be used for smooth rotating, using min, mid and max value.
     _whiteCircleContainerView = [[UIView alloc] initWithFrame:CGRectMake(0,0,self.frame.size.width, self.frame.size.height)];
     [_whiteCircleContainerView setBackgroundColor:[UIColor clearColor]];
     
-    roundbackGroundView = [[UIView alloc] initWithFrame:CGRectMake(30,30, _whiteCircleContainerView.frame.size.width - 75, _whiteCircleContainerView.frame.size.height - 75)];
+    roundbackGroundView = [[UIView alloc] initWithFrame:CGRectMake(30,30, _whiteCircleContainerView.frame.size.width - 60, _whiteCircleContainerView.frame.size.height - 60)];
     roundbackGroundView.layer.cornerRadius = roundbackGroundView.frame.size.height/2;
     roundbackGroundView.center = CGPointMake(_whiteCircleContainerView.center.x, _whiteCircleContainerView.center.y);
     roundbackGroundView.backgroundColor = UIColor.clearColor;
@@ -173,10 +179,10 @@ chevrons will be used for smooth rotating, using min, mid and max value.
     
     [self addSubview:roundbackGroundView];
     
-   UIImageView *whiteCircleImageView = [[UIImageView alloc] initWithFrame:CGRectMake(30,30, _whiteCircleContainerView.frame.size.width - 75, _whiteCircleContainerView.frame.size.height - 75)];
+   UIImageView *whiteCircleImageView = [[UIImageView alloc] initWithFrame:CGRectMake(30,30, _whiteCircleContainerView.frame.size.width - 52, _whiteCircleContainerView.frame.size.height - 52)];
     whiteCircleImageView.image = [UIImage imageNamed:@"white_circle"];
     [whiteCircleImageView setUserInteractionEnabled:NO];
-    whiteCircleImageView.layer.anchorPoint = CGPointMake(0.5f,0.5f);
+    //whiteCircleImageView.layer.anchorPoint = CGPointMake(0.5f,0.5f);
     [whiteCircleImageView setBackgroundColor:[UIColor clearColor]];
     whiteCircleImageView.center = CGPointMake(_whiteCircleContainerView.center.x, _whiteCircleContainerView.center.y);
     [_whiteCircleContainerView addSubview:whiteCircleImageView];
@@ -196,7 +202,7 @@ chevrons will be used for smooth rotating, using min, mid and max value.
         _whiteCircleContainerView.userInteractionEnabled = YES;
     }
     roundbackGroundView.backgroundColor = [RotaryWheel getThemeColor:[[arrBodySystems objectAtIndex:selectedSystem] objectForKey:@"score"]];
-    [self makeviewRounded:whiteCircleImageView];
+
     [self makeviewRounded:roundbackGroundView];
     [self makeviewRounded:_whiteCircleContainerView];
     
@@ -204,8 +210,9 @@ chevrons will be used for smooth rotating, using min, mid and max value.
 }
 #pragma mark - Make Rounded view
 -(void)makeviewRounded:(UIView* )view{
-    view.layer.cornerRadius = view.frame.size.width/2;
-    view.clipsToBounds = true;
+    view.layer.cornerRadius = view.frame.size.height/2;
+    view.clipsToBounds = YES;
+    view.layer.masksToBounds = YES;
 }
 
 #pragma mark -
