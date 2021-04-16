@@ -11,6 +11,7 @@ import HealthKitReporter
 class LabCalculation:Metrix {
     
     var metricType: LabType = .potassiumLevel // calculate based on symtomps type
+    var systemName:SystemName = SystemName.Cardiovascular
     override var value:Double{
         didSet{
             switch metricType {

@@ -672,7 +672,7 @@
                                                                                 <constraint firstAttribute="bottom" secondItem="UYT-WE-Gm3" secondAttribute="bottom" id="Peo-Fo-rzB"/>
                                                                             </constraints>
                                                                         </stackView>
-                                                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="eYu-D8-syx">
+                                                                        <button opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="eYu-D8-syx">
                                                                             <rect key="frame" x="381" y="16" width="11" height="18"/>
                                                                             <constraints>
                                                                                 <constraint firstAttribute="height" constant="18" id="fnS-u1-ZZS"/>
@@ -722,7 +722,7 @@
                                                                             </subviews>
                                                                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                         </stackView>
-                                                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="sB3-dh-Drc">
+                                                                        <button opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="sB3-dh-Drc">
                                                                             <rect key="frame" x="381" y="16" width="11" height="18"/>
                                                                             <constraints>
                                                                                 <constraint firstAttribute="width" constant="11" id="2uQ-bN-chH"/>

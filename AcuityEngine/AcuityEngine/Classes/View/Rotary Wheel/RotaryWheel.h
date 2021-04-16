@@ -39,7 +39,7 @@
 - (float) calculateDistanceFromCenter:(CGPoint)point;
 - (void) buildChevronsEven;
 - (void) buildChevronsOdd;
-- (UIView *) getChevronByValue:(int)value;
+//- (UIView *) getChevronByValue:(int)value;
 - (NSString *) getChevronName:(int)position;
 
 -(void)recognizeChevronGesture : (UITapGestureRecognizer*) gestureRecognizer;
