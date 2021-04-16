@@ -1,5 +1,5 @@
 //
-//  CardioVitalsData.swift
+//  CardioVitals.swift
 //  HealthKitDemo
 //
 //  Created by Paresh Patel on 05/02/21.
@@ -10,15 +10,24 @@ import UIKit
 
 
 class CardioVital:VitalProtocol {
-    
-    var heartRateData:[CardioVitalsData] = []
-    var systolicBloodPressureData:[CardioVitalsData] = []
-    var diastolicBloodPressureData:[CardioVitalsData] = []
-    var irregularRhythmNotificationData:[CardioVitalsData] = []
-    var highHeartRateData:[CardioVitalsData] = []
-    var lowHeartRateData:[CardioVitalsData] = []
-    var vO2MaxData:[CardioVitalsData] = []
-    var oxygenSaturationData:[CardioVitalsData] = []
+    /*
+     S Blood pressure
+     D Blood pressure
+     Heart rate
+     Irregular rhythm notification
+     High heart rate
+     Low heart rate
+     VO2 Max
+     Oxygen saturation
+     */
+    var heartRateData:[CardioVitals] = []
+    var systolicBloodPressureData:[CardioVitals] = []
+    var diastolicBloodPressureData:[CardioVitals] = []
+    var irregularRhythmNotificationData:[CardioVitals] = []
+    var highHeartRateData:[CardioVitals] = []
+    var lowHeartRateData:[CardioVitals] = []
+    var vO2MaxData:[CardioVitals] = []
+    var oxygenSaturationData:[CardioVitals] = []
     var totalScore:[Double] = []
     var arrayDayWiseScoreTotal:[Double] = []
     
@@ -34,16 +43,16 @@ class CardioVital:VitalProtocol {
         let vo2max = (Double(vO2MaxData.average(\.score)).isNaN ? 0 : Double(vO2MaxData.average(\.score)))
         let oxygenSaturation = (Double(oxygenSaturationData.average(\.score)).isNaN ? 0 : Double(oxygenSaturationData.average(\.score)))
         
-        let totalIMPScore = heartRate  + systolicBloodPressur + diastolicBloodPressure + irregularRhythmNotification + highHeartRate + lowHeartRate + vo2max + oxygenSaturation
+        let totalVitalScore = heartRate  + systolicBloodPressur + diastolicBloodPressure + irregularRhythmNotification + highHeartRate + lowHeartRate + vo2max + oxygenSaturation
         print("heartRate -> \(heartRate) \n systolicBloodPressur -> \(systolicBloodPressur) \n diastolicBloodPressure -> \(diastolicBloodPressure) \n irregularRhythmNotification -> \(irregularRhythmNotification) \n highHeartRate -> \(highHeartRate) \n lowHeartRate -> \(lowHeartRate) \n vo2max -> \(vo2max) oxygenSaturation -> \(oxygenSaturation)")
         
-        return totalIMPScore;
+        return totalVitalScore;
     }
     
     func totalVitalsScoreForDays(days:SegmentValueForGraph) -> [Double] {
         
         //print(totalAmount) // 4500.0
-        arrayDayWiseScoreTotal = []
+        /*arrayDayWiseScoreTotal = []
         var arrVital:[Metrix] = []
         
         arrVital.append(contentsOf: systolicBloodPressureData)
@@ -57,9 +66,45 @@ class CardioVital:VitalProtocol {
         
         arrayDayWiseScoreTotal = daywiseFilterMetrixsData(days: days, array: arrVital, metriXType: MetricsType.Vitals)
         
-        arrVital = []
+        arrVital = []*/
         
+        arrayDayWiseScoreTotal = []
         
+        var now = MyWellScore.sharedManager.todaysDate
+        let getComponentAndLoop = getNumberOfTimesLoopToExecute(days: days)
+        let component:Calendar.Component = getComponentAndLoop["component"] as! Calendar.Component
+        let noOfTimesLoopExecute:Int = getComponentAndLoop["noOfTimesLoopExecute"] as! Int
+        
+        for _ in 0...noOfTimesLoopExecute-1{
+            
+            let day = Calendar.current.date(byAdding: component, value: -1, to: now)!
+            
+            let timeIntervalByLastMonth:Double = day.timeIntervalSince1970
+            //print("timeIntervalByLastMonth",getDateMediumFormat(time:timeIntervalByLastMonth))
+            let timeIntervalByNow:Double = now.timeIntervalSince1970
+            //print("timeIntervalByNow",getDateMediumFormat(time:timeIntervalByNow))
+            now = day
+            
+            //systolicBloodPressureData
+            let scoreSystolic = getScoreForVitalDataWithGivenDateRange(sampleItem: systolicBloodPressureData, timeIntervalByLastMonth: timeIntervalByLastMonth, timeIntervalByNow: timeIntervalByNow)
+            //diastolicBloodPressureData
+            let scoreDyastolic = getScoreForVitalDataWithGivenDateRange(sampleItem: diastolicBloodPressureData, timeIntervalByLastMonth: timeIntervalByLastMonth, timeIntervalByNow: timeIntervalByNow)
+            //heartRateData
+            let scoreHeartRateData = getScoreForVitalDataWithGivenDateRange(sampleItem: heartRateData, timeIntervalByLastMonth: timeIntervalByLastMonth, timeIntervalByNow: timeIntervalByNow)
+            //irregularRhythmNotificationData
+            let scoreIrregularRhythmNotification = getScoreForVitalDataWithGivenDateRange(sampleItem: irregularRhythmNotificationData, timeIntervalByLastMonth: timeIntervalByLastMonth, timeIntervalByNow: timeIntervalByNow)
+            //highHeartRateData
+            let scoreHighHeartRateData = getScoreForVitalDataWithGivenDateRange(sampleItem: highHeartRateData, timeIntervalByLastMonth: timeIntervalByLastMonth, timeIntervalByNow: timeIntervalByNow)
+            //lowHeartRateData
+            let scoreLowHeartRateData = getScoreForVitalDataWithGivenDateRange(sampleItem: lowHeartRateData, timeIntervalByLastMonth: timeIntervalByLastMonth, timeIntervalByNow: timeIntervalByNow)
+            //vO2MaxData
+            let scoreVO2MaxData = getScoreForVitalDataWithGivenDateRange(sampleItem: vO2MaxData, timeIntervalByLastMonth: timeIntervalByLastMonth, timeIntervalByNow: timeIntervalByNow)
+            //oxygenSaturationData
+            let scoreOxygenSaturationData = getScoreForVitalDataWithGivenDateRange(sampleItem: oxygenSaturationData, timeIntervalByLastMonth: timeIntervalByLastMonth, timeIntervalByNow: timeIntervalByNow)
+            
+            let totalScore = scoreSystolic + scoreDyastolic + scoreHeartRateData + scoreIrregularRhythmNotification  + scoreHighHeartRateData + scoreLowHeartRateData + scoreVO2MaxData + scoreOxygenSaturationData
+            arrayDayWiseScoreTotal.append(totalScore)
+        }
         return arrayDayWiseScoreTotal
     }
     
@@ -75,9 +120,9 @@ class CardioVital:VitalProtocol {
         let oxygenSaturation = CardioVitalRelativeImportance.oxygenSaturation.getConvertedValueFromPercentage()
         
         
-        let totalIMPScore = heartRate  + systolicBloodPressur + diastolicBloodPressure + irregularRhythmNotification + highHeartRate + lowHeartRate + vo2max + oxygenSaturation
+        let totalVitalScore = heartRate  + systolicBloodPressur + diastolicBloodPressure + irregularRhythmNotification + highHeartRate + lowHeartRate + vo2max + oxygenSaturation
         
-        return totalIMPScore;
+        return totalVitalScore;
     }
     
     //Get recent data for Specific Vitals..
@@ -120,18 +165,7 @@ class CardioVital:VitalProtocol {
         
         return arrVital
     }
-    func getVitalModel(item:CardioVitalsData)->VitalsModel{
-        let impData =  VitalsModel(title: item.title.rawValue, value: String(format: "%.2f", item.value))
-        impData.color = item.getUIColorFromCalculatedValue()
-        return impData
-    }
     
-    func saveVitalsInArray(item:VitalCalculation)->VitalsModel{
-        let impData =  VitalsModel(title: item.title.rawValue, value: String(format: "%.2f", item.value))
-        impData.startTime = item.startTimeStamp
-        impData.color = item.getUIColorFromCalculatedValue()
-        return impData
-    }
     
     //Get list of data for specific Vital..
     func getArrayDataForVitals(days:SegmentValueForGraph,title:String) -> [VitalsModel]{

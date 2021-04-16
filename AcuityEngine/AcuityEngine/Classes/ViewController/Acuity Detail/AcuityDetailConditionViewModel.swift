@@ -61,6 +61,9 @@ class AcuityDetailConditionViewModel: NSObject
          let symptom15 =  SymptomsModel(title: "Sleep Changes ", value: .Not_Present)
          arrSymptoms = [symptom1,symptom2,symptom3,symptom4,symptom5,symptom6,symptom9,symptom10,symptom11,symptom12,symptom13,symptom14,symptom15]
          return arrSymptoms*/
+        /*
+         Get list of symptoms for selected system. It will show only user entered symptoms.
+         */
         if MyWellScore.sharedManager.selectedSystem == SystemName.Cardiovascular{
             return CardioManager.sharedManager.cardioData.cardioSymptoms.dictionaryRepresentation()
         }
@@ -89,7 +92,9 @@ class AcuityDetailConditionViewModel: NSObject
          imp7.color = ChartColor.YELLOWCOLOR
          arrVitals = [imp1,imp2,imp3,imp4,imp5,imp6,imp7]
          return arrVitals*/
-        
+        /*
+         Get list of vital for selected system. It will show only user entered vitals.
+         */
         if MyWellScore.sharedManager.selectedSystem == SystemName.Cardiovascular{
             return CardioManager.sharedManager.cardioData.cardioVital.dictionaryRepresentation()
         }

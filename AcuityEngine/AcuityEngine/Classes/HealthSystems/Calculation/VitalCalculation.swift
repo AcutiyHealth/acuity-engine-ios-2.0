@@ -11,6 +11,7 @@ import HealthKitReporter
 class VitalCalculation:Metrix {
  
     var title: VitalsName = .heartRate // calculate based on symtomps type
+    var systemName:SystemName = SystemName.Cardiovascular
     override var value:Double{
         didSet{
             switch title {
