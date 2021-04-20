@@ -2,7 +2,7 @@
 //  RenalManager.swift
 //  HealthKitDemo
 //
-//  Created by Paresh Patel on 03/02/21.
+//  Created by  Bhoomi Jagani  on 03/02/21.
 //
 
 

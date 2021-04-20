@@ -2,7 +2,7 @@
 //  RenalSymptoms.swift
 //  HealthKitDemo
 //
-//  Created by Paresh Patel on 05/02/21.
+//  Created by  Bhoomi Jagani  on 05/02/21.
 //
 
 import UIKit

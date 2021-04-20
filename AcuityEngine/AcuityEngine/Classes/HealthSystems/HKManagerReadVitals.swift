@@ -30,6 +30,7 @@ class HKManagerReadVitals: NSObject {
     func resetData(){
         CardioManager.sharedManager.resetCardioData()
         RespiratoryManager.sharedManager.resetRespiratoryData()
+        RenalManager.sharedManager.resetRenalData()
     }
     
     func readVitalsData(days:SegmentValueForGraph,completion: @escaping (Bool, HealthkitSetupError?) -> Swift.Void) {
