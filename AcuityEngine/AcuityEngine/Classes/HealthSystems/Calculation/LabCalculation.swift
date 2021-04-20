@@ -15,27 +15,54 @@ class LabCalculation:Metrix {
     override var value:Double{
         didSet{
             switch metricType {
-            
+            //potassiumLevel
             case .potassiumLevel:
                 self.calculatedValue = getPottasiumValue().rawValue
+            //sodium
             case .sodium:
                 self.calculatedValue = getSodiumValue().rawValue
+            //chloride
             case .chloride:
                 self.calculatedValue = getChlorideValue().rawValue
+            //albumin
             case .albumin:
                 self.calculatedValue = getAlbuminValue().rawValue
+            //microalbumin
             case .microalbumin:
                 self.calculatedValue = getMicroalbuminValue().rawValue
+            //bPeptide
             case .bPeptide:
                 self.calculatedValue = getPeptideValue().rawValue
+            //hemoglobin
             case .hemoglobin:
                 self.calculatedValue = getHemoglobinValue().rawValue
+            //carbonDioxide
             case .carbonDioxide:
                 self.calculatedValue = getCarbonDioxideValue().rawValue
+            //WBC
             case .WBC:
                 self.calculatedValue = getWBCValue().rawValue
+            //neutrophil
             case .neutrophil:
                 self.calculatedValue = getNeutrophilValue().rawValue
+            //BUN
+            case .BUN:
+                self.calculatedValue = getBUNValue().rawValue
+            //creatinine
+            case .creatinine:
+                self.calculatedValue = getCreatinineValue().rawValue
+            //bloodGlucose
+            case .bloodGlucose:
+                self.calculatedValue = getBloodGlucoseValue().rawValue
+            //calcium
+            case .calcium:
+                self.calculatedValue = getCalciumValue().rawValue
+            //anionGap
+            case .anionGap:
+                self.calculatedValue = getAnionGapValue().rawValue
+            //eGFR
+            case .eGFR:
+                self.calculatedValue = geteGFRValue().rawValue
             default:break
             }
         }
@@ -94,7 +121,7 @@ class LabCalculation:Metrix {
     }
     private func getAlbuminValue() -> HeartRateValue {
         
-        if value < 3.4 {
+        if value < 3.4 && value > 5.4{
             return HeartRateValue.Red
         }
         else {
@@ -184,6 +211,69 @@ class LabCalculation:Metrix {
     private func getCarbonDioxideValue() -> HeartRateValue {
         
         if value > 30 || value < 23  {
+            return HeartRateValue.Red
+        }
+        else {
+            return HeartRateValue.Green
+        }
+    }
+    private func getBUNValue() -> HeartRateValue {
+        
+        if value > 20 || value < 7  {
+            return HeartRateValue.Red
+        }
+        else {
+            return HeartRateValue.Green
+        }
+    }
+    private func getCreatinineValue() -> HeartRateValue {
+        
+        if value > 1.21 || value < 0.84  {
+            return HeartRateValue.Red
+        }
+        else {
+            return HeartRateValue.Green
+        }
+    }
+    private func getBloodGlucoseValue() -> HeartRateValue {
+        
+        if value > 200 || value < 70  {
+            return HeartRateValue.Red
+        }
+        else {
+            return HeartRateValue.Green
+        }
+    }
+    private func getCalciumValue() -> HeartRateValue {
+        
+        if value > 10.2 || value < 8.4  {
+            return HeartRateValue.Red
+        }
+        else {
+            return HeartRateValue.Green
+        }
+    }
+    private func getAnionGapValue() -> HeartRateValue {
+        
+        if value > 11 || value < 3  {
+            return HeartRateValue.Red
+        }
+        else {
+            return HeartRateValue.Green
+        }
+    }
+    private func getMicroAlbuminValue() -> HeartRateValue {
+        
+        if value > 30  {
+            return HeartRateValue.Red
+        }
+        else {
+            return HeartRateValue.Green
+        }
+    }
+    private func geteGFRValue() -> HeartRateValue {
+        
+        if value < 90  {
             return HeartRateValue.Red
         }
         else {

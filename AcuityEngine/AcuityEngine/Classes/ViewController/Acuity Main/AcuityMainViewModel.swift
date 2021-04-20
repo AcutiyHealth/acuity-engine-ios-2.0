@@ -45,13 +45,14 @@ class AcuityMainViewModel: NSObject {
         dictRespiratory.image = AcuityImages.kRespiratory
         dictRespiratory.metricCardio = metricRespiratory
         
+        let metricRenal = RenalManager.sharedManager.renalData.dictionaryRepresentation()
         let dictRenal =   AcuityDisplayModel()
         dictRenal.id = "20"
         dictRenal.name = SystemName.Renal
-        dictRenal.score = "84"
+        dictRenal.score = String(format: "%.2f", (RenalManager.sharedManager.renalData.renalSystemScore))
         //dictRespiratory.index = "23"
         dictRenal.image = AcuityImages.kRenal
-        dictRenal.metricCardio = metricTemp
+        dictRenal.metricCardio = metricRenal
         
         
         let dictGastrointestinal =   AcuityDisplayModel()
