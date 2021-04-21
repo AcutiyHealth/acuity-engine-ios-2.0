@@ -188,32 +188,43 @@ class AcuityDetailPullUpViewController: UIViewController {
     func showScoreAndChartData(){
         var scoreText = String(format: "0.00")
         var data = [(x:0, y:0.0)]
-        
+        var arraySystemScore:[Double] = []
         print("<--------------------showScoreAndChartData-------------------->")
+        //Cardiovascular
         if MyWellScore.sharedManager.selectedSystem == SystemName.Cardiovascular{
             let systemScore = CardioManager.sharedManager.cardioData.totalSystemScoreWithDays(days: MyWellScore.sharedManager.daysToCalculateSystemScore)
             scoreText = String(format: "%.2f", systemScore)
-            let arraySystemScore = CardioManager.sharedManager.cardioData.arrayDayWiseSystemScore
-            var i = 0;
-            for item in arraySystemScore{
-                data.append((x:i,y:item))
-                i = i + 1
-            }
-            
+            arraySystemScore = CardioManager.sharedManager.cardioData.arrayDayWiseSystemScore
         }
+        //Respiratory
         else if MyWellScore.sharedManager.selectedSystem == SystemName.Respiratory{
             let systemScore = RespiratoryManager.sharedManager.respiratoryData.totalSystemScoreWithDays(days: MyWellScore.sharedManager.daysToCalculateSystemScore)
             scoreText = String(format: "%.2f", systemScore)
-            let arraySystemScore = RespiratoryManager.sharedManager.respiratoryData.arrayDayWiseSystemScore
-            var i = 0;
-            for item in arraySystemScore{
-                data.append((x:i,y:item))
-                i = i + 1
-            }
-            
+            arraySystemScore = RespiratoryManager.sharedManager.respiratoryData.arrayDayWiseSystemScore
         }
-          
-        
+        //Renal
+        else if MyWellScore.sharedManager.selectedSystem == SystemName.Renal{
+            let systemScore = RenalManager.sharedManager.renalData.totalSystemScoreWithDays(days: MyWellScore.sharedManager.daysToCalculateSystemScore)
+            scoreText = String(format: "%.2f", systemScore)
+            arraySystemScore = RenalManager.sharedManager.renalData.arrayDayWiseSystemScore
+        }
+        //InfectiousDisease
+        else if MyWellScore.sharedManager.selectedSystem == SystemName.InfectiousDisease{
+            let systemScore = IDiseaseManager.sharedManager.iDiseaseData.totalSystemScoreWithDays(days: MyWellScore.sharedManager.daysToCalculateSystemScore)
+            scoreText = String(format: "%.2f", systemScore)
+            arraySystemScore = IDiseaseManager.sharedManager.iDiseaseData.arrayDayWiseSystemScore
+        }
+        /*//FNE
+        else if MyWellScore.sharedManager.selectedSystem == SystemName.Fluids{
+            let systemScore = FNEManager.sharedManager.fneData.totalSystemScoreWithDays(days: MyWellScore.sharedManager.daysToCalculateSystemScore)
+            scoreText = String(format: "%.2f", systemScore)
+            arraySystemScore = FNEManager.sharedManager.fneData.arrayDayWiseSystemScore
+        }*/
+        var i = 0;
+        for item in arraySystemScore{
+            data.append((x:i,y:item))
+            i = i + 1
+        }
         switch MyWellScore.sharedManager.daysToCalculateSystemScore {
         case .SevenDays:
             do{

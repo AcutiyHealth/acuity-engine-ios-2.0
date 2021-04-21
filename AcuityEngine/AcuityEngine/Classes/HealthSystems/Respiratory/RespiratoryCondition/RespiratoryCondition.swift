@@ -8,6 +8,16 @@
 import UIKit
 
 class RespiratoryCondition {
+    /*COPD/Asthma
+     Bronchitis/pneumonia
+     Upper respiratory infection
+     Covid
+     Allergic Rhiniitis
+     Smoking
+     sleep apnea
+     Congestive heart failure
+     Coronary artery disease/peripheral vascular disease
+     */
     var asthmaData:[RespiratoryConditionData]  = []
     var pneumoniaData:[RespiratoryConditionData]  = []
     var respiratoryInfectionData:[RespiratoryConditionData]  = []

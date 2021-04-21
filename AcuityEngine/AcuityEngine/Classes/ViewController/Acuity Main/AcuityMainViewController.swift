@@ -202,7 +202,7 @@ class AcuityMainViewController: PullUpViewController, UIScrollViewDelegate,Rotar
         let mutableBodySystemArray = NSMutableArray()
         mutableBodySystemArray.addObjects(from: arrSelectedBodySystem)
         
-        wheel = RotaryWheel(frame: CGRect(x: (CGFloat(Screen.screenWidth) - ChartSize.kAcuityCircleWidth)/2, y: (CGFloat(Screen.screenHeight) - ChartSize.kAcuityCircleHeight)/2 , width: ChartSize.kAcuityCircleWidth, height: ChartSize.kAcuityCircleHeight), andDelegate: self, withSections: Int32(arrSelectedBodySystem.count), bodySystems: mutableBodySystemArray, selectedSystem: Int32(selSystem), needToRotateChevron: rotateChevron)
+        wheel = RotaryWheel(frame: CGRect(x: (Int(CGFloat(Screen.screenWidth)) - ChartSize.kAcuityCircleWidth)/2, y: (Int(CGFloat(Screen.screenHeight)) - ChartSize.kAcuityCircleHeight)/2 , width: ChartSize.kAcuityCircleWidth, height: ChartSize.kAcuityCircleHeight), andDelegate: self, withSections: Int32(arrSelectedBodySystem.count), bodySystems: mutableBodySystemArray, selectedSystem: Int32(selSystem), needToRotateChevron: rotateChevron)
         
         //To show blue circle view
         let innerView = UIView(frame: CGRect(x: 39, y: 36, width: (wheel?.whiteCircleContainerView.frame.size.width)!-78, height: (wheel?.whiteCircleContainerView.frame.size.height)!-75 ))

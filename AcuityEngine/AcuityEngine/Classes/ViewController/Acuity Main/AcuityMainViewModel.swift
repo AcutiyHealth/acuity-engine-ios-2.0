@@ -15,8 +15,8 @@ class AcuityMainViewModel: NSObject {
         } else {
             return expandedViewHeight - headerViewHeight + 20
         }
-       
-       
+        
+        
     }
     
     
@@ -45,14 +45,33 @@ class AcuityMainViewModel: NSObject {
         dictRespiratory.image = AcuityImages.kRespiratory
         dictRespiratory.metricCardio = metricRespiratory
         
+        let metricRenal = RenalManager.sharedManager.renalData.dictionaryRepresentation()
         let dictRenal =   AcuityDisplayModel()
         dictRenal.id = "20"
         dictRenal.name = SystemName.Renal
-        dictRenal.score = "84"
+        dictRenal.score = String(format: "%.2f", (RenalManager.sharedManager.renalData.renalSystemScore))
         //dictRespiratory.index = "23"
         dictRenal.image = AcuityImages.kRenal
-        dictRenal.metricCardio = metricTemp
+        dictRenal.metricCardio = metricRenal
         
+        let metriciDisease = IDiseaseManager.sharedManager.iDiseaseData.dictionaryRepresentation()
+        let dictInfectious =   AcuityDisplayModel()
+        dictInfectious.id = "98"
+        dictInfectious.name = SystemName.InfectiousDisease
+        dictInfectious.score = String(format: "%.2f", (IDiseaseManager.sharedManager.iDiseaseData.iDiseaseSystemScore))
+        //dictInfectious.index = "98"
+        dictInfectious.image = AcuityImages.kIDs
+        dictInfectious.metricCardio = metriciDisease
+        
+        //FNE
+        //let metricFNE = FNEManager.sharedManager.fneData.dictionaryRepresentation()
+        let dictFluids =   AcuityDisplayModel()
+        dictFluids.id = "432"
+        dictFluids.name = SystemName.Fluids
+        dictFluids.score = "98"//String(format: "%.2f", (FNEManager.sharedManager.fneData.fneSystemScore))
+        //dictFluids.index = "74"
+        dictFluids.image = AcuityImages.kFluids
+        dictFluids.metricCardio = metricTemp
         
         let dictGastrointestinal =   AcuityDisplayModel()
         dictGastrointestinal.id = "45"
@@ -111,23 +130,7 @@ class AcuityMainViewModel: NSObject {
         //dictIntegumentary.index = "92"
         dictIntegumentary.image = AcuityImages.kIntegumentary
         dictIntegumentary.metricCardio = metricTemp
-        
-        let dictFluids =   AcuityDisplayModel()
-        dictFluids.id = "432"
-        dictFluids.name = SystemName.Fluids
-        dictFluids.score = "74"
-        //dictFluids.index = "74"
-        dictFluids.image = AcuityImages.kFluids
-        dictFluids.metricCardio = metricTemp
-        
-        let dictInfectious =   AcuityDisplayModel()
-        dictInfectious.id = "98"
-        dictInfectious.name = SystemName.InfectiousDisease
-        dictInfectious.score = "98"
-        //dictInfectious.index = "98"
-        dictInfectious.image = AcuityImages.kIDs
-        dictInfectious.metricCardio = metricTemp
-        
+      
         let dictDisposition =   AcuityDisplayModel()
         dictDisposition.id = "248"
         dictDisposition.name = SystemName.SocialDeterminantsofHealth
@@ -147,6 +150,9 @@ class AcuityMainViewModel: NSObject {
         arrBodySystems.append(dictCardiovascular.dictionaryRepresentation())
         arrBodySystems.append(dictRespiratory.dictionaryRepresentation())
         arrBodySystems.append(dictRenal.dictionaryRepresentation())
+        arrBodySystems.append(dictInfectious.dictionaryRepresentation())
+        arrBodySystems.append(dictFluids.dictionaryRepresentation())
+        
         arrBodySystems.append(dictGastrointestinal.dictionaryRepresentation())
         arrBodySystems.append(dictGenitourinary.dictionaryRepresentation())
         arrBodySystems.append(dictEndocrine.dictionaryRepresentation())
@@ -155,8 +161,6 @@ class AcuityMainViewModel: NSObject {
         arrBodySystems.append(dictHaematology.dictionaryRepresentation())
         arrBodySystems.append(dictHeent.dictionaryRepresentation())
         arrBodySystems.append(dictDisposition.dictionaryRepresentation())
-        arrBodySystems.append(dictInfectious.dictionaryRepresentation())
-        arrBodySystems.append(dictFluids.dictionaryRepresentation())
         
         arrBodySystems.append(dictIntegumentary.dictionaryRepresentation())
         arrBodySystems.append(dictMusculatory.dictionaryRepresentation())
