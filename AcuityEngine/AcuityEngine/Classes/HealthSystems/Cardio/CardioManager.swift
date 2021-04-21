@@ -135,7 +135,6 @@ class CardioManager: NSObject {
         
         switch category {
         case .chestTightnessOrPain:
-            totalSum = totalSum + chestPainData.value
             CardioManager.sharedManager.cardioData.cardioSymptoms.chestPainData.append(chestPainData)
         case .skippedHeartbeat:
             CardioManager.sharedManager.cardioData.cardioSymptoms.skippedHeartBeatData.append(chestPainData)

@@ -8,7 +8,15 @@
 import UIKit
 
 class RespiratorySymptoms:SymptomsProtocol {
-   
+    /*Chest pain(2/5)
+     Rapid or fluttering heartbeat
+     cough
+     fainting
+     Shortness of breath
+     Runny Nose
+     Sore Throat
+     fever
+     chills*/
     var chestPainData:[RespiratorySymptomsPainData] = []
     var rapidHeartBeatData:[RespiratorySymptomsPainData] = []
     var coughingData:[RespiratorySymptomsPainData] = []
@@ -31,11 +39,11 @@ class RespiratorySymptoms:SymptomsProtocol {
         let soreThroat = (Double(soreThroatData.average(\.score)) .isNaN ? 0 : Double(soreThroatData.average(\.score)))
         let fever = (Double(feverData.average(\.score)).isNaN ? 0 : Double(feverData.average(\.score)))
         let chills = (Double(chillsData.average(\.score)) .isNaN ? 0 : Double(chillsData.average(\.score)))
-
+        
         
         let totalLabScore1 = chestPain + rapidHeartBeat + fainting + coughing
         let totalLabScore2 =  shortBreath + runnyNose + soreThroat + fever + chills
-       
+        
         return Double(totalLabScore1  + totalLabScore2)
     }
     
@@ -49,7 +57,7 @@ class RespiratorySymptoms:SymptomsProtocol {
         let soreThroat = RespiratorySymptomsRelativeImportance.soreThroat.getConvertedValueFromPercentage()
         let fever = RespiratorySymptomsRelativeImportance.fever.getConvertedValueFromPercentage()
         let chills = RespiratorySymptomsRelativeImportance.chills.getConvertedValueFromPercentage()
-    
+        
         let totalLabScore1 = chestPain + rapidHeartBeat + fainting + coughing
         let totalLabScore2 =  shortnessOfBreath + runnyNose + soreThroat + fever + chills
         
@@ -60,19 +68,56 @@ class RespiratorySymptoms:SymptomsProtocol {
         
         //print(totalAmount) // 4500.0
         arrayDayWiseScoreTotal = []
-        var cardioSymptomCalculation:[Metrix] = []
-        cardioSymptomCalculation.append(contentsOf: chestPainData)
-        cardioSymptomCalculation.append(contentsOf: rapidHeartBeatData)
-        cardioSymptomCalculation.append(contentsOf: faintingData)
-        cardioSymptomCalculation.append(contentsOf: coughingData)
-        cardioSymptomCalculation.append(contentsOf: shortBreathData)
-        cardioSymptomCalculation.append(contentsOf: runnyNoseData)
-        cardioSymptomCalculation.append(contentsOf: soreThroatData)
-        cardioSymptomCalculation.append(contentsOf: feverData)
-        cardioSymptomCalculation.append(contentsOf: chillsData)
-        arrayDayWiseScoreTotal = daywiseFilterMetrixsData(days: days, array: cardioSymptomCalculation, metriXType: MetricsType.Sympotms)
+        /*var cardioSymptomCalculation:[Metrix] = []
+         cardioSymptomCalculation.append(contentsOf: chestPainData)
+         cardioSymptomCalculation.append(contentsOf: rapidHeartBeatData)
+         cardioSymptomCalculation.append(contentsOf: faintingData)
+         cardioSymptomCalculation.append(contentsOf: coughingData)
+         cardioSymptomCalculation.append(contentsOf: shortBreathData)
+         cardioSymptomCalculation.append(contentsOf: runnyNoseData)
+         cardioSymptomCalculation.append(contentsOf: soreThroatData)
+         cardioSymptomCalculation.append(contentsOf: feverData)
+         cardioSymptomCalculation.append(contentsOf: chillsData)
+         arrayDayWiseScoreTotal = daywiseFilterMetrixsData(days: days, array: cardioSymptomCalculation, metriXType: MetricsType.Sympotms)
+         
+         cardioSymptomCalculation = []*/
         
-        cardioSymptomCalculation = []
+        var now = MyWellScore.sharedManager.todaysDate
+        let getComponentAndLoop = getNumberOfTimesLoopToExecute(days: days)
+        let component:Calendar.Component = getComponentAndLoop["component"] as! Calendar.Component
+        let noOfTimesLoopExecute:Int = getComponentAndLoop["noOfTimesLoopExecute"] as! Int
+        
+        for _ in 0...noOfTimesLoopExecute-1{
+            
+            let day = Calendar.current.date(byAdding: component, value: -1, to: now)!
+            
+            let timeIntervalByLastMonth:Double = day.timeIntervalSince1970
+            //print("timeIntervalByLastMonth",getDateMediumFormat(time:timeIntervalByLastMonth))
+            let timeIntervalByNow:Double = now.timeIntervalSince1970
+            //print("timeIntervalByNow",getDateMediumFormat(time:timeIntervalByNow))
+            now = day
+            //chestPainData
+            let scoreChestPainData = getScoreForSymptomsDataWithGivenDateRange(sampleItem: chestPainData, timeIntervalByLastMonth: timeIntervalByLastMonth, timeIntervalByNow: timeIntervalByNow)
+            //rapidHeartBeatData
+            let scoreRapidHeartBeatData = getScoreForSymptomsDataWithGivenDateRange(sampleItem: rapidHeartBeatData, timeIntervalByLastMonth: timeIntervalByLastMonth, timeIntervalByNow: timeIntervalByNow)
+            //coughingData
+            let scoreCoughingData = getScoreForSymptomsDataWithGivenDateRange(sampleItem: coughingData, timeIntervalByLastMonth: timeIntervalByLastMonth, timeIntervalByNow: timeIntervalByNow)
+            //faintingData
+            let scorefaintingData = getScoreForSymptomsDataWithGivenDateRange(sampleItem: faintingData, timeIntervalByLastMonth: timeIntervalByLastMonth, timeIntervalByNow: timeIntervalByNow)
+            //shortBreathData
+            let scoreShortBreathData = getScoreForSymptomsDataWithGivenDateRange(sampleItem: shortBreathData, timeIntervalByLastMonth: timeIntervalByLastMonth, timeIntervalByNow: timeIntervalByNow)
+            //runnyNoseData
+            let scoreRunnyNoseData = getScoreForSymptomsDataWithGivenDateRange(sampleItem: runnyNoseData, timeIntervalByLastMonth: timeIntervalByLastMonth, timeIntervalByNow: timeIntervalByNow)
+            //soreThroatData
+            let scoreSoreThroatData = getScoreForSymptomsDataWithGivenDateRange(sampleItem: soreThroatData, timeIntervalByLastMonth: timeIntervalByLastMonth, timeIntervalByNow: timeIntervalByNow)
+            //feverData
+            let scoreFeverData = getScoreForSymptomsDataWithGivenDateRange(sampleItem: feverData, timeIntervalByLastMonth: timeIntervalByLastMonth, timeIntervalByNow: timeIntervalByNow)
+            //chillsData
+            let scoreChillsData = getScoreForSymptomsDataWithGivenDateRange(sampleItem: chillsData, timeIntervalByLastMonth: timeIntervalByLastMonth, timeIntervalByNow: timeIntervalByNow)
+            
+            let totalScore = scoreChestPainData + scoreRapidHeartBeatData + scoreCoughingData + scorefaintingData + scoreShortBreathData + scoreRunnyNoseData + scoreSoreThroatData + scoreFeverData + scoreChillsData
+            arrayDayWiseScoreTotal.append(totalScore)
+        }
         
         
         return arrayDayWiseScoreTotal
@@ -118,7 +163,7 @@ class RespiratorySymptoms:SymptomsProtocol {
             let symptom = chillsData[0]
             arrSymptoms.append(getSymptomsModel(symptom: symptom))
         }
-
+        
         return arrSymptoms
     }
     func getSymptomsModel(symptom:RespiratorySymptomsPainData)->SymptomsModel{
@@ -135,7 +180,7 @@ class RespiratorySymptoms:SymptomsProtocol {
             
         case .rapidHeartbeat:
             filterArray = filterArrayWithSelectedSegmentInGraph(days: days, array: rapidHeartBeatData)
-       
+            
         case .cough:
             filterArray = filterArrayWithSelectedSegmentInGraph(days: days, array: coughingData)
             
@@ -156,7 +201,7 @@ class RespiratorySymptoms:SymptomsProtocol {
             
         case .chills:
             filterArray = filterArrayWithSelectedSegmentInGraph(days: days, array: chillsData)
-         
+            
         default:
             break
         }

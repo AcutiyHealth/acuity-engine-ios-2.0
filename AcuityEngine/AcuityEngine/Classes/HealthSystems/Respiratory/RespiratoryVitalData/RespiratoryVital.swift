@@ -43,22 +43,62 @@ class RespiratoryVital:VitalProtocol {
     func totalVitalsScoreForDays(days:SegmentValueForGraph) -> [Double] {
         
         //print(totalAmount) // 4500.0
+        /*arrayDayWiseScoreTotal = []
+         var arrVital:[Metrix] = []
+         
+         arrVital.append(contentsOf: systolicBloodPressureData)
+         arrVital.append(contentsOf: diastolicBloodPressureData)
+         arrVital.append(contentsOf: heartRateData)
+         arrVital.append(contentsOf: respiratoryRateData)
+         arrVital.append(contentsOf: oxygenSaturationData)
+         arrVital.append(contentsOf: irregularRhythmNotificationData)
+         arrVital.append(contentsOf: peakFlowRateData)
+         arrVital.append(contentsOf: vO2MaxData)
+         arrVital.append(contentsOf: inhalerUsageData)
+         
+         arrayDayWiseScoreTotal = daywiseFilterMetrixsData(days: days, array: arrVital, metriXType: MetricsType.Vitals)
+         
+         arrVital = []*/
         arrayDayWiseScoreTotal = []
-        var arrVital:[Metrix] = []
         
-        arrVital.append(contentsOf: systolicBloodPressureData)
-        arrVital.append(contentsOf: diastolicBloodPressureData)
-        arrVital.append(contentsOf: heartRateData)
-        arrVital.append(contentsOf: respiratoryRateData)
-        arrVital.append(contentsOf: oxygenSaturationData)
-        arrVital.append(contentsOf: irregularRhythmNotificationData)
-        arrVital.append(contentsOf: peakFlowRateData)
-        arrVital.append(contentsOf: vO2MaxData)
-        arrVital.append(contentsOf: inhalerUsageData)
+        var now = MyWellScore.sharedManager.todaysDate
+        let getComponentAndLoop = getNumberOfTimesLoopToExecute(days: days)
+        let component:Calendar.Component = getComponentAndLoop["component"] as! Calendar.Component
+        let noOfTimesLoopExecute:Int = getComponentAndLoop["noOfTimesLoopExecute"] as! Int
         
-        arrayDayWiseScoreTotal = daywiseFilterMetrixsData(days: days, array: arrVital, metriXType: MetricsType.Vitals)
+        for _ in 0...noOfTimesLoopExecute-1{
+            
+            let day = Calendar.current.date(byAdding: component, value: -1, to: now)!
+            
+            let timeIntervalByLastMonth:Double = day.timeIntervalSince1970
+            //print("timeIntervalByLastMonth",getDateMediumFormat(time:timeIntervalByLastMonth))
+            let timeIntervalByNow:Double = now.timeIntervalSince1970
+            //print("timeIntervalByNow",getDateMediumFormat(time:timeIntervalByNow))
+            now = day
+            
+            //systolicBloodPressureData
+            let scoreSystolic = getScoreForVitalDataWithGivenDateRange(sampleItem: systolicBloodPressureData, timeIntervalByLastMonth: timeIntervalByLastMonth, timeIntervalByNow: timeIntervalByNow)
+            //diastolicBloodPressureData
+            let scoreDyastolic = getScoreForVitalDataWithGivenDateRange(sampleItem: diastolicBloodPressureData, timeIntervalByLastMonth: timeIntervalByLastMonth, timeIntervalByNow: timeIntervalByNow)
+            //respiratoryRateData
+            let scoreRespiratoryRateData = getScoreForVitalDataWithGivenDateRange(sampleItem: respiratoryRateData, timeIntervalByLastMonth: timeIntervalByLastMonth, timeIntervalByNow: timeIntervalByNow)
+            //oxygenSaturationData
+            let scoreOxygenSaturationData = getScoreForVitalDataWithGivenDateRange(sampleItem: oxygenSaturationData, timeIntervalByLastMonth: timeIntervalByLastMonth, timeIntervalByNow: timeIntervalByNow)
+            //heartRateData
+            let scoreHeartRateData = getScoreForVitalDataWithGivenDateRange(sampleItem: heartRateData, timeIntervalByLastMonth: timeIntervalByLastMonth, timeIntervalByNow: timeIntervalByNow)
+            //irregularRhythmNotificationData
+            let scoreIrregularRhythmNotification = getScoreForVitalDataWithGivenDateRange(sampleItem: irregularRhythmNotificationData, timeIntervalByLastMonth: timeIntervalByLastMonth, timeIntervalByNow: timeIntervalByNow)
+            //peakFlowRateData
+            let scorePeakFlowRateData = getScoreForVitalDataWithGivenDateRange(sampleItem: peakFlowRateData, timeIntervalByLastMonth: timeIntervalByLastMonth, timeIntervalByNow: timeIntervalByNow)
+            //vO2MaxData
+            let scoreVO2MaxData = getScoreForVitalDataWithGivenDateRange(sampleItem: vO2MaxData, timeIntervalByLastMonth: timeIntervalByLastMonth, timeIntervalByNow: timeIntervalByNow)
+            //inhalerUsageData
+            let scoreInhalerUsageData = getScoreForVitalDataWithGivenDateRange(sampleItem: inhalerUsageData, timeIntervalByLastMonth: timeIntervalByLastMonth, timeIntervalByNow: timeIntervalByNow)
+            
+            let totalScore = scoreSystolic + scoreDyastolic + scoreRespiratoryRateData + scoreOxygenSaturationData + scoreHeartRateData + scoreIrregularRhythmNotification + scorePeakFlowRateData + scoreVO2MaxData + scoreInhalerUsageData
+            arrayDayWiseScoreTotal.append(totalScore)
+        }
         
-        arrVital = []
         
         
         return arrayDayWiseScoreTotal

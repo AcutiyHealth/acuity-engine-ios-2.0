@@ -32,6 +32,7 @@ class AddSymptomViewController: UIViewController {
     @IBOutlet weak var btnHeight: NSLayoutConstraint!
     //List of symptoms type...
     var symptomsArray : [SymptomsTextValue] = [SymptomsTextValue.Severe,SymptomsTextValue.Moderate,SymptomsTextValue.Mild,SymptomsTextValue.Present,SymptomsTextValue.Not_Present]
+    var symptomsArrayForSleepChange : [SymptomsTextValue] = [SymptomsTextValue.Present,SymptomsTextValue.Not_Present]
     
     //Selected Sympotms type value....
     var selectedSymptoms = -1
@@ -127,7 +128,10 @@ class AddSymptomViewController: UIViewController {
         
         //Create Object For HKWriterManager
         let objWriterManager = HKWriterManager()
-        let symptomValue = symptomsArray[selectedSymptoms]
+        var symptomValue = symptomsArray[selectedSymptoms]
+        if symptomsModel?.title == SymptomsName.sleepChanges{
+            symptomValue = symptomsArrayForSleepChange[selectedSymptoms]
+        }
         guard let symptomsModel = self.symptomsModel else { return  }
         
         HKSetupAssistance.authorizeHealthKitForAddSymptoms(caegoryTypeIdentifier: symptomsModel.healthCategoryType!) { [weak self] (success, error) in
@@ -180,6 +184,12 @@ class AddSymptomViewController: UIViewController {
 //MARK: Table view
 extension AddSymptomViewController:UITableViewDelegate,UITableViewDataSource{
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        guard let symptomsModel = symptomsModel else {
+            return symptomsArray.count
+        }
+        if symptomsModel.title == SymptomsName.sleepChanges{
+            return symptomsArrayForSleepChange.count
+        }
         return symptomsArray.count
     }
     
@@ -187,8 +197,16 @@ extension AddSymptomViewController:UITableViewDelegate,UITableViewDataSource{
         guard let cell: LabelDisplayCell = tableView.dequeueReusableCell(withIdentifier: "LabelDisplayCell", for: indexPath as IndexPath) as? LabelDisplayCell else {
             fatalError("AcuityDetailDisplayCell cell is not found")
         }
-        let symptom = symptomsArray[indexPath.row]
-        cell.displayData(title: symptom.rawValue )
+        
+        if symptomsModel?.title == SymptomsName.sleepChanges{
+            let symptom = symptomsArrayForSleepChange[indexPath.row]
+            cell.displayData(title: symptom.rawValue )
+        }else{
+            let symptom = symptomsArray[indexPath.row]
+            cell.displayData(title: symptom.rawValue )
+        }
+        
+        
         cell.selectionStyle = .none
         cell.tintColor = UIColor.white
         return cell

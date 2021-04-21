@@ -13,7 +13,10 @@ enum HeartRateValue:Double {
     case Yellow = 0.5
     case Green = 0
 }
-
+enum LabResult:Double {
+    case positive = 1
+    case negative = 0
+}
 enum ConditionValue:Double {
     case Yes = 1
     case No = 0
@@ -127,13 +130,19 @@ enum ColorSchema {
     static let kMainThemeColorForPullup =  UIColor(red: 20.0 / 255.0, green: 41 / 255.0, blue: 113 / 255.0, alpha: 0.3)
 }
 struct ChartSize {
-    static let kAcuityCircleWidth  = (Screen.screenWidth*360)/414
-    static let kAcuityCircleHeight  = (Screen.screenWidth*360)/414
+    static let kAcuityCircleWidth  = (Int(Screen.screenWidth)*360)/Screen.iPhone11ScreenWidth
+    static let kAcuityCircleHeight  = (Int(Screen.screenWidth)*360)/Screen.iPhone11ScreenWidth
 }
 struct Screen{
     static let screenSize = UIScreen.main.bounds
     static let screenWidth = screenSize.width
     static let screenHeight = screenSize.height
+    static let iPhone11ScreenHeight =
+        896
+    static let iPhone11ScreenWidth =
+        414
+    static let iPhoneSEHeight =
+        568
 }
 
 struct AlertMessages {

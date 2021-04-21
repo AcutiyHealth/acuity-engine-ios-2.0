@@ -83,7 +83,13 @@ chevrons will be used for smooth rotating, using min, mid and max value.
     _panGestureRecognizer =[[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(recognizeCircularViewGesture:)];
     _panGestureRecognizer.delegate = (id)self;
     [container addGestureRecognizer:_panGestureRecognizer];
-    
+    /*
+     In this, circle will have 360 degree and number of angle will be number of sections. so chevron width(kChevronWidth) will be change accordingly. kChevronHeight is kAcuityCircleHeight/2
+     Arc length = Angle * Radius
+     kChevronWidth = Angle * kChevronHeight
+     If 14 system is there... Angle = (2 * 3.14)/14 so It will be 0.4485.
+     kChevronWidth = 0.4485 * 180 = 80
+     */
     CGFloat angleSize = 2*M_PI/numberOfSections;
     
     for (int i = 0; i < numberOfSections; i++) {

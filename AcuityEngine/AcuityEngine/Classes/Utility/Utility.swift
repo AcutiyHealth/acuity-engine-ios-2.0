@@ -99,12 +99,11 @@ func getDateWithTime(date:Date)->String{
 }
 
 //MARK: Daywise Filter
-func daywiseFilterMetrixsData(days:SegmentValueForGraph,array:[Metrix],metriXType:MetricsType)->[Double]{
-    
-    var now = MyWellScore.sharedManager.todaysDate
+func getNumberOfTimesLoopToExecute(days:SegmentValueForGraph)->[String:AnyObject]{
+    let now = MyWellScore.sharedManager.todaysDate
     var component = Calendar.Component.day
     var noOfTimesLoopExecute = 1
-    var averageScoreArray:[Double] = []
+    
     switch days {
     case .SevenDays:
         component = .day
@@ -125,7 +124,17 @@ func daywiseFilterMetrixsData(days:SegmentValueForGraph,array:[Metrix],metriXTyp
         component = .day
         noOfTimesLoopExecute = 1
     }
+    let componentAndLoopDictionary = ["component":component,"noOfTimesLoopExecute":noOfTimesLoopExecute] as [String : AnyObject]
+    return componentAndLoopDictionary
+}
+
+func daywiseFilterMetrixsData(days:SegmentValueForGraph,array:[Metrix],metriXType:MetricsType)->[Double]{
     
+    var now = MyWellScore.sharedManager.todaysDate
+    let getComponentAndLoop = getNumberOfTimesLoopToExecute(days: days)
+    let component:Calendar.Component = getComponentAndLoop["component"] as! Calendar.Component
+    let noOfTimesLoopExecute:Int = getComponentAndLoop["noOfTimesLoopExecute"] as! Int
+    var averageScoreArray:[Double] = []
     for _ in 0...noOfTimesLoopExecute-1{
         
         let day = Calendar.current.date(byAdding: component, value: -1, to: now)!
@@ -144,15 +153,37 @@ func daywiseFilterMetrixsData(days:SegmentValueForGraph,array:[Metrix],metriXTyp
             }
         }else{
             filteredArray = array.filter { item in
-              filterConditionForOtherMetrix(sampleItem: item, timeIntervalByLastMonth: timeIntervalByLastMonth, timeIntervalByNow: timeIntervalByNow)
+                filterConditionForOtherMetrix(sampleItem: item, timeIntervalByLastMonth: timeIntervalByLastMonth, timeIntervalByNow: timeIntervalByNow)
             }
         }
-        let averageScore = (Double(filteredArray.average(\.score)).isNaN ? 0 :  Double(filteredArray.average(\.score)))
+        let averageScore = (Double(filteredArray.sum(\.score)).isNaN ? 0 :  Double(filteredArray.sum(\.score)))
         averageScoreArray.append(averageScore)
         //print("filteredChestPain",filteredArray)
         
     }
     return averageScoreArray
+}
+
+func getScoreForVitalDataWithGivenDateRange(sampleItem:[Metrix],timeIntervalByLastMonth:Double,timeIntervalByNow:Double)->Double{
+    var filteredArray:[Metrix] = []
+    
+    filteredArray = sampleItem.filter { item in
+        filterConditionForOtherMetrix(sampleItem: item, timeIntervalByLastMonth: timeIntervalByLastMonth, timeIntervalByNow: timeIntervalByNow)
+    }
+    
+    let averageScore = (Double(filteredArray.average(\.score)).isNaN ? 0 :  Double(filteredArray.average(\.score)))
+    return averageScore
+}
+
+func getScoreForSymptomsDataWithGivenDateRange(sampleItem:[Metrix],timeIntervalByLastMonth:Double,timeIntervalByNow:Double)->Double{
+    var filteredArray:[Metrix] = []
+    
+    filteredArray = sampleItem.filter { item in
+        filterConditionForSymptoms(sampleItem: item, timeIntervalByLastMonth: timeIntervalByLastMonth, timeIntervalByNow: timeIntervalByNow)
+    }
+    
+    let averageScore = (Double(filteredArray.average(\.score)).isNaN ? 0 :  Double(filteredArray.average(\.score)))
+    return averageScore
 }
 
 func getTimeIntervalBySelectedSegmentOfDays(days:SegmentValueForGraph)->Double{

@@ -8,7 +8,11 @@
 import UIKit
 
 class RespiratoryLab {
-    
+    /*Sodium
+     carbon dioxide (CMP) mEq/L
+     chloride
+     WBC's
+     Neutrophil %*/
     var sodiumData:[CardioLabData] = []
     var carbonDioxideData:[CardioLabData]  = []
     var chlorideData:[CardioLabData] = []

@@ -11,30 +11,88 @@ import HealthKitReporter
 class LabCalculation:Metrix {
     
     var metricType: LabType = .potassiumLevel // calculate based on symtomps type
+    var systemName:SystemName = SystemName.Cardiovascular
     override var value:Double{
         didSet{
             switch metricType {
-            
+            //AST
+            case .AST:
+                self.calculatedValue = getASTValue().rawValue
+            //ALT
+            case .ALT:
+                self.calculatedValue = geALTValue().rawValue
+            //potassiumLevel
             case .potassiumLevel:
-                self.calculatedValue = getPottasiumValue().rawValue
+                if systemName == SystemName.Fluids{
+                    self.calculatedValue = getPottasiumforFluidsValue().rawValue
+                }else{
+                    self.calculatedValue = getPottasiumValue().rawValue
+                }
+            //sodium
             case .sodium:
                 self.calculatedValue = getSodiumValue().rawValue
+            //chloride
             case .chloride:
                 self.calculatedValue = getChlorideValue().rawValue
+            //albumin
             case .albumin:
                 self.calculatedValue = getAlbuminValue().rawValue
+            //microalbumin
             case .microalbumin:
                 self.calculatedValue = getMicroalbuminValue().rawValue
+            //bPeptide
             case .bPeptide:
                 self.calculatedValue = getPeptideValue().rawValue
+            //hemoglobin
             case .hemoglobin:
                 self.calculatedValue = getHemoglobinValue().rawValue
+            //carbonDioxide
             case .carbonDioxide:
                 self.calculatedValue = getCarbonDioxideValue().rawValue
+            //WBC
             case .WBC:
                 self.calculatedValue = getWBCValue().rawValue
+            //neutrophil
             case .neutrophil:
                 self.calculatedValue = getNeutrophilValue().rawValue
+            //BUN
+            case .BUN:
+                if systemName == SystemName.Fluids{
+                    self.calculatedValue = getBUNForFluidsValue().rawValue
+                }else{
+                    self.calculatedValue = getBUNValue().rawValue
+                }
+            //creatinine
+            case .creatinine:
+                self.calculatedValue = getCreatinineValue().rawValue
+            //bloodGlucose
+            case .bloodGlucose:
+                self.calculatedValue = getBloodGlucoseValue().rawValue
+            //calcium
+            case .calcium:
+                self.calculatedValue = getCalciumValue().rawValue
+            //anionGap
+            case .anionGap:
+                if systemName == SystemName.InfectiousDisease{
+                    self.calculatedValue = getAnionGapValueForIDisease().rawValue
+                }else{
+                    self.calculatedValue = getAnionGapValue().rawValue
+                }
+            //MCV
+            case .MCV:
+                self.calculatedValue = getMCV().rawValue
+            //urineBlood
+            case .urineBlood:
+                self.calculatedValue = getUrineBlood().rawValue
+            //urineNitrites
+            case .urineNitrites:
+                self.calculatedValue = getUrineNitrites().rawValue
+            //urineKetone
+            case .urineKetone:
+                self.calculatedValue = getUrineKenote().rawValue
+            //eGFR
+            case .eGFR:
+                self.calculatedValue = geteGFRValue().rawValue
             default:break
             }
         }
@@ -57,11 +115,26 @@ class LabCalculation:Metrix {
         }
         
     }
+    //AST
+    private func getASTValue() -> HeartRateValue {
+        if value > 46 || value < 15  {
+            return HeartRateValue.Red
+        }
+        else {
+            return HeartRateValue.Green
+        }
+    }
+    //ALT
+    private func geALTValue() -> HeartRateValue {
+        if value > 69 || value < 13  {
+            return HeartRateValue.Red
+        }
+        else {
+            return HeartRateValue.Green
+        }
+    }
     
     private func getPottasiumValue() -> HeartRateValue {
-        
-        
-        //==if(H33="","",if(H33<0.9,1*G33,if(AND(H33>=0.9,H33<=0.95),0.5*G33,0)))
         
         if value > 5.1 || value < 3.5  {
             return HeartRateValue.Red
@@ -70,7 +143,16 @@ class LabCalculation:Metrix {
             return HeartRateValue.Green
         }
     }
-    
+    //For FNE system..
+    private func getPottasiumforFluidsValue() -> HeartRateValue {
+        
+        if value > 2.2 || value < 1.7  {
+            return HeartRateValue.Red
+        }
+        else {
+            return HeartRateValue.Green
+        }
+    }
     
     private func getSodiumValue() -> HeartRateValue {
         
@@ -93,7 +175,7 @@ class LabCalculation:Metrix {
     }
     private func getAlbuminValue() -> HeartRateValue {
         
-        if value < 3.4 {
+        if value < 3.4 && value > 5.4{
             return HeartRateValue.Red
         }
         else {
@@ -183,6 +265,123 @@ class LabCalculation:Metrix {
     private func getCarbonDioxideValue() -> HeartRateValue {
         
         if value > 30 || value < 23  {
+            return HeartRateValue.Red
+        }
+        else {
+            return HeartRateValue.Green
+        }
+    }
+    private func getBUNValue() -> HeartRateValue {
+        
+        if value > 20 || value < 7  {
+            return HeartRateValue.Red
+        }
+        else {
+            return HeartRateValue.Green
+        }
+    }
+    //For FNE
+    private func getBUNForFluidsValue() -> HeartRateValue {
+        
+        if value > 20 || value < 10  {
+            return HeartRateValue.Red
+        }
+        else {
+            return HeartRateValue.Green
+        }
+    }
+    private func getCreatinineValue() -> HeartRateValue {
+        
+        if value > 1.21 || value < 0.84  {
+            return HeartRateValue.Red
+        }
+        else {
+            return HeartRateValue.Green
+        }
+    }
+    private func getBloodGlucoseValue() -> HeartRateValue {
+        
+        if value > 200 || value < 70  {
+            return HeartRateValue.Red
+        }
+        else {
+            return HeartRateValue.Green
+        }
+    }
+    private func getCalciumValue() -> HeartRateValue {
+        
+        if value > 10.2 || value < 8.4  {
+            return HeartRateValue.Red
+        }
+        else {
+            return HeartRateValue.Green
+        }
+    }
+    private func getAnionGapValue() -> HeartRateValue {
+        
+        if value > 11 || value < 3  {
+            return HeartRateValue.Red
+        }
+        else {
+            return HeartRateValue.Green
+        }
+    }
+    private func getAnionGapValueForIDisease() -> HeartRateValue {
+        
+        if value >= 16 || value < 7  {
+            return HeartRateValue.Red
+        }
+        else {
+            return HeartRateValue.Green
+        }
+    }
+    private func getUrineNitrites() -> HeartRateValue {
+        
+        if value == LabResult.positive.rawValue  {
+            return HeartRateValue.Red
+        }
+        else {
+            return HeartRateValue.Green
+        }
+    }
+    private func getUrineKenote() -> HeartRateValue{
+        
+        if value == LabResult.positive.rawValue  {
+            return HeartRateValue.Red
+        }
+        else {
+            return HeartRateValue.Green
+        }
+    }
+    private func getUrineBlood() -> HeartRateValue {
+        
+        if value == LabResult.positive.rawValue  {
+            return HeartRateValue.Red
+        }
+        else {
+            return HeartRateValue.Green
+        }
+    }
+    private func getMCV() -> HeartRateValue {
+        if value < 80 || value > 96  {
+            return HeartRateValue.Red
+        }
+        else {
+            return HeartRateValue.Green
+        }
+    }
+    private func getMicroAlbuminValue() -> HeartRateValue {
+        
+        if value > 30  {
+            return HeartRateValue.Red
+        }
+        else {
+            return HeartRateValue.Green
+        }
+    }
+    private func geteGFRValue() -> HeartRateValue {
+        
+        if value < 90  {
             return HeartRateValue.Red
         }
         else {
