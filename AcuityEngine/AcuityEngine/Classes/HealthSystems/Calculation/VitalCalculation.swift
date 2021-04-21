@@ -9,39 +9,53 @@ import Foundation
 import HealthKitReporter
 
 class VitalCalculation:Metrix {
- 
+    
     var title: VitalsName = .heartRate // calculate based on symtomps type
     var systemName:SystemName = SystemName.Cardiovascular
     override var value:Double{
         didSet{
             switch title {
+            //heartRate
             case .heartRate:
                 self.calculatedValue = getHeartRateValue().rawValue
+            //bloodPressure
             case .bloodPressure:
                 self.calculatedValue = getSBloodPressureValue().rawValue
+            //bloodPressureSystolic
             case .bloodPressureSystolic:
                 self.calculatedValue = getSBloodPressureValue().rawValue
+            //bloodPressureDiastolic
             case .bloodPressureDiastolic:
                 self.calculatedValue = getDBloodPressureValue().rawValue
+            //highHeartRate
             case .highHeartRate:
                 self.calculatedValue = getHighHeartRateValue().rawValue
+            //lowHeartRate
             case .lowHeartRate:
                 self.calculatedValue = getLowHeartRateValue().rawValue
+            //Temperature
+            case .Temperature:
+                self.calculatedValue = getTempratureValue().rawValue
+            //vo2Max
             case .vo2Max:
                 self.calculatedValue = getVO2MaxValue().rawValue
+            //irregularRhymesNotification
             case .irregularRhymesNotification:
                 self.calculatedValue = getIrregularRythmValue().rawValue
+            //oxygenSaturation
             case .oxygenSaturation:
                 self.calculatedValue = getOxygenSaturationValue().rawValue
+            //InhalerUsage
             case .InhalerUsage:
                 self.calculatedValue = getInhalerUsageValue().rawValue
+            //peakflowRate
             case .peakflowRate:
                 self.calculatedValue = getPeakFlowRateValue().rawValue
             default: break
             }
         }
     }//H9 // -1 is default value, so we can compare with 0
-
+    
     //Heart Rate Calculation
     private func getHeartRateValue() -> HeartRateValue {
         
@@ -168,10 +182,24 @@ class VitalCalculation:Metrix {
         }
     }
     
+    //Temprature calculation
+    private func getTempratureValue() -> HeartRateValue {
+        
+        // if(H30="","",if(H30<30,1*G30,if(and(H30>=30,H30<=40),0.5*G30,0)))
+        
+        if value >= 100.4  {
+            return HeartRateValue.Red
+        } else if value >= 99 && value <= 100 {
+            return HeartRateValue.Yellow
+        } else if value >= 97 && value < 99 {
+            return HeartRateValue.Green
+        }
+        return HeartRateValue.Green
+    }
     //   Inhaler usage calculation
     private func getInhalerUsageValue() -> HeartRateValue {
         //=if(H33="","",if(H33>2,1*G33,if(and(H33>=1,H33<=2),0.5*G33,0)))
-       
+        
         if value > 2  {
             return HeartRateValue.Red
         } else if value >= 1 && value <= 2 {
@@ -182,7 +210,7 @@ class VitalCalculation:Metrix {
     }
     
     
-   //Get UIColor from Calculated Value
+    //Get UIColor from Calculated Value
     func getUIColorFromCalculatedValue() -> UIColor {
         
         // if(H30="","",if(H30<30,1*G30,if(and(H30>=30,H30<=40),0.5*G30,0)))
@@ -198,5 +226,5 @@ class VitalCalculation:Metrix {
         }
         return ChartColor.GREENCOLOR
     }
-
+    
 }
