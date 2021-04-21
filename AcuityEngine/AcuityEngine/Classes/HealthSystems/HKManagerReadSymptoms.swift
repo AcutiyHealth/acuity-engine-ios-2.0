@@ -84,6 +84,12 @@ class HKManagerReadSymptoms: NSObject
                                             
                                             //Save data for Renal...
                                             RenalManager.sharedManager.saveSymptomsData(category: category, element: element)
+                                            
+                                            //Save data for ID...
+                                            IDiseaseManager.sharedManager.saveSymptomsData(category: category, element: element)
+                                            
+                                            //Save data for FNE...
+                                            //FNEManager.sharedManager.saveSymptomsData(category: category, element: element)
                                         }
                                         dispatchGroup.leave()
                                         

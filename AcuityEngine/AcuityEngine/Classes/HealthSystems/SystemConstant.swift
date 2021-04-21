@@ -9,7 +9,7 @@ import Foundation
 import HealthKitReporter
 import HealthKit
 
-enum CardioSymptomsSleepChangeValue:Double {
+enum SymptomsSleepChangeValue:Double {
     case Present = 1
     case Not_Present = 0
 }
@@ -31,7 +31,6 @@ func CardioLabDataSampleType()->[HKSampleType]{
         
     ]
 }
-
 
 enum ConditionType:String {
     case allergicRhiniitis = "Allergic Rhiniitis"

@@ -66,18 +66,37 @@ class MyWellScore: NSObject {
     }
     
     func getTotalMaxScore()->Double{
+        //Cardio
         let maxScoreCardioData = CardioManager.sharedManager.cardioData.maxScore
+        //Respirator
         let maxScoreRespiratoryData = RespiratoryManager.sharedManager.respiratoryData.maxScore
+        //Renal
         let maxScoreRenalData = RenalManager.sharedManager.renalData.maxScore
-        let totalMaxScore = maxScoreCardioData +  maxScoreRespiratoryData + maxScoreRenalData
-        return totalMaxScore
+        //IDisease
+        let maxScoreDiseaseData = IDiseaseManager.sharedManager.iDiseaseData.maxScore
+        //fne
+        //let maxScoreFNEData = FNEManager.sharedManager.fneData.maxScore
+        
+        let totalMaxScore1 = maxScoreCardioData +  maxScoreRespiratoryData + maxScoreRenalData + maxScoreDiseaseData
+        //let totalMaxScore2 = maxScoreFNEData
+        return totalMaxScore1
     }
     
     func getTotalWeightedSystemScore()->Double{
+        //Cardio
         let cardioWeightedSystemScore = CardioManager.sharedManager.cardioData.cardioWeightedSystemScore
+        //Respiratory
         let respiratoryWeightedSystemScore = RespiratoryManager.sharedManager.respiratoryData.respiratoryWeightedSystemScore
+        //Renal
         let renalWeightedSystemScore = RenalManager.sharedManager.renalData.renalWeightedSystemScore
-        let totalWeightedSystemScore = cardioWeightedSystemScore + respiratoryWeightedSystemScore + renalWeightedSystemScore
-        return totalWeightedSystemScore
+        //IDisease
+        let iDiseaseWeightedSystemScore = IDiseaseManager.sharedManager.iDiseaseData.iDiseaseWeightedSystemScore
+        //fne
+        //let fneWeightedSystemScore = FNEManager.sharedManager.fneData.fneWeightedSystemScore
+        
+        let totalWeightedSystemScore1 = cardioWeightedSystemScore + respiratoryWeightedSystemScore + renalWeightedSystemScore + iDiseaseWeightedSystemScore
+        //let totalWeightedSystemScore2 = fneWeightedSystemScore
+        
+        return totalWeightedSystemScore1
     }
 }

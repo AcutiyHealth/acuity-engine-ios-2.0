@@ -31,6 +31,8 @@ class HKManagerReadVitals: NSObject {
         CardioManager.sharedManager.resetCardioData()
         RespiratoryManager.sharedManager.resetRespiratoryData()
         RenalManager.sharedManager.resetRenalData()
+        IDiseaseManager.sharedManager.resetIDiseaseData()
+        //FNEManager.sharedManager.resetFNEData()
     }
     
     func readVitalsData(days:SegmentValueForGraph,completion: @escaping (Bool, HealthkitSetupError?) -> Swift.Void) {
@@ -89,6 +91,9 @@ class HKManagerReadVitals: NSObject {
                                             
                                             //Save data for Respiratory
                                             RespiratoryManager.sharedManager.saveCategoryData(categoryType: category, value: 1, startTimeStamp: element.startTimestamp,endTimeStamp: element.endTimestamp)
+                                            
+                                            //Save data for FNE
+                                            //FNEManager.sharedManager.saveCategoryData(categoryType: category, value: 1, startTimeStamp: element.startTimestamp,endTimeStamp: element.endTimestamp)
                                             
                                         }
                                     }
@@ -203,6 +208,13 @@ class HKManagerReadVitals: NSObject {
                                                         
                                                         //save data For Renal
                                                         RenalManager.sharedManager.saveQuantityInArray(quantityType: identifier, element: element)
+                                                        
+                                                        //Save data for ID...
+                                                        IDiseaseManager.sharedManager.saveQuantityInArray(quantityType: identifier, element: element)
+                                                        
+                                                        //Save data for FNE...
+                                                        //FNEManager.sharedManager.saveQuantityInArray(quantityType: identifier, element: element)
+                                                    
                                                         
                                                     } catch {
                                                         //print(error)
