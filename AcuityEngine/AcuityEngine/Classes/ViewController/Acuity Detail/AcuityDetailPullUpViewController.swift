@@ -214,12 +214,13 @@ class AcuityDetailPullUpViewController: UIViewController {
             scoreText = String(format: "%.2f", systemScore)
             arraySystemScore = IDiseaseManager.sharedManager.iDiseaseData.arrayDayWiseSystemScore
         }
-        /*//FNE
+        //FNE
         else if MyWellScore.sharedManager.selectedSystem == SystemName.Fluids{
             let systemScore = FNEManager.sharedManager.fneData.totalSystemScoreWithDays(days: MyWellScore.sharedManager.daysToCalculateSystemScore)
             scoreText = String(format: "%.2f", systemScore)
             arraySystemScore = FNEManager.sharedManager.fneData.arrayDayWiseSystemScore
-        }*/
+        }
+        
         var i = 0;
         for item in arraySystemScore{
             data.append((x:i,y:item))

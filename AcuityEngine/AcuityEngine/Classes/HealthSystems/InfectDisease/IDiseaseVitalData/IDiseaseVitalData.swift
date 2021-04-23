@@ -28,7 +28,7 @@ class IDiseaseVitalsData:VitalCalculation {
             self.relativeValue = IDiseaseVitalRelativeImportance.bloodPressureSystolic
         case .bloodPressureDiastolic:
             self.relativeValue = IDiseaseVitalRelativeImportance.bloodPressureDiastolic
-        case .Temperature:
+        case .temperature:
             self.relativeValue = IDiseaseVitalRelativeImportance.temprature
         case .heartRate:
             self.relativeValue = IDiseaseVitalRelativeImportance.heartRate

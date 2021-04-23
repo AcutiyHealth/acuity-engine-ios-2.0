@@ -81,6 +81,9 @@ class LabCalculation:Metrix {
             //MCV
             case .MCV:
                 self.calculatedValue = getMCV().rawValue
+            //platelets
+            case .platelets:
+                self.calculatedValue = getPlateletsValue().rawValue
             //urineBlood
             case .urineBlood:
                 self.calculatedValue = getUrineBlood().rawValue
@@ -308,6 +311,7 @@ class LabCalculation:Metrix {
             return HeartRateValue.Green
         }
     }
+    //Calcium
     private func getCalciumValue() -> HeartRateValue {
         
         if value > 10.2 || value < 8.4  {
@@ -317,6 +321,7 @@ class LabCalculation:Metrix {
             return HeartRateValue.Green
         }
     }
+    //AnionGap
     private func getAnionGapValue() -> HeartRateValue {
         
         if value > 11 || value < 3  {
@@ -326,6 +331,7 @@ class LabCalculation:Metrix {
             return HeartRateValue.Green
         }
     }
+    //AnionGapValueForIDisease
     private func getAnionGapValueForIDisease() -> HeartRateValue {
         
         if value >= 16 || value < 7  {
@@ -335,6 +341,7 @@ class LabCalculation:Metrix {
             return HeartRateValue.Green
         }
     }
+    //UrineNitrites
     private func getUrineNitrites() -> HeartRateValue {
         
         if value == LabResult.positive.rawValue  {
@@ -344,6 +351,7 @@ class LabCalculation:Metrix {
             return HeartRateValue.Green
         }
     }
+    //UrineKenote
     private func getUrineKenote() -> HeartRateValue{
         
         if value == LabResult.positive.rawValue  {
@@ -353,6 +361,7 @@ class LabCalculation:Metrix {
             return HeartRateValue.Green
         }
     }
+    //UrineBlood
     private func getUrineBlood() -> HeartRateValue {
         
         if value == LabResult.positive.rawValue  {
@@ -362,6 +371,7 @@ class LabCalculation:Metrix {
             return HeartRateValue.Green
         }
     }
+    //MCV
     private func getMCV() -> HeartRateValue {
         if value < 80 || value > 96  {
             return HeartRateValue.Red
@@ -370,6 +380,16 @@ class LabCalculation:Metrix {
             return HeartRateValue.Green
         }
     }
+    //Platelets
+    private func getPlateletsValue() -> HeartRateValue {
+        if value < 80 || value > 96  {
+            return HeartRateValue.Red
+        }
+        else {
+            return HeartRateValue.Green
+        }
+    }
+    //MicroAlbumin
     private func getMicroAlbuminValue() -> HeartRateValue {
         
         if value > 30  {
@@ -379,6 +399,7 @@ class LabCalculation:Metrix {
             return HeartRateValue.Green
         }
     }
+    //eGFR
     private func geteGFRValue() -> HeartRateValue {
         
         if value < 90  {

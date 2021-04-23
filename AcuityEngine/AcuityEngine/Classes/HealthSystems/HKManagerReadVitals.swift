@@ -32,7 +32,7 @@ class HKManagerReadVitals: NSObject {
         RespiratoryManager.sharedManager.resetRespiratoryData()
         RenalManager.sharedManager.resetRenalData()
         IDiseaseManager.sharedManager.resetIDiseaseData()
-        //FNEManager.sharedManager.resetFNEData()
+        FNEManager.sharedManager.resetFNEData()
     }
     
     func readVitalsData(days:SegmentValueForGraph,completion: @escaping (Bool, HealthkitSetupError?) -> Swift.Void) {
@@ -96,7 +96,7 @@ class HKManagerReadVitals: NSObject {
                                             RespiratoryManager.sharedManager.saveCategoryData(categoryType: category, value: 1, startTimeStamp: element.startTimestamp,endTimeStamp: element.endTimestamp)
                                             
                                             //Save data for FNE
-                                            //FNEManager.sharedManager.saveCategoryData(categoryType: category, value: 1, startTimeStamp: element.startTimestamp,endTimeStamp: element.endTimestamp)
+                                            FNEManager.sharedManager.saveCategoryData(categoryType: category, value: 1, startTimeStamp: element.startTimestamp,endTimeStamp: element.endTimestamp)
                                             
                                         }
                                     }

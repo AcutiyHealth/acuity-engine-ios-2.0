@@ -77,11 +77,11 @@ class MyWellScore: NSObject {
         //IDisease
         let maxScoreDiseaseData = IDiseaseManager.sharedManager.iDiseaseData.maxScore
         //fne
-        //let maxScoreFNEData = FNEManager.sharedManager.fneData.maxScore
+        let maxScoreFNEData = FNEManager.sharedManager.fneData.maxScore
         
         let totalMaxScore1 = maxScoreCardioData +  maxScoreRespiratoryData + maxScoreRenalData + maxScoreDiseaseData
-        //let totalMaxScore2 = maxScoreFNEData
-        return totalMaxScore1
+        let totalMaxScore2 = maxScoreFNEData
+        return totalMaxScore1 + totalMaxScore2
     }
     
     func getTotalWeightedSystemScore()->Double{
@@ -94,11 +94,11 @@ class MyWellScore: NSObject {
         //IDisease
         let iDiseaseWeightedSystemScore = IDiseaseManager.sharedManager.iDiseaseData.iDiseaseWeightedSystemScore
         //fne
-        //let fneWeightedSystemScore = FNEManager.sharedManager.fneData.fneWeightedSystemScore
+        let fneWeightedSystemScore = FNEManager.sharedManager.fneData.fneWeightedSystemScore
         
         let totalWeightedSystemScore1 = cardioWeightedSystemScore + respiratoryWeightedSystemScore + renalWeightedSystemScore + iDiseaseWeightedSystemScore
-        //let totalWeightedSystemScore2 = fneWeightedSystemScore
+        let totalWeightedSystemScore2 = fneWeightedSystemScore
         
-        return totalWeightedSystemScore1
+        return totalWeightedSystemScore1 + totalWeightedSystemScore2
     }
 }

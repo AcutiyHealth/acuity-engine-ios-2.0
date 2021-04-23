@@ -72,10 +72,10 @@ class AcuityDetailValueViewModel: NSObject
         else if MyWellScore.sharedManager.selectedSystem == SystemName.InfectiousDisease{
             arrSymptoms = IDiseaseManager.sharedManager.iDiseaseData.iDiseaseSymptoms.getArrayDataForSymptoms(days:MyWellScore.sharedManager.daysToCalculateSystemScore, title: title)
         }
-//        //FNE
-//        else if MyWellScore.sharedManager.selectedSystem == SystemName.Fluids{
-//            arrSymptoms = FNEManager.sharedManager.fneData.fneSymptoms.getArrayDataForSymptoms(days:MyWellScore.sharedManager.daysToCalculateSystemScore, title: title)
-//        }
+        //FNE
+        else if MyWellScore.sharedManager.selectedSystem == SystemName.Fluids{
+            arrSymptoms = FNEManager.sharedManager.fneData.fneSymptoms.getArrayDataForSymptoms(days:MyWellScore.sharedManager.daysToCalculateSystemScore, title: title)
+        }
         return arrSymptoms
     }
     
@@ -97,10 +97,10 @@ class AcuityDetailValueViewModel: NSObject
         else if MyWellScore.sharedManager.selectedSystem == SystemName.InfectiousDisease{
             arrVitals = IDiseaseManager.sharedManager.iDiseaseData.iDiseaseVital.getArrayDataForVitals(days:MyWellScore.sharedManager.daysToCalculateSystemScore, title: title)
         }
-//        //Fluids
-//        else if MyWellScore.sharedManager.selectedSystem == SystemName.Fluids{
-//            arrVitals = FNEManager.sharedManager.fneData.fneVital.getArrayDataForVitals(days:MyWellScore.sharedManager.daysToCalculateSystemScore, title: title)
-//        }
+        //Fluids
+        else if MyWellScore.sharedManager.selectedSystem == SystemName.Fluids{
+            arrVitals = FNEManager.sharedManager.fneData.fneVital.getArrayDataForVitals(days:MyWellScore.sharedManager.daysToCalculateSystemScore, title: title)
+        }
         return arrVitals
     }
 }

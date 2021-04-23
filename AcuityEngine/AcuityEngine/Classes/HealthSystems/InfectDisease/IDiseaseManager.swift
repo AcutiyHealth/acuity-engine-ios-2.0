@@ -49,7 +49,7 @@ class IDiseaseManager: NSObject {
         
         else if quantityType == QuantityType.bodyTemperature {
             
-            let temperature = IDiseaseVitalsData(type: VitalsName.Temperature)
+            let temperature = IDiseaseVitalsData(type: VitalsName.temperature)
             temperature.value = Double(element.harmonized.value)
             temperature.startTimeStamp = element.startTimestamp
             self.iDiseaseData.iDiseaseVital.temperatureData.append(temperature)
@@ -103,7 +103,9 @@ class IDiseaseManager: NSObject {
         case .shortnessOfBreath:
             IDiseaseManager.sharedManager.iDiseaseData.iDiseaseSymptoms.shortOfBreathData.append(symptomsData)
         case .dizziness:
-            IDiseaseManager.sharedManager.iDiseaseData.iDiseaseSymptoms.dizzinessData.append(symptomsData)
+            if symptomsData.value <= 0.25{
+                IDiseaseManager.sharedManager.iDiseaseData.iDiseaseSymptoms.dizzinessData.append(symptomsData)
+            }
             
         default:
             break

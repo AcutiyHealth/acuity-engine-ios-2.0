@@ -27,6 +27,9 @@ class VitalCalculation:Metrix {
             //bloodPressureDiastolic
             case .bloodPressureDiastolic:
                 self.calculatedValue = getDBloodPressureValue().rawValue
+            //BMI
+            case .BMI:
+                self.calculatedValue = getBMIValue().rawValue
             //highHeartRate
             case .highHeartRate:
                 self.calculatedValue = getHighHeartRateValue().rawValue
@@ -34,7 +37,7 @@ class VitalCalculation:Metrix {
             case .lowHeartRate:
                 self.calculatedValue = getLowHeartRateValue().rawValue
             //Temperature
-            case .Temperature:
+            case .temperature:
                 self.calculatedValue = getTempratureValue().rawValue
             //vo2Max
             case .vo2Max:
@@ -108,6 +111,17 @@ class VitalCalculation:Metrix {
         }
     }
     
+    //BMI
+    private func getBMIValue() -> HeartRateValue {
+        
+        if value > 30 || value < 18  {
+            return HeartRateValue.Red
+        } else if value >= 25 && value <= 30 {
+            return HeartRateValue.Yellow
+        } else{
+            return HeartRateValue.Green
+        }
+    }
     //Irregular Rhmes Notification
     private func getIrregularRythmValue() -> HeartRateValue {
         
