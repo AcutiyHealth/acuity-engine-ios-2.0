@@ -92,7 +92,7 @@ class HKManagerReadSymptoms: NSObject
                                             IDiseaseManager.sharedManager.saveSymptomsData(category: category, element: element)
                                             
                                             //Save data for FNE...
-                                            //FNEManager.sharedManager.saveSymptomsData(category: category, element: element)
+                                            FNEManager.sharedManager.saveSymptomsData(category: category, element: element)
                                         }
                                         dispatchGroup.leave()
                                         

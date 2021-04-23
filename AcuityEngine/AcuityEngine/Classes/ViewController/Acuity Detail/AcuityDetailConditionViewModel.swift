@@ -60,10 +60,10 @@ class AcuityDetailConditionViewModel: NSObject
         else if MyWellScore.sharedManager.selectedSystem == SystemName.InfectiousDisease{
             return IDiseaseManager.sharedManager.iDiseaseData.iDiseaseSymptoms.dictionaryRepresentation()
         }
-//        //FNE
-//        else if MyWellScore.sharedManager.selectedSystem == SystemName.Fluids{
-//            return FNEManager.sharedManager.fneData.fneSymptoms.dictionaryRepresentation()
-//        }
+        //FNE
+        else if MyWellScore.sharedManager.selectedSystem == SystemName.Fluids{
+            return FNEManager.sharedManager.fneData.fneSymptoms.dictionaryRepresentation()
+        }
         return []
     }
     
@@ -84,10 +84,10 @@ class AcuityDetailConditionViewModel: NSObject
         else if MyWellScore.sharedManager.selectedSystem == SystemName.InfectiousDisease{
             return IDiseaseManager.sharedManager.iDiseaseData.iDiseaseVital.dictionaryRepresentation()
         }
-//        //FNE
-//        else if MyWellScore.sharedManager.selectedSystem == SystemName.Fluids{
-//            return FNEManager.sharedManager.fneData.fneVital.dictionaryRepresentation()
-//        }
+        //FNE
+        else if MyWellScore.sharedManager.selectedSystem == SystemName.Fluids{
+            return FNEManager.sharedManager.fneData.fneVital.dictionaryRepresentation()
+        }
         return []
     }
 }

@@ -44,7 +44,7 @@ class VitalsListViewController: UIViewController {
                        VitalModel(name: VitalsName.vo2Max),
                        VitalModel(name: VitalsName.peakflowRate),
                        VitalModel(name: VitalsName.InhalerUsage),
-                       VitalModel(name: VitalsName.Temperature),
+                       VitalModel(name: VitalsName.temperature),
                        VitalModel(name: VitalsName.BMI),
                        VitalModel(name: VitalsName.bloodSuger),
                        VitalModel(name: VitalsName.weight),

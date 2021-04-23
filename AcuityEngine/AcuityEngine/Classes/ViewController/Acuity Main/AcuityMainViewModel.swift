@@ -64,14 +64,14 @@ class AcuityMainViewModel: NSObject {
         dictInfectious.metricCardio = metriciDisease
         
         //FNE
-        //let metricFNE = FNEManager.sharedManager.fneData.dictionaryRepresentation()
+        let metricFNE = FNEManager.sharedManager.fneData.dictionaryRepresentation()
         let dictFluids =   AcuityDisplayModel()
         dictFluids.id = "432"
         dictFluids.name = SystemName.Fluids
-        dictFluids.score = "98"//String(format: "%.2f", (FNEManager.sharedManager.fneData.fneSystemScore))
+        dictFluids.score = String(format: "%.2f", (FNEManager.sharedManager.fneData.fneSystemScore))
         //dictFluids.index = "74"
         dictFluids.image = AcuityImages.kFluids
-        dictFluids.metricCardio = metricTemp
+        dictFluids.metricCardio = metricFNE
         
         let dictGastrointestinal =   AcuityDisplayModel()
         dictGastrointestinal.id = "45"
