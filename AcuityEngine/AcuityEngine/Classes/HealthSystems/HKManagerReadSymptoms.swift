@@ -51,6 +51,9 @@ class HKManagerReadSymptoms: NSObject
                      beforeDaysOrWeekOrMonth = 3
                      
                      }*/
+                    /*
+                     Here logic can be change if required. It will load 3 months data for Symptoms..
+                     */
                     component = .month
                     beforeDaysOrWeekOrMonth = 3
                     let daysAgo = Calendar.current.date(byAdding: component, value: -beforeDaysOrWeekOrMonth, to: now)!

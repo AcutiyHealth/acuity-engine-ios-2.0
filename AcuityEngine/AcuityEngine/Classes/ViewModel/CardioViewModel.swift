@@ -8,16 +8,15 @@
 import Foundation
 
 protocol CardioViewModelProtocol {
-    
     var cardioDataLoaded: ((Bool, HealthkitSetupError?) -> Void)? { get set }
-    
     func fetchAndLoadCardioData(days: SegmentValueForGraph)
 }
+
 class CardioViewModel: CardioViewModelProtocol {
     var cardioDataLoaded: ((Bool, HealthkitSetupError?) -> Void)?
     
-    //MARK: - Internal Properties
- 
+    
+    //MARK: - Fetch health data for Vital,Symptoms,Lab and Problem.
     
     func fetchAndLoadCardioData(days: SegmentValueForGraph){
         
@@ -29,6 +28,10 @@ class CardioViewModel: CardioViewModelProtocol {
         //Reset All Data.....
         HKManagerReadVitals.sharedManager.resetData()
         
+        //Put in dispatch group and when it's done it will call completion handler
+        //It will read all symptoms,vital and lab data. After that, it will create object for particular system and store it in array for that system.
+        
+        //Read vital data......
         dispatchGroup.enter()
         HKManagerReadVitals.sharedManager.readVitalsData(days: days) { (success, error) in
             //CardioManager.sharedManager.cardioData.totalScore()
@@ -36,24 +39,33 @@ class CardioViewModel: CardioViewModelProtocol {
             errorValue = error
             dispatchGroup.leave()
         }
+        
+        //Read Symptoms data......
         dispatchGroup.enter()
         HKManagerReadSymptoms.sharedManager.readSymptomsData(days: days, completion: { (success, error) in
             successValue = success
             errorValue = error
             dispatchGroup.leave()
         })
+        
+        //Read Lab data......
+        dispatchGroup.enter()
+        HKManagerReadLab.sharedManager.readLabDataTemp { (success, error) in
+            successValue = success
+            errorValue = error
+            dispatchGroup.leave()
+        }
+        //When all leave from dispatch group it will notify and  call completion handler...
         dispatchGroup.notify(queue: .main) {
             
             DispatchQueue.main.async {
                 print("Complete all reading of data")
                 print("Complete all reading of data", separator: "//////////", terminator: "////////")
-               
-                //let _ = CardioManager.sharedManager.cardioData.totalSystemScoreWithDays(days: MyWellScore.sharedManager.daysToCalculateSystemScore)
                 self.cardioDataLoaded?(successValue,errorValue)
             }
         }
         
-      
+        
     }
     
 }

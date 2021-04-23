@@ -97,13 +97,13 @@
                                                             </connections>
                                                         </segmentedControl>
                                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Lj9-Ql-gZS" userLabel="contentview">
-                                                            <rect key="frame" x="18" y="312" width="378" height="564"/>
+                                                            <rect key="frame" x="18" y="312" width="378" height="559"/>
                                                             <subviews>
                                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="fZM-hK-D3q" userLabel="1">
-                                                                    <rect key="frame" x="0.0" y="0.0" width="189" height="270.5"/>
+                                                                    <rect key="frame" x="0.0" y="0.0" width="189" height="268.5"/>
                                                                     <subviews>
                                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Conditions" textAlignment="natural" lineBreakMode="clip" baselineAdjustment="alignBaselines" minimumFontSize="9" translatesAutoresizingMaskIntoConstraints="NO" id="Uyj-bf-cIn" customClass="LabelTitle" customModule="AcuityEngine" customModuleProvider="target">
-                                                                            <rect key="frame" x="0.0" y="0.0" width="180" height="54"/>
+                                                                            <rect key="frame" x="0.0" y="0.0" width="180" height="53.5"/>
                                                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                                             <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                             <nil key="highlightedColor"/>
@@ -114,7 +114,7 @@
                                                                             </userDefinedRuntimeAttributes>
                                                                         </label>
                                                                         <tableView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" alwaysBounceVertical="YES" scrollEnabled="NO" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="Aia-1m-z86">
-                                                                            <rect key="frame" x="0.0" y="54" width="189" height="216.5"/>
+                                                                            <rect key="frame" x="0.0" y="53.5" width="189" height="213"/>
                                                                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                             <prototypes>
                                                                                 <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="AcuityDetailValueDisplayCell" rowHeight="20" id="5pC-Va-ecJ" customClass="AcuityDetailValueDisplayCell" customModule="AcuityEngine" customModuleProvider="target">
@@ -128,13 +128,13 @@
                                                                                                 <rect key="frame" x="0.0" y="0.0" width="180" height="20"/>
                                                                                                 <subviews>
                                                                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="wordWrap" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9pu-gT-OdV">
-                                                                                                        <rect key="frame" x="0.0" y="0.0" width="89.5" height="20"/>
+                                                                                                        <rect key="frame" x="0.0" y="0.0" width="180" height="20"/>
                                                                                                         <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
                                                                                                         <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                                                         <nil key="highlightedColor"/>
                                                                                                     </label>
-                                                                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="M92-C4-5bH">
-                                                                                                        <rect key="frame" x="90.5" y="0.0" width="89.5" height="20"/>
+                                                                                                    <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="M92-C4-5bH">
+                                                                                                        <rect key="frame" x="180" y="0.0" width="0.0" height="20"/>
                                                                                                         <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
                                                                                                         <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                                                         <nil key="highlightedColor"/>
@@ -181,7 +181,7 @@
                                                                         <constraint firstAttribute="trailing" secondItem="Uyj-bf-cIn" secondAttribute="trailing" constant="9" id="awG-p6-FSh"/>
                                                                         <constraint firstItem="Uyj-bf-cIn" firstAttribute="top" secondItem="fZM-hK-D3q" secondAttribute="top" id="cGw-QF-hoA"/>
                                                                         <constraint firstItem="Uyj-bf-cIn" firstAttribute="leading" secondItem="fZM-hK-D3q" secondAttribute="leading" id="cvy-Ir-cdH"/>
-                                                                        <constraint firstAttribute="bottom" secondItem="Aia-1m-z86" secondAttribute="bottom" id="jdS-Uf-Cro"/>
+                                                                        <constraint firstAttribute="bottom" secondItem="Aia-1m-z86" secondAttribute="bottom" constant="2" id="jdS-Uf-Cro"/>
                                                                         <constraint firstItem="Aia-1m-z86" firstAttribute="top" secondItem="Uyj-bf-cIn" secondAttribute="bottom" id="t11-hv-Lch"/>
                                                                     </constraints>
                                                                     <connections>
@@ -189,10 +189,10 @@
                                                                     </connections>
                                                                 </view>
                                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="5D8-s6-Utv" userLabel="2">
-                                                                    <rect key="frame" x="189" y="0.0" width="189" height="270.5"/>
+                                                                    <rect key="frame" x="189" y="0.0" width="189" height="268.5"/>
                                                                     <subviews>
                                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Symptoms" textAlignment="natural" lineBreakMode="clip" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="RdG-qe-26v" customClass="LabelTitle" customModule="AcuityEngine" customModuleProvider="target">
-                                                                            <rect key="frame" x="9" y="0.0" width="180" height="54"/>
+                                                                            <rect key="frame" x="9" y="0.0" width="180" height="53.5"/>
                                                                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                             <fontDescription key="fontDescription" name="SFProDisplay-Bold" family="SF Pro Display" pointSize="16"/>
                                                                             <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -204,7 +204,7 @@
                                                                             </userDefinedRuntimeAttributes>
                                                                         </label>
                                                                         <tableView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" alwaysBounceVertical="YES" scrollEnabled="NO" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="ueb-k0-9yj">
-                                                                            <rect key="frame" x="0.0" y="54" width="189" height="216.5"/>
+                                                                            <rect key="frame" x="0.0" y="53.5" width="189" height="213"/>
                                                                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                             <prototypes>
                                                                                 <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="AcuityDetailValueDisplayCell" id="Oaa-WV-dPf" customClass="AcuityDetailValueDisplayCell" customModule="AcuityEngine" customModuleProvider="target">
@@ -218,13 +218,13 @@
                                                                                                 <rect key="frame" x="9" y="0.0" width="180" height="50"/>
                                                                                                 <subviews>
                                                                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="wordWrap" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="yQy-65-P6O">
-                                                                                                        <rect key="frame" x="0.0" y="0.0" width="89.5" height="50"/>
+                                                                                                        <rect key="frame" x="0.0" y="0.0" width="180" height="50"/>
                                                                                                         <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
                                                                                                         <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                                                         <nil key="highlightedColor"/>
                                                                                                     </label>
-                                                                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tjp-0r-ZiB">
-                                                                                                        <rect key="frame" x="90.5" y="0.0" width="89.5" height="50"/>
+                                                                                                    <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tjp-0r-ZiB">
+                                                                                                        <rect key="frame" x="180" y="0.0" width="0.0" height="50"/>
                                                                                                         <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
                                                                                                         <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                                                         <nil key="highlightedColor"/>
@@ -267,7 +267,7 @@
                                                                         <constraint firstItem="ueb-k0-9yj" firstAttribute="leading" secondItem="5D8-s6-Utv" secondAttribute="leading" id="8m5-B7-fFV"/>
                                                                         <constraint firstAttribute="trailing" secondItem="ueb-k0-9yj" secondAttribute="trailing" id="EWn-z4-rLU"/>
                                                                         <constraint firstItem="RdG-qe-26v" firstAttribute="top" secondItem="5D8-s6-Utv" secondAttribute="top" id="JHM-lU-TEk"/>
-                                                                        <constraint firstAttribute="bottom" secondItem="ueb-k0-9yj" secondAttribute="bottom" id="TZq-Io-fXa"/>
+                                                                        <constraint firstAttribute="bottom" secondItem="ueb-k0-9yj" secondAttribute="bottom" constant="2" id="TZq-Io-fXa"/>
                                                                         <constraint firstItem="ueb-k0-9yj" firstAttribute="top" secondItem="RdG-qe-26v" secondAttribute="bottom" id="YKb-Oo-3Eg"/>
                                                                         <constraint firstAttribute="trailing" secondItem="RdG-qe-26v" secondAttribute="trailing" id="ac1-SK-B9a"/>
                                                                         <constraint firstItem="RdG-qe-26v" firstAttribute="height" secondItem="5D8-s6-Utv" secondAttribute="height" multiplier="0.2" id="cK9-Ft-FFB"/>
@@ -278,7 +278,7 @@
                                                                     </connections>
                                                                 </view>
                                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="LyY-nX-ibr" userLabel="3">
-                                                                    <rect key="frame" x="0.0" y="293.5" width="189" height="270.5"/>
+                                                                    <rect key="frame" x="0.0" y="290.5" width="189" height="268.5"/>
                                                                     <subviews>
                                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Vitals" textAlignment="natural" lineBreakMode="clip" baselineAdjustment="alignBaselines" minimumFontSize="9" translatesAutoresizingMaskIntoConstraints="NO" id="fL5-hc-G9v" customClass="LabelTitle" customModule="AcuityEngine" customModuleProvider="target">
                                                                             <rect key="frame" x="0.0" y="0.0" width="180" height="54"/>
@@ -292,7 +292,7 @@
                                                                             </userDefinedRuntimeAttributes>
                                                                         </label>
                                                                         <tableView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="cgZ-Ig-7rS">
-                                                                            <rect key="frame" x="0.0" y="54" width="184" height="216.5"/>
+                                                                            <rect key="frame" x="0.0" y="54" width="184" height="212.5"/>
                                                                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                             <prototypes>
                                                                                 <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="AcuityDetailValueDisplayCell" id="vAa-tz-62m" customClass="AcuityDetailValueDisplayCell" customModule="AcuityEngine" customModuleProvider="target">
@@ -353,7 +353,7 @@
                                                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                     <gestureRecognizers/>
                                                                     <constraints>
-                                                                        <constraint firstAttribute="bottom" secondItem="cgZ-Ig-7rS" secondAttribute="bottom" id="6Di-nW-PCy"/>
+                                                                        <constraint firstAttribute="bottom" secondItem="cgZ-Ig-7rS" secondAttribute="bottom" constant="2" id="6Di-nW-PCy"/>
                                                                         <constraint firstItem="fL5-hc-G9v" firstAttribute="top" secondItem="LyY-nX-ibr" secondAttribute="top" id="Hbc-Zs-5TR"/>
                                                                         <constraint firstItem="fL5-hc-G9v" firstAttribute="leading" secondItem="LyY-nX-ibr" secondAttribute="leading" id="PRo-Dc-5V8"/>
                                                                         <constraint firstItem="cgZ-Ig-7rS" firstAttribute="top" secondItem="fL5-hc-G9v" secondAttribute="bottom" id="VKO-Qf-hFE"/>
@@ -367,7 +367,7 @@
                                                                     </connections>
                                                                 </view>
                                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="6cF-T5-645" userLabel="4">
-                                                                    <rect key="frame" x="189" y="293.5" width="189" height="270.5"/>
+                                                                    <rect key="frame" x="189" y="290.5" width="189" height="268.5"/>
                                                                     <subviews>
                                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Labs" textAlignment="natural" lineBreakMode="clip" baselineAdjustment="alignBaselines" minimumFontSize="9" translatesAutoresizingMaskIntoConstraints="NO" id="k9R-5l-ggp" customClass="LabelTitle" customModule="AcuityEngine" customModuleProvider="target">
                                                                             <rect key="frame" x="9" y="0.0" width="180" height="54"/>
@@ -381,7 +381,7 @@
                                                                             </userDefinedRuntimeAttributes>
                                                                         </label>
                                                                         <tableView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="dgT-Ri-5ah">
-                                                                            <rect key="frame" x="0.0" y="54" width="189" height="216.5"/>
+                                                                            <rect key="frame" x="0.0" y="54" width="189" height="212.5"/>
                                                                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                             <prototypes>
                                                                                 <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="AcuityDetailValueDisplayCell" id="y3D-ba-rIu" customClass="AcuityDetailValueDisplayCell" customModule="AcuityEngine" customModuleProvider="target">
@@ -449,7 +449,7 @@
                                                                         <constraint firstAttribute="trailing" secondItem="k9R-5l-ggp" secondAttribute="trailing" id="cBs-Rb-T1r"/>
                                                                         <constraint firstItem="dgT-Ri-5ah" firstAttribute="top" secondItem="k9R-5l-ggp" secondAttribute="bottom" id="o01-ep-4ZI"/>
                                                                         <constraint firstItem="dgT-Ri-5ah" firstAttribute="leading" secondItem="6cF-T5-645" secondAttribute="leading" id="r8K-i9-J0f"/>
-                                                                        <constraint firstAttribute="bottom" secondItem="dgT-Ri-5ah" secondAttribute="bottom" id="tJb-wI-HNS"/>
+                                                                        <constraint firstAttribute="bottom" secondItem="dgT-Ri-5ah" secondAttribute="bottom" constant="2" id="tJb-wI-HNS"/>
                                                                     </constraints>
                                                                     <connections>
                                                                         <outletCollection property="gestureRecognizers" destination="ryi-UJ-Zkb" appends="YES" id="jWx-Br-YQj"/>
@@ -482,7 +482,7 @@
                                                     <constraints>
                                                         <constraint firstItem="7zB-Ta-Pfy" firstAttribute="trailing" secondItem="5re-0I-Zkx" secondAttribute="trailing" id="10b-i8-EsL"/>
                                                         <constraint firstItem="pqE-Q4-sNL" firstAttribute="leading" secondItem="QwJ-pv-RWy" secondAttribute="leading" constant="18" id="B0o-hz-GQC"/>
-                                                        <constraint firstAttribute="bottom" secondItem="Lj9-Ql-gZS" secondAttribute="bottom" id="Jj6-Xr-Fjk"/>
+                                                        <constraint firstAttribute="bottom" secondItem="Lj9-Ql-gZS" secondAttribute="bottom" constant="5" id="Jj6-Xr-Fjk"/>
                                                         <constraint firstItem="7zB-Ta-Pfy" firstAttribute="top" secondItem="pqE-Q4-sNL" secondAttribute="bottom" constant="18" id="Kuv-GT-N0t"/>
                                                         <constraint firstAttribute="trailing" secondItem="Lj9-Ql-gZS" secondAttribute="trailing" constant="18" id="P2X-OY-MmV"/>
                                                         <constraint firstItem="pqE-Q4-sNL" firstAttribute="top" secondItem="QwJ-pv-RWy" secondAttribute="top" constant="10" id="SOy-Jn-GNZ"/>

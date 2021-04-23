@@ -93,13 +93,13 @@ class HKSetupAssistance {
         let healthKitTypesToRead: Set<HKObjectType> = [heartRate]
         
         //4. Request Authorization
-        HKHealthStore().requestAuthorization(toShare: healthKitTypesToWrite, read: healthKitTypesToRead) { (success, error) in
+        healthKitStore.requestAuthorization(toShare: healthKitTypesToWrite, read: healthKitTypesToRead) { (success, error) in
             completion(success, error)
         }
     }
     
     class func authorizeLabDataKit(completion: @escaping ([HKSample],Bool, HealthkitSetupError?) -> Swift.Void) {
-        let healthStore = HKHealthStore()
+        //let healthStore = HKHealthStore()
         
         // Create required Record Type's equivalent HKClinicalType using clinicalType func of HKObjectType
         guard let
@@ -111,13 +111,12 @@ class HKSetupAssistance {
         }
         
         // Pass the Set of required HKClinicalType to get authorization for read only. As Clinical Records as Read only.
-        healthStore.requestAuthorization(toShare: nil, read: [labResultRecord]) { (success, error) in
+        healthKitStore.requestAuthorization(toShare: nil, read: [labResultRecord]) { (success, error) in
             guard success else {
                 // Handle errors here.
                 completion([],false, HealthkitSetupError.notAvailableOnDevice)
                 return
             }
-            
             
             
             let query = HKSampleQuery(sampleType: labResultRecord, predicate: nil, limit: HKObjectQueryNoLimit, sortDescriptors: nil) {(_, samplesOrNil, error) in
@@ -133,7 +132,7 @@ class HKSetupAssistance {
                 }
             }
             
-            healthStore.execute(query)
+            healthKitStore.execute(query)
             
             // Your requested access has been authorized by the user.
         }

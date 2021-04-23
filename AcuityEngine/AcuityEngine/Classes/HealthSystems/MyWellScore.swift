@@ -22,12 +22,13 @@ class MyWellScore: NSObject {
     //ViewModel Respiratory
     private let viewModelRespiratory = RespiratoryViewModel()
     
+    /*
+     Load health data by value selected from Segment in Pullup segment control.
+     Default is 3 months. It will fetch 3 months data from healthkit for Labs,Vital and Symptoms
+     */
     
-    //Load health data by value seelcted from Segment in Pullup segment control
     func loadHealthData(days:SegmentValueForGraph,completion: @escaping (Bool, HealthkitSetupError?) -> Swift.Void) {
-        
-        print("call loadHealthData")
-        daysToCalculateSystemScore = days
+       
         //set current date to Today's date to fetch all data from health kit
         todaysDate = Date()
         
@@ -40,6 +41,7 @@ class MyWellScore: NSObject {
         //Load all system data....
         viewModelCardio.fetchAndLoadCardioData(days: days)
         
+        //When data fetching is done it will refresh Wheel in MainViewController
         viewModelCardio.cardioDataLoaded = {(success,error) in
             successValue = success
             errorValue = error
