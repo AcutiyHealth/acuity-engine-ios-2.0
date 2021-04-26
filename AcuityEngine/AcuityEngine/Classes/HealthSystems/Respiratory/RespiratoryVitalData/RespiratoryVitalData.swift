@@ -27,6 +27,7 @@ class RespiratoryVitalsData:VitalCalculation {
     init(type:VitalsName) {
         super.init()
         super.title = type
+        super.systemName = SystemName.Respiratory
         switch type {
         case .bloodPressureSystolic:
             self.relativeValue = RespiratoryVitalRelativeImportance.bloodPressureSystolic

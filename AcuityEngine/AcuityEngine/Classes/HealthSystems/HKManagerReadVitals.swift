@@ -33,6 +33,7 @@ class HKManagerReadVitals: NSObject {
         RenalManager.sharedManager.resetRenalData()
         IDiseaseManager.sharedManager.resetIDiseaseData()
         FNEManager.sharedManager.resetFNEData()
+        HematoManager.sharedManager.resetHematoData()
     }
     
     func readVitalsData(days:SegmentValueForGraph,completion: @escaping (Bool, HealthkitSetupError?) -> Swift.Void) {
@@ -64,9 +65,6 @@ class HKManagerReadVitals: NSObject {
                      beforeDaysOrWeekOrMonth = 3
                      
                      }*/
-                    /*
-                     Here logic can be change if required. It will load 3 months data for Vitals..
-                     */
                     component = .month
                     beforeDaysOrWeekOrMonth = 3
                     let daysAgo = Calendar.current.date(byAdding: component, value: -beforeDaysOrWeekOrMonth, to: now)!
@@ -170,9 +168,7 @@ class HKManagerReadVitals: NSObject {
                              beforeDaysOrWeekOrMonth = 3
                              
                              }*/
-                            /*
-                             Here logic can be change if required. It will load 3 months data for Vitals..
-                             */
+                            
                             component = .month
                             beforeDaysOrWeekOrMonth = 3
                             let daysAgo = Calendar.current.date(byAdding: component, value: -beforeDaysOrWeekOrMonth, to: now)!
@@ -218,8 +214,10 @@ class HKManagerReadVitals: NSObject {
                                                         IDiseaseManager.sharedManager.saveQuantityInArray(quantityType: identifier, element: element)
                                                         
                                                         //Save data for FNE...
-                                                        //FNEManager.sharedManager.saveQuantityInArray(quantityType: identifier, element: element)
+                                                        FNEManager.sharedManager.saveQuantityInArray(quantityType: identifier, element: element)
                                                     
+                                                        //Save data for FNE...
+                                                        HematoManager.sharedManager.saveQuantityInArray(quantityType: identifier, element: element)
                                                         
                                                     } catch {
                                                         //print(error)

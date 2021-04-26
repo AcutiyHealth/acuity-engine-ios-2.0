@@ -23,6 +23,7 @@ class IDiseaseVitalsData:VitalCalculation {
     init(type:VitalsName) {
         super.init()
         super.title = type
+        super.systemName = SystemName.InfectiousDisease
         switch type {
         case .bloodPressureSystolic:
             self.relativeValue = IDiseaseVitalRelativeImportance.bloodPressureSystolic

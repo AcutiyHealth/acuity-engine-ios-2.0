@@ -23,6 +23,7 @@ class FNEVitalsData:VitalCalculation {
     init(type:VitalsName) {
         super.init()
         super.title = type
+        super.systemName = SystemName.Fluids
         switch type {
         case .bloodPressureSystolic:
             self.relativeValue = FNEVitalRelativeImportance.bloodPressureSystolic

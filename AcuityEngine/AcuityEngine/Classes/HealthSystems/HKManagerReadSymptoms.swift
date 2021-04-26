@@ -51,9 +51,6 @@ class HKManagerReadSymptoms: NSObject
                      beforeDaysOrWeekOrMonth = 3
                      
                      }*/
-                    /*
-                     Here logic can be change if required. It will load 3 months data for Symptoms..
-                     */
                     component = .month
                     beforeDaysOrWeekOrMonth = 3
                     let daysAgo = Calendar.current.date(byAdding: component, value: -beforeDaysOrWeekOrMonth, to: now)!
@@ -93,6 +90,9 @@ class HKManagerReadSymptoms: NSObject
                                             
                                             //Save data for FNE...
                                             FNEManager.sharedManager.saveSymptomsData(category: category, element: element)
+                                            
+                                            //Save data for FNE...
+                                            HematoManager.sharedManager.saveSymptomsData(category: category, element: element)
                                         }
                                         dispatchGroup.leave()
                                         

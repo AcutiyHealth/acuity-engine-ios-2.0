@@ -29,6 +29,7 @@ class RespiratorySymptomsPainData:SymptomCalculation {
      init(type:CategoryType) {
         super.init()
         super.symptomsType = type
+        super.systemName = SystemName.Respiratory
         switch type {
         case .chestTightnessOrPain:
             self.title = SymptomsName.chestPain.rawValue

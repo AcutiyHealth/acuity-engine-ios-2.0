@@ -64,6 +64,10 @@ class AcuityDetailConditionViewModel: NSObject
         else if MyWellScore.sharedManager.selectedSystem == SystemName.Fluids{
             return FNEManager.sharedManager.fneData.fneSymptoms.dictionaryRepresentation()
         }
+        //Haematology
+        else if MyWellScore.sharedManager.selectedSystem == SystemName.Haematology{
+            return HematoManager.sharedManager.hematoData.hematoSymptoms.dictionaryRepresentation()
+        }
         return []
     }
     
@@ -87,6 +91,10 @@ class AcuityDetailConditionViewModel: NSObject
         //FNE
         else if MyWellScore.sharedManager.selectedSystem == SystemName.Fluids{
             return FNEManager.sharedManager.fneData.fneVital.dictionaryRepresentation()
+        }
+        //Haematology
+        else if MyWellScore.sharedManager.selectedSystem == SystemName.Haematology{
+            return HematoManager.sharedManager.hematoData.hematoVital.dictionaryRepresentation()
         }
         return []
     }

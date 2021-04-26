@@ -39,6 +39,7 @@ class FNESymptomsPainData:SymptomCalculation {
     init(type:CategoryType) {
         super.init()
         super.symptomsType = type
+        super.systemName = SystemName.Fluids
         switch type {
         //fatigue
         case .fatigue:

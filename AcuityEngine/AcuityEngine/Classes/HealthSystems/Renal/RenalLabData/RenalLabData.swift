@@ -29,6 +29,7 @@ class RenalLabData:LabCalculation {
     init(type:LabType) {
         super.init()
         super.metricType = type
+        super.systemName = SystemName.Renal
         switch type {
         //BUN
         case .BUN:

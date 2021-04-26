@@ -11,11 +11,16 @@ import HealthKitReporter
 class SymptomCalculation:Metrix {
     
     var symptomsType: CategoryType = .chestTightnessOrPain // calculate based on symtomps type
+    var systemName:SystemName = SystemName.Cardiovascular
     override var value:Double{
         didSet{
             if symptomsType == CategoryType.sleepChanges{
                 self.calculatedValue = getSymptomSleepChangeValue().rawValue
-            }else{
+            }
+            else if systemName == SystemName.InfectiousDisease && symptomsType == CategoryType.dizziness{
+                self.calculatedValue = getSymptomSleepChangeValue().rawValue
+            }
+            else{
                 self.calculatedValue = getSymptomsValue().rawValue
             }
         }
@@ -26,7 +31,7 @@ class SymptomCalculation:Metrix {
         
         
         //=if(H9="Severe",B9*G9,if(H9="Moderate",C9*G9,if(H9="Mild",D9*G9,if(H9="Present",E9*G9,if(H9="Not Present",F9*G9)))))
-        
+        //We get value 4->Severe 3-> Moderate 2->Mild 0->Present and 1 -> Not Presetnt from healthkit for symptoms
         switch value {
         case 0:
             return SymptomsValue.Present

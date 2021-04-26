@@ -178,7 +178,7 @@ class IDiseaseSymptoms:SymptomsProtocol {
         if dizzinessData.count > 0{
             let symptom = dizzinessData[0]
             print(symptom.getSymptomSleepChangeValue().rawValue)
-            arrSymptoms.append(SymptomsModel(title: symptom.title, value: SymptomsValue(rawValue: symptom.getSymptomSleepChangeValue().rawValue)!))
+            arrSymptoms.append(getSymptomsModel(symptom: symptom))
         }
         
         

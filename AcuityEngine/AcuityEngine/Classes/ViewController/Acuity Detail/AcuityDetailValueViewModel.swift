@@ -76,6 +76,10 @@ class AcuityDetailValueViewModel: NSObject
         else if MyWellScore.sharedManager.selectedSystem == SystemName.Fluids{
             arrSymptoms = FNEManager.sharedManager.fneData.fneSymptoms.getArrayDataForSymptoms(days:MyWellScore.sharedManager.daysToCalculateSystemScore, title: title)
         }
+        //Haematology
+        else if MyWellScore.sharedManager.selectedSystem == SystemName.Haematology{
+            arrSymptoms = HematoManager.sharedManager.hematoData.hematoSymptoms.getArrayDataForSymptoms(days:MyWellScore.sharedManager.daysToCalculateSystemScore, title: title)
+        }
         return arrSymptoms
     }
     
@@ -100,6 +104,10 @@ class AcuityDetailValueViewModel: NSObject
         //Fluids
         else if MyWellScore.sharedManager.selectedSystem == SystemName.Fluids{
             arrVitals = FNEManager.sharedManager.fneData.fneVital.getArrayDataForVitals(days:MyWellScore.sharedManager.daysToCalculateSystemScore, title: title)
+        }
+        //Haematology
+        else if MyWellScore.sharedManager.selectedSystem == SystemName.Haematology{
+            return HematoManager.sharedManager.hematoData.hematoVital.getArrayDataForVitals(days:MyWellScore.sharedManager.daysToCalculateSystemScore, title: title)
         }
         return arrVitals
     }
