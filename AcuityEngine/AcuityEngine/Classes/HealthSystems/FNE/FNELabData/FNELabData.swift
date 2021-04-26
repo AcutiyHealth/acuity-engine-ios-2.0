@@ -50,6 +50,7 @@ class FNELabData:LabCalculation {
     init(type:LabType) {
         super.init()
         super.metricType = type
+        super.systemName = SystemName.Fluids
         switch type {
         //bloodGlucose
         case .bloodGlucose:

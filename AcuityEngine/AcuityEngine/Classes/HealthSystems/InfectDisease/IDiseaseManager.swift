@@ -103,8 +103,13 @@ class IDiseaseManager: NSObject {
         case .shortnessOfBreath:
             IDiseaseManager.sharedManager.iDiseaseData.iDiseaseSymptoms.shortOfBreathData.append(symptomsData)
         case .dizziness:
-            if symptomsData.value <= 0.25{
-                IDiseaseManager.sharedManager.iDiseaseData.iDiseaseSymptoms.dizzinessData.append(symptomsData)
+            do {
+                //E24 in ID tab has dizziness value 1 for Present and 0 for Not Present.
+                //We get value 4->Severe 3-> Moderate 2->Mild 0->Present and 1 -> Not Presetnt from healthkit for symptoms
+                //So save data for Value 1 and 0 only.
+                if symptomsData.value <= 1{
+                    IDiseaseManager.sharedManager.iDiseaseData.iDiseaseSymptoms.dizzinessData.append(symptomsData)
+                }
             }
             
         default:

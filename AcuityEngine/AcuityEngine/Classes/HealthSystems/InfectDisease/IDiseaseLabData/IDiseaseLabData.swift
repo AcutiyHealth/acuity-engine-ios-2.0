@@ -30,6 +30,7 @@ class IDiseaseLabData:LabCalculation {
     init(type:LabType) {
         super.init()
         super.metricType = type
+        super.systemName = SystemName.InfectiousDisease
         switch type {
         //WBC
         case .WBC:

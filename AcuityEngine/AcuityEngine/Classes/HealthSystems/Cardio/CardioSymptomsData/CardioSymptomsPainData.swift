@@ -33,6 +33,7 @@ class CardioSymptomsPainData:SymptomCalculation {
      init(type:CategoryType) {
         super.init()
         super.symptomsType = type
+        super.systemName = SystemName.Cardiovascular
         switch type {
         case .chestTightnessOrPain:
             self.title = SymptomsName.chestPain.rawValue

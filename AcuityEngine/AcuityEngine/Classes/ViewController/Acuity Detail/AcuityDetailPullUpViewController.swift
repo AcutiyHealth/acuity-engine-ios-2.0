@@ -119,12 +119,13 @@ class AcuityDetailPullUpViewController: UIViewController {
         self.arrLabs = systemMetricsData![MetricsType.LabData.rawValue] as! [LabModel]
         self.arrVitals = systemMetricsData![MetricsType.Vitals.rawValue] as! [VitalsModel]
         
+        self.showScoreAndChartData()
+        
         //change background color with system selection..
-        let themeColor = getThemeColor(index:  acuityModel.score,isForWheel: false)
+        let themeColor = getThemeColor(index:  lblScore.text,isForWheel: false)
         lblScore.textColor = themeColor;
         colorForChart = themeColor ?? UIColor.red
         
-        self.showScoreAndChartData()
         self.reloadTableView()
         
     }
@@ -220,7 +221,12 @@ class AcuityDetailPullUpViewController: UIViewController {
             scoreText = String(format: "%.2f", systemScore)
             arraySystemScore = FNEManager.sharedManager.fneData.arrayDayWiseSystemScore
         }
-        
+        //Haematology
+        else if MyWellScore.sharedManager.selectedSystem == SystemName.Haematology{
+            let systemScore = HematoManager.sharedManager.hematoData.totalSystemScoreWithDays(days: MyWellScore.sharedManager.daysToCalculateSystemScore)
+            scoreText = String(format: "%.2f", systemScore)
+            arraySystemScore = HematoManager.sharedManager.hematoData.arrayDayWiseSystemScore
+        }
         var i = 0;
         for item in arraySystemScore{
             data.append((x:i,y:item))

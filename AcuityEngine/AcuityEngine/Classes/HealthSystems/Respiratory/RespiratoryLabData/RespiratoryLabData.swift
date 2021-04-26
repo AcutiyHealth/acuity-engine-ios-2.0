@@ -22,6 +22,7 @@ class RespiratoryLabData:LabCalculation {
     init(type:LabType) {
         super.init()
         super.metricType = type
+        super.systemName = SystemName.Respiratory
         switch type {
         case .sodium:
             self.relativeValue = RespiratoryLabRelativeImportance.sodium

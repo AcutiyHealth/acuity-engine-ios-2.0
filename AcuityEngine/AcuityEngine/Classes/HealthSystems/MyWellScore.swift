@@ -28,7 +28,8 @@ class MyWellScore: NSObject {
      */
     
     func loadHealthData(days:SegmentValueForGraph,completion: @escaping (Bool, HealthkitSetupError?) -> Swift.Void) {
-       
+       //Note: days is unused parameter
+        
         //set current date to Today's date to fetch all data from health kit
         todaysDate = Date()
         
@@ -78,13 +79,18 @@ class MyWellScore: NSObject {
         let maxScoreDiseaseData = IDiseaseManager.sharedManager.iDiseaseData.maxScore
         //fne
         let maxScoreFNEData = FNEManager.sharedManager.fneData.maxScore
+        //Hemato
+        let maxScoreHematoData = HematoManager.sharedManager.hematoData.maxScore
         
         let totalMaxScore1 = maxScoreCardioData +  maxScoreRespiratoryData + maxScoreRenalData + maxScoreDiseaseData
-        let totalMaxScore2 = maxScoreFNEData
+        let totalMaxScore2 = maxScoreFNEData + maxScoreHematoData
         return totalMaxScore1 + totalMaxScore2
     }
     
     func getTotalWeightedSystemScore()->Double{
+        /*
+         My Well score calculate for Today/One day. So, when we get WeightedSystemScore, it has get method and in it calculate scroe for One Day.
+         */
         //Cardio
         let cardioWeightedSystemScore = CardioManager.sharedManager.cardioData.cardioWeightedSystemScore
         //Respiratory
@@ -95,9 +101,11 @@ class MyWellScore: NSObject {
         let iDiseaseWeightedSystemScore = IDiseaseManager.sharedManager.iDiseaseData.iDiseaseWeightedSystemScore
         //fne
         let fneWeightedSystemScore = FNEManager.sharedManager.fneData.fneWeightedSystemScore
+        //Hemato
+        let hematoWeightedSystemScore = HematoManager.sharedManager.hematoData.hematoWeightedSystemScore
         
         let totalWeightedSystemScore1 = cardioWeightedSystemScore + respiratoryWeightedSystemScore + renalWeightedSystemScore + iDiseaseWeightedSystemScore
-        let totalWeightedSystemScore2 = fneWeightedSystemScore
+        let totalWeightedSystemScore2 = fneWeightedSystemScore + hematoWeightedSystemScore
         
         return totalWeightedSystemScore1 + totalWeightedSystemScore2
     }

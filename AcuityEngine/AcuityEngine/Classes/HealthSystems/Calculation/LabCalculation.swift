@@ -14,92 +14,104 @@ class LabCalculation:Metrix {
     var systemName:SystemName = SystemName.Cardiovascular
     override var value:Double{
         didSet{
-            switch metricType {
-            //AST
-            case .AST:
-                self.calculatedValue = getASTValue().rawValue
-            //ALT
-            case .ALT:
-                self.calculatedValue = geALTValue().rawValue
-            //potassiumLevel
-            case .potassiumLevel:
-                if systemName == SystemName.Fluids{
-                    self.calculatedValue = getPottasiumforFluidsValue().rawValue
-                }else{
-                    self.calculatedValue = getPottasiumValue().rawValue
+            if value < 0  {
+                self.calculatedValue = HeartRateValue.Green.rawValue
+            }else{
+                switch metricType {
+                //anionGap
+                case .anionGap:
+                    if systemName == SystemName.InfectiousDisease{
+                        self.calculatedValue = getAnionGapValueForIDisease().rawValue
+                    }else{
+                        self.calculatedValue = getAnionGapValue().rawValue
+                    }
+                //AST
+                case .AST:
+                    self.calculatedValue = getASTValue().rawValue
+                //ALT
+                case .ALT:
+                    self.calculatedValue = getALTValue().rawValue
+                //albumin
+                case .albumin:
+                    self.calculatedValue = getAlbuminValue().rawValue
+                //alkalinePhosphatase
+                case .alkalinePhosphatase:
+                    self.calculatedValue = getAlkalinePhosphataseValue().rawValue
+                //b12Level
+                case .b12Level:
+                    self.calculatedValue = getb12LevelValue().rawValue
+                //BUN
+                case .BUN:
+                    if systemName == SystemName.Fluids{
+                        self.calculatedValue = getBUNForFluidsValue().rawValue
+                    }else{
+                        self.calculatedValue = getBUNValue().rawValue
+                    }
+                //bloodGlucose
+                case .bloodGlucose:
+                    self.calculatedValue = getBloodGlucoseValue().rawValue
+                //bPeptide
+                case .bPeptide:
+                    self.calculatedValue = getPeptideValue().rawValue
+                //creatinine
+                case .creatinine:
+                    self.calculatedValue = getCreatinineValue().rawValue
+                //calcium
+                case .calcium:
+                    self.calculatedValue = getCalciumValue().rawValue
+                //carbonDioxide
+                case .carbonDioxide:
+                    self.calculatedValue = getCarbonDioxideValue().rawValue
+                //chloride
+                case .chloride:
+                    self.calculatedValue = getChlorideValue().rawValue
+                //eGFR
+                case .eGFR:
+                    self.calculatedValue = geteGFRValue().rawValue
+                //hemoglobin
+                case .hemoglobin:
+                    self.calculatedValue = getHemoglobinValue().rawValue
+                //microalbumin
+                case .microalbumin:
+                    self.calculatedValue = getMicroalbuminValue().rawValue
+                //neutrophil
+                case .neutrophil:
+                    self.calculatedValue = getNeutrophilValue().rawValue
+                //MCV
+                case .MCV:
+                    self.calculatedValue = getMCV().rawValue
+                //platelets
+                case .platelets:
+                    self.calculatedValue = getPlateletsValue().rawValue
+                //potassiumLevel
+                case .potassiumLevel:
+                    if systemName == SystemName.Fluids{
+                        self.calculatedValue = getPottasiumforFluidsValue().rawValue
+                    }else{
+                        self.calculatedValue = getPottasiumValue().rawValue
+                    }
+                    
+                //sodium
+                case .sodium:
+                    self.calculatedValue = getSodiumValue().rawValue
+                //urineBlood
+                case .urineBlood:
+                    self.calculatedValue = getUrineBlood().rawValue
+                //urineNitrites
+                case .urineNitrites:
+                    self.calculatedValue = getUrineNitrites().rawValue
+                //urineKetone
+                case .urineKetone:
+                    self.calculatedValue = getUrineKenote().rawValue
+                //WBC
+                case .WBC:
+                    self.calculatedValue = getWBCValue().rawValue
+                    
+                default:break
                 }
-            //sodium
-            case .sodium:
-                self.calculatedValue = getSodiumValue().rawValue
-            //chloride
-            case .chloride:
-                self.calculatedValue = getChlorideValue().rawValue
-            //albumin
-            case .albumin:
-                self.calculatedValue = getAlbuminValue().rawValue
-            //microalbumin
-            case .microalbumin:
-                self.calculatedValue = getMicroalbuminValue().rawValue
-            //bPeptide
-            case .bPeptide:
-                self.calculatedValue = getPeptideValue().rawValue
-            //hemoglobin
-            case .hemoglobin:
-                self.calculatedValue = getHemoglobinValue().rawValue
-            //carbonDioxide
-            case .carbonDioxide:
-                self.calculatedValue = getCarbonDioxideValue().rawValue
-            //WBC
-            case .WBC:
-                self.calculatedValue = getWBCValue().rawValue
-            //neutrophil
-            case .neutrophil:
-                self.calculatedValue = getNeutrophilValue().rawValue
-            //BUN
-            case .BUN:
-                if systemName == SystemName.Fluids{
-                    self.calculatedValue = getBUNForFluidsValue().rawValue
-                }else{
-                    self.calculatedValue = getBUNValue().rawValue
-                }
-            //creatinine
-            case .creatinine:
-                self.calculatedValue = getCreatinineValue().rawValue
-            //bloodGlucose
-            case .bloodGlucose:
-                self.calculatedValue = getBloodGlucoseValue().rawValue
-            //calcium
-            case .calcium:
-                self.calculatedValue = getCalciumValue().rawValue
-            //anionGap
-            case .anionGap:
-                if systemName == SystemName.InfectiousDisease{
-                    self.calculatedValue = getAnionGapValueForIDisease().rawValue
-                }else{
-                    self.calculatedValue = getAnionGapValue().rawValue
-                }
-            //MCV
-            case .MCV:
-                self.calculatedValue = getMCV().rawValue
-            //platelets
-            case .platelets:
-                self.calculatedValue = getPlateletsValue().rawValue
-            //urineBlood
-            case .urineBlood:
-                self.calculatedValue = getUrineBlood().rawValue
-            //urineNitrites
-            case .urineNitrites:
-                self.calculatedValue = getUrineNitrites().rawValue
-            //urineKetone
-            case .urineKetone:
-                self.calculatedValue = getUrineKenote().rawValue
-            //eGFR
-            case .eGFR:
-                self.calculatedValue = geteGFRValue().rawValue
-            default:break
             }
         }
-    }//H9 // -1 is default value, so we can compare with 0
+    }//H9 
     
     
     private func getOxygenLevelValue() -> HeartRateValue {
@@ -128,7 +140,7 @@ class LabCalculation:Metrix {
         }
     }
     //ALT
-    private func geALTValue() -> HeartRateValue {
+    private func getALTValue() -> HeartRateValue {
         if value > 69 || value < 13  {
             return HeartRateValue.Red
         }
@@ -136,7 +148,26 @@ class LabCalculation:Metrix {
             return HeartRateValue.Green
         }
     }
-    
+    //AlkalinePhosphatase
+    private func getAlkalinePhosphataseValue() -> HeartRateValue {
+        if value > 147  {
+            return HeartRateValue.Red
+        }else if value >= 44 && value <= 147 {
+            return HeartRateValue.Green
+        }
+        else {
+            return HeartRateValue.Green
+        }
+    }
+    //b12Level
+    private func getb12LevelValue() -> HeartRateValue {
+        if value > 900 || value < 200  {
+            return HeartRateValue.Red
+        }
+        else {
+            return HeartRateValue.Green
+        }
+    }
     private func getPottasiumValue() -> HeartRateValue {
         
         if value > 5.1 || value < 3.5  {
@@ -178,8 +209,11 @@ class LabCalculation:Metrix {
     }
     private func getAlbuminValue() -> HeartRateValue {
         
-        if value < 3.4 && value > 5.4{
+        if value < 3.4{
             return HeartRateValue.Red
+        }
+        else if value >= 3.4 && value <= 5.4{
+            return HeartRateValue.Green
         }
         else {
             return HeartRateValue.Green
@@ -220,21 +254,6 @@ class LabCalculation:Metrix {
         }
     }
     
-    private func getTroponinValue() -> HeartRateValue {
-        
-        if value > 1  {
-            return HeartRateValue.Red
-        }
-        else if value < 0.04 && value == 1  {
-            return HeartRateValue.Yellow
-        }
-        else if value < 0.04   {
-            return HeartRateValue.Green
-        }
-        else {
-            return HeartRateValue.Green
-        }
-    }
     
     private func getHemoglobinValue() -> HeartRateValue {
         
@@ -266,7 +285,7 @@ class LabCalculation:Metrix {
         }
     }
     private func getCarbonDioxideValue() -> HeartRateValue {
-        
+        //As per Respiratory system....
         if value > 30 || value < 23  {
             return HeartRateValue.Red
         }
@@ -286,8 +305,10 @@ class LabCalculation:Metrix {
     //For FNE
     private func getBUNForFluidsValue() -> HeartRateValue {
         
-        if value > 20 || value < 10  {
+        if value > 20  {
             return HeartRateValue.Red
+        }else if value >= 10 && value <= 20 {
+            return HeartRateValue.Green
         }
         else {
             return HeartRateValue.Green
@@ -295,8 +316,10 @@ class LabCalculation:Metrix {
     }
     private func getCreatinineValue() -> HeartRateValue {
         
-        if value > 1.21 || value < 0.84  {
+        if value > 1.21  {
             return HeartRateValue.Red
+        } else if value >= 0.84 && value <= 1.21{
+            return HeartRateValue.Green
         }
         else {
             return HeartRateValue.Green
@@ -304,8 +327,10 @@ class LabCalculation:Metrix {
     }
     private func getBloodGlucoseValue() -> HeartRateValue {
         
-        if value > 200 || value < 70  {
+        if value > 200 {
             return HeartRateValue.Red
+        }else if value >= 70 && value <= 110  {
+            return HeartRateValue.Green
         }
         else {
             return HeartRateValue.Green
@@ -324,8 +349,11 @@ class LabCalculation:Metrix {
     //AnionGap
     private func getAnionGapValue() -> HeartRateValue {
         
-        if value > 11 || value < 3  {
+        if value > 11 {
             return HeartRateValue.Red
+        }
+        else if  value >= 3 &&  value <= 11{
+            return HeartRateValue.Green
         }
         else {
             return HeartRateValue.Green
@@ -382,7 +410,7 @@ class LabCalculation:Metrix {
     }
     //Platelets
     private func getPlateletsValue() -> HeartRateValue {
-        if value < 80 || value > 96  {
+        if value > 400 || value < 135  {
             return HeartRateValue.Red
         }
         else {

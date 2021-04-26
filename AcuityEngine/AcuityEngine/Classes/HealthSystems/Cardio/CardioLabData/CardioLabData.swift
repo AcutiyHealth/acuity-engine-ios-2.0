@@ -24,6 +24,7 @@ class CardioLabData:LabCalculation {
     init(type:LabType) {
         super.init()
         super.metricType = type
+        super.systemName = SystemName.Cardiovascular
         switch type {
         case .potassiumLevel:
             self.relativeValue = CardioLabRelativeImportance.potassiumLevel

@@ -32,6 +32,7 @@ class IDiseaseSymptomsPainData:SymptomCalculation {
     init(type:CategoryType) {
         super.init()
         super.symptomsType = type
+        super.systemName = SystemName.InfectiousDisease
         switch type {
         //fever
         case .fever:

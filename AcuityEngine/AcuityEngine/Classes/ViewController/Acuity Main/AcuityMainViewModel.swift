@@ -21,6 +21,21 @@ class AcuityMainViewModel: NSObject {
     
     
     //MARK: Default system data...
+    func createArrayAndSystemScoreForSystems(){
+        
+        //Cardiovascular
+        let _ = CardioManager.sharedManager.cardioData.totalSystemScoreWithDays(days: MyWellScore.sharedManager.daysToCalculateSystemScore)
+        //Respiratory
+        let _ = RespiratoryManager.sharedManager.respiratoryData.totalSystemScoreWithDays(days: MyWellScore.sharedManager.daysToCalculateSystemScore)
+        //Renal
+        let _ = RenalManager.sharedManager.renalData.totalSystemScoreWithDays(days: MyWellScore.sharedManager.daysToCalculateSystemScore)
+        //IDisease
+        let _ = IDiseaseManager.sharedManager.iDiseaseData.totalSystemScoreWithDays(days: MyWellScore.sharedManager.daysToCalculateSystemScore)
+        //FNE
+        let _ = FNEManager.sharedManager.fneData.totalSystemScoreWithDays(days: MyWellScore.sharedManager.daysToCalculateSystemScore)
+        //Hemato
+        let _ = HematoManager.sharedManager.hematoData.totalSystemScoreWithDays(days: MyWellScore.sharedManager.daysToCalculateSystemScore)
+    }
     
     func setupBodySystemData()->[[String:Any]] {
         var arrBodySystems:[[String:Any]] = []
@@ -73,6 +88,16 @@ class AcuityMainViewModel: NSObject {
         dictFluids.image = AcuityImages.kFluids
         dictFluids.metricCardio = metricFNE
         
+        //Haematology
+        let metricHaematology = HematoManager.sharedManager.hematoData.dictionaryRepresentation()
+        let dictHaematology =   AcuityDisplayModel()
+        dictHaematology.id = "36"
+        dictHaematology.name = SystemName.Haematology
+        dictHaematology.score = String(format: "%.2f", (HematoManager.sharedManager.hematoData.hematoSystemScore))
+        //dictHaematology.index = "91"
+        dictHaematology.image = AcuityImages.kHematology
+        dictHaematology.metricCardio = metricHaematology
+        
         let dictGastrointestinal =   AcuityDisplayModel()
         dictGastrointestinal.id = "45"
         dictGastrointestinal.name = SystemName.Gastrointestinal
@@ -105,15 +130,6 @@ class AcuityMainViewModel: NSObject {
         dictNuerological.image = AcuityImages.kNuerological
         dictNuerological.metricCardio = metricTemp
         
-        let dictHaematology =   AcuityDisplayModel()
-        dictHaematology.id = "36"
-        dictHaematology.name = SystemName.Haematology
-        dictHaematology.score = "91"
-        //dictHaematology.index = "91"
-        dictHaematology.image = AcuityImages.kHematology
-        dictHaematology.metricCardio = metricTemp
-        
-        
         let dictMusculatory =   AcuityDisplayModel()
         dictMusculatory.id = "23"
         dictMusculatory.name = SystemName.Musculatory
@@ -130,7 +146,7 @@ class AcuityMainViewModel: NSObject {
         //dictIntegumentary.index = "92"
         dictIntegumentary.image = AcuityImages.kIntegumentary
         dictIntegumentary.metricCardio = metricTemp
-      
+        
         let dictDisposition =   AcuityDisplayModel()
         dictDisposition.id = "248"
         dictDisposition.name = SystemName.SocialDeterminantsofHealth
@@ -153,15 +169,14 @@ class AcuityMainViewModel: NSObject {
         arrBodySystems.append(dictInfectious.dictionaryRepresentation())
         arrBodySystems.append(dictFluids.dictionaryRepresentation())
         
+        arrBodySystems.append(dictHaematology.dictionaryRepresentation())
         arrBodySystems.append(dictGastrointestinal.dictionaryRepresentation())
         arrBodySystems.append(dictGenitourinary.dictionaryRepresentation())
         arrBodySystems.append(dictEndocrine.dictionaryRepresentation())
         arrBodySystems.append(dictNuerological.dictionaryRepresentation())
         
-        arrBodySystems.append(dictHaematology.dictionaryRepresentation())
         arrBodySystems.append(dictHeent.dictionaryRepresentation())
         arrBodySystems.append(dictDisposition.dictionaryRepresentation())
-        
         arrBodySystems.append(dictIntegumentary.dictionaryRepresentation())
         arrBodySystems.append(dictMusculatory.dictionaryRepresentation())
         
