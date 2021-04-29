@@ -29,6 +29,7 @@ class RenalLabData:LabCalculation {
     init(type:LabType) {
         super.init()
         super.metricType = type
+        super.systemName = SystemName.Renal
         switch type {
         //BUN
         case .BUN:
@@ -61,7 +62,7 @@ class RenalLabData:LabCalculation {
         case .hemoglobin:
             self.relativeValue = RenalLabRelativeImportance.hemoglobin
         //microalbumin
-        case .microalbumin:
+        case .microalbuminCreatinineRatio:
             self.relativeValue = RenalLabRelativeImportance.microalbumin
         //eGFR
         case .eGFR:

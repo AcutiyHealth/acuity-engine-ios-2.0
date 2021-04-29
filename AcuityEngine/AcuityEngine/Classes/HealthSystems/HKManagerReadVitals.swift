@@ -32,7 +32,9 @@ class HKManagerReadVitals: NSObject {
         RespiratoryManager.sharedManager.resetRespiratoryData()
         RenalManager.sharedManager.resetRenalData()
         IDiseaseManager.sharedManager.resetIDiseaseData()
-        //FNEManager.sharedManager.resetFNEData()
+        FNEManager.sharedManager.resetFNEData()
+        HematoManager.sharedManager.resetHematoData()
+        EndocrineManager.sharedManager.resetEndocrineData()
     }
     
     func readVitalsData(days:SegmentValueForGraph,completion: @escaping (Bool, HealthkitSetupError?) -> Swift.Void) {
@@ -64,9 +66,6 @@ class HKManagerReadVitals: NSObject {
                      beforeDaysOrWeekOrMonth = 3
                      
                      }*/
-                    /*
-                     Here logic can be change if required. It will load 3 months data for Vitals..
-                     */
                     component = .month
                     beforeDaysOrWeekOrMonth = 3
                     let daysAgo = Calendar.current.date(byAdding: component, value: -beforeDaysOrWeekOrMonth, to: now)!
@@ -96,7 +95,7 @@ class HKManagerReadVitals: NSObject {
                                             RespiratoryManager.sharedManager.saveCategoryData(categoryType: category, value: 1, startTimeStamp: element.startTimestamp,endTimeStamp: element.endTimestamp)
                                             
                                             //Save data for FNE
-                                            //FNEManager.sharedManager.saveCategoryData(categoryType: category, value: 1, startTimeStamp: element.startTimestamp,endTimeStamp: element.endTimestamp)
+                                            FNEManager.sharedManager.saveCategoryData(categoryType: category, value: 1, startTimeStamp: element.startTimestamp,endTimeStamp: element.endTimestamp)
                                             
                                         }
                                     }
@@ -170,9 +169,7 @@ class HKManagerReadVitals: NSObject {
                              beforeDaysOrWeekOrMonth = 3
                              
                              }*/
-                            /*
-                             Here logic can be change if required. It will load 3 months data for Vitals..
-                             */
+                            
                             component = .month
                             beforeDaysOrWeekOrMonth = 3
                             let daysAgo = Calendar.current.date(byAdding: component, value: -beforeDaysOrWeekOrMonth, to: now)!
@@ -218,9 +215,13 @@ class HKManagerReadVitals: NSObject {
                                                         IDiseaseManager.sharedManager.saveQuantityInArray(quantityType: identifier, element: element)
                                                         
                                                         //Save data for FNE...
-                                                        //FNEManager.sharedManager.saveQuantityInArray(quantityType: identifier, element: element)
+                                                        FNEManager.sharedManager.saveQuantityInArray(quantityType: identifier, element: element)
                                                     
+                                                        //Save data for Hemato...
+                                                        HematoManager.sharedManager.saveQuantityInArray(quantityType: identifier, element: element)
                                                         
+                                                        //Save data for Endocrine...
+                                                        EndocrineManager.sharedManager.saveQuantityInArray(quantityType: identifier, element: element)
                                                     } catch {
                                                         //print(error)
                                                     }

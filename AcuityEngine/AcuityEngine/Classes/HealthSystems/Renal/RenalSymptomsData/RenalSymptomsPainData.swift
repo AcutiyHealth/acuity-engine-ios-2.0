@@ -28,6 +28,7 @@ class RenalSymptomsPainData:SymptomCalculation {
      init(type:CategoryType) {
         super.init()
         super.symptomsType = type
+        super.systemName = SystemName.Renal
         switch type {
         case .rapidPoundingOrFlutteringHeartbeat:
             self.title = SymptomsName.rapidHeartbeat.rawValue

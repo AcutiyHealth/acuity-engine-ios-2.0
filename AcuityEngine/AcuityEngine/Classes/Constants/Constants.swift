@@ -47,7 +47,7 @@ enum SystemName:String {
     case Genitourinary = "Genitourinary"
     case Endocrine = "Endocrine"
     case Nuerological = "Neurological"
-    case Haematology = "Hematology"
+    case Hematology = "Hematology"
     case Musculatory = "Musculoskeletal"
     case Integumentary = "Integumentary"
     case Fluids = "Fluids"
@@ -96,6 +96,12 @@ enum AddOption: String {
     case Symptom = "Symptoms Tracker"
     case Conditions = "Conditions"
     case vitals = "Vitals"
+}
+enum NSNotificationName: String {
+    case pullUpOpen = "pullUpOpen"
+    case pullUpClose = "pullUpClose"
+    case showAcuityDetailPopup = "showAcuityDetailPopup"
+    case refreshCircleView = "refreshCircleView"
 }
 struct WheelColor {
     static let BLUECOLORLABELTITLE = UIColor(red: 41.0 / 255.0, green: 121.0 / 255.0, blue: 255.0 / 255.0, alpha: 1.0)

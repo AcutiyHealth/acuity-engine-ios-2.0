@@ -49,7 +49,7 @@ class IDiseaseManager: NSObject {
         
         else if quantityType == QuantityType.bodyTemperature {
             
-            let temperature = IDiseaseVitalsData(type: VitalsName.Temperature)
+            let temperature = IDiseaseVitalsData(type: VitalsName.temperature)
             temperature.value = Double(element.harmonized.value)
             temperature.startTimeStamp = element.startTimestamp
             self.iDiseaseData.iDiseaseVital.temperatureData.append(temperature)
@@ -103,7 +103,14 @@ class IDiseaseManager: NSObject {
         case .shortnessOfBreath:
             IDiseaseManager.sharedManager.iDiseaseData.iDiseaseSymptoms.shortOfBreathData.append(symptomsData)
         case .dizziness:
-            IDiseaseManager.sharedManager.iDiseaseData.iDiseaseSymptoms.dizzinessData.append(symptomsData)
+            do {
+                //E24 in ID tab has dizziness value 1 for Present and 0 for Not Present.
+                //We get value 4->Severe 3-> Moderate 2->Mild 0->Present and 1 -> Not Presetnt from healthkit for symptoms
+                //So save data for Value 1 and 0 only.
+                if symptomsData.value <= 1{
+                    IDiseaseManager.sharedManager.iDiseaseData.iDiseaseSymptoms.dizzinessData.append(symptomsData)
+                }
+            }
             
         default:
             break

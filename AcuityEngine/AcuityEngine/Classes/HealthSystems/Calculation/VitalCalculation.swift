@@ -14,44 +14,54 @@ class VitalCalculation:Metrix {
     var systemName:SystemName = SystemName.Cardiovascular
     override var value:Double{
         didSet{
-            switch title {
-            //heartRate
-            case .heartRate:
-                self.calculatedValue = getHeartRateValue().rawValue
-            //bloodPressure
-            case .bloodPressure:
-                self.calculatedValue = getSBloodPressureValue().rawValue
-            //bloodPressureSystolic
-            case .bloodPressureSystolic:
-                self.calculatedValue = getSBloodPressureValue().rawValue
-            //bloodPressureDiastolic
-            case .bloodPressureDiastolic:
-                self.calculatedValue = getDBloodPressureValue().rawValue
-            //highHeartRate
-            case .highHeartRate:
-                self.calculatedValue = getHighHeartRateValue().rawValue
-            //lowHeartRate
-            case .lowHeartRate:
-                self.calculatedValue = getLowHeartRateValue().rawValue
-            //Temperature
-            case .Temperature:
-                self.calculatedValue = getTempratureValue().rawValue
-            //vo2Max
-            case .vo2Max:
-                self.calculatedValue = getVO2MaxValue().rawValue
-            //irregularRhymesNotification
-            case .irregularRhymesNotification:
-                self.calculatedValue = getIrregularRythmValue().rawValue
-            //oxygenSaturation
-            case .oxygenSaturation:
-                self.calculatedValue = getOxygenSaturationValue().rawValue
-            //InhalerUsage
-            case .InhalerUsage:
-                self.calculatedValue = getInhalerUsageValue().rawValue
-            //peakflowRate
-            case .peakflowRate:
-                self.calculatedValue = getPeakFlowRateValue().rawValue
-            default: break
+            if value < 0  {
+                self.calculatedValue = HeartRateValue.Green.rawValue
+            }else{
+                switch title {
+                //heartRate
+                case .heartRate:
+                    self.calculatedValue = getHeartRateValue().rawValue
+                //bloodPressure
+                case .bloodPressure:
+                    self.calculatedValue = getSBloodPressureValue().rawValue
+                //bloodPressureSystolic
+                case .bloodPressureSystolic:
+                    self.calculatedValue = getSBloodPressureValue().rawValue
+                //bloodPressureDiastolic
+                case .bloodPressureDiastolic:
+                    self.calculatedValue = getDBloodPressureValue().rawValue
+                //BMI
+                case .BMI:
+                    self.calculatedValue = getBMIValue().rawValue
+                //highHeartRate
+                case .highHeartRate:
+                    self.calculatedValue = getHighHeartRateValue().rawValue
+                //lowHeartRate
+                case .lowHeartRate:
+                    self.calculatedValue = getLowHeartRateValue().rawValue
+                //Temperature
+                case .temperature:
+                    self.calculatedValue = getTempratureValue().rawValue
+                //vo2Max
+                case .vo2Max:
+                    self.calculatedValue = getVO2MaxValue().rawValue
+                //irregularRhymesNotification
+                case .irregularRhymesNotification:
+                    self.calculatedValue = getIrregularRythmValue().rawValue
+                //oxygenSaturation
+                case .oxygenSaturation:
+                    self.calculatedValue = getOxygenSaturationValue().rawValue
+                //respiratoryRate
+                case .respiratoryRate:
+                    self.calculatedValue = getRespiratoryRateValue().rawValue
+                //InhalerUsage
+                case .InhalerUsage:
+                    self.calculatedValue = getInhalerUsageValue().rawValue
+                //peakflowRate
+                case .peakflowRate:
+                    self.calculatedValue = getPeakFlowRateValue().rawValue
+                default: break
+                }
             }
         }
     }//H9 // -1 is default value, so we can compare with 0
@@ -108,6 +118,17 @@ class VitalCalculation:Metrix {
         }
     }
     
+    //BMI
+    private func getBMIValue() -> HeartRateValue {
+        
+        if value > 30 || value < 18  {
+            return HeartRateValue.Red
+        } else if value >= 25 && value <= 30 {
+            return HeartRateValue.Yellow
+        } else{
+            return HeartRateValue.Green
+        }
+    }
     //Irregular Rhmes Notification
     private func getIrregularRythmValue() -> HeartRateValue {
         
@@ -204,6 +225,18 @@ class VitalCalculation:Metrix {
             return HeartRateValue.Red
         } else if value >= 1 && value <= 2 {
             return HeartRateValue.Yellow
+        } else{
+            return HeartRateValue.Green
+        }
+    }
+    //getRespiratoryRateValue calculation
+    private func getRespiratoryRateValue() -> HeartRateValue {
+        //=if(H33="","",if(H33>2,1*G33,if(and(H33>=1,H33<=2),0.5*G33,0)))
+        
+        if value > 20  {
+            return HeartRateValue.Red
+        } else if value >= 15 && value <= 17 {
+            return HeartRateValue.Green
         } else{
             return HeartRateValue.Green
         }

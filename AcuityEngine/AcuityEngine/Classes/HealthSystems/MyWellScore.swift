@@ -19,8 +19,7 @@ class MyWellScore: NSObject {
     
     //ViewModel Cardio
     private let viewModelCardio = CardioViewModel()
-    //ViewModel Respiratory
-    private let viewModelRespiratory = RespiratoryViewModel()
+    
     
     /*
      Load health data by value selected from Segment in Pullup segment control.
@@ -28,7 +27,8 @@ class MyWellScore: NSObject {
      */
     
     func loadHealthData(days:SegmentValueForGraph,completion: @escaping (Bool, HealthkitSetupError?) -> Swift.Void) {
-       
+        //Note: days is unused parameter
+        
         //set current date to Today's date to fetch all data from health kit
         todaysDate = Date()
         
@@ -77,14 +77,21 @@ class MyWellScore: NSObject {
         //IDisease
         let maxScoreDiseaseData = IDiseaseManager.sharedManager.iDiseaseData.maxScore
         //fne
-        //let maxScoreFNEData = FNEManager.sharedManager.fneData.maxScore
+        let maxScoreFNEData = FNEManager.sharedManager.fneData.maxScore
+        //Hemato
+        let maxScoreHematoData = HematoManager.sharedManager.hematoData.maxScore
+        //Endocrine
+        let maxScoreEndocrineData = EndocrineManager.sharedManager.endocrineData.maxScore
         
         let totalMaxScore1 = maxScoreCardioData +  maxScoreRespiratoryData + maxScoreRenalData + maxScoreDiseaseData
-        //let totalMaxScore2 = maxScoreFNEData
-        return totalMaxScore1
+        let totalMaxScore2 = maxScoreFNEData + maxScoreHematoData + maxScoreEndocrineData
+        return totalMaxScore1 + totalMaxScore2
     }
     
     func getTotalWeightedSystemScore()->Double{
+        /*
+         My Well score calculate for Today/One day. So, when we get WeightedSystemScore, it has get method and in it calculate scroe for One Day.
+         */
         //Cardio
         let cardioWeightedSystemScore = CardioManager.sharedManager.cardioData.cardioWeightedSystemScore
         //Respiratory
@@ -94,11 +101,15 @@ class MyWellScore: NSObject {
         //IDisease
         let iDiseaseWeightedSystemScore = IDiseaseManager.sharedManager.iDiseaseData.iDiseaseWeightedSystemScore
         //fne
-        //let fneWeightedSystemScore = FNEManager.sharedManager.fneData.fneWeightedSystemScore
+        let fneWeightedSystemScore = FNEManager.sharedManager.fneData.fneWeightedSystemScore
+        //Hemato
+        let hematoWeightedSystemScore = HematoManager.sharedManager.hematoData.hematoWeightedSystemScore
+        //Endocrine
+        let endocrineWeightedSystemScore = EndocrineManager.sharedManager.endocrineData.endocrineWeightedSystemScore
         
         let totalWeightedSystemScore1 = cardioWeightedSystemScore + respiratoryWeightedSystemScore + renalWeightedSystemScore + iDiseaseWeightedSystemScore
-        //let totalWeightedSystemScore2 = fneWeightedSystemScore
+        let totalWeightedSystemScore2 = fneWeightedSystemScore + hematoWeightedSystemScore + endocrineWeightedSystemScore
         
-        return totalWeightedSystemScore1
+        return totalWeightedSystemScore1 + totalWeightedSystemScore2
     }
 }

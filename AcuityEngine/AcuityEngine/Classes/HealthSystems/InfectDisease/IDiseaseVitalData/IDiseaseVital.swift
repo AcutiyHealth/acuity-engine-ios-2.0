@@ -142,7 +142,7 @@ class IDiseaseVital:VitalProtocol {
         case .bloodPressureDiastolic:
             filterArray = filterArrayWithSelectedSegmentInGraph(days: days, array: diastolicBloodPressureData)
             
-        case .Temperature:
+        case .temperature:
             filterArray = filterArrayWithSelectedSegmentInGraph(days: days, array: temperatureData)
             
         case .heartRate:

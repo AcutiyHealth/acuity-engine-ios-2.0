@@ -44,50 +44,78 @@ class AcuityDetailConditionViewModel: NSObject
     }
     
     func getSymptomsData()->[SymptomsModel] {
-        //Cardiovascular
-        if MyWellScore.sharedManager.selectedSystem == SystemName.Cardiovascular{
-            return CardioManager.sharedManager.cardioData.cardioSymptoms.dictionaryRepresentation()
+        switch MyWellScore.sharedManager.selectedSystem {
+        case .Cardiovascular:
+            do{
+                return CardioManager.sharedManager.cardioData.cardioSymptoms.dictionaryRepresentation()
+            }
+        case .Respiratory:
+            do{
+                return RespiratoryManager.sharedManager.respiratoryData.respiratorySymptoms.dictionaryRepresentation()
+            }
+        case .Renal:
+            do{
+                return RenalManager.sharedManager.renalData.renalSymptoms.dictionaryRepresentation()
+            }
+        case .InfectiousDisease:
+            do{
+                return IDiseaseManager.sharedManager.iDiseaseData.iDiseaseSymptoms.dictionaryRepresentation()
+            }
+        case .Fluids:
+            do{
+                return FNEManager.sharedManager.fneData.fneSymptoms.dictionaryRepresentation()
+            }
+        case .Hematology:
+            do{
+                return HematoManager.sharedManager.hematoData.hematoSymptoms.dictionaryRepresentation()
+            }
+        case .Endocrine:
+            do{
+                return EndocrineManager.sharedManager.endocrineData.endocrineSymptoms.dictionaryRepresentation()
+            }
+        default:
+            break
         }
-        //Respiratory
-        else if MyWellScore.sharedManager.selectedSystem == SystemName.Respiratory{
-            return RespiratoryManager.sharedManager.respiratoryData.respiratorySymptoms.dictionaryRepresentation()
-        }
-        //Renal
-        else if MyWellScore.sharedManager.selectedSystem == SystemName.Renal{
-            return RenalManager.sharedManager.renalData.renalSymptoms.dictionaryRepresentation()
-        }
-        //InfectiousDisease
-        else if MyWellScore.sharedManager.selectedSystem == SystemName.InfectiousDisease{
-            return IDiseaseManager.sharedManager.iDiseaseData.iDiseaseSymptoms.dictionaryRepresentation()
-        }
-//        //FNE
-//        else if MyWellScore.sharedManager.selectedSystem == SystemName.Fluids{
-//            return FNEManager.sharedManager.fneData.fneSymptoms.dictionaryRepresentation()
-//        }
+        
+        
         return []
     }
     
     func getVitals()->[VitalsModel] {
-        //Cardiovascular
-        if MyWellScore.sharedManager.selectedSystem == SystemName.Cardiovascular{
-            return CardioManager.sharedManager.cardioData.cardioVital.dictionaryRepresentation()
+        switch MyWellScore.sharedManager.selectedSystem {
+        case .Cardiovascular:
+            do{
+                return CardioManager.sharedManager.cardioData.cardioVital.dictionaryRepresentation()
+            }
+        case .Respiratory:
+            do{
+                return RespiratoryManager.sharedManager.respiratoryData.respiratoryVital.dictionaryRepresentation()
+            }
+        case .Renal:
+            do{
+                return RenalManager.sharedManager.renalData.renalVital.dictionaryRepresentation()
+            }
+        case .InfectiousDisease:
+            do{
+                return IDiseaseManager.sharedManager.iDiseaseData.iDiseaseVital.dictionaryRepresentation()
+            }
+        case .Fluids:
+            do{
+                return FNEManager.sharedManager.fneData.fneVital.dictionaryRepresentation()
+            }
+        case .Hematology:
+            do{
+                return HematoManager.sharedManager.hematoData.hematoVital.dictionaryRepresentation()
+            }
+        case .Endocrine:
+            do{
+                return EndocrineManager.sharedManager.endocrineData.endocrineVital.dictionaryRepresentation()
+            }
+        default:
+            break
         }
-        //Respiratory
-        else if MyWellScore.sharedManager.selectedSystem == SystemName.Respiratory{
-            return RespiratoryManager.sharedManager.respiratoryData.respiratoryVital.dictionaryRepresentation()
-        }
-        //Renal
-        else if MyWellScore.sharedManager.selectedSystem == SystemName.Renal{
-            return RenalManager.sharedManager.renalData.renalVital.dictionaryRepresentation()
-        }
-        //InfectiousDisease
-        else if MyWellScore.sharedManager.selectedSystem == SystemName.InfectiousDisease{
-            return IDiseaseManager.sharedManager.iDiseaseData.iDiseaseVital.dictionaryRepresentation()
-        }
-//        //FNE
-//        else if MyWellScore.sharedManager.selectedSystem == SystemName.Fluids{
-//            return FNEManager.sharedManager.fneData.fneVital.dictionaryRepresentation()
-//        }
+        
+        
         return []
     }
 }
