@@ -16,8 +16,7 @@ class HealthDataViewController: UIViewController {
     
     //ViewModel Cardio
     private let viewModelCardio = CardioViewModel()
-    //ViewModel Respiratory
-    private let viewModelRespiratory = RespiratoryViewModel()
+  
     
     @IBOutlet var tblView: UITableView!
     
@@ -57,15 +56,7 @@ class HealthDataViewController: UIViewController {
             }
            
         }
-        //Load Respiratory data....
-        viewModelRespiratory.fetchAndLoadRespiratoryData()
-        viewModelRespiratory.respiratoryDataLoaded = {(success,error) in
-            if success && error == nil{
-                self.reloadTable()
-            }
-           
-           
-        }
+       
     }
     
     func reloadTable(){

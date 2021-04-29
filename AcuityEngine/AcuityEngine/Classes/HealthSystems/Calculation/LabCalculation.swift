@@ -20,11 +20,7 @@ class LabCalculation:Metrix {
                 switch metricType {
                 //anionGap
                 case .anionGap:
-                    if systemName == SystemName.InfectiousDisease{
-                        self.calculatedValue = getAnionGapValueForIDisease().rawValue
-                    }else{
-                        self.calculatedValue = getAnionGapValue().rawValue
-                    }
+                    self.calculatedValue = getAnionGapValue().rawValue
                 //AST
                 case .AST:
                     self.calculatedValue = getASTValue().rawValue
@@ -42,11 +38,7 @@ class LabCalculation:Metrix {
                     self.calculatedValue = getb12LevelValue().rawValue
                 //BUN
                 case .BUN:
-                    if systemName == SystemName.Fluids{
-                        self.calculatedValue = getBUNForFluidsValue().rawValue
-                    }else{
-                        self.calculatedValue = getBUNValue().rawValue
-                    }
+                    self.calculatedValue = getBUNValue().rawValue
                 //bloodGlucose
                 case .bloodGlucose:
                     self.calculatedValue = getBloodGlucoseValue().rawValue
@@ -71,9 +63,12 @@ class LabCalculation:Metrix {
                 //hemoglobin
                 case .hemoglobin:
                     self.calculatedValue = getHemoglobinValue().rawValue
+                //hemoglobin a1c
+                case .hemoglobinA1C:
+                    self.calculatedValue = getHemoglobinA1CValue().rawValue
                 //microalbumin
-                case .microalbumin:
-                    self.calculatedValue = getMicroalbuminValue().rawValue
+                case .microalbuminCreatinineRatio:
+                    self.calculatedValue = getMicroalbuminCreatinineRatioValue().rawValue
                 //neutrophil
                 case .neutrophil:
                     self.calculatedValue = getNeutrophilValue().rawValue
@@ -85,15 +80,13 @@ class LabCalculation:Metrix {
                     self.calculatedValue = getPlateletsValue().rawValue
                 //potassiumLevel
                 case .potassiumLevel:
-                    if systemName == SystemName.Fluids{
-                        self.calculatedValue = getPottasiumforFluidsValue().rawValue
-                    }else{
-                        self.calculatedValue = getPottasiumValue().rawValue
-                    }
-                    
+                    self.calculatedValue = getPottasiumValue().rawValue
                 //sodium
                 case .sodium:
                     self.calculatedValue = getSodiumValue().rawValue
+                //TSH
+                case .TSH:
+                    self.calculatedValue = getTSHValue().rawValue
                 //urineBlood
                 case .urineBlood:
                     self.calculatedValue = getUrineBlood().rawValue
@@ -111,8 +104,9 @@ class LabCalculation:Metrix {
                 }
             }
         }
-    }//H9 
+    }//H9
     
+    //MARK:OxygenLevel
     
     private func getOxygenLevelValue() -> HeartRateValue {
         
@@ -130,7 +124,7 @@ class LabCalculation:Metrix {
         }
         
     }
-    //AST
+    //MARK:AST
     private func getASTValue() -> HeartRateValue {
         if value > 46 || value < 15  {
             return HeartRateValue.Red
@@ -139,7 +133,7 @@ class LabCalculation:Metrix {
             return HeartRateValue.Green
         }
     }
-    //ALT
+    //MARK:ALT
     private func getALTValue() -> HeartRateValue {
         if value > 69 || value < 13  {
             return HeartRateValue.Red
@@ -148,7 +142,7 @@ class LabCalculation:Metrix {
             return HeartRateValue.Green
         }
     }
-    //AlkalinePhosphatase
+    //MARK:AlkalinePhosphatase
     private func getAlkalinePhosphataseValue() -> HeartRateValue {
         if value > 147  {
             return HeartRateValue.Red
@@ -159,7 +153,7 @@ class LabCalculation:Metrix {
             return HeartRateValue.Green
         }
     }
-    //b12Level
+    //MARK:b12Level
     private func getb12LevelValue() -> HeartRateValue {
         if value > 900 || value < 200  {
             return HeartRateValue.Red
@@ -168,26 +162,27 @@ class LabCalculation:Metrix {
             return HeartRateValue.Green
         }
     }
+    //MARK:Pottasium
     private func getPottasiumValue() -> HeartRateValue {
-        
-        if value > 5.1 || value < 3.5  {
-            return HeartRateValue.Red
-        }
-        else {
-            return HeartRateValue.Green
-        }
-    }
-    //For FNE system..
-    private func getPottasiumforFluidsValue() -> HeartRateValue {
-        
-        if value > 2.2 || value < 1.7  {
-            return HeartRateValue.Red
-        }
-        else {
-            return HeartRateValue.Green
+        if systemName == SystemName.Fluids{
+            
+            if value > 2.2 || value < 1.7  {
+                return HeartRateValue.Red
+            }
+            else {
+                return HeartRateValue.Green
+            }
+        }else{
+            if value > 5.1 || value < 3.5  {
+                return HeartRateValue.Red
+            }
+            else {
+                return HeartRateValue.Green
+            }
         }
     }
     
+    //MARK:Sodium
     private func getSodiumValue() -> HeartRateValue {
         
         if value > 145 || value < 135  {
@@ -197,7 +192,17 @@ class LabCalculation:Metrix {
             return HeartRateValue.Green
         }
     }
-    
+    //MARK:TSH
+    private func getTSHValue() -> HeartRateValue {
+        
+        if value > 3 || value < 0.3  {
+            return HeartRateValue.Red
+        }
+        else {
+            return HeartRateValue.Green
+        }
+    }
+    //MARK: Chloride
     private func getChlorideValue() -> HeartRateValue {
         
         if value > 109 || value < 94  {
@@ -207,6 +212,7 @@ class LabCalculation:Metrix {
             return HeartRateValue.Green
         }
     }
+    //MARK:Albumin
     private func getAlbuminValue() -> HeartRateValue {
         
         if value < 3.4{
@@ -219,7 +225,8 @@ class LabCalculation:Metrix {
             return HeartRateValue.Green
         }
     }
-    private func getMicroalbuminValue() -> HeartRateValue {
+    //MARK:MicroalbuminCreatinineRatio
+    private func getMicroalbuminCreatinineRatioValue() -> HeartRateValue {
         
         if value > 30  {
             return HeartRateValue.Red
@@ -228,6 +235,7 @@ class LabCalculation:Metrix {
             return HeartRateValue.Green
         }
     }
+    //MARK:Magnasium
     private func getMagnasiumValue() -> HeartRateValue {
         
         if value > 2.2 || value < 1.7  {
@@ -237,7 +245,7 @@ class LabCalculation:Metrix {
             return HeartRateValue.Green
         }
     }
-    
+    //MARK:Peptide
     private func getPeptideValue() -> HeartRateValue {
         
         if value > 99  {
@@ -254,7 +262,7 @@ class LabCalculation:Metrix {
         }
     }
     
-    
+    //MARK:Hemoglobin
     private func getHemoglobinValue() -> HeartRateValue {
         
         if value > 17.5 || value < 13.5  {
@@ -264,6 +272,22 @@ class LabCalculation:Metrix {
             return HeartRateValue.Green
         }
     }
+    //MARK:HemoglobinA1C
+    private func getHemoglobinA1CValue() -> HeartRateValue {
+        
+        if value >= 6.4  {
+            return HeartRateValue.Red
+        }else if value >= 6 && value <= 6.4  {
+            return HeartRateValue.Yellow
+        }
+        else if value >= 4 && value < 6  {
+            return HeartRateValue.Green
+        }
+        else {
+            return HeartRateValue.Green
+        }
+    }
+    //MARK:WBC
     private func getWBCValue() -> HeartRateValue {
         
         if value >= 10.9 || value < 3.5  {
@@ -273,6 +297,7 @@ class LabCalculation:Metrix {
             return HeartRateValue.Green
         }
     }
+    //MARK:Neutrophil
     private func getNeutrophilValue() -> HeartRateValue {
         
         if value > 60  {
@@ -284,6 +309,7 @@ class LabCalculation:Metrix {
             return HeartRateValue.Green
         }
     }
+    //MARK:CarbonDioxide
     private func getCarbonDioxideValue() -> HeartRateValue {
         //As per Respiratory system....
         if value > 30 || value < 23  {
@@ -293,38 +319,65 @@ class LabCalculation:Metrix {
             return HeartRateValue.Green
         }
     }
+    //MARK:BUN
     private func getBUNValue() -> HeartRateValue {
-        
-        if value > 20 || value < 7  {
-            return HeartRateValue.Red
-        }
-        else {
-            return HeartRateValue.Green
+        if systemName == SystemName.Fluids{
+            
+            if value > 20  {
+                return HeartRateValue.Red
+            }else if value >= 10 && value <= 20 {
+                return HeartRateValue.Green
+            }
+            else {
+                return HeartRateValue.Green
+            }
+        }else  if systemName == SystemName.Endocrine{
+            
+            if value > 20  {
+                return HeartRateValue.Red
+            }else if value >= 9 && value <= 20 {
+                return HeartRateValue.Green
+            }
+            else {
+                return HeartRateValue.Green
+            }
+        }else{
+            if value > 20 {
+                return HeartRateValue.Red
+            }
+            else if value >= 7 && value <= 20 {
+                return HeartRateValue.Green
+            }
+            else {
+                return HeartRateValue.Green
+            }
         }
     }
-    //For FNE
-    private func getBUNForFluidsValue() -> HeartRateValue {
-        
-        if value > 20  {
-            return HeartRateValue.Red
-        }else if value >= 10 && value <= 20 {
-            return HeartRateValue.Green
-        }
-        else {
-            return HeartRateValue.Green
-        }
-    }
+    //MARK:Creatinine
     private func getCreatinineValue() -> HeartRateValue {
+        //Endocrine
+        if systemName == SystemName.Endocrine{
+            if value > 1.25  {
+                return HeartRateValue.Red
+            } else if value >= 0.66 && value <= 1.25{
+                return HeartRateValue.Green
+            }
+            else {
+                return HeartRateValue.Green
+            }
+        }else{
+            if value > 1.21  {
+                return HeartRateValue.Red
+            } else if value >= 0.84 && value <= 1.21{
+                return HeartRateValue.Green
+            }
+            else {
+                return HeartRateValue.Green
+            }
+        }
         
-        if value > 1.21  {
-            return HeartRateValue.Red
-        } else if value >= 0.84 && value <= 1.21{
-            return HeartRateValue.Green
-        }
-        else {
-            return HeartRateValue.Green
-        }
     }
+    //MARK:BloodGlucose
     private func getBloodGlucoseValue() -> HeartRateValue {
         
         if value > 200 {
@@ -336,7 +389,7 @@ class LabCalculation:Metrix {
             return HeartRateValue.Green
         }
     }
-    //Calcium
+    //MARK:Calcium
     private func getCalciumValue() -> HeartRateValue {
         
         if value > 10.2 || value < 8.4  {
@@ -346,30 +399,31 @@ class LabCalculation:Metrix {
             return HeartRateValue.Green
         }
     }
-    //AnionGap
+    //MARK: AnionGap
     private func getAnionGapValue() -> HeartRateValue {
         
-        if value > 11 {
-            return HeartRateValue.Red
-        }
-        else if  value >= 3 &&  value <= 11{
-            return HeartRateValue.Green
-        }
-        else {
-            return HeartRateValue.Green
+        if systemName == SystemName.InfectiousDisease{
+            
+            if value >= 16 || value < 7  {
+                return HeartRateValue.Red
+            }
+            else {
+                return HeartRateValue.Green
+            }
+        }else{
+            if value > 11 {
+                return HeartRateValue.Red
+            }
+            else if  value >= 3 &&  value <= 11{
+                return HeartRateValue.Green
+            }
+            else {
+                return HeartRateValue.Green
+            }
         }
     }
-    //AnionGapValueForIDisease
-    private func getAnionGapValueForIDisease() -> HeartRateValue {
-        
-        if value >= 16 || value < 7  {
-            return HeartRateValue.Red
-        }
-        else {
-            return HeartRateValue.Green
-        }
-    }
-    //UrineNitrites
+    
+    //MARK: UrineNitrites
     private func getUrineNitrites() -> HeartRateValue {
         
         if value == LabResult.positive.rawValue  {
@@ -379,7 +433,7 @@ class LabCalculation:Metrix {
             return HeartRateValue.Green
         }
     }
-    //UrineKenote
+    //MARK: UrineKenote
     private func getUrineKenote() -> HeartRateValue{
         
         if value == LabResult.positive.rawValue  {
@@ -389,7 +443,7 @@ class LabCalculation:Metrix {
             return HeartRateValue.Green
         }
     }
-    //UrineBlood
+    //MARK:UrineBlood
     private func getUrineBlood() -> HeartRateValue {
         
         if value == LabResult.positive.rawValue  {
@@ -399,7 +453,7 @@ class LabCalculation:Metrix {
             return HeartRateValue.Green
         }
     }
-    //MCV
+    //MARK:MCV
     private func getMCV() -> HeartRateValue {
         if value < 80 || value > 96  {
             return HeartRateValue.Red
@@ -408,7 +462,7 @@ class LabCalculation:Metrix {
             return HeartRateValue.Green
         }
     }
-    //Platelets
+    //MARK:Platelets
     private func getPlateletsValue() -> HeartRateValue {
         if value > 400 || value < 135  {
             return HeartRateValue.Red
@@ -417,7 +471,7 @@ class LabCalculation:Metrix {
             return HeartRateValue.Green
         }
     }
-    //MicroAlbumin
+    //MARK:MicroAlbumin
     private func getMicroAlbuminValue() -> HeartRateValue {
         
         if value > 30  {
@@ -427,7 +481,7 @@ class LabCalculation:Metrix {
             return HeartRateValue.Green
         }
     }
-    //eGFR
+    //MARK:eGFR
     private func geteGFRValue() -> HeartRateValue {
         
         if value < 90  {

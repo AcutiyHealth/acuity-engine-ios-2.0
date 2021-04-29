@@ -35,6 +35,8 @@ class AcuityDetailPullUpViewController: UIViewController {
     
     //Object of Acuity detial value viewcontroller...
     var detailConditionVC : AcuityDetailConditionViewController?
+    //viewModel object..
+    var viewModelObj = AcuityDetailPullUpViewModel()
     
     fileprivate var labelLeadingMarginInitialConstant: CGFloat!
     
@@ -79,13 +81,7 @@ class AcuityDetailPullUpViewController: UIViewController {
     }
     //MARK: show system data in tableview
     func setupSegmentControl(){
-        segmentControl.setTitle(SegmentValueForGraph.SevenDays.rawValue, forSegmentAt: 0)
-        segmentControl.setTitle(SegmentValueForGraph.ThirtyDays.rawValue, forSegmentAt: 1)
-        segmentControl.setTitle(SegmentValueForGraph.ThreeMonths.rawValue, forSegmentAt: 2)
-        segmentControl.defaultConfiguration(font: Fonts.kAcuityDetailSegmentFont, color: UIColor.white)
-        segmentControl.selectedConfiguration(font: Fonts.kAcuityDetailSegmentFont, color: UIColor.black)
-        segmentControl.selectedSegmentIndex = 0
-        //self.segmentClicked(segmentControl)
+        viewModelObj.setUpSegmentControl(segmentControl: segmentControl)
     }
     
     //MARK: show system data in tableview
@@ -94,12 +90,7 @@ class AcuityDetailPullUpViewController: UIViewController {
             return
         }
         
-        let acuityModel = AcuityDisplayModel()
-        acuityModel.id = systemData["id"] as? String
-        acuityModel.name = SystemName(rawValue: systemData["name"] as! String )
-        acuityModel.score = systemData["score"]  as? String ?? ""
-        acuityModel.image = systemData["image"]  as? String ?? ""
-        acuityModel.metricCardio = systemData["metricCardio"] as? [String:Any]
+        let acuityModel = viewModelObj.prepareAcuityModelFromSystemData(systemData: systemData)
         
         systemMetricsData = acuityModel.metricCardio
         lblTitle.text = acuityModel.name?.rawValue
@@ -154,16 +145,16 @@ class AcuityDetailPullUpViewController: UIViewController {
         tblVitals.backgroundView = nil
         
         if arrConditions.count <= 0 {
-            setNoDataInfoIfRecordsNotExists(tblView: tblCondition)
+            viewModelObj.setNoDataInfoIfRecordsNotExists(tblView: tblCondition)
         }
         if arrLabs.count <= 0 {
-            setNoDataInfoIfRecordsNotExists(tblView: tblLab)
+            viewModelObj.setNoDataInfoIfRecordsNotExists(tblView: tblLab)
         }
         if arrSymptoms.count <= 0 {
-            setNoDataInfoIfRecordsNotExists(tblView: tblSymptom)
+            viewModelObj.setNoDataInfoIfRecordsNotExists(tblView: tblSymptom)
         }
         if arrVitals.count <= 0 {
-            setNoDataInfoIfRecordsNotExists(tblView: tblVitals)
+            viewModelObj.setNoDataInfoIfRecordsNotExists(tblView: tblVitals)
         }
         reloadTables()
     }
@@ -174,59 +165,16 @@ class AcuityDetailPullUpViewController: UIViewController {
         self.tblSymptom.reloadData()
         self.tblVitals.reloadData()
     }
-    func setNoDataInfoIfRecordsNotExists(tblView:UITableView)
-    {
-        let noDataLabel : UILabel = UILabel()
-        noDataLabel.frame = CGRect(x: 0, y: 0 , width: (tblView.bounds.width), height: (tblView.bounds.height))
-        noDataLabel.text = "No Records Found"
-        noDataLabel.font = UIFont.systemFont(ofSize: 12)
-        noDataLabel.textColor = UIColor.white
-        noDataLabel.textAlignment = .center
-        tblView.backgroundView = noDataLabel
-        
-    }
+  
     
     func showScoreAndChartData(){
         var scoreText = String(format: "0.00")
         var data = [(x:0, y:0.0)]
         var arraySystemScore:[Double] = []
         print("<--------------------showScoreAndChartData-------------------->")
-        //Cardiovascular
-        if MyWellScore.sharedManager.selectedSystem == SystemName.Cardiovascular{
-            let systemScore = CardioManager.sharedManager.cardioData.totalSystemScoreWithDays(days: MyWellScore.sharedManager.daysToCalculateSystemScore)
-            scoreText = String(format: "%.2f", systemScore)
-            arraySystemScore = CardioManager.sharedManager.cardioData.arrayDayWiseSystemScore
-        }
-        //Respiratory
-        else if MyWellScore.sharedManager.selectedSystem == SystemName.Respiratory{
-            let systemScore = RespiratoryManager.sharedManager.respiratoryData.totalSystemScoreWithDays(days: MyWellScore.sharedManager.daysToCalculateSystemScore)
-            scoreText = String(format: "%.2f", systemScore)
-            arraySystemScore = RespiratoryManager.sharedManager.respiratoryData.arrayDayWiseSystemScore
-        }
-        //Renal
-        else if MyWellScore.sharedManager.selectedSystem == SystemName.Renal{
-            let systemScore = RenalManager.sharedManager.renalData.totalSystemScoreWithDays(days: MyWellScore.sharedManager.daysToCalculateSystemScore)
-            scoreText = String(format: "%.2f", systemScore)
-            arraySystemScore = RenalManager.sharedManager.renalData.arrayDayWiseSystemScore
-        }
-        //InfectiousDisease
-        else if MyWellScore.sharedManager.selectedSystem == SystemName.InfectiousDisease{
-            let systemScore = IDiseaseManager.sharedManager.iDiseaseData.totalSystemScoreWithDays(days: MyWellScore.sharedManager.daysToCalculateSystemScore)
-            scoreText = String(format: "%.2f", systemScore)
-            arraySystemScore = IDiseaseManager.sharedManager.iDiseaseData.arrayDayWiseSystemScore
-        }
-        //FNE
-        else if MyWellScore.sharedManager.selectedSystem == SystemName.Fluids{
-            let systemScore = FNEManager.sharedManager.fneData.totalSystemScoreWithDays(days: MyWellScore.sharedManager.daysToCalculateSystemScore)
-            scoreText = String(format: "%.2f", systemScore)
-            arraySystemScore = FNEManager.sharedManager.fneData.arrayDayWiseSystemScore
-        }
-        //Haematology
-        else if MyWellScore.sharedManager.selectedSystem == SystemName.Haematology{
-            let systemScore = HematoManager.sharedManager.hematoData.totalSystemScoreWithDays(days: MyWellScore.sharedManager.daysToCalculateSystemScore)
-            scoreText = String(format: "%.2f", systemScore)
-            arraySystemScore = HematoManager.sharedManager.hematoData.arrayDayWiseSystemScore
-        }
+        let scoreTupple = viewModelObj.getScoreAndArrayOfSystemScore()
+        scoreText = scoreTupple.0
+        arraySystemScore = scoreTupple.1
         var i = 0;
         for item in arraySystemScore{
             data.append((x:i,y:item))

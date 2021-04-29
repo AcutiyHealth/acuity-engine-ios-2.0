@@ -73,8 +73,8 @@ class FNELabData:LabCalculation {
         //albumin
         case .albumin:
             self.relativeValue = FNELabRelativeImportance.albumin
-        //microalbumin
-        case .microalbumin:
+        //microalbuminCreatinineRatio
+        case .microalbuminCreatinineRatio:
             self.relativeValue = FNELabRelativeImportance.microalbumin
         //carbonDioxide
         case .carbonDioxide:

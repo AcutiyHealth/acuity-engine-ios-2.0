@@ -55,59 +55,76 @@ class AcuityDetailValueViewModel: NSObject
     
     func getSymptomsData(title:String)->[SymptomsModel] {
         var arrSymptoms:[SymptomsModel] = []
+        switch MyWellScore.sharedManager.selectedSystem {
+        case .Cardiovascular:
+            do{
+                arrSymptoms = CardioManager.sharedManager.cardioData.cardioSymptoms.getArrayDataForSymptoms(days:MyWellScore.sharedManager.daysToCalculateSystemScore, title: title)
+            }
+        case .Respiratory:
+            do{
+                arrSymptoms = RespiratoryManager.sharedManager.respiratoryData.respiratorySymptoms.getArrayDataForSymptoms(days:MyWellScore.sharedManager.daysToCalculateSystemScore, title: title)
+            }
+        case .Renal:
+            do{
+                arrSymptoms = RenalManager.sharedManager.renalData.renalSymptoms.getArrayDataForSymptoms(days:MyWellScore.sharedManager.daysToCalculateSystemScore, title: title)
+            }
+        case .InfectiousDisease:
+            do{
+                arrSymptoms = IDiseaseManager.sharedManager.iDiseaseData.iDiseaseSymptoms.getArrayDataForSymptoms(days:MyWellScore.sharedManager.daysToCalculateSystemScore, title: title)
+            }
+        case .Fluids:
+            do{
+                arrSymptoms = FNEManager.sharedManager.fneData.fneSymptoms.getArrayDataForSymptoms(days:MyWellScore.sharedManager.daysToCalculateSystemScore, title: title)
+            }
+        case .Hematology:
+            do{
+                arrSymptoms = HematoManager.sharedManager.hematoData.hematoSymptoms.getArrayDataForSymptoms(days:MyWellScore.sharedManager.daysToCalculateSystemScore, title: title)
+            }
+        case .Endocrine:
+            do{
+                arrSymptoms = EndocrineManager.sharedManager.endocrineData.endocrineSymptoms.getArrayDataForSymptoms(days:MyWellScore.sharedManager.daysToCalculateSystemScore, title: title)
+            }
+        default:
+            break
+        }
         
-        //Cardiovascular
-        if MyWellScore.sharedManager.selectedSystem == SystemName.Cardiovascular{
-            arrSymptoms = CardioManager.sharedManager.cardioData.cardioSymptoms.getArrayDataForSymptoms(days:MyWellScore.sharedManager.daysToCalculateSystemScore, title: title)
-        }
-        //Respiratory
-        else if MyWellScore.sharedManager.selectedSystem == SystemName.Respiratory{
-            arrSymptoms = RespiratoryManager.sharedManager.respiratoryData.respiratorySymptoms.getArrayDataForSymptoms(days:MyWellScore.sharedManager.daysToCalculateSystemScore, title: title)
-        }
-        //Renal
-        else if MyWellScore.sharedManager.selectedSystem == SystemName.Renal{
-            arrSymptoms = RenalManager.sharedManager.renalData.renalSymptoms.getArrayDataForSymptoms(days:MyWellScore.sharedManager.daysToCalculateSystemScore, title: title)
-        }
-        //InfectiousDisease
-        else if MyWellScore.sharedManager.selectedSystem == SystemName.InfectiousDisease{
-            arrSymptoms = IDiseaseManager.sharedManager.iDiseaseData.iDiseaseSymptoms.getArrayDataForSymptoms(days:MyWellScore.sharedManager.daysToCalculateSystemScore, title: title)
-        }
-        //FNE
-        else if MyWellScore.sharedManager.selectedSystem == SystemName.Fluids{
-            arrSymptoms = FNEManager.sharedManager.fneData.fneSymptoms.getArrayDataForSymptoms(days:MyWellScore.sharedManager.daysToCalculateSystemScore, title: title)
-        }
-        //Haematology
-        else if MyWellScore.sharedManager.selectedSystem == SystemName.Haematology{
-            arrSymptoms = HematoManager.sharedManager.hematoData.hematoSymptoms.getArrayDataForSymptoms(days:MyWellScore.sharedManager.daysToCalculateSystemScore, title: title)
-        }
         return arrSymptoms
     }
     
     func getVitals(title:String)->[VitalsModel] {
         var arrVitals:[VitalsModel] = []
-        //Cardiovascular
-        if MyWellScore.sharedManager.selectedSystem == SystemName.Cardiovascular{
-            arrVitals = CardioManager.sharedManager.cardioData.cardioVital.getArrayDataForVitals(days:MyWellScore.sharedManager.daysToCalculateSystemScore, title: title)
-        }
-        //Respiratory
-        else if MyWellScore.sharedManager.selectedSystem == SystemName.Respiratory{
-            arrVitals = RespiratoryManager.sharedManager.respiratoryData.respiratoryVital.getArrayDataForVitals(days:MyWellScore.sharedManager.daysToCalculateSystemScore, title: title)
-        }
-        //Renal
-        else if MyWellScore.sharedManager.selectedSystem == SystemName.Renal{
-            arrVitals = RenalManager.sharedManager.renalData.renalVital.getArrayDataForVitals(days:MyWellScore.sharedManager.daysToCalculateSystemScore, title: title)
-        }
-        //InfectiousDisease
-        else if MyWellScore.sharedManager.selectedSystem == SystemName.InfectiousDisease{
-            arrVitals = IDiseaseManager.sharedManager.iDiseaseData.iDiseaseVital.getArrayDataForVitals(days:MyWellScore.sharedManager.daysToCalculateSystemScore, title: title)
-        }
-        //Fluids
-        else if MyWellScore.sharedManager.selectedSystem == SystemName.Fluids{
-            arrVitals = FNEManager.sharedManager.fneData.fneVital.getArrayDataForVitals(days:MyWellScore.sharedManager.daysToCalculateSystemScore, title: title)
-        }
-        //Haematology
-        else if MyWellScore.sharedManager.selectedSystem == SystemName.Haematology{
-            return HematoManager.sharedManager.hematoData.hematoVital.getArrayDataForVitals(days:MyWellScore.sharedManager.daysToCalculateSystemScore, title: title)
+        switch MyWellScore.sharedManager.selectedSystem {
+        
+        case .Cardiovascular:
+            do{
+                arrVitals = CardioManager.sharedManager.cardioData.cardioVital.getArrayDataForVitals(days:MyWellScore.sharedManager.daysToCalculateSystemScore, title: title)
+            }
+        case .Respiratory:
+            do{
+                arrVitals = RespiratoryManager.sharedManager.respiratoryData.respiratoryVital.getArrayDataForVitals(days:MyWellScore.sharedManager.daysToCalculateSystemScore, title: title)
+            }
+        case .Renal:
+            do{
+                arrVitals = RenalManager.sharedManager.renalData.renalVital.getArrayDataForVitals(days:MyWellScore.sharedManager.daysToCalculateSystemScore, title: title)
+            }
+        case .InfectiousDisease:
+            do{
+                arrVitals = IDiseaseManager.sharedManager.iDiseaseData.iDiseaseVital.getArrayDataForVitals(days:MyWellScore.sharedManager.daysToCalculateSystemScore, title: title)
+            }
+        case .Fluids:
+            do{
+                arrVitals = FNEManager.sharedManager.fneData.fneVital.getArrayDataForVitals(days:MyWellScore.sharedManager.daysToCalculateSystemScore, title: title)
+            }
+        case .Hematology:
+            do{
+                arrVitals = HematoManager.sharedManager.hematoData.hematoVital.getArrayDataForVitals(days:MyWellScore.sharedManager.daysToCalculateSystemScore, title: title)
+            }
+        case .Endocrine:
+            do{
+                arrVitals = EndocrineManager.sharedManager.endocrineData.endocrineVital.getArrayDataForVitals(days:MyWellScore.sharedManager.daysToCalculateSystemScore, title: title)
+            }
+        default:
+            break
         }
         return arrVitals
     }

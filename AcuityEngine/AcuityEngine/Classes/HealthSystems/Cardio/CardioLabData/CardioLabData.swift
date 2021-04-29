@@ -34,7 +34,7 @@ class CardioLabData:LabCalculation {
             self.relativeValue = CardioLabRelativeImportance.chloride
         case .albumin:
             self.relativeValue = CardioLabRelativeImportance.albumin
-        case .microalbumin:
+        case .microalbuminCreatinineRatio:
             self.relativeValue = CardioLabRelativeImportance.microalbumin
         case .bPeptide:
             self.relativeValue = CardioLabRelativeImportance.bPeptide
