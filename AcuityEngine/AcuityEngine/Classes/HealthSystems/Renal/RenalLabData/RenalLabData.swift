@@ -62,7 +62,7 @@ class RenalLabData:LabCalculation {
         case .hemoglobin:
             self.relativeValue = RenalLabRelativeImportance.hemoglobin
         //microalbumin
-        case .microalbumin:
+        case .microalbuminCreatinineRatio:
             self.relativeValue = RenalLabRelativeImportance.microalbumin
         //eGFR
         case .eGFR:

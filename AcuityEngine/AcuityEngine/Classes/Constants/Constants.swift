@@ -47,7 +47,7 @@ enum SystemName:String {
     case Genitourinary = "Genitourinary"
     case Endocrine = "Endocrine"
     case Nuerological = "Neurological"
-    case Haematology = "Hematology"
+    case Hematology = "Hematology"
     case Musculatory = "Musculoskeletal"
     case Integumentary = "Integumentary"
     case Fluids = "Fluids"

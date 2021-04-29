@@ -60,7 +60,7 @@ class VitalModel
         case .BMI:
             healthQuantityType = .bodyMassIndex
             
-        case .bloodSuger:
+        case .bloodSugar:
             healthQuantityType = .bloodGlucose
             
         case .weight:
@@ -98,7 +98,7 @@ enum VitalsName:String {
     case InhalerUsage = "Inhaler Usage (times/day)"
     case temperature = "Temperature"
     case BMI = "Body Mass Index"
-    case bloodSuger = "Blood Sugar"
+    case bloodSugar = "Blood Sugar"
     case weight = "Weight"
     case oxygenSaturation = "Oxygen Saturation"
     case stepLength = "Step Length"
