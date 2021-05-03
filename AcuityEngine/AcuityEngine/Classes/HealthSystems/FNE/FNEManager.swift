@@ -123,5 +123,36 @@ class FNEManager: NSObject {
         
     }
     
+    //MARK: save condition data..
+    func saveConditionsData(element:ConditionsModel){
+        let conditionType = ConditionType(rawValue: element.title!)
+        guard let conditionTypeData = conditionType else {
+            return
+        }
+        let conditionData = FNEConditionData(type: conditionTypeData)
+        conditionData.value = element.value.rawValue
+        
+        switch conditionType {
+        //electrolyteDisorders
+        case .electrolyteDisorders:
+            FNEManager.sharedManager.fneData.fneCondition.electrolyteDisordersData.append(conditionData)
+        //underweightOrMalnutritionData
+        case .underweightOrMalnutrition:
+            FNEManager.sharedManager.fneData.fneCondition.underweightOrMalnutritionData.append(conditionData)
+        //overweightOrObesity
+        case .overweightOrObesity:
+            FNEManager.sharedManager.fneData.fneCondition.overweightOrObesityData.append(conditionData)
+        case .kidneyDiease:
+            FNEManager.sharedManager.fneData.fneCondition.kidneyDieaseData.append(conditionData)
+        case .pneumonia:
+            FNEManager.sharedManager.fneData.fneCondition.pneumoniaData.append(conditionData)
+        case .gastroentritis:
+            FNEManager.sharedManager.fneData.fneCondition.gastroentritisData.append(conditionData)
+        case .diabetes:
+            FNEManager.sharedManager.fneData.fneCondition.diabetesData.append(conditionData)
+        default:
+            break
+        }
+    }
 }
 

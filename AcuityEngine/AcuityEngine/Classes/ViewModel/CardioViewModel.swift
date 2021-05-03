@@ -31,6 +31,14 @@ class CardioViewModel: CardioViewModelProtocol {
         //Put in dispatch group and when it's done it will call completion handler
         //It will read all symptoms,vital and lab data. After that, it will create object for particular system and store it in array for that system.
         
+        //Read Conditio data......
+        dispatchGroup.enter()
+        HKManagerReadConditions.sharedManager.readConditionsDataFromDatabase{ (success, error) in
+            successValue = success
+            //errorValue = error
+            dispatchGroup.leave()
+        }
+       
         //Read vital data......
         dispatchGroup.enter()
         HKManagerReadVitals.sharedManager.readVitalsData(days: days) { (success, error) in

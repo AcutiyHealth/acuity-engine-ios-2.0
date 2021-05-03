@@ -28,13 +28,11 @@ class IDiseaseCondition {
     var diabetesData:[IDiseaseConditionData]  = []
     var arrayDayWiseScoreTotal:[Double] = []
     
-   
-    
     func getMaxConditionDataScore() -> Double {
         //UTIData
         let UTIData = IDiseaseConditionRelativeImportance.UTI.getConvertedValueFromPercentage()
         //pneumoniaData
-        let pneumonia =  IDiseaseConditionRelativeImportance.bronchitisPneumonia.getConvertedValueFromPercentage()
+        let pneumonia =  IDiseaseConditionRelativeImportance.pneumonia.getConvertedValueFromPercentage()
         //cellulitis
         let cellulitis =  IDiseaseConditionRelativeImportance.cellulitis.getConvertedValueFromPercentage()
         //covid
@@ -57,7 +55,7 @@ class IDiseaseCondition {
     func totalConditionScoreForDays(days:SegmentValueForGraph) -> [Double] {
         
         //print(totalAmount) // 4500.0
-       
+        
         arrayDayWiseScoreTotal = []
         var iDiseaseProblem:[Metrix] = []
         iDiseaseProblem.append(contentsOf: UTIData)
@@ -68,15 +66,57 @@ class IDiseaseCondition {
         iDiseaseProblem.append(contentsOf: respiratoryInfectionData)
         iDiseaseProblem.append(contentsOf: gastroentritisData)
         iDiseaseProblem.append(contentsOf: diabetesData)
-        arrayDayWiseScoreTotal = daywiseFilterMetrixsData(days: days, array: iDiseaseProblem, metriXType: MetricsType.Conditions)
+        arrayDayWiseScoreTotal = getScoreForConditions(array: iDiseaseProblem, days: days)
         iDiseaseProblem = []
         return arrayDayWiseScoreTotal
     }
     
+    //MARK: To display data in Pull up...
     func dictionaryRepresentation()->[ConditionsModel]{
         
-        let objModel = AcuityDetailConditionViewModel()
-        return objModel.getConditionData()
+        var arrCondition:[ConditionsModel] = []
+        //UTIData
+        if UTIData.count > 0{
+            let condition = UTIData[0]
+            arrCondition.append(getConditionsModel(condition: condition))
+        }
+        //pneumoniaData
+        if pneumoniaData.count > 0{
+            let condition = pneumoniaData[0]
+            arrCondition.append(getConditionsModel(condition: condition))
+        }
+        //cellulitisData
+        if cellulitisData.count > 0{
+            let condition = cellulitisData[0]
+            arrCondition.append(getConditionsModel(condition: condition))
+        }
+        //covidData
+        if covidData.count > 0{
+            let condition = covidData[0]
+            arrCondition.append(getConditionsModel(condition: condition))
+        }
+        //otitisData
+        if otitisData.count > 0{
+            let condition = otitisData[0]
+            arrCondition.append(getConditionsModel(condition: condition))
+        }
+        //respiratoryInfectionData
+        if respiratoryInfectionData.count > 0{
+            let condition = respiratoryInfectionData[0]
+            arrCondition.append(getConditionsModel(condition: condition))
+        }
+        //gastroentritisData
+        if gastroentritisData.count > 0{
+            let condition = gastroentritisData[0]
+            arrCondition.append(getConditionsModel(condition: condition))
+        }
+        //diabetesData
+        if diabetesData.count > 0{
+            let condition = diabetesData[0]
+            arrCondition.append(getConditionsModel(condition: condition))
+        }
+        
+        return arrCondition
         
     }
     

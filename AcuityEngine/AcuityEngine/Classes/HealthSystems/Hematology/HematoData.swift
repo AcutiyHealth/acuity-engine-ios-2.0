@@ -88,6 +88,7 @@ class HematoData {
         
     }
     
+    //MARK: To display data in Pull up...
     func dictionaryRepresentation()->[String:Any]{
         
         return [MetricsType.Conditions.rawValue:hematoCondition.dictionaryRepresentation(),MetricsType.Sympotms.rawValue:hematoSymptoms.dictionaryRepresentation(),MetricsType.LabData.rawValue:hematoLab.dictionaryRepresentation(),MetricsType.Vitals.rawValue:hematoVital.dictionaryRepresentation()] as [String : Any]

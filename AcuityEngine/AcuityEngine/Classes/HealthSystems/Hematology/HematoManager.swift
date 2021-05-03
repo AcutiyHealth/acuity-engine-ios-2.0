@@ -64,7 +64,7 @@ class HematoManager: NSObject {
             self.hematoData.hematoVital.BMIData.append(bodyMassIndex)
         }
     }
- 
+    
     //Save Symptoms data in hematoData model
     func saveSymptomsData(category:CategoryType,element:CategoryData){
         
@@ -83,7 +83,7 @@ class HematoManager: NSObject {
         //rapidPoundingOrFlutteringHeartbeat
         case .rapidPoundingOrFlutteringHeartbeat:
             HematoManager.sharedManager.hematoData.hematoSymptoms.rapidHeartBeatData.append(symptomsData)
-         
+            
         //fainting
         case .fainting:
             HematoManager.sharedManager.hematoData.hematoSymptoms.faintingData.append(symptomsData)
@@ -99,6 +99,25 @@ class HematoManager: NSObject {
         
         
     }
-    
+    //MARK: save condition data..
+    func saveConditionsData(element:ConditionsModel){
+        let conditionType = ConditionType(rawValue: element.title!)
+        guard let conditionTypeData = conditionType else {
+            return
+        }
+        let conditionData = HematoConditionData(type: conditionTypeData)
+        conditionData.value = element.value.rawValue
+        
+        switch conditionType {
+        case .anemia:
+            HematoManager.sharedManager.hematoData.hematoCondition.anemiaData.append(conditionData)
+        case .cancer:
+            HematoManager.sharedManager.hematoData.hematoCondition.cancerData.append(conditionData)
+        case .otherHematoProblem:
+            HematoManager.sharedManager.hematoData.hematoCondition.otherHematoProblemData.append(conditionData)
+        default:
+            break
+        }
+    }
 }
 

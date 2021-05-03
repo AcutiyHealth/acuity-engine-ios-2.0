@@ -8,6 +8,15 @@
 import UIKit
 
 class CardioCondition {
+    /*
+     hypertension
+     Arrhythmia
+     Congestive heart failure
+     Hyperlipidemia
+     Anemia
+     diabetes
+     Coronary artery disease/peripheral vascular disease
+     */
     var hyperTenstionData:[CardioConditionData]  = []
     var arrhythmiaData:[CardioConditionData]  = []
     var heartFailureData:[CardioConditionData]  = []
@@ -37,7 +46,7 @@ class CardioCondition {
         let hyperTenstion = CardioConditionRelativeImportance.hypertension.getConvertedValueFromPercentage()
         let arrhythmia = CardioConditionRelativeImportance.arrhythmia.getConvertedValueFromPercentage()
         let heartFailure = CardioConditionRelativeImportance.heartFailure.getConvertedValueFromPercentage()
-        let arteryDiesease = CardioConditionRelativeImportance.arteryDisease.getConvertedValueFromPercentage()
+        let arteryDiesease = CardioConditionRelativeImportance.coronaryArteryDisease.getConvertedValueFromPercentage()
         let diabetes = CardioConditionRelativeImportance.diabetes.getConvertedValueFromPercentage()
         let anemia = CardioConditionRelativeImportance.anemia.getConvertedValueFromPercentage()
         let hyperlipidemia = CardioConditionRelativeImportance.hyperlipidemia.getConvertedValueFromPercentage()
@@ -51,7 +60,7 @@ class CardioCondition {
     func totalConditionScoreForDays(days:SegmentValueForGraph) -> [Double] {
         
         //print(totalAmount) // 4500.0
-       
+        
         arrayDayWiseScoreTotal = []
         var cardioProblem:[Metrix] = []
         cardioProblem.append(contentsOf: hyperTenstionData)
@@ -61,17 +70,54 @@ class CardioCondition {
         cardioProblem.append(contentsOf: diabetesData)
         cardioProblem.append(contentsOf: anemiaData)
         cardioProblem.append(contentsOf: hyperLipidemiaData)
-      
-        arrayDayWiseScoreTotal = daywiseFilterMetrixsData(days: days, array: cardioProblem, metriXType: MetricsType.Conditions)
+        
+        arrayDayWiseScoreTotal = getScoreForConditions(array: cardioProblem, days: days)
         cardioProblem = []
+        print("condition arrayDayWiseScoreTotal------>",arrayDayWiseScoreTotal)
         return arrayDayWiseScoreTotal
     }
-    
+    //MARK: To display data in Pull up...
     func dictionaryRepresentation()->[ConditionsModel]{
         
-        let objModel = AcuityDetailConditionViewModel()
-        return objModel.getConditionData()
+        var arrCondition:[ConditionsModel] = []
+        //hyperTenstionData
+        if hyperTenstionData.count > 0{
+            let condition = hyperTenstionData[0]
+            arrCondition.append(getConditionsModel(condition: condition))
+        }
+        //arrhythmiaData
+        if arrhythmiaData.count > 0{
+            let condition = arrhythmiaData[0]
+            arrCondition.append(getConditionsModel(condition: condition))
+        }
+        //heartFailureData
+        if heartFailureData.count > 0{
+            let condition = heartFailureData[0]
+            arrCondition.append(getConditionsModel(condition: condition))
+        }
+        //arteryDieseaseData
+        if arteryDieseaseData.count > 0{
+            let condition = arteryDieseaseData[0]
+            arrCondition.append(getConditionsModel(condition: condition))
+        }
+        //diabetesData
+        if diabetesData.count > 0{
+            let condition = diabetesData[0]
+            arrCondition.append(getConditionsModel(condition: condition))
+        }
+        //anemiaData
+        if anemiaData.count > 0{
+            let condition = anemiaData[0]
+            arrCondition.append(getConditionsModel(condition: condition))
+        }
+        //hyperLipidemiaData
+        if hyperLipidemiaData.count > 0{
+            let condition = hyperLipidemiaData[0]
+            arrCondition.append(getConditionsModel(condition: condition))
+        }
+        return arrCondition
         
     }
-    
+ 
+   
 }

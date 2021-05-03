@@ -13,17 +13,17 @@ struct CardioConditionRelativeImportance {
     static let hypertension:Double = 100
     static let arrhythmia:Double = 100
     static let heartFailure:Double = 100
-    static let arteryDisease:Double = 100
+    static let hyperlipidemia:Double = 75
     static let anemia:Double = 45
     static let diabetes:Double = 100
-    static let hyperlipidemia:Double = 75
+    static let coronaryArteryDisease:Double = 100
 }
 
 class CardioConditionData:ConditionCalculation {
     
     init(type:ConditionType) {
         super.init()
-        
+        super.type = type
         switch type {
         case .hypertension:
             self.relativeValue = CardioConditionRelativeImportance.hypertension
@@ -31,8 +31,8 @@ class CardioConditionData:ConditionCalculation {
             self.relativeValue = CardioConditionRelativeImportance.arrhythmia
         case .heartFailure:
             self.relativeValue = CardioConditionRelativeImportance.heartFailure
-        case .arteryDisease:
-            self.relativeValue = CardioConditionRelativeImportance.arteryDisease
+        case .coronaryArteryDisease:
+            self.relativeValue = CardioConditionRelativeImportance.coronaryArteryDisease
         case .anemia:
             self.relativeValue = CardioConditionRelativeImportance.anemia
         case .diabetes:

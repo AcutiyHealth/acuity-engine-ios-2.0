@@ -1,5 +1,5 @@
 //
-//  AcuityDetailValueViewController.swift
+//  AcuityMetricsValueViewController.swift
 //  AcuityEngine
 //
 //  Created by Bhoomi Jagani on 02/03/21.
@@ -8,7 +8,7 @@
 import UIKit
 import SOPullUpView
 import SwiftChart
-class AcuityDetailValueViewController: UIViewController {
+class AcuityMetricsValueViewController: UIViewController {
     
     // MARK: - Outlet
     
@@ -28,7 +28,7 @@ class AcuityDetailValueViewController: UIViewController {
     var arrVitals:[VitalsModel] = []
     
     //viewModel object..
-    var viewModelObj = AcuityDetailValueViewModel()
+    var viewModelObj = AcuityMetricsValueViewModel()
     // MARK: - Properties
     
     //selected metrix from tableview ...We can get it from AcuityDetailPullupViewController
@@ -103,7 +103,7 @@ class AcuityDetailValueViewController: UIViewController {
 
 // MARK: - UITableViewDelegate , UITableViewDataSource
 
-extension AcuityDetailValueViewController: UITableViewDelegate, UITableViewDataSource {
+extension AcuityMetricsValueViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         guard let metrixItem = metrixItem else {
             return 0

@@ -112,6 +112,7 @@ class AddSymptomViewController: UIViewController {
             symptomsModel.title == SymptomsName.memoryLapse ||
             symptomsModel.title == SymptomsName.vomiting
         {
+            
             //For above symptoms days diffrence > 4 is not allowed.
             if intervalDays > 4{
                 btnSave.isEnabled = false
@@ -129,7 +130,7 @@ class AddSymptomViewController: UIViewController {
         //Create Object For HKWriterManager
         let objWriterManager = HKWriterManager()
         var symptomValue = symptomsArray[selectedSymptoms]
-        if symptomsModel?.title == SymptomsName.sleepChanges{
+        if symptomsModel?.title == SymptomsName.sleepChanges || symptomsModel?.title == SymptomsName.moodChanges{
             symptomValue = symptomsArrayForSleepChange[selectedSymptoms]
         }
         guard let symptomsModel = self.symptomsModel else { return  }
@@ -187,7 +188,7 @@ extension AddSymptomViewController:UITableViewDelegate,UITableViewDataSource{
         guard let symptomsModel = symptomsModel else {
             return symptomsArray.count
         }
-        if symptomsModel.title == SymptomsName.sleepChanges{
+        if symptomsModel.title == SymptomsName.sleepChanges || symptomsModel.title == SymptomsName.moodChanges{
             return symptomsArrayForSleepChange.count
         }
         return symptomsArray.count
@@ -198,7 +199,7 @@ extension AddSymptomViewController:UITableViewDelegate,UITableViewDataSource{
             fatalError("AcuityDetailDisplayCell cell is not found")
         }
         
-        if symptomsModel?.title == SymptomsName.sleepChanges{
+        if symptomsModel?.title == SymptomsName.sleepChanges || symptomsModel?.title == SymptomsName.moodChanges{
             let symptom = symptomsArrayForSleepChange[indexPath.row]
             cell.displayData(title: symptom.rawValue )
         }else{

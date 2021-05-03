@@ -43,17 +43,43 @@ class EndocrineCondition {
         
         arrayDayWiseScoreTotal = []
         var endocrineProblem:[Metrix] = []
-        
-        arrayDayWiseScoreTotal = daywiseFilterMetrixsData(days: days, array: endocrineProblem, metriXType: MetricsType.Conditions)
+        endocrineProblem.append(contentsOf: diabetesData)
+        endocrineProblem.append(contentsOf: thyroidDisorderData)
+        endocrineProblem.append(contentsOf: polycysticOvarianDiseaseData)
+        endocrineProblem.append(contentsOf: hormoneProblemsData)
+        arrayDayWiseScoreTotal = getScoreForConditions(array: endocrineProblem, days: days)
         endocrineProblem = []
         return arrayDayWiseScoreTotal
     }
     
+    //MARK: To display data in Pull up...
     func dictionaryRepresentation()->[ConditionsModel]{
         
-        let objModel = AcuityDetailConditionViewModel()
-        return objModel.getConditionData()
+        var arrCondition:[ConditionsModel] = []
+        //diabetesData
+        if diabetesData.count > 0{
+            let condition = diabetesData[0]
+            arrCondition.append(getConditionsModel(condition: condition))
+        }
+        //thyroidDisorderData
+        if thyroidDisorderData.count > 0{
+            let condition = thyroidDisorderData[0]
+            arrCondition.append(getConditionsModel(condition: condition))
+        }
+        //polycysticOvarianDiseaseData
+        if polycysticOvarianDiseaseData.count > 0{
+            let condition = polycysticOvarianDiseaseData[0]
+            arrCondition.append(getConditionsModel(condition: condition))
+        }
+        //hormoneProblemsData
+        if hormoneProblemsData.count > 0{
+            let condition = hormoneProblemsData[0]
+            arrCondition.append(getConditionsModel(condition: condition))
+        }
+        
+        return arrCondition
         
     }
+    
     
 }

@@ -19,7 +19,7 @@ struct IDiseaseConditionRelativeImportance {
      Gastroentritis
      diabetes*/
     static let UTI:Double = 100
-    static let bronchitisPneumonia:Double = 100
+    static let pneumonia:Double = 100
     static let cellulitis:Double = 100
     static let covid:Double = 100
     static let otitis:Double = 100
@@ -32,14 +32,14 @@ class IDiseaseConditionData:ConditionCalculation {
     
     init(type:ConditionType) {
         super.init()
-        
+        super.type = type
         switch type {
         //UTI
         case .UTI:
             self.relativeValue = IDiseaseConditionRelativeImportance.UTI
         //pneumonia
         case .pneumonia:
-            self.relativeValue = IDiseaseConditionRelativeImportance.bronchitisPneumonia
+            self.relativeValue = IDiseaseConditionRelativeImportance.pneumonia
         //cellulitis
         case .cellulitis:
             self.relativeValue = IDiseaseConditionRelativeImportance.cellulitis

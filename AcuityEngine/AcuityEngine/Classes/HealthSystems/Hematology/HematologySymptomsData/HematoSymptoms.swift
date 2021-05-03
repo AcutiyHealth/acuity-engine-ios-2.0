@@ -91,6 +91,7 @@ class HematoSymptoms:SymptomsProtocol {
         return arrayDayWiseScoreTotal
     }
     
+    //MARK: To display data in Pull up...
     func dictionaryRepresentation()->[SymptomsModel]{
         
         var arrSymptoms:[SymptomsModel] = []

@@ -1,5 +1,5 @@
 //
-//  AcuityDetailConditionViewController.swift
+//  AcuityMetricsDetailViewController.swift
 //  AcuityEngine
 //
 //  Created by Bhoomi Jagani on 10/03/21.
@@ -7,7 +7,7 @@
 
 import UIKit
 typealias CompletionDetailConditionViewOpen = (_ open: Bool?) -> Void
-class AcuityDetailConditionViewController: UIViewController {
+class AcuityMetricsDetailViewController: UIViewController {
     
     // MARK: - Outlet
     
@@ -27,9 +27,9 @@ class AcuityDetailConditionViewController: UIViewController {
     var arrVitals:[VitalsModel] = []
     
     //viewModel object..
-    var viewModelObj = AcuityDetailConditionViewModel()
+    var viewModelObj = AcuityMetricsDetailViewModel()
     var handler: CompletionDetailConditionViewOpen?
-    var detailValueVC: AcuityDetailValueViewController?
+    var detailValueVC: AcuityMetricsValueViewController?
     //Get data from parent view controller.
     var metrixType:MetricsType?{
         didSet{
@@ -57,28 +57,26 @@ class AcuityDetailConditionViewController: UIViewController {
             return
         }
         lblTitle.text = metrixType.rawValue
-        
-        if metrixType == .Conditions{
-            arrConditions = viewModelObj.getConditionData()
-        }
-        switch metrixType {
-        case .Vitals:
-            do{
-                arrVitals = viewModelObj.getVitals()
-            }
-        case .Conditions:
-            do{
-                arrConditions = viewModelObj.getConditionData()
-            }
-        case .Sympotms:
-            do{
-                arrSymptoms = viewModelObj.getSymptomsData()
-            }
-        case .LabData:
-            do{
-                arrLabs = viewModelObj.getLabData()
-            }
-        }
+        /*
+         
+         switch metrixType {
+         case .Vitals:
+         do{
+         arrVitals = viewModelObj.getVitals()
+         }
+         case .Conditions:
+         do{
+         arrConditions = viewModelObj.getConditionData()
+         }
+         case .Sympotms:
+         do{
+         arrSymptoms = viewModelObj.getSymptomsData()
+         }
+         case .LabData:
+         do{
+         arrLabs = viewModelObj.getLabData()
+         }
+         }*/
         self.reloadTableView()
     }
     
@@ -92,7 +90,7 @@ class AcuityDetailConditionViewController: UIViewController {
 
 // MARK: - UITableViewDelegate , UITableViewDataSource
 
-extension AcuityDetailConditionViewController: UITableViewDelegate, UITableViewDataSource {
+extension AcuityMetricsDetailViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         guard let metrixType = metrixType else {
             return 0
@@ -133,13 +131,14 @@ extension AcuityDetailConditionViewController: UITableViewDelegate, UITableViewD
             }
         case .Conditions:
             do{
+                cell = tableView.dequeueReusableCell(withIdentifier: "AcuityDetailValueDisplayCellConditions") as! AcuityDetailValueDisplayCell
                 let item = arrConditions[indexPath.row]
                 cell.displayConditionData(item: item)
                 cell.selectionStyle = .none
             }
         case .Sympotms:
             do{
-                cell = tableView.dequeueReusableCell(withIdentifier: "AcuityDetailValueDisplayCell2") as! AcuityDetailValueDisplayCell
+                cell = tableView.dequeueReusableCell(withIdentifier: "AcuityDetailValueDisplayCellSymptoms") as! AcuityDetailValueDisplayCell
                 let item = arrSymptoms[indexPath.row]
                 cell.displaySymptomsData(item: item)
                 cell.selectionStyle = .none
@@ -163,9 +162,11 @@ extension AcuityDetailConditionViewController: UITableViewDelegate, UITableViewD
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        
-        //open detail value screen
-        //if indexPath.row == 0{
+        //If metrixType is condition, don't go in detail screen.
+        if metrixType == .Conditions{
+            return
+        }
+        //open detail screen for other metrics..
         openValueDetailScreen()
         switch metrixType
         {
@@ -175,12 +176,7 @@ extension AcuityDetailConditionViewController: UITableViewDelegate, UITableViewD
                 let item = arrVitals[indexPath.row]
                 detailValueVC?.metrixItem = AcuityDetailPulllUpModel(title: item.title ?? "", value: item.value ?? "", metrixType: (metrixType ?? .none)!)
             }
-        case .Conditions:
-            do{
-                
-                let item = arrConditions[indexPath.row]
-                detailValueVC?.metrixItem = AcuityDetailPulllUpModel(title: item.title ?? "", value: item.textValue, metrixType: (metrixType ?? .none)!)
-            }
+            
         case .Sympotms:
             do{
                 
@@ -193,8 +189,13 @@ extension AcuityDetailConditionViewController: UITableViewDelegate, UITableViewD
                 let item = arrLabs[indexPath.row]
                 detailValueVC?.metrixItem = AcuityDetailPulllUpModel(title: item.title ?? "", value: item.value ?? "", metrixType: (metrixType ?? .none)!)
             }
-            
-        case .none:
+        /*case .Conditions:
+         do{
+         
+         let item = arrConditions[indexPath.row]
+         detailValueVC?.metrixItem = AcuityDetailPulllUpModel(title: item.title ?? "", value: item.textValue, metrixType: (metrixType ?? .none)!)
+         }*/
+        default:
             break;
         }
         //}
@@ -204,10 +205,9 @@ extension AcuityDetailConditionViewController: UITableViewDelegate, UITableViewD
     func openValueDetailScreen(){
         
         //Add detail value view as child view
-        detailValueVC = UIStoryboard(name: Storyboard.acuityDetailPullUp.rawValue, bundle: nil).instantiateViewController(withIdentifier: "AcuityDetailValueViewController") as? AcuityDetailValueViewController
+        detailValueVC = UIStoryboard(name: Storyboard.acuityDetailPullUp.rawValue, bundle: nil).instantiateViewController(withIdentifier: "AcuityMetricsValueViewController") as? AcuityMetricsValueViewController
         self.addChild(detailValueVC!)
         detailValueVC?.view.frame = CGRect(x: 0, y: 0, width: self.view.frame.size.width, height: self.view.frame.size.height)
-        
         self.view.addSubview((detailValueVC?.view)!)
         detailValueVC?.view.setNeedsDisplay()
         detailValueVC?.didMove(toParent: self)

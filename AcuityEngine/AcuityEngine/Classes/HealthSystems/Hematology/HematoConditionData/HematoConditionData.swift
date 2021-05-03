@@ -22,7 +22,7 @@ class HematoConditionData:ConditionCalculation {
     
     init(type:ConditionType) {
         super.init()
-        
+        super.type = type
         switch type {
         //anemia
         case .anemia:

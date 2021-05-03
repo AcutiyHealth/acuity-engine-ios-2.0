@@ -55,24 +55,61 @@ class RenalCondition {
         //print(totalAmount) // 4500.0
        
         arrayDayWiseScoreTotal = []
-        var cardioProblem:[Metrix] = []
-        cardioProblem.append(contentsOf: kidneyDieaseData)
-        cardioProblem.append(contentsOf: kidneyStonesData)
-        cardioProblem.append(contentsOf: hypertensionData)
-        cardioProblem.append(contentsOf: electrolyteDisordersData)
-        cardioProblem.append(contentsOf: underweightMalnutritionData)
-        cardioProblem.append(contentsOf: diabetesData)
-        cardioProblem.append(contentsOf: UTIData)
+        var renalProblem:[Metrix] = []
+        renalProblem.append(contentsOf: kidneyDieaseData)
+        renalProblem.append(contentsOf: kidneyStonesData)
+        renalProblem.append(contentsOf: hypertensionData)
+        renalProblem.append(contentsOf: electrolyteDisordersData)
+        renalProblem.append(contentsOf: underweightMalnutritionData)
+        renalProblem.append(contentsOf: diabetesData)
+        renalProblem.append(contentsOf: UTIData)
        
-        arrayDayWiseScoreTotal = daywiseFilterMetrixsData(days: days, array: cardioProblem, metriXType: MetricsType.Conditions)
-        cardioProblem = []
+        arrayDayWiseScoreTotal = getScoreForConditions(array: renalProblem, days: days)
+        renalProblem = []
         return arrayDayWiseScoreTotal
     }
     
+    //MARK: To display data in Pull up...
     func dictionaryRepresentation()->[ConditionsModel]{
         
-        let objModel = AcuityDetailConditionViewModel()
-        return objModel.getConditionData()
+        var arrCondition:[ConditionsModel] = []
+        //kidneyDieaseData
+        if kidneyDieaseData.count > 0{
+            let condition = kidneyDieaseData[0]
+            arrCondition.append(getConditionsModel(condition: condition))
+        }
+        //kidneyStonesData
+        if kidneyStonesData.count > 0{
+            let condition = kidneyStonesData[0]
+            arrCondition.append(getConditionsModel(condition: condition))
+        }
+        //hypertensionData
+        if hypertensionData.count > 0{
+            let condition = hypertensionData[0]
+            arrCondition.append(getConditionsModel(condition: condition))
+        }
+        //electrolyteDisordersData
+        if electrolyteDisordersData.count > 0{
+            let condition = electrolyteDisordersData[0]
+            arrCondition.append(getConditionsModel(condition: condition))
+        }
+        //underweightMalnutritionData
+        if underweightMalnutritionData.count > 0{
+            let condition = underweightMalnutritionData[0]
+            arrCondition.append(getConditionsModel(condition: condition))
+        }
+        //diabetesData
+        if diabetesData.count > 0{
+            let condition = diabetesData[0]
+            arrCondition.append(getConditionsModel(condition: condition))
+        }
+        //UTIData
+        if UTIData.count > 0{
+            let condition = UTIData[0]
+            arrCondition.append(getConditionsModel(condition: condition))
+        }
+   
+        return arrCondition
         
     }
     

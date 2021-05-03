@@ -25,7 +25,7 @@ class RespiratoryConditionData:ConditionCalculation {
     
     init(type:ConditionType) {
         super.init()
-        
+        super.type = type
         switch type {
         case .asthma:
             self.relativeValue = RespiratoryConditionRelativeImportance.asthma
