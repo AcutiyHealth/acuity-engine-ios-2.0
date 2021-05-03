@@ -126,6 +126,7 @@ class CardioVital:VitalProtocol {
     }
     
     //Get recent data for Specific Vitals..
+    //MARK: To display data in Pull up...
     func dictionaryRepresentation()->[VitalsModel]{
         
         var arrVital:[VitalsModel] = []

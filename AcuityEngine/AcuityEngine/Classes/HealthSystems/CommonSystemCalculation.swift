@@ -76,7 +76,11 @@ func getVitalModel(item:VitalCalculation)->VitalsModel{
     impData.color = item.getUIColorFromCalculatedValue()
     return impData
 }
-
+//MARK: Create or Get Conditions Models..
+func getConditionsModel(condition:ConditionCalculation)->ConditionsModel{
+    let conditionValue = condition.calculatedValue < 0 ? 0 : condition.calculatedValue
+    return ConditionsModel(title: condition.type.rawValue, value: ConditionValue(rawValue: conditionValue)!)
+}
 func saveVitalsInArray(item:VitalCalculation)->VitalsModel{
     let impData =  VitalsModel(title: item.title.rawValue, value: String(format: "%.2f", item.value))
     impData.startTime = item.startTimeStamp

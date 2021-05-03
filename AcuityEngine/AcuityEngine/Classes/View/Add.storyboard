@@ -181,8 +181,8 @@
                                             <rect key="frame" x="0.0" y="0.0" width="414" height="60"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1pg-tB-Qib">
-                                                    <rect key="frame" x="11" y="0.0" width="0.0" height="60"/>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="wordWrap" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1pg-tB-Qib">
+                                                    <rect key="frame" x="11" y="0.0" width="324" height="60"/>
                                                     <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -197,6 +197,7 @@
                                             </subviews>
                                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                             <constraints>
+                                                <constraint firstItem="7uB-6P-ZGu" firstAttribute="leading" secondItem="1pg-tB-Qib" secondAttribute="trailing" constant="10" id="CZJ-1r-FBu"/>
                                                 <constraint firstItem="1pg-tB-Qib" firstAttribute="top" secondItem="0eX-cS-nEU" secondAttribute="top" id="MEt-U3-SAC"/>
                                                 <constraint firstItem="7uB-6P-ZGu" firstAttribute="centerY" secondItem="0eX-cS-nEU" secondAttribute="centerY" id="NB4-qE-1cN"/>
                                                 <constraint firstAttribute="bottom" secondItem="1pg-tB-Qib" secondAttribute="bottom" id="T5n-I8-SmU"/>
@@ -1009,10 +1010,10 @@
     </scenes>
     <designables>
         <designable name="8bz-X0-qxv">
-            <size key="intrinsicContentSize" width="39" height="34"/>
+            <size key="intrinsicContentSize" width="37" height="30"/>
         </designable>
         <designable name="PMF-BQ-Txd">
-            <size key="intrinsicContentSize" width="39" height="34"/>
+            <size key="intrinsicContentSize" width="37" height="30"/>
         </designable>
     </designables>
     <resources>

@@ -24,7 +24,7 @@ class EndocrineConditionData:ConditionCalculation {
     
     init(type:ConditionType) {
         super.init()
-        
+        super.type = type
         switch type {
         //diabetes
         case .diabetes:

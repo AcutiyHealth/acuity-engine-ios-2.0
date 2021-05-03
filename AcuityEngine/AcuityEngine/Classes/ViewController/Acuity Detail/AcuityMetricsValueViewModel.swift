@@ -1,5 +1,5 @@
 //
-//  AcuityDetailValueViewModel.swift
+//  AcuityMetricsValueViewModel.swift
 //  AcuityEngine
 //
 //  Created by Bhoomi Jagani on 10/03/21.
@@ -7,7 +7,7 @@
 
 import Foundation
 
-class AcuityDetailValueViewModel: NSObject
+class AcuityMetricsValueViewModel: NSObject
 {
     
     //MARK: Default system data...

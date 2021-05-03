@@ -55,23 +55,60 @@ class FNECondition {
         //print(totalAmount) // 4500.0
         
         arrayDayWiseScoreTotal = []
-        var iDiseaseProblem:[Metrix] = []
-        iDiseaseProblem.append(contentsOf: electrolyteDisordersData)
-        iDiseaseProblem.append(contentsOf: pneumoniaData)
-        iDiseaseProblem.append(contentsOf: underweightOrMalnutritionData)
-        iDiseaseProblem.append(contentsOf: overweightOrObesityData)
-        iDiseaseProblem.append(contentsOf: kidneyDieaseData)
-        iDiseaseProblem.append(contentsOf: gastroentritisData)
-        iDiseaseProblem.append(contentsOf: diabetesData)
-        arrayDayWiseScoreTotal = daywiseFilterMetrixsData(days: days, array: iDiseaseProblem, metriXType: MetricsType.Conditions)
-        iDiseaseProblem = []
+        var fneProblem:[Metrix] = []
+        fneProblem.append(contentsOf: electrolyteDisordersData)
+        fneProblem.append(contentsOf: underweightOrMalnutritionData)
+        fneProblem.append(contentsOf: overweightOrObesityData)
+        fneProblem.append(contentsOf: kidneyDieaseData)
+        fneProblem.append(contentsOf: pneumoniaData)
+        fneProblem.append(contentsOf: gastroentritisData)
+        fneProblem.append(contentsOf: diabetesData)
+        arrayDayWiseScoreTotal = getScoreForConditions(array: fneProblem, days: days)
+        fneProblem = []
         return arrayDayWiseScoreTotal
     }
     
+    //MARK: To display data in Pull up...
     func dictionaryRepresentation()->[ConditionsModel]{
         
-        let objModel = AcuityDetailConditionViewModel()
-        return objModel.getConditionData()
+        var arrCondition:[ConditionsModel] = []
+        //electrolyteDisordersData
+        if electrolyteDisordersData.count > 0{
+            let condition = electrolyteDisordersData[0]
+            arrCondition.append(getConditionsModel(condition: condition))
+        }
+        //underweightOrMalnutritionData
+        if underweightOrMalnutritionData.count > 0{
+            let condition = underweightOrMalnutritionData[0]
+            arrCondition.append(getConditionsModel(condition: condition))
+        }
+        //overweightOrObesityData
+        if overweightOrObesityData.count > 0{
+            let condition = overweightOrObesityData[0]
+            arrCondition.append(getConditionsModel(condition: condition))
+        }
+        //kidneyDieaseData
+        if kidneyDieaseData.count > 0{
+            let condition = kidneyDieaseData[0]
+            arrCondition.append(getConditionsModel(condition: condition))
+        }
+        //pneumoniaData
+        if pneumoniaData.count > 0{
+            let condition = pneumoniaData[0]
+            arrCondition.append(getConditionsModel(condition: condition))
+        }
+        //gastroentritisData
+        if gastroentritisData.count > 0{
+            let condition = gastroentritisData[0]
+            arrCondition.append(getConditionsModel(condition: condition))
+        }
+        //diabetesData
+        if diabetesData.count > 0{
+            let condition = diabetesData[0]
+            arrCondition.append(getConditionsModel(condition: condition))
+        }
+        
+        return arrCondition
         
     }
     

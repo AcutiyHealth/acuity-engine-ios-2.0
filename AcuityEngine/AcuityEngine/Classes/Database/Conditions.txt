@@ -1,72 +1,50 @@
-Acne
-Addison'S Disease
-Allergic Rhiniitis
 Allergic Rhnitis
 Anemia
-Anxiety
 Arrhythmia
-Asthma
 Bipolar Disorder
-Bph
-Bronchitis
+Bronchitis/Pneumonia
 Cancer (Of Any Type)
 Cellulitis
-Chronic Kidney Diease
 Chronic Kidney Disease
 Congestive Heart Failure
-Copd
-Coronary Artery Disease
+Copd/Asthma
+Coronary Artery Disease/Peripheral Vascular Disease
 Covid
 Crohns Disease
 Decreased Vision
-Dehydration
-Dementia
-Depression
+Depression/Anxiety
 Diabetes
-Diverticular Disease
-Eczema
 Electrolyte Disorders
-Erectile Dysfunction
 Gastroentritis
-Gerd
+GERD
 Gout
 Hearing Loss
+Hormone Problems
 Hx Of Stroke
 Hyperlipidemia
 Hypertension
-Hyperthyroidism
-Hypothyroidism
 Irritable Bowel Disease
+Kidney Diease
 Kidney Stones
-Low Potassium
-Low Sodium
-Memory Loss
-Menopause
-Muscular Sprain/Strain
+Liver Disease
+Memory Loss/Dementia
 Neuropathy
-Nose Bleed
-Obese
 Obesity/Overweight
-Osteoarthritis
-Osteomyelitis
-Osteoporosis
-Overweight
-Pharangitis
-Pneumonia
-Polycystic Kidney Disease
+Other Heme/Onc Problem
+Otitis
+Overweight/Obesity
 Polycystic Ovarian Disease
-Protein Malnutrition
-Psoriasis
-Pulmonary Embolism
-Rash
+Psoriasis/Eczema
 Rheumatoid Arthritis
 Sedintary Lifestyle
 Single
-Sinusitis
 Sleep Apnea
 Smoking
+Thyroid Disorder
 Ulcerative Colitis
+Underweight/Malnutrition
 Unemployed
 Unsafe Housing
-Uti
-Vertigo
+Upper Respiratory Infection
+Urinary Problems
+UTI

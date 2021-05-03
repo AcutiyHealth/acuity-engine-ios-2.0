@@ -15,6 +15,7 @@ class AcuityDisplayModel {
     var image: String?
     var metricCardio: [String:Any]?
     
+    //MARK: To display data in Pull up...
     func dictionaryRepresentation()->[String:Any]{
         return ["id":id ?? "","name":name?.rawValue ?? "","score":score ?? "","image":image ?? "","metricCardio":(metricCardio ?? []) ]
     }

@@ -91,7 +91,7 @@ extension SOPullUpControl {
              // Pause animation and update the progress to the fraction complete percentage
              animator.pauseAnimation()
              animationProgressWhenInterrupted = animator.fractionComplete
-            print("animationProgressWhenInterrupted==\(animationProgressWhenInterrupted)")
+            //print("animationProgressWhenInterrupted==\(animationProgressWhenInterrupted)")
          }
      }
      
@@ -101,7 +101,7 @@ extension SOPullUpControl {
          for animator in runningAnimations {
              // Update the fraction complete value to the current progress
              animator.fractionComplete = fractionCompleted + animationProgressWhenInterrupted
-            print("animator.fractionComplete==\(fractionCompleted)")
+            //print("animator.fractionComplete==\(fractionCompleted)")
          }
      }
      

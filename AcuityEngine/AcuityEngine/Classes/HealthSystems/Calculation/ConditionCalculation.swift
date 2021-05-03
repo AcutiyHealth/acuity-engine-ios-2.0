@@ -9,11 +9,11 @@ import Foundation
 import HealthKitReporter
 
 class ConditionCalculation:Metrix {
-   
+    var type: ConditionType = .hypertension // calculate based on symtomps type
     override var value:Double{
         didSet{
             
-            self.calculatedValue = getConditionValue().rawValue
+            self.calculatedValue = value//getConditionValue().rawValue
             
         }
     }//H9 // -1 is default value, so we can compare with 0

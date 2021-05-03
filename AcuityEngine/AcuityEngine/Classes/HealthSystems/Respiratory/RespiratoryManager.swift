@@ -145,6 +145,38 @@ class RespiratoryManager: NSObject {
         
         
     }
-    
+    //MARK: save condition data..
+    func saveConditionsData(element:ConditionsModel){
+        let conditionType = ConditionType(rawValue: element.title!)
+        guard let conditionTypeData = conditionType else {
+            return
+        }
+        let conditionData = RespiratoryConditionData(type: conditionTypeData)
+        conditionData.value = element.value.rawValue
+        
+        switch conditionType {
+        case .asthma:
+            RespiratoryManager.sharedManager.respiratoryData.respiratoryCondition.asthmaData.append(conditionData)
+        case .pneumonia:
+            RespiratoryManager.sharedManager.respiratoryData.respiratoryCondition.pneumoniaData.append(conditionData)
+        case .respiratoryInfection:
+            RespiratoryManager.sharedManager.respiratoryData.respiratoryCondition.respiratoryInfectionData.append(conditionData)
+        case .covid:
+            RespiratoryManager.sharedManager.respiratoryData.respiratoryCondition.covidData.append(conditionData)
+        case .allergicRhiniitis:
+            RespiratoryManager.sharedManager.respiratoryData.respiratoryCondition.allergicRhiniitisData.append(conditionData)
+        case .smoking:
+            RespiratoryManager.sharedManager.respiratoryData.respiratoryCondition.smokingData.append(conditionData)
+        case .sleepApnea:
+            RespiratoryManager.sharedManager.respiratoryData.respiratoryCondition.sleepApneaData.append(conditionData)
+        case .heartFailure:
+            RespiratoryManager.sharedManager.respiratoryData.respiratoryCondition.heartFailureData.append(conditionData)
+        case .coronaryArteryDisease:
+            RespiratoryManager.sharedManager.respiratoryData.respiratoryCondition.coronaryArteryDiseaseData.append(conditionData)
+        default:
+            break
+        }
+        
+    }
 }
 

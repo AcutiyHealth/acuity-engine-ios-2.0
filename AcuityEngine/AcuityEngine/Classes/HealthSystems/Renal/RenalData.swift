@@ -88,6 +88,7 @@ class RenalData {
         
     }
    
+    //MARK: To display data in Pull up...
     func dictionaryRepresentation()->[String:Any]{
         
         return [MetricsType.Conditions.rawValue:renalCondition.dictionaryRepresentation(),MetricsType.Sympotms.rawValue:renalSymptoms.dictionaryRepresentation(),MetricsType.LabData.rawValue:renalLab.dictionaryRepresentation(),MetricsType.Vitals.rawValue:renalVital.dictionaryRepresentation()] as [String : Any]

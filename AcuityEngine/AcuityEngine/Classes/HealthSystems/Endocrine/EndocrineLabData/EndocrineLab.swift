@@ -94,9 +94,10 @@ class EndocrineLab {
         return arrayDayWiseScoreTotal
     }
     
+    //MARK: To display data in Pull up...
     func dictionaryRepresentation()->[LabModel]{
         
-        let objModel = AcuityDetailConditionViewModel()
+        let objModel = AcuityMetricsDetailViewModel()
         return objModel.getLabData()
         
     }

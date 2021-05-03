@@ -38,31 +38,27 @@
                             </userDefinedRuntimeAttributes>
                         </view>
                         <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Ayg-8H-Kcq" customClass="CloseButton" customModule="AcuityEngine" customModuleProvider="target">
-                            <rect key="frame" x="369" y="0.0" width="40" height="40"/>
+                            <rect key="frame" x="374" y="0.0" width="30" height="40"/>
                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                            <constraints>
-                                <constraint firstAttribute="height" constant="40" id="BKH-Qk-tMR"/>
-                                <constraint firstAttribute="width" constant="40" id="WU7-bs-z8K"/>
-                            </constraints>
                         </button>
                         <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="04q-sy-wQN" customClass="BackButton" customModule="AcuityEngine" customModuleProvider="target">
-                            <rect key="frame" x="8" y="0.0" width="40" height="40"/>
+                            <rect key="frame" x="10" y="0.0" width="30" height="40"/>
                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                            <constraints>
-                                <constraint firstAttribute="height" constant="40" id="8gH-84-SK3"/>
-                                <constraint firstAttribute="width" constant="40" id="eTd-Dn-XMW"/>
-                            </constraints>
                         </button>
                     </subviews>
                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     <constraints>
                         <constraint firstAttribute="bottom" secondItem="04q-sy-wQN" secondAttribute="bottom" id="0FB-Ou-G2O"/>
                         <constraint firstItem="h30-bg-VKl" firstAttribute="top" secondItem="3mN-hW-Ccc" secondAttribute="top" constant="18" id="24f-Vy-Qt0"/>
-                        <constraint firstItem="04q-sy-wQN" firstAttribute="leading" secondItem="3mN-hW-Ccc" secondAttribute="leading" constant="8" id="NqG-D9-zSP"/>
-                        <constraint firstAttribute="trailing" secondItem="Ayg-8H-Kcq" secondAttribute="trailing" constant="5" id="VRw-cj-QXo"/>
-                        <constraint firstItem="Ayg-8H-Kcq" firstAttribute="centerY" secondItem="3mN-hW-Ccc" secondAttribute="centerY" id="gUz-Hc-Wmf"/>
+                        <constraint firstItem="Ayg-8H-Kcq" firstAttribute="width" secondItem="3mN-hW-Ccc" secondAttribute="height" multiplier="3:4" id="BHB-te-wQa"/>
+                        <constraint firstAttribute="bottom" secondItem="Ayg-8H-Kcq" secondAttribute="bottom" id="JNW-Va-0Ff"/>
+                        <constraint firstItem="04q-sy-wQN" firstAttribute="leading" secondItem="3mN-hW-Ccc" secondAttribute="leading" constant="10" id="NqG-D9-zSP"/>
+                        <constraint firstItem="04q-sy-wQN" firstAttribute="height" secondItem="Ayg-8H-Kcq" secondAttribute="height" id="REP-AS-6Pi"/>
+                        <constraint firstAttribute="trailing" secondItem="Ayg-8H-Kcq" secondAttribute="trailing" constant="10" id="VRw-cj-QXo"/>
                         <constraint firstItem="h30-bg-VKl" firstAttribute="centerX" secondItem="3mN-hW-Ccc" secondAttribute="centerX" id="hcc-XK-pe1"/>
+                        <constraint firstItem="04q-sy-wQN" firstAttribute="width" secondItem="Ayg-8H-Kcq" secondAttribute="width" id="qra-4a-m81"/>
                         <constraint firstItem="04q-sy-wQN" firstAttribute="top" secondItem="3mN-hW-Ccc" secondAttribute="top" id="vfY-NR-Ayd"/>
+                        <constraint firstItem="Ayg-8H-Kcq" firstAttribute="top" secondItem="3mN-hW-Ccc" secondAttribute="top" id="vsE-y6-iCD"/>
                     </constraints>
                 </view>
             </subviews>
