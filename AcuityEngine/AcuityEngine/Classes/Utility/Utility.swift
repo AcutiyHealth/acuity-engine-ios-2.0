@@ -163,7 +163,25 @@ func daywiseFilterMetrixsData(days:SegmentValueForGraph,array:[Metrix],metriXTyp
     }
     return averageScoreArray
 }
+func getScoreForConditions(array:[Metrix],days:SegmentValueForGraph)->[Double]{
+    let getComponentAndLoop = getNumberOfTimesLoopToExecute(days: days)
 
+    let noOfTimesLoopExecute:Int = getComponentAndLoop["noOfTimesLoopExecute"] as! Int
+    var averageScoreArray:[Double] = []
+    for _ in 0...noOfTimesLoopExecute-1{
+        /*
+         Here, it will filter all condition array who has isOn switch on. If isOn switch on in ConditionList VC, it's calculated value will be 1.
+         */
+        var filteredArray:[Metrix] = []
+        filteredArray = array.filter { item in
+            return item.calculatedValue == 1
+        }
+        let averageScore = (Double(filteredArray.sum(\.score)).isNaN ? 0 :  Double(filteredArray.sum(\.score)))
+        averageScoreArray.append(averageScore)
+    }
+    
+    return averageScoreArray
+}
 func getScoreForVitalDataWithGivenDateRange(sampleItem:[Metrix],timeIntervalByLastMonth:Double,timeIntervalByNow:Double)->Double{
     var filteredArray:[Metrix] = []
     

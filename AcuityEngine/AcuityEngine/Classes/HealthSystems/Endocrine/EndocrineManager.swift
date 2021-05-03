@@ -122,6 +122,31 @@ class EndocrineManager: NSObject {
         
         
     }
-    
+    //MARK: save condition data..
+    func saveConditionsData(element:ConditionsModel){
+        let conditionType = ConditionType(rawValue: element.title!)
+        guard let conditionTypeData = conditionType else {
+            return
+        }
+        let conditionData = EndocrineConditionData(type: conditionTypeData)
+        conditionData.value = element.value.rawValue
+        
+        switch conditionType {
+        //diabetes
+        case .diabetes:
+            EndocrineManager.sharedManager.endocrineData.endocrineCondition.diabetesData.append(conditionData)
+        //thyroidDisorder
+        case .thyroidDisorder:
+            EndocrineManager.sharedManager.endocrineData.endocrineCondition.thyroidDisorderData.append(conditionData)
+        //polycysticOvarianDisease
+        case .polycysticOvarianDisease:
+            EndocrineManager.sharedManager.endocrineData.endocrineCondition.polycysticOvarianDiseaseData.append(conditionData)
+        //hormoneProblems
+        case .hormoneProblems:
+            EndocrineManager.sharedManager.endocrineData.endocrineCondition.hormoneProblemsData.append(conditionData)
+        default:
+            break
+        }
+    }
 }
 

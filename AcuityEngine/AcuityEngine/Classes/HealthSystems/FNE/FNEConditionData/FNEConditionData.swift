@@ -31,7 +31,7 @@ class FNEConditionData:ConditionCalculation {
     
     init(type:ConditionType) {
         super.init()
-        
+        super.type = type
         switch type {
         //UTI
         case .electrolyteDisorders:

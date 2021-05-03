@@ -39,16 +39,35 @@ class HematoCondition {
         
         arrayDayWiseScoreTotal = []
         var hematoProblem:[Metrix] = []
- 
-        arrayDayWiseScoreTotal = daywiseFilterMetrixsData(days: days, array: hematoProblem, metriXType: MetricsType.Conditions)
+        hematoProblem.append(contentsOf: anemiaData)
+        hematoProblem.append(contentsOf: cancerData)
+        hematoProblem.append(contentsOf: otherHematoProblemData)
+        arrayDayWiseScoreTotal = getScoreForConditions(array: hematoProblem, days: days)
         hematoProblem = []
         return arrayDayWiseScoreTotal
     }
     
+    //MARK: To display data in Pull up...
     func dictionaryRepresentation()->[ConditionsModel]{
         
-        let objModel = AcuityDetailConditionViewModel()
-        return objModel.getConditionData()
+        var arrCondition:[ConditionsModel] = []
+        //anemiaData
+        if anemiaData.count > 0{
+            let condition = anemiaData[0]
+            arrCondition.append(getConditionsModel(condition: condition))
+        }
+        //cancerData
+        if cancerData.count > 0{
+            let condition = cancerData[0]
+            arrCondition.append(getConditionsModel(condition: condition))
+        }
+        //otherHematoProblemData
+        if otherHematoProblemData.count > 0{
+            let condition = otherHematoProblemData[0]
+            arrCondition.append(getConditionsModel(condition: condition))
+        }
+        
+        return arrCondition
         
     }
     

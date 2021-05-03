@@ -119,5 +119,35 @@ class IDiseaseManager: NSObject {
         
     }
     
+    //MARK: save condition data..
+    func saveConditionsData(element:ConditionsModel){
+        let conditionType = ConditionType(rawValue: element.title!)
+        guard let conditionTypeData = conditionType else {
+            return
+        }
+        let conditionData = IDiseaseConditionData(type: conditionTypeData)
+        conditionData.value = element.value.rawValue
+        
+        switch conditionType {
+        case .UTI:
+            IDiseaseManager.sharedManager.iDiseaseData.iDiseaseCondition.UTIData.append(conditionData)
+        case .pneumonia:
+            IDiseaseManager.sharedManager.iDiseaseData.iDiseaseCondition.pneumoniaData.append(conditionData)
+        case .cellulitis:
+            IDiseaseManager.sharedManager.iDiseaseData.iDiseaseCondition.cellulitisData.append(conditionData)
+        case .covid:
+            IDiseaseManager.sharedManager.iDiseaseData.iDiseaseCondition.covidData.append(conditionData)
+        case .otitis:
+            IDiseaseManager.sharedManager.iDiseaseData.iDiseaseCondition.otitisData.append(conditionData)
+        case .respiratoryInfection:
+            IDiseaseManager.sharedManager.iDiseaseData.iDiseaseCondition.respiratoryInfectionData.append(conditionData)
+        case .gastroentritis:
+            IDiseaseManager.sharedManager.iDiseaseData.iDiseaseCondition.gastroentritisData.append(conditionData)
+        case .diabetes:
+            IDiseaseManager.sharedManager.iDiseaseData.iDiseaseCondition.diabetesData.append(conditionData)
+        default:
+            break
+        }
+    }
 }
 

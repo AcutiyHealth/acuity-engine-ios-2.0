@@ -92,7 +92,7 @@ class AcuityDetailValueDisplayCell: UITableViewCell {
     
     @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var maxScore: UILabel!
-    
+    @IBOutlet weak var btnArrowForDetail: UIButton!
     
     override func awakeFromNib() {
         
@@ -213,8 +213,9 @@ class AddConditionCell: UITableViewCell {
         titleLabel.font = Fonts.kCellTitleFont
     }
     
-    func displayData(title:String){
+    func displayData(title:String,isOn:Bool){
         titleLabel.text = title
+        yesOrNoSwitch.isOn = isOn
     }
     
     

@@ -81,5 +81,34 @@ class RenalManager: NSObject {
         
     }
     
+    //MARK: save condition data..
+    func saveConditionsData(element:ConditionsModel){
+        let conditionType = ConditionType(rawValue: element.title!)
+        guard let conditionTypeData = conditionType else {
+            return
+        }
+        let conditionData = RenalConditionData(type: conditionTypeData)
+        conditionData.value = element.value.rawValue
+        
+        switch conditionType {
+        case .kidneyDiease:
+            RenalManager.sharedManager.renalData.renalCondition.kidneyDieaseData.append(conditionData)
+        case .kidneyStones:
+            RenalManager.sharedManager.renalData.renalCondition.kidneyStonesData.append(conditionData)
+        case .hypertension:
+            RenalManager.sharedManager.renalData.renalCondition.hypertensionData.append(conditionData)
+        case .electrolyteDisorders:
+            RenalManager.sharedManager.renalData.renalCondition.electrolyteDisordersData.append(conditionData)
+        case .underweightOrMalnutrition:
+            RenalManager.sharedManager.renalData.renalCondition.underweightMalnutritionData.append(conditionData)
+        case .diabetes:
+            RenalManager.sharedManager.renalData.renalCondition.diabetesData.append(conditionData)
+        case .UTI:
+            RenalManager.sharedManager.renalData.renalCondition.UTIData.append(conditionData)
+            
+        default:
+            break
+        }
+    }
 }
 

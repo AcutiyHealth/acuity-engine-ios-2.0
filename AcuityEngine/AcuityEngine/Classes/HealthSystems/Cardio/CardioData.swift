@@ -86,6 +86,7 @@ class CardioData:SystemDataProtocol {
         
     }
     
+    //MARK: To display data in Pull up...
     func dictionaryRepresentation()->[String:Any]{
         return [MetricsType.Conditions.rawValue:cardioCondition.dictionaryRepresentation(),MetricsType.Sympotms.rawValue:cardioSymptoms.dictionaryRepresentation(),MetricsType.LabData.rawValue:cardioLab.dictionaryRepresentation(),MetricsType.Vitals.rawValue:cardioVital.dictionaryRepresentation()] as [String : Any]
         

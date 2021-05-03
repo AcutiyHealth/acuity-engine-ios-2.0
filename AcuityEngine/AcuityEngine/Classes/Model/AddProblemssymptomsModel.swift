@@ -10,6 +10,7 @@ import HealthKit
 
 class ConditionsModel {
     
+    var id:Int = 0
     var title: String?
     var isOn: Bool?
     var value:ConditionValue = .No
@@ -17,9 +18,11 @@ class ConditionsModel {
     var startTime: Double = 0
     var endTime: Double = 0
     var textValue: String = ConditionValueText.No.rawValue
-    init(title:String,isOn:Bool) {
+    init(title:String,value:ConditionValue,conditionId:Int) {
         self.title = title
-        self.isOn = isOn
+        self.value = value
+        isOn = value.rawValue == 1 ? true : false
+        self.id = conditionId
     }
     init(title:String,value:ConditionValue) {
         self.title = title

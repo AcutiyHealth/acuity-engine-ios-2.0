@@ -88,6 +88,7 @@ class FNEData {
         
     }
    
+    //MARK: To display data in Pull up...
     func dictionaryRepresentation()->[String:Any]{
         
         return [MetricsType.Conditions.rawValue:fneCondition.dictionaryRepresentation(),MetricsType.Sympotms.rawValue:fneSymptoms.dictionaryRepresentation(),MetricsType.LabData.rawValue:fneLab.dictionaryRepresentation(),MetricsType.Vitals.rawValue:fneVital.dictionaryRepresentation()] as [String : Any]
