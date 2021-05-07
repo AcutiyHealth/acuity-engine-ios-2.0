@@ -88,6 +88,12 @@ class AcuityDetailPullUpViewModel: NSObject
                 scoreText = String(format: "%.2f", systemScore)
                 arraySystemScore = EndocrineManager.sharedManager.endocrineData.arrayDayWiseSystemScore
             }
+        case .Gastrointestinal:
+            do{
+                let systemScore = GastrointestinalManager.sharedManager.gastrointestinalData.totalSystemScoreWithDays(days: MyWellScore.sharedManager.daysToCalculateSystemScore)
+                scoreText = String(format: "%.2f", systemScore)
+                arraySystemScore = GastrointestinalManager.sharedManager.gastrointestinalData.arrayDayWiseSystemScore
+            }
         default:
             break
         }

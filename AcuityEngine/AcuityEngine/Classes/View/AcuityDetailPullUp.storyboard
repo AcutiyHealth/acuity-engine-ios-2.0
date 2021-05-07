@@ -1008,13 +1008,13 @@
             <size key="intrinsicContentSize" width="79" height="19.5"/>
         </designable>
         <designable name="Uyj-bf-cIn">
-            <size key="intrinsicContentSize" width="79.5" height="19.5"/>
+            <size key="intrinsicContentSize" width="82" height="20.5"/>
         </designable>
         <designable name="fL5-hc-G9v">
-            <size key="intrinsicContentSize" width="41.5" height="19.5"/>
+            <size key="intrinsicContentSize" width="42" height="20.5"/>
         </designable>
         <designable name="k9R-5l-ggp">
-            <size key="intrinsicContentSize" width="35.5" height="19.5"/>
+            <size key="intrinsicContentSize" width="37" height="20.5"/>
         </designable>
     </designables>
     <resources>

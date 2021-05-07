@@ -69,7 +69,13 @@ class CardioVital:VitalProtocol {
         arrVital = []*/
         
         arrayDayWiseScoreTotal = []
-        
+        /*
+         Here We get component is Month/Day and noOfTimesLoopExecute to execute.
+         We get selection from Segment Control from Pull up
+         When there is & days selected, loop will execute 7 times
+         When there is 1 Month selected, loop will execute per weeks count
+         When there is 3 month selected, loop will execute 3 times
+         */
         var now = MyWellScore.sharedManager.todaysDate
         let getComponentAndLoop = getNumberOfTimesLoopToExecute(days: days)
         let component:Calendar.Component = getComponentAndLoop["component"] as! Calendar.Component
