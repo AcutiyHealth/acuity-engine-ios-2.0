@@ -60,6 +60,8 @@ class HKManagerReadConditions: NSObject
                 HematoManager.sharedManager.saveConditionsData(element: element)
                 //Save data for Endocrine...
                 EndocrineManager.sharedManager.saveConditionsData(element: element)
+                //Save data for Endocrine...
+                GastrointestinalManager.sharedManager.saveConditionsData(element: element)
             }
             completion(true, nil)
             return

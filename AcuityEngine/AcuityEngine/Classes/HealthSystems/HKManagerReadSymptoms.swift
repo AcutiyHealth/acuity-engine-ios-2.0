@@ -96,6 +96,9 @@ class HKManagerReadSymptoms: NSObject
                                             
                                             //Save data for Endocrine...
                                             EndocrineManager.sharedManager.saveSymptomsData(category: category, element: element)
+                                            
+                                            //Save data for Gastrointestinal...
+                                            GastrointestinalManager.sharedManager.saveSymptomsData(category: category, element: element)
                                         }
                                         dispatchGroup.leave()
                                         

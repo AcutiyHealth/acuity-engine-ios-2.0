@@ -321,7 +321,7 @@ class LabCalculation:Metrix {
     }
     //MARK:BUN
     private func getBUNValue() -> HeartRateValue {
-        if systemName == SystemName.Fluids{
+        if systemName == SystemName.Fluids || systemName == SystemName.Gastrointestinal{
             
             if value > 20  {
                 return HeartRateValue.Red

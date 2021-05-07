@@ -26,11 +26,14 @@ class HKManagerReadLab: NSObject
             
             if(success){
                 
-                print("samples------>\(samples)")
+                //print("samples------>\(samples)")
+                var i = 0;
                 for sample in samples{
                     guard let clinicalRecord = sample as? HKClinicalRecord, let fhirResource = clinicalRecord.fhirResource else {
                         return
                     }
+                    i = i + 1;
+                    print("i------>\(i)")
                     do {
                         let sourceObject = try JSONSerialization.jsonObject(with: fhirResource.data, options: [])
                         let prettyPrintedSourceData = try JSONSerialization.data(withJSONObject: sourceObject, options: [.prettyPrinted])
@@ -40,10 +43,14 @@ class HKManagerReadLab: NSObject
                         print(unescapeJSONString(sourceString))
                         if let dictionary = sourceObject as? [String: AnyObject] {
                             let valueQuantity = dictionary["valueQuantity"] as? [String: AnyObject]
-                            let code = dictionary["code"] as? [String: AnyObject]
-                            if let value = (valueQuantity?["value"] as? Double)  ,let codeKey = (code?["text"])  {
-                                // access individual value in dictionary
-                                print("\(codeKey)----->\(value)")
+                            let dictionaryCode = dictionary["code"] as? [String: AnyObject]
+                            let dictionaryCoding = dictionaryCode?["coding"]?.firstObject as? [String: AnyObject]
+                            if let value = (valueQuantity?["value"] as? Double)  ,let code = (dictionaryCoding?["code"] as? String)  {
+                             
+                                if code == "2085-9"{
+                                    // access individual value in dictionary
+                                    print("\(code)----->\(value)")
+                                }
                                 
                             }
                         }
