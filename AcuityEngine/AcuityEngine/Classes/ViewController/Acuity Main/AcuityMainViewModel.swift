@@ -108,13 +108,15 @@ class AcuityMainViewModel: NSObject {
         dictEndocrine.image = AcuityImages.kEndocrine
         dictEndocrine.metricCardio = metricEndocrine
         
+        //Gastrointestinal
+        let metricGastrointestinal = GastrointestinalManager.sharedManager.gastrointestinalData.dictionaryRepresentation()
         let dictGastrointestinal =   AcuityDisplayModel()
         dictGastrointestinal.id = "45"
         dictGastrointestinal.name = SystemName.Gastrointestinal
-        dictGastrointestinal.score = "84"
+        dictGastrointestinal.score = String(format: "%.2f", (GastrointestinalManager.sharedManager.gastrointestinalData.gastrointestinalSystemScore))
         //dictGastrointestinal.index = "38"
         dictGastrointestinal.image = AcuityImages.kGastrointestinal
-        dictGastrointestinal.metricCardio = metricTemp
+        dictGastrointestinal.metricCardio = metricGastrointestinal
         
         let dictGenitourinary =   AcuityDisplayModel()
         dictGenitourinary.id = "32"

@@ -216,12 +216,15 @@ class HKManagerReadVitals: NSObject {
                                                         
                                                         //Save data for FNE...
                                                         FNEManager.sharedManager.saveQuantityInArray(quantityType: identifier, element: element)
-                                                    
+                                                        
                                                         //Save data for Hemato...
                                                         HematoManager.sharedManager.saveQuantityInArray(quantityType: identifier, element: element)
                                                         
                                                         //Save data for Endocrine...
                                                         EndocrineManager.sharedManager.saveQuantityInArray(quantityType: identifier, element: element)
+                                                        
+                                                        //Save data for Gastrointestinal...
+                                                        GastrointestinalManager.sharedManager.saveQuantityInArray(quantityType: identifier, element: element)
                                                     } catch {
                                                         //print(error)
                                                     }
