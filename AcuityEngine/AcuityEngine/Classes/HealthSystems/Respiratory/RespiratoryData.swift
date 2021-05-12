@@ -19,8 +19,8 @@ class RespiratoryData {
             getWeightedSystemScore()
         }
     }
-    var respiratoryRelativeImportance:Double = 100
-    var maxScore:Double = 100
+    var respiratoryRelativeImportance:Double = SystemRelativeImportance.Respiratory
+    var maxScore:Double = SystemRelativeImportance.Respiratory
     
     
     func getWeightedSystemScore()->Double{

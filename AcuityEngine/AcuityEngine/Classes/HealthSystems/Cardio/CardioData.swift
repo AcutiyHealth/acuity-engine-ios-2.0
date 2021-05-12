@@ -21,8 +21,8 @@ class CardioData:SystemDataProtocol {
     }
     
     var weightedSystemScore:Double  = 0
-    var cardioRelativeImportance:Double = 100
-    var maxScore:Double = 100
+    var cardioRelativeImportance:Double = SystemRelativeImportance.Cardiovascular
+    var maxScore:Double = SystemRelativeImportance.Cardiovascular
     
     func getWeightedSystemScore()->Double{
         let score = totalSystemScoreWithDays(days: SegmentValueForGraph.OneDay)

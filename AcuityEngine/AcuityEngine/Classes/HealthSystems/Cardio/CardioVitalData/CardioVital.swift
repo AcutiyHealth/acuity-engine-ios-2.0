@@ -174,7 +174,7 @@ class CardioVital:VitalProtocol {
     }
     
     
-    //Get list of data for specific Vital..
+    //Get list of data for specific Vital in detail screen..
     func getArrayDataForVitals(days:SegmentValueForGraph,title:String) -> [VitalsModel]{
         var arrVital:[VitalsModel] = []
         let vitalsName = VitalsName(rawValue: title)

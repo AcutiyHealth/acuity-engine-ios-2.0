@@ -76,9 +76,9 @@ extension ConditionsListViewController:UITableViewDelegate,UITableViewDataSource
         let conditionData = conditionArray[tag]
         conditionData.isOn = onOffSwitch.isOn
         conditionData.value = onOffSwitch.isOn ? ConditionValue.Yes : ConditionValue.No
-//        if let row = self.conditionArray.firstIndex(where: {$0.id == tag}) {
-//            conditionArray[row] = conditionData
-//        }
+        //        if let row = self.conditionArray.firstIndex(where: {$0.id == tag}) {
+        //            conditionArray[row] = conditionData
+        //        }
         DBManager.shared.updateCondition(withID: conditionData.id, isSelected: onOffSwitch.isOn)
     }
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {

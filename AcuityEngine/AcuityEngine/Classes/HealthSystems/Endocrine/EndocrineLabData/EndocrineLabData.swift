@@ -38,55 +38,60 @@ struct EndocrineLabRelativeImportance {
     static let bloodGlucose:Double = 50
 }
 class EndocrineLabData:LabCalculation {
-    
-    init(type:LabType) {
-        super.init()
-        super.metricType = type
-        super.systemName = SystemName.Endocrine
-        switch type {
-        //hemoglobinA1C
-        case .hemoglobinA1C:
-            self.relativeValue = EndocrineLabRelativeImportance.hemoglobinA1C
-        //TSH
-        case .TSH:
-            self.relativeValue = EndocrineLabRelativeImportance.TSH
-        //microalbuminCreatinineRatio
-        case .microalbuminCreatinineRatio:
-            self.relativeValue = EndocrineLabRelativeImportance.microalbuminCreatinineRatio
-        //sodium
-        case .sodium:
-            self.relativeValue = EndocrineLabRelativeImportance.sodium
-        //potassiumLevel
-        case .potassiumLevel:
-            self.relativeValue = EndocrineLabRelativeImportance.potassiumLevel
-        //BUN
-        case .BUN:
-            self.relativeValue = EndocrineLabRelativeImportance.BUN
-        //creatinine
-        case .creatinine:
-            self.relativeValue = EndocrineLabRelativeImportance.creatinine
-        //chloride
-        case .chloride:
-            self.relativeValue = EndocrineLabRelativeImportance.chloride
-        //calcium
-        case .calcium:
-            self.relativeValue = EndocrineLabRelativeImportance.calcium
-        //albumin
-        case .albumin:
-            self.relativeValue = EndocrineLabRelativeImportance.albumin
-        //anionGap
-        case .anionGap:
-            self.relativeValue = EndocrineLabRelativeImportance.anionGap
-        //bloodGlucose
-        case .bloodGlucose:
-            self.relativeValue = EndocrineLabRelativeImportance.bloodGlucose
+    var type:LabType = .sodium{
+        didSet{
             
-        default:
-            break
+            super.metricType = type
+            switch type {
+            //hemoglobinA1C
+            case .hemoglobinA1C:
+                self.relativeValue = EndocrineLabRelativeImportance.hemoglobinA1C
+            //TSH
+            case .TSH:
+                self.relativeValue = EndocrineLabRelativeImportance.TSH
+            //microalbuminCreatinineRatio
+            case .microalbuminCreatinineRatio:
+                self.relativeValue = EndocrineLabRelativeImportance.microalbuminCreatinineRatio
+            //sodium
+            case .sodium:
+                self.relativeValue = EndocrineLabRelativeImportance.sodium
+            //potassiumLevel
+            case .potassiumLevel:
+                self.relativeValue = EndocrineLabRelativeImportance.potassiumLevel
+            //BUN
+            case .BUN:
+                self.relativeValue = EndocrineLabRelativeImportance.BUN
+            //creatinine
+            case .creatinine:
+                self.relativeValue = EndocrineLabRelativeImportance.creatinine
+            //chloride
+            case .chloride:
+                self.relativeValue = EndocrineLabRelativeImportance.chloride
+            //calcium
+            case .calcium:
+                self.relativeValue = EndocrineLabRelativeImportance.calcium
+            //albumin
+            case .albumin:
+                self.relativeValue = EndocrineLabRelativeImportance.albumin
+            //anionGap
+            case .anionGap:
+                self.relativeValue = EndocrineLabRelativeImportance.anionGap
+            //bloodGlucose
+            case .bloodGlucose:
+                self.relativeValue = EndocrineLabRelativeImportance.bloodGlucose
+                
+            default:
+                break
+            }
+            
+            
         }
-        
-        
     }
+    override init() {
+        super.init()
+        super.systemName = SystemName.Endocrine
+    }
+    
     
 }
 

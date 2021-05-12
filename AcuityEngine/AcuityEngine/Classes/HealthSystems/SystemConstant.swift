@@ -14,6 +14,23 @@ enum SymptomsSleepChangeValue:Double {
     case Not_Present = 0
 }
 
+struct SystemRelativeImportance {
+    static let Cardiovascular = 100.00
+    static let Respiratory = 100.00
+    static let Renal = 100.00
+    static let InfectiousDisease = 100.00
+    static let Fluids = 100.00
+    static let Hematology = 70.00
+    static let Endocrine = 70.00
+    static let Gastrointestinal = 70.00
+    static let Genitourinary = 70.00
+    static let Nuerological = 40.00
+    static let SocialDeterminantsofHealth = 40.00
+    static let Musculatory = 40.00
+    static let Integumentary = 40.00
+    static let Heent = 40.00
+
+}
 enum CardioVitalsType:String {
     case heartRate = "heartRate"
     case systolicBP = "systolicBP"
@@ -142,4 +159,5 @@ enum LabCodeConstant:String{
     case urineBlood  = "5794-3"
     case urineKetone  = ""
     case WBC = "6690-0"
+
 }

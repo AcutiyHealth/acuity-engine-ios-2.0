@@ -149,5 +149,60 @@ class IDiseaseManager: NSObject {
             break
         }
     }
+    
+    //MARK: Save Lab Data
+    func saveLabData(code:String,value:Double,timeStamp:Double){
+        let labCodeConstant = LabCodeConstant(rawValue: code)
+        
+        //Create Lab Model Object
+        let labData = IDiseaseLabData()
+        labData.value = value
+        labData.startTimeStamp = timeStamp
+        
+        switch labCodeConstant {
+        
+        //WBC
+        case .WBC:
+            do{
+                labData.type = .WBC
+                IDiseaseManager.sharedManager.iDiseaseData.iDiseaseLab.WBCData.append(labData)
+            }
+        //neutrophil
+        case .neutrophil:
+            do{
+                labData.type = .neutrophil
+                IDiseaseManager.sharedManager.iDiseaseData.iDiseaseLab.neutrophilData.append(labData)
+            }
+        //bloodGlucose
+        case .bloodGlucose:
+            do{
+                labData.type = .bloodGlucose
+                IDiseaseManager.sharedManager.iDiseaseData.iDiseaseLab.bloodGlucoseData.append(labData)
+            }
+        //urineNitrites
+        case .urineNitrites:
+            do{
+                labData.type = .urineNitrites
+                IDiseaseManager.sharedManager.iDiseaseData.iDiseaseLab.urineNitrites.append(labData)
+            }
+        //urineBlood
+        case .urineBlood:
+            do{
+                labData.type = .urineBlood
+                IDiseaseManager.sharedManager.iDiseaseData.iDiseaseLab.urineBlood.append(labData)
+            }
+        //anionGap
+        case .anionGap:
+            do{
+                labData.type = .anionGap
+                IDiseaseManager.sharedManager.iDiseaseData.iDiseaseLab.anionGapData.append(labData)
+            }
+       
+        default:
+            break
+        }
+    }
 }
+
+
 

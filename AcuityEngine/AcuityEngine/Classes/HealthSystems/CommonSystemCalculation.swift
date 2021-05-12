@@ -53,7 +53,7 @@ func commonAbnormalFractionWithDays(arrayDayWiseTotalScore:[Double],maxTotalScor
 //Metrix total score
 func commonTotalMetrixScoreWithDays(totalScoreCondition:[Double],totalScoreSymptom:[Double],totalScoreVitals:[Double],totalScoreLab:[Double]) -> [Double]{
     var arrayDayWiseTotalScore:[Double] = []
-    
+    //compare that all totalScore array have same number of entries...
     if totalScoreVitals.count == totalScoreSymptom.count,totalScoreCondition.count == totalScoreLab.count && totalScoreVitals.count>0,totalScoreCondition.count>0{
         print("commonTotalMetrixScoreWithDays totalScoreSymptom",totalScoreSymptom)
         print("commonTotalMetrixScoreWithDays totalScoreVitals",totalScoreVitals)
@@ -76,13 +76,28 @@ func getVitalModel(item:VitalCalculation)->VitalsModel{
     impData.color = item.getUIColorFromCalculatedValue()
     return impData
 }
+//MARK: Create or Get Lab Models..
+func getLabModel(item:LabCalculation)->LabModel{
+    let impData =  LabModel(title: item.metricType.rawValue, value: String(format: "%.2f", item.value))
+    impData.color = item.getUIColorFromCalculatedValue()
+    return impData
+}
 //MARK: Create or Get Conditions Models..
 func getConditionsModel(condition:ConditionCalculation)->ConditionsModel{
     let conditionValue = condition.calculatedValue < 0 ? 0 : condition.calculatedValue
     return ConditionsModel(title: condition.type.rawValue, value: ConditionValue(rawValue: conditionValue)!)
 }
+//MARK: saveVitalsInArray
 func saveVitalsInArray(item:VitalCalculation)->VitalsModel{
     let impData =  VitalsModel(title: item.title.rawValue, value: String(format: "%.2f", item.value))
+    impData.startTime = item.startTimeStamp
+    impData.color = item.getUIColorFromCalculatedValue()
+    return impData
+}
+
+//MARK: saveLabsInArray
+func saveLabsInArray(item:LabCalculation)->LabModel{
+    let impData =  LabModel(title: item.metricType.rawValue, value: String(format: "%.2f", item.value))
     impData.startTime = item.startTimeStamp
     impData.color = item.getUIColorFromCalculatedValue()
     return impData

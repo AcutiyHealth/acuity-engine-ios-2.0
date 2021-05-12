@@ -19,8 +19,8 @@ class EndocrineData {
             getWeightedSystemScore()
         }
     }
-    var endocrineRelativeImportance:Double = 70
-    var maxScore:Double = 70
+    var endocrineRelativeImportance:Double = SystemRelativeImportance.Endocrine
+    var maxScore:Double = SystemRelativeImportance.Endocrine
     
     
     func getWeightedSystemScore()->Double{
