@@ -33,8 +33,6 @@ struct EndocrineSymptomsRelativeImportance {
 
 class EndocrineSymptomsPainData:SymptomCalculation {
     
-    var title:String = ""
-    
     init(type:CategoryType) {
         super.init()
         super.symptomsType = type
@@ -42,41 +40,41 @@ class EndocrineSymptomsPainData:SymptomCalculation {
         switch type {
         //dizziness
         case .dizziness:
-            self.title = SymptomsName.dizziness.rawValue
+            super.title = SymptomsName.dizziness.rawValue
             self.relativeValue = EndocrineSymptomsRelativeImportance.dizziness
         //fatigue
         case .fatigue:
-            self.title = SymptomsName.fatigue.rawValue
+            super.title = SymptomsName.fatigue.rawValue
             self.relativeValue = EndocrineSymptomsRelativeImportance.fatigue
         //rapidPoundingOrFlutteringHeartbeat
         case .rapidPoundingOrFlutteringHeartbeat:
-            self.title = SymptomsName.rapidHeartbeat.rawValue
+            super.title = SymptomsName.rapidHeartbeat.rawValue
             self.relativeValue = EndocrineSymptomsRelativeImportance.rapidPoundingOrFlutteringHeartbeat
             
         //hotFlashes
         case .hotFlashes:
-            self.title = SymptomsName.hotFlashes.rawValue
+            super.title = SymptomsName.hotFlashes.rawValue
             self.relativeValue = EndocrineSymptomsRelativeImportance.hotFlashes
         //fainting
         case .fainting:
-            self.title = SymptomsName.fainting.rawValue
+            super.title = SymptomsName.fainting.rawValue
             self.relativeValue = EndocrineSymptomsRelativeImportance.fainting
         //hairLoss
         case .hairLoss:
-            self.title = SymptomsName.hairLoss.rawValue
+            super.title = SymptomsName.hairLoss.rawValue
             self.relativeValue = EndocrineSymptomsRelativeImportance.hairLoss
 
         //nausea
         case .nausea:
-            self.title = SymptomsName.nausea.rawValue
+            super.title = SymptomsName.nausea.rawValue
             self.relativeValue = EndocrineSymptomsRelativeImportance.nausea
         //vomiting
         case .vomiting:
-            self.title = SymptomsName.vomiting.rawValue
+            super.title = SymptomsName.vomiting.rawValue
             self.relativeValue = EndocrineSymptomsRelativeImportance.vomiting
         //drySkin
         case .drySkin:
-            self.title = SymptomsName.drySkin.rawValue
+            super.title = SymptomsName.drySkin.rawValue
             self.relativeValue = EndocrineSymptomsRelativeImportance.drySkin
 
         default:

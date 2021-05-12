@@ -178,5 +178,50 @@ class RespiratoryManager: NSObject {
         }
         
     }
+    //MARK: Save Lab Data
+    func saveLabData(code:String,value:Double,timeStamp:Double){
+        let labCodeConstant = LabCodeConstant(rawValue: code)
+        
+        //Create Lab Model Object
+        let labData = RespiratoryLabData()
+        labData.value = value
+        labData.startTimeStamp = timeStamp
+        
+        switch labCodeConstant {
+        //sodium
+        case .sodium:
+            do{
+                labData.type = .sodium
+                RespiratoryManager.sharedManager.respiratoryData.respiratoryLab.sodiumData.append(labData)
+            }
+        //chloride
+        case .chloride:
+            do{
+                labData.type = .chloride
+                RespiratoryManager.sharedManager.respiratoryData.respiratoryLab.chlorideData.append(labData)
+            }
+        //carbonDioxide
+        case .carbonDioxide:
+            do{
+                labData.type = .carbonDioxide
+                RespiratoryManager.sharedManager.respiratoryData.respiratoryLab.carbonDioxideData.append(labData)
+            }
+        //WBC
+        case .WBC:
+            do{
+                labData.type = .WBC
+                RespiratoryManager.sharedManager.respiratoryData.respiratoryLab.WBCData.append(labData)
+            }
+        //neutrophil
+        case .neutrophil:
+            do{
+                labData.type = .neutrophil
+                RespiratoryManager.sharedManager.respiratoryData.respiratoryLab.neutrophilData.append(labData)
+            }
+            
+        default:
+            break
+        }
+    }
 }
 

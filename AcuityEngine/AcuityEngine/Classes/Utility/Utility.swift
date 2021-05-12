@@ -182,6 +182,7 @@ func getScoreForConditions(array:[Metrix],days:SegmentValueForGraph)->[Double]{
     
     return averageScoreArray
 }
+//MARK: getScoreForVitalData
 func getScoreForVitalDataWithGivenDateRange(sampleItem:[Metrix],timeIntervalByLastMonth:Double,timeIntervalByNow:Double)->Double{
     var filteredArray:[Metrix] = []
     
@@ -192,7 +193,18 @@ func getScoreForVitalDataWithGivenDateRange(sampleItem:[Metrix],timeIntervalByLa
     let averageScore = (Double(filteredArray.average(\.score)).isNaN ? 0 :  Double(filteredArray.average(\.score)))
     return averageScore
 }
-
+//MARK: getScoreForLabData
+func getScoreForLabDataWithGivenDateRange(sampleItem:[Metrix],timeIntervalByLastMonth:Double,timeIntervalByNow:Double)->Double{
+    var filteredArray:[Metrix] = []
+    
+    filteredArray = sampleItem.filter { item in
+        filterConditionForOtherMetrix(sampleItem: item, timeIntervalByLastMonth: timeIntervalByLastMonth, timeIntervalByNow: timeIntervalByNow)
+    }
+    
+    let averageScore = (Double(filteredArray.average(\.score)).isNaN ? 0 :  Double(filteredArray.average(\.score)))
+    return averageScore
+}
+//MARK: getScoreForSymptomsData
 func getScoreForSymptomsDataWithGivenDateRange(sampleItem:[Metrix],timeIntervalByLastMonth:Double,timeIntervalByNow:Double)->Double{
     var filteredArray:[Metrix] = []
     

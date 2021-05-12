@@ -9,7 +9,10 @@ import Foundation
 import HealthKitReporter
 
 class LabCalculation:Metrix {
-    
+    override init() {
+        super.init()
+  
+    }
     var metricType: LabType = .potassiumLevel // calculate based on symtomps type
     var systemName:SystemName = SystemName.Cardiovascular
     override var value:Double{
@@ -490,5 +493,24 @@ class LabCalculation:Metrix {
         else {
             return HeartRateValue.Green
         }
+    }
+    
+    //MARK:--------------------------------------------------
+    //MARK: getUIColorFromCalculatedValue
+    //Get UIColor from Calculated Value
+    func getUIColorFromCalculatedValue() -> UIColor {
+        
+        // if(H30="","",if(H30<30,1*G30,if(and(H30>=30,H30<=40),0.5*G30,0)))
+        switch calculatedValue {
+        case HeartRateValue.Green.rawValue:
+            return ChartColor.GREENCOLOR
+        case HeartRateValue.Red.rawValue:
+            return ChartColor.REDCOLOR
+        case HeartRateValue.Yellow.rawValue:
+            return ChartColor.YELLOWCOLOR
+        default:
+            break
+        }
+        return ChartColor.GREENCOLOR
     }
 }

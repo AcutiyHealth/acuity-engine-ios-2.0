@@ -20,33 +20,37 @@ struct CardioLabRelativeImportance {
     static let hemoglobin:Double = 30
 }
 class CardioLabData:LabCalculation {
-   
-    init(type:LabType) {
-        super.init()
-        super.metricType = type
-        super.systemName = SystemName.Cardiovascular
-        switch type {
-        case .potassiumLevel:
-            self.relativeValue = CardioLabRelativeImportance.potassiumLevel
-        case .sodium:
-            self.relativeValue = CardioLabRelativeImportance.sodium
-        case .chloride:
-            self.relativeValue = CardioLabRelativeImportance.chloride
-        case .albumin:
-            self.relativeValue = CardioLabRelativeImportance.albumin
-        case .microalbuminCreatinineRatio:
-            self.relativeValue = CardioLabRelativeImportance.microalbumin
-        case .bPeptide:
-            self.relativeValue = CardioLabRelativeImportance.bPeptide
-        case .hemoglobin:
-            self.relativeValue = CardioLabRelativeImportance.hemoglobin
-        default:
-            break
-        
+    
+    var type:LabType = .sodium{
+        didSet{
+            
+            super.metricType = type
+            switch type {
+            case .potassiumLevel:
+                self.relativeValue = CardioLabRelativeImportance.potassiumLevel
+            case .sodium:
+                self.relativeValue = CardioLabRelativeImportance.sodium
+            case .chloride:
+                self.relativeValue = CardioLabRelativeImportance.chloride
+            case .albumin:
+                self.relativeValue = CardioLabRelativeImportance.albumin
+            case .microalbuminCreatinineRatio:
+                self.relativeValue = CardioLabRelativeImportance.microalbumin
+            case .bPeptide:
+                self.relativeValue = CardioLabRelativeImportance.bPeptide
+            case .hemoglobin:
+                self.relativeValue = CardioLabRelativeImportance.hemoglobin
+            default:
+                break
+                
+            }
+            
+            
         }
-       
-        
     }
-        
+    override init() {
+        super.init()
+        super.systemName = SystemName.Cardiovascular
+    }
 }
 

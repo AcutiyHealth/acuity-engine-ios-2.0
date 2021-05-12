@@ -19,8 +19,8 @@ class IDiseaseData {
             getWeightedSystemScore()
         }
     }
-    var iDiseaseRelativeImportance:Double = 100
-    var maxScore:Double = 100
+    var iDiseaseRelativeImportance:Double = SystemRelativeImportance.InfectiousDisease
+    var maxScore:Double = SystemRelativeImportance.InfectiousDisease
     
     
     func getWeightedSystemScore()->Double{

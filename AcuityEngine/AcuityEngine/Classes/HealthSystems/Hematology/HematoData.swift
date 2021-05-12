@@ -19,8 +19,8 @@ class HematoData {
             getWeightedSystemScore()
         }
     }
-    var hematoRelativeImportance:Double = 70
-    var maxScore:Double = 70
+    var hematoRelativeImportance:Double = SystemRelativeImportance.Hematology
+    var maxScore:Double = SystemRelativeImportance.Hematology
     
     
     func getWeightedSystemScore()->Double{

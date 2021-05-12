@@ -19,8 +19,8 @@ class RenalData {
             getWeightedSystemScore()
         }
     }
-    var renalRelativeImportance:Double = 100
-    var maxScore:Double = 100
+    var renalRelativeImportance:Double = SystemRelativeImportance.Renal
+    var maxScore:Double = SystemRelativeImportance.Renal
     
     
     func getWeightedSystemScore()->Double{

@@ -42,16 +42,60 @@ class HKManagerReadLab: NSObject
                         
                         print(unescapeJSONString(sourceString))
                         if let dictionary = sourceObject as? [String: AnyObject] {
+                            //Fetch Value of Lab Data
                             let valueQuantity = dictionary["valueQuantity"] as? [String: AnyObject]
+                            
+                            //Timestamp for Lab Data
+                            let issueDate = dictionary["issued"] as? String
+                            let timeStampOfLabData = issueDate?.iso8601withFractionalSeconds!.timeIntervalSince1970 ?? 0
+                            
+                            //Code for Lab Data
                             let dictionaryCode = dictionary["code"] as? [String: AnyObject]
                             let dictionaryCoding = dictionaryCode?["coding"]?.firstObject as? [String: AnyObject]
-                            if let value = (valueQuantity?["value"] as? Double)  ,let code = (dictionaryCoding?["code"] as? String)  {
-                             
-                                if code == "2085-9"{
-                                    // access individual value in dictionary
-                                    print("\(code)----->\(value)")
-                                }
+                            
+                            /*
+                             Logic : We will fetch  all data and before preparing model for system, first we check is it in 3 months data from Today? If yes, we prepare model from it and store it in system...
+                             */
+                            let now = MyWellScore.sharedManager.todaysDate
+                            var component = Calendar.Component.day
+                            var beforeDaysOrWeekOrMonth = 1
+                            
+                            
+                            component = .month
+                            beforeDaysOrWeekOrMonth = 3
+                            let daysAgo = Calendar.current.date(byAdding: component, value: -beforeDaysOrWeekOrMonth, to: now)!
+                            
+                            let timeIntervalByLastMonth:Double = daysAgo.timeIntervalSince1970
+                            //print("timeIntervalByLastMonth",getDateMediumFormat(time:timeIntervalByLastMonth))
+                            let timeIntervalByNow:Double = now.timeIntervalSince1970
+                            
+                            //Below code need to uncomment....
+                            if (timeStampOfLabData >= timeIntervalByLastMonth && timeStampOfLabData <= timeIntervalByNow){
                                 
+                                //Pass value,code and timestamp to manager of all system...
+                                if let value = (valueQuantity?["value"] as? Double)  ,var code = (dictionaryCoding?["code"] as? String)  {
+                                    //code = "2951-2" // Comment this
+                                    if code == "2823-3"{ //Uncoment this....
+                                        // access individual value in dictionary
+                                        //Save Data For Cardio..
+                                        CardioManager.sharedManager.saveLabData(code: code, value: value, timeStamp: Double(timeStampOfLabData))
+                                        //Save Data For Respiratory..
+                                        RespiratoryManager.sharedManager.saveLabData(code: code, value: value, timeStamp: Double(timeStampOfLabData))
+                                        //Save Data For Renal..
+                                        RenalManager.sharedManager.saveLabData(code: code, value: value, timeStamp: Double(timeStampOfLabData))
+                                        //Save Data For IDiseaseManager..
+                                        IDiseaseManager.sharedManager.saveLabData(code: code, value: value, timeStamp: Double(timeStampOfLabData))
+                                        //Save Data For FNE..
+                                        FNEManager.sharedManager.saveLabData(code: code, value: value, timeStamp: Double(timeStampOfLabData))
+                                        //Save Data For Hemato..
+                                        HematoManager.sharedManager.saveLabData(code: code, value: value, timeStamp: Double(timeStampOfLabData))
+                                        //Save Data For Endocrine..
+                                        EndocrineManager.sharedManager.saveLabData(code: code, value: value, timeStamp: Double(timeStampOfLabData))
+                                        //Save Data For Gastrointestinal..
+                                        GastrointestinalManager.sharedManager.saveLabData(code: code, value: value, timeStamp: Double(timeStampOfLabData))
+                                    }
+                                    
+                                }
                             }
                         }
                         
@@ -59,7 +103,7 @@ class HKManagerReadLab: NSObject
                         dispatchGroup.leave()
                         completion(false, HealthkitSetupError.dataParsingError)
                     }
-                  
+                    
                 }
                 dispatchGroup.leave()
                 dispatchGroup.notify(queue: .main) {
@@ -68,7 +112,7 @@ class HKManagerReadLab: NSObject
                         completion(success, nil)
                     }
                 }
-              
+                
             }else{
                 dispatchGroup.leave()
                 completion(success, error)

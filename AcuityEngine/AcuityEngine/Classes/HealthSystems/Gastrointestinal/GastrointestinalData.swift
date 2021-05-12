@@ -19,8 +19,8 @@ class GastrointestinalData {
             getWeightedSystemScore()
         }
     }
-    var gastrointestinalRelativeImportance:Double = 70
-    var maxScore:Double = 70
+    var gastrointestinalRelativeImportance:Double = SystemRelativeImportance.Gastrointestinal
+    var maxScore:Double = SystemRelativeImportance.Gastrointestinal
     
     
     func getWeightedSystemScore()->Double{

@@ -204,6 +204,54 @@ class CardioManager: NSObject {
     }
     
     //MARK: Save Lab Data
+    func saveLabData(code:String,value:Double,timeStamp:Double){
+        let labCodeConstant = LabCodeConstant(rawValue: code)
+        
+        //Create Lab Model Object
+        let labData = CardioLabData()
+        labData.value = value
+        labData.startTimeStamp = timeStamp
+        
+        switch labCodeConstant {
+        case .potassiumLevel:
+            do{
+                labData.type = .potassiumLevel
+                CardioManager.sharedManager.cardioData.cardioLab.potassiumLevelData.append(labData)
+            }
+        case .sodium:
+            do{
+                labData.type = .sodium
+                CardioManager.sharedManager.cardioData.cardioLab.sodiumData.append(labData)
+            }
+        case .chloride:
+            do{
+                labData.type = .chloride
+                CardioManager.sharedManager.cardioData.cardioLab.chlorideData.append(labData)
+            }
+        case .albumin:
+            do{
+                labData.type = .albumin
+                CardioManager.sharedManager.cardioData.cardioLab.albuminData.append(labData)
+            }
+        case .microalbuminCreatinineRatio:
+            do{
+                labData.type = .microalbuminCreatinineRatio
+                CardioManager.sharedManager.cardioData.cardioLab.microalbuminData.append(labData)
+            }
+        case .bPeptide:
+            do{
+                labData.type = .bPeptide
+                CardioManager.sharedManager.cardioData.cardioLab.bPeptideData.append(labData)
+            }
+        case .hemoglobin:
+            do{
+                labData.type = .hemoglobin
+                CardioManager.sharedManager.cardioData.cardioLab.hemoglobinData.append(labData)
+            }
+        default:
+            break
+        }
+    }
 }
 
 

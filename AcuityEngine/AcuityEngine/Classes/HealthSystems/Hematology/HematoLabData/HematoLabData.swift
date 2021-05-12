@@ -31,41 +31,46 @@ struct HematoLabRelativeImportance {
 }
 class HematoLabData:LabCalculation {
     
-    init(type:LabType) {
-        super.init()
-        super.metricType = type
-        super.systemName = SystemName.Hematology
-        switch type {
-        //hemoglobin
-        case .hemoglobin:
-            self.relativeValue = HematoLabRelativeImportance.hemoglobin
-        //platelets
-        case .platelets:
-            self.relativeValue = HematoLabRelativeImportance.platelets
-        //WBC
-        case .WBC:
-            self.relativeValue = HematoLabRelativeImportance.WBC
-        //neutrophil
-        case .neutrophil:
-            self.relativeValue = HematoLabRelativeImportance.neutrophil
-        //MCV
-        case .MCV:
-            self.relativeValue = HematoLabRelativeImportance.MCV
-        //alkalinePhosphatase
-        case .alkalinePhosphatase:
-            self.relativeValue = HematoLabRelativeImportance.alkalinePhosphatase
-        //anionGap
-        case .anionGap:
-            self.relativeValue = HematoLabRelativeImportance.anionGap
-        //b12Level
-        case .b12Level:
-            self.relativeValue = HematoLabRelativeImportance.b12Level
+    var type:LabType = .sodium{
+        didSet{
             
-        default:
-            break
+            super.metricType = type
+            switch type {
+            //hemoglobin
+            case .hemoglobin:
+                self.relativeValue = HematoLabRelativeImportance.hemoglobin
+            //platelets
+            case .platelets:
+                self.relativeValue = HematoLabRelativeImportance.platelets
+            //WBC
+            case .WBC:
+                self.relativeValue = HematoLabRelativeImportance.WBC
+            //neutrophil
+            case .neutrophil:
+                self.relativeValue = HematoLabRelativeImportance.neutrophil
+            //MCV
+            case .MCV:
+                self.relativeValue = HematoLabRelativeImportance.MCV
+            //alkalinePhosphatase
+            case .alkalinePhosphatase:
+                self.relativeValue = HematoLabRelativeImportance.alkalinePhosphatase
+            //anionGap
+            case .anionGap:
+                self.relativeValue = HematoLabRelativeImportance.anionGap
+            //b12Level
+            case .b12Level:
+                self.relativeValue = HematoLabRelativeImportance.b12Level
+                
+            default:
+                break
+            }
+            
+            
         }
-        
-        
+    }
+    override init() {
+        super.init()
+        super.systemName = SystemName.Hematology
     }
     
 }

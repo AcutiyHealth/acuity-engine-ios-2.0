@@ -155,5 +155,73 @@ class GastrointestinalManager: NSObject {
             break
         }
     }
+    //MARK: Save Lab Data
+    func saveLabData(code:String,value:Double,timeStamp:Double){
+        let labCodeConstant = LabCodeConstant(rawValue: code)
+        
+        //Create Lab Model Object
+        let labData = GastrointestinalLabData()
+        labData.value = value
+        labData.startTimeStamp = timeStamp
+        
+        switch labCodeConstant {
+        
+        //bloodGlucose
+        case .bloodGlucose:
+            do{
+                labData.type = .bloodGlucose
+                GastrointestinalManager.sharedManager.gastrointestinalData.gastrointestinalLab.bloodGlucoseData.append(labData)
+            }
+        //sodium
+        case .sodium:
+            do{
+                labData.type = .sodium
+                GastrointestinalManager.sharedManager.gastrointestinalData.gastrointestinalLab.sodiumData.append(labData)
+            }
+        //potassiumLevel
+        case .potassiumLevel:
+            do{
+                labData.type = .potassiumLevel
+                GastrointestinalManager.sharedManager.gastrointestinalData.gastrointestinalLab.potassiumLevelData.append(labData)
+            }
+        //chloride
+        case .chloride:
+            do{
+                labData.type = .chloride
+                GastrointestinalManager.sharedManager.gastrointestinalData.gastrointestinalLab.chlorideData.append(labData)
+            }
+        //BUN
+        case .BUN:
+            do{
+                labData.type = .BUN
+                GastrointestinalManager.sharedManager.gastrointestinalData.gastrointestinalLab.BUNData.append(labData)
+            }
+        //creatinine
+        case .creatinine:
+            do{
+                labData.type = .creatinine
+                GastrointestinalManager.sharedManager.gastrointestinalData.gastrointestinalLab.creatinineData.append(labData)
+            }
+        //albumin
+        case .albumin:
+            do{
+                labData.type = .albumin
+                GastrointestinalManager.sharedManager.gastrointestinalData.gastrointestinalLab.albuminData.append(labData)
+            }
+        //AST
+        case .AST:
+            do{
+                labData.type = .AST
+                GastrointestinalManager.sharedManager.gastrointestinalData.gastrointestinalLab.ASTData.append(labData)
+            }
+        //ALT
+        case .ALT:
+            do{
+                labData.type = .ALT
+                GastrointestinalManager.sharedManager.gastrointestinalData.gastrointestinalLab.ALTData.append(labData)
+            }
+        default: break
+        }
+    }
+    
 }
-
