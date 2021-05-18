@@ -13,7 +13,8 @@ class GastrointestinalVital:VitalProtocol {
     
     var totalScore:[Double] = []
     var arrayDayWiseScoreTotal:[Double] = []
-    
+    //For Dictionary Representation
+    private var arrVital:[VitalsModel] = []
     
     func totalVitalsScore() -> Double {
         let bodyMassIndex = (Double(bodyMassIndexData.average(\.score)) .isNaN ? 0 : Double(bodyMassIndexData.average(\.score)))
@@ -63,21 +64,28 @@ class GastrointestinalVital:VitalProtocol {
     //MARK: To display data in Pull up...
     func dictionaryRepresentation()->[VitalsModel]{
         
-        var arrVital:[VitalsModel] = []
-        //bodyMassIndex
-        if bodyMassIndexData.count > 0{
-            let systolicBloodPressure = bodyMassIndexData[0]
-            arrVital.append(getVitalModel(item: systolicBloodPressure))
-        }
+        arrVital = []
+        let days = MyWellScore.sharedManager.daysToCalculateSystemScore
+        //bodyMassIndexData
+        filterVitalArrayToGetSingleDataWithSelectedSegmentInGraph(days: days, array: bodyMassIndexData)
         
         return arrVital
     }
-    
-    func getVitalModel(item:GastrointestinalVitalsData)->VitalsModel{
-        let impData =  VitalsModel(title: item.title.rawValue, value: String(format: "%.2f", item.value))
-        impData.color = item.getUIColorFromCalculatedValue()
-        return impData
+    func filterVitalArrayToGetSingleDataWithSelectedSegmentInGraph(days:SegmentValueForGraph,array:[VitalCalculation]){
+        var filteredArray:[VitalCalculation] = []
+        filteredArray = filterVitalArrayWithSelectedSegmentInGraph(days: days, array: array)
+        saveFilterDataInArrayVitals(filteredArray: filteredArray)
+        //return filteredArray
     }
+    
+    func saveFilterDataInArrayVitals(filteredArray:[VitalCalculation]){
+        if filteredArray.count > 0{
+            let vital = filteredArray[0]
+            arrVital.append(getVitalModel(item: vital))
+        }
+    }
+    
+    //MARK:- For DetailValue  Screen...
     
     //Get list of data for specific Vital..
     func getArrayDataForVitals(days:SegmentValueForGraph,title:String) -> [VitalsModel]{
@@ -88,7 +96,7 @@ class GastrointestinalVital:VitalProtocol {
         switch vitalsName {
         //BMI
         case .BMI:
-            filterArray = filterArrayWithSelectedSegmentInGraph(days: days, array: bodyMassIndexData)
+            filterArray = filterVitalArrayWithSelectedSegmentInGraph(days: days, array: bodyMassIndexData)
             
         default:
             break

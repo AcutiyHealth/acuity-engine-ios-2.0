@@ -32,6 +32,8 @@ class EndocrineSymptoms:SymptomsProtocol {
     var drySkinData:[EndocrineSymptomsPainData] = []
     
     var arrayDayWiseScoreTotal:[Double] = []
+    //For Dictionary Representation
+    var arrSymptoms:[SymptomsModel] = []
     
     func totalSymptomDataScore() -> Double {
         return 0
@@ -112,62 +114,54 @@ class EndocrineSymptoms:SymptomsProtocol {
     //MARK: To display data in Pull up...
     func dictionaryRepresentation()->[SymptomsModel]{
         
-        var arrSymptoms:[SymptomsModel] = []
+        arrSymptoms = []
         
+        let days = MyWellScore.sharedManager.daysToCalculateSystemScore
         //dizziness
-        if dizzinessData.count > 0{
-            let symptom = dizzinessData[0]
-            arrSymptoms.append(getSymptomsModel(symptom: symptom))
-        }
-        //fatigue
-        if fatigueData.count > 0{
-            let symptom = fatigueData[0]
-            arrSymptoms.append(getSymptomsModel(symptom: symptom))
-        }
-        //rapidHeartBeat
-        if rapidHeartBeatData.count > 0{
-            let symptom = rapidHeartBeatData[0]
-            arrSymptoms.append(getSymptomsModel(symptom: symptom))
-        }
+        filterSymptomsArrayToGetSingleDataWithSelectedSegmentInGraph(days: days, array: dizzinessData)
         
-        //hotFlashes
-        if hotFlashesData.count > 0{
-            let symptom = hotFlashesData[0]
-            arrSymptoms.append(getSymptomsModel(symptom: symptom))
-        }
-        //fainting
-        if faintingData.count > 0{
-            let symptom = faintingData[0]
-            arrSymptoms.append(getSymptomsModel(symptom: symptom))
-        }
-        //hairLoss
-        if hairLossData.count > 0{
-            let symptom = hairLossData[0]
-            arrSymptoms.append(getSymptomsModel(symptom: symptom))
-        }
+        //fatigueData
+        filterSymptomsArrayToGetSingleDataWithSelectedSegmentInGraph(days: days, array: fatigueData)
         
-        //nausea
-        if nauseaData.count > 0{
-            let symptom = nauseaData[0]
-            arrSymptoms.append(getSymptomsModel(symptom: symptom))
-        }
-        //vomiting
-        if vomitingData.count > 0{
-            let symptom = vomitingData[0]
-            arrSymptoms.append(getSymptomsModel(symptom: symptom))
-        }
-        //drySkin
-        if drySkinData.count > 0{
-            let symptom = drySkinData[0]
-            arrSymptoms.append(getSymptomsModel(symptom: symptom))
-        }
+        //rapidHeartBeatData
+        filterSymptomsArrayToGetSingleDataWithSelectedSegmentInGraph(days: days, array: rapidHeartBeatData)
+        
+        //hotFlashesData
+        filterSymptomsArrayToGetSingleDataWithSelectedSegmentInGraph(days: days, array: hotFlashesData)
+        
+        //faintingData
+        filterSymptomsArrayToGetSingleDataWithSelectedSegmentInGraph(days: days, array: faintingData)
+        
+        //hairLossData
+        filterSymptomsArrayToGetSingleDataWithSelectedSegmentInGraph(days: days, array: hairLossData)
+        
+        //nauseaData
+        filterSymptomsArrayToGetSingleDataWithSelectedSegmentInGraph(days: days, array: nauseaData)
+        
+        //vomitingData
+        filterSymptomsArrayToGetSingleDataWithSelectedSegmentInGraph(days: days, array: vomitingData)
+        
+       //drySkinData
+        filterSymptomsArrayToGetSingleDataWithSelectedSegmentInGraph(days: days, array: drySkinData)
+        
         
         return arrSymptoms
+        
     }
-    func getSymptomsModel(symptom:EndocrineSymptomsPainData)->SymptomsModel{
-        return SymptomsModel(title: symptom.title, value: symptom.getSymptomsValue())
+    func filterSymptomsArrayToGetSingleDataWithSelectedSegmentInGraph(days:SegmentValueForGraph,array:[SymptomCalculation]){
+        var filteredArray:[SymptomCalculation] = []
+        filteredArray = filterSymptomsArrayWithSelectedSegmentInGraph(days: days, array: array)
+        saveFilterDataInArraySymptoms(filteredArray: filteredArray)
+        //return filteredArray
     }
     
+    func saveFilterDataInArraySymptoms(filteredArray:[SymptomCalculation]){
+        if filteredArray.count > 0{
+            let symptom = filteredArray[0]
+            arrSymptoms.append(getSymptomsModel(symptom: symptom))
+        }
+    }
+    //MARK:- For DetailValue  Screen...
     func getArrayDataForSymptoms(days:SegmentValueForGraph,title:String)->[SymptomsModel]{
         var arrSymptoms:[SymptomsModel] = []
         let symptomsName = SymptomsName(rawValue: title)
@@ -177,33 +171,33 @@ class EndocrineSymptoms:SymptomsProtocol {
         
         //dizziness
         case .dizziness:
-            filterArray = filterArrayWithSelectedSegmentInGraph(days: days, array: dizzinessData)
+            filterArray = filterSymptomsArrayWithSelectedSegmentInGraph(days: days, array: dizzinessData)
         //fatigue
         case .fatigue:
-            filterArray = filterArrayWithSelectedSegmentInGraph(days: days, array: fatigueData)
+            filterArray = filterSymptomsArrayWithSelectedSegmentInGraph(days: days, array: fatigueData)
         //rapidHeartbeat
         case .rapidHeartbeat:
-            filterArray = filterArrayWithSelectedSegmentInGraph(days: days, array: rapidHeartBeatData)
+            filterArray = filterSymptomsArrayWithSelectedSegmentInGraph(days: days, array: rapidHeartBeatData)
             
         //hotFlashes
         case .hotFlashes:
-            filterArray = filterArrayWithSelectedSegmentInGraph(days: days, array: hotFlashesData)
+            filterArray = filterSymptomsArrayWithSelectedSegmentInGraph(days: days, array: hotFlashesData)
         //fainting
         case .fainting:
-            filterArray = filterArrayWithSelectedSegmentInGraph(days: days, array: faintingData)
+            filterArray = filterSymptomsArrayWithSelectedSegmentInGraph(days: days, array: faintingData)
         //hairLoss
         case .hairLoss:
-            filterArray = filterArrayWithSelectedSegmentInGraph(days: days, array: hairLossData)
+            filterArray = filterSymptomsArrayWithSelectedSegmentInGraph(days: days, array: hairLossData)
             
         //nausea
         case .nausea:
-            filterArray = filterArrayWithSelectedSegmentInGraph(days: days, array: nauseaData)
+            filterArray = filterSymptomsArrayWithSelectedSegmentInGraph(days: days, array: nauseaData)
         //vomiting
         case .vomiting:
-            filterArray = filterArrayWithSelectedSegmentInGraph(days: days, array: vomitingData)
+            filterArray = filterSymptomsArrayWithSelectedSegmentInGraph(days: days, array: vomitingData)
         //drySkin
         case .drySkin:
-            filterArray = filterArrayWithSelectedSegmentInGraph(days: days, array: drySkinData)
+            filterArray = filterSymptomsArrayWithSelectedSegmentInGraph(days: days, array: drySkinData)
             
             
         default:
