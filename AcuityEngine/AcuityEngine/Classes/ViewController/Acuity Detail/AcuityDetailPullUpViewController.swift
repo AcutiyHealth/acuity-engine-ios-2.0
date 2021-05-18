@@ -93,10 +93,6 @@ class AcuityDetailPullUpViewController: UIViewController {
         let acuityModel = viewModelObj.prepareAcuityModelFromSystemData(systemData: systemData)
         //Display data from acuityModel
         displayDatailTitleFromAcuityModel(acuityModel: acuityModel)
-        
-        //Prepare Array from acuityModel
-        prepareArrayFromAcuityModel()
-       
        
         self.showScoreAndChartData()
         
@@ -117,11 +113,7 @@ class AcuityDetailPullUpViewController: UIViewController {
         self.arrSymptoms = []
         self.arrLabs = []
         self.arrVitals = []
-        
-        //reload tableview....
-        self.reloadTableView()
-        reloadTables()
-        
+      
         self.arrConditions = systemMetricsData![MetricsType.Conditions.rawValue] as! [ConditionsModel]
         self.arrSymptoms = systemMetricsData![MetricsType.Sympotms.rawValue] as! [SymptomsModel]
         self.arrLabs = systemMetricsData![MetricsType.LabData.rawValue] as! [LabModel]
@@ -140,6 +132,10 @@ class AcuityDetailPullUpViewController: UIViewController {
         self.arrLabs.sort {
             $0.title ?? "" < $1.title ?? ""
         }
+        
+        //reload tableview....
+        self.reloadTableView()
+       
     }
     //MARK: setup chart
     func setUpChartView(data:[(x: Int, y: Double)]){
@@ -167,6 +163,7 @@ class AcuityDetailPullUpViewController: UIViewController {
         let scoreTupple = viewModelObj.getScoreAndArrayOfSystemScore()
         scoreText = scoreTupple.0
         arraySystemScore = scoreTupple.1
+        systemMetricsData = scoreTupple.2
         var i = 0;
         for item in arraySystemScore{
             data.append((x:i,y:item))
@@ -194,6 +191,10 @@ class AcuityDetailPullUpViewController: UIViewController {
         case .OneDay:
             break
         }
+        
+        //Prepare Array from acuityModel
+        prepareArrayFromAcuityModel()
+      
         lblScore.text = scoreText
         
         setColorForScoreAndChart()
@@ -386,8 +387,6 @@ extension AcuityDetailPullUpViewController: UITableViewDelegate, UITableViewData
         visualEffectView.addSubview((detailConditionVC?.view)!)
         detailConditionVC?.didMove(toParent: self)
         
-        //PAss metrix Item to display data...
-        detailConditionVC?.metrixType = metrixType
         switch metrixType {
         case .Conditions:
             detailConditionVC?.arrConditions = self.arrConditions
@@ -400,6 +399,9 @@ extension AcuityDetailPullUpViewController: UITableViewDelegate, UITableViewData
         default:
             break
         }
+        
+        //PAss metrix Item to display data...
+        detailConditionVC?.metrixType = metrixType
         setUpCloseButton()
         
         //Hide main view of Detail Pullup class

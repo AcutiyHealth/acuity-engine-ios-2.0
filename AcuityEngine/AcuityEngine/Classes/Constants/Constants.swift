@@ -41,7 +41,7 @@ enum SymptomsTextValue:String {
 }
 enum SystemName:String {
     case Cardiovascular = "Cardiovascular"
-    case Respiratory = "Respiratory"
+    case Respiratory = "Pulmonary"
     case Renal = "Renal"
     case Gastrointestinal = "Gastrointestinal"
     case Genitourinary = "Genitourinary"
@@ -103,6 +103,10 @@ enum NSNotificationName: String {
     case showAcuityDetailPopup = "showAcuityDetailPopup"
     case refreshCircleView = "refreshCircleView"
 }
+struct AlertMessages {
+    static let STARTDATEGRATETHANENDDATE = "Start date should be less than End date"
+    static let OK = "OK"
+}
 struct WheelColor {
     static let BLUECOLORLABELTITLE = UIColor(red: 41.0 / 255.0, green: 121.0 / 255.0, blue: 255.0 / 255.0, alpha: 1.0)
     static let SUBMENUITEMTITLECOLOR = UIColor(red: 206.0 / 255.0, green: 216.0 / 255.0, blue: 220.0 / 255.0, alpha: 1.0)
@@ -149,10 +153,6 @@ struct Screen{
         414
     static let iPhoneSEHeight =
         568
-}
-
-struct AlertMessages {
-    
 }
 
 struct AcuityData {

@@ -47,7 +47,8 @@ class HKManagerReadLab: NSObject
                             
                             //Timestamp for Lab Data
                             let issueDate = dictionary["issued"] as? String
-                            let timeStampOfLabData = issueDate?.iso8601withFractionalSeconds!.timeIntervalSince1970 ?? 0
+                            let timeStampOfLabData = issueDate?.iso8601withFractionalSeconds?.timeIntervalSince1970 ?? 0
+                            print("timeStampOfLabData",timeStampOfLabData)
                             
                             //Code for Lab Data
                             let dictionaryCode = dictionary["code"] as? [String: AnyObject]
@@ -74,8 +75,9 @@ class HKManagerReadLab: NSObject
                                 
                                 //Pass value,code and timestamp to manager of all system...
                                 if let value = (valueQuantity?["value"] as? Double)  ,var code = (dictionaryCoding?["code"] as? String)  {
+                                    print("[code]",code)
                                     //code = "2951-2" // Comment this
-                                    if code == "2823-3"{ //Uncoment this....
+                                    //if code == "2823-3"{ //Uncoment this....
                                         // access individual value in dictionary
                                         //Save Data For Cardio..
                                         CardioManager.sharedManager.saveLabData(code: code, value: value, timeStamp: Double(timeStampOfLabData))
@@ -93,7 +95,7 @@ class HKManagerReadLab: NSObject
                                         EndocrineManager.sharedManager.saveLabData(code: code, value: value, timeStamp: Double(timeStampOfLabData))
                                         //Save Data For Gastrointestinal..
                                         GastrointestinalManager.sharedManager.saveLabData(code: code, value: value, timeStamp: Double(timeStampOfLabData))
-                                    }
+                                    //}
                                     
                                 }
                             }

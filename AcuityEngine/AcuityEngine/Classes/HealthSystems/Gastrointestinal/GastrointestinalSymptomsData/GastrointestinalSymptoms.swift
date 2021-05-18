@@ -34,6 +34,8 @@ class GastrointestinalSymptoms:SymptomsProtocol {
     var heartburnData:[GastrointestinalSymptomsPainData] = []
     
     var arrayDayWiseScoreTotal:[Double] = []
+    //For Dictionary Representation
+    var arrSymptoms:[SymptomsModel] = []
     
     func totalSymptomDataScore() -> Double {
         return 0
@@ -116,66 +118,57 @@ class GastrointestinalSymptoms:SymptomsProtocol {
     //MARK: To display data in Pull up...
     func dictionaryRepresentation()->[SymptomsModel]{
         
-        var arrSymptoms:[SymptomsModel] = []
-        
-        //abdominalCramps
-        if abdominalCrampsData.count > 0{
-            let symptom = abdominalCrampsData[0]
-            arrSymptoms.append(getSymptomsModel(symptom: symptom))
-        }
-        //chestPainData
-        if chestPainData.count > 0{
-            let symptom = chestPainData[0]
-            arrSymptoms.append(getSymptomsModel(symptom: symptom))
-        }
-        //coughData
-        if coughData.count > 0{
-            let symptom = coughData[0]
-            arrSymptoms.append(getSymptomsModel(symptom: symptom))
-        }
-        
-        //diarrheaData
-        if diarrheaData.count > 0{
-            let symptom = diarrheaData[0]
-            arrSymptoms.append(getSymptomsModel(symptom: symptom))
-        }
-        //constipationData
-        if constipationData.count > 0{
-            let symptom = constipationData[0]
-            arrSymptoms.append(getSymptomsModel(symptom: symptom))
-        }
-        //fatigueData
-        if fatigueData.count > 0{
-            let symptom = fatigueData[0]
-            arrSymptoms.append(getSymptomsModel(symptom: symptom))
-        }
-        
-        //bloatingData
-        if bloatingData.count > 0{
-            let symptom = bloatingData[0]
-            arrSymptoms.append(getSymptomsModel(symptom: symptom))
-        }
-        //nauseaData
-        if nauseaData.count > 0{
-            let symptom = nauseaData[0]
-            arrSymptoms.append(getSymptomsModel(symptom: symptom))
-        }
+         arrSymptoms = []
+       
+        let days = MyWellScore.sharedManager.daysToCalculateSystemScore
+        //Abdominal cramps
+        filterSymptomsArrayToGetSingleDataWithSelectedSegmentInGraph(days: days, array: abdominalCrampsData)
+       
+        //Chest pain
+        filterSymptomsArrayToGetSingleDataWithSelectedSegmentInGraph(days: days, array: chestPainData)
+       
+        //cough
+        filterSymptomsArrayToGetSingleDataWithSelectedSegmentInGraph(days: days, array: coughData)
+       
+        //diarrhea
+        filterSymptomsArrayToGetSingleDataWithSelectedSegmentInGraph(days: days, array: diarrheaData)
+       
+        //constipation
+        filterSymptomsArrayToGetSingleDataWithSelectedSegmentInGraph(days: days, array: constipationData)
+       
+        //fatigue
+        filterSymptomsArrayToGetSingleDataWithSelectedSegmentInGraph(days: days, array: fatigueData)
+       
+        //bloating
+        filterSymptomsArrayToGetSingleDataWithSelectedSegmentInGraph(days: days, array: bloatingData)
+       
+        //nausea
+        filterSymptomsArrayToGetSingleDataWithSelectedSegmentInGraph(days: days, array: nauseaData)
+       
         //vomiting
-        if vomitingData.count > 0{
-            let symptom = vomitingData[0]
-            arrSymptoms.append(getSymptomsModel(symptom: symptom))
-        }
-        //heartburnData
-        if heartburnData.count > 0{
-            let symptom = heartburnData[0]
-            arrSymptoms.append(getSymptomsModel(symptom: symptom))
-        }
+        filterSymptomsArrayToGetSingleDataWithSelectedSegmentInGraph(days: days, array: vomitingData)
+       
+        //Heartburn
+        filterSymptomsArrayToGetSingleDataWithSelectedSegmentInGraph(days: days, array: heartburnData)
+       
         return arrSymptoms
+        
     }
-    func getSymptomsModel(symptom:GastrointestinalSymptomsPainData)->SymptomsModel{
-        return SymptomsModel(title: symptom.title, value: symptom.getSymptomsValue())
+  
+    func filterSymptomsArrayToGetSingleDataWithSelectedSegmentInGraph(days:SegmentValueForGraph,array:[SymptomCalculation]){
+        var filteredArray:[SymptomCalculation] = []
+        filteredArray = filterSymptomsArrayWithSelectedSegmentInGraph(days: days, array: array)
+        saveFilterDataInArraySymptoms(filteredArray: filteredArray)
+        //return filteredArray
     }
     
+    func saveFilterDataInArraySymptoms(filteredArray:[SymptomCalculation]){
+        if filteredArray.count > 0{
+            let symptom = filteredArray[0]
+            arrSymptoms.append(getSymptomsModel(symptom: symptom))
+        }
+    }
+    //MARK:- For DetailValue  Screen...
     func getArrayDataForSymptoms(days:SegmentValueForGraph,title:String)->[SymptomsModel]{
         var arrSymptoms:[SymptomsModel] = []
         let symptomsName = SymptomsName(rawValue: title)
@@ -184,36 +177,36 @@ class GastrointestinalSymptoms:SymptomsProtocol {
         switch symptomsName {
         //abdominal_Cramps
         case .abdominal_Cramps:
-            filterArray = filterArrayWithSelectedSegmentInGraph(days: days, array: abdominalCrampsData)
+            filterArray = filterSymptomsArrayWithSelectedSegmentInGraph(days: days, array: abdominalCrampsData)
         //chestPain
         case .chestPain:
-            filterArray = filterArrayWithSelectedSegmentInGraph(days: days, array: chestPainData)
+            filterArray = filterSymptomsArrayWithSelectedSegmentInGraph(days: days, array: chestPainData)
         //cough
         case .cough:
-            filterArray = filterArrayWithSelectedSegmentInGraph(days: days, array: coughData)
+            filterArray = filterSymptomsArrayWithSelectedSegmentInGraph(days: days, array: coughData)
             
         //diarrhea
         case .diarrhea:
-            filterArray = filterArrayWithSelectedSegmentInGraph(days: days, array: diarrheaData)
+            filterArray = filterSymptomsArrayWithSelectedSegmentInGraph(days: days, array: diarrheaData)
         //constipation
         case .constipation:
-            filterArray = filterArrayWithSelectedSegmentInGraph(days: days, array: constipationData)
+            filterArray = filterSymptomsArrayWithSelectedSegmentInGraph(days: days, array: constipationData)
         //fatigue
         case .fatigue:
-            filterArray = filterArrayWithSelectedSegmentInGraph(days: days, array: fatigueData)
+            filterArray = filterSymptomsArrayWithSelectedSegmentInGraph(days: days, array: fatigueData)
             
         //bloating
         case .bloating:
-            filterArray = filterArrayWithSelectedSegmentInGraph(days: days, array: bloatingData)
+            filterArray = filterSymptomsArrayWithSelectedSegmentInGraph(days: days, array: bloatingData)
         //nausea
         case .nausea:
-            filterArray = filterArrayWithSelectedSegmentInGraph(days: days, array: nauseaData)
+            filterArray = filterSymptomsArrayWithSelectedSegmentInGraph(days: days, array: nauseaData)
         //vomiting
         case .vomiting:
-            filterArray = filterArrayWithSelectedSegmentInGraph(days: days, array: vomitingData)
+            filterArray = filterSymptomsArrayWithSelectedSegmentInGraph(days: days, array: vomitingData)
         //heartburn
         case .heartburn:
-            filterArray = filterArrayWithSelectedSegmentInGraph(days: days, array: heartburnData)
+            filterArray = filterSymptomsArrayWithSelectedSegmentInGraph(days: days, array: heartburnData)
             
         default:
             break

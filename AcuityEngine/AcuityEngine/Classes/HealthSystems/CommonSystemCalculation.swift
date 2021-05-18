@@ -87,6 +87,10 @@ func getConditionsModel(condition:ConditionCalculation)->ConditionsModel{
     let conditionValue = condition.calculatedValue < 0 ? 0 : condition.calculatedValue
     return ConditionsModel(title: condition.type.rawValue, value: ConditionValue(rawValue: conditionValue)!)
 }
+//MARK: Create or Get Symptoms Models..
+func getSymptomsModel(symptom:SymptomCalculation)->SymptomsModel{
+    return SymptomsModel(title: symptom.title, value: symptom.getSymptomsValue())
+}
 //MARK: saveVitalsInArray
 func saveVitalsInArray(item:VitalCalculation)->VitalsModel{
     let impData =  VitalsModel(title: item.title.rawValue, value: String(format: "%.2f", item.value))
@@ -103,7 +107,7 @@ func saveLabsInArray(item:LabCalculation)->LabModel{
     return impData
 }
 
-func filterArrayWithSelectedSegmentInGraph(days:SegmentValueForGraph,array:[VitalCalculation])->[VitalCalculation]{
+func filterVitalArrayWithSelectedSegmentInGraph(days:SegmentValueForGraph,array:[VitalCalculation])->[VitalCalculation]{
     let now = MyWellScore.sharedManager.todaysDate
     
     let timeIntervalByLastMonth:Double = getTimeIntervalBySelectedSegmentOfDays(days: days)
@@ -111,8 +115,36 @@ func filterArrayWithSelectedSegmentInGraph(days:SegmentValueForGraph,array:[Vita
     var filteredArray:[VitalCalculation] = []
     
     filteredArray = array.filter { item in
-        filterConditionForOtherMetrix(sampleItem: item, timeIntervalByLastMonth: timeIntervalByLastMonth, timeIntervalByNow: timeIntervalByNow)
+        filterMatricsForVitalOrLab(sampleItem: item, timeIntervalByLastMonth: timeIntervalByLastMonth, timeIntervalByNow: timeIntervalByNow)
     }
     
     return filteredArray
 }
+func filterSymptomsArrayWithSelectedSegmentInGraph(days:SegmentValueForGraph,array:[SymptomCalculation])->[SymptomCalculation]{
+    let now = MyWellScore.sharedManager.todaysDate
+    
+    let timeIntervalByLastMonth:Double = getTimeIntervalBySelectedSegmentOfDays(days: days)
+    let timeIntervalByNow:Double = now.timeIntervalSince1970
+    var filteredArray:[SymptomCalculation] = []
+    
+    filteredArray = array.filter { item in
+        filterMatricsForSymptoms(sampleItem: item, timeIntervalByLastMonth: timeIntervalByLastMonth, timeIntervalByNow: timeIntervalByNow)
+    }
+    
+    return filteredArray
+}
+
+func filterLabArrayWithSelectedSegmentInGraph(days:SegmentValueForGraph,array:[LabCalculation])->[LabCalculation]{
+    let now = MyWellScore.sharedManager.todaysDate
+    
+    let timeIntervalByLastMonth:Double = getTimeIntervalBySelectedSegmentOfDays(days: days)
+    let timeIntervalByNow:Double = now.timeIntervalSince1970
+    var filteredArray:[LabCalculation] = []
+    
+    filteredArray = array.filter { item in
+        filterMatricsForVitalOrLab(sampleItem: item, timeIntervalByLastMonth: timeIntervalByLastMonth, timeIntervalByNow: timeIntervalByNow)
+    }
+    
+    return filteredArray
+}
+

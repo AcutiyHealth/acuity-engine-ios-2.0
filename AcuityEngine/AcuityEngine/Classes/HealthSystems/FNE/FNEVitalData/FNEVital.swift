@@ -24,7 +24,8 @@ class FNEVital:VitalProtocol {
     
     var totalScore:[Double] = []
     var arrayDayWiseScoreTotal:[Double] = []
-    
+    //For Dictionary Representation
+    private var arrVital:[VitalsModel] = []
     
     func totalVitalsScore() -> Double {
         let systolicBloodPressur = (Double(systolicBloodPressureData.average(\.score)) .isNaN ? 0 : Double(systolicBloodPressureData.average(\.score)))
@@ -101,36 +102,42 @@ class FNEVital:VitalProtocol {
     //MARK: To display data in Pull up...
     func dictionaryRepresentation()->[VitalsModel]{
         
-        var arrVital:[VitalsModel] = []
+        arrVital = []
+        let days = MyWellScore.sharedManager.daysToCalculateSystemScore
         
-        if systolicBloodPressureData.count > 0{
-            let systolicBloodPressure = systolicBloodPressureData[0]
-            arrVital.append(getVitalModel(item: systolicBloodPressure))
-        }
-        if diastolicBloodPressureData.count > 0{
-            let diastolicBloodPressure = diastolicBloodPressureData[0]
-            arrVital.append(getVitalModel(item: diastolicBloodPressure))
-        }
-        if irregularRhymesNotificationData.count > 0{
-            let irregularRhymesNotification = irregularRhymesNotificationData[0]
-            arrVital.append(getVitalModel(item: irregularRhymesNotification))
-        }
-        if heartRateData.count > 0{
-            let heartRate = heartRateData[0]
-            arrVital.append(getVitalModel(item: heartRate))
-        }
-        if BMIData.count > 0{
-            let BMI = BMIData[0]
-            arrVital.append(getVitalModel(item: BMI))
-        }
+        //systolicBloodPressure
+        filterVitalArrayToGetSingleDataWithSelectedSegmentInGraph(days: days, array: systolicBloodPressureData)
+        
+        //diastolicBloodPressureData
+        filterVitalArrayToGetSingleDataWithSelectedSegmentInGraph(days: days, array: diastolicBloodPressureData)
+        
+        //irregularRhymesNotificationData
+        filterVitalArrayToGetSingleDataWithSelectedSegmentInGraph(days: days, array: irregularRhymesNotificationData)
+        
+        //heartRateData
+        filterVitalArrayToGetSingleDataWithSelectedSegmentInGraph(days: days, array: heartRateData)
+        
+        //BMIData
+        filterVitalArrayToGetSingleDataWithSelectedSegmentInGraph(days: days, array: BMIData)
+        
         return arrVital
     }
-    func getVitalModel(item:FNEVitalsData)->VitalsModel{
-        let impData =  VitalsModel(title: item.title.rawValue, value: String(format: "%.2f", item.value))
-        impData.color = item.getUIColorFromCalculatedValue()
-        return impData
+    
+    func filterVitalArrayToGetSingleDataWithSelectedSegmentInGraph(days:SegmentValueForGraph,array:[VitalCalculation]){
+        var filteredArray:[VitalCalculation] = []
+        filteredArray = filterVitalArrayWithSelectedSegmentInGraph(days: days, array: array)
+        saveFilterDataInArrayVitals(filteredArray: filteredArray)
+        //return filteredArray
     }
     
+    func saveFilterDataInArrayVitals(filteredArray:[VitalCalculation]){
+        if filteredArray.count > 0{
+            let vital = filteredArray[0]
+            arrVital.append(getVitalModel(item: vital))
+        }
+    }
+    
+    //MARK:- For DetailValue  Screen...
     //Get list of data for specific Vital..
     func getArrayDataForVitals(days:SegmentValueForGraph,title:String) -> [VitalsModel]{
         var arrVital:[VitalsModel] = []
@@ -139,19 +146,19 @@ class FNEVital:VitalProtocol {
         
         switch vitalsName {
         case .bloodPressureSystolic:
-            filterArray = filterArrayWithSelectedSegmentInGraph(days: days, array: systolicBloodPressureData)
+            filterArray = filterVitalArrayWithSelectedSegmentInGraph(days: days, array: systolicBloodPressureData)
             
         case .bloodPressureDiastolic:
-            filterArray = filterArrayWithSelectedSegmentInGraph(days: days, array: diastolicBloodPressureData)
-        
+            filterArray = filterVitalArrayWithSelectedSegmentInGraph(days: days, array: diastolicBloodPressureData)
+            
         case .heartRate:
-            filterArray = filterArrayWithSelectedSegmentInGraph(days: days, array: heartRateData)
+            filterArray = filterVitalArrayWithSelectedSegmentInGraph(days: days, array: heartRateData)
             
         case .irregularRhymesNotification:
-            filterArray = filterArrayWithSelectedSegmentInGraph(days: days, array: irregularRhymesNotificationData)
+            filterArray = filterVitalArrayWithSelectedSegmentInGraph(days: days, array: irregularRhymesNotificationData)
             
         case .BMI:
-            filterArray = filterArrayWithSelectedSegmentInGraph(days: days, array: BMIData)
+            filterArray = filterVitalArrayWithSelectedSegmentInGraph(days: days, array: BMIData)
             
         default:
             break
