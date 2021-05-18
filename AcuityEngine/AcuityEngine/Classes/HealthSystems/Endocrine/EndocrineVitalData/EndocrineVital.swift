@@ -22,7 +22,8 @@ class EndocrineVital:VitalProtocol {
     
     var totalScore:[Double] = []
     var arrayDayWiseScoreTotal:[Double] = []
-    
+    //For Dictionary Representation
+    private var arrVital:[VitalsModel] = []
     
     func totalVitalsScore() -> Double {
         let systolicBloodPressur = (Double(systolicBloodPressureData.average(\.score)) .isNaN ? 0 : Double(systolicBloodPressureData.average(\.score)))
@@ -88,40 +89,42 @@ class EndocrineVital:VitalProtocol {
     //MARK: To display data in Pull up...
     func dictionaryRepresentation()->[VitalsModel]{
         
-        var arrVital:[VitalsModel] = []
+        arrVital = []
+        let days = MyWellScore.sharedManager.daysToCalculateSystemScore
+        
         //systolicBloodPressure
-        if systolicBloodPressureData.count > 0{
-            let systolicBloodPressure = systolicBloodPressureData[0]
-            arrVital.append(getVitalModel(item: systolicBloodPressure))
-        }
-        //diastolicBloodPressure
-        if diastolicBloodPressureData.count > 0{
-            let diastolicBloodPressure = diastolicBloodPressureData[0]
-            arrVital.append(getVitalModel(item: diastolicBloodPressure))
-        }
-        //temprature
-        if tempratureData.count > 0{
-            let temprature = tempratureData[0]
-            arrVital.append(getVitalModel(item: temprature))
-        }
-        //heartRate
-        if heartRateData.count > 0{
-            let heartRate = heartRateData[0]
-            arrVital.append(getVitalModel(item: heartRate))
-        }
-        //bloodSugar
-        if bloodSugarData.count > 0{
-            let bloodSugar = bloodSugarData[0]
-            arrVital.append(getVitalModel(item: bloodSugar))
-        }
+        filterVitalArrayToGetSingleDataWithSelectedSegmentInGraph(days: days, array: systolicBloodPressureData)
+        
+        //diastolicBloodPressureData
+        filterVitalArrayToGetSingleDataWithSelectedSegmentInGraph(days: days, array: diastolicBloodPressureData)
+        
+        //tempratureData
+        filterVitalArrayToGetSingleDataWithSelectedSegmentInGraph(days: days, array: tempratureData)
+        
+        //heartRateData
+        filterVitalArrayToGetSingleDataWithSelectedSegmentInGraph(days: days, array: heartRateData)
+        
+        //bloodSugarData
+        filterVitalArrayToGetSingleDataWithSelectedSegmentInGraph(days: days, array: bloodSugarData)
+        
         return arrVital
     }
-    func getVitalModel(item:EndocrineVitalsData)->VitalsModel{
-        let impData =  VitalsModel(title: item.title.rawValue, value: String(format: "%.2f", item.value))
-        impData.color = item.getUIColorFromCalculatedValue()
-        return impData
+    
+    func filterVitalArrayToGetSingleDataWithSelectedSegmentInGraph(days:SegmentValueForGraph,array:[VitalCalculation]){
+        var filteredArray:[VitalCalculation] = []
+        filteredArray = filterVitalArrayWithSelectedSegmentInGraph(days: days, array: array)
+        saveFilterDataInArrayVitals(filteredArray: filteredArray)
+        //return filteredArray
     }
     
+    func saveFilterDataInArrayVitals(filteredArray:[VitalCalculation]){
+        if filteredArray.count > 0{
+            let vital = filteredArray[0]
+            arrVital.append(getVitalModel(item: vital))
+        }
+    }
+    
+    //MARK:- For DetailValue  Screen...
     //Get list of data for specific Vital..
     func getArrayDataForVitals(days:SegmentValueForGraph,title:String) -> [VitalsModel]{
         var arrVital:[VitalsModel] = []
@@ -131,19 +134,19 @@ class EndocrineVital:VitalProtocol {
         switch vitalsName {
         //Systolic
         case .bloodPressureSystolic:
-            filterArray = filterArrayWithSelectedSegmentInGraph(days: days, array: systolicBloodPressureData)
+            filterArray = filterVitalArrayWithSelectedSegmentInGraph(days: days, array: systolicBloodPressureData)
         //Diastolic
         case .bloodPressureDiastolic:
-            filterArray = filterArrayWithSelectedSegmentInGraph(days: days, array: diastolicBloodPressureData)
+            filterArray = filterVitalArrayWithSelectedSegmentInGraph(days: days, array: diastolicBloodPressureData)
         //temperature
         case .temperature:
-            filterArray = filterArrayWithSelectedSegmentInGraph(days: days, array: tempratureData)
+            filterArray = filterVitalArrayWithSelectedSegmentInGraph(days: days, array: tempratureData)
         //heartRate
         case .heartRate:
-            filterArray = filterArrayWithSelectedSegmentInGraph(days: days, array: heartRateData)
+            filterArray = filterVitalArrayWithSelectedSegmentInGraph(days: days, array: heartRateData)
         //bloodSugar
         case .bloodSugar:
-            filterArray = filterArrayWithSelectedSegmentInGraph(days: days, array: bloodSugarData)
+            filterArray = filterVitalArrayWithSelectedSegmentInGraph(days: days, array: bloodSugarData)
             
         default:
             break

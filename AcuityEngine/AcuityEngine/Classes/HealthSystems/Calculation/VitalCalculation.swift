@@ -193,10 +193,9 @@ class VitalCalculation:Metrix {
     private func getOxygenSaturationValue() -> HeartRateValue {
         
         // if(H30="","",if(H30<30,1*G30,if(and(H30>=30,H30<=40),0.5*G30,0)))
-        
-        if value < 90  {
+        if value < 0.90  {
             return HeartRateValue.Red
-        } else if value >= 90 && value <= 94 {
+        } else if value >= 0.90 && value <= 0.94 {
             return HeartRateValue.Yellow
         } else {
             return HeartRateValue.Green
