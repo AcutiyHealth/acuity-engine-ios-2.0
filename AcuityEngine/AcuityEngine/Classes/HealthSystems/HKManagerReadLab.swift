@@ -78,23 +78,25 @@ class HKManagerReadLab: NSObject
                                     print("[code]",code)
                                     //code = "2951-2" // Comment this
                                     //if code == "2823-3"{ //Uncoment this....
-                                        // access individual value in dictionary
-                                        //Save Data For Cardio..
-                                        CardioManager.sharedManager.saveLabData(code: code, value: value, timeStamp: Double(timeStampOfLabData))
-                                        //Save Data For Respiratory..
-                                        RespiratoryManager.sharedManager.saveLabData(code: code, value: value, timeStamp: Double(timeStampOfLabData))
-                                        //Save Data For Renal..
-                                        RenalManager.sharedManager.saveLabData(code: code, value: value, timeStamp: Double(timeStampOfLabData))
-                                        //Save Data For IDiseaseManager..
-                                        IDiseaseManager.sharedManager.saveLabData(code: code, value: value, timeStamp: Double(timeStampOfLabData))
-                                        //Save Data For FNE..
-                                        FNEManager.sharedManager.saveLabData(code: code, value: value, timeStamp: Double(timeStampOfLabData))
-                                        //Save Data For Hemato..
-                                        HematoManager.sharedManager.saveLabData(code: code, value: value, timeStamp: Double(timeStampOfLabData))
-                                        //Save Data For Endocrine..
-                                        EndocrineManager.sharedManager.saveLabData(code: code, value: value, timeStamp: Double(timeStampOfLabData))
-                                        //Save Data For Gastrointestinal..
-                                        GastrointestinalManager.sharedManager.saveLabData(code: code, value: value, timeStamp: Double(timeStampOfLabData))
+                                    // access individual value in dictionary
+                                    //Save Data For Cardio..
+                                    CardioManager.sharedManager.saveLabData(code: code, value: value, timeStamp: Double(timeStampOfLabData))
+                                    //Save Data For Respiratory..
+                                    RespiratoryManager.sharedManager.saveLabData(code: code, value: value, timeStamp: Double(timeStampOfLabData))
+                                    //Save Data For Renal..
+                                    RenalManager.sharedManager.saveLabData(code: code, value: value, timeStamp: Double(timeStampOfLabData))
+                                    //Save Data For IDiseaseManager..
+                                    IDiseaseManager.sharedManager.saveLabData(code: code, value: value, timeStamp: Double(timeStampOfLabData))
+                                    //Save Data For FNE..
+                                    FNEManager.sharedManager.saveLabData(code: code, value: value, timeStamp: Double(timeStampOfLabData))
+                                    //Save Data For Hemato..
+                                    HematoManager.sharedManager.saveLabData(code: code, value: value, timeStamp: Double(timeStampOfLabData))
+                                    //Save Data For Endocrine..
+                                    EndocrineManager.sharedManager.saveLabData(code: code, value: value, timeStamp: Double(timeStampOfLabData))
+                                    //Save Data For Gastrointestinal..
+                                    GastrointestinalManager.sharedManager.saveLabData(code: code, value: value, timeStamp: Double(timeStampOfLabData))
+                                    //Save Data For Genitourinary..
+                                    GenitourinaryManager.sharedManager.saveLabData(code: code, value: value, timeStamp: Double(timeStampOfLabData))
                                     //}
                                     
                                 }

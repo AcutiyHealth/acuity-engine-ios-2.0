@@ -35,6 +35,8 @@ class HKManagerReadVitals: NSObject {
         FNEManager.sharedManager.resetFNEData()
         HematoManager.sharedManager.resetHematoData()
         EndocrineManager.sharedManager.resetEndocrineData()
+        GastrointestinalManager.sharedManager.resetGastrointestinalData()
+        GenitourinaryManager.sharedManager.resetGenitourinaryData()
     }
     
     func readVitalsData(days:SegmentValueForGraph,completion: @escaping (Bool, HealthkitSetupError?) -> Swift.Void) {
@@ -225,6 +227,9 @@ class HKManagerReadVitals: NSObject {
                                                         
                                                         //Save data for Gastrointestinal...
                                                         GastrointestinalManager.sharedManager.saveQuantityInArray(quantityType: identifier, element: element)
+                                                        
+                                                        //Save data for Genitourinary...
+                                                        GenitourinaryManager.sharedManager.saveQuantityInArray(quantityType: identifier, element: element)
                                                     } catch {
                                                         //print(error)
                                                     }
