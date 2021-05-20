@@ -99,6 +99,9 @@ class HKManagerReadSymptoms: NSObject
                                             
                                             //Save data for Gastrointestinal...
                                             GastrointestinalManager.sharedManager.saveSymptomsData(category: category, element: element)
+                                            
+                                            //Save data for Genitourinary...
+                                            GenitourinaryManager.sharedManager.saveSymptomsData(category: category, element: element)
                                         }
                                         dispatchGroup.leave()
                                         

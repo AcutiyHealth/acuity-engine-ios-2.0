@@ -82,10 +82,15 @@ class MyWellScore: NSObject {
         let maxScoreHematoData = HematoManager.sharedManager.hematoData.maxScore
         //Endocrine
         let maxScoreEndocrineData = EndocrineManager.sharedManager.endocrineData.maxScore
+        //Gastrointestinal
+        let maxScoreGastrointestinalData = GastrointestinalManager.sharedManager.gastrointestinalData.maxScore
+        //Genitourinary
+        let maxScoreGenitourinaryData = GenitourinaryManager.sharedManager.genitourinaryData.maxScore
         
         let totalMaxScore1 = maxScoreCardioData +  maxScoreRespiratoryData + maxScoreRenalData + maxScoreDiseaseData
         let totalMaxScore2 = maxScoreFNEData + maxScoreHematoData + maxScoreEndocrineData
-        return totalMaxScore1 + totalMaxScore2
+        let totalMaxScore3 = maxScoreGastrointestinalData + maxScoreGenitourinaryData
+        return totalMaxScore1 + totalMaxScore2 + totalMaxScore3
     }
     
     func getTotalWeightedSystemScore()->Double{
@@ -106,10 +111,15 @@ class MyWellScore: NSObject {
         let hematoWeightedSystemScore = HematoManager.sharedManager.hematoData.hematoWeightedSystemScore
         //Endocrine
         let endocrineWeightedSystemScore = EndocrineManager.sharedManager.endocrineData.endocrineWeightedSystemScore
+        //Gastrointestinal
+        let gastrointestinalWeightedSystemScore = GastrointestinalManager.sharedManager.gastrointestinalData.gastrointestinalWeightedSystemScore
+        //Genitourinary
+        let genitourinaryWeightedSystemScore = GenitourinaryManager.sharedManager.genitourinaryData.genitourinaryWeightedSystemScore
         
         let totalWeightedSystemScore1 = cardioWeightedSystemScore + respiratoryWeightedSystemScore + renalWeightedSystemScore + iDiseaseWeightedSystemScore
         let totalWeightedSystemScore2 = fneWeightedSystemScore + hematoWeightedSystemScore + endocrineWeightedSystemScore
+        let totalWeightedSystemScore3 = gastrointestinalWeightedSystemScore + genitourinaryWeightedSystemScore
         
-        return totalWeightedSystemScore1 + totalWeightedSystemScore2
+        return totalWeightedSystemScore1 + totalWeightedSystemScore2 + totalWeightedSystemScore3
     }
 }

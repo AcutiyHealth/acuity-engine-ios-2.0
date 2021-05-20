@@ -23,7 +23,7 @@ class GastrointestinalManager: NSObject {
         
     }
     //Reset Gastrointestinal Data
-    func resetEndocrineData(){
+    func resetGastrointestinalData(){
         gastrointestinalData = GastrointestinalData()
     }
     
