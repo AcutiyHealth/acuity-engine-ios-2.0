@@ -64,6 +64,8 @@ class HKManagerReadConditions: NSObject
                 GastrointestinalManager.sharedManager.saveConditionsData(element: element)
                 //Save data for Genitourinary...
                 GenitourinaryManager.sharedManager.saveConditionsData(element: element)
+                //Save data for Neuro...
+                NeuroManager.sharedManager.saveConditionsData(element: element)
             }
             completion(true, nil)
             return

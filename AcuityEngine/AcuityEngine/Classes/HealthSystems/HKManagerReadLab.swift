@@ -97,6 +97,8 @@ class HKManagerReadLab: NSObject
                                     GastrointestinalManager.sharedManager.saveLabData(code: code, value: value, timeStamp: Double(timeStampOfLabData))
                                     //Save Data For Genitourinary..
                                     GenitourinaryManager.sharedManager.saveLabData(code: code, value: value, timeStamp: Double(timeStampOfLabData))
+                                    //Save Data For Neuro System..
+                                    NeuroManager.sharedManager.saveLabData(code: code, value: value, timeStamp: Double(timeStampOfLabData))
                                     //}
                                     
                                 }

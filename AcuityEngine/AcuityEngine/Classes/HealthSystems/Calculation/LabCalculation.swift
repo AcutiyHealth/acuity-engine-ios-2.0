@@ -99,6 +99,9 @@ class LabCalculation:Metrix {
                 //urineKetone
                 case .urineKetone:
                     self.calculatedValue = getUrineKenote().rawValue
+                //vitaminB12
+                case .vitaminB12:
+                    self.calculatedValue = getVitaminB12().rawValue
                 //WBC
                 case .WBC:
                     self.calculatedValue = getWBCValue().rawValue
@@ -456,6 +459,17 @@ class LabCalculation:Metrix {
             return HeartRateValue.Green
         }
     }
+    //MARK: VitaminB12
+    private func getVitaminB12() -> HeartRateValue {
+        
+        if value > 190 || value < 950 {
+            return HeartRateValue.Red
+        }
+        else {
+            return HeartRateValue.Green
+        }
+    }
+    
     //MARK:MCV
     private func getMCV() -> HeartRateValue {
         if value < 80 || value > 96  {

@@ -37,76 +37,90 @@ class AcuityDetailPullUpViewModel: NSObject
         acuityModel.name = SystemName(rawValue: systemData["name"] as! String )
         acuityModel.score = systemData["score"]  as? String ?? ""
         acuityModel.image = systemData["image"]  as? String ?? ""
-        acuityModel.metricCardio = systemData["metricCardio"] as? [String:Any]
+        acuityModel.metricDictionary = systemData["metricDictionary"] as? [String:Any]
         return acuityModel
     }
     func getScoreAndArrayOfSystemScore()->(String,[Double],[String:Any]){
         
         var scoreText = String(format: "0.00")
         var arraySystemScore:[Double] = []
-        var metricCardio:[String:Any] = [:]
+        var metricDictionary:[String:Any] = [:]
         print("<--------------------showScoreAndChartData-------------------->")
         switch MyWellScore.sharedManager.selectedSystem {
         case .Cardiovascular:
             do{
                 let systemScore = CardioManager.sharedManager.cardioData.totalSystemScoreWithDays(days: MyWellScore.sharedManager.daysToCalculateSystemScore)
                 scoreText = String(format: "%.2f", systemScore)
-                metricCardio = CardioManager.sharedManager.cardioData.dictionaryRepresentation()
+                metricDictionary = CardioManager.sharedManager.cardioData.dictionaryRepresentation()
                 arraySystemScore = CardioManager.sharedManager.cardioData.arrayDayWiseSystemScore
             }
         case .Respiratory:
             do{
                 let systemScore = RespiratoryManager.sharedManager.respiratoryData.totalSystemScoreWithDays(days: MyWellScore.sharedManager.daysToCalculateSystemScore)
                 scoreText = String(format: "%.2f", systemScore)
-                metricCardio = RespiratoryManager.sharedManager.respiratoryData.dictionaryRepresentation()
+                metricDictionary = RespiratoryManager.sharedManager.respiratoryData.dictionaryRepresentation()
                 arraySystemScore = RespiratoryManager.sharedManager.respiratoryData.arrayDayWiseSystemScore
             }
         case .Renal:
             do{
                 let systemScore = RenalManager.sharedManager.renalData.totalSystemScoreWithDays(days: MyWellScore.sharedManager.daysToCalculateSystemScore)
                 scoreText = String(format: "%.2f", systemScore)
-                metricCardio = RenalManager.sharedManager.renalData.dictionaryRepresentation()
+                metricDictionary = RenalManager.sharedManager.renalData.dictionaryRepresentation()
                 arraySystemScore = RenalManager.sharedManager.renalData.arrayDayWiseSystemScore
             }
         case .InfectiousDisease:
             do{
                 let systemScore = IDiseaseManager.sharedManager.iDiseaseData.totalSystemScoreWithDays(days: MyWellScore.sharedManager.daysToCalculateSystemScore)
                 scoreText = String(format: "%.2f", systemScore)
-                metricCardio = IDiseaseManager.sharedManager.iDiseaseData.dictionaryRepresentation()
+                metricDictionary = IDiseaseManager.sharedManager.iDiseaseData.dictionaryRepresentation()
                 arraySystemScore = IDiseaseManager.sharedManager.iDiseaseData.arrayDayWiseSystemScore
             }
         case .Fluids:
             do{
                 let systemScore = FNEManager.sharedManager.fneData.totalSystemScoreWithDays(days: MyWellScore.sharedManager.daysToCalculateSystemScore)
                 scoreText = String(format: "%.2f", systemScore)
-                metricCardio = FNEManager.sharedManager.fneData.dictionaryRepresentation()
+                metricDictionary = FNEManager.sharedManager.fneData.dictionaryRepresentation()
                 arraySystemScore = FNEManager.sharedManager.fneData.arrayDayWiseSystemScore
             }
         case .Hematology:
             do{
                 let systemScore = HematoManager.sharedManager.hematoData.totalSystemScoreWithDays(days: MyWellScore.sharedManager.daysToCalculateSystemScore)
                 scoreText = String(format: "%.2f", systemScore)
-                metricCardio = HematoManager.sharedManager.hematoData.dictionaryRepresentation()
+                metricDictionary = HematoManager.sharedManager.hematoData.dictionaryRepresentation()
                 arraySystemScore = HematoManager.sharedManager.hematoData.arrayDayWiseSystemScore
             }
         case .Endocrine:
             do{
                 let systemScore = EndocrineManager.sharedManager.endocrineData.totalSystemScoreWithDays(days: MyWellScore.sharedManager.daysToCalculateSystemScore)
                 scoreText = String(format: "%.2f", systemScore)
-                metricCardio = EndocrineManager.sharedManager.endocrineData.dictionaryRepresentation()
+                metricDictionary = EndocrineManager.sharedManager.endocrineData.dictionaryRepresentation()
                 arraySystemScore = EndocrineManager.sharedManager.endocrineData.arrayDayWiseSystemScore
             }
         case .Gastrointestinal:
             do{
                 let systemScore = GastrointestinalManager.sharedManager.gastrointestinalData.totalSystemScoreWithDays(days: MyWellScore.sharedManager.daysToCalculateSystemScore)
                 scoreText = String(format: "%.2f", systemScore)
-                metricCardio = GastrointestinalManager.sharedManager.gastrointestinalData.dictionaryRepresentation()
+                metricDictionary = GastrointestinalManager.sharedManager.gastrointestinalData.dictionaryRepresentation()
                 arraySystemScore = GastrointestinalManager.sharedManager.gastrointestinalData.arrayDayWiseSystemScore
+            }
+        case .Genitourinary:
+            do{
+                let systemScore = GenitourinaryManager.sharedManager.genitourinaryData.totalSystemScoreWithDays(days: MyWellScore.sharedManager.daysToCalculateSystemScore)
+                scoreText = String(format: "%.2f", systemScore)
+                metricDictionary = GenitourinaryManager.sharedManager.genitourinaryData.dictionaryRepresentation()
+                arraySystemScore = GenitourinaryManager.sharedManager.genitourinaryData.arrayDayWiseSystemScore
+            }
+        case .Nuerological:
+            do{
+                let systemScore = NeuroManager.sharedManager.neuroData.totalSystemScoreWithDays(days: MyWellScore.sharedManager.daysToCalculateSystemScore)
+                scoreText = String(format: "%.2f", systemScore)
+                metricDictionary = NeuroManager.sharedManager.neuroData.dictionaryRepresentation()
+                arraySystemScore = NeuroManager.sharedManager.neuroData.arrayDayWiseSystemScore
             }
         default:
             break
         }
-        return (scoreText,arraySystemScore,metricCardio)
+        return (scoreText,arraySystemScore,metricDictionary)
         
     }
     
