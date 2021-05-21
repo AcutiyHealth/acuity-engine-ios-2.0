@@ -93,14 +93,14 @@ class AcuityDetailPullUpViewController: UIViewController {
         let acuityModel = viewModelObj.prepareAcuityModelFromSystemData(systemData: systemData)
         //Display data from acuityModel
         displayDatailTitleFromAcuityModel(acuityModel: acuityModel)
-       
+        
         self.showScoreAndChartData()
         
         self.reloadTableView()
         
     }
     func displayDatailTitleFromAcuityModel(acuityModel:AcuityDisplayModel){
-        systemMetricsData = acuityModel.metricCardio
+        systemMetricsData = acuityModel.metricDictionary
         lblTitle.text = acuityModel.name?.rawValue
         lblScore.text = acuityModel.score
         MyWellScore.sharedManager.selectedSystem = acuityModel.name ?? SystemName.Cardiovascular
@@ -113,11 +113,22 @@ class AcuityDetailPullUpViewController: UIViewController {
         self.arrSymptoms = []
         self.arrLabs = []
         self.arrVitals = []
-      
-        self.arrConditions = systemMetricsData![MetricsType.Conditions.rawValue] as! [ConditionsModel]
-        self.arrSymptoms = systemMetricsData![MetricsType.Sympotms.rawValue] as! [SymptomsModel]
-        self.arrLabs = systemMetricsData![MetricsType.LabData.rawValue] as! [LabModel]
-        self.arrVitals = systemMetricsData![MetricsType.Vitals.rawValue] as! [VitalsModel]
+        guard let arrConditions = systemMetricsData?[MetricsType.Conditions.rawValue] as? [ConditionsModel] else {
+            return
+        }
+        guard let arrSymptoms = systemMetricsData?[MetricsType.Sympotms.rawValue] as? [SymptomsModel] else {
+            return
+        }
+        guard let arrLabs = systemMetricsData?[MetricsType.LabData.rawValue] as? [LabModel] else {
+            return
+        }
+        guard let arrVitals = systemMetricsData?[MetricsType.Vitals.rawValue] as? [VitalsModel] else {
+            return
+        }
+        self.arrConditions = arrConditions
+        self.arrSymptoms = arrSymptoms
+        self.arrLabs = arrLabs
+        self.arrVitals = arrVitals
         
         //Sorting of array...
         self.arrConditions.sort {
@@ -135,7 +146,7 @@ class AcuityDetailPullUpViewController: UIViewController {
         
         //reload tableview....
         self.reloadTableView()
-       
+        
     }
     //MARK: setup chart
     func setUpChartView(data:[(x: Int, y: Double)]){
@@ -194,7 +205,7 @@ class AcuityDetailPullUpViewController: UIViewController {
         
         //Prepare Array from acuityModel
         prepareArrayFromAcuityModel()
-      
+        
         lblScore.text = scoreText
         
         setColorForScoreAndChart()

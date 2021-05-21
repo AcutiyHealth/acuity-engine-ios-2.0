@@ -86,10 +86,12 @@ class MyWellScore: NSObject {
         let maxScoreGastrointestinalData = GastrointestinalManager.sharedManager.gastrointestinalData.maxScore
         //Genitourinary
         let maxScoreGenitourinaryData = GenitourinaryManager.sharedManager.genitourinaryData.maxScore
+        //Neuro
+        let maxScoreNeuroData = NeuroManager.sharedManager.neuroData.maxScore
         
         let totalMaxScore1 = maxScoreCardioData +  maxScoreRespiratoryData + maxScoreRenalData + maxScoreDiseaseData
         let totalMaxScore2 = maxScoreFNEData + maxScoreHematoData + maxScoreEndocrineData
-        let totalMaxScore3 = maxScoreGastrointestinalData + maxScoreGenitourinaryData
+        let totalMaxScore3 = maxScoreGastrointestinalData + maxScoreGenitourinaryData + maxScoreNeuroData
         return totalMaxScore1 + totalMaxScore2 + totalMaxScore3
     }
     
@@ -115,10 +117,12 @@ class MyWellScore: NSObject {
         let gastrointestinalWeightedSystemScore = GastrointestinalManager.sharedManager.gastrointestinalData.gastrointestinalWeightedSystemScore
         //Genitourinary
         let genitourinaryWeightedSystemScore = GenitourinaryManager.sharedManager.genitourinaryData.genitourinaryWeightedSystemScore
+        //Neuro
+        let neuroWeightedSystemScore = NeuroManager.sharedManager.neuroData.neuroWeightedSystemScore
         
         let totalWeightedSystemScore1 = cardioWeightedSystemScore + respiratoryWeightedSystemScore + renalWeightedSystemScore + iDiseaseWeightedSystemScore
         let totalWeightedSystemScore2 = fneWeightedSystemScore + hematoWeightedSystemScore + endocrineWeightedSystemScore
-        let totalWeightedSystemScore3 = gastrointestinalWeightedSystemScore + genitourinaryWeightedSystemScore
+        let totalWeightedSystemScore3 = gastrointestinalWeightedSystemScore + genitourinaryWeightedSystemScore + neuroWeightedSystemScore
         
         return totalWeightedSystemScore1 + totalWeightedSystemScore2 + totalWeightedSystemScore3
     }

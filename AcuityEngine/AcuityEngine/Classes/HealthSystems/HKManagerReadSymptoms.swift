@@ -102,6 +102,9 @@ class HKManagerReadSymptoms: NSObject
                                             
                                             //Save data for Genitourinary...
                                             GenitourinaryManager.sharedManager.saveSymptomsData(category: category, element: element)
+                                            
+                                            //Save data for Neuro...
+                                            NeuroManager.sharedManager.saveSymptomsData(category: category, element: element)
                                         }
                                         dispatchGroup.leave()
                                         

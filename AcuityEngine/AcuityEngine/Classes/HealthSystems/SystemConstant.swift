@@ -77,6 +77,7 @@ enum ConditionType:String,CaseIterable {
     case kidneyDiease = "Kidney Disease"
     case kidneyStones = "Kidney Stones"
     case liverDisease = "Liver Disease"
+    case memoryLoss = "Memory Loss/dementia"
     case neuropathy = "Neuropathy"
     case otitis = "Otitis"
     case overweightOrObesity = "Overweight/Obesity"
@@ -97,6 +98,41 @@ enum ConditionType:String,CaseIterable {
     case unsafeHousing = "Unsafe Housing"
     case urinaryProblems = "Urinary Problems"
     case UTI = "UTI"
+    
+}
+
+enum SymptomsName:String {
+    case abdominal_Cramps = "Abdominal Cramps"
+    case acne = "Acne"
+    case bladder_Incontinence = "Bladder Incontinence"
+    case bloating = "Bloating"
+    case body_Ache = "Body And Muscle Ache"
+    case chestPain = "Chest Pain"
+    case chills = "Chills"
+    case constipation = "Constipation"
+    case cough = "Cough"
+    case diarrhea = "Diarrhea"
+    case dizziness = "Dizziness"
+    case drySkin = "Dry Skin"
+    case fainting = "Fainting"
+    case fatigue = "Fatigue"
+    case fever = "Fever"
+    case hairLoss = "Hair Loss"
+    case headache = "Headache"
+    case heartburn = "Heartburn"
+    case hotFlashes = "Hot Flashes"
+    case lossOfSmell = "Loss Of Smell"
+    case lowerBackPain = "Lower Back Pain"
+    case memoryLapse = "Memory Lapse"
+    case moodChanges = "Mood Changes"
+    case nausea = "Nausea"
+    case rapidHeartbeat = "Rapid Or Fluttering Heartbeat"
+    case runnyNose = "Runny Nose"
+    case shortnessOfBreath = "Shortness Of Breath"
+    case skippedHeartBeat = "Skipped Heart Beat"
+    case sleepChanges = "Sleep Changes"
+    case soreThroat = "Sore Throat"
+    case vomiting = "Vomiting"
     
 }
 
@@ -129,6 +165,7 @@ enum LabType:String {
     case urineBlood  = "Urine Blood"
     case urineKetone  = "Urine Ketone"
     case WBC = "WBC's"
+    case vitaminB12 = "Vitamin B12"
 }
 
 enum LabCodeConstant:String{
@@ -151,13 +188,14 @@ enum LabCodeConstant:String{
     case microalbuminCreatinineRatio = "14959-1"
     case MCV  = "30428-7"
     case neutrophil = "32200-8"
-    case platelets = "Platelets"
+    case platelets = "Platelets" //Need to import
     case potassiumLevel = "2823-3"
     case sodium = "2951-2"
     case TSH = "11580-8"
     case urineNitrites = "45066-8"
     case urineBlood  = "5794-3"
-    case urineKetone  = ""
+    case urineKetone  = "" //Need to import
+    case vitaminB12 = "vitaminB12" //Need to import
     case WBC = "6690-0"
 
 }
