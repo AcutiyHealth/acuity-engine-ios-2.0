@@ -18,25 +18,7 @@ class AcuityMainViewModel: NSObject {
         
         
     }
-    
-    
-    //MARK: Default system data...
-    func createArrayAndSystemScoreForSystems(){
-        
-        //Cardiovascular
-        let _ = CardioManager.sharedManager.cardioData.totalSystemScoreWithDays(days: MyWellScore.sharedManager.daysToCalculateSystemScore)
-        //Respiratory
-        let _ = RespiratoryManager.sharedManager.respiratoryData.totalSystemScoreWithDays(days: MyWellScore.sharedManager.daysToCalculateSystemScore)
-        //Renal
-        let _ = RenalManager.sharedManager.renalData.totalSystemScoreWithDays(days: MyWellScore.sharedManager.daysToCalculateSystemScore)
-        //IDisease
-        let _ = IDiseaseManager.sharedManager.iDiseaseData.totalSystemScoreWithDays(days: MyWellScore.sharedManager.daysToCalculateSystemScore)
-        //FNE
-        let _ = FNEManager.sharedManager.fneData.totalSystemScoreWithDays(days: MyWellScore.sharedManager.daysToCalculateSystemScore)
-        //Hemato
-        let _ = HematoManager.sharedManager.hematoData.totalSystemScoreWithDays(days: MyWellScore.sharedManager.daysToCalculateSystemScore)
-    }
-    
+  
     func setupBodySystemData()->[[String:Any]] {
         var arrBodySystems:[[String:Any]] = []
         
@@ -155,13 +137,15 @@ class AcuityMainViewModel: NSObject {
         dictIntegumentary.image = AcuityImages.kIntegumentary
         dictIntegumentary.metricDictionary = metricTemp
         
+        //SDH
+        let metricSDH = SDHManager.sharedManager.sdhData.dictionaryRepresentation()
         let dictDisposition =   AcuityDisplayModel()
         dictDisposition.id = "248"
         dictDisposition.name = SystemName.SocialDeterminantsofHealth
-        dictDisposition.score = "84"
+        dictDisposition.score = String(format: "%.2f", (SDHManager.sharedManager.sdhData.sdhSystemScore))
         //dictDisposition.index = "84"
         dictDisposition.image = AcuityImages.kDisposition
-        dictDisposition.metricDictionary = metricTemp
+        dictDisposition.metricDictionary = metricSDH
         
         let dictHeent =   AcuityDisplayModel()
         dictHeent.id = "111"

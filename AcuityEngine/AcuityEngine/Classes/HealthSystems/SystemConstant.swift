@@ -188,14 +188,14 @@ enum LabCodeConstant:String{
     case microalbuminCreatinineRatio = "14959-1"
     case MCV  = "30428-7"
     case neutrophil = "32200-8"
-    case platelets = "Platelets" //Need to import
+    case platelets = "777-3" //Need to import
     case potassiumLevel = "2823-3"
     case sodium = "2951-2"
     case TSH = "11580-8"
     case urineNitrites = "45066-8"
     case urineBlood  = "5794-3"
-    case urineKetone  = "" //Need to import
-    case vitaminB12 = "vitaminB12" //Need to import
+    case urineKetone  = "2514-8" //Need to import
+    case vitaminB12 = "30904-7" //Need to import
     case WBC = "6690-0"
 
 }

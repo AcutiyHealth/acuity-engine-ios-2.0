@@ -79,7 +79,7 @@ class AcuityDetailPullUpViewController: UIViewController {
         lblTitle.font = Fonts.kAcuityDetailTitleFont
         lblScore.font = Fonts.kAcuityDetailValueFont
     }
-    //MARK: show system data in tableview
+  
     func setupSegmentControl(){
         viewModelObj.setUpSegmentControl(segmentControl: segmentControl)
     }

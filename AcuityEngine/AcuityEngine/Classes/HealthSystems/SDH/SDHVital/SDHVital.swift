@@ -1,5 +1,5 @@
 //
-//  NeuroVitals.swift
+//  SDHVitals.swift
 //  HealthKitDemo
 //
 //  Created by Bhoomi Jagani on 11/05/21.
@@ -7,16 +7,18 @@
 
 import UIKit
 
-class NeuroVital:VitalProtocol {
+class SDHVital:VitalProtocol {
     /*S Blood pressure
      D Blood pressure
-     blood oxygen level
-     VO2 max */
+     Age
+     body mass index
+     Oxygen saturation */
     
-    var systolicBloodPressureData:[NeuroVitalsData] = []
-    var diastolicBloodPressureData:[NeuroVitalsData] = []
-    var bloodOxygenLevelData:[NeuroVitalsData] = []
-    var vo2MaxData:[NeuroVitalsData] = []
+    var systolicBloodPressureData:[SDHVitalsData] = []
+    var diastolicBloodPressureData:[SDHVitalsData] = []
+    var ageData:[SDHVitalsData] = []
+    var BMIData:[SDHVitalsData] = []
+    var oxygenSaturationData:[SDHVitalsData] = []
     
     var totalScore:[Double] = []
     var arrayDayWiseScoreTotal:[Double] = []
@@ -27,15 +29,25 @@ class NeuroVital:VitalProtocol {
         
         let systolicBloodPressure = (Double(systolicBloodPressureData.average(\.score)) .isNaN ? 0 : Double(systolicBloodPressureData.average(\.score)))
         let diastolicBloodPressure = (Double(diastolicBloodPressureData.average(\.score)) .isNaN ? 0 : Double(diastolicBloodPressureData.average(\.score)))
-        let bloodOxygenLevel = (Double(bloodOxygenLevelData.average(\.score)) .isNaN ? 0 : Double(bloodOxygenLevelData.average(\.score)))
-        let vo2Max = (Double(vo2MaxData.average(\.score)) .isNaN ? 0 : Double(vo2MaxData.average(\.score)))
+        let age = (Double(ageData.average(\.score)) .isNaN ? 0 : Double(ageData.average(\.score)))
+        let BMI = (Double(BMIData.average(\.score)) .isNaN ? 0 : Double(BMIData.average(\.score)))
+        let oxygenSaturation = (Double(oxygenSaturationData.average(\.score)) .isNaN ? 0 : Double(oxygenSaturationData.average(\.score)))
         
-        let totalVitalScore = systolicBloodPressure + diastolicBloodPressure + bloodOxygenLevel + vo2Max
+        let totalVitalScore = systolicBloodPressure + diastolicBloodPressure + age + BMI + oxygenSaturation;
         return totalVitalScore;
     }
     
     func totalVitalsScoreForDays(days:SegmentValueForGraph) -> [Double] {
         
+        /*
+         Here We get component is Month/Day and noOfTimesLoopExecute to execute.
+         We get selection from Segment Control from Pull up
+         When there is & days selected, loop will execute 7 times
+         When there is 1 Month selected, loop will execute per weeks count
+         When there is 3 month selected, loop will execute 3 times
+         So any vital's start time is between range, take average of vital's score and after do sum of all vital and store it in array..
+         So, if there is 7 times loop execute aboce process with execute 7 times and final array will have 7 entries.
+         */
         arrayDayWiseScoreTotal = []
         
         var now = MyWellScore.sharedManager.todaysDate
@@ -58,13 +70,16 @@ class NeuroVital:VitalProtocol {
             //diastolicBloodPressureData
             let scorediastolicBloodPressure = getScoreForVitalDataWithGivenDateRange(sampleItem: diastolicBloodPressureData, timeIntervalByLastMonth: timeIntervalByLastMonth, timeIntervalByNow: timeIntervalByNow)
             
-            //bloodOxygenLevel
-            let scorebloodOxygenLevel = getScoreForVitalDataWithGivenDateRange(sampleItem: bloodOxygenLevelData, timeIntervalByLastMonth: timeIntervalByLastMonth, timeIntervalByNow: timeIntervalByNow)
+            //age
+            let scoreAge = getScoreForVitalDataWithGivenDateRange(sampleItem: ageData, timeIntervalByLastMonth: timeIntervalByLastMonth, timeIntervalByNow: timeIntervalByNow)
             
-            //vo2Max
-            let scorevo2Max = getScoreForVitalDataWithGivenDateRange(sampleItem: vo2MaxData, timeIntervalByLastMonth: timeIntervalByLastMonth, timeIntervalByNow: timeIntervalByNow)
+            //BMI
+            let scoreBMI = getScoreForVitalDataWithGivenDateRange(sampleItem: BMIData, timeIntervalByLastMonth: timeIntervalByLastMonth, timeIntervalByNow: timeIntervalByNow)
             
-            let totalScore = scoresystolicBloodPressure + scorediastolicBloodPressure + scorebloodOxygenLevel + scorevo2Max
+            //oxygenSaturation
+            let scoreoxygenSaturation = getScoreForVitalDataWithGivenDateRange(sampleItem: oxygenSaturationData, timeIntervalByLastMonth: timeIntervalByLastMonth, timeIntervalByNow: timeIntervalByNow)
+            
+            let totalScore = scoresystolicBloodPressure + scorediastolicBloodPressure + scoreAge + scoreBMI + scoreoxygenSaturation
             arrayDayWiseScoreTotal.append(totalScore)
         }
         
@@ -73,15 +88,17 @@ class NeuroVital:VitalProtocol {
     func getMaxVitalsScore() -> Double {
         
         //bloodPressureSystolic
-        let bloodPressureSystolic = NeuroVitalRelativeImportance.bloodPressureSystolic.getConvertedValueFromPercentage()
+        let bloodPressureSystolic = SDHVitalRelativeImportance.bloodPressureSystolic.getConvertedValueFromPercentage()
         //bloodPressureDiastolic
-        let bloodPressureDiastolic = NeuroVitalRelativeImportance.bloodPressureDiastolic.getConvertedValueFromPercentage()
-        //bloodOxygenLevel
-        let bloodOxygenLevel = NeuroVitalRelativeImportance.bloodOxygenLevel.getConvertedValueFromPercentage()
-        //vo2Max
-        let vo2Max = NeuroVitalRelativeImportance.vo2Max.getConvertedValueFromPercentage()
+        let bloodPressureDiastolic = SDHVitalRelativeImportance.bloodPressureDiastolic.getConvertedValueFromPercentage()
+        //age
+        let age = SDHVitalRelativeImportance.age.getConvertedValueFromPercentage()
+        //BMI
+        let BMI = SDHVitalRelativeImportance.BMI.getConvertedValueFromPercentage()
+        //oxygenSaturation
+        let oxygenSaturation = SDHVitalRelativeImportance.oxygenSaturation.getConvertedValueFromPercentage()
         
-        let totalVitalScore = vo2Max + bloodOxygenLevel + bloodPressureSystolic + bloodPressureDiastolic
+        let totalVitalScore =  bloodPressureSystolic + bloodPressureDiastolic + age + BMI + oxygenSaturation
         
         return totalVitalScore;
     }
@@ -89,15 +106,7 @@ class NeuroVital:VitalProtocol {
     //Get recent data for Specific Vitals..
     //MARK: To display data in Pull up...
     func dictionaryRepresentation()->[VitalsModel]{
-        /*
-         Here We get component is Month/Day and noOfTimesLoopExecute to execute.
-         We get selection from Segment Control from Pull up
-         When there is & days selected, loop will execute 7 times
-         When there is 1 Month selected, loop will execute per weeks count
-         When there is 3 month selected, loop will execute 3 times
-         So any vital's start time is between range, take average of vital's score and after do sum of all vital and store it in array..
-         So, if there is 7 times loop execute aboce process with execute 7 times and final array will have 7 entries.
-         */
+        
         arrVital = []
         let days = MyWellScore.sharedManager.daysToCalculateSystemScore
         
@@ -108,11 +117,13 @@ class NeuroVital:VitalProtocol {
         filterVitalArrayToGetSingleDataWithSelectedSegmentInGraph(days: days, array: diastolicBloodPressureData)
         
         //bloodOxygenLevelData
-        filterVitalArrayToGetSingleDataWithSelectedSegmentInGraph(days: days, array: bloodOxygenLevelData)
+        filterVitalArrayToGetSingleDataWithSelectedSegmentInGraph(days: days, array: ageData)
         
-        //vo2MaxData
-        filterVitalArrayToGetSingleDataWithSelectedSegmentInGraph(days: days, array: vo2MaxData)
+        //BMIData
+        filterVitalArrayToGetSingleDataWithSelectedSegmentInGraph(days: days, array: BMIData)
         
+        //oxygenSaturationData
+        filterVitalArrayToGetSingleDataWithSelectedSegmentInGraph(days: days, array: oxygenSaturationData)
         return arrVital
     }
     func filterVitalArrayToGetSingleDataWithSelectedSegmentInGraph(days:SegmentValueForGraph,array:[VitalCalculation]){
@@ -144,13 +155,15 @@ class NeuroVital:VitalProtocol {
         //Diastolic
         case .bloodPressureDiastolic:
             filterArray = filterVitalArrayWithSelectedSegmentInGraph(days: days, array: diastolicBloodPressureData)
-        //bloodOxygenLevelData
+        //age
+        case .age:
+            filterArray = filterVitalArrayWithSelectedSegmentInGraph(days: days, array: ageData)
+        //BMI
+        case .BMI:
+            filterArray = filterVitalArrayWithSelectedSegmentInGraph(days: days, array: BMIData)
+        //oxygenSaturation
         case .oxygenSaturation:
-            filterArray = filterVitalArrayWithSelectedSegmentInGraph(days: days, array: bloodOxygenLevelData)
-        //vo2Max
-        case .vo2Max:
-            filterArray = filterVitalArrayWithSelectedSegmentInGraph(days: days, array: vo2MaxData)
-            
+            filterArray = filterVitalArrayWithSelectedSegmentInGraph(days: days, array: oxygenSaturationData)
         default:
             break
         }

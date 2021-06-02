@@ -84,6 +84,18 @@ class AcuityMetricsValueViewModel: NSObject
             do{
                 arrSymptoms = EndocrineManager.sharedManager.endocrineData.endocrineSymptoms.getArrayDataForSymptoms(days:MyWellScore.sharedManager.daysToCalculateSystemScore, title: title)
             }
+        case .Gastrointestinal:
+            do{
+                arrSymptoms = GastrointestinalManager.sharedManager.gastrointestinalData.gastrointestinalSymptoms.getArrayDataForSymptoms(days:MyWellScore.sharedManager.daysToCalculateSystemScore, title: title)
+            }
+        case .Genitourinary:
+            do{
+                arrSymptoms = GenitourinaryManager.sharedManager.genitourinaryData.genitourinarySymptoms.getArrayDataForSymptoms(days:MyWellScore.sharedManager.daysToCalculateSystemScore, title: title)
+            }
+        case .SocialDeterminantsofHealth:
+            do{
+                arrSymptoms = SDHManager.sharedManager.sdhData.sdhSymptoms.getArrayDataForSymptoms(days:MyWellScore.sharedManager.daysToCalculateSystemScore, title: title)
+            }
         default:
             break
         }
@@ -122,6 +134,10 @@ class AcuityMetricsValueViewModel: NSObject
         case .Endocrine:
             do{
                 arrVitals = EndocrineManager.sharedManager.endocrineData.endocrineVital.getArrayDataForVitals(days:MyWellScore.sharedManager.daysToCalculateSystemScore, title: title)
+            }
+        case .SocialDeterminantsofHealth:
+            do{
+                arrVitals = SDHManager.sharedManager.sdhData.sdhVital.getArrayDataForVitals(days:MyWellScore.sharedManager.daysToCalculateSystemScore, title: title)
             }
         default:
             break

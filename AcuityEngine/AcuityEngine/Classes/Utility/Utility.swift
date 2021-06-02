@@ -260,6 +260,9 @@ func filterMatricsForSymptoms(sampleItem:Metrix,timeIntervalByLastMonth:Double,t
 
 func filterMatricsForVitalOrLab(sampleItem:Metrix,timeIntervalByLastMonth:Double,timeIntervalByNow:Double)->Bool{
     let timeIntervalStart = sampleItem.startTimeStamp
+    /*
+     Here it's checking vitals's start time with timeIntervalByNow/Current time and timeIntervalByMonth/Day. So, if vitals's start time is between timeIntervalByNow/Current time and timeIntervalByMonth/Da, you will get filter data.
+     */
     if (timeIntervalStart >= timeIntervalByLastMonth && timeIntervalStart <= timeIntervalByNow){
         print("sampleItem Vitals value----->",sampleItem.value)
         print("sampleItem Vitals score----->",sampleItem.score)

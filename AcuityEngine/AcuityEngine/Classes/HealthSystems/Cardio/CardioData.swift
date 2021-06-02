@@ -60,7 +60,17 @@ class CardioData:SystemDataProtocol {
         return arrayFraction
     }
     
-    
+    //2nd Step
+    //Get total score
+    /*
+     Get all Conditions metric total scrore which gets by value of metrix apply to calculation(which is sum of all conditions metrics)
+     Get all Symptoms metric total scrore which gets by value of metrix apply to calculation(which is sum of all symptoms metrics)
+     Get all vitals metric total scrore which gets by value of metrix apply to calculation(which is sum of all vitals metrics)
+     Get all Labs metric total scrore which gets by value of metrix apply to calculatione(which is sum of all Labs metrics)
+     
+     Finally, Do sum of all 4 systems's total score
+     
+     */
     //Metrix total score
     func totalMetrixScoreWithDays(days:SegmentValueForGraph) -> [Double]{
         var arrayDayWiseTotalScore:[Double] = []
@@ -73,6 +83,16 @@ class CardioData:SystemDataProtocol {
         
         return arrayDayWiseTotalScore
     }
+    //1st Step
+    //Get Max total score
+    /*
+     Get all Conditions metric Max scrore(which is sum of all conditions metrics)
+     Get all Symptoms metric Max scrore(which is sum of all symptoms metrics)
+     Get all vitals metric Max scrore(which is sum of all vitals metrics)
+     Get all Labs metric Max scrore(which is sum of all Labs metrics)
+     
+     Finally, Do sum of all 4 systems's max score
+     */
     func maxTotalScore() -> Double{
         let maxScoreVitals = cardioVital.getMaxVitalsScore()
         let maxConditionData = cardioCondition.getMaxConditionDataScore()

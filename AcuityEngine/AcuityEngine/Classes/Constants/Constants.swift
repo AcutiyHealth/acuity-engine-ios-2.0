@@ -8,7 +8,7 @@
 import Foundation
 import UIKit
 
-enum HeartRateValue:Double {
+enum RYGValue:Double {
     case Red = 1
     case Yellow = 0.5
     case Green = 0

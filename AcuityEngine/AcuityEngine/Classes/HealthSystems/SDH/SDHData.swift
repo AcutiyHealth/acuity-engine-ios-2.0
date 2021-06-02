@@ -1,5 +1,5 @@
 //
-//  GenitourinaryData.swift
+//  SDHData.swift
 //  HealthKitDemo
 //
 //  Created by Bhoomi Jagani on 11/05/21.
@@ -7,42 +7,42 @@
 
 import UIKit
 
-class GenitourinaryData {
-    var genitourinaryVital:GenitourinaryVital = GenitourinaryVital()
-    var genitourinaryCondition:GenitourinaryCondition = GenitourinaryCondition()
-    var genitourinarySymptoms:GenitourinarySymptoms = GenitourinarySymptoms()
-    var genitourinaryLab:GenitourinaryLab = GenitourinaryLab()
+class SDHData {
+    var sdhVital:SDHVital = SDHVital()
+    var sdhCondition:SDHCondition = SDHCondition()
+    var sdhSymptoms:SDHSymptoms = SDHSymptoms()
+    var sdhLab:SDHLab = SDHLab()
     var arrayDayWiseSystemScore:[Double] = []
-    var genitourinarySystemScore:Double = 0
-    var genitourinaryWeightedSystemScore:Double{
+    var sdhSystemScore:Double = 0
+    var sdhWeightedSystemScore:Double{
         get{
             getWeightedSystemScore()
         }
     }
-    var genitourinaryRelativeImportance:Double = SystemRelativeImportance.Genitourinary
-    var maxScore:Double = SystemRelativeImportance.Genitourinary
+    var sdhRelativeImportance:Double = SystemRelativeImportance.SocialDeterminantsofHealth
+    var maxScore:Double = SystemRelativeImportance.SocialDeterminantsofHealth
     
     
     func getWeightedSystemScore()->Double{
-        print("<--------------------Genitourinary------------------>")
+        print("<--------------------SDH------------------>")
         let score = totalSystemScoreWithDays(days: SegmentValueForGraph.OneDay)
-        return (score * genitourinaryRelativeImportance)/100
+        return (score * sdhRelativeImportance)/100
     }
     
     
     //Total/Final System Score
     func totalSystemScoreWithDays(days:SegmentValueForGraph) -> Double{
-        print("<--------------------Genitourinary------------------>")
+        print("<--------------------SDH------------------>")
         let arrayDayWiseSystemScore = systemScoreWithDays(days: days)
         //Calculate average system core for 7 days/30 days/3 months
         //Final system score for Cardio
-        genitourinarySystemScore = commonTotalSystemScoreWithDays(arrayDayWiseSystemScore: arrayDayWiseSystemScore)
-        let calculatedScore = genitourinarySystemScore
-        print("Genitourinary calculatedScore",calculatedScore)
+        sdhSystemScore = commonTotalSystemScoreWithDays(arrayDayWiseSystemScore: arrayDayWiseSystemScore)
+        let calculatedScore = sdhSystemScore
+        print("SDH calculatedScore",calculatedScore)
         return calculatedScore
     }
     
-    //calculate Daywise system score for Genitourinary
+    //calculate Daywise system score for SDH
     func systemScoreWithDays(days:SegmentValueForGraph)->[Double]{
         arrayDayWiseSystemScore = []
         let arrayFraction = abnormalFractionWithDays(days: days)
@@ -64,10 +64,10 @@ class GenitourinaryData {
     //Metrix total score
     func totalMetrixScoreWithDays(days:SegmentValueForGraph) -> [Double]{
         var arrayDayWiseTotalScore:[Double] = []
-        let totalScoreVitals = genitourinaryVital.totalVitalsScoreForDays(days: days)
-        let totalScoreCondition = genitourinaryCondition.totalConditionScoreForDays(days: days)
-        let totalScoreLab = genitourinaryLab.totalLabScoreForDays(days: days)
-        let totalScoreSymptom = genitourinarySymptoms.totalSymptomsScoreForDays(days: days)
+        let totalScoreVitals = sdhVital.totalVitalsScoreForDays(days: days)
+        let totalScoreCondition = sdhCondition.totalConditionScoreForDays(days: days)
+        let totalScoreLab = sdhLab.totalLabScoreForDays(days: days)
+        let totalScoreSymptom = sdhSymptoms.totalSymptomsScoreForDays(days: days)
         arrayDayWiseTotalScore = commonTotalMetrixScoreWithDays(totalScoreCondition: totalScoreCondition, totalScoreSymptom: totalScoreSymptom, totalScoreVitals: totalScoreVitals, totalScoreLab: totalScoreLab)
         
         return arrayDayWiseTotalScore
@@ -75,10 +75,10 @@ class GenitourinaryData {
     
     
     func maxTotalScore() -> Double{
-        let maxScoreVitals = genitourinaryVital.getMaxVitalsScore()
-        let maxConditionData = genitourinaryCondition.getMaxConditionDataScore()
-        let maxLabData = genitourinaryLab.getMaxLabDataScore()
-        let maxsymptomData = genitourinarySymptoms.getMaxSymptomDataScore()
+        let maxScoreVitals = sdhVital.getMaxVitalsScore()
+        let maxConditionData = sdhCondition.getMaxConditionDataScore()
+        let maxLabData = sdhLab.getMaxLabDataScore()
+        let maxsymptomData = sdhSymptoms.getMaxSymptomDataScore()
         
         let totalMaxScore = maxScoreVitals  + maxConditionData  + maxLabData + maxsymptomData
         
@@ -91,7 +91,7 @@ class GenitourinaryData {
     //MARK: To display data in Pull up...
     func dictionaryRepresentation()->[String:Any]{
         
-        return [MetricsType.Conditions.rawValue:genitourinaryCondition.dictionaryRepresentation(),MetricsType.Sympotms.rawValue:genitourinarySymptoms.dictionaryRepresentation(),MetricsType.LabData.rawValue:genitourinaryLab.dictionaryRepresentation(),MetricsType.Vitals.rawValue:genitourinaryVital.dictionaryRepresentation()] as [String : Any]
+        return [MetricsType.Conditions.rawValue:sdhCondition.dictionaryRepresentation(),MetricsType.Sympotms.rawValue:sdhSymptoms.dictionaryRepresentation(),MetricsType.LabData.rawValue:sdhLab.dictionaryRepresentation(),MetricsType.Vitals.rawValue:sdhVital.dictionaryRepresentation()] as [String : Any]
         
     }
 }

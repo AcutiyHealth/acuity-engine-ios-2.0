@@ -38,7 +38,15 @@ class EndocrineVital:VitalProtocol {
     }
     
     func totalVitalsScoreForDays(days:SegmentValueForGraph) -> [Double] {
-        
+        /*
+         Here We get component is Month/Day and noOfTimesLoopExecute to execute.
+         We get selection from Segment Control from Pull up
+         When there is & days selected, loop will execute 7 times
+         When there is 1 Month selected, loop will execute per weeks count
+         When there is 3 month selected, loop will execute 3 times
+         So any vital's start time is between range, take average of vital's score and after do sum of all vital and store it in array..
+         So, if there is 7 times loop execute aboce process with execute 7 times and final array will have 7 entries.
+         */
         arrayDayWiseScoreTotal = []
         
         var now = MyWellScore.sharedManager.todaysDate
