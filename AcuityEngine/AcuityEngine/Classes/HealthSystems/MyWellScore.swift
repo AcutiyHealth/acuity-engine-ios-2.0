@@ -88,11 +88,14 @@ class MyWellScore: NSObject {
         let maxScoreGenitourinaryData = GenitourinaryManager.sharedManager.genitourinaryData.maxScore
         //Neuro
         let maxScoreNeuroData = NeuroManager.sharedManager.neuroData.maxScore
+        //SDH
+        let maxScoreSDHData = SDHManager.sharedManager.sdhData.maxScore
         
         let totalMaxScore1 = maxScoreCardioData +  maxScoreRespiratoryData + maxScoreRenalData + maxScoreDiseaseData
         let totalMaxScore2 = maxScoreFNEData + maxScoreHematoData + maxScoreEndocrineData
         let totalMaxScore3 = maxScoreGastrointestinalData + maxScoreGenitourinaryData + maxScoreNeuroData
-        return totalMaxScore1 + totalMaxScore2 + totalMaxScore3
+        let totalMaxScore4 = maxScoreSDHData
+        return totalMaxScore1 + totalMaxScore2 + totalMaxScore3 + totalMaxScore4
     }
     
     func getTotalWeightedSystemScore()->Double{
@@ -119,11 +122,14 @@ class MyWellScore: NSObject {
         let genitourinaryWeightedSystemScore = GenitourinaryManager.sharedManager.genitourinaryData.genitourinaryWeightedSystemScore
         //Neuro
         let neuroWeightedSystemScore = NeuroManager.sharedManager.neuroData.neuroWeightedSystemScore
+        //SDH
+        let sdhWeightedSystemScore = SDHManager.sharedManager.sdhData.sdhWeightedSystemScore
         
         let totalWeightedSystemScore1 = cardioWeightedSystemScore + respiratoryWeightedSystemScore + renalWeightedSystemScore + iDiseaseWeightedSystemScore
         let totalWeightedSystemScore2 = fneWeightedSystemScore + hematoWeightedSystemScore + endocrineWeightedSystemScore
         let totalWeightedSystemScore3 = gastrointestinalWeightedSystemScore + genitourinaryWeightedSystemScore + neuroWeightedSystemScore
+        let totalWeightedSystemScore4 = sdhWeightedSystemScore
         
-        return totalWeightedSystemScore1 + totalWeightedSystemScore2 + totalWeightedSystemScore3
+        return totalWeightedSystemScore1 + totalWeightedSystemScore2 + totalWeightedSystemScore3 + totalWeightedSystemScore4
     }
 }

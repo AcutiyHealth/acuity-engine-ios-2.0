@@ -34,7 +34,7 @@ class EndocrineData {
     func totalSystemScoreWithDays(days:SegmentValueForGraph) -> Double{
         print("<--------------------Endocrine------------------>")
         let arrayDayWiseSystemScore = systemScoreWithDays(days: days)
-        //Calculate average system core for 7 days/30 days/3 months
+        //Calculate average system score for 7 days/30 days/3 months
         //Final system score for Cardio
         endocrineSystemScore = commonTotalSystemScoreWithDays(arrayDayWiseSystemScore: arrayDayWiseSystemScore)
         let calculatedScore = endocrineSystemScore

@@ -16,8 +16,8 @@ struct EndocrineConditionRelativeImportance {
      Hormone problems*/
     static let diabetes:Double = 100
     static let thyroidDisorder:Double = 100
-    static let polycysticOvarianDisease:Double = 0
-    static let hormoneProblems:Double = 0
+    static let polycysticOvarianDisease:Double = 100
+    static let hormoneProblems:Double = 100
 }
 
 class EndocrineConditionData:ConditionCalculation {

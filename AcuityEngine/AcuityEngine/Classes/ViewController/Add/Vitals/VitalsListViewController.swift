@@ -53,6 +53,7 @@ class VitalsListViewController: UIViewController {
         if #available(iOS 14.0, *) {
             vitalsArray.append(VitalModel(name: VitalsName.stepLength))
         }
+        
         /*
          VitalModel(name: VitalsName.lowHeartRate),
          VitalModel(name: VitalsName.highHeartRate),

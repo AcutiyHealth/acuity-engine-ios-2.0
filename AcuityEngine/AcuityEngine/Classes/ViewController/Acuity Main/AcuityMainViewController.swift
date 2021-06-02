@@ -108,7 +108,7 @@ class AcuityMainViewController: PullUpViewController, UIScrollViewDelegate,Rotar
     @objc  func refreshWheeltoShowDayWiseData(){
         self.setUpAcuityCircleView()
     }
-
+    
     func loadHealthData(days:SegmentValueForGraph,completion: @escaping (Bool, HealthkitSetupError?) -> Swift.Void){
         
         //Show Progress HUD
@@ -136,7 +136,7 @@ class AcuityMainViewController: PullUpViewController, UIScrollViewDelegate,Rotar
     //MARK: set up Acuity circle view...
     
     @objc func setUpAcuityCircleView() {
-     
+        
         //Select system index from array of arrBodySystems
         let acuityId = strSelectedAcuityId
         var selSystem = 0
@@ -199,7 +199,8 @@ class AcuityMainViewController: PullUpViewController, UIScrollViewDelegate,Rotar
     //MARK: Show data in header..
     func displayMyWellScoreData(){
         //self.headerView.lblSystemScore!.text = String(format: "%.2f", (MyWellScore.sharedManager.myWellScore))
-        lblScore.text = String(format: "%.2f", (MyWellScore.sharedManager.myWellScore))
+        let score = (MyWellScore.sharedManager.myWellScore)
+        lblScore.text = score == 100 ? String(format: "%.0f", score) : String(format: "%.2f", score)
         lblScoreWhenPopup.text = String(format: "%.2f", (MyWellScore.sharedManager.myWellScore))
     }
     

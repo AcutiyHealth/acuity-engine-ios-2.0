@@ -105,6 +105,9 @@ class HKManagerReadSymptoms: NSObject
                                             
                                             //Save data for Neuro...
                                             NeuroManager.sharedManager.saveSymptomsData(category: category, element: element)
+                                            
+                                            //Save data for SDH...
+                                            SDHManager.sharedManager.saveSymptomsData(category: category, element: element)
                                         }
                                         dispatchGroup.leave()
                                         

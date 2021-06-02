@@ -57,6 +57,8 @@ func commonTotalMetrixScoreWithDays(totalScoreCondition:[Double],totalScoreSympt
     if totalScoreVitals.count == totalScoreSymptom.count,totalScoreCondition.count == totalScoreLab.count && totalScoreVitals.count>0,totalScoreCondition.count>0{
         print("commonTotalMetrixScoreWithDays totalScoreSymptom",totalScoreSymptom)
         print("commonTotalMetrixScoreWithDays totalScoreVitals",totalScoreVitals)
+        print("commonTotalMetrixScoreWithDays totalScoreLab",totalScoreLab)
+        print("commonTotalMetrixScoreWithDays totalScoreCondition",totalScoreCondition)
         for i in 0...totalScoreVitals.count - 1{
             
             let totalScore1 = totalScoreVitals[i] + totalScoreCondition[i]

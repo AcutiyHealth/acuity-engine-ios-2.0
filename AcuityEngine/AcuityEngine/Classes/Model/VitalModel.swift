@@ -78,13 +78,16 @@ class VitalModel
             }
         case .headPhoneAudioLevel:
             healthQuantityType = .headphoneAudioExposure
-            
+        default:
+            break
         }
+        
     }
 }
 
 
 enum VitalsName:String {
+    case age = "Age"
     case heartRate = "Heart Rate"
     case bloodPressure = "Blood Pressure"
     case bloodPressureSystolic = "Blood Pressure Systolic"

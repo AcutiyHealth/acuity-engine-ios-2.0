@@ -66,6 +66,8 @@ class HKManagerReadConditions: NSObject
                 GenitourinaryManager.sharedManager.saveConditionsData(element: element)
                 //Save data for Neuro...
                 NeuroManager.sharedManager.saveConditionsData(element: element)
+                //Save data for SDH...
+                SDHManager.sharedManager.saveConditionsData(element: element)
             }
             completion(true, nil)
             return
