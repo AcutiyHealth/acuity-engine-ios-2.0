@@ -125,6 +125,13 @@ class AcuityDetailPullUpViewModel: NSObject
                 metricDictionary = SDHManager.sharedManager.sdhData.dictionaryRepresentation()
                 arraySystemScore = SDHManager.sharedManager.sdhData.arrayDayWiseSystemScore
             }
+        case .Musculatory:
+            do{
+                let systemScore = MuscManager.sharedManager.muscData.totalSystemScoreWithDays(days: MyWellScore.sharedManager.daysToCalculateSystemScore)
+                scoreText = systemScore == 100 ? String(format: "%.0f", systemScore) : String(format: "%.2f", systemScore)
+                metricDictionary = MuscManager.sharedManager.muscData.dictionaryRepresentation()
+                arraySystemScore = MuscManager.sharedManager.muscData.arrayDayWiseSystemScore
+            }
         default:
             break
         }

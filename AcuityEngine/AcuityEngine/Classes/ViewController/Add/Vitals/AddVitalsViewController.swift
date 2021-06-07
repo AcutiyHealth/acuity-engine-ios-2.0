@@ -111,7 +111,13 @@ class AddVitalsViewController: UIViewController {
         guard let vitalModel = vitalModel else {
             return
         }
-        lblTitle.text = vitalModel.name.rawValue
+        switch vitalModel.name {
+        case .oxygenSaturation:
+            lblTitle.text = String("Oxygen Saturation %")
+        default:
+            lblTitle.text = vitalModel.name.rawValue
+        }
+        
         //Make btn disable or enable...
         btnSave.isEnabled = false
         //view will be change as per vital

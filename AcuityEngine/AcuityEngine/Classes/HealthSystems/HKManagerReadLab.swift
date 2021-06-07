@@ -35,7 +35,13 @@ class HKManagerReadLab: NSObject
                     i = i + 1;
                     print("i------>\(i)")
                     do {
+                       
                         let sourceObject = try JSONSerialization.jsonObject(with: fhirResource.data, options: [])
+//                        let report = try DiagnosticReport(json: sourceObject as! FHIRJSON)
+//                        var contecxt = FHIRInstantiationContext()
+//                        report.populate(from: sourceObject as! FHIRJSON, context: &contecxt)
+//                        report.issued?.date
+//                        print("report.issued?.date",report.issued?.date)
                         let prettyPrintedSourceData = try JSONSerialization.data(withJSONObject: sourceObject, options: [.prettyPrinted])
                         
                         let sourceString = String(data: prettyPrintedSourceData, encoding: .utf8) ?? "Unable to display FHIR source."
@@ -47,10 +53,13 @@ class HKManagerReadLab: NSObject
                             
                             //Timestamp for Lab Data
                             let issueDate = dictionary["issued"] as? String
-                            let timeStampOfLabData = issueDate?.iso8601withFractionalSeconds?.timeIntervalSince1970 ?? 0
+                            var timeStampOfLabData = issueDate?.iso8601withFractionalSeconds?.timeIntervalSince1970 ?? 0
+                            if timeStampOfLabData == 0{
+                                 timeStampOfLabData = issueDate?.iso8601withFractionalSecondsNew?.timeIntervalSince1970 ?? 0
+                            }
                             print("timeStampOfLabData",timeStampOfLabData)
                             
-                            //Code for Lab Data
+                            //Code for  Lab Data
                             let dictionaryCode = dictionary["code"] as? [String: AnyObject]
                             let dictionaryCoding = dictionaryCode?["coding"]?.firstObject as? [String: AnyObject]
                             
@@ -63,13 +72,16 @@ class HKManagerReadLab: NSObject
                             
                             
                             component = .month
-                            beforeDaysOrWeekOrMonth = 3
+                            beforeDaysOrWeekOrMonth = 10
                             let daysAgo = Calendar.current.date(byAdding: component, value: -beforeDaysOrWeekOrMonth, to: now)!
                             
                             let timeIntervalByLastMonth:Double = daysAgo.timeIntervalSince1970
                             //print("timeIntervalByLastMonth",getDateMediumFormat(time:timeIntervalByLastMonth))
                             let timeIntervalByNow:Double = now.timeIntervalSince1970
                             
+                            print("timeStampOfLabData \(timeStampOfLabData)")
+                            print("timeIntervalByLastMonth \(timeIntervalByLastMonth)")
+                            print("timeIntervalByNow \(timeIntervalByNow)")
                             //Below code need to uncomment....
                             if (timeStampOfLabData >= timeIntervalByLastMonth && timeStampOfLabData <= timeIntervalByNow){
                                 
@@ -101,6 +113,9 @@ class HKManagerReadLab: NSObject
                                     NeuroManager.sharedManager.saveLabData(code: code, value: value, timeStamp: Double(timeStampOfLabData))
                                     //Save Data For SDH System..
                                     SDHManager.sharedManager.saveLabData(code: code, value: value, timeStamp: Double(timeStampOfLabData))
+                                    //Save Data For Musc System..
+                                    MuscManager.sharedManager.saveLabData(code: code, value: value, timeStamp: Double(timeStampOfLabData))
+                                    
                                     //}
                                     
                                 }

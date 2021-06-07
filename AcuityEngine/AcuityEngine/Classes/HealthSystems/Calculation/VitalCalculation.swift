@@ -20,7 +20,7 @@ class VitalCalculation:Metrix {
                 switch title {
                 //age
                 case .age:
-                    self.calculatedValue = getHeartRateValue().rawValue
+                    self.calculatedValue = getAgeValue().rawValue
                 //heartRate
                 case .heartRate:
                     self.calculatedValue = getHeartRateValue().rawValue
@@ -66,6 +66,9 @@ class VitalCalculation:Metrix {
                 //peakflowRate
                 case .peakflowRate:
                     self.calculatedValue = getPeakFlowRateValue().rawValue
+                //stepLength
+                case .stepLength:
+                    self.calculatedValue = getstepLengthValue().rawValue
                 default: break
                 }
             }
@@ -76,10 +79,7 @@ class VitalCalculation:Metrix {
     private func getHeartRateValue() -> RYGValue{
         
         // =if(H26="","",if(or(H26>110,H26<45),1*G26,if(or(H26>=85,H26<=50),0.5*G26,0)))
-        
-        if value < 0  {
-            return RYGValue.Green
-        } else if value > 110 || value < 45 {
+        if value > 110 || value < 45 {
             return RYGValue.Red
         } else if value >= 85 || value <= 50 {
             return RYGValue.Yellow
@@ -96,15 +96,8 @@ class VitalCalculation:Metrix {
         
         // =if(H26="","",if(or(H26>110,H26<45),1*G26,if(or(H26>=85,H26<=50),0.5*G26,0)))
         
-        if value < 0  {
-            return RYGValue.Green
-        } else if value > 110 || value < 45 {
+        if value > 65  {
             return RYGValue.Red
-        } else if value >= 85 || value <= 50 {
-            return RYGValue.Yellow
-        }
-        else if value >= 51 && value <= 84 {
-            return RYGValue.Green
         }
         else {
             return RYGValue.Green
@@ -114,10 +107,7 @@ class VitalCalculation:Metrix {
     private func getSBloodPressureValue() -> RYGValue{
         
         // =if(H24="","",if(or(H24>=150,H24<85),1*G24,if(H24>=135,0.5*G24,0)))
-        
-        if value < 0  {
-            return RYGValue.Green
-        } else if value >= 150 || value < 85 {
+        if value >= 150 || value < 85 {
             return RYGValue.Red
         } else if value >= 135 {
             return RYGValue.Yellow
@@ -131,9 +121,7 @@ class VitalCalculation:Metrix {
         
         // =if(H25="","",if(or(H25>=90,H25<45),1*G25,if(H25>=85,0.5*G25,0)))
         
-        if value < 0  {
-            return RYGValue.Green
-        } else if value >= 90 || value < 45 {
+        if value >= 90 || value < 45 {
             return RYGValue.Red
         } else if value >= 85 {
             return RYGValue.Yellow
@@ -225,18 +213,31 @@ class VitalCalculation:Metrix {
         }
     }
     
+    
+    //Step Length Value...
+    private func getstepLengthValue() -> RYGValue{
+        
+        if value > 110 || value < 45  {
+            return RYGValue.Red
+        } else if value >= 85 && value <= 50 {
+            return RYGValue.Yellow
+        } else{
+            return RYGValue.Green
+        }
+    }
+    
     //Oxygen saturation calculation
     private func getOxygenSaturationValue() -> RYGValue{
         
         // if(H30="","",if(H30<30,1*G30,if(and(H30>=30,H30<=40),0.5*G30,0)))
-    
-            if value < 0.90  {
-                return RYGValue.Red
-            } else if value >= 0.90 && value <= 0.94 {
-                return RYGValue.Yellow
-            } else {
-                return RYGValue.Green
-            }
+        
+        if value < 90  {
+            return RYGValue.Red
+        } else if value >= 90 && value <= 94 {
+            return RYGValue.Yellow
+        } else {
+            return RYGValue.Green
+        }
         
     }
     
@@ -270,9 +271,9 @@ class VitalCalculation:Metrix {
     private func getRespiratoryRateValue() -> RYGValue{
         //=if(H33="","",if(H33>2,1*G33,if(and(H33>=1,H33<=2),0.5*G33,0)))
         
-        if value > 20 || value < 10 {
+        if value > 20 || value < 12 {
             return RYGValue.Red
-        } else if value >= 15 && value <= 19 {
+        } else if value >= 12 && value <= 17 {
             return RYGValue.Green
         } else{
             return RYGValue.Yellow
