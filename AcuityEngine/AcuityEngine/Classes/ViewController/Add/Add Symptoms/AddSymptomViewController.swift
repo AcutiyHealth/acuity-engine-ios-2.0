@@ -128,6 +128,15 @@ class AddSymptomViewController: UIViewController {
     @IBAction func btnSaveClick(sender:UIButton){
         
         //Create Object For HKWriterManager
+        if  self.endDate < self.startDate{
+            
+            let okAction = UIAlertAction(title: AlertMessages.OK, style: .default){_ in
+            }
+            self.showAlertForDataSaved(message: AlertMessages.STARTDATEGRATETHANENDDATE, okAction: okAction)
+            
+            return
+        }
+        
         let objWriterManager = HKWriterManager()
         var symptomValue = symptomsArray[selectedSymptoms]
         if symptomsModel?.title == SymptomsName.sleepChanges || symptomsModel?.title == SymptomsName.moodChanges{

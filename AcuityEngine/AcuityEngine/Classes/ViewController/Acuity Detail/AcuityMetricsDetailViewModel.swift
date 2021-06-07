@@ -44,7 +44,7 @@ class AcuityMetricsDetailViewModel: NSObject
     }
     
     func getSymptomsData()->[SymptomsModel] {
-        switch MyWellScore.sharedManager.selectedSystem {
+        /*switch MyWellScore.sharedManager.selectedSystem {
         case .Cardiovascular:
             do{
                 return CardioManager.sharedManager.cardioData.cardioSymptoms.dictionaryRepresentation()
@@ -75,14 +75,14 @@ class AcuityMetricsDetailViewModel: NSObject
             }
         default:
             break
-        }
+        }*/
         
         
         return []
     }
     
     func getVitals()->[VitalsModel] {
-        switch MyWellScore.sharedManager.selectedSystem {
+        /*switch MyWellScore.sharedManager.selectedSystem {
         case .Cardiovascular:
             do{
                 return CardioManager.sharedManager.cardioData.cardioVital.dictionaryRepresentation()
@@ -113,7 +113,7 @@ class AcuityMetricsDetailViewModel: NSObject
             }
         default:
             break
-        }
+        }*/
         
         
         return []

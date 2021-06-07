@@ -19,8 +19,8 @@ class EndocrineData {
             getWeightedSystemScore()
         }
     }
-    var endocrineRelativeImportance:Double = 70
-    var maxScore:Double = 70
+    var endocrineRelativeImportance:Double = SystemRelativeImportance.Endocrine
+    var maxScore:Double = SystemRelativeImportance.Endocrine
     
     
     func getWeightedSystemScore()->Double{
@@ -34,7 +34,7 @@ class EndocrineData {
     func totalSystemScoreWithDays(days:SegmentValueForGraph) -> Double{
         print("<--------------------Endocrine------------------>")
         let arrayDayWiseSystemScore = systemScoreWithDays(days: days)
-        //Calculate average system core for 7 days/30 days/3 months
+        //Calculate average system score for 7 days/30 days/3 months
         //Final system score for Cardio
         endocrineSystemScore = commonTotalSystemScoreWithDays(arrayDayWiseSystemScore: arrayDayWiseSystemScore)
         let calculatedScore = endocrineSystemScore

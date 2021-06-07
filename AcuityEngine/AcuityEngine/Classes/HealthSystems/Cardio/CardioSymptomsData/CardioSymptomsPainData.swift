@@ -28,51 +28,49 @@ struct CardioSymptomsRelativeImportance {
 
 class CardioSymptomsPainData:SymptomCalculation {
    
-    var title:String = ""
-
      init(type:CategoryType) {
         super.init()
         super.symptomsType = type
         super.systemName = SystemName.Cardiovascular
         switch type {
         case .chestTightnessOrPain:
-            self.title = SymptomsName.chestPain.rawValue
+            super.title = SymptomsName.chestPain.rawValue
             self.relativeValue = CardioSymptomsRelativeImportance.chestPain
         case .skippedHeartbeat:
-            self.title = SymptomsName.skippedHeartBeat.rawValue
+            super.title = SymptomsName.skippedHeartBeat.rawValue
             self.relativeValue = CardioSymptomsRelativeImportance.skippedHeartBeat
         case .dizziness:
-            self.title = SymptomsName.dizziness.rawValue
+            super.title = SymptomsName.dizziness.rawValue
             self.relativeValue = CardioSymptomsRelativeImportance.dizziness
         case .fatigue:
-            self.title = SymptomsName.fatigue.rawValue
+            super.title = SymptomsName.fatigue.rawValue
             self.relativeValue = CardioSymptomsRelativeImportance.fatigue
         case .rapidPoundingOrFlutteringHeartbeat:
-            self.title = SymptomsName.rapidHeartbeat.rawValue
+            super.title = SymptomsName.rapidHeartbeat.rawValue
             self.relativeValue = CardioSymptomsRelativeImportance.rapidHeartbeat
         case .fainting:
-            self.title = SymptomsName.fainting.rawValue
+            super.title = SymptomsName.fainting.rawValue
             self.relativeValue = CardioSymptomsRelativeImportance.fainting
         case .nausea:
-            self.title = SymptomsName.nausea.rawValue
+            super.title = SymptomsName.nausea.rawValue
             self.relativeValue = CardioSymptomsRelativeImportance.nausea
         case .vomiting:
-            self.title = SymptomsName.vomiting.rawValue
+            super.title = SymptomsName.vomiting.rawValue
             self.relativeValue = CardioSymptomsRelativeImportance.vomiting
         case .memoryLapse:
-            self.title = SymptomsName.memoryLapse.rawValue
+            super.title = SymptomsName.memoryLapse.rawValue
             self.relativeValue = CardioSymptomsRelativeImportance.memoryLapse
         case .shortnessOfBreath:
-            self.title = SymptomsName.shortnessOfBreath.rawValue
+            super.title = SymptomsName.shortnessOfBreath.rawValue
             self.relativeValue = CardioSymptomsRelativeImportance.shortnessOfBreath
         case .headache:
-            self.title = SymptomsName.headache.rawValue
+            super.title = SymptomsName.headache.rawValue
             self.relativeValue = CardioSymptomsRelativeImportance.headache
         case .heartburn:
-            self.title = SymptomsName.heartburn.rawValue
+            super.title = SymptomsName.heartburn.rawValue
             self.relativeValue = CardioSymptomsRelativeImportance.heartburn
         case .sleepChanges:
-            self.title = SymptomsName.sleepChanges.rawValue
+            super.title = SymptomsName.sleepChanges.rawValue
             self.relativeValue = CardioSymptomsRelativeImportance.sleepChanges
         default:
             break

@@ -62,9 +62,12 @@ class IDiseaseManager: NSObject {
             self.iDiseaseData.iDiseaseVital.heartRateData.append(heartRate)
         }
         else if quantityType == QuantityType.oxygenSaturation {
-            
+            /*
+             Multiply value with 100 because we get oxygen saturation value in Float from health app. Oxygen saturation 1- 100 will get 0.1-1 from health app
+             */
             let oxygenSaturation = IDiseaseVitalsData(type: VitalsName.oxygenSaturation)
-            oxygenSaturation.value = Double(element.harmonized.value)
+            let newValue = Double(element.harmonized.value) * 100
+            oxygenSaturation.value = newValue
             oxygenSaturation.startTimeStamp = element.startTimestamp
             self.iDiseaseData.iDiseaseVital.oxygenSaturationData.append(oxygenSaturation)
         }
@@ -149,5 +152,60 @@ class IDiseaseManager: NSObject {
             break
         }
     }
+    
+    //MARK: Save Lab Data
+    func saveLabData(code:String,value:Double,timeStamp:Double){
+        let labCodeConstant = LabCodeConstant(rawValue: code)
+        
+        //Create Lab Model Object
+        let labData = IDiseaseLabData()
+        labData.value = value
+        labData.startTimeStamp = timeStamp
+        
+        switch labCodeConstant {
+        
+        //WBC
+        case .WBC:
+            do{
+                labData.type = .WBC
+                IDiseaseManager.sharedManager.iDiseaseData.iDiseaseLab.WBCData.append(labData)
+            }
+        //neutrophil
+        case .neutrophil:
+            do{
+                labData.type = .neutrophil
+                IDiseaseManager.sharedManager.iDiseaseData.iDiseaseLab.neutrophilData.append(labData)
+            }
+        //bloodGlucose
+        case .bloodGlucose:
+            do{
+                labData.type = .bloodGlucose
+                IDiseaseManager.sharedManager.iDiseaseData.iDiseaseLab.bloodGlucoseData.append(labData)
+            }
+        //urineNitrites
+        case .urineNitrites:
+            do{
+                labData.type = .urineNitrites
+                IDiseaseManager.sharedManager.iDiseaseData.iDiseaseLab.urineNitrites.append(labData)
+            }
+        //urineBlood
+        case .urineBlood:
+            do{
+                labData.type = .urineBlood
+                IDiseaseManager.sharedManager.iDiseaseData.iDiseaseLab.urineBlood.append(labData)
+            }
+        //anionGap
+        case .anionGap:
+            do{
+                labData.type = .anionGap
+                IDiseaseManager.sharedManager.iDiseaseData.iDiseaseLab.anionGapData.append(labData)
+            }
+       
+        default:
+            break
+        }
+    }
 }
+
+
 

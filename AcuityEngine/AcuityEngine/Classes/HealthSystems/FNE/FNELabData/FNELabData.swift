@@ -47,64 +47,69 @@ struct FNELabRelativeImportance {
 }
 class FNELabData:LabCalculation {
     
-    init(type:LabType) {
-        super.init()
-        super.metricType = type
-        super.systemName = SystemName.Fluids
-        switch type {
-        //bloodGlucose
-        case .bloodGlucose:
-            self.relativeValue = FNELabRelativeImportance.bloodGlucose
-        //sodium
-        case .sodium:
-            self.relativeValue = FNELabRelativeImportance.sodium
-        //potassiumLevel
-        case .potassiumLevel:
-            self.relativeValue = FNELabRelativeImportance.potassiumLevel
-        //BUN
-        case .BUN:
-            self.relativeValue = FNELabRelativeImportance.BUN
-        //Creatinine
-        case .creatinine:
-            self.relativeValue = FNELabRelativeImportance.creatinine
-        //eGFR
-        case .eGFR:
-            self.relativeValue = FNELabRelativeImportance.eGFR
-        //albumin
-        case .albumin:
-            self.relativeValue = FNELabRelativeImportance.albumin
-        //microalbuminCreatinineRatio
-        case .microalbuminCreatinineRatio:
-            self.relativeValue = FNELabRelativeImportance.microalbumin
-        //carbonDioxide
-        case .carbonDioxide:
-            self.relativeValue = FNELabRelativeImportance.carbonDioxide
-        //anionGap
-        case .anionGap:
-            self.relativeValue = FNELabRelativeImportance.anionGap
-        //calcium
-        case .calcium:
-            self.relativeValue = FNELabRelativeImportance.calcium
-        //chloride
-        case .chloride:
-            self.relativeValue = FNELabRelativeImportance.chloride
-        //urineKetone
-        case .urineKetone:
-            self.relativeValue = FNELabRelativeImportance.urineKetone
-        //MCV
-        case .MCV:
-            self.relativeValue = FNELabRelativeImportance.MCV
-        //AST
-        case .AST:
-            self.relativeValue = FNELabRelativeImportance.AST
-        //ALT
-        case .ALT:
-            self.relativeValue = FNELabRelativeImportance.ALT
-        default:
-            break
+    var type:LabType = .sodium{
+        didSet{
+            
+            super.metricType = type
+            switch type {
+            //bloodGlucose
+            case .bloodGlucose:
+                self.relativeValue = FNELabRelativeImportance.bloodGlucose
+            //sodium
+            case .sodium:
+                self.relativeValue = FNELabRelativeImportance.sodium
+            //potassiumLevel
+            case .potassiumLevel:
+                self.relativeValue = FNELabRelativeImportance.potassiumLevel
+            //BUN
+            case .BUN:
+                self.relativeValue = FNELabRelativeImportance.BUN
+            //Creatinine
+            case .creatinine:
+                self.relativeValue = FNELabRelativeImportance.creatinine
+            //eGFR
+            case .eGFR:
+                self.relativeValue = FNELabRelativeImportance.eGFR
+            //albumin
+            case .albumin:
+                self.relativeValue = FNELabRelativeImportance.albumin
+            //microalbuminCreatinineRatio
+            case .microalbuminCreatinineRatio:
+                self.relativeValue = FNELabRelativeImportance.microalbumin
+            //carbonDioxide
+            case .carbonDioxide:
+                self.relativeValue = FNELabRelativeImportance.carbonDioxide
+            //anionGap
+            case .anionGap:
+                self.relativeValue = FNELabRelativeImportance.anionGap
+            //calcium
+            case .calcium:
+                self.relativeValue = FNELabRelativeImportance.calcium
+            //chloride
+            case .chloride:
+                self.relativeValue = FNELabRelativeImportance.chloride
+            //urineKetone
+            case .urineKetone:
+                self.relativeValue = FNELabRelativeImportance.urineKetone
+            //MCV
+            case .MCV:
+                self.relativeValue = FNELabRelativeImportance.MCV
+            //AST
+            case .AST:
+                self.relativeValue = FNELabRelativeImportance.AST
+            //ALT
+            case .ALT:
+                self.relativeValue = FNELabRelativeImportance.ALT
+            default:
+                break
+            }
+            
+            
         }
-        
-        
+    }
+    override init() {
+        super.init()
+        super.systemName = SystemName.Fluids
     }
     
 }

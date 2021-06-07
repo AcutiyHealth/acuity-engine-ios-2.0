@@ -10,6 +10,7 @@ import HealthKitReporter
 
 class SymptomCalculation:Metrix {
     
+    var title:String = ""
     var symptomsType: CategoryType = .chestTightnessOrPain // calculate based on symtomps type
     var systemName:SystemName = SystemName.Cardiovascular
     override var value:Double{

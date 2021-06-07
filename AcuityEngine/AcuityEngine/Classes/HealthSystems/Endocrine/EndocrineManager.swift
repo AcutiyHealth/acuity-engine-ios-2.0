@@ -148,5 +148,99 @@ class EndocrineManager: NSObject {
             break
         }
     }
+    
+    //MARK: Save Lab Data
+    func saveLabData(code:String,value:Double,timeStamp:Double){
+        let labCodeConstant = LabCodeConstant(rawValue: code)
+        
+        //Create Lab Model Object
+        let labData = EndocrineLabData()
+        labData.value = value
+        labData.startTimeStamp = timeStamp
+        
+        switch labCodeConstant {
+        
+        //hemoglobinA1C
+        case .hemoglobinA1C:
+            do{
+                labData.type = .hemoglobinA1C
+                EndocrineManager.sharedManager.endocrineData.endocrineLab.hemaglobinA1cData.append(labData)
+            }
+        //TSH
+        case .TSH:
+            do{
+                labData.type = .TSH
+                EndocrineManager.sharedManager.endocrineData.endocrineLab.TSHData.append(labData)
+            }
+        //microalbuminCreatinineRatio
+        case .microalbuminCreatinineRatio:
+            do{
+                labData.type = .microalbuminCreatinineRatio
+                EndocrineManager.sharedManager.endocrineData.endocrineLab.microalbuminCreatinineRatioData.append(labData)
+            }
+        //sodium
+        case .sodium:
+            do{
+                labData.type = .sodium
+                EndocrineManager.sharedManager.endocrineData.endocrineLab.sodiumData.append(labData)
+            }
+        //potassiumLevel
+        case .potassiumLevel:
+            do{
+                labData.type = .potassiumLevel
+                EndocrineManager.sharedManager.endocrineData.endocrineLab.potassiumLevelData.append(labData)
+            }
+        //BUN
+        case .BUN:
+            do{
+                labData.type = .BUN
+                EndocrineManager.sharedManager.endocrineData.endocrineLab.BUNData.append(labData)
+            }
+        //creatinine
+        case .creatinine:
+            do{
+                labData.type = .creatinine
+                EndocrineManager.sharedManager.endocrineData.endocrineLab.creatinineData.append(labData)
+            }
+        //chloride
+        case .chloride:
+            do{
+                labData.type = .chloride
+                EndocrineManager.sharedManager.endocrineData.endocrineLab.chlorideData.append(labData)
+            }
+            
+        //calcium
+        case .calcium:
+            do{
+                labData.type = .calcium
+                EndocrineManager.sharedManager.endocrineData.endocrineLab.calciumData.append(labData)
+            }
+            
+        //albumin
+        case .albumin:
+            do{
+                labData.type = .albumin
+                EndocrineManager.sharedManager.endocrineData.endocrineLab.albuminData.append(labData)
+            }
+        //anionGap
+        case .anionGap:
+            do{
+                labData.type = .anionGap
+                EndocrineManager.sharedManager.endocrineData.endocrineLab.anionGapData.append(labData)
+            }
+        //bloodGlucose
+        case .bloodGlucose:
+            do{
+                labData.type = .bloodGlucose
+                EndocrineManager.sharedManager.endocrineData.endocrineLab.bloodGlucoseData.append(labData)
+            }
+            
+        default:
+            break
+        }
+    }
 }
+
+
+
 

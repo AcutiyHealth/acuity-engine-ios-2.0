@@ -154,5 +154,123 @@ class FNEManager: NSObject {
             break
         }
     }
+    
+    //MARK: Save Lab Data
+    func saveLabData(code:String,value:Double,timeStamp:Double){
+        let labCodeConstant = LabCodeConstant(rawValue: code)
+        
+        //Create Lab Model Object
+        let labData = FNELabData()
+        labData.value = value
+        labData.startTimeStamp = timeStamp
+        
+        switch labCodeConstant {
+        
+        //bloodGlucose
+        case .bloodGlucose:
+            do{
+                labData.type = .bloodGlucose
+                FNEManager.sharedManager.fneData.fneLab.bloddGlucoseData.append(labData)
+            }
+        //sodium
+        case .sodium:
+            do{
+                labData.type = .sodium
+                FNEManager.sharedManager.fneData.fneLab.sodiumData.append(labData)
+            }
+        //potassiumLevel
+        case .potassiumLevel:
+            do{
+                labData.type = .potassiumLevel
+                FNEManager.sharedManager.fneData.fneLab.potassiumData.append(labData)
+            }
+        //BUN
+        case .BUN:
+            do{
+                labData.type = .BUN
+                FNEManager.sharedManager.fneData.fneLab.BUNData.append(labData)
+            }
+        //creatinine
+        case .creatinine:
+            do{
+                labData.type = .creatinine
+                FNEManager.sharedManager.fneData.fneLab.creatinieData.append(labData)
+            }
+        //eGFR
+        case .eGFR:
+            do{
+                labData.type = .eGFR
+                FNEManager.sharedManager.fneData.fneLab.eGFRData.append(labData)
+            }
+        //albumin
+        case .albumin:
+            do{
+                labData.type = .albumin
+                FNEManager.sharedManager.fneData.fneLab.albuminData.append(labData)
+            }
+        //microalbuminCreatinineRatio
+        case .microalbuminCreatinineRatio:
+            do{
+                labData.type = .microalbuminCreatinineRatio
+                FNEManager.sharedManager.fneData.fneLab.microAlbuminData.append(labData)
+            }
+        //carbonDioxide
+        case .carbonDioxide:
+            do{
+                labData.type = .carbonDioxide
+                FNEManager.sharedManager.fneData.fneLab.carbonDioxideData.append(labData)
+            }
+        //anionGap
+        case .anionGap:
+            do{
+                labData.type = .anionGap
+                FNEManager.sharedManager.fneData.fneLab.anionGapData.append(labData)
+            }
+        //calcium
+        case .calcium:
+            do{
+                labData.type = .calcium
+                FNEManager.sharedManager.fneData.fneLab.calciumData.append(labData)
+            }
+        //chloride
+        case .chloride:
+            do{
+                labData.type = .chloride
+                FNEManager.sharedManager.fneData.fneLab.chlorideData.append(labData)
+            }
+            
+        //urineKetone
+        case .urineKetone:
+            do{
+                labData.type = .urineKetone
+                FNEManager.sharedManager.fneData.fneLab.urineKenoteData.append(labData)
+            }
+        //MCV
+        case .MCV:
+            do{
+                labData.type = .MCV
+                FNEManager.sharedManager.fneData.fneLab.MCVData.append(labData)
+            }
+        //AST
+        case .AST:
+            do{
+                labData.type = .AST
+                FNEManager.sharedManager.fneData.fneLab.ASTData.append(labData)
+            }
+        //ALT
+        case .ALT:
+            do{
+                labData.type = .ALT
+                FNEManager.sharedManager.fneData.fneLab.ALTData.append(labData)
+            }
+            
+            
+        default:
+            break
+        }
+    }
 }
+
+
+
 

@@ -35,6 +35,11 @@ class HKManagerReadVitals: NSObject {
         FNEManager.sharedManager.resetFNEData()
         HematoManager.sharedManager.resetHematoData()
         EndocrineManager.sharedManager.resetEndocrineData()
+        GastrointestinalManager.sharedManager.resetGastrointestinalData()
+        GenitourinaryManager.sharedManager.resetGenitourinaryData()
+        NeuroManager.sharedManager.resetNeuroData()
+        SDHManager.sharedManager.resetSDHData()
+        MuscManager.sharedManager.resetMuscData()
     }
     
     func readVitalsData(days:SegmentValueForGraph,completion: @escaping (Bool, HealthkitSetupError?) -> Swift.Void) {
@@ -115,7 +120,7 @@ class HKManagerReadVitals: NSObject {
                     dispatchGroup.notify(queue: .main) {
                         
                         DispatchQueue.main.async {
-                            self.readQuantityTypeVitalsData(days: days, quantityType:  ReadVitalsQuantityType(), completion: { (success, error) in
+                            self.readCharactristicTypeVitalsData(days: days, characteristicType:  ReadCharactristicType(), completion: { (success, error) in
                                 if success && error==nil{
                                     completion(success, nil)
                                 }
@@ -137,6 +142,61 @@ class HKManagerReadVitals: NSObject {
         }
     }
     
+    func readCharactristicTypeVitalsData(days:SegmentValueForGraph,characteristicType:[CharacteristicType],completion: @escaping (Bool, HealthkitSetupError?) -> Swift.Void){
+        
+        do {
+            //let dispatchGroup = DispatchGroup()
+            
+            reporter = try HealthKitReporter()
+            let types = ReadCharactristicType()
+            reporter?.manager.requestAuthorization(
+                toRead: types,
+                toWrite: []
+            ){ (success, error) in
+                if success && error == nil {
+                    //dispatchGroup.enter()
+                    let characteristic = self.reporter?.reader.characteristics()
+                    let birthdate = characteristic?.birthday?.asDate(format: Date.iso8601)
+                    var age = 0;
+                    
+                    //2 - get today date
+                    if let date = birthdate{
+                        let today = Date()
+                        
+                        //3 - create an instance of the user's current calendar
+                        let calendar = Calendar.current
+                        
+                        //4 - use calendar to get difference between two dates
+                        let components = calendar.dateComponents([.year], from: date, to: today)
+                        
+                        age = components.year ?? 0
+                    }
+                    print(age ?? "")
+                    //save data For SDH
+                    SDHManager.sharedManager.saveAgeCharactesticInArray(element: Double(age))
+                    
+                    DispatchQueue.main.async {
+                        self.readQuantityTypeVitalsData(days: days, quantityType:  ReadVitalsQuantityType(), completion: { (success, error) in
+                            if success && error==nil{
+                                completion(success, nil)
+                            }
+                            else{
+                                completion(success, error)
+                            }
+                        })
+                        
+                  
+                    }
+                    
+                }
+                // }
+            }
+        } catch {
+            //print("Health Kit not initialize")
+            //print(error)
+            completion(false, HealthkitSetupError.notAvailableOnDevice)
+        }
+    }
     func readQuantityTypeVitalsData(days:SegmentValueForGraph,quantityType:[QuantityType],completion: @escaping (Bool, HealthkitSetupError?) -> Swift.Void) {
         do {
             let dispatchGroup = DispatchGroup()
@@ -225,6 +285,19 @@ class HKManagerReadVitals: NSObject {
                                                         
                                                         //Save data for Gastrointestinal...
                                                         GastrointestinalManager.sharedManager.saveQuantityInArray(quantityType: identifier, element: element)
+                                                        
+                                                        //Save data for Genitourinary...
+                                                        GenitourinaryManager.sharedManager.saveQuantityInArray(quantityType: identifier, element: element)
+                                                        
+                                                        //Save data for Neuro System...
+                                                        NeuroManager.sharedManager.saveQuantityInArray(quantityType: identifier, element: element)
+                                                        
+                                                        //Save data for SDH System...
+                                                        SDHManager.sharedManager.saveQuantityInArray(quantityType: identifier, element: element)
+                                                        
+                                                        //Save data for Musc System...
+                                                        MuscManager.sharedManager.saveQuantityInArray(quantityType: identifier, element: element)
+                                                        
                                                     } catch {
                                                         //print(error)
                                                     }

@@ -32,45 +32,49 @@ struct GastrointestinalLabRelativeImportance {
     static let ALT:Double = 100
 }
 class GastrointestinalLabData:LabCalculation {
-    
-    init(type:LabType) {
-        super.init()
-        super.metricType = type
-        super.systemName = SystemName.Gastrointestinal
-        switch type {
-        //bloodGlucose
-        case .bloodGlucose:
-            self.relativeValue = GastrointestinalLabRelativeImportance.bloodGlucose
-        //sodium
-        case .sodium:
-            self.relativeValue = GastrointestinalLabRelativeImportance.sodium
-        //potassiumLevel
-        case .potassiumLevel:
-            self.relativeValue = GastrointestinalLabRelativeImportance.potassiumLevel
-        //chloride
-        case .chloride:
-            self.relativeValue = GastrointestinalLabRelativeImportance.chloride
-        //BUN
-        case .BUN:
-            self.relativeValue = GastrointestinalLabRelativeImportance.BUN
-        //creatinine
-        case .creatinine:
-            self.relativeValue = GastrointestinalLabRelativeImportance.creatinine
-        //albumin
-        case .albumin:
-            self.relativeValue = GastrointestinalLabRelativeImportance.albumin
-        //AST
-        case .AST:
-            self.relativeValue = GastrointestinalLabRelativeImportance.AST
-        //ALT
-        case .ALT:
-            self.relativeValue = GastrointestinalLabRelativeImportance.ALT
+    var type:LabType = .sodium{
+        didSet{
             
-        default:
-            break
+            super.metricType = type
+            switch type {
+            //bloodGlucose
+            case .bloodGlucose:
+                self.relativeValue = GastrointestinalLabRelativeImportance.bloodGlucose
+            //sodium
+            case .sodium:
+                self.relativeValue = GastrointestinalLabRelativeImportance.sodium
+            //potassiumLevel
+            case .potassiumLevel:
+                self.relativeValue = GastrointestinalLabRelativeImportance.potassiumLevel
+            //chloride
+            case .chloride:
+                self.relativeValue = GastrointestinalLabRelativeImportance.chloride
+            //BUN
+            case .BUN:
+                self.relativeValue = GastrointestinalLabRelativeImportance.BUN
+            //creatinine
+            case .creatinine:
+                self.relativeValue = GastrointestinalLabRelativeImportance.creatinine
+            //albumin
+            case .albumin:
+                self.relativeValue = GastrointestinalLabRelativeImportance.albumin
+            //AST
+            case .AST:
+                self.relativeValue = GastrointestinalLabRelativeImportance.AST
+            //ALT
+            case .ALT:
+                self.relativeValue = GastrointestinalLabRelativeImportance.ALT
+                
+            default:
+                break
+            }
+            
+            
         }
-        
-        
+    }
+    override init() {
+        super.init()
+        super.systemName = SystemName.Gastrointestinal
     }
     
 }

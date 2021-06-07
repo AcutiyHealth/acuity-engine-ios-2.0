@@ -35,7 +35,6 @@ struct GastrointestinalSymptomsRelativeImportance {
 
 class GastrointestinalSymptomsPainData:SymptomCalculation {
     
-    var title:String = ""
     
     init(type:CategoryType) {
         super.init()
@@ -44,45 +43,45 @@ class GastrointestinalSymptomsPainData:SymptomCalculation {
         switch type {
         //abdominalCramps
         case .abdominalCramps:
-            self.title = SymptomsName.abdominal_Cramps.rawValue
+            super.title = SymptomsName.abdominal_Cramps.rawValue
             self.relativeValue = GastrointestinalSymptomsRelativeImportance.abdominalCramps
         //chestTightnessOrPain
         case .chestTightnessOrPain:
-            self.title = SymptomsName.chestPain.rawValue
+            super.title = SymptomsName.chestPain.rawValue
             self.relativeValue = GastrointestinalSymptomsRelativeImportance.chestPain
         //coughing
         case .coughing:
-            self.title = SymptomsName.cough.rawValue
+            super.title = SymptomsName.cough.rawValue
             self.relativeValue = GastrointestinalSymptomsRelativeImportance.cough
             
         //diarrhea
         case .diarrhea:
-            self.title = SymptomsName.diarrhea.rawValue
+            super.title = SymptomsName.diarrhea.rawValue
             self.relativeValue = GastrointestinalSymptomsRelativeImportance.diarrhea
         //constipation
         case .constipation:
-            self.title = SymptomsName.constipation.rawValue
+            super.title = SymptomsName.constipation.rawValue
             self.relativeValue = GastrointestinalSymptomsRelativeImportance.constipation
         //fatigue
         case .fatigue:
-            self.title = SymptomsName.fatigue.rawValue
+            super.title = SymptomsName.fatigue.rawValue
             self.relativeValue = GastrointestinalSymptomsRelativeImportance.fatigue
             
         //bloating
         case .bloating:
-            self.title = SymptomsName.bloating.rawValue
+            super.title = SymptomsName.bloating.rawValue
             self.relativeValue = GastrointestinalSymptomsRelativeImportance.bloating
         //nausea
         case .nausea:
-            self.title = SymptomsName.nausea.rawValue
+            super.title = SymptomsName.nausea.rawValue
             self.relativeValue = GastrointestinalSymptomsRelativeImportance.nausea
         //vomiting
         case .vomiting:
-            self.title = SymptomsName.vomiting.rawValue
+            super.title = SymptomsName.vomiting.rawValue
             self.relativeValue = GastrointestinalSymptomsRelativeImportance.vomiting
         //heartburn
         case .heartburn:
-            self.title = SymptomsName.heartburn.rawValue
+            super.title = SymptomsName.heartburn.rawValue
             self.relativeValue = GastrointestinalSymptomsRelativeImportance.heartburn
             
         default:

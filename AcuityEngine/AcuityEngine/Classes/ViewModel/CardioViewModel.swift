@@ -38,6 +38,7 @@ class CardioViewModel: CardioViewModelProtocol {
             //errorValue = error
             dispatchGroup.leave()
         }
+        
        
         //Read vital data......
         dispatchGroup.enter()

@@ -27,8 +27,6 @@ struct IDiseaseSymptomsRelativeImportance {
 
 class IDiseaseSymptomsPainData:SymptomCalculation {
     
-    var title:String = ""
-    
     init(type:CategoryType) {
         super.init()
         super.symptomsType = type
@@ -36,51 +34,51 @@ class IDiseaseSymptomsPainData:SymptomCalculation {
         switch type {
         //fever
         case .fever:
-            self.title = SymptomsName.fever.rawValue
+            super.title = SymptomsName.fever.rawValue
             self.relativeValue = IDiseaseSymptomsRelativeImportance.fever
         //diarrhea
         case .diarrhea:
-            self.title = SymptomsName.diarrhea.rawValue
+            super.title = SymptomsName.diarrhea.rawValue
             self.relativeValue = IDiseaseSymptomsRelativeImportance.diarrhea
         //fatigue
         case .fatigue:
-            self.title = SymptomsName.fatigue.rawValue
+            super.title = SymptomsName.fatigue.rawValue
             self.relativeValue = IDiseaseSymptomsRelativeImportance.fatigue
         //cough
         case .coughing:
-            self.title = SymptomsName.cough.rawValue
+            super.title = SymptomsName.cough.rawValue
             self.relativeValue = IDiseaseSymptomsRelativeImportance.cough
         //nausea
         case .nausea:
-            self.title = SymptomsName.nausea.rawValue
+            super.title = SymptomsName.nausea.rawValue
             self.relativeValue = IDiseaseSymptomsRelativeImportance.nausea
         //vomiting
         case .vomiting:
-            self.title = SymptomsName.vomiting.rawValue
+            super.title = SymptomsName.vomiting.rawValue
             self.relativeValue = IDiseaseSymptomsRelativeImportance.vomiting
         //chills
         case .chills:
-            self.title = SymptomsName.chills.rawValue
+            super.title = SymptomsName.chills.rawValue
             self.relativeValue = IDiseaseSymptomsRelativeImportance.chills
         //bladderIncontinence
         case .bladderIncontinence:
-            self.title = SymptomsName.bladder_Incontinence.rawValue
+            super.title = SymptomsName.bladder_Incontinence.rawValue
             self.relativeValue = IDiseaseSymptomsRelativeImportance.bladderIncontinence
         //headache
         case .headache:
-            self.title = SymptomsName.headache.rawValue
+            super.title = SymptomsName.headache.rawValue
             self.relativeValue = IDiseaseSymptomsRelativeImportance.headache
         //abdominalCramps
         case .abdominalCramps:
-            self.title = SymptomsName.abdominal_Cramps.rawValue
+            super.title = SymptomsName.abdominal_Cramps.rawValue
             self.relativeValue = IDiseaseSymptomsRelativeImportance.abdominalCramps
         //shortnessofBreath
         case .shortnessOfBreath:
-            self.title = SymptomsName.shortnessOfBreath.rawValue
+            super.title = SymptomsName.shortnessOfBreath.rawValue
             self.relativeValue = IDiseaseSymptomsRelativeImportance.shortnessofBreath
         //dizziness
         case .dizziness:
-            self.title = SymptomsName.dizziness.rawValue
+            super.title = SymptomsName.dizziness.rawValue
             self.relativeValue = IDiseaseSymptomsRelativeImportance.dizziness
         default:
             break

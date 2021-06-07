@@ -28,29 +28,61 @@ class AcuityMetricsValueViewModel: NSObject
     }
     
     func getLabData(title:String)->[LabModel] {
-        var arrLabs:[LabModel] = []
+        var arrLab:[LabModel] = []
+        switch MyWellScore.sharedManager.selectedSystem {
+        case .Cardiovascular:
+            do{
+                arrLab = CardioManager.sharedManager.cardioData.cardioLab.getArrayDataForLabs(days:MyWellScore.sharedManager.daysToCalculateSystemScore, title: title)
+            }
+        case .Respiratory:
+            do{
+                arrLab = RespiratoryManager.sharedManager.respiratoryData.respiratoryLab.getArrayDataForLabs(days:MyWellScore.sharedManager.daysToCalculateSystemScore, title: title)
+            }
+        case .Renal:
+            do{
+                arrLab = RenalManager.sharedManager.renalData.renalLab.getArrayDataForLabs(days:MyWellScore.sharedManager.daysToCalculateSystemScore, title: title)
+            }
+        case .InfectiousDisease:
+            do{
+                arrLab = IDiseaseManager.sharedManager.iDiseaseData.iDiseaseLab.getArrayDataForLabs(days:MyWellScore.sharedManager.daysToCalculateSystemScore, title: title)
+            }
+        case .Fluids:
+            do{
+                arrLab = FNEManager.sharedManager.fneData.fneLab.getArrayDataForLabs(days:MyWellScore.sharedManager.daysToCalculateSystemScore, title: title)
+            }
+        case .Hematology:
+            do{
+                arrLab = HematoManager.sharedManager.hematoData.hematoLab.getArrayDataForLabs(days:MyWellScore.sharedManager.daysToCalculateSystemScore, title: title)
+            }
+        case .Endocrine:
+            do{
+                arrLab = EndocrineManager.sharedManager.endocrineData.endocrineLab.getArrayDataForLabs(days:MyWellScore.sharedManager.daysToCalculateSystemScore, title: title)
+            }
+        case .Gastrointestinal:
+            do{
+                arrLab = GastrointestinalManager.sharedManager.gastrointestinalData.gastrointestinalLab.getArrayDataForLabs(days:MyWellScore.sharedManager.daysToCalculateSystemScore, title: title)
+            }
+        case .Genitourinary:
+            do{
+                arrLab = GenitourinaryManager.sharedManager.genitourinaryData.genitourinaryLab.getArrayDataForLabs(days:MyWellScore.sharedManager.daysToCalculateSystemScore, title: title)
+            }
+        case .Nuerological:
+            do{
+                arrLab = NeuroManager.sharedManager.neuroData.neuroLab.getArrayDataForLabs(days:MyWellScore.sharedManager.daysToCalculateSystemScore, title: title)
+            }
+        case .SocialDeterminantsofHealth:
+            do{
+                arrLab = SDHManager.sharedManager.sdhData.sdhLab.getArrayDataForLabs(days:MyWellScore.sharedManager.daysToCalculateSystemScore, title: title)
+            }
+        case .Musculatory:
+            do{
+                arrLab = MuscManager.sharedManager.muscData.muscLab.getArrayDataForLabs(days:MyWellScore.sharedManager.daysToCalculateSystemScore, title: title)
+            }
+        default:
+            break
+        }
         
-        let lab1 =  LabModel(title: title, value: "3.3")
-        lab1.startTime = Date().timeIntervalSince1970
-        lab1.color = ChartColor.REDCOLOR
-        let lab2 =  LabModel(title: title, value: "2")
-        lab2.startTime = Date().timeIntervalSince1970 - 86400
-        lab2.color = ChartColor.GREENCOLOR
-        let lab3 =  LabModel(title: title, value: "97%")
-        lab3.startTime = Date().timeIntervalSince1970 - 86400 * 2
-        lab3.color = ChartColor.GREENCOLOR
-        let lab4 =  LabModel(title: title, value: "0")
-        lab4.startTime = Date().timeIntervalSince1970 - 86400 * 3
-        lab4.color = ChartColor.GREENCOLOR
-        let lab5 =  LabModel(title: title, value: "0.03")
-        lab5.startTime = Date().timeIntervalSince1970 - 86400 * 4
-        lab5.color = ChartColor.GREENCOLOR
-        let lab6 =  LabModel(title: title, value: "17.6")
-        lab6.startTime = Date().timeIntervalSince1970 - 86400 * 5
-        lab6.color = ChartColor.REDCOLOR
-        arrLabs = [lab1,lab2,lab3,lab4,lab5,lab6]
-        
-        return arrLabs
+        return arrLab
     }
     
     func getSymptomsData(title:String)->[SymptomsModel] {
@@ -83,6 +115,26 @@ class AcuityMetricsValueViewModel: NSObject
         case .Endocrine:
             do{
                 arrSymptoms = EndocrineManager.sharedManager.endocrineData.endocrineSymptoms.getArrayDataForSymptoms(days:MyWellScore.sharedManager.daysToCalculateSystemScore, title: title)
+            }
+        case .Gastrointestinal:
+            do{
+                arrSymptoms = GastrointestinalManager.sharedManager.gastrointestinalData.gastrointestinalSymptoms.getArrayDataForSymptoms(days:MyWellScore.sharedManager.daysToCalculateSystemScore, title: title)
+            }
+        case .Genitourinary:
+            do{
+                arrSymptoms = GenitourinaryManager.sharedManager.genitourinaryData.genitourinarySymptoms.getArrayDataForSymptoms(days:MyWellScore.sharedManager.daysToCalculateSystemScore, title: title)
+            }
+        case .Nuerological:
+            do{
+                arrSymptoms = NeuroManager.sharedManager.neuroData.neuroSymptoms.getArrayDataForSymptoms(days:MyWellScore.sharedManager.daysToCalculateSystemScore, title: title)
+            }
+        case .SocialDeterminantsofHealth:
+            do{
+                arrSymptoms = SDHManager.sharedManager.sdhData.sdhSymptoms.getArrayDataForSymptoms(days:MyWellScore.sharedManager.daysToCalculateSystemScore, title: title)
+            }
+        case .Musculatory:
+            do{
+                arrSymptoms = MuscManager.sharedManager.muscData.muscSymptoms.getArrayDataForSymptoms(days:MyWellScore.sharedManager.daysToCalculateSystemScore, title: title)
             }
         default:
             break
@@ -122,6 +174,26 @@ class AcuityMetricsValueViewModel: NSObject
         case .Endocrine:
             do{
                 arrVitals = EndocrineManager.sharedManager.endocrineData.endocrineVital.getArrayDataForVitals(days:MyWellScore.sharedManager.daysToCalculateSystemScore, title: title)
+            }
+        case .Gastrointestinal:
+            do{
+                arrVitals = GastrointestinalManager.sharedManager.gastrointestinalData.gastrointestinalVital.getArrayDataForVitals(days:MyWellScore.sharedManager.daysToCalculateSystemScore, title: title)
+            }
+        case .Genitourinary:
+            do{
+                arrVitals = GenitourinaryManager.sharedManager.genitourinaryData.genitourinaryVital.getArrayDataForVitals(days:MyWellScore.sharedManager.daysToCalculateSystemScore, title: title)
+            }
+        case .Nuerological:
+            do{
+                arrVitals = NeuroManager.sharedManager.neuroData.neuroVital.getArrayDataForVitals(days:MyWellScore.sharedManager.daysToCalculateSystemScore, title: title)
+            }
+        case .SocialDeterminantsofHealth:
+            do{
+                arrVitals = SDHManager.sharedManager.sdhData.sdhVital.getArrayDataForVitals(days:MyWellScore.sharedManager.daysToCalculateSystemScore, title: title)
+            }
+        case .Musculatory:
+            do{
+                arrVitals = MuscManager.sharedManager.muscData.muscVital.getArrayDataForVitals(days:MyWellScore.sharedManager.daysToCalculateSystemScore, title: title)
             }
         default:
             break
