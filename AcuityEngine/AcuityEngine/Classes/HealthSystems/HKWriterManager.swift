@@ -49,7 +49,14 @@ class HKWriterManager {
         }
         //oxygenSaturation
         else if  quantityTypeIdentifier.rawValue == HKQuantityTypeIdentifier.oxygenSaturation.rawValue{
-            quantity = saveOxygenSaturation(value: value)
+            /*
+             oxygenSaturation save in health kit in range 0 - 1. so, when patient enter value > 1 convert it to 0-1 range.
+             */
+            var newValue = value
+            if value > 1{
+                newValue = value/100
+            }
+            quantity = saveOxygenSaturation(value: newValue)
         }
         //inhalerUsage
         else if quantityTypeIdentifier.rawValue == HKQuantityTypeIdentifier.inhalerUsage.rawValue

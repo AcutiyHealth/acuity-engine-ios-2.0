@@ -13,7 +13,7 @@ class Metrix {
     var relativeValue:Double = 100 //G26 // It is define in excel sheet given by client
     var startTimeStamp: Double = 0
     var endTimeStamp: Double = 0
-    var value:Double = -1
+    var value:Double = -1 // -1 is default value, so we can compare with 0
     var calculatedValue:Double = -1 // Calculation will be provided by child class
     var score:Double  {
         // We will calculate score of value
@@ -34,5 +34,10 @@ class Metrix {
             return (1*relativeValue) / 100 // it is percentage value of relative score to 1
         }
     }
-    
+    func getStartDate()->String{
+        return getDateMediumFormat(time: startTimeStamp)
+    }
+    func getEndDate()->String{
+        return getDateMediumFormat(time: endTimeStamp)
+    }
 }

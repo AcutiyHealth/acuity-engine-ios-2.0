@@ -70,13 +70,13 @@ class AcuityMainViewController: PullUpViewController, UIScrollViewDelegate,Rotar
         self.callLoadHealthData()
         
         //Add notification for Pullup view open/close
-        NotificationCenter.default.addObserver(self, selector: #selector(self.showSubScoreView), name: Notification.Name("pullUpOpen"), object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(self.showMainScoreView), name: Notification.Name("pullUpClose"), object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(self.showSubScoreView), name: Notification.Name(NSNotificationName.pullUpOpen.rawValue), object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(self.showMainScoreView), name: Notification.Name(NSNotificationName.pullUpClose.rawValue), object: nil)
         //Add notification for show AcuityDetailPopup when close Profile or Add Popup
-        NotificationCenter.default.addObserver(self, selector: #selector(self.showAcuityDetailPopup), name: Notification.Name("showAcuityDetailPopup"), object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(self.showAcuityDetailPopup), name: Notification.Name(NSNotificationName.showAcuityDetailPopup.rawValue), object: nil)
         
         //Add notification when segment change from popup
-        NotificationCenter.default.addObserver(self, selector: #selector(self.callLoadHealthData), name: Notification.Name("refreshCircleView"), object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(self.refreshWheeltoShowDayWiseData), name: Notification.Name(NSNotificationName.refreshCircleView.rawValue), object: nil)
     }
     
     deinit {
@@ -91,13 +91,24 @@ class AcuityMainViewController: PullUpViewController, UIScrollViewDelegate,Rotar
         
     }
     
-    //MARK: Load Health Data
+    //MARK: Refresh Health Data
+    /*
+     It reloads health data. So, if there is any new data available, it will use it.
+     */
     @objc  func callLoadHealthData(){
         self.loadHealthData(days: MyWellScore.sharedManager.daysToCalculateSystemScore, completion: { (success, error) in
             
         })
-        
     }
+    //MARK: Refresh Wheel Data
+    /*
+     When api call ad it creates wheel, it uses one day system score which was used to calculate My Well score.
+     But in pull up we display 7/1 Month and 3 Months data. So, system score will be changed and according to it, there needs to be change color of system in Wheel.
+     */
+    @objc  func refreshWheeltoShowDayWiseData(){
+        self.setUpAcuityCircleView()
+    }
+    
     func loadHealthData(days:SegmentValueForGraph,completion: @escaping (Bool, HealthkitSetupError?) -> Swift.Void){
         
         //Show Progress HUD
@@ -125,7 +136,6 @@ class AcuityMainViewController: PullUpViewController, UIScrollViewDelegate,Rotar
     //MARK: set up Acuity circle view...
     
     @objc func setUpAcuityCircleView() {
-        
         
         //Select system index from array of arrBodySystems
         let acuityId = strSelectedAcuityId
@@ -189,7 +199,8 @@ class AcuityMainViewController: PullUpViewController, UIScrollViewDelegate,Rotar
     //MARK: Show data in header..
     func displayMyWellScoreData(){
         //self.headerView.lblSystemScore!.text = String(format: "%.2f", (MyWellScore.sharedManager.myWellScore))
-        lblScore.text = String(format: "%.2f", (MyWellScore.sharedManager.myWellScore))
+        let score = (MyWellScore.sharedManager.myWellScore)
+        lblScore.text = score == 100 ? String(format: "%.0f", score) : String(format: "%.2f", score)
         lblScoreWhenPopup.text = String(format: "%.2f", (MyWellScore.sharedManager.myWellScore))
     }
     

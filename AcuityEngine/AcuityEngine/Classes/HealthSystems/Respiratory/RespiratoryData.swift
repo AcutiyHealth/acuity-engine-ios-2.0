@@ -19,8 +19,8 @@ class RespiratoryData {
             getWeightedSystemScore()
         }
     }
-    var respiratoryRelativeImportance:Double = 100
-    var maxScore:Double = 100
+    var respiratoryRelativeImportance:Double = SystemRelativeImportance.Respiratory
+    var maxScore:Double = SystemRelativeImportance.Respiratory
     
     
     func getWeightedSystemScore()->Double{
@@ -88,6 +88,7 @@ class RespiratoryData {
         
     }
    
+    //MARK: To display data in Pull up...
     func dictionaryRepresentation()->[String:Any]{
         
         return [MetricsType.Conditions.rawValue:respiratoryCondition.dictionaryRepresentation(),MetricsType.Sympotms.rawValue:respiratorySymptoms.dictionaryRepresentation(),MetricsType.LabData.rawValue:respiratoryLab.dictionaryRepresentation(),MetricsType.Vitals.rawValue:respiratoryVital.dictionaryRepresentation()] as [String : Any]

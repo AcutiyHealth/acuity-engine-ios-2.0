@@ -26,6 +26,7 @@ class CardioVitalsData:VitalCalculation {
     init(type:VitalsName) {
         super.init()
         super.title = type
+        super.systemName = SystemName.Cardiovascular
         switch type {
         case .bloodPressureSystolic:
             self.relativeValue = CardioVitalRelativeImportance.bloodPressureSystolic
@@ -48,12 +49,6 @@ class CardioVitalsData:VitalCalculation {
         
         
     }
-    
-    func getStartDate()->String{
-        return getDateMediumFormat(time: startTimeStamp)
-    }
-    func getEndDate()->String{
-        return getDateMediumFormat(time: endTimeStamp)
-    }
+  
 }
 

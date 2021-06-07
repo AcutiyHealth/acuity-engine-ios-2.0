@@ -1,0 +1,147 @@
+//
+//  SDHLab.swift
+//  HealthKitDemo
+//
+//  Created by Bhoomi Jagani on 11/05/21.
+//
+
+import UIKit
+
+class SDHLab {
+    /*Albumin Level
+     BUN
+     creatinine
+     Hemaglobin*/
+    var albuminLevelData:[SDHLabData] = []
+    var BUNData:[SDHLabData] = []
+    var creatinineData:[SDHLabData] = []
+    var hemaglobinData:[SDHLabData] = []
+    
+    var arrayDayWiseScoreTotal:[Double] = []
+    //For Dictionary Representation
+    var arrLab:[LabModel] = []
+    
+    func totalLabDataScore() -> Double {
+        
+        return 0;
+    }
+    
+    func getMaxLabDataScore() -> Double {
+        
+        let albumin = SDHLabRelativeImportance.albumin.getConvertedValueFromPercentage()
+        let BUN = SDHLabRelativeImportance.BUN.getConvertedValueFromPercentage()
+        let creatinine = SDHLabRelativeImportance.creatinine.getConvertedValueFromPercentage()
+        let hemoglobin = SDHLabRelativeImportance.hemoglobin.getConvertedValueFromPercentage()
+        
+        let totalLabScore1 = albumin + BUN + creatinine + hemoglobin
+        
+        return Double(totalLabScore1);
+    }
+    
+    func totalLabScoreForDays(days:SegmentValueForGraph) -> [Double] {
+        
+        
+        arrayDayWiseScoreTotal = []
+        /*
+         Here We get component is Month/Day and noOfTimesLoopExecute to execute.
+         We get selection from Segment Control from Pull up
+         When there is & days selected, loop will execute 7 times
+         When there is 1 Month selected, loop will execute per weeks count
+         When there is 3 month selected, loop will execute 3 times
+         */
+        var now = MyWellScore.sharedManager.todaysDate
+        let getComponentAndLoop = getNumberOfTimesLoopToExecute(days: days)
+        let component:Calendar.Component = getComponentAndLoop["component"] as! Calendar.Component
+        let noOfTimesLoopExecute:Int = getComponentAndLoop["noOfTimesLoopExecute"] as! Int
+        
+        for _ in 0...noOfTimesLoopExecute-1{
+            
+            let day = Calendar.current.date(byAdding: component, value: -1, to: now)!
+            
+            let timeIntervalByLastMonth:Double = day.timeIntervalSince1970
+            //print("timeIntervalByLastMonth",getDateMediumFormat(time:timeIntervalByLastMonth))
+            let timeIntervalByNow:Double = now.timeIntervalSince1970
+            //print("timeIntervalByNow",getDateMediumFormat(time:timeIntervalByNow))
+            now = day
+            
+            //albuminLevelData
+            let scorealbuminLevel = getScoreForLabDataWithGivenDateRange(sampleItem: albuminLevelData, timeIntervalByLastMonth: timeIntervalByLastMonth, timeIntervalByNow: timeIntervalByNow)
+            //BUN
+            let scoreBUN = getScoreForLabDataWithGivenDateRange(sampleItem: BUNData, timeIntervalByLastMonth: timeIntervalByLastMonth, timeIntervalByNow: timeIntervalByNow)
+            //creatinineData
+            let scorecreatinine = getScoreForLabDataWithGivenDateRange(sampleItem: creatinineData, timeIntervalByLastMonth: timeIntervalByLastMonth, timeIntervalByNow: timeIntervalByNow)
+            //hemaglobinData
+            let scorehemaglobin = getScoreForLabDataWithGivenDateRange(sampleItem: hemaglobinData, timeIntervalByLastMonth: timeIntervalByLastMonth, timeIntervalByNow: timeIntervalByNow)
+            
+            let totalScore = scorealbuminLevel + scoreBUN + scorecreatinine + scorehemaglobin
+            
+            arrayDayWiseScoreTotal.append(totalScore)
+        }
+        return arrayDayWiseScoreTotal
+    }
+    
+    
+    //MARK: To display data in Pull up...
+    func dictionaryRepresentation()->[LabModel]{
+        
+        arrLab = []
+        let days = MyWellScore.sharedManager.daysToCalculateSystemScore
+        
+        filterLabArrayToGetSingleDataWithSelectedSegmentInGraph(days: days, array: albuminLevelData)
+        
+        //BUN
+        filterLabArrayToGetSingleDataWithSelectedSegmentInGraph(days: days, array: BUNData)
+        
+        //creatinine
+        filterLabArrayToGetSingleDataWithSelectedSegmentInGraph(days: days, array: creatinineData)
+        
+        //hemaglobin
+        filterLabArrayToGetSingleDataWithSelectedSegmentInGraph(days: days, array: hemaglobinData)
+        return arrLab
+    }
+    func filterLabArrayToGetSingleDataWithSelectedSegmentInGraph(days:SegmentValueForGraph,array:[LabCalculation]){
+        var filteredArray:[LabCalculation] = []
+        filteredArray = filterLabArrayWithSelectedSegmentInGraph(days: days, array: array)
+        saveFilterDataInArrayLabs(filteredArray: filteredArray)
+        //return filteredArray
+    }
+    
+    func saveFilterDataInArrayLabs(filteredArray:[LabCalculation]){
+        if filteredArray.count > 0{
+            let lab = filteredArray[0]
+            arrLab.append(getLabModel(item: lab))
+        }
+    }
+    
+    //Get list of data for specific Lab in detail screen..
+    func getArrayDataForLabs(days:SegmentValueForGraph,title:String) -> [LabModel]{
+        
+        var arrLab:[LabModel] = []
+        let labName = LabType(rawValue: title)
+        var filterArray:[LabCalculation] = []
+      
+        //albuminLevel
+        switch labName {
+        //albuminLevel
+        case .albumin:
+            filterArray = filterLabArrayWithSelectedSegmentInGraph(days: days, array: albuminLevelData)
+        //BUN
+        case .BUN:
+            filterArray = filterLabArrayWithSelectedSegmentInGraph(days: days, array: BUNData)
+        //creatinine
+        case .creatinine:
+            filterArray = filterLabArrayWithSelectedSegmentInGraph(days: days, array: creatinineData)
+        //hemaglobin
+        case .hemoglobin:
+            filterArray = filterLabArrayWithSelectedSegmentInGraph(days: days, array: hemaglobinData)
+            
+        default:
+            break
+        }
+        for item in filterArray{
+            arrLab.append(saveLabsInArray(item: item))
+        }
+        return arrLab
+    }
+}
+

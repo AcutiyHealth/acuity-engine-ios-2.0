@@ -26,53 +26,59 @@ struct RenalLabRelativeImportance {
 }
 class RenalLabData:LabCalculation {
     
-    init(type:LabType) {
-        super.init()
-        super.metricType = type
-        switch type {
-        //BUN
-        case .BUN:
-            self.relativeValue = RenalLabRelativeImportance.BUN
-        //creatinine
-        case .creatinine:
-            self.relativeValue = RenalLabRelativeImportance.creatinine
-        //bloodGlucose
-        case .bloodGlucose:
-            self.relativeValue = RenalLabRelativeImportance.bloodGlucose
-        //carbonDioxide
-        case .carbonDioxide:
-            self.relativeValue = RenalLabRelativeImportance.carbonDioxide
-        //potassiumLevel
-        case .potassiumLevel:
-            self.relativeValue = RenalLabRelativeImportance.potassiumLevel
-        //calcium
-        case .calcium:
-            self.relativeValue = RenalLabRelativeImportance.calcium
-        //chloride
-        case .chloride:
-            self.relativeValue = RenalLabRelativeImportance.chloride
-        //albumin
-        case .albumin:
-            self.relativeValue = RenalLabRelativeImportance.albumin
-        //anionGap
-        case .anionGap:
-            self.relativeValue = RenalLabRelativeImportance.anionGap
-        //hemoglobin
-        case .hemoglobin:
-            self.relativeValue = RenalLabRelativeImportance.hemoglobin
-        //microalbumin
-        case .microalbumin:
-            self.relativeValue = RenalLabRelativeImportance.microalbumin
-        //eGFR
-        case .eGFR:
-            self.relativeValue = RenalLabRelativeImportance.eGFR
+    var type:LabType = .sodium{
+        didSet{
             
-        default:
-            break
+            super.metricType = type
+            switch type {
+            //BUN
+            case .BUN:
+                self.relativeValue = RenalLabRelativeImportance.BUN
+            //creatinine
+            case .creatinine:
+                self.relativeValue = RenalLabRelativeImportance.creatinine
+            //bloodGlucose
+            case .bloodGlucose:
+                self.relativeValue = RenalLabRelativeImportance.bloodGlucose
+            //carbonDioxide
+            case .carbonDioxide:
+                self.relativeValue = RenalLabRelativeImportance.carbonDioxide
+            //potassiumLevel
+            case .potassiumLevel:
+                self.relativeValue = RenalLabRelativeImportance.potassiumLevel
+            //calcium
+            case .calcium:
+                self.relativeValue = RenalLabRelativeImportance.calcium
+            //chloride
+            case .chloride:
+                self.relativeValue = RenalLabRelativeImportance.chloride
+            //albumin
+            case .albumin:
+                self.relativeValue = RenalLabRelativeImportance.albumin
+            //anionGap
+            case .anionGap:
+                self.relativeValue = RenalLabRelativeImportance.anionGap
+            //hemoglobin
+            case .hemoglobin:
+                self.relativeValue = RenalLabRelativeImportance.hemoglobin
+            //microalbumin
+            case .microalbuminCreatinineRatio:
+                self.relativeValue = RenalLabRelativeImportance.microalbumin
+            //eGFR
+            case .eGFR:
+                self.relativeValue = RenalLabRelativeImportance.eGFR
+                
+            default:
+                break
+            }
+            
+            
         }
-        
-        
     }
-    
+    override init() {
+        super.init()
+        super.systemName = SystemName.Renal
+    }
+   
 }
 

@@ -19,8 +19,8 @@ class IDiseaseData {
             getWeightedSystemScore()
         }
     }
-    var iDiseaseRelativeImportance:Double = 100
-    var maxScore:Double = 100
+    var iDiseaseRelativeImportance:Double = SystemRelativeImportance.InfectiousDisease
+    var maxScore:Double = SystemRelativeImportance.InfectiousDisease
     
     
     func getWeightedSystemScore()->Double{
@@ -88,6 +88,7 @@ class IDiseaseData {
         
     }
    
+    //MARK: To display data in Pull up...
     func dictionaryRepresentation()->[String:Any]{
         
         return [MetricsType.Conditions.rawValue:iDiseaseCondition.dictionaryRepresentation(),MetricsType.Sympotms.rawValue:iDiseaseSymptoms.dictionaryRepresentation(),MetricsType.LabData.rawValue:iDiseaseLab.dictionaryRepresentation(),MetricsType.Vitals.rawValue:iDiseaseVital.dictionaryRepresentation()] as [String : Any]

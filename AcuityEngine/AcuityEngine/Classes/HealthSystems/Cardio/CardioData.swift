@@ -21,8 +21,8 @@ class CardioData:SystemDataProtocol {
     }
     
     var weightedSystemScore:Double  = 0
-    var cardioRelativeImportance:Double = 100
-    var maxScore:Double = 100
+    var cardioRelativeImportance:Double = SystemRelativeImportance.Cardiovascular
+    var maxScore:Double = SystemRelativeImportance.Cardiovascular
     
     func getWeightedSystemScore()->Double{
         let score = totalSystemScoreWithDays(days: SegmentValueForGraph.OneDay)
@@ -60,7 +60,17 @@ class CardioData:SystemDataProtocol {
         return arrayFraction
     }
     
-    
+    //2nd Step
+    //Get total score
+    /*
+     Get all Conditions metric total scrore which gets by value of metrix apply to calculation(which is sum of all conditions metrics)
+     Get all Symptoms metric total scrore which gets by value of metrix apply to calculation(which is sum of all symptoms metrics)
+     Get all vitals metric total scrore which gets by value of metrix apply to calculation(which is sum of all vitals metrics)
+     Get all Labs metric total scrore which gets by value of metrix apply to calculatione(which is sum of all Labs metrics)
+     
+     Finally, Do sum of all 4 systems's total score
+     
+     */
     //Metrix total score
     func totalMetrixScoreWithDays(days:SegmentValueForGraph) -> [Double]{
         var arrayDayWiseTotalScore:[Double] = []
@@ -73,6 +83,16 @@ class CardioData:SystemDataProtocol {
         
         return arrayDayWiseTotalScore
     }
+    //1st Step
+    //Get Max total score
+    /*
+     Get all Conditions metric Max scrore(which is sum of all conditions metrics)
+     Get all Symptoms metric Max scrore(which is sum of all symptoms metrics)
+     Get all vitals metric Max scrore(which is sum of all vitals metrics)
+     Get all Labs metric Max scrore(which is sum of all Labs metrics)
+     
+     Finally, Do sum of all 4 systems's max score
+     */
     func maxTotalScore() -> Double{
         let maxScoreVitals = cardioVital.getMaxVitalsScore()
         let maxConditionData = cardioCondition.getMaxConditionDataScore()
@@ -86,6 +106,7 @@ class CardioData:SystemDataProtocol {
         
     }
     
+    //MARK: To display data in Pull up...
     func dictionaryRepresentation()->[String:Any]{
         return [MetricsType.Conditions.rawValue:cardioCondition.dictionaryRepresentation(),MetricsType.Sympotms.rawValue:cardioSymptoms.dictionaryRepresentation(),MetricsType.LabData.rawValue:cardioLab.dictionaryRepresentation(),MetricsType.Vitals.rawValue:cardioVital.dictionaryRepresentation()] as [String : Any]
         

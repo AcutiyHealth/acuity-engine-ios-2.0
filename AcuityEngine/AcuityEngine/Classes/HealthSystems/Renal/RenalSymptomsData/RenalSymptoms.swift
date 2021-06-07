@@ -8,7 +8,7 @@
 import UIKit
 
 class RenalSymptoms:SymptomsProtocol {
-   /*
+    /*
      Rapid or fluttering heartbeat
      lower back pain
      dizziness
@@ -24,11 +24,13 @@ class RenalSymptoms:SymptomsProtocol {
     var fatigueData:[RenalSymptomsPainData] = []
     var nauseaData:[RenalSymptomsPainData] = []
     var vomitingData:[RenalSymptomsPainData] = []
-   
+    
     var arrayDayWiseScoreTotal:[Double] = []
+    //For Dictionary Representation
+    var arrSymptoms:[SymptomsModel] = []
     
     func totalSymptomDataScore() -> Double {
-
+        
         let rapidHeartBeat = (Double(rapidHeartBeatData.average(\.score) ).isNaN ? 0 : Double(rapidHeartBeatData.average(\.score) ) )
         let fainting = (Double(faintingData.average(\.score)) .isNaN ? 0 : Double(faintingData.average(\.score)))
         let lowerBackPain = (Double(lowerBackPainData.average(\.score)).isNaN ? 0 : Double(lowerBackPainData.average(\.score)))
@@ -36,10 +38,10 @@ class RenalSymptoms:SymptomsProtocol {
         let dizziness = (Double(dizzinessData.average(\.score) ).isNaN ? 0 : Double(dizzinessData.average(\.score) ) )
         let nausea = (Double(nauseaData.average(\.score)) .isNaN ? 0 : Double(nauseaData.average(\.score)))
         let vomiting = (Double(vomitingData.average(\.score)).isNaN ? 0 : Double(vomitingData.average(\.score)))
-       
+        
         let totalLabScore1 = rapidHeartBeat + fainting + lowerBackPain
         let totalLabScore2 =  fatigue + dizziness + vomiting + nausea
-       
+        
         return Double(totalLabScore1  + totalLabScore2)
     }
     
@@ -51,7 +53,7 @@ class RenalSymptoms:SymptomsProtocol {
         let dizziness = RenalSymptomsRelativeImportance.dizziness.getConvertedValueFromPercentage()
         let nausea = RenalSymptomsRelativeImportance.nausea.getConvertedValueFromPercentage()
         let vomiting = RenalSymptomsRelativeImportance.vomiting.getConvertedValueFromPercentage()
-    
+        
         let totalLabScore1 = lowerBackPain + rapidHeartBeat + fainting + fatigue
         let totalLabScore2 =  dizziness + nausea  + vomiting
         
@@ -63,17 +65,17 @@ class RenalSymptoms:SymptomsProtocol {
         //print(totalAmount) // 4500.0
         arrayDayWiseScoreTotal = []
         /*var cardioSymptomCalculation:[Metrix] = []
-        cardioSymptomCalculation.append(contentsOf: rapidHeartBeatData)
-        cardioSymptomCalculation.append(contentsOf: faintingData)
-        cardioSymptomCalculation.append(contentsOf: lowerBackPainData)
-        cardioSymptomCalculation.append(contentsOf: fatigueData)
-        cardioSymptomCalculation.append(contentsOf: dizzinessData)
-        cardioSymptomCalculation.append(contentsOf: nauseaData)
-        cardioSymptomCalculation.append(contentsOf: vomitingData)
-
-        arrayDayWiseScoreTotal = daywiseFilterMetrixsData(days: days, array: cardioSymptomCalculation, metriXType: MetricsType.Sympotms)
-        
-        cardioSymptomCalculation = []*/
+         cardioSymptomCalculation.append(contentsOf: rapidHeartBeatData)
+         cardioSymptomCalculation.append(contentsOf: faintingData)
+         cardioSymptomCalculation.append(contentsOf: lowerBackPainData)
+         cardioSymptomCalculation.append(contentsOf: fatigueData)
+         cardioSymptomCalculation.append(contentsOf: dizzinessData)
+         cardioSymptomCalculation.append(contentsOf: nauseaData)
+         cardioSymptomCalculation.append(contentsOf: vomitingData)
+         
+         arrayDayWiseScoreTotal = daywiseFilterMetrixsData(days: days, array: cardioSymptomCalculation, metriXType: MetricsType.Sympotms)
+         
+         cardioSymptomCalculation = []*/
         
         
         var now = MyWellScore.sharedManager.todaysDate
@@ -90,7 +92,7 @@ class RenalSymptoms:SymptomsProtocol {
             let timeIntervalByNow:Double = now.timeIntervalSince1970
             //print("timeIntervalByNow",getDateMediumFormat(time:timeIntervalByNow))
             now = day
-           //rapidHeartBeatData
+            //rapidHeartBeatData
             let scoreRapidHeartBeatData = getScoreForSymptomsDataWithGivenDateRange(sampleItem: rapidHeartBeatData, timeIntervalByLastMonth: timeIntervalByLastMonth, timeIntervalByNow: timeIntervalByNow)
             //lowerBackPainData
             let scorelowerBackPainData = getScoreForSymptomsDataWithGivenDateRange(sampleItem: lowerBackPainData, timeIntervalByLastMonth: timeIntervalByLastMonth, timeIntervalByNow: timeIntervalByNow)
@@ -107,50 +109,55 @@ class RenalSymptoms:SymptomsProtocol {
             
             let totalScore = scoreRapidHeartBeatData + scorelowerBackPainData + scoredizzinessData + scorefaintingData + scorefatigueData + scorenauseaData + scorevomitingData
             arrayDayWiseScoreTotal.append(totalScore)
-    }
-       
+        }
+        
         return arrayDayWiseScoreTotal
     }
     
+    //MARK: To display data in Pull up...
     func dictionaryRepresentation()->[SymptomsModel]{
+        arrSymptoms = []
+        let days = MyWellScore.sharedManager.daysToCalculateSystemScore
         
-        var arrSymptoms:[SymptomsModel] = []
+        //rapidHeartBeatData
+        self.filterSymptomsArrayToGetSingleDataWithSelectedSegmentInGraph(days: days, array: rapidHeartBeatData)
         
-        if rapidHeartBeatData.count > 0{
-            let symptom = rapidHeartBeatData[0]
-            arrSymptoms.append(getSymptomsModel(symptom: symptom))
-        }
-        if faintingData.count > 0{
-            let symptom = faintingData[0]
-            arrSymptoms.append(getSymptomsModel(symptom: symptom))
-        }
-        if lowerBackPainData.count > 0{
-            let symptom = lowerBackPainData[0]
-            arrSymptoms.append(getSymptomsModel(symptom: symptom))
-        }
-        if fatigueData.count > 0{
-            let symptom = fatigueData[0]
-            arrSymptoms.append(getSymptomsModel(symptom: symptom))
-        }
-        if dizzinessData.count > 0{
-            let symptom = dizzinessData[0]
-            arrSymptoms.append(getSymptomsModel(symptom: symptom))
-        }
-        if nauseaData.count > 0{
-            let symptom = nauseaData[0]
-            arrSymptoms.append(getSymptomsModel(symptom: symptom))
-        }
-        if vomitingData.count > 0{
-            let symptom = vomitingData[0]
-            arrSymptoms.append(getSymptomsModel(symptom: symptom))
-        }
-       
+        //lowerBackPainData
+        filterSymptomsArrayToGetSingleDataWithSelectedSegmentInGraph(days: days, array: lowerBackPainData)
+        
+        //dizzinessData
+        filterSymptomsArrayToGetSingleDataWithSelectedSegmentInGraph(days: days, array: dizzinessData)
+        
+        //faintingData
+        filterSymptomsArrayToGetSingleDataWithSelectedSegmentInGraph(days: days, array: faintingData)
+        
+        //fatigueData
+        filterSymptomsArrayToGetSingleDataWithSelectedSegmentInGraph(days: days, array: fatigueData)
+        
+        //nauseaData
+        filterSymptomsArrayToGetSingleDataWithSelectedSegmentInGraph(days: days, array: nauseaData)
+        
+        //vomiting
+        filterSymptomsArrayToGetSingleDataWithSelectedSegmentInGraph(days: days, array: vomitingData)
+        
         return arrSymptoms
     }
-    func getSymptomsModel(symptom:RenalSymptomsPainData)->SymptomsModel{
-        return SymptomsModel(title: symptom.title, value: symptom.getSymptomsValue())
+    
+    
+    func filterSymptomsArrayToGetSingleDataWithSelectedSegmentInGraph(days:SegmentValueForGraph,array:[SymptomCalculation]){
+        var filteredArray:[SymptomCalculation] = []
+        filteredArray = filterSymptomsArrayWithSelectedSegmentInGraph(days: days, array: array)
+        saveFilterDataInArraySymptoms(filteredArray: filteredArray)
+        //return filteredArray
     }
     
+    func saveFilterDataInArraySymptoms(filteredArray:[SymptomCalculation]){
+        if filteredArray.count > 0{
+            let symptom = filteredArray[0]
+            arrSymptoms.append(getSymptomsModel(symptom: symptom))
+        }
+    }
+    //MARK:- For DetailValue  Screen...
     func getArrayDataForSymptoms(days:SegmentValueForGraph,title:String)->[SymptomsModel]{
         var arrSymptoms:[SymptomsModel] = []
         let symptomsName = SymptomsName(rawValue: title)
@@ -158,25 +165,25 @@ class RenalSymptoms:SymptomsProtocol {
         switch symptomsName {
         
         case .rapidHeartbeat:
-            filterArray = filterArrayWithSelectedSegmentInGraph(days: days, array: rapidHeartBeatData)
-       
+            filterArray = filterSymptomsArrayWithSelectedSegmentInGraph(days: days, array: rapidHeartBeatData)
+            
         case .lowerBackPain:
-            filterArray = filterArrayWithSelectedSegmentInGraph(days: days, array: lowerBackPainData)
+            filterArray = filterSymptomsArrayWithSelectedSegmentInGraph(days: days, array: lowerBackPainData)
             
         case .fainting:
-            filterArray = filterArrayWithSelectedSegmentInGraph(days: days, array: faintingData)
+            filterArray = filterSymptomsArrayWithSelectedSegmentInGraph(days: days, array: faintingData)
             
         case .fatigue:
-            filterArray = filterArrayWithSelectedSegmentInGraph(days: days, array: fatigueData)
+            filterArray = filterSymptomsArrayWithSelectedSegmentInGraph(days: days, array: fatigueData)
             
         case .dizziness:
-            filterArray = filterArrayWithSelectedSegmentInGraph(days: days, array: dizzinessData)
+            filterArray = filterSymptomsArrayWithSelectedSegmentInGraph(days: days, array: dizzinessData)
             
         case .nausea:
-            filterArray = filterArrayWithSelectedSegmentInGraph(days: days, array: nauseaData)
+            filterArray = filterSymptomsArrayWithSelectedSegmentInGraph(days: days, array: nauseaData)
             
         case .vomiting:
-            filterArray = filterArrayWithSelectedSegmentInGraph(days: days, array: vomitingData)
+            filterArray = filterSymptomsArrayWithSelectedSegmentInGraph(days: days, array: vomitingData)
             
         default:
             break

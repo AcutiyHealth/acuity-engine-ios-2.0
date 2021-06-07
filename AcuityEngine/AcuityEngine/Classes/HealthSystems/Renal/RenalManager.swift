@@ -81,5 +81,122 @@ class RenalManager: NSObject {
         
     }
     
+    //MARK: save condition data..
+    func saveConditionsData(element:ConditionsModel){
+        let conditionType = ConditionType(rawValue: element.title!)
+        guard let conditionTypeData = conditionType else {
+            return
+        }
+        let conditionData = RenalConditionData(type: conditionTypeData)
+        conditionData.value = element.value.rawValue
+        
+        switch conditionType {
+        case .kidneyDiease:
+            RenalManager.sharedManager.renalData.renalCondition.kidneyDieaseData.append(conditionData)
+        case .kidneyStones:
+            RenalManager.sharedManager.renalData.renalCondition.kidneyStonesData.append(conditionData)
+        case .hypertension:
+            RenalManager.sharedManager.renalData.renalCondition.hypertensionData.append(conditionData)
+        case .electrolyteDisorders:
+            RenalManager.sharedManager.renalData.renalCondition.electrolyteDisordersData.append(conditionData)
+        case .underweightOrMalnutrition:
+            RenalManager.sharedManager.renalData.renalCondition.underweightMalnutritionData.append(conditionData)
+        case .diabetes:
+            RenalManager.sharedManager.renalData.renalCondition.diabetesData.append(conditionData)
+        case .UTI:
+            RenalManager.sharedManager.renalData.renalCondition.UTIData.append(conditionData)
+            
+        default:
+            break
+        }
+    }
+    //MARK: Save Lab Data
+    func saveLabData(code:String,value:Double,timeStamp:Double){
+        let labCodeConstant = LabCodeConstant(rawValue: code)
+        
+        //Create Lab Model Object
+        let labData = RenalLabData()
+        labData.value = value
+        labData.startTimeStamp = timeStamp
+        
+        switch labCodeConstant {
+        
+        //BUN
+        case .BUN:
+            do{
+                labData.type = .BUN
+                RenalManager.sharedManager.renalData.renalLab.bunData.append(labData)
+            }
+        //creatinine
+        case .creatinine:
+            do{
+                labData.type = .creatinine
+                RenalManager.sharedManager.renalData.renalLab.creatinineData.append(labData)
+            }
+        //bloodGlucose
+        case .bloodGlucose:
+            do{
+                labData.type = .bloodGlucose
+                RenalManager.sharedManager.renalData.renalLab.bloodGlucoseData.append(labData)
+            }
+        //carbonDioxide
+        case .carbonDioxide:
+            do{
+                labData.type = .carbonDioxide
+                RenalManager.sharedManager.renalData.renalLab.carbonDioxideData.append(labData)
+            }
+        //potassiumLevel
+        case .potassiumLevel:
+            do{
+                labData.type = .potassiumLevel
+                RenalManager.sharedManager.renalData.renalLab.potassiumLevelData.append(labData)
+            }
+        //calcium
+        case .calcium:
+            do{
+                labData.type = .calcium
+                RenalManager.sharedManager.renalData.renalLab.calciumData.append(labData)
+            }
+        //chloride
+        case .chloride:
+            do{
+                labData.type = .chloride
+                RenalManager.sharedManager.renalData.renalLab.chlorideData.append(labData)
+            }
+        //albumin
+        case .albumin:
+            do{
+                labData.type = .albumin
+                RenalManager.sharedManager.renalData.renalLab.albuminData.append(labData)
+            }
+        //anionGap
+        case .anionGap:
+            do{
+                labData.type = .anionGap
+                RenalManager.sharedManager.renalData.renalLab.anionGapData.append(labData)
+            }
+        //hemoglobin
+        case .hemoglobin:
+            do{
+                labData.type = .hemoglobin
+                RenalManager.sharedManager.renalData.renalLab.hemaglobinData.append(labData)
+            }
+        //microalbuminCreatinineRatio
+        case .microalbuminCreatinineRatio:
+            do{
+                labData.type = .microalbuminCreatinineRatio
+                RenalManager.sharedManager.renalData.renalLab.microalbuminData.append(labData)
+            }
+        //eGFR
+        case .eGFR:
+            do{
+                labData.type = .eGFR
+                RenalManager.sharedManager.renalData.renalLab.eGFRData.append(labData)
+            }
+            
+        default:
+            break
+        }
+    }
 }
 

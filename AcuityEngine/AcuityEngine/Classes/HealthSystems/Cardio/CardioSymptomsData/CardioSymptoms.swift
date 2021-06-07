@@ -8,21 +8,7 @@
 import UIKit
 
 class CardioSymptoms:SymptomsProtocol {
-    /*
-     Chest pain (1/6)
-     Skipped heart beat
-     dizziness
-     fatigue
-     Rapid or fluttering heartbeat
-     fainting
-     nausea
-     vomiting
-     Memory lapse
-     Shortness of breath
-     Headache
-     Heartburn
-     Sleep changes
-     */
+    
     var chestPainData:[CardioSymptomsPainData] = []
     var skippedHeartBeatData:[CardioSymptomsPainData] = []
     var dizzinessData:[CardioSymptomsPainData] = []
@@ -38,6 +24,8 @@ class CardioSymptoms:SymptomsProtocol {
     var sleepChangesData:[CardioSymptomsPainData] = []
     
     var arrayDayWiseScoreTotal:[Double] = []
+    //For Dictionary Representation
+    var arrSymptoms:[SymptomsModel] = []
     
     func totalSymptomDataScore() -> Double {
         let chestPain = (Double(chestPainData.average(\.score) ).isNaN ? 0 : Double(chestPainData.average(\.score) ) )
@@ -123,6 +111,7 @@ class CardioSymptoms:SymptomsProtocol {
             //print("timeIntervalByLastMonth",getDateMediumFormat(time:timeIntervalByLastMonth))
             let timeIntervalByNow:Double = now.timeIntervalSince1970
             //print("timeIntervalByNow",getDateMediumFormat(time:timeIntervalByNow))
+            
             now = day
             //chestPainData
             let scoreChestPainData = getScoreForSymptomsDataWithGivenDateRange(sampleItem: chestPainData, timeIntervalByLastMonth: timeIntervalByLastMonth, timeIntervalByNow: timeIntervalByNow)
@@ -160,112 +149,105 @@ class CardioSymptoms:SymptomsProtocol {
         return arrayDayWiseScoreTotal
     }
     
+    //MARK: To display data in Pull up...
     func dictionaryRepresentation()->[SymptomsModel]{
         
-        var arrSymptoms:[SymptomsModel] = []
+        arrSymptoms = []
+        var filterArray:[SymptomCalculation] = []
+        let days = MyWellScore.sharedManager.daysToCalculateSystemScore
+        //chestPainData
+        filterSymptomsArrayToGetSingleDataWithSelectedSegmentInGraph(days: days, array: chestPainData)
+        //skippedHeartBeatData
+        filterSymptomsArrayToGetSingleDataWithSelectedSegmentInGraph(days: days, array: skippedHeartBeatData)
+        //dizzinessData
+        filterSymptomsArrayToGetSingleDataWithSelectedSegmentInGraph(days: days, array: dizzinessData)
+        //fatigueData
+        filterSymptomsArrayToGetSingleDataWithSelectedSegmentInGraph(days: days, array: fatigueData)
+        //rapidHeartBeatData
+        filterSymptomsArrayToGetSingleDataWithSelectedSegmentInGraph(days: days, array: rapidHeartBeatData)
+        //faintingData
+        filterSymptomsArrayToGetSingleDataWithSelectedSegmentInGraph(days: days, array: faintingData)
+        //nauseaData
+        filterSymptomsArrayToGetSingleDataWithSelectedSegmentInGraph(days: days, array: nauseaData)
+        //vomiting
+        filterSymptomsArrayToGetSingleDataWithSelectedSegmentInGraph(days: days, array: vomitingData)
+        //memoryLapseData
+        filterSymptomsArrayToGetSingleDataWithSelectedSegmentInGraph(days: days, array: memoryLapseData)
+        //shortBreathData
+        filterSymptomsArrayToGetSingleDataWithSelectedSegmentInGraph(days: days, array: shortBreathData)
+        //headacheData
+        filterSymptomsArrayToGetSingleDataWithSelectedSegmentInGraph(days: days, array: headacheData)
         
-        if chestPainData.count > 0{
-            let symptom = chestPainData[0]
-            arrSymptoms.append(getSymptomsModel(symptom: symptom))
-        }
-        if skippedHeartBeatData.count > 0{
-            let symptom = skippedHeartBeatData[0]
-            arrSymptoms.append(getSymptomsModel(symptom: symptom))
-        }
-        if dizzinessData.count > 0{
-            let symptom = dizzinessData[0]
-            arrSymptoms.append(getSymptomsModel(symptom: symptom))
-        }
-        if fatigueData.count > 0{
-            let symptom = fatigueData[0]
-            arrSymptoms.append(getSymptomsModel(symptom: symptom))
-        }
-        if rapidHeartBeatData.count > 0{
-            let symptom = rapidHeartBeatData[0]
-            arrSymptoms.append(getSymptomsModel(symptom: symptom))
-        }
-        if faintingData.count > 0{
-            let symptom = faintingData[0]
-            arrSymptoms.append(getSymptomsModel(symptom: symptom))
-        }
-        if nauseaData.count > 0{
-            let symptom = nauseaData[0]
-            arrSymptoms.append(getSymptomsModel(symptom: symptom))
-        }
-        if vomitingData.count > 0{
-            let symptom = vomitingData[0]
-            arrSymptoms.append(getSymptomsModel(symptom: symptom))
-        }
-        if memoryLapseData.count > 0{
-            let symptom = memoryLapseData[0]
-            arrSymptoms.append(getSymptomsModel(symptom: symptom))
-        }
-        if shortBreathData.count > 0{
-            let symptom = shortBreathData[0]
-            arrSymptoms.append(getSymptomsModel(symptom: symptom))
-        }
-        if headacheData.count > 0{
-            let symptom = headacheData[0]
-            arrSymptoms.append(getSymptomsModel(symptom: symptom))
-        }
-        if heartBurnData.count > 0{
-            let symptom = heartBurnData[0]
-            arrSymptoms.append(getSymptomsModel(symptom: symptom))
-        }
-        if sleepChangesData.count > 0{
-            let symptom = sleepChangesData[0]
+        //heartBurnData
+        filterSymptomsArrayToGetSingleDataWithSelectedSegmentInGraph(days: days, array: heartBurnData)
+        
+        //sleepChangesData
+        filterArray = filterSymptomsArrayWithSelectedSegmentInGraph(days: days, array: sleepChangesData)
+        if filterArray.count > 0{
+            let symptom = filterArray[0]
             arrSymptoms.append(SymptomsModel(title: symptom.title, value: SymptomsValue(rawValue: symptom.getSymptomSleepChangeValue().rawValue)!))
         }
         
         return arrSymptoms
     }
-    func getSymptomsModel(symptom:CardioSymptomsPainData)->SymptomsModel{
-        return SymptomsModel(title: symptom.title, value: symptom.getSymptomsValue())
+    
+    func filterSymptomsArrayToGetSingleDataWithSelectedSegmentInGraph(days:SegmentValueForGraph,array:[SymptomCalculation]){
+        var filteredArray:[SymptomCalculation] = []
+        filteredArray = filterSymptomsArrayWithSelectedSegmentInGraph(days: days, array: array)
+        saveFilterDataInArraySymptoms(filteredArray: filteredArray)
+        //return filteredArray
     }
     
+    func saveFilterDataInArraySymptoms(filteredArray:[SymptomCalculation]){
+        if filteredArray.count > 0{
+            let symptom = filteredArray[0]
+            arrSymptoms.append(getSymptomsModel(symptom: symptom))
+        }
+    }
+    //MARK:- For DetailValue  Screen...
     func getArrayDataForSymptoms(days:SegmentValueForGraph,title:String)->[SymptomsModel]{
         var arrSymptoms:[SymptomsModel] = []
         let symptomsName = SymptomsName(rawValue: title)
         var filterArray:[SymptomCalculation] = []
         switch symptomsName {
         case .chestPain:
-            filterArray = filterArrayWithSelectedSegmentInGraph(days: days, array: chestPainData)
+            filterArray = filterSymptomsArrayWithSelectedSegmentInGraph(days: days, array: chestPainData)
             
         case .skippedHeartBeat:
-            filterArray = filterArrayWithSelectedSegmentInGraph(days: days, array: skippedHeartBeatData)
+            filterArray = filterSymptomsArrayWithSelectedSegmentInGraph(days: days, array: skippedHeartBeatData)
             
         case .dizziness:
-            filterArray = filterArrayWithSelectedSegmentInGraph(days: days, array: dizzinessData)
+            filterArray = filterSymptomsArrayWithSelectedSegmentInGraph(days: days, array: dizzinessData)
             
         case .fatigue:
-            filterArray = filterArrayWithSelectedSegmentInGraph(days: days, array: fatigueData)
+            filterArray = filterSymptomsArrayWithSelectedSegmentInGraph(days: days, array: fatigueData)
             
         case .rapidHeartbeat:
-            filterArray = filterArrayWithSelectedSegmentInGraph(days: days, array: rapidHeartBeatData)
+            filterArray = filterSymptomsArrayWithSelectedSegmentInGraph(days: days, array: rapidHeartBeatData)
             
         case .fainting:
-            filterArray = filterArrayWithSelectedSegmentInGraph(days: days, array: faintingData)
+            filterArray = filterSymptomsArrayWithSelectedSegmentInGraph(days: days, array: faintingData)
             
         case .nausea:
-            filterArray = filterArrayWithSelectedSegmentInGraph(days: days, array: nauseaData)
+            filterArray = filterSymptomsArrayWithSelectedSegmentInGraph(days: days, array: nauseaData)
             
         case .vomiting:
-            filterArray = filterArrayWithSelectedSegmentInGraph(days: days, array: vomitingData)
+            filterArray = filterSymptomsArrayWithSelectedSegmentInGraph(days: days, array: vomitingData)
             
         case .memoryLapse:
-            filterArray = filterArrayWithSelectedSegmentInGraph(days: days, array: memoryLapseData)
+            filterArray = filterSymptomsArrayWithSelectedSegmentInGraph(days: days, array: memoryLapseData)
             
         case .shortnessOfBreath:
-            filterArray = filterArrayWithSelectedSegmentInGraph(days: days, array: shortBreathData)
+            filterArray = filterSymptomsArrayWithSelectedSegmentInGraph(days: days, array: shortBreathData)
             
         case .headache:
-            filterArray = filterArrayWithSelectedSegmentInGraph(days: days, array: headacheData)
+            filterArray = filterSymptomsArrayWithSelectedSegmentInGraph(days: days, array: headacheData)
             
         case .heartburn:
-            filterArray = filterArrayWithSelectedSegmentInGraph(days: days, array: heartBurnData)
+            filterArray = filterSymptomsArrayWithSelectedSegmentInGraph(days: days, array: heartBurnData)
             
         case .sleepChanges:
-            filterArray = filterArrayWithSelectedSegmentInGraph(days: days, array: sleepChangesData)
+            filterArray = filterSymptomsArrayWithSelectedSegmentInGraph(days: days, array: sleepChangesData)
             
         default:
             break
@@ -282,17 +264,3 @@ class CardioSymptoms:SymptomsProtocol {
     }
 }
 
-func filterArrayWithSelectedSegmentInGraph(days:SegmentValueForGraph,array:[SymptomCalculation])->[SymptomCalculation]{
-    let now = MyWellScore.sharedManager.todaysDate
-    
-    let timeIntervalByLastMonth:Double = getTimeIntervalBySelectedSegmentOfDays(days: days)
-    let timeIntervalByNow:Double = now.timeIntervalSince1970
-    var filteredArray:[SymptomCalculation] = []
-    
-    filteredArray = array.filter { item in
-        //let timeInterval = item.endTimeStamp
-        filterConditionForSymptoms(sampleItem: item, timeIntervalByLastMonth: timeIntervalByLastMonth, timeIntervalByNow: timeIntervalByNow)
-    }
-    
-    return filteredArray
-}

@@ -30,7 +30,7 @@ class RenalConditionData:ConditionCalculation {
     
     init(type:ConditionType) {
         super.init()
-        
+        super.type = type
         switch type {
         case .kidneyDiease:
             self.relativeValue = RenalConditionRelativeImportance.kidneyDiease

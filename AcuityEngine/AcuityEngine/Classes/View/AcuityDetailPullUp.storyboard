@@ -606,10 +606,10 @@
             </objects>
             <point key="canvasLocation" x="121.73913043478262" y="125.89285714285714"/>
         </scene>
-        <!--Acuity Detail Condition View Controller-->
+        <!--Acuity Metrics Detail View Controller-->
         <scene sceneID="pG1-m6-7e2">
             <objects>
-                <viewController storyboardIdentifier="AcuityDetailConditionViewController" id="geT-3h-bIu" customClass="AcuityDetailConditionViewController" customModule="AcuityEngine" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="AcuityMetricsDetailViewController" id="geT-3h-bIu" customClass="AcuityMetricsDetailViewController" customModule="AcuityEngine" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="o2m-zu-44b">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -693,12 +693,61 @@
                                                                 </tableViewCellContentView>
                                                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                 <connections>
+                                                                    <outlet property="btnArrowForDetail" destination="eYu-D8-syx" id="JNc-J6-dub"/>
                                                                     <outlet property="maxScore" destination="UYT-WE-Gm3" id="QSz-ny-xXb"/>
                                                                     <outlet property="titleLabel" destination="0Ku-Fu-d5L" id="lJq-Ya-LK0"/>
                                                                 </connections>
                                                             </tableViewCell>
-                                                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="AcuityDetailValueDisplayCell2" id="5t0-Wk-ymx" customClass="AcuityDetailValueDisplayCell" customModule="AcuityEngine" customModuleProvider="target">
+                                                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="AcuityDetailValueDisplayCellConditions" id="ZcV-df-nhP" customClass="AcuityDetailValueDisplayCell" customModule="AcuityEngine" customModuleProvider="target">
                                                                 <rect key="frame" x="0.0" y="78" width="392" height="50"/>
+                                                                <autoresizingMask key="autoresizingMask"/>
+                                                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="ZcV-df-nhP" id="o2d-Vc-WMA">
+                                                                    <rect key="frame" x="0.0" y="0.0" width="392" height="50"/>
+                                                                    <autoresizingMask key="autoresizingMask"/>
+                                                                    <subviews>
+                                                                        <stackView opaque="NO" contentMode="scaleToFill" spacing="1" translatesAutoresizingMaskIntoConstraints="NO" id="fbY-GR-tyy">
+                                                                            <rect key="frame" x="0.0" y="0.0" width="392" height="50"/>
+                                                                            <subviews>
+                                                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="wordWrap" numberOfLines="2" baselineAdjustment="alignBaselines" minimumFontSize="9" translatesAutoresizingMaskIntoConstraints="NO" id="Hz7-6O-FKZ">
+                                                                                    <rect key="frame" x="0.0" y="0.0" width="291" height="50"/>
+                                                                                    <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
+                                                                                    <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                                                    <nil key="highlightedColor"/>
+                                                                                </label>
+                                                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ek8-88-6Ix">
+                                                                                    <rect key="frame" x="292" y="0.0" width="100" height="50"/>
+                                                                                    <constraints>
+                                                                                        <constraint firstAttribute="width" constant="100" id="brF-zQ-wKg"/>
+                                                                                    </constraints>
+                                                                                    <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
+                                                                                    <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                                                    <nil key="highlightedColor"/>
+                                                                                </label>
+                                                                            </subviews>
+                                                                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                                            <constraints>
+                                                                                <constraint firstAttribute="trailing" secondItem="Ek8-88-6Ix" secondAttribute="trailing" id="Dwo-2V-d6f"/>
+                                                                                <constraint firstAttribute="bottom" secondItem="Ek8-88-6Ix" secondAttribute="bottom" id="HnL-aP-F5v"/>
+                                                                                <constraint firstItem="Ek8-88-6Ix" firstAttribute="top" secondItem="fbY-GR-tyy" secondAttribute="top" id="sDo-QD-2fj"/>
+                                                                            </constraints>
+                                                                        </stackView>
+                                                                    </subviews>
+                                                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                                    <constraints>
+                                                                        <constraint firstAttribute="bottom" secondItem="fbY-GR-tyy" secondAttribute="bottom" id="Bcq-t7-mvS"/>
+                                                                        <constraint firstItem="fbY-GR-tyy" firstAttribute="top" secondItem="o2d-Vc-WMA" secondAttribute="top" id="aDq-SY-fMD"/>
+                                                                        <constraint firstAttribute="trailing" secondItem="fbY-GR-tyy" secondAttribute="trailing" id="cDu-ru-9Oo"/>
+                                                                        <constraint firstItem="fbY-GR-tyy" firstAttribute="leading" secondItem="o2d-Vc-WMA" secondAttribute="leading" id="ntd-nv-wpX"/>
+                                                                    </constraints>
+                                                                </tableViewCellContentView>
+                                                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                                <connections>
+                                                                    <outlet property="maxScore" destination="Ek8-88-6Ix" id="QLZ-yA-J6p"/>
+                                                                    <outlet property="titleLabel" destination="Hz7-6O-FKZ" id="GC4-JZ-klM"/>
+                                                                </connections>
+                                                            </tableViewCell>
+                                                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="AcuityDetailValueDisplayCellSymptoms" id="5t0-Wk-ymx" customClass="AcuityDetailValueDisplayCell" customModule="AcuityEngine" customModuleProvider="target">
+                                                                <rect key="frame" x="0.0" y="128" width="392" height="50"/>
                                                                 <autoresizingMask key="autoresizingMask"/>
                                                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="5t0-Wk-ymx" id="B2s-A5-OBd">
                                                                     <rect key="frame" x="0.0" y="0.0" width="392" height="50"/>
@@ -743,6 +792,7 @@
                                                                 </tableViewCellContentView>
                                                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                 <connections>
+                                                                    <outlet property="btnArrowForDetail" destination="sB3-dh-Drc" id="9fB-1Z-MJA"/>
                                                                     <outlet property="maxScore" destination="du3-UQ-d7h" id="27E-Jk-pCs"/>
                                                                     <outlet property="titleLabel" destination="9Qp-SK-WN4" id="Tcz-AL-su1"/>
                                                                 </connections>
@@ -805,10 +855,10 @@
             </objects>
             <point key="canvasLocation" x="1712" y="511"/>
         </scene>
-        <!--Acuity Detail Value View Controller-->
+        <!--Acuity Metrics Value View Controller-->
         <scene sceneID="0zF-5o-LqM">
             <objects>
-                <viewController storyboardIdentifier="AcuityDetailValueViewController" id="qtm-oA-1t7" customClass="AcuityDetailValueViewController" customModule="AcuityEngine" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="AcuityMetricsValueViewController" id="qtm-oA-1t7" customClass="AcuityMetricsValueViewController" customModule="AcuityEngine" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="m6o-vK-B23">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -958,13 +1008,13 @@
             <size key="intrinsicContentSize" width="79" height="19.5"/>
         </designable>
         <designable name="Uyj-bf-cIn">
-            <size key="intrinsicContentSize" width="79.5" height="19.5"/>
+            <size key="intrinsicContentSize" width="82" height="20.5"/>
         </designable>
         <designable name="fL5-hc-G9v">
-            <size key="intrinsicContentSize" width="41.5" height="19.5"/>
+            <size key="intrinsicContentSize" width="42" height="20.5"/>
         </designable>
         <designable name="k9R-5l-ggp">
-            <size key="intrinsicContentSize" width="35.5" height="19.5"/>
+            <size key="intrinsicContentSize" width="37" height="20.5"/>
         </designable>
     </designables>
     <resources>

@@ -20,6 +20,7 @@ class RenalVitalsData:VitalCalculation {
     init(type:VitalsName) {
         super.init()
         super.title = type
+        super.systemName = SystemName.Renal
         switch type {
         case .bloodPressureSystolic:
             self.relativeValue = RenalVitalRelativeImportance.bloodPressureSystolic
@@ -31,11 +32,5 @@ class RenalVitalsData:VitalCalculation {
         
     }
     
-    func getStartDate()->String{
-        return getDateMediumFormat(time: startTimeStamp)
-    }
-    func getEndDate()->String{
-        return getDateMediumFormat(time: endTimeStamp)
-    }
 }
 

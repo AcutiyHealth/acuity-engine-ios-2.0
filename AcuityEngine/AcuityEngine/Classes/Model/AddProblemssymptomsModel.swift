@@ -10,6 +10,7 @@ import HealthKit
 
 class ConditionsModel {
     
+    var id:Int = 0
     var title: String?
     var isOn: Bool?
     var value:ConditionValue = .No
@@ -17,9 +18,11 @@ class ConditionsModel {
     var startTime: Double = 0
     var endTime: Double = 0
     var textValue: String = ConditionValueText.No.rawValue
-    init(title:String,isOn:Bool) {
+    init(title:String,value:ConditionValue,conditionId:Int) {
         self.title = title
-        self.isOn = isOn
+        self.value = value
+        isOn = value.rawValue == 1 ? true : false
+        self.id = conditionId
     }
     init(title:String,value:ConditionValue) {
         self.title = title
@@ -245,40 +248,6 @@ func getSymptomsArray()->[SymptomsName]{
     return arrayOfSymptoms.sorted{ $0.rawValue < $1.rawValue }
 }
 
-enum SymptomsName:String {
-    case abdominal_Cramps = "Abdominal Cramps"
-    case acne = "Acne"
-    case bladder_Incontinence = "Bladder Incontinence"
-    case bloating = "Bloating"
-    case body_Ache = "Body And Muscle Ache"
-    case chestPain = "Chest Pain"
-    case chills = "Chills"
-    case constipation = "Constipation"
-    case cough = "Cough"
-    case diarrhea = "Diarrhea"
-    case dizziness = "Dizziness"
-    case drySkin = "Dry Skin"
-    case fainting = "Fainting"
-    case fatigue = "Fatigue"
-    case fever = "Fever"
-    case hairLoss = "Hair Loss"
-    case headache = "Headache"
-    case heartburn = "Heartburn"
-    case hotFlashes = "Hot Flashes"
-    case lossOfSmell = "Loss Of Smell"
-    case lowerBackPain = "Lower Back Pain"
-    case memoryLapse = "Memory Lapse"
-    case moodChanges = "Mood Changes"
-    case nausea = "Nausea"
-    case rapidHeartbeat = "Rapid Or Fluttering Heartbeat"
-    case runnyNose = "Runny Nose"
-    case shortnessOfBreath = "Shortness Of Breath"
-    case skippedHeartBeat = "Skipped Heart Beat"
-    case sleepChanges = "Sleep Changes"
-    case soreThroat = "Sore Throat"
-    case vomiting = "Vomiting"
-    
-}
 
 
 

@@ -44,15 +44,16 @@ class VitalsListViewController: UIViewController {
                        VitalModel(name: VitalsName.vo2Max),
                        VitalModel(name: VitalsName.peakflowRate),
                        VitalModel(name: VitalsName.InhalerUsage),
-                       VitalModel(name: VitalsName.Temperature),
+                       VitalModel(name: VitalsName.temperature),
                        VitalModel(name: VitalsName.BMI),
-                       VitalModel(name: VitalsName.bloodSuger),
+                       VitalModel(name: VitalsName.bloodSugar),
                        VitalModel(name: VitalsName.weight),
                        VitalModel(name: VitalsName.oxygenSaturation),
                        VitalModel(name: VitalsName.respiratoryRate)]
         if #available(iOS 14.0, *) {
             vitalsArray.append(VitalModel(name: VitalsName.stepLength))
         }
+        
         /*
          VitalModel(name: VitalsName.lowHeartRate),
          VitalModel(name: VitalsName.highHeartRate),

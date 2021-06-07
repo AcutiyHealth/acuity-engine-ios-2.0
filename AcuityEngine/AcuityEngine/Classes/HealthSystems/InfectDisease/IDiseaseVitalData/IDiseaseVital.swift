@@ -23,6 +23,8 @@ class IDiseaseVital:VitalProtocol {
     
     var totalScore:[Double] = []
     var arrayDayWiseScoreTotal:[Double] = []
+    //For Dictionary Representation
+    private var arrVital:[VitalsModel] = []
     
     
     func totalVitalsScore() -> Double {
@@ -49,6 +51,15 @@ class IDiseaseVital:VitalProtocol {
          arrayDayWiseScoreTotal = daywiseFilterMetrixsData(days: days, array: arrVital, metriXType: MetricsType.Vitals)
          
          arrVital = []*/
+        /*
+         Here We get component is Month/Day and noOfTimesLoopExecute to execute.
+         We get selection from Segment Control from Pull up
+         When there is & days selected, loop will execute 7 times
+         When there is 1 Month selected, loop will execute per weeks count
+         When there is 3 month selected, loop will execute 3 times
+         So any vital's start time is between range, take average of vital's score and after do sum of all vital and store it in array..
+         So, if there is 7 times loop execute aboce process with execute 7 times and final array will have 7 entries.
+         */
         arrayDayWiseScoreTotal = []
         
         var now = MyWellScore.sharedManager.todaysDate
@@ -97,37 +108,46 @@ class IDiseaseVital:VitalProtocol {
     }
     
     //Get recent data for Specific Vitals..
+    //MARK: To display data in Pull up...
     func dictionaryRepresentation()->[VitalsModel]{
         
-        var arrVital:[VitalsModel] = []
+        arrVital = []
         
-        if systolicBloodPressureData.count > 0{
-            let systolicBloodPressure = systolicBloodPressureData[0]
-            arrVital.append(getVitalModel(item: systolicBloodPressure))
-        }
-        if diastolicBloodPressureData.count > 0{
-            let diastolicBloodPressure = diastolicBloodPressureData[0]
-            arrVital.append(getVitalModel(item: diastolicBloodPressure))
-        }
-        if temperatureData.count > 0{
-            let temperature = temperatureData[0]
-            arrVital.append(getVitalModel(item: temperature))
-        }
-        if heartRateData.count > 0{
-            let heartRate = heartRateData[0]
-            arrVital.append(getVitalModel(item: heartRate))
-        }
-        if oxygenSaturationData.count > 0{
-            let oxygenSaturation = oxygenSaturationData[0]
-            arrVital.append(getVitalModel(item: oxygenSaturation))
-        }
+        let days = MyWellScore.sharedManager.daysToCalculateSystemScore
+        
+        //systolicBloodPressureData
+        filterVitalArrayToGetSingleDataWithSelectedSegmentInGraph(days: days, array: systolicBloodPressureData)
+        
+        //diastolicBloodPressureData
+        filterVitalArrayToGetSingleDataWithSelectedSegmentInGraph(days: days, array: diastolicBloodPressureData)
+        
+        //temperatureData
+        filterVitalArrayToGetSingleDataWithSelectedSegmentInGraph(days: days, array: temperatureData)
+        
+        //heartRateData
+        filterVitalArrayToGetSingleDataWithSelectedSegmentInGraph(days: days, array: heartRateData)
+        
+        //oxygenSaturationData
+        filterVitalArrayToGetSingleDataWithSelectedSegmentInGraph(days: days, array: oxygenSaturationData)
+   
         return arrVital
     }
-    func getVitalModel(item:IDiseaseVitalsData)->VitalsModel{
-        let impData =  VitalsModel(title: item.title.rawValue, value: String(format: "%.2f", item.value))
-        impData.color = item.getUIColorFromCalculatedValue()
-        return impData
+   
+    func filterVitalArrayToGetSingleDataWithSelectedSegmentInGraph(days:SegmentValueForGraph,array:[VitalCalculation]){
+        var filteredArray:[VitalCalculation] = []
+        filteredArray = filterVitalArrayWithSelectedSegmentInGraph(days: days, array: array)
+        saveFilterDataInArrayVitals(filteredArray: filteredArray)
+        //return filteredArray
     }
+    
+    func saveFilterDataInArrayVitals(filteredArray:[VitalCalculation]){
+        if filteredArray.count > 0{
+            let vital = filteredArray[0]
+            arrVital.append(getVitalModel(item: vital))
+        }
+    }
+    
+    //MARK:- For DetailValue  Screen...
     
     //Get list of data for specific Vital..
     func getArrayDataForVitals(days:SegmentValueForGraph,title:String) -> [VitalsModel]{
@@ -137,19 +157,19 @@ class IDiseaseVital:VitalProtocol {
         
         switch vitalsName {
         case .bloodPressureSystolic:
-            filterArray = filterArrayWithSelectedSegmentInGraph(days: days, array: systolicBloodPressureData)
+            filterArray = filterVitalArrayWithSelectedSegmentInGraph(days: days, array: systolicBloodPressureData)
             
         case .bloodPressureDiastolic:
-            filterArray = filterArrayWithSelectedSegmentInGraph(days: days, array: diastolicBloodPressureData)
+            filterArray = filterVitalArrayWithSelectedSegmentInGraph(days: days, array: diastolicBloodPressureData)
             
-        case .Temperature:
-            filterArray = filterArrayWithSelectedSegmentInGraph(days: days, array: temperatureData)
+        case .temperature:
+            filterArray = filterVitalArrayWithSelectedSegmentInGraph(days: days, array: temperatureData)
             
         case .heartRate:
-            filterArray = filterArrayWithSelectedSegmentInGraph(days: days, array: heartRateData)
+            filterArray = filterVitalArrayWithSelectedSegmentInGraph(days: days, array: heartRateData)
             
         case .oxygenSaturation:
-            filterArray = filterArrayWithSelectedSegmentInGraph(days: days, array: oxygenSaturationData)
+            filterArray = filterVitalArrayWithSelectedSegmentInGraph(days: days, array: oxygenSaturationData)
             
         default:
             break

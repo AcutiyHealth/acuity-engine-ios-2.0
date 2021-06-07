@@ -28,12 +28,13 @@ class CardioManager: NSObject {
     }
     
     func resetCardioData(){
-       
+        
         cardioData = CardioData()
     }
     
+    //MARK: saveVitals
     func saveQuantityInArray(quantityType:QuantityType,element:Quantity) {
-  
+        
         if quantityType == QuantityType.bloodPressureSystolic {
             
             let systolicBP = CardioVitalsData(type: VitalsName.bloodPressureSystolic)
@@ -80,9 +81,12 @@ class CardioManager: NSObject {
             //print("---------\n HeartRateData \nValue \(heartRate.value)\n Score \(heartRate.score)\n Max Score\(heartRate.maxScore ?? 0.0) \n---------")
         }
         else if quantityType == QuantityType.oxygenSaturation {
-            
+            /*
+             Multiply value with 100 because we get oxygen saturation value in Float from health app. Oxygen saturation 1- 100 will get 0.1-1 from health app
+             */
             let oxygenSaturation = CardioVitalsData(type: VitalsName.oxygenSaturation)
-            oxygenSaturation.value = Double(element.harmonized.value)
+            let newValue = Double(element.harmonized.value) * 100
+            oxygenSaturation.value = newValue
             oxygenSaturation.startTimeStamp = element.startTimestamp
             self.cardioData.cardioVital.oxygenSaturationData.append(oxygenSaturation)
             
@@ -125,7 +129,7 @@ class CardioManager: NSObject {
         }
         
     }
-    
+    //MARK: saveSymptomsData
     func saveSymptomsData(category:CategoryType,element:CategoryData){
         
         let chestPainData = CardioSymptomsPainData(type: category)
@@ -163,12 +167,93 @@ class CardioManager: NSObject {
         default:
             break
         }
-       
+        
         //print("---------\n CardioChestPainData element.harmonized \(element)")
         
         print("---------\n CardioChestPainData \n category \(category) \n Value \(chestPainData.value)\n Score \(chestPainData.score)\n Max Score\(chestPainData.maxScore ) \n---------")
         
         
+    }
+    
+    //MARK: saveConditions
+    
+    func saveConditionsData(element:ConditionsModel){
+        let conditionType = ConditionType(rawValue: element.title!)
+        guard let conditionTypeData = conditionType else {
+            return
+        }
+        let conditionData = CardioConditionData(type: conditionTypeData)
+        conditionData.value = element.value.rawValue
+        
+        switch conditionType {
+        case .hypertension:
+            CardioManager.sharedManager.cardioData.cardioCondition.hyperTenstionData.append(conditionData)
+        case .arrhythmia:
+            CardioManager.sharedManager.cardioData.cardioCondition.arrhythmiaData.append(conditionData)
+        case .heartFailure:
+            CardioManager.sharedManager.cardioData.cardioCondition.heartFailureData.append(conditionData)
+        case .hyperlipidemia:
+            CardioManager.sharedManager.cardioData.cardioCondition.hyperLipidemiaData.append(conditionData)
+        case .anemia:
+            CardioManager.sharedManager.cardioData.cardioCondition.anemiaData.append(conditionData)
+        case .diabetes:
+            CardioManager.sharedManager.cardioData.cardioCondition.diabetesData.append(conditionData)
+        case .coronaryArteryDisease:
+            CardioManager.sharedManager.cardioData.cardioCondition.arteryDieseaseData.append(conditionData)
+        default:
+            break
+        }
+        
+    }
+    
+    //MARK: Save Lab Data
+    func saveLabData(code:String,value:Double,timeStamp:Double){
+        let labCodeConstant = LabCodeConstant(rawValue: code)
+        
+        //Create Lab Model Object
+        let labData = CardioLabData()
+        labData.value = value
+        labData.startTimeStamp = timeStamp
+        
+        switch labCodeConstant {
+        case .potassiumLevel:
+            do{
+                labData.type = .potassiumLevel
+                CardioManager.sharedManager.cardioData.cardioLab.potassiumLevelData.append(labData)
+            }
+        case .sodium:
+            do{
+                labData.type = .sodium
+                CardioManager.sharedManager.cardioData.cardioLab.sodiumData.append(labData)
+            }
+        case .chloride:
+            do{
+                labData.type = .chloride
+                CardioManager.sharedManager.cardioData.cardioLab.chlorideData.append(labData)
+            }
+        case .albumin:
+            do{
+                labData.type = .albumin
+                CardioManager.sharedManager.cardioData.cardioLab.albuminData.append(labData)
+            }
+        case .microalbuminCreatinineRatio:
+            do{
+                labData.type = .microalbuminCreatinineRatio
+                CardioManager.sharedManager.cardioData.cardioLab.microalbuminData.append(labData)
+            }
+        case .bPeptide:
+            do{
+                labData.type = .bPeptide
+                CardioManager.sharedManager.cardioData.cardioLab.bPeptideData.append(labData)
+            }
+        case .hemoglobin:
+            do{
+                labData.type = .hemoglobin
+                CardioManager.sharedManager.cardioData.cardioLab.hemoglobinData.append(labData)
+            }
+        default:
+            break
+        }
     }
 }
 

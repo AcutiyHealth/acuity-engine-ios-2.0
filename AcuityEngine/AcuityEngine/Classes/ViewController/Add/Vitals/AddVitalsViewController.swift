@@ -74,7 +74,7 @@ class AddVitalsViewController: UIViewController {
             viewEnd.isHidden = true
             
         }
-        else if vitalModel?.name == VitalsName.heartRate || vitalModel?.name == VitalsName.InhalerUsage || vitalModel?.name == VitalsName.peakflowRate ||  vitalModel?.name == VitalsName.BMI || vitalModel?.name == VitalsName.Temperature || vitalModel?.name == VitalsName.weight || vitalModel?.name == VitalsName.bloodSuger || vitalModel?.name == VitalsName.oxygenSaturation || vitalModel?.name == VitalsName.vo2Max || vitalModel?.name == VitalsName.respiratoryRate  || vitalModel?.name == VitalsName.headPhoneAudioLevel || vitalModel?.name == VitalsName.stepLength {
+        else if vitalModel?.name == VitalsName.heartRate || vitalModel?.name == VitalsName.InhalerUsage || vitalModel?.name == VitalsName.peakflowRate ||  vitalModel?.name == VitalsName.BMI || vitalModel?.name == VitalsName.temperature || vitalModel?.name == VitalsName.weight || vitalModel?.name == VitalsName.bloodSugar || vitalModel?.name == VitalsName.oxygenSaturation || vitalModel?.name == VitalsName.vo2Max || vitalModel?.name == VitalsName.respiratoryRate  || vitalModel?.name == VitalsName.headPhoneAudioLevel || vitalModel?.name == VitalsName.stepLength {
             vitalsView.isHidden = false
             bloddPressureView.isHidden = true
             viewEnd.isHidden = true
@@ -111,7 +111,13 @@ class AddVitalsViewController: UIViewController {
         guard let vitalModel = vitalModel else {
             return
         }
-        lblTitle.text = vitalModel.name.rawValue
+        switch vitalModel.name {
+        case .oxygenSaturation:
+            lblTitle.text = String("Oxygen Saturation %")
+        default:
+            lblTitle.text = vitalModel.name.rawValue
+        }
+        
         //Make btn disable or enable...
         btnSave.isEnabled = false
         //view will be change as per vital
@@ -149,8 +155,8 @@ class AddVitalsViewController: UIViewController {
                     self?.vitalModel?.name == VitalsName.InhalerUsage ||
                     self?.vitalModel?.name == VitalsName.peakflowRate ||
                     self?.vitalModel?.name == VitalsName.BMI ||
-                    self?.vitalModel?.name == VitalsName.Temperature ||
-                    self?.vitalModel?.name == VitalsName.weight || self?.vitalModel?.name == VitalsName.bloodSuger ||
+                    self?.vitalModel?.name == VitalsName.temperature ||
+                    self?.vitalModel?.name == VitalsName.weight || self?.vitalModel?.name == VitalsName.bloodSugar ||
                     self?.vitalModel?.name == VitalsName.oxygenSaturation ||
                     self?.vitalModel?.name == VitalsName.vo2Max ||
                     self?.vitalModel?.name == VitalsName.respiratoryRate || self?.vitalModel?.name == VitalsName.stepLength {

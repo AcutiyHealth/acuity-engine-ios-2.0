@@ -27,35 +27,43 @@ struct IDiseaseLabRelativeImportance {
 }
 class IDiseaseLabData:LabCalculation {
     
-    init(type:LabType) {
-        super.init()
-        super.metricType = type
-        switch type {
-        //WBC
-        case .WBC:
-            self.relativeValue = IDiseaseLabRelativeImportance.WBC
-        //neutrophil
-        case .neutrophil:
-            self.relativeValue = IDiseaseLabRelativeImportance.neutrophil
-        //bloodGlucose
-        case .bloodGlucose:
-            self.relativeValue = IDiseaseLabRelativeImportance.bloodGlucose
-        //urineNitrites
-        case .urineNitrites:
-            self.relativeValue = IDiseaseLabRelativeImportance.urineNitrites
-        //urineBlood
-        case .urineBlood:
-            self.relativeValue = IDiseaseLabRelativeImportance.urineBlood
-        //anionGap
-        case .anionGap:
-            self.relativeValue = IDiseaseLabRelativeImportance.anionGap
+    var type:LabType = .sodium{
+        didSet{
             
-        default:
-            break
+            super.metricType = type
+            switch type {
+            //WBC
+            case .WBC:
+                self.relativeValue = IDiseaseLabRelativeImportance.WBC
+            //neutrophil
+            case .neutrophil:
+                self.relativeValue = IDiseaseLabRelativeImportance.neutrophil
+            //bloodGlucose
+            case .bloodGlucose:
+                self.relativeValue = IDiseaseLabRelativeImportance.bloodGlucose
+            //urineNitrites
+            case .urineNitrites:
+                self.relativeValue = IDiseaseLabRelativeImportance.urineNitrites
+            //urineBlood
+            case .urineBlood:
+                self.relativeValue = IDiseaseLabRelativeImportance.urineBlood
+            //anionGap
+            case .anionGap:
+                self.relativeValue = IDiseaseLabRelativeImportance.anionGap
+                
+            default:
+                break
+            }
+            
+            
         }
-        
-        
+    }
+    override init() {
+        super.init()
+        super.systemName = SystemName.InfectiousDisease
     }
     
 }
+
+
 

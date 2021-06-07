@@ -8,10 +8,10 @@
 import UIKit
 
 class ConditionsListViewController: UIViewController {
-
+    
     @IBOutlet weak var tblConditions: UITableView!
     var arrayOfStringsCondition: [String] = []
-    var ConditionArray : [ConditionsModel] = []
+    var conditionArray : [ConditionsModel] = []
     
     @IBOutlet weak var btnClose: UIButton!
     
@@ -20,46 +20,66 @@ class ConditionsListViewController: UIViewController {
         
         loadConditionsData()
         
-        tblConditions.reloadData()
         // Do any additional setup after loading the view.
     }
     func loadConditionsData(){
-        
-           do {
-               // Fetch data from Txt file and convert it in array to display in tableview
-               if let path = Bundle.main.path(forResource: "Conditions", ofType: "txt"){
-                   let data = try String(contentsOfFile:path, encoding: String.Encoding.utf8)
-                arrayOfStringsCondition = data.components(separatedBy: "\n")
+        DispatchQueue.global().async {
+            do {
+                // Fetch data from Txt file and convert it in array to display in tableview
+                if  let isConditionDataAdded = UserDefaults.standard.string(forKey: "isConditionDataAdded"){
+                    if isConditionDataAdded == "Yes"{
+                        self.fetchConditionsDataFromDatabase()
+                    }
+                }else{
+                    //save condition data in database
+                    DBManager.shared.insertConditionData(completionHandler: { (sucess,error) in
+                        if sucess{
+                            UserDefaults.standard.set("Yes", forKey: "isConditionDataAdded") //String
+                            self.fetchConditionsDataFromDatabase()
+                        }
+                    })
+                }
                 
-               }
-           } catch let err as NSError {
-               // do something with Error
-               print(err)
-           }
-     
-        
-        for item in arrayOfStringsCondition{
-            let Condition = ConditionsModel(title: item, isOn: false)
-            ConditionArray.append(Condition)
+            }
         }
-       
     }
-
+    
+    func fetchConditionsDataFromDatabase(){
+        guard let conditionArray = DBManager.shared.loadConditions() else { return }
+        self.conditionArray.append(contentsOf: conditionArray)
+        DispatchQueue.main.async {
+            
+            self.tblConditions.reloadData()
+        }
+        
+    }
 }
 extension ConditionsListViewController:UITableViewDelegate,UITableViewDataSource{
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return ConditionArray.count
+        return conditionArray.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell: AddConditionCell = tableView.dequeueReusableCell(withIdentifier: "AddConditionCell", for: indexPath as IndexPath) as? AddConditionCell else {
             fatalError("AcuityDetailDisplayCell cell is not found")
         }
-        let ConditionData = ConditionArray[indexPath.row]
-        cell.displayData(title: ConditionData.title ?? "")
+        let conditionData = conditionArray[indexPath.row]
+        cell.yesOrNoSwitch.tag = indexPath.row
+        cell.yesOrNoSwitch.addTarget(self, action: #selector(changeSwitchStatus(onOffSwitch:)), for: UIControl.Event.touchUpInside)
+        cell.displayData(title: conditionData.title ?? "",isOn:conditionData.isOn ?? false)
         cell.selectionStyle = .none
         
         return cell
+    }
+    @objc func changeSwitchStatus(onOffSwitch:UISwitch){
+        let tag = onOffSwitch.tag
+        let conditionData = conditionArray[tag]
+        conditionData.isOn = onOffSwitch.isOn
+        conditionData.value = onOffSwitch.isOn ? ConditionValue.Yes : ConditionValue.No
+        //        if let row = self.conditionArray.firstIndex(where: {$0.id == tag}) {
+        //            conditionArray[row] = conditionData
+        //        }
+        DBManager.shared.updateCondition(withID: conditionData.id, isSelected: onOffSwitch.isOn)
     }
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         

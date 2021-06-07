@@ -27,7 +27,7 @@ class RespiratoryCondition {
     var sleepApneaData:[RespiratoryConditionData]  = []
     var heartFailureData:[RespiratoryConditionData]  = []
     var coronaryArteryDiseaseData:[RespiratoryConditionData]  = []
- 
+    
     var arrayDayWiseScoreTotal:[Double] = []
     
     func totalConditionDataScore() -> Double {
@@ -69,29 +69,76 @@ class RespiratoryCondition {
     func totalConditionScoreForDays(days:SegmentValueForGraph) -> [Double] {
         
         //print(totalAmount) // 4500.0
-       
+        
         arrayDayWiseScoreTotal = []
-        var cardioProblem:[Metrix] = []
-        cardioProblem.append(contentsOf: asthmaData)
-        cardioProblem.append(contentsOf: pneumoniaData)
-        cardioProblem.append(contentsOf: respiratoryInfectionData)
-        cardioProblem.append(contentsOf: covidData)
-        cardioProblem.append(contentsOf: allergicRhiniitisData)
-        cardioProblem.append(contentsOf: smokingData)
-        cardioProblem.append(contentsOf: sleepApneaData)
-        cardioProblem.append(contentsOf: heartFailureData)
-        cardioProblem.append(contentsOf: coronaryArteryDiseaseData)
-
-        arrayDayWiseScoreTotal = daywiseFilterMetrixsData(days: days, array: cardioProblem, metriXType: MetricsType.Conditions)
-        cardioProblem = []
+        var respiratoryProblem:[Metrix] = []
+        respiratoryProblem.append(contentsOf: asthmaData)
+        respiratoryProblem.append(contentsOf: pneumoniaData)
+        respiratoryProblem.append(contentsOf: respiratoryInfectionData)
+        respiratoryProblem.append(contentsOf: covidData)
+        respiratoryProblem.append(contentsOf: allergicRhiniitisData)
+        respiratoryProblem.append(contentsOf: smokingData)
+        respiratoryProblem.append(contentsOf: sleepApneaData)
+        respiratoryProblem.append(contentsOf: heartFailureData)
+        respiratoryProblem.append(contentsOf: coronaryArteryDiseaseData)
+        
+        arrayDayWiseScoreTotal = getScoreForConditions(array: respiratoryProblem, days: days)
+        respiratoryProblem = []
         return arrayDayWiseScoreTotal
     }
     
+    //MARK: To display data in Pull up...
     func dictionaryRepresentation()->[ConditionsModel]{
         
-        let objModel = AcuityDetailConditionViewModel()
-        return objModel.getConditionData()
+        var arrCondition:[ConditionsModel] = []
+        //asthmaData
+        if asthmaData.count > 0{
+            let condition = asthmaData[0]
+            arrCondition.append(getConditionsModel(condition: condition))
+        }
+        //pneumoniaData
+        if pneumoniaData.count > 0{
+            let condition = pneumoniaData[0]
+            arrCondition.append(getConditionsModel(condition: condition))
+        }
+        //respiratoryInfectionData
+        if respiratoryInfectionData.count > 0{
+            let condition = respiratoryInfectionData[0]
+            arrCondition.append(getConditionsModel(condition: condition))
+        }
+        //covidData
+        if covidData.count > 0{
+            let condition = covidData[0]
+            arrCondition.append(getConditionsModel(condition: condition))
+        }
+        //allergicRhiniitisData
+        if allergicRhiniitisData.count > 0{
+            let condition = allergicRhiniitisData[0]
+            arrCondition.append(getConditionsModel(condition: condition))
+        }
+        //smokingData
+        if smokingData.count > 0{
+            let condition = smokingData[0]
+            arrCondition.append(getConditionsModel(condition: condition))
+        }
+        //sleepApneaData
+        if sleepApneaData.count > 0{
+            let condition = sleepApneaData[0]
+            arrCondition.append(getConditionsModel(condition: condition))
+        }
+        //heartFailureData
+        if heartFailureData.count > 0{
+            let condition = heartFailureData[0]
+            arrCondition.append(getConditionsModel(condition: condition))
+        }
+        //coronaryArteryDiseaseData
+        if coronaryArteryDiseaseData.count > 0{
+            let condition = coronaryArteryDiseaseData[0]
+            arrCondition.append(getConditionsModel(condition: condition))
+        }
+        return arrCondition
         
     }
+
     
 }

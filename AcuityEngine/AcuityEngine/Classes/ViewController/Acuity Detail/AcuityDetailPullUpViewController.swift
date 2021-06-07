@@ -34,7 +34,9 @@ class AcuityDetailPullUpViewController: UIViewController {
     
     
     //Object of Acuity detial value viewcontroller...
-    var detailConditionVC : AcuityDetailConditionViewController?
+    var detailConditionVC : AcuityMetricsDetailViewController?
+    //viewModel object..
+    var viewModelObj = AcuityDetailPullUpViewModel()
     
     fileprivate var labelLeadingMarginInitialConstant: CGFloat!
     
@@ -77,15 +79,9 @@ class AcuityDetailPullUpViewController: UIViewController {
         lblTitle.font = Fonts.kAcuityDetailTitleFont
         lblScore.font = Fonts.kAcuityDetailValueFont
     }
-    //MARK: show system data in tableview
+  
     func setupSegmentControl(){
-        segmentControl.setTitle(SegmentValueForGraph.SevenDays.rawValue, forSegmentAt: 0)
-        segmentControl.setTitle(SegmentValueForGraph.ThirtyDays.rawValue, forSegmentAt: 1)
-        segmentControl.setTitle(SegmentValueForGraph.ThreeMonths.rawValue, forSegmentAt: 2)
-        segmentControl.defaultConfiguration(font: Fonts.kAcuityDetailSegmentFont, color: UIColor.white)
-        segmentControl.selectedConfiguration(font: Fonts.kAcuityDetailSegmentFont, color: UIColor.black)
-        segmentControl.selectedSegmentIndex = 0
-        //self.segmentClicked(segmentControl)
+        viewModelObj.setUpSegmentControl(segmentControl: segmentControl)
     }
     
     //MARK: show system data in tableview
@@ -94,44 +90,71 @@ class AcuityDetailPullUpViewController: UIViewController {
             return
         }
         
-        let acuityModel = AcuityDisplayModel()
-        acuityModel.id = systemData["id"] as? String
-        acuityModel.name = SystemName(rawValue: systemData["name"] as! String )
-        acuityModel.score = systemData["score"]  as? String ?? ""
-        acuityModel.image = systemData["image"]  as? String ?? ""
-        acuityModel.metricCardio = systemData["metricCardio"] as? [String:Any]
+        let acuityModel = viewModelObj.prepareAcuityModelFromSystemData(systemData: systemData)
+        //Display data from acuityModel
+        displayDatailTitleFromAcuityModel(acuityModel: acuityModel)
         
-        systemMetricsData = acuityModel.metricCardio
+        self.showScoreAndChartData()
+        
+        self.reloadTableView()
+        
+    }
+    func displayDatailTitleFromAcuityModel(acuityModel:AcuityDisplayModel){
+        systemMetricsData = acuityModel.metricDictionary
         lblTitle.text = acuityModel.name?.rawValue
         lblScore.text = acuityModel.score
         MyWellScore.sharedManager.selectedSystem = acuityModel.name ?? SystemName.Cardiovascular
         
+    }
+    //MARK: prepare array from AcuityModel
+    func prepareArrayFromAcuityModel(){
         //generate array of arrConditions,lab,imp data,arrSymptoms
         self.arrConditions = []
         self.arrSymptoms = []
         self.arrLabs = []
         self.arrVitals = []
-        self.reloadTableView()
-        reloadTables()
+        guard let arrConditions = systemMetricsData?[MetricsType.Conditions.rawValue] as? [ConditionsModel] else {
+            return
+        }
+        guard let arrSymptoms = systemMetricsData?[MetricsType.Sympotms.rawValue] as? [SymptomsModel] else {
+            return
+        }
+        guard let arrLabs = systemMetricsData?[MetricsType.LabData.rawValue] as? [LabModel] else {
+            return
+        }
+        guard let arrVitals = systemMetricsData?[MetricsType.Vitals.rawValue] as? [VitalsModel] else {
+            return
+        }
+        self.arrConditions = arrConditions
+        self.arrSymptoms = arrSymptoms
+        self.arrLabs = arrLabs
+        self.arrVitals = arrVitals
         
-        self.arrConditions = systemMetricsData![MetricsType.Conditions.rawValue] as! [ConditionsModel]
-        self.arrSymptoms = systemMetricsData![MetricsType.Sympotms.rawValue] as! [SymptomsModel]
-        self.arrLabs = systemMetricsData![MetricsType.LabData.rawValue] as! [LabModel]
-        self.arrVitals = systemMetricsData![MetricsType.Vitals.rawValue] as! [VitalsModel]
+        //Sorting of array...
+        self.arrConditions.sort {
+            $0.title ?? "" < $1.title ?? ""
+        }
+        self.arrVitals.sort {
+            $0.title ?? "" < $1.title ?? ""
+        }
+        self.arrSymptoms.sort {
+            $0.title ?? "" < $1.title ?? ""
+        }
+        self.arrLabs.sort {
+            $0.title ?? "" < $1.title ?? ""
+        }
         
-        //change background color with system selection..
-        let themeColor = getThemeColor(index:  acuityModel.score,isForWheel: false)
-        lblScore.textColor = themeColor;
-        colorForChart = themeColor ?? UIColor.red
-        
-        self.showScoreAndChartData()
+        //reload tableview....
         self.reloadTableView()
         
     }
-    
+    //MARK: setup chart
     func setUpChartView(data:[(x: Int, y: Double)]){
         chart.removeAllSeries()
-        chart.delegate = self
+        /*
+         Uncomment below line if you want to start Touch in chart..
+         */
+        //chart.delegate = self
         // Simple chart
         //let labelsAsString: Array<String> = labelsAsStringForWeek
         
@@ -146,80 +169,15 @@ class AcuityDetailPullUpViewController: UIViewController {
         chart.maxY = 100
         chart.add(series)
     }
-    func reloadTableView(){
-        tblCondition.backgroundView = nil
-        tblLab.backgroundView = nil
-        tblSymptom.backgroundView = nil
-        tblVitals.backgroundView = nil
-        
-        if arrConditions.count <= 0 {
-            setNoDataInfoIfRecordsNotExists(tblView: tblCondition)
-        }
-        if arrLabs.count <= 0 {
-            setNoDataInfoIfRecordsNotExists(tblView: tblLab)
-        }
-        if arrSymptoms.count <= 0 {
-            setNoDataInfoIfRecordsNotExists(tblView: tblSymptom)
-        }
-        if arrVitals.count <= 0 {
-            setNoDataInfoIfRecordsNotExists(tblView: tblVitals)
-        }
-        reloadTables()
-    }
-    func reloadTables(){
-        
-        self.tblLab.reloadData()
-        self.tblCondition.reloadData()
-        self.tblSymptom.reloadData()
-        self.tblVitals.reloadData()
-    }
-    func setNoDataInfoIfRecordsNotExists(tblView:UITableView)
-    {
-        let noDataLabel : UILabel = UILabel()
-        noDataLabel.frame = CGRect(x: 0, y: 0 , width: (tblView.bounds.width), height: (tblView.bounds.height))
-        noDataLabel.text = "No Records Found"
-        noDataLabel.font = UIFont.systemFont(ofSize: 12)
-        noDataLabel.textColor = UIColor.white
-        noDataLabel.textAlignment = .center
-        tblView.backgroundView = noDataLabel
-        
-    }
-    
     func showScoreAndChartData(){
         var scoreText = String(format: "0.00")
         var data = [(x:0, y:0.0)]
         var arraySystemScore:[Double] = []
         print("<--------------------showScoreAndChartData-------------------->")
-        //Cardiovascular
-        if MyWellScore.sharedManager.selectedSystem == SystemName.Cardiovascular{
-            let systemScore = CardioManager.sharedManager.cardioData.totalSystemScoreWithDays(days: MyWellScore.sharedManager.daysToCalculateSystemScore)
-            scoreText = String(format: "%.2f", systemScore)
-            arraySystemScore = CardioManager.sharedManager.cardioData.arrayDayWiseSystemScore
-        }
-        //Respiratory
-        else if MyWellScore.sharedManager.selectedSystem == SystemName.Respiratory{
-            let systemScore = RespiratoryManager.sharedManager.respiratoryData.totalSystemScoreWithDays(days: MyWellScore.sharedManager.daysToCalculateSystemScore)
-            scoreText = String(format: "%.2f", systemScore)
-            arraySystemScore = RespiratoryManager.sharedManager.respiratoryData.arrayDayWiseSystemScore
-        }
-        //Renal
-        else if MyWellScore.sharedManager.selectedSystem == SystemName.Renal{
-            let systemScore = RenalManager.sharedManager.renalData.totalSystemScoreWithDays(days: MyWellScore.sharedManager.daysToCalculateSystemScore)
-            scoreText = String(format: "%.2f", systemScore)
-            arraySystemScore = RenalManager.sharedManager.renalData.arrayDayWiseSystemScore
-        }
-        //InfectiousDisease
-        else if MyWellScore.sharedManager.selectedSystem == SystemName.InfectiousDisease{
-            let systemScore = IDiseaseManager.sharedManager.iDiseaseData.totalSystemScoreWithDays(days: MyWellScore.sharedManager.daysToCalculateSystemScore)
-            scoreText = String(format: "%.2f", systemScore)
-            arraySystemScore = IDiseaseManager.sharedManager.iDiseaseData.arrayDayWiseSystemScore
-        }
-        /*//FNE
-        else if MyWellScore.sharedManager.selectedSystem == SystemName.Fluids{
-            let systemScore = FNEManager.sharedManager.fneData.totalSystemScoreWithDays(days: MyWellScore.sharedManager.daysToCalculateSystemScore)
-            scoreText = String(format: "%.2f", systemScore)
-            arraySystemScore = FNEManager.sharedManager.fneData.arrayDayWiseSystemScore
-        }*/
+        let scoreTupple = viewModelObj.getScoreAndArrayOfSystemScore()
+        scoreText = scoreTupple.0
+        arraySystemScore = scoreTupple.1
+        systemMetricsData = scoreTupple.2
         var i = 0;
         for item in arraySystemScore{
             data.append((x:i,y:item))
@@ -247,9 +205,55 @@ class AcuityDetailPullUpViewController: UIViewController {
         case .OneDay:
             break
         }
+        
+        //Prepare Array from acuityModel
+        prepareArrayFromAcuityModel()
+        
         lblScore.text = scoreText
+        
+        setColorForScoreAndChart()
+        
         self.setUpChartView(data: data)
     }
+    //MARK: Set Color For Score And Chart
+    func setColorForScoreAndChart(){
+        
+        //change background color with system selection..
+        let themeColor = getThemeColor(index:  lblScore.text,isForWheel: false)
+        lblScore.textColor = themeColor;
+        colorForChart = themeColor ?? UIColor.red
+    }
+    
+    //MARK: reloadTableView
+    func reloadTableView(){
+        tblCondition.backgroundView = nil
+        tblLab.backgroundView = nil
+        tblSymptom.backgroundView = nil
+        tblVitals.backgroundView = nil
+        
+        if arrConditions.count <= 0 {
+            viewModelObj.setNoDataInfoIfRecordsNotExists(tblView: tblCondition)
+        }
+        if arrLabs.count <= 0 {
+            viewModelObj.setNoDataInfoIfRecordsNotExists(tblView: tblLab)
+        }
+        if arrSymptoms.count <= 0 {
+            viewModelObj.setNoDataInfoIfRecordsNotExists(tblView: tblSymptom)
+        }
+        if arrVitals.count <= 0 {
+            viewModelObj.setNoDataInfoIfRecordsNotExists(tblView: tblVitals)
+        }
+        reloadTables()
+    }
+    func reloadTables(){
+        
+        self.tblLab.reloadData()
+        self.tblCondition.reloadData()
+        self.tblSymptom.reloadData()
+        self.tblVitals.reloadData()
+    }
+    
+    
     //MARK: segment click
     
     @IBAction func segmentClicked(_ sender: UISegmentedControl) {
@@ -391,15 +395,29 @@ extension AcuityDetailPullUpViewController: UITableViewDelegate, UITableViewData
     func openValueDetailScreen(metrixType:MetricsType){
         
         //Add detail value view as child view
-        detailConditionVC = UIStoryboard(name: Storyboard.acuityDetailPullUp.rawValue, bundle: nil).instantiateViewController(withIdentifier: "AcuityDetailConditionViewController") as? AcuityDetailConditionViewController
+        detailConditionVC = UIStoryboard(name: Storyboard.acuityDetailPullUp.rawValue, bundle: nil).instantiateViewController(withIdentifier: "AcuityMetricsDetailViewController") as? AcuityMetricsDetailViewController
         self.addChild(detailConditionVC!)
         detailConditionVC?.view.frame.size = CGSize(width: visualEffectView.frame.size.width, height: visualEffectView.frame.size.height)
         visualEffectView.addSubview((detailConditionVC?.view)!)
         detailConditionVC?.didMove(toParent: self)
+        
+        switch metrixType {
+        case .Conditions:
+            detailConditionVC?.arrConditions = self.arrConditions
+        case .Vitals:
+            detailConditionVC?.arrVitals = self.arrVitals
+        case .Sympotms:
+            detailConditionVC?.arrSymptoms = self.arrSymptoms
+        case .LabData:
+            detailConditionVC?.arrLabs = self.arrLabs
+        default:
+            break
+        }
+        
         //PAss metrix Item to display data...
         detailConditionVC?.metrixType = metrixType
-        
         setUpCloseButton()
+        
         //Hide main view of Detail Pullup class
         mainView.isHidden = true
         detailConditionVC?.setHandler(handler: { [weak self] (open) in
@@ -434,7 +452,6 @@ extension AcuityDetailPullUpViewController: UITableViewDelegate, UITableViewData
             detailConditionVC?.removeFromParent()
             mainView.isHidden = false
             
-            //    }
             
         }
     }
