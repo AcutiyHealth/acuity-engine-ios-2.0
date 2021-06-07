@@ -1,48 +1,48 @@
 //
-//  RenalData.swift
+//  MuscData.swift
 //  HealthKitDemo
 //
-//  Created by Bhoomi Jagani on 05/02/21.
+//  Created by Bhoomi Jagani on 11/05/21.
 //
 
 import UIKit
 
-class RenalData {
-    var renalVital:RenalVital = RenalVital()
-    var renalCondition:RenalCondition = RenalCondition()
-    var renalSymptoms:RenalSymptoms = RenalSymptoms()
-    var renalLab:RenalLab = RenalLab()
+class MuscData {
+    var muscVital:MuscVital = MuscVital()
+    var muscCondition:MuscCondition = MuscCondition()
+    var muscSymptoms:MuscSymptoms = MuscSymptoms()
+    var muscLab:MuscLab = MuscLab()
     var arrayDayWiseSystemScore:[Double] = []
-    var renalSystemScore:Double = 0
-    var renalWeightedSystemScore:Double{
+    var muscSystemScore:Double = 0
+    var muscWeightedSystemScore:Double{
         get{
             getWeightedSystemScore()
         }
     }
-    var renalRelativeImportance:Double = SystemRelativeImportance.Renal
-    var maxScore:Double = SystemRelativeImportance.Renal
+    var muscRelativeImportance:Double = SystemRelativeImportance.Musculatory
+    var maxScore:Double = SystemRelativeImportance.Musculatory
     
     
     func getWeightedSystemScore()->Double{
-        print("<--------------------Renal------------------>")
+        print("<--------------------Musc------------------>")
         let score = totalSystemScoreWithDays(days: SegmentValueForGraph.OneDay)
-        return (score * renalRelativeImportance)/100
+        return (score * muscRelativeImportance)/100
     }
     
     
     //Total/Final System Score
     func totalSystemScoreWithDays(days:SegmentValueForGraph) -> Double{
-        print("<--------------------Renal------------------>")
+        print("<--------------------Musc------------------>")
         let arrayDayWiseSystemScore = systemScoreWithDays(days: days)
         //Calculate average system core for 7 days/30 days/3 months
         //Final system score for Cardio
-        renalSystemScore = commonTotalSystemScoreWithDays(arrayDayWiseSystemScore: arrayDayWiseSystemScore)
-        let calculatedScore = renalSystemScore
-        print("Renal calculatedScore",calculatedScore)
+        muscSystemScore = commonTotalSystemScoreWithDays(arrayDayWiseSystemScore: arrayDayWiseSystemScore)
+        let calculatedScore = muscSystemScore
+        print("Musc calculatedScore",calculatedScore)
         return calculatedScore
     }
     
-    //calculate Daywise system score for Renal
+    //calculate Daywise system score for Musc
     func systemScoreWithDays(days:SegmentValueForGraph)->[Double]{
         arrayDayWiseSystemScore = []
         let arrayFraction = abnormalFractionWithDays(days: days)
@@ -64,10 +64,10 @@ class RenalData {
     //Metrix total score
     func totalMetrixScoreWithDays(days:SegmentValueForGraph) -> [Double]{
         var arrayDayWiseTotalScore:[Double] = []
-        let totalScoreVitals = renalVital.totalVitalsScoreForDays(days: days)
-        let totalScoreCondition = renalCondition.totalConditionScoreForDays(days: days)
-        let totalScoreLab = renalLab.totalLabScoreForDays(days: days)
-        let totalScoreSymptom = renalSymptoms.totalSymptomsScoreForDays(days: days)
+        let totalScoreVitals = muscVital.totalVitalsScoreForDays(days: days)
+        let totalScoreCondition = muscCondition.totalConditionScoreForDays(days: days)
+        let totalScoreLab = muscLab.totalLabScoreForDays(days: days)
+        let totalScoreSymptom = muscSymptoms.totalSymptomsScoreForDays(days: days)
         arrayDayWiseTotalScore = commonTotalMetrixScoreWithDays(totalScoreCondition: totalScoreCondition, totalScoreSymptom: totalScoreSymptom, totalScoreVitals: totalScoreVitals, totalScoreLab: totalScoreLab)
         
         return arrayDayWiseTotalScore
@@ -75,10 +75,10 @@ class RenalData {
     
     
     func maxTotalScore() -> Double{
-        let maxScoreVitals = renalVital.getMaxVitalsScore()
-        let maxConditionData = renalCondition.getMaxConditionDataScore()
-        let maxLabData = renalLab.getMaxLabDataScore()
-        let maxsymptomData = renalSymptoms.getMaxSymptomDataScore()
+        let maxScoreVitals = muscVital.getMaxVitalsScore()
+        let maxConditionData = muscCondition.getMaxConditionDataScore()
+        let maxLabData = muscLab.getMaxLabDataScore()
+        let maxsymptomData = muscSymptoms.getMaxSymptomDataScore()
         
         let totalMaxScore = maxScoreVitals  + maxConditionData  + maxLabData + maxsymptomData
         
@@ -87,14 +87,11 @@ class RenalData {
         return totalMaxScore
         
     }
-   
+    
     //MARK: To display data in Pull up...
     func dictionaryRepresentation()->[String:Any]{
         
-        return [MetricsType.Conditions.rawValue:renalCondition.dictionaryRepresentation(),
-                MetricsType.Sympotms.rawValue:renalSymptoms.dictionaryRepresentation(),
-                MetricsType.LabData.rawValue:renalLab.dictionaryRepresentation(),
-                MetricsType.Vitals.rawValue:renalVital.dictionaryRepresentation()] as [String : Any]
+        return [MetricsType.Conditions.rawValue:muscCondition.dictionaryRepresentation(),MetricsType.Sympotms.rawValue:muscSymptoms.dictionaryRepresentation(),MetricsType.LabData.rawValue:muscLab.dictionaryRepresentation(),MetricsType.Vitals.rawValue:muscVital.dictionaryRepresentation()] as [String : Any]
         
     }
 }

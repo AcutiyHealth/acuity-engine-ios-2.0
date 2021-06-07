@@ -73,7 +73,12 @@ enum SegmentValueForGraph:String {
     case SevenDays = "7 Days"
     case ThirtyDays = "1 Month"
     case ThreeMonths = "3 Months"
-    case OneDay = "31 Day"
+    case OneDay = "1 Day"
+}
+enum ValueForMonths:Int {
+    case SevenDays = 7
+    case One = 1
+    case ThreeMonths = 3
 }
 enum MetricsType:String {
     case Sympotms = "Symptoms"
@@ -173,7 +178,7 @@ struct AcuityImages {
     static let kIntegumentary = "integumentary.png"
     static let kFluids = "fluids.png"
     static let kIDs = "infectious_disease.png"
-    static let kDisposition = "disposition_information.png"
+    static let kSDH = "disposition_information.png"
     static let kHeent = "heent.png"
 }
 

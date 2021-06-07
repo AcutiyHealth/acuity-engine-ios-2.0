@@ -63,6 +63,9 @@ class LabCalculation:Metrix {
                 //eGFR
                 case .eGFR:
                     self.calculatedValue = geteGFRValue().rawValue
+                //ESR
+                case .ESR:
+                    self.calculatedValue = getESRValue().rawValue
                 //hemoglobin
                 case .hemoglobin:
                     self.calculatedValue = getHemoglobinValue().rawValue
@@ -150,13 +153,22 @@ class LabCalculation:Metrix {
     }
     //MARK:AlkalinePhosphatase
     private func getAlkalinePhosphataseValue() -> RYGValue{
-        if value > 147  {
-            return RYGValue.Red
-        }else if value >= 44 && value <= 147 {
-            return RYGValue.Green
-        }
-        else {
-            return RYGValue.Green
+        if systemName == SystemName.Musculatory{
+            
+            if value > 126 || value < 38  {
+                return RYGValue.Red
+            }
+            else {
+                return RYGValue.Green
+            }
+        }else{
+            
+            if value > 147 ||  value < 44{
+                return RYGValue.Red
+            }
+            else {
+                return RYGValue.Green
+            }
         }
     }
     //MARK:b12Level
@@ -548,7 +560,16 @@ class LabCalculation:Metrix {
             return RYGValue.Green
         }
     }
-    
+    //MARK:
+    private func getESRValue() -> RYGValue{
+        
+        if value > 29  {
+            return RYGValue.Red
+        }
+        else {
+            return RYGValue.Green
+        }
+    }
     //MARK:--------------------------------------------------
     //MARK: getUIColorFromCalculatedValue
     //Get UIColor from Calculated Value

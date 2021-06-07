@@ -18,7 +18,7 @@ class AcuityMainViewModel: NSObject {
         
         
     }
-  
+    
     func setupBodySystemData()->[[String:Any]] {
         var arrBodySystems:[[String:Any]] = []
         
@@ -120,13 +120,15 @@ class AcuityMainViewModel: NSObject {
         dictNuerological.image = AcuityImages.kNuerological
         dictNuerological.metricDictionary = metricNeuro
         
+        //Musc
+        let metricMusc = MuscManager.sharedManager.muscData.dictionaryRepresentation()
         let dictMusculatory =   AcuityDisplayModel()
         dictMusculatory.id = "23"
         dictMusculatory.name = SystemName.Musculatory
-        dictMusculatory.score = "68"
+        dictMusculatory.score = String(format: "%.2f", (MuscManager.sharedManager.muscData.muscSystemScore))
         //dictMusculatory.index = "68"
         dictMusculatory.image = AcuityImages.kMusculatory
-        dictMusculatory.metricDictionary = metricTemp
+        dictMusculatory.metricDictionary = metricMusc
         
         
         let dictIntegumentary =   AcuityDisplayModel()
@@ -139,13 +141,13 @@ class AcuityMainViewModel: NSObject {
         
         //SDH
         let metricSDH = SDHManager.sharedManager.sdhData.dictionaryRepresentation()
-        let dictDisposition =   AcuityDisplayModel()
-        dictDisposition.id = "248"
-        dictDisposition.name = SystemName.SocialDeterminantsofHealth
-        dictDisposition.score = String(format: "%.2f", (SDHManager.sharedManager.sdhData.sdhSystemScore))
-        //dictDisposition.index = "84"
-        dictDisposition.image = AcuityImages.kDisposition
-        dictDisposition.metricDictionary = metricSDH
+        let dictSDH =   AcuityDisplayModel()
+        dictSDH.id = "248"
+        dictSDH.name = SystemName.SocialDeterminantsofHealth
+        dictSDH.score = String(format: "%.2f", (SDHManager.sharedManager.sdhData.sdhSystemScore))
+        //dictSDH.index = "84"
+        dictSDH.image = AcuityImages.kSDH
+        dictSDH.metricDictionary = metricSDH
         
         let dictHeent =   AcuityDisplayModel()
         dictHeent.id = "111"
@@ -167,11 +169,10 @@ class AcuityMainViewModel: NSObject {
         arrBodySystems.append(dictGenitourinary.dictionaryRepresentation())
         arrBodySystems.append(dictNuerological.dictionaryRepresentation())
         
-        arrBodySystems.append(dictHeent.dictionaryRepresentation())
-        arrBodySystems.append(dictDisposition.dictionaryRepresentation())
-        arrBodySystems.append(dictIntegumentary.dictionaryRepresentation())
+        arrBodySystems.append(dictSDH.dictionaryRepresentation())
         arrBodySystems.append(dictMusculatory.dictionaryRepresentation())
-        
+        arrBodySystems.append(dictIntegumentary.dictionaryRepresentation())
+        arrBodySystems.append(dictHeent.dictionaryRepresentation())
         
         return arrBodySystems
     }

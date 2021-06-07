@@ -107,7 +107,7 @@ func getNumberOfTimesLoopToExecute(days:SegmentValueForGraph)->[String:AnyObject
     switch days {
     case .SevenDays:
         component = .day
-        noOfTimesLoopExecute = 7
+        noOfTimesLoopExecute = ValueForMonths.SevenDays.rawValue
     case .ThirtyDays:
         component = .weekOfMonth
        
@@ -118,11 +118,11 @@ func getNumberOfTimesLoopToExecute(days:SegmentValueForGraph)->[String:AnyObject
         print("noOfTimesLoopExecute ThirtyDays=====>",noOfTimesLoopExecute)
     case .ThreeMonths:
         component = .month
-        noOfTimesLoopExecute = 3
+        noOfTimesLoopExecute = ValueForMonths.ThreeMonths.rawValue
         
     case .OneDay:
         component = .day
-        noOfTimesLoopExecute = 1
+        noOfTimesLoopExecute = ValueForMonths.One.rawValue
     }
     let componentAndLoopDictionary = ["component":component,"noOfTimesLoopExecute":noOfTimesLoopExecute] as [String : AnyObject]
    
@@ -222,22 +222,21 @@ func getScoreForSymptomsDataWithGivenDateRange(sampleItem:[Metrix],timeIntervalB
 func getTimeIntervalBySelectedSegmentOfDays(days:SegmentValueForGraph)->Double{
     let now = MyWellScore.sharedManager.todaysDate
     var component = Calendar.Component.day
-    var beforeDaysOrWeekOrMonth = 1
+    var beforeDaysOrWeekOrMonth = ValueForMonths.One.rawValue
     
     switch days {
     case .SevenDays:
         component = .day
-        beforeDaysOrWeekOrMonth = 7
+        beforeDaysOrWeekOrMonth = ValueForMonths.SevenDays.rawValue
     case .ThirtyDays:
         component = .month
-        beforeDaysOrWeekOrMonth = 1
+        beforeDaysOrWeekOrMonth = ValueForMonths.One.rawValue
     case .ThreeMonths:
         component = .month
-        beforeDaysOrWeekOrMonth = 3
-        
-        
+        beforeDaysOrWeekOrMonth = ValueForMonths.ThreeMonths.rawValue
     case .OneDay:
-        break
+        component = .day
+        break;
     }
     
     let daysAgo = Calendar.current.date(byAdding: component, value: -beforeDaysOrWeekOrMonth, to: now)!

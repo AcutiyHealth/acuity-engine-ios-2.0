@@ -151,7 +151,10 @@ class AcuityDetailPullUpViewController: UIViewController {
     //MARK: setup chart
     func setUpChartView(data:[(x: Int, y: Double)]){
         chart.removeAllSeries()
-        chart.delegate = self
+        /*
+         Uncomment below line if you want to start Touch in chart..
+         */
+        //chart.delegate = self
         // Simple chart
         //let labelsAsString: Array<String> = labelsAsStringForWeek
         

@@ -39,6 +39,7 @@ class HKManagerReadVitals: NSObject {
         GenitourinaryManager.sharedManager.resetGenitourinaryData()
         NeuroManager.sharedManager.resetNeuroData()
         SDHManager.sharedManager.resetSDHData()
+        MuscManager.sharedManager.resetMuscData()
     }
     
     func readVitalsData(days:SegmentValueForGraph,completion: @escaping (Bool, HealthkitSetupError?) -> Swift.Void) {
@@ -293,6 +294,10 @@ class HKManagerReadVitals: NSObject {
                                                         
                                                         //Save data for SDH System...
                                                         SDHManager.sharedManager.saveQuantityInArray(quantityType: identifier, element: element)
+                                                        
+                                                        //Save data for Musc System...
+                                                        MuscManager.sharedManager.saveQuantityInArray(quantityType: identifier, element: element)
+                                                        
                                                     } catch {
                                                         //print(error)
                                                     }

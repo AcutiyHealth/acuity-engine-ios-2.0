@@ -57,8 +57,12 @@ class RespiratoryManager: NSObject {
         }
         else if quantityType == QuantityType.oxygenSaturation {
             
+             /*
+              Multiply value with 100 because we get oxygen saturation value in Float from health app. Oxygen saturation 1- 100 will get 0.1-1 from health app
+              */
             let oxygenSaturation = RespiratoryVitalsData(type: VitalsName.oxygenSaturation)
-            oxygenSaturation.value = Double(element.harmonized.value)
+            let newValue = Double(element.harmonized.value) * 100
+            oxygenSaturation.value = newValue
             oxygenSaturation.startTimeStamp = element.startTimestamp
             self.respiratoryData.respiratoryVital.oxygenSaturationData.append(oxygenSaturation)
             

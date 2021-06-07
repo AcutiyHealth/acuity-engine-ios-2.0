@@ -68,6 +68,8 @@ class HKManagerReadConditions: NSObject
                 NeuroManager.sharedManager.saveConditionsData(element: element)
                 //Save data for SDH...
                 SDHManager.sharedManager.saveConditionsData(element: element)
+                //Save data for Musc...
+                MuscManager.sharedManager.saveConditionsData(element: element)
             }
             completion(true, nil)
             return

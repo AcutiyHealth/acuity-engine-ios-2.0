@@ -12,7 +12,7 @@ import HealthKitReporter
 struct RespiratoryVitalRelativeImportance {
     static let bloodPressureSystolic:Double = 30
     static let bloodPressureDiastolic:Double = 30
-    static let respiratoryRate:Double = 0
+    static let respiratoryRate:Double = 80
     static let oxygenSaturation:Double = 80
     static let heartRate:Double = 30
     static let irregularRhymesNotification:Double = 30

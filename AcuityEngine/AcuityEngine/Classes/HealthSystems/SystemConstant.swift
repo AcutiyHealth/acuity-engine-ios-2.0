@@ -29,7 +29,7 @@ struct SystemRelativeImportance {
     static let Musculatory = 40.00
     static let Integumentary = 40.00
     static let Heent = 40.00
-
+    
 }
 enum CardioVitalsType:String {
     case heartRate = "heartRate"
@@ -78,10 +78,13 @@ enum ConditionType:String,CaseIterable {
     case kidneyStones = "Kidney Stones"
     case liverDisease = "Liver Disease"
     case memoryLoss = "Memory Loss/dementia"
+    case muscularSprain = "Muscular Sprain/Strain"
     case neuropathy = "Neuropathy"
     case otitis = "Otitis"
     case overweightOrObesity = "Overweight/Obesity"
     case otherHematoProblem = "Other Heme/Onc Problem"
+    case osteoarthritis = "Osteoarthritis"
+    case osteoporosis = "Osteoporosis"
     case pneumonia = "Bronchitis/pneumonia"
     case psoriasisEczema = "Psoriasis/Eczema"
     case polycysticOvarianDisease = "Polycystic Ovarian Disease"
@@ -137,6 +140,7 @@ enum SymptomsName:String {
 }
 
 enum LabType:String {
+    
     case anionGap = "Anion gap"
     case albumin = "Albumin"
     case alkalinePhosphatase = "Alkaline Phosphatase"
@@ -151,6 +155,7 @@ enum LabType:String {
     case carbonDioxide = "Carbon Dioxide"
     case chloride = "Chloride"
     case calcium = "Calcium"
+    case ESR = "ESR"
     case eGFR = "eGFR"
     case hemoglobin = "Hemoglobin"
     case hemoglobinA1C = "Hemoglobin A1c"
@@ -183,6 +188,7 @@ enum LabCodeConstant:String{
     case chloride = "2075-0"
     case calcium = "17861-6"
     case eGFR = "45066-0"
+    case ESR = "ESR" //Need to import
     case hemoglobin = "4546-8"
     case hemoglobinA1C = "55454-3"
     case microalbuminCreatinineRatio = "14959-1"
@@ -197,5 +203,5 @@ enum LabCodeConstant:String{
     case urineKetone  = "2514-8" //Need to import
     case vitaminB12 = "30904-7" //Need to import
     case WBC = "6690-0"
-
+    
 }
