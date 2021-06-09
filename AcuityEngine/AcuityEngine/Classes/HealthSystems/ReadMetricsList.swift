@@ -64,7 +64,8 @@ func ReadVitalsQuantityType() -> [QuantityType]{
      QuantityType.bodyMass,
      QuantityType.oxygenSaturation,
      QuantityType.respiratoryRate,
-     QuantityType.walkingStepLength
+     QuantityType.walkingStepLength,
+     QuantityType.headphoneAudioExposure
     ]
 }
 

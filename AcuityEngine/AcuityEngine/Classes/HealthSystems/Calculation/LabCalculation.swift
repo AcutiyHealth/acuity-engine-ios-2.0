@@ -213,7 +213,7 @@ class LabCalculation:Metrix {
     //MARK:TSH
     private func getTSHValue() -> RYGValue{
         
-        if value > 3 || value < 0.3  {
+        if value > 3.1 || value < 0.2  {
             return RYGValue.Red
         }
         else {
@@ -241,14 +241,12 @@ class LabCalculation:Metrix {
             }
         }
         else{
-            if value < 3.4{
+            if value < 3.4 || value > 5.5{
                 return RYGValue.Red
             }
-            else if value >= 3.4 && value <= 5.4{
-                return RYGValue.Green
-            }
+           
             else {
-                return RYGValue.Red
+                return RYGValue.Green
             }
         }
     }
@@ -304,7 +302,7 @@ class LabCalculation:Metrix {
         
         if value >= 6.4  {
             return RYGValue.Red
-        }else if value >= 6 && value <= 6.4  {
+        }else if value >= 6.1 && value <= 6.4  {
             return RYGValue.Yellow
         }
         else if value >= 4 && value < 6  {
@@ -361,7 +359,7 @@ class LabCalculation:Metrix {
                 return RYGValue.Green
             }
             else {
-                return RYGValue.Red
+                return RYGValue.Green
             }
         }else  if systemName == SystemName.Endocrine{
             
@@ -371,7 +369,7 @@ class LabCalculation:Metrix {
                 return RYGValue.Green
             }
             else {
-                return RYGValue.Red
+                return RYGValue.Green
             }
         }
         else if systemName == SystemName.SocialDeterminantsofHealth{
@@ -393,7 +391,7 @@ class LabCalculation:Metrix {
                 return RYGValue.Green
             }
             else {
-                return RYGValue.Red
+                return RYGValue.Green
             }
         }
     }
@@ -407,11 +405,11 @@ class LabCalculation:Metrix {
                 return RYGValue.Green
             }
             else {
-                return RYGValue.Red
+                return RYGValue.Green
             }
         }//SocialDeterminantsofHealth
         else if systemName == SystemName.SocialDeterminantsofHealth{
-            if value > 1.7 ||  value < 0.84 {
+            if value > 1.7  {
                 return RYGValue.Red
             }else if value >= 1.2 && value <= 1.7{
                 return RYGValue.Yellow
@@ -427,7 +425,7 @@ class LabCalculation:Metrix {
                 return RYGValue.Green
             }
             else {
-                return RYGValue.Red
+                return RYGValue.Green
             }
         }
         
@@ -437,7 +435,7 @@ class LabCalculation:Metrix {
         
         if value > 200 || value < 70{
             return RYGValue.Red
-        }else if value >= 110 && value <= 200{
+        }else if value >= 127 && value <= 200{
             return RYGValue.Yellow
         }
         else if value >= 70 && value <= 110  {
@@ -460,15 +458,7 @@ class LabCalculation:Metrix {
     //MARK: AnionGap
     private func getAnionGapValue() -> RYGValue{
         
-        if systemName == SystemName.InfectiousDisease{
-            
-            if value >= 16 || value < 7  {
-                return RYGValue.Red
-            }
-            else {
-                return RYGValue.Green
-            }
-        }else{
+   
             if value > 11 || value < 3{
                 return RYGValue.Red
             }
@@ -478,7 +468,7 @@ class LabCalculation:Metrix {
             else {
                 return RYGValue.Green
             }
-        }
+        
     }
     
     //MARK: UrineNitrites
