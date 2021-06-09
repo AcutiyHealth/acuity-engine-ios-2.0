@@ -1010,10 +1010,10 @@
     </scenes>
     <designables>
         <designable name="8bz-X0-qxv">
-            <size key="intrinsicContentSize" width="37" height="30"/>
+            <size key="intrinsicContentSize" width="39" height="34"/>
         </designable>
         <designable name="PMF-BQ-Txd">
-            <size key="intrinsicContentSize" width="37" height="30"/>
+            <size key="intrinsicContentSize" width="39" height="34"/>
         </designable>
     </designables>
     <resources>
