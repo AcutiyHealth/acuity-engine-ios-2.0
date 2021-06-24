@@ -115,7 +115,8 @@ class HKManagerReadLab: NSObject
                                     SDHManager.sharedManager.saveLabData(code: code, value: value, timeStamp: Double(timeStampOfLabData))
                                     //Save Data For Musc System..
                                     MuscManager.sharedManager.saveLabData(code: code, value: value, timeStamp: Double(timeStampOfLabData))
-                                    
+                                    //Save Data For Skin System..
+                                    SkinManager.sharedManager.saveLabData(code: code, value: value, timeStamp: Double(timeStampOfLabData))
                                     //}
                                     
                                 }

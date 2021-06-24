@@ -206,10 +206,8 @@ class VitalCalculation:Metrix {
         
         if value < 400 || value > 700  {
             return RYGValue.Red
-        } else if value >= 400 && value <= 700 {
+        }else{
             return RYGValue.Green
-        } else{
-            return RYGValue.Yellow
         }
     }
     

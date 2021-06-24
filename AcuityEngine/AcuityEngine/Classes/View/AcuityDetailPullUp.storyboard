@@ -509,7 +509,7 @@
                                             <rect key="frame" x="0.0" y="0.0" width="414" height="40"/>
                                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                             <constraints>
-                                                <constraint firstAttribute="width" secondItem="Xdl-Em-78S" secondAttribute="height" multiplier="7:1" constant="134" id="h3d-Ey-0xe"/>
+                                                <constraint firstAttribute="height" constant="40" id="aNG-IY-SAg"/>
                                             </constraints>
                                         </view>
                                     </subviews>
@@ -542,7 +542,9 @@
                     <navigationItem key="navigationItem" id="eq5-iP-qTA"/>
                     <connections>
                         <outlet property="chart" destination="1Q6-Nk-X4M" id="KOi-do-Vcm"/>
+                        <outlet property="chartView" destination="7zB-Ta-Pfy" id="DZc-nL-Ikz"/>
                         <outlet property="handleArea" destination="Xdl-Em-78S" id="on8-hb-uBa"/>
+                        <outlet property="handleHeightConstraint" destination="aNG-IY-SAg" id="w3n-dm-HSt"/>
                         <outlet property="labelInChartForSelectedValue" destination="bDB-Gv-jVL" id="Vq8-mO-mxI"/>
                         <outlet property="labelLeadingMarginConstraint" destination="Q96-jY-Q8N" id="nx9-19-dLc"/>
                         <outlet property="lblNoDataAvailable" destination="dmO-d2-63f" id="lsm-bG-xcw"/>
@@ -1008,13 +1010,13 @@
             <size key="intrinsicContentSize" width="79" height="19.5"/>
         </designable>
         <designable name="Uyj-bf-cIn">
-            <size key="intrinsicContentSize" width="82" height="20.5"/>
+            <size key="intrinsicContentSize" width="79.5" height="19.5"/>
         </designable>
         <designable name="fL5-hc-G9v">
-            <size key="intrinsicContentSize" width="42" height="20.5"/>
+            <size key="intrinsicContentSize" width="41.5" height="19.5"/>
         </designable>
         <designable name="k9R-5l-ggp">
-            <size key="intrinsicContentSize" width="37" height="20.5"/>
+            <size key="intrinsicContentSize" width="35.5" height="19.5"/>
         </designable>
     </designables>
     <resources>

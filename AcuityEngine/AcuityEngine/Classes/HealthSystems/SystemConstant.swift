@@ -89,6 +89,7 @@ enum ConditionType:String,CaseIterable {
     case psoriasisEczema = "Psoriasis/Eczema"
     case polycysticOvarianDisease = "Polycystic Ovarian Disease"
     case rheumatoidArthritis = "Rheumatoid Arthritis"
+    case rashOrAcne = "Rash/Acne"
     case respiratoryInfection = "Upper Respiratory Infection"
     case smoking = "Smoking"
     case single = "Single"
@@ -188,7 +189,7 @@ enum LabCodeConstant:String{
     case chloride = "2075-0"
     case calcium = "17861-6"
     case eGFR = "45066-0"
-    case ESR = "ESR" //Need to import
+    case ESR = "30341-2" //Need to import
     case hemoglobin = "4546-8"
     case hemoglobinA1C = "55454-3"
     case microalbuminCreatinineRatio = "14959-1"

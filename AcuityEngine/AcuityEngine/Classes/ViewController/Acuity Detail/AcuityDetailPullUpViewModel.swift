@@ -132,6 +132,13 @@ class AcuityDetailPullUpViewModel: NSObject
                 metricDictionary = MuscManager.sharedManager.muscData.dictionaryRepresentation()
                 arraySystemScore = MuscManager.sharedManager.muscData.arrayDayWiseSystemScore
             }
+        case .Integumentary:
+            do{
+                let systemScore = SkinManager.sharedManager.skinData.totalSystemScoreWithDays(days: MyWellScore.sharedManager.daysToCalculateSystemScore)
+                scoreText = systemScore == 100 ? String(format: "%.0f", systemScore) : String(format: "%.2f", systemScore)
+                metricDictionary = SkinManager.sharedManager.skinData.dictionaryRepresentation()
+                arraySystemScore = SkinManager.sharedManager.skinData.arrayDayWiseSystemScore
+            }
         default:
             break
         }
