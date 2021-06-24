@@ -78,6 +78,10 @@ class AcuityMetricsValueViewModel: NSObject
             do{
                 arrLab = MuscManager.sharedManager.muscData.muscLab.getArrayDataForLabs(days:MyWellScore.sharedManager.daysToCalculateSystemScore, title: title)
             }
+        case .Integumentary:
+            do{
+                arrLab = SkinManager.sharedManager.skinData.skinLab.getArrayDataForLabs(days:MyWellScore.sharedManager.daysToCalculateSystemScore, title: title)
+            }
         default:
             break
         }
@@ -135,6 +139,10 @@ class AcuityMetricsValueViewModel: NSObject
         case .Musculatory:
             do{
                 arrSymptoms = MuscManager.sharedManager.muscData.muscSymptoms.getArrayDataForSymptoms(days:MyWellScore.sharedManager.daysToCalculateSystemScore, title: title)
+            }
+        case .Integumentary:
+            do{
+                arrSymptoms = SkinManager.sharedManager.skinData.skinSymptoms.getArrayDataForSymptoms(days:MyWellScore.sharedManager.daysToCalculateSystemScore, title: title)
             }
         default:
             break
@@ -194,6 +202,10 @@ class AcuityMetricsValueViewModel: NSObject
         case .Musculatory:
             do{
                 arrVitals = MuscManager.sharedManager.muscData.muscVital.getArrayDataForVitals(days:MyWellScore.sharedManager.daysToCalculateSystemScore, title: title)
+            }
+        case .Integumentary:
+            do{
+                arrVitals = SkinManager.sharedManager.skinData.skinVital.getArrayDataForVitals(days:MyWellScore.sharedManager.daysToCalculateSystemScore, title: title)
             }
         default:
             break

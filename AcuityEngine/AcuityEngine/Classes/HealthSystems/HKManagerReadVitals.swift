@@ -40,6 +40,7 @@ class HKManagerReadVitals: NSObject {
         NeuroManager.sharedManager.resetNeuroData()
         SDHManager.sharedManager.resetSDHData()
         MuscManager.sharedManager.resetMuscData()
+        SkinManager.sharedManager.resetSkinData()
     }
     
     func readVitalsData(days:SegmentValueForGraph,completion: @escaping (Bool, HealthkitSetupError?) -> Swift.Void) {
@@ -297,6 +298,9 @@ class HKManagerReadVitals: NSObject {
                                                         
                                                         //Save data for Musc System...
                                                         MuscManager.sharedManager.saveQuantityInArray(quantityType: identifier, element: element)
+                                                        
+                                                        //Save data for Skin System...
+                                                        SkinManager.sharedManager.saveQuantityInArray(quantityType: identifier, element: element)
                                                         
                                                     } catch {
                                                         //print(error)

@@ -50,12 +50,12 @@ class CardioManager: NSObject {
             let diastolicBP = CardioVitalsData(type: VitalsName.bloodPressureDiastolic)
             diastolicBP.value = Double(element.harmonized.value)
             diastolicBP.startTimeStamp = element.startTimestamp
-            print("diastolicBP date",getDateMediumFormat(time: diastolicBP.startTimeStamp))
+            //print("diastolicBP date",getDateMediumFormat(time: diastolicBP.startTimeStamp))
             self.cardioData.cardioVital.diastolicBloodPressureData.append(diastolicBP)
             
             
             
-            print("---------\n bloodPressureDiastolic \nValue \(diastolicBP.value)\n Score \(diastolicBP.score)\n Max Score\(diastolicBP.maxScore ?? 0.0) \n---------")
+            //print("---------\n bloodPressureDiastolic \nValue \(diastolicBP.value)\n Score \(diastolicBP.score)\n Max Score\(diastolicBP.maxScore ?? 0.0) \n---------")
             
         }
         else if quantityType == QuantityType.vo2Max {
@@ -67,7 +67,7 @@ class CardioManager: NSObject {
             
             
             
-            print("---------\n vO2MaxData \nValue \(vo2Max.value)\n Score \(vo2Max.score)\n Max Score\(vo2Max.maxScore ?? 0.0) \n---------")
+            //print("---------\n vO2MaxData \nValue \(vo2Max.value)\n Score \(vo2Max.score)\n Max Score\(vo2Max.maxScore ?? 0.0) \n---------")
             //print("---------\n VO2MaxData \nValue \(vo2Max.value)\n Score \(vo2Max.score)\n Max Score\(vo2Max.maxScore ?? 0.0) \n---------")
             
         }

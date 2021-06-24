@@ -130,14 +130,15 @@ class AcuityMainViewModel: NSObject {
         dictMusculatory.image = AcuityImages.kMusculatory
         dictMusculatory.metricDictionary = metricMusc
         
-        
+        //Skin
+        let metricSkin = SkinManager.sharedManager.skinData.dictionaryRepresentation()
         let dictIntegumentary =   AcuityDisplayModel()
         dictIntegumentary.id = "89"
         dictIntegumentary.name = SystemName.Integumentary
-        dictIntegumentary.score = "90"
+        dictIntegumentary.score = String(format: "%.2f", (SkinManager.sharedManager.skinData.skinSystemScore))
         //dictIntegumentary.index = "92"
         dictIntegumentary.image = AcuityImages.kIntegumentary
-        dictIntegumentary.metricDictionary = metricTemp
+        dictIntegumentary.metricDictionary = metricSkin
         
         //SDH
         let metricSDH = SDHManager.sharedManager.sdhData.dictionaryRepresentation()

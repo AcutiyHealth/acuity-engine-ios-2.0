@@ -70,6 +70,8 @@ class HKManagerReadConditions: NSObject
                 SDHManager.sharedManager.saveConditionsData(element: element)
                 //Save data for Musc...
                 MuscManager.sharedManager.saveConditionsData(element: element)
+                //Save data for Skin...
+                SkinManager.sharedManager.saveConditionsData(element: element)
             }
             completion(true, nil)
             return

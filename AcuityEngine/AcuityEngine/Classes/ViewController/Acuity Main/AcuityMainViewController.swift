@@ -299,8 +299,13 @@ class AcuityMainViewController: PullUpViewController, UIScrollViewDelegate,Rotar
         self.stackProfileView.isHidden = true
         self.pullUpController.isExpanded = false
     }
+    //
     @objc func showAcuityDetailPopup(){
-        self.wheelDidChangeValue(Int32(self.lastSelectedIndex))
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.9) {
+            // your code here
+            self.wheelDidChangeValue(Int32(self.lastSelectedIndex))
+        }
+        
         
     }
     @objc func showSubScoreView(){
