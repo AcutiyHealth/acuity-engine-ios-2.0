@@ -52,13 +52,19 @@ extension ProfileViewController: SOPullUpViewDelegate {
     func pullUpViewStatus(_ sender: UIViewController, didChangeTo status: PullUpStatus) {
         switch status {
         case .collapsed:
-            UIView.animate(withDuration: 0.6)  { [weak self] in
+            do{
+                
+            }
+            /*UIView.animate(withDuration: 0.6)  { [weak self] in
                 //self?.titleLbl.alpha = 0
-            }
+            }*/
         case .expanded:
-            UIView.animate(withDuration: 0.6) { [weak self] in
-                //self?.titleLbl.alpha = 1
+            do{
+                
             }
+            /*UIView.animate(withDuration: 0.6) { [weak self] in
+                //self?.titleLbl.alpha = 1
+            }*/
         }
     }
     

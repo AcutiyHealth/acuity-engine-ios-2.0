@@ -92,11 +92,15 @@ class MyWellScore: NSObject {
         let maxScoreSDHData = SDHManager.sharedManager.sdhData.maxScore
         //Musc
         let maxScoreMuscData = MuscManager.sharedManager.muscData.maxScore
+        //Skin
+        let maxScoreSkinData = SkinManager.sharedManager.skinData.maxScore
+        //Heent
+        let maxScoreHeentData = HeentManager.sharedManager.heentData.maxScore
         
         let totalMaxScore1 = maxScoreCardioData +  maxScoreRespiratoryData + maxScoreRenalData + maxScoreDiseaseData
         let totalMaxScore2 = maxScoreFNEData + maxScoreHematoData + maxScoreEndocrineData
         let totalMaxScore3 = maxScoreGastrointestinalData + maxScoreGenitourinaryData + maxScoreNeuroData
-        let totalMaxScore4 = maxScoreSDHData + maxScoreMuscData
+        let totalMaxScore4 = maxScoreSDHData + maxScoreMuscData + maxScoreSkinData + maxScoreHeentData
         return totalMaxScore1 + totalMaxScore2 + totalMaxScore3 + totalMaxScore4
     }
     
@@ -128,11 +132,15 @@ class MyWellScore: NSObject {
         let sdhWeightedSystemScore = SDHManager.sharedManager.sdhData.sdhWeightedSystemScore
         //Musc
         let muscWeightedSystemScore = MuscManager.sharedManager.muscData.muscWeightedSystemScore
+        //Skin
+        let skinWeightedSystemScore = SkinManager.sharedManager.skinData.skinWeightedSystemScore
+        //heent
+        let heentWeightedSystemScore = HeentManager.sharedManager.heentData.heentWeightedSystemScore
         
         let totalWeightedSystemScore1 = cardioWeightedSystemScore + respiratoryWeightedSystemScore + renalWeightedSystemScore + iDiseaseWeightedSystemScore
         let totalWeightedSystemScore2 = fneWeightedSystemScore + hematoWeightedSystemScore + endocrineWeightedSystemScore
         let totalWeightedSystemScore3 = gastrointestinalWeightedSystemScore + genitourinaryWeightedSystemScore + neuroWeightedSystemScore
-        let totalWeightedSystemScore4 = sdhWeightedSystemScore + muscWeightedSystemScore
+        let totalWeightedSystemScore4 = sdhWeightedSystemScore + muscWeightedSystemScore + skinWeightedSystemScore + heentWeightedSystemScore
         
         return totalWeightedSystemScore1 + totalWeightedSystemScore2 + totalWeightedSystemScore3 + totalWeightedSystemScore4
     }

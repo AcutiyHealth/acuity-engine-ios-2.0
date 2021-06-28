@@ -116,7 +116,7 @@ class SDHVital:VitalProtocol {
         //diastolicBloodPressureData
         filterVitalArrayToGetSingleDataWithSelectedSegmentInGraph(days: days, array: diastolicBloodPressureData)
         
-        //bloodOxygenLevelData
+        //ageData
         filterVitalArrayToGetSingleDataWithSelectedSegmentInGraph(days: days, array: ageData)
         
         //BMIData

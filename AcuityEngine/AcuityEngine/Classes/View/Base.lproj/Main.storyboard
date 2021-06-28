@@ -37,7 +37,7 @@
                                         </userDefinedRuntimeAttributes>
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="100.00" textAlignment="center" lineBreakMode="clip" baselineAdjustment="alignBaselines" minimumFontSize="18" translatesAutoresizingMaskIntoConstraints="NO" id="ZSF-PR-nZa" customClass="LabelTitle" customModule="AcuityEngine" customModuleProvider="target">
-                                        <rect key="frame" x="107" y="39" width="200" height="92"/>
+                                        <rect key="frame" x="76" y="39" width="262" height="92"/>
                                         <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="35"/>
                                         <color key="textColor" red="1" green="0.59607843140000005" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                         <nil key="highlightedColor"/>
@@ -48,7 +48,7 @@
                                         </userDefinedRuntimeAttributes>
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="score" textAlignment="center" lineBreakMode="clip" baselineAdjustment="alignBaselines" minimumFontSize="18" translatesAutoresizingMaskIntoConstraints="NO" id="oZA-fc-ng0" customClass="LabelTitle" customModule="AcuityEngine" customModuleProvider="target">
-                                        <rect key="frame" x="307" y="97" width="56" height="25"/>
+                                        <rect key="frame" x="338" y="97" width="56" height="25"/>
                                         <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="35"/>
                                         <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <nil key="highlightedColor"/>
@@ -82,7 +82,6 @@
                                     <constraint firstItem="dt5-Yn-Qwx" firstAttribute="height" secondItem="nGo-hK-v8U" secondAttribute="height" multiplier="0.330882" id="OD0-Rw-nOQ"/>
                                     <constraint firstAttribute="trailing" secondItem="KH0-bd-QUV" secondAttribute="trailing" id="XNh-Yy-fF2"/>
                                     <constraint firstAttribute="bottom" secondItem="ZSF-PR-nZa" secondAttribute="bottom" constant="5" id="kbN-ui-0h2"/>
-                                    <constraint firstItem="ZSF-PR-nZa" firstAttribute="width" secondItem="nGo-hK-v8U" secondAttribute="width" multiplier="0.483092" id="ll1-uO-Utx"/>
                                     <constraint firstItem="oZA-fc-ng0" firstAttribute="leading" secondItem="ZSF-PR-nZa" secondAttribute="trailing" id="m8P-2e-fJN"/>
                                     <constraint firstItem="oZA-fc-ng0" firstAttribute="width" secondItem="nGo-hK-v8U" secondAttribute="width" multiplier="0.135266" id="qRr-dg-wVB"/>
                                     <constraint firstItem="ZSF-PR-nZa" firstAttribute="top" secondItem="dt5-Yn-Qwx" secondAttribute="bottom" id="qjw-ZQ-WQH"/>
@@ -340,25 +339,55 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="kai-Hb-CdF">
-                                <rect key="frame" x="107" y="433" width="200" height="30"/>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="kai-Hb-CdF">
+                                <rect key="frame" x="107" y="782" width="200" height="30"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="30" id="DQ3-hb-bPj"/>
                                     <constraint firstAttribute="width" constant="200" id="uJG-JV-IEP"/>
                                 </constraints>
-                                <state key="normal" title="Sign In With Apple">
+                                <state key="normal" image="Sign in with apple button">
                                     <color key="titleColor" red="0.99418604649999998" green="0.98837209299999995" blue="1" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                 </state>
                                 <connections>
                                     <segue destination="dEo-za-797" kind="show" id="rLl-JV-TCE"/>
                                 </connections>
                             </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Welcome to Acuity Engine!" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="VbR-Ev-Hbv" customClass="LabelTitle" customModule="AcuityEngine" customModuleProvider="target">
+                                <rect key="frame" x="10" y="438" width="394" height="20.5"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <nil key="highlightedColor"/>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="sizeOfFont">
+                                        <real key="value" value="25"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="To calculate health score you will have to" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="JbB-bz-Qw8" customClass="LabelTitle" customModule="AcuityEngine" customModuleProvider="target">
+                                <rect key="frame" x="10" y="731.5" width="394" height="20.5"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <nil key="highlightedColor"/>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="sizeOfFont">
+                                        <real key="value" value="15"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
+                            </label>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="KVy-G0-G6X"/>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <color key="backgroundColor" systemColor="systemYellowColor"/>
                         <constraints>
+                            <constraint firstItem="KVy-G0-G6X" firstAttribute="trailing" secondItem="JbB-bz-Qw8" secondAttribute="trailing" constant="10" id="1aT-HH-kKM"/>
                             <constraint firstItem="kai-Hb-CdF" firstAttribute="centerX" secondItem="KVy-G0-G6X" secondAttribute="centerX" id="3pM-NA-PMA"/>
-                            <constraint firstItem="kai-Hb-CdF" firstAttribute="centerY" secondItem="0OS-76-JvN" secondAttribute="centerY" id="U7l-h4-NZk"/>
+                            <constraint firstItem="VbR-Ev-Hbv" firstAttribute="centerY" secondItem="0OS-76-JvN" secondAttribute="centerY" id="5CS-Le-Ojr"/>
+                            <constraint firstItem="KVy-G0-G6X" firstAttribute="bottom" secondItem="kai-Hb-CdF" secondAttribute="bottom" constant="50" id="BDy-Zh-o7x"/>
+                            <constraint firstItem="kai-Hb-CdF" firstAttribute="top" secondItem="JbB-bz-Qw8" secondAttribute="bottom" constant="30" id="Ngu-be-WGV"/>
+                            <constraint firstItem="JbB-bz-Qw8" firstAttribute="leading" secondItem="KVy-G0-G6X" secondAttribute="leading" constant="10" id="g7J-pH-fgD"/>
+                            <constraint firstItem="VbR-Ev-Hbv" firstAttribute="leading" secondItem="KVy-G0-G6X" secondAttribute="leading" constant="10" id="qiW-kY-qJp"/>
+                            <constraint firstItem="KVy-G0-G6X" firstAttribute="trailing" secondItem="VbR-Ev-Hbv" secondAttribute="trailing" constant="10" id="vjD-5a-KOE"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="tx9-wO-FFj"/>
@@ -367,7 +396,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="k2O-fn-MAN" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-2823" y="-1250"/>
+            <point key="canvasLocation" x="-2823.1884057971015" y="-1250.2232142857142"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="E9i-Wk-cII">
@@ -388,11 +417,17 @@
         </scene>
     </scenes>
     <designables>
+        <designable name="JbB-bz-Qw8">
+            <size key="intrinsicContentSize" width="309.5" height="20.5"/>
+        </designable>
         <designable name="LUG-EK-yTE">
             <size key="intrinsicContentSize" width="217.5" height="41"/>
         </designable>
         <designable name="M3Q-ea-BUb">
             <size key="intrinsicContentSize" width="114" height="41"/>
+        </designable>
+        <designable name="VbR-Ev-Hbv">
+            <size key="intrinsicContentSize" width="203" height="20.5"/>
         </designable>
         <designable name="ZSF-PR-nZa">
             <size key="intrinsicContentSize" width="332.5" height="119.5"/>
@@ -411,9 +446,13 @@
         </designable>
     </designables>
     <resources>
+        <image name="Sign in with apple button" width="686" height="96"/>
         <image name="arrow.clockwise" catalog="system" width="115" height="128"/>
         <systemColor name="systemBlueColor">
             <color red="0.0" green="0.47843137254901963" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </systemColor>
+        <systemColor name="systemYellowColor">
+            <color red="1" green="0.80000000000000004" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
     </resources>
 </document>

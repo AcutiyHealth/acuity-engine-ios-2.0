@@ -61,6 +61,8 @@ class AddVitalsViewController: UIViewController {
         
         //set fonts..
         setFontForLabel()
+        //Setup Toolbar For Number Pad...
+        setupToolbarForNumberPad()
         
         if !UIDevice.current.hasNotch{
             btnHeight.constant = 50
@@ -107,6 +109,27 @@ class AddVitalsViewController: UIViewController {
         view.layer.borderWidth = 1
         view.layer.borderColor = UIColor.white.cgColor
     }
+    //MARK:--------------------------------------
+    //MARK: Setup Toolbar For Number Pad...
+    func setupToolbarForNumberPad(){
+        let numberToolbar: UIToolbar = UIToolbar()
+        numberToolbar.barStyle = UIBarStyle.default
+        numberToolbar.items=[
+            UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: self, action: nil),
+            UIBarButtonItem(title: "Done", style: UIBarButtonItem.Style.done, target: self, action: #selector(donebuttonClickedInNumberToolbar))
+        ]
+        
+        numberToolbar.sizeToFit()
+        
+        txtFieldValue.inputAccessoryView = numberToolbar //do it for every relevant textfield if there are more than one
+        txtFieldBP1.inputAccessoryView = numberToolbar //do it for every relevant textfield if there are more than one
+        txtFieldBP2.inputAccessoryView = numberToolbar //do it for every relevant textfield if there are more than one
+    }
+    
+    @objc func donebuttonClickedInNumberToolbar(){
+        self.view.endEditing(true)
+    }
+    //MARK:--------------------------------------
     func loadVitalsData(){
         guard let vitalModel = vitalModel else {
             return
@@ -199,7 +222,7 @@ class AddVitalsViewController: UIViewController {
                                     self?.showAlertForDataSaved(message: "Blood Pressure saved in health kit",okAction: okAction!)
                                 }
                                 else{
-                                    let message = "\(String(describing: vitalModel.name!.rawValue)) is not authorized. You can authorized it by making Turn on from Settings -> Health -> DATA -> \(appName ?? "") -> Health Data"
+                                    let message = "\(String(describing: vitalModel.name!.rawValue)) is not authorized. You can authorized it by making Turn on from Settings -> Health -> DATA -> \(appName ) -> Health Data"
                                     let okAction = UIAlertAction(title: "OK", style: .default, handler: nil)
                                     self?.showAlertForDataSaved(message:message,okAction: okAction)
                                 }
@@ -231,7 +254,7 @@ class AddVitalsViewController: UIViewController {
         //show alert
         DispatchQueue.main.async {
             
-         
+            
             
             // Please enable camera access from Settings > AppName > Camera to take photos
             
