@@ -67,7 +67,11 @@ func isiPhone() -> Bool{
     return false
 }
 
-
+//MARK:
+func getStringToDisplayScore(score:Double)->String{
+    let isScoreInteger = score.truncatingRemainder(dividingBy: 1) == 0
+    return isScoreInteger ? String(format: "%.0f", score) : String(format: "%.2f", score)
+}
 func getDateMediumFormat(time:Double)->String{
     
     let date = Date(timeIntervalSince1970: time)

@@ -102,7 +102,8 @@ enum ConditionType:String,CaseIterable {
     case unsafeHousing = "Unsafe Housing"
     case urinaryProblems = "Urinary Problems"
     case UTI = "UTI"
-    
+    case Test = "Test"
+    //case Test1 = "Test1"
 }
 
 enum SymptomsName:String {

@@ -23,7 +23,6 @@ class AcuityMainViewModel: NSObject {
         var arrBodySystems:[[String:Any]] = []
         
         let metricDictionary = CardioManager.sharedManager.cardioData.dictionaryRepresentation()
-        let metricTemp = [MetricsType.Conditions.rawValue:CardioManager.sharedManager.cardioData.cardioCondition.dictionaryRepresentation(),MetricsType.Sympotms.rawValue:[],MetricsType.LabData.rawValue:CardioManager.sharedManager.cardioData.cardioLab.dictionaryRepresentation(),MetricsType.Vitals.rawValue:[]] as [String : Any]
         
         let dictCardiovascular =   AcuityDisplayModel()
         dictCardiovascular.id = "0"
@@ -150,13 +149,15 @@ class AcuityMainViewModel: NSObject {
         dictSDH.image = AcuityImages.kSDH
         dictSDH.metricDictionary = metricSDH
         
+        //Heent
+        let metricHeent = HeentManager.sharedManager.heentData.dictionaryRepresentation()
         let dictHeent =   AcuityDisplayModel()
         dictHeent.id = "111"
         dictHeent.name = SystemName.Heent
-        dictHeent.score = "78"
+        dictHeent.score = String(format: "%.2f", (HeentManager.sharedManager.heentData.heentSystemScore))
         //dictHeent.index = "78"
         dictHeent.image = AcuityImages.kHeent
-        dictHeent.metricDictionary = metricTemp
+        dictHeent.metricDictionary = metricHeent
         
         arrBodySystems.append(dictCardiovascular.dictionaryRepresentation())
         arrBodySystems.append(dictRespiratory.dictionaryRepresentation())

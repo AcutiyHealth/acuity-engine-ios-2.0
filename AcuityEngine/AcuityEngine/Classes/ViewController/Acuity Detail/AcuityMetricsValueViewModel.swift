@@ -13,17 +13,18 @@ class AcuityMetricsValueViewModel: NSObject
     //MARK: Default system data...
     
     func getConditionData(title:String)->[ConditionsModel] {
-        var arrConditions:[ConditionsModel] = []
+        let arrConditions:[ConditionsModel] = []
         
-        let Condition1 =  ConditionsModel(title: title, value: .No)
-        Condition1.startTime = Date().timeIntervalSince1970
-        let Condition2 =  ConditionsModel(title: title, value: .Yes)
-        Condition2.startTime = Date().timeIntervalSince1970 - 86400
-        let Condition3 =  ConditionsModel(title: title, value: .No)
-        Condition3.startTime = Date().timeIntervalSince1970 - 86400 * 3
-        let Condition4 =  ConditionsModel(title: title, value: .No)
-        Condition4.startTime = Date().timeIntervalSince1970 - 86400 * 4
-        arrConditions = [Condition1,Condition2,Condition3,Condition4]
+        /*let Condition1 =  ConditionsModel(title: title, value: .No)
+         Condition1.startTime = Date().timeIntervalSince1970
+         let Condition2 =  ConditionsModel(title: title, value: .Yes)
+         Condition2.startTime = Date().timeIntervalSince1970 - 86400
+         let Condition3 =  ConditionsModel(title: title, value: .No)
+         Condition3.startTime = Date().timeIntervalSince1970 - 86400 * 3
+         let Condition4 =  ConditionsModel(title: title, value: .No)
+         Condition4.startTime = Date().timeIntervalSince1970 - 86400 * 4
+         arrConditions = [Condition1,Condition2,Condition3,Condition4]*/
+        
         return arrConditions
     }
     
@@ -82,8 +83,11 @@ class AcuityMetricsValueViewModel: NSObject
             do{
                 arrLab = SkinManager.sharedManager.skinData.skinLab.getArrayDataForLabs(days:MyWellScore.sharedManager.daysToCalculateSystemScore, title: title)
             }
-        default:
-            break
+        case .Heent:
+            do{
+                arrLab = HeentManager.sharedManager.heentData.heentLab.getArrayDataForLabs(days:MyWellScore.sharedManager.daysToCalculateSystemScore, title: title)
+            }
+            
         }
         
         return arrLab
@@ -144,8 +148,11 @@ class AcuityMetricsValueViewModel: NSObject
             do{
                 arrSymptoms = SkinManager.sharedManager.skinData.skinSymptoms.getArrayDataForSymptoms(days:MyWellScore.sharedManager.daysToCalculateSystemScore, title: title)
             }
-        default:
-            break
+        case .Heent:
+            do{
+                arrSymptoms = HeentManager.sharedManager.heentData.heentSymptoms.getArrayDataForSymptoms(days:MyWellScore.sharedManager.daysToCalculateSystemScore, title: title)
+            }
+     
         }
         
         return arrSymptoms
@@ -207,10 +214,13 @@ class AcuityMetricsValueViewModel: NSObject
             do{
                 arrVitals = SkinManager.sharedManager.skinData.skinVital.getArrayDataForVitals(days:MyWellScore.sharedManager.daysToCalculateSystemScore, title: title)
             }
-        default:
-            break
+        case .Heent:
+            do{
+                arrVitals = HeentManager.sharedManager.heentData.heentVital.getArrayDataForVitals(days:MyWellScore.sharedManager.daysToCalculateSystemScore, title: title)
+            }
         }
         return arrVitals
     }
+    
 }
 

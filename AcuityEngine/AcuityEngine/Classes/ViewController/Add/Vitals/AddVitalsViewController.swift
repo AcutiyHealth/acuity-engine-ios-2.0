@@ -222,7 +222,7 @@ class AddVitalsViewController: UIViewController {
                                     self?.showAlertForDataSaved(message: "Blood Pressure saved in health kit",okAction: okAction!)
                                 }
                                 else{
-                                    let message = "\(String(describing: vitalModel.name!.rawValue)) is not authorized. You can authorized it by making Turn on from Settings -> Health -> DATA -> \(appName ?? "") -> Health Data"
+                                    let message = "\(String(describing: vitalModel.name!.rawValue)) is not authorized. You can authorized it by making Turn on from Settings -> Health -> DATA -> \(appName ) -> Health Data"
                                     let okAction = UIAlertAction(title: "OK", style: .default, handler: nil)
                                     self?.showAlertForDataSaved(message:message,okAction: okAction)
                                 }

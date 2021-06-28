@@ -12,17 +12,41 @@ import Foundation
 func commonTotalSystemScoreWithDays(arrayDayWiseSystemScore:[Double]) -> Double{
     
     //print("arrayDayWiseSystemScore",arrayDayWiseSystemScore)
-    //Calculate average system core for 7 days/30 days/3 months
+    //Calculate average system core for 1 day 7 days/30 days/3 months
+    /*
+     For 1 day, It will calculate MyWell score for Wheel....
+     
+     Below it's doing avarage for 7 days, 1month or 3 month score to show in pullup.
+     For 7 days = [1 days score, 2nd day score, 3rd day score, 4th day score, 5th day score, 6th, 7th day score]
+     E.g. [75,100,80,100,100,100]. Final score will average of 7 entry.
+     
+     For 1 month, calculate number of week. Ex. 1month has 4 week so array will have 4 entry
+     E.g. [80,100,90] Final score will average of 4/5 entry.
+     
+     For 3 month, array will have 3 entry for every month..
+     Eg. [100(1st month score),90(2nd month score),80(3rd month score)] Final score will average of 3 entry.
+     */
     let calculatedScore = arrayDayWiseSystemScore.average()
-    
-    //print("calculatedScore",calculatedScore)
     return calculatedScore
 }
 //calculate system score for Cardio
 func commonSystemScoreWithDays(arrayFraction:[Double])->[Double]{
     var arrayDayWiseSystemScore:[Double] = []
+    /*
+     For 1 day, It will calculate MyWell score for Wheel....
+     
     
-    //print("abnormalFractionWithDays",arrayFraction)
+     Below it's generate array of score for 7 days, 1month or 3 month to show in pullup.
+     For 7 days = [1 days score, 2nd day score, 3rd day score, 4th day score, 5th day score, 6th, 7th day score]
+     E.g. [75,100,80,100,100,100].
+     
+     For 1 month, calculate number of week. Ex. 1month has 4 week so array will have 4 entry
+     E.g. [80,100,90]
+     
+     For 3 month, array will have 3 entry for every month..
+     Eg. [100(1st month score),90(2nd month score),80(3rd month score)]
+     */
+    
     if arrayFraction.count > 0 {
         for i in 0...arrayFraction.count-1{
             let score = arrayFraction[i]
@@ -30,6 +54,7 @@ func commonSystemScoreWithDays(arrayFraction:[Double])->[Double]{
             arrayDayWiseSystemScore.append(systemScore)
         }
     }
+    //print("arrayDayWiseSystemScore",arrayDayWiseSystemScore)
     return arrayDayWiseSystemScore
 }
 
@@ -38,7 +63,19 @@ func commonAbnormalFractionWithDays(arrayDayWiseTotalScore:[Double],maxTotalScor
     
     //print("arrayDayWiseTotalScore",arrayDayWiseTotalScore)
     var arrayFraction:[Double] = []
-    
+    /*
+     For 1 day, It will calculate MyWell score for Wheel....
+     
+     Below it's generate array of abnormal fraction for 7 days, 1month or 3 month by dividing totalScore with maxTotalScore  to show in pullup.
+     For 7 days = [1 days score, 2nd day score, 3rd day score, 4th day score, 5th day score, 6th, 7th day score]
+     E.g. [0.75,1,0.8,1,1,1].
+     
+     For 1 month, calculate number of week. Ex. 1month has 4 week so array will have 4 entry
+     E.g. [0.75,1,0.8].
+     
+     For 3 month, array will have 3 entry for every month..
+     Eg. [1(1st month score),0.9(2nd month score),0.8(3rd month score)]
+     */
     if arrayDayWiseTotalScore.count > 0 {
         for i in 0...arrayDayWiseTotalScore.count-1{
             let totalScore = arrayDayWiseTotalScore[i]
@@ -52,13 +89,22 @@ func commonAbnormalFractionWithDays(arrayDayWiseTotalScore:[Double],maxTotalScor
 
 //Metrix total score
 func commonTotalMetrixScoreWithDays(totalScoreCondition:[Double],totalScoreSymptom:[Double],totalScoreVitals:[Double],totalScoreLab:[Double]) -> [Double]{
+    
+    /*
+     For 1 day, It will calculate MyWell score for Wheel....
+     
+     Below is logic for adding score from all metrics of Vital,symptoms,lab and conditions..
+     Each array for Vital,symptoms,lab and conditions will have number of entry based upon 7 days, 1 month and 3 month  to show in pullup..
+     all metrics score will be sum up and store in array...
+     totalScoreVitals,totalScoreSymptom,totalScoreCondition and totalScoreLab willl have number of entries for each metric score based on 7 days, 1 month and 3 month 
+     */
     var arrayDayWiseTotalScore:[Double] = []
     //compare that all totalScore array have same number of entries...
     if totalScoreVitals.count == totalScoreSymptom.count,totalScoreCondition.count == totalScoreLab.count && totalScoreVitals.count>0,totalScoreCondition.count>0{
-        //print("commonTotalMetrixScoreWithDays totalScoreSymptom",totalScoreSymptom)
-        //print("commonTotalMetrixScoreWithDays totalScoreVitals",totalScoreVitals)
-        //print("commonTotalMetrixScoreWithDays totalScoreLab",totalScoreLab)
-        //print("commonTotalMetrixScoreWithDays totalScoreCondition",totalScoreCondition)
+        /*print("commonTotalMetrixScoreWithDays totalScoreSymptom",totalScoreSymptom)
+        print("commonTotalMetrixScoreWithDays totalScoreVitals",totalScoreVitals)
+        print("commonTotalMetrixScoreWithDays totalScoreLab",totalScoreLab)
+        print("commonTotalMetrixScoreWithDays totalScoreCondition",totalScoreCondition)*/
         for i in 0...totalScoreVitals.count - 1{
             
             let totalScore1 = totalScoreVitals[i] + totalScoreCondition[i]

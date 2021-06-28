@@ -185,6 +185,7 @@ class LabCalculation:Metrix {
     }
     //MARK:Pottasium
     private func getPottasiumValue() -> RYGValue{
+        //=if(I37="","",if(or(I37>5.1,I37<3.5),1*H37,0))
         //Below code commented after comment in Queries document..
         //https://docs.google.com/document/d/1L-Rp_jpHi0FVGfogGoGZPhHXK5LI_ba8-zev28bM0xw/edit#heading=h.dvz5j4rsg4if
         
@@ -208,7 +209,7 @@ class LabCalculation:Metrix {
     
     //MARK:Sodium
     private func getSodiumValue() -> RYGValue{
-        
+        //=if(I38="","",if(or(I38>145,I38<135),1*H38,0))
         if value > 145 || value < 135  {
             return RYGValue.Red
         }
@@ -228,7 +229,7 @@ class LabCalculation:Metrix {
     }
     //MARK: Chloride
     private func getChlorideValue() -> RYGValue{
-        
+        //=if(I39="","",if(I39>109,1*H39,0))
         if value > 109 || value < 94  {
             return RYGValue.Red
         }
@@ -238,6 +239,7 @@ class LabCalculation:Metrix {
     }
     //MARK:Albumin
     private func getAlbuminValue() -> RYGValue{
+        //=if(I40="","",if(I40<3.4,1*H40,0))
         //Below code commented after comment in Queries document..
         //https://docs.google.com/document/d/1L-Rp_jpHi0FVGfogGoGZPhHXK5LI_ba8-zev28bM0xw/edit#heading=h.dvz5j4rsg4if
         
