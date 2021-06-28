@@ -427,8 +427,7 @@ extension AcuityDetailPullUpViewController: UITableViewDelegate, UITableViewData
             detailConditionVC?.arrSymptoms = self.arrSymptoms
         case .LabData:
             detailConditionVC?.arrLabs = self.arrLabs
-        default:
-            break
+        
         }
         
         //PAss metrix Item to display data...

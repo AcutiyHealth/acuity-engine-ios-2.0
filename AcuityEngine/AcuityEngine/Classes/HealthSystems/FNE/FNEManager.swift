@@ -37,7 +37,7 @@ class FNEManager: NSObject {
             systolicBP.startTimeStamp = element.startTimestamp
             self.fneData.fneVital.systolicBloodPressureData.append(systolicBP)
             
-            print("---------\n bloodPressureSystolic \nValue \(systolicBP.value)\n Score \(systolicBP.score)\n Max Score\(systolicBP.maxScore ?? 0.0) \n---------")
+            //print("---------\n bloodPressureSystolic \nValue \(systolicBP.value)\n Score \(systolicBP.score)\n Max Score\(systolicBP.maxScore ?? 0.0) \n---------")
         }
         //bloodPressureDiastolic
         else if quantityType == QuantityType.bloodPressureDiastolic {

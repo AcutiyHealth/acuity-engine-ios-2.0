@@ -153,8 +153,8 @@ class SkinSymptoms:SymptomsProtocol {
             break
         }
         for item in filterArray{
-            let hotFlashesValue = item.getSymptomsValue()
-            let symptom1 =  SymptomsModel(title: title, value: hotFlashesValue)
+            let symptomsValue = item.getSymptomsValue()
+            let symptom1 =  SymptomsModel(title: title, value: symptomsValue)
             symptom1.startTime = item.startTimeStamp
             symptom1.endTime = item.endTimeStamp
             arrSymptoms.append(symptom1)

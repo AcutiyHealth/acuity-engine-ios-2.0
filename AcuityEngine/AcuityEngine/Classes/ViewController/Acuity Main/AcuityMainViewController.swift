@@ -200,8 +200,17 @@ class AcuityMainViewController: PullUpViewController, UIScrollViewDelegate,Rotar
     func displayMyWellScoreData(){
         //self.headerView.lblSystemScore!.text = String(format: "%.2f", (MyWellScore.sharedManager.myWellScore))
         let score = (MyWellScore.sharedManager.myWellScore)
-        lblScore.text = score == 100 ? String(format: "%.0f", score) : String(format: "%.2f", score)
-        lblScoreWhenPopup.text = String(format: "%.2f", (MyWellScore.sharedManager.myWellScore))
+       
+        lblScore.text = getStringToDisplayScore(score: score)
+        lblScore.sizeToFit()
+        //Score label in popup....
+        lblScoreWhenPopup.text = lblScore.text
+        
+        //Set text color according to score....
+        let themeColor = getThemeColor(index: lblScore.text, isForWheel: true)
+        lblScore.textColor = themeColor
+        lblScoreWhenPopup.textColor = lblScore.textColor
+        
     }
     
     //MARK: Draw Wheel..

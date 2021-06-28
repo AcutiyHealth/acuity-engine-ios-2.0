@@ -41,6 +41,7 @@ class HKManagerReadVitals: NSObject {
         SDHManager.sharedManager.resetSDHData()
         MuscManager.sharedManager.resetMuscData()
         SkinManager.sharedManager.resetSkinData()
+        HeentManager.sharedManager.resetHeentData()
     }
     
     func readVitalsData(days:SegmentValueForGraph,completion: @escaping (Bool, HealthkitSetupError?) -> Swift.Void) {
@@ -172,7 +173,7 @@ class HKManagerReadVitals: NSObject {
                         
                         age = components.year ?? 0
                     }
-                    print(age ?? "")
+                    print("age",age)
                     //save data For SDH
                     SDHManager.sharedManager.saveAgeCharactesticInArray(element: Double(age))
                     
@@ -301,6 +302,9 @@ class HKManagerReadVitals: NSObject {
                                                         
                                                         //Save data for Skin System...
                                                         SkinManager.sharedManager.saveQuantityInArray(quantityType: identifier, element: element)
+                                                        
+                                                        //Save data for Heent System...
+                                                        HeentManager.sharedManager.saveQuantityInArray(quantityType: identifier, element: element)
                                                         
                                                     } catch {
                                                         //print(error)
