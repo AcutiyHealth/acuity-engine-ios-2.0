@@ -67,7 +67,11 @@ func isiPhone() -> Bool{
     return false
 }
 
-
+//MARK:
+func getStringToDisplayScore(score:Double)->String{
+    let isScoreInteger = score.truncatingRemainder(dividingBy: 1) == 0
+    return isScoreInteger ? String(format: "%.0f", score) : String(format: "%.2f", score)
+}
 func getDateMediumFormat(time:Double)->String{
     
     let date = Date(timeIntervalSince1970: time)
@@ -263,8 +267,8 @@ func filterMatricsForVitalOrLab(sampleItem:Metrix,timeIntervalByLastMonth:Double
      Here it's checking vitals's start time with timeIntervalByNow/Current time and timeIntervalByMonth/Day. So, if vitals's start time is between timeIntervalByNow/Current time and timeIntervalByMonth/Da, you will get filter data.
      */
     if (timeIntervalStart >= timeIntervalByLastMonth && timeIntervalStart <= timeIntervalByNow){
-        print("sampleItem Vitals value----->",sampleItem.value)
-        print("sampleItem Vitals score----->",sampleItem.score)
+        //print("sampleItem Vitals value----->",sampleItem.value)
+        //print("sampleItem Vitals score----->",sampleItem.score)
         return true
     }
     return false

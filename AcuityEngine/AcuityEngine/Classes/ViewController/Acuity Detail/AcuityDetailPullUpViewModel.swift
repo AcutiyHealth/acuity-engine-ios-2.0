@@ -41,7 +41,9 @@ class AcuityDetailPullUpViewModel: NSObject
         return acuityModel
     }
     func getScoreAndArrayOfSystemScore()->(String,[Double],[String:Any]){
-        
+        /*
+         From this method, score for each system will be calculated for 7 days, 1 month and 3 months based upon selected segment.
+         */
         var scoreText = String(format: "0.00")
         var arraySystemScore:[Double] = []
         var metricDictionary:[String:Any] = [:]
@@ -132,8 +134,21 @@ class AcuityDetailPullUpViewModel: NSObject
                 metricDictionary = MuscManager.sharedManager.muscData.dictionaryRepresentation()
                 arraySystemScore = MuscManager.sharedManager.muscData.arrayDayWiseSystemScore
             }
-        default:
-            break
+        case .Integumentary:
+            do{
+                let systemScore = SkinManager.sharedManager.skinData.totalSystemScoreWithDays(days: MyWellScore.sharedManager.daysToCalculateSystemScore)
+                scoreText = systemScore == 100 ? String(format: "%.0f", systemScore) : String(format: "%.2f", systemScore)
+                metricDictionary = SkinManager.sharedManager.skinData.dictionaryRepresentation()
+                arraySystemScore = SkinManager.sharedManager.skinData.arrayDayWiseSystemScore
+            }
+        case .Heent:
+            do{
+                let systemScore = HeentManager.sharedManager.heentData.totalSystemScoreWithDays(days: MyWellScore.sharedManager.daysToCalculateSystemScore)
+                scoreText = systemScore == 100 ? String(format: "%.0f", systemScore) : String(format: "%.2f", systemScore)
+                metricDictionary = HeentManager.sharedManager.heentData.dictionaryRepresentation()
+                arraySystemScore = HeentManager.sharedManager.heentData.arrayDayWiseSystemScore
+            }
+            
         }
         return (scoreText,arraySystemScore,metricDictionary)
         

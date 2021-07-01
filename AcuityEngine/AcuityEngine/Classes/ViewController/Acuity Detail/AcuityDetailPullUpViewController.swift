@@ -14,8 +14,10 @@ class AcuityDetailPullUpViewController: UIViewController {
     // MARK: - Outlet
     
     @IBOutlet weak var chart: Chart!
+    @IBOutlet weak var chartView: UIView!
     @IBOutlet weak var labelInChartForSelectedValue: UILabel!
     @IBOutlet weak var labelLeadingMarginConstraint: NSLayoutConstraint!
+    @IBOutlet weak var handleHeightConstraint: NSLayoutConstraint!
     
     @IBOutlet weak var lblTitle: UILabel!
     @IBOutlet weak var lblNoDataAvailable: UILabel!
@@ -32,6 +34,8 @@ class AcuityDetailPullUpViewController: UIViewController {
     @IBOutlet weak var tblVitals: UITableView!
     @IBOutlet weak var tblLab: UITableView!
     
+    //Handle view for Swipe up/down
+    var handleHeight: CGFloat = 60
     
     //Object of Acuity detial value viewcontroller...
     var detailConditionVC : AcuityMetricsDetailViewController?
@@ -68,10 +72,17 @@ class AcuityDetailPullUpViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        //handleArea.backgroundColor = UIColor.red
         //set initial margin for label...
         labelLeadingMarginInitialConstant = labelLeadingMarginConstraint.constant
         setFontForLabel()
         setupSegmentControl()
+        //change handle height for consistent swipe up...
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
+            // your code here
+            self.setHandleViewHeight()
+        }
+        
         print("viewDidLoad AcuityDetailPullUpViewController")
     }
     
@@ -97,7 +108,7 @@ class AcuityDetailPullUpViewController: UIViewController {
         self.showScoreAndChartData()
         
         self.reloadTableView()
-        
+       
     }
     func displayDatailTitleFromAcuityModel(acuityModel:AcuityDisplayModel){
         systemMetricsData = acuityModel.metricDictionary
@@ -108,7 +119,7 @@ class AcuityDetailPullUpViewController: UIViewController {
     }
     //MARK: prepare array from AcuityModel
     func prepareArrayFromAcuityModel(){
-        //generate array of arrConditions,lab,imp data,arrSymptoms
+        //generate array of conditions,lab,vital,symptoms
         self.arrConditions = []
         self.arrSymptoms = []
         self.arrLabs = []
@@ -174,10 +185,13 @@ class AcuityDetailPullUpViewController: UIViewController {
         var data = [(x:0, y:0.0)]
         var arraySystemScore:[Double] = []
         print("<--------------------showScoreAndChartData-------------------->")
+        /*
+         NOTE: getScoreAndArrayOfSystemScore use to calculate system score for 7 days/1 Month/ 3 Month for every selected system.....
+         */
         let scoreTupple = viewModelObj.getScoreAndArrayOfSystemScore()
-        scoreText = scoreTupple.0
-        arraySystemScore = scoreTupple.1
-        systemMetricsData = scoreTupple.2
+        scoreText = scoreTupple.0 //scoreText
+        arraySystemScore = scoreTupple.1 //arraySystemScore
+        systemMetricsData = scoreTupple.2 //metricDictionary
         var i = 0;
         for item in arraySystemScore{
             data.append((x:i,y:item))
@@ -401,6 +415,9 @@ extension AcuityDetailPullUpViewController: UITableViewDelegate, UITableViewData
         visualEffectView.addSubview((detailConditionVC?.view)!)
         detailConditionVC?.didMove(toParent: self)
         
+        //when detail screen open make handle height small......
+        handleHeightConstraint.constant = handleHeight;
+        
         switch metrixType {
         case .Conditions:
             detailConditionVC?.arrConditions = self.arrConditions
@@ -410,8 +427,7 @@ extension AcuityDetailPullUpViewController: UITableViewDelegate, UITableViewData
             detailConditionVC?.arrSymptoms = self.arrSymptoms
         case .LabData:
             detailConditionVC?.arrLabs = self.arrLabs
-        default:
-            break
+        
         }
         
         //PAss metrix Item to display data...
@@ -442,6 +458,12 @@ extension AcuityDetailPullUpViewController: UITableViewDelegate, UITableViewData
         handleArea.btnClose!.addTarget(self, action: #selector(btnCloseClickedInAcuityValueViewController), for: UIControl.Event.touchUpInside)
         
     }
+    //set handle view height to pull up consistently...
+    func setHandleViewHeight(){
+        //make handle height to chart view's max y....
+        handleHeightConstraint.constant = segmentControl.frame.origin.y;
+       
+    }
     //MARK: Btn close click
     @objc func btnCloseClickedInAcuityValueViewController(){
         if detailConditionVC != nil{
@@ -451,8 +473,8 @@ extension AcuityDetailPullUpViewController: UITableViewDelegate, UITableViewData
             detailConditionVC?.view.removeFromSuperview()
             detailConditionVC?.removeFromParent()
             mainView.isHidden = false
-            
-            
+            //set handle view height to pull up consistently...
+            setHandleViewHeight()
         }
     }
     //MARK: Btn Back click

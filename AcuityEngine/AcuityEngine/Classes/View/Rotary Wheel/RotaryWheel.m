@@ -521,12 +521,19 @@ currentValue is the value of selected system after rotation.
             // find angle difference between angle for start and end point
             float angleDifference = deltaAngle - ang;
             
-            [UIView beginAnimations:nil context:nil];
+           
+            //Before
+            /*[UIView beginAnimations:nil context:nil];
             [UIView setAnimationDuration:0.1];
             
             container.transform = CGAffineTransformRotate(startTransform, -angleDifference);
-            [UIView commitAnimations];
+            [UIView commitAnimations];*/
             
+            //After
+            [UIView animateWithDuration:0.1 animations:^{
+                self->container.transform = CGAffineTransformRotate(self->startTransform, -angleDifference);
+            } completion:^(BOOL finished){
+            }];
             CGFloat radians = atan2f(container.transform.b, container.transform.a);
             CGFloat newVal = 0.0;
             for (Chevron *c in chevrons) {

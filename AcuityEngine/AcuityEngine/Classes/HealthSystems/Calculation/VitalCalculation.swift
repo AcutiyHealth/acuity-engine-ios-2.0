@@ -21,9 +21,6 @@ class VitalCalculation:Metrix {
                 //age
                 case .age:
                     self.calculatedValue = getAgeValue().rawValue
-                //heartRate
-                case .heartRate:
-                    self.calculatedValue = getHeartRateValue().rawValue
                 //bloodPressure
                 case .bloodPressure:
                     self.calculatedValue = getSBloodPressureValue().rawValue
@@ -39,6 +36,12 @@ class VitalCalculation:Metrix {
                 //bloodSugar
                 case .bloodSugar:
                     self.calculatedValue = getBloodSugarValue().rawValue
+                //heartRate
+                case .heartRate:
+                    self.calculatedValue = getHeartRateValue().rawValue
+                //headPhoneAudioLevel
+                case .headPhoneAudioLevel:
+                    self.calculatedValue = getHeadphoneAudioLevel().rawValue
                 //highHeartRate
                 case .highHeartRate:
                     self.calculatedValue = getHighHeartRateValue().rawValue
@@ -78,7 +81,7 @@ class VitalCalculation:Metrix {
     //Heart Rate Calculation
     private func getHeartRateValue() -> RYGValue{
         
-        // =if(H26="","",if(or(H26>110,H26<45),1*G26,if(or(H26>=85,H26<=50),0.5*G26,0)))
+        // =if(I29="","",if(or(I29>110,I29<45),1*H29,if(or(I29>=85,I29<=50),0.5*H29,0)))
         if value > 110 || value < 45 {
             return RYGValue.Red
         } else if value >= 85 || value <= 50 {
@@ -91,11 +94,17 @@ class VitalCalculation:Metrix {
             return RYGValue.Green
         }
     }
+    //Hadphone audio level
+    private func getHeadphoneAudioLevel() -> RYGValue{
+        if value >= 0 || value <= 60 {
+            return RYGValue.Green
+        }else{
+            return RYGValue.Red
+        }
+    }
     //Age Calculation
     private func getAgeValue() -> RYGValue{
-        
-        // =if(H26="","",if(or(H26>110,H26<45),1*G26,if(or(H26>=85,H26<=50),0.5*G26,0)))
-        
+      
         if value > 65  {
             return RYGValue.Red
         }
@@ -106,7 +115,7 @@ class VitalCalculation:Metrix {
     //Systolic BP Calculation
     private func getSBloodPressureValue() -> RYGValue{
         
-        // =if(H24="","",if(or(H24>=150,H24<85),1*G24,if(H24>=135,0.5*G24,0)))
+        //=if(I27="","",if(or(I27>=150,I27<85),1*H27,if(I27>=135,0.5*H27,0)))
         if value >= 150 || value < 85 {
             return RYGValue.Red
         } else if value >= 135 {
@@ -119,8 +128,7 @@ class VitalCalculation:Metrix {
     //Diastolic BP Calculation
     private func getDBloodPressureValue() -> RYGValue{
         
-        // =if(H25="","",if(or(H25>=90,H25<45),1*G25,if(H25>=85,0.5*G25,0)))
-        
+        //=if(I28="","",if(or(I28>=90,I28<45),1*H28,if(I28>=85,0.5*H28,0)))
         if value >= 90 || value < 45 {
             return RYGValue.Red
         } else if value >= 85 {
@@ -156,7 +164,7 @@ class VitalCalculation:Metrix {
     //Irregular Rhmes Notification
     private func getIrregularRythmValue() -> RYGValue{
         
-        // =IF(H27="Yes",B27*G27,C27*G27)
+        //=IF(I30="Yes",C30*H30,D30*H30)
         
         if value == 1  {
             return RYGValue.Red
@@ -167,7 +175,7 @@ class VitalCalculation:Metrix {
     //High heart rate..
     private func getHighHeartRateValue() -> RYGValue{
         
-        // =IF(H28="Yes",B28*G28,C28*G28)
+        //=IF(I31="Yes",C31*H31,D31*H31)
         
         if value == 1  {
             return RYGValue.Red
@@ -178,8 +186,6 @@ class VitalCalculation:Metrix {
     //Low heart rate..
     private func getLowHeartRateValue() -> RYGValue{
         
-        // =IF(H28="Yes",B28*G28,C28*G28)
-        
         if value == 1  {
             return RYGValue.Red
         } else {
@@ -189,8 +195,6 @@ class VitalCalculation:Metrix {
     
     //VO2 max calculation
     private func getVO2MaxValue() -> RYGValue{
-        
-        // if(H30="","",if(H30<30,1*G30,if(and(H30>=30,H30<=40),0.5*G30,0)))
         
         if value < 30  {
             return RYGValue.Red
@@ -206,10 +210,8 @@ class VitalCalculation:Metrix {
         
         if value < 400 || value > 700  {
             return RYGValue.Red
-        } else if value >= 400 && value <= 700 {
+        }else{
             return RYGValue.Green
-        } else{
-            return RYGValue.Yellow
         }
     }
     
@@ -229,8 +231,6 @@ class VitalCalculation:Metrix {
     //Oxygen saturation calculation
     private func getOxygenSaturationValue() -> RYGValue{
         
-        // if(H30="","",if(H30<30,1*G30,if(and(H30>=30,H30<=40),0.5*G30,0)))
-        
         if value < 90  {
             return RYGValue.Red
         } else if value >= 90 && value <= 94 {
@@ -243,9 +243,7 @@ class VitalCalculation:Metrix {
     
     //Temprature calculation
     private func getTempratureValue() -> RYGValue{
-        
-        // if(H30="","",if(H30<30,1*G30,if(and(H30>=30,H30<=40),0.5*G30,0)))
-        
+    
         if value >= 100.4  {
             return RYGValue.Red
         } else if value >= 99 && value <= 100 {
@@ -257,8 +255,7 @@ class VitalCalculation:Metrix {
     }
     //   Inhaler usage calculation
     private func getInhalerUsageValue() -> RYGValue{
-        //=if(H33="","",if(H33>2,1*G33,if(and(H33>=1,H33<=2),0.5*G33,0)))
-        
+      
         if value > 2  {
             return RYGValue.Red
         } else if value >= 1 && value <= 2 {
@@ -269,8 +266,7 @@ class VitalCalculation:Metrix {
     }
     //getRespiratoryRateValue calculation
     private func getRespiratoryRateValue() -> RYGValue{
-        //=if(H33="","",if(H33>2,1*G33,if(and(H33>=1,H33<=2),0.5*G33,0)))
-        
+       
         if value > 20 || value < 12 {
             return RYGValue.Red
         } else if value >= 12 && value <= 17 {
@@ -284,7 +280,6 @@ class VitalCalculation:Metrix {
     //Get UIColor from Calculated Value
     func getUIColorFromCalculatedValue() -> UIColor {
         
-        // if(H30="","",if(H30<30,1*G30,if(and(H30>=30,H30<=40),0.5*G30,0)))
         switch calculatedValue {
         case RYGValue.Green.rawValue:
             return ChartColor.GREENCOLOR

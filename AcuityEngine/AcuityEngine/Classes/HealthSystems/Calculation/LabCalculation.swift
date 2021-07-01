@@ -153,6 +153,9 @@ class LabCalculation:Metrix {
     }
     //MARK:AlkalinePhosphatase
     private func getAlkalinePhosphataseValue() -> RYGValue{
+        //Below code commented after comments in Queries document..
+        //https://docs.google.com/document/d/1L-Rp_jpHi0FVGfogGoGZPhHXK5LI_ba8-zev28bM0xw/edit#heading=h.dvz5j4rsg4if
+        /*
         if systemName == SystemName.Musculatory{
             
             if value > 126 || value < 38  {
@@ -161,7 +164,7 @@ class LabCalculation:Metrix {
             else {
                 return RYGValue.Green
             }
-        }else{
+        }else{*/
             
             if value > 147 ||  value < 44{
                 return RYGValue.Red
@@ -169,7 +172,7 @@ class LabCalculation:Metrix {
             else {
                 return RYGValue.Green
             }
-        }
+        //}
     }
     //MARK:b12Level
     private func getb12LevelValue() -> RYGValue{
@@ -182,7 +185,11 @@ class LabCalculation:Metrix {
     }
     //MARK:Pottasium
     private func getPottasiumValue() -> RYGValue{
-        if systemName == SystemName.Fluids{
+        //=if(I37="","",if(or(I37>5.1,I37<3.5),1*H37,0))
+        //Below code commented after comment in Queries document..
+        //https://docs.google.com/document/d/1L-Rp_jpHi0FVGfogGoGZPhHXK5LI_ba8-zev28bM0xw/edit#heading=h.dvz5j4rsg4if
+        
+        /*if systemName == SystemName.Fluids{
             
             if value > 2.2 || value < 1.7  {
                 return RYGValue.Red
@@ -190,19 +197,19 @@ class LabCalculation:Metrix {
             else {
                 return RYGValue.Green
             }
-        }else{
+        }else{*/
             if value > 5.1 || value < 3.5  {
                 return RYGValue.Red
             }
             else {
                 return RYGValue.Green
             }
-        }
+        //}
     }
     
     //MARK:Sodium
     private func getSodiumValue() -> RYGValue{
-        
+        //=if(I38="","",if(or(I38>145,I38<135),1*H38,0))
         if value > 145 || value < 135  {
             return RYGValue.Red
         }
@@ -213,7 +220,7 @@ class LabCalculation:Metrix {
     //MARK:TSH
     private func getTSHValue() -> RYGValue{
         
-        if value > 3 || value < 0.3  {
+        if value > 3.1 || value < 0.2  {
             return RYGValue.Red
         }
         else {
@@ -222,7 +229,7 @@ class LabCalculation:Metrix {
     }
     //MARK: Chloride
     private func getChlorideValue() -> RYGValue{
-        
+        //=if(I39="","",if(I39>109,1*H39,0))
         if value > 109 || value < 94  {
             return RYGValue.Red
         }
@@ -232,7 +239,11 @@ class LabCalculation:Metrix {
     }
     //MARK:Albumin
     private func getAlbuminValue() -> RYGValue{
-        if systemName == SystemName.SocialDeterminantsofHealth{
+        //=if(I40="","",if(I40<3.4,1*H40,0))
+        //Below code commented after comment in Queries document..
+        //https://docs.google.com/document/d/1L-Rp_jpHi0FVGfogGoGZPhHXK5LI_ba8-zev28bM0xw/edit#heading=h.dvz5j4rsg4if
+        
+        /*if systemName == SystemName.SocialDeterminantsofHealth{
             if value > 5.1 || value < 3.5{
                 return RYGValue.Red
             }
@@ -240,17 +251,15 @@ class LabCalculation:Metrix {
                 return RYGValue.Green
             }
         }
-        else{
-            if value < 3.4{
+        else{*/
+            if value < 3.4 || value > 5.5{
                 return RYGValue.Red
             }
-            else if value >= 3.4 && value <= 5.4{
+            
+            else {
                 return RYGValue.Green
             }
-            else {
-                return RYGValue.Red
-            }
-        }
+        //}
     }
     //MARK:MicroalbuminCreatinineRatio
     private func getMicroalbuminCreatinineRatioValue() -> RYGValue{
@@ -304,7 +313,7 @@ class LabCalculation:Metrix {
         
         if value >= 6.4  {
             return RYGValue.Red
-        }else if value >= 6 && value <= 6.4  {
+        }else if value >= 6.1 && value <= 6.4  {
             return RYGValue.Yellow
         }
         else if value >= 4 && value < 6  {
@@ -353,65 +362,35 @@ class LabCalculation:Metrix {
     }
     //MARK:BUN
     private func getBUNValue() -> RYGValue{
-        if systemName == SystemName.Fluids || systemName == SystemName.Gastrointestinal{
-            
-            if value > 20  {
-                return RYGValue.Red
-            }else if value >= 10 && value <= 20 {
-                return RYGValue.Green
-            }
-            else {
-                return RYGValue.Red
-            }
-        }else  if systemName == SystemName.Endocrine{
-            
-            if value > 20  {
-                return RYGValue.Red
-            }else if value >= 9 && value <= 20 {
-                return RYGValue.Green
-            }
-            else {
-                return RYGValue.Red
-            }
+        
+        if value > 20 {
+            return RYGValue.Red
         }
-        else if systemName == SystemName.SocialDeterminantsofHealth{
-            if value > 99 {
-                return RYGValue.Red
-            }
-            else if value >= 1 && value <= 99 {
-                return RYGValue.Yellow
-            }
-            else {
-                return RYGValue.Green
-            }
+        else if value >= 7 && value <= 20 {
+            return RYGValue.Green
         }
-        else{
-            if value > 20 {
-                return RYGValue.Red
-            }
-            else if value >= 7 && value <= 20 {
-                return RYGValue.Green
-            }
-            else {
-                return RYGValue.Red
-            }
+        else {
+            return RYGValue.Green
         }
+        
     }
     //MARK:Creatinine
     private func getCreatinineValue() -> RYGValue{
+        //Below code commented after comment in Queries document..
+        //https://docs.google.com/document/d/1L-Rp_jpHi0FVGfogGoGZPhHXK5LI_ba8-zev28bM0xw/edit#heading=h.dvz5j4rsg4if
         //Endocrine
-        if systemName == SystemName.Endocrine{
+        /*if systemName == SystemName.Endocrine{
             if value > 1.25  {
                 return RYGValue.Red
             } else if value >= 0.66 && value <= 1.25{
                 return RYGValue.Green
             }
             else {
-                return RYGValue.Red
+                return RYGValue.Green
             }
         }//SocialDeterminantsofHealth
         else if systemName == SystemName.SocialDeterminantsofHealth{
-            if value > 1.7 ||  value < 0.84 {
+            if value > 1.7  {
                 return RYGValue.Red
             }else if value >= 1.2 && value <= 1.7{
                 return RYGValue.Yellow
@@ -420,16 +399,14 @@ class LabCalculation:Metrix {
                 return RYGValue.Green
             }
         }
-        else{
+        else{*/
             if value > 1.21  {
                 return RYGValue.Red
-            } else if value >= 0.84 && value <= 1.21{
-                return RYGValue.Green
             }
             else {
-                return RYGValue.Red
+                return RYGValue.Green
             }
-        }
+        //}
         
     }
     //MARK:BloodGlucose
@@ -440,7 +417,7 @@ class LabCalculation:Metrix {
         }else if value >= 110 && value <= 200{
             return RYGValue.Yellow
         }
-        else if value >= 70 && value <= 110  {
+        else if value >= 70 && value <= 109  {
             return RYGValue.Green
         }
         else {
@@ -460,25 +437,17 @@ class LabCalculation:Metrix {
     //MARK: AnionGap
     private func getAnionGapValue() -> RYGValue{
         
-        if systemName == SystemName.InfectiousDisease{
-            
-            if value >= 16 || value < 7  {
-                return RYGValue.Red
-            }
-            else {
-                return RYGValue.Green
-            }
-        }else{
-            if value > 11 || value < 3{
-                return RYGValue.Red
-            }
-            else if  value >= 3 &&  value <= 11{
-                return RYGValue.Green
-            }
-            else {
-                return RYGValue.Green
-            }
+        
+        if value > 11 || value < 3{
+            return RYGValue.Red
         }
+        else if  value >= 3 &&  value <= 11{
+            return RYGValue.Green
+        }
+        else {
+            return RYGValue.Green
+        }
+        
     }
     
     //MARK: UrineNitrites

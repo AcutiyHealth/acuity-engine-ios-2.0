@@ -111,7 +111,12 @@ class HKManagerReadSymptoms: NSObject
                                             
                                             //Save data for Musc...
                                             MuscManager.sharedManager.saveSymptomsData(category: category, element: element)
-                                        
+                                            
+                                            //Save data for Skin...
+                                            SkinManager.sharedManager.saveSymptomsData(category: category, element: element)
+                                            
+                                            //Save data for Heent System...
+                                            HeentManager.sharedManager.saveSymptomsData(category: category, element: element)
                                         }
                                         dispatchGroup.leave()
                                         

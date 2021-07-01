@@ -72,21 +72,25 @@ class HKManagerReadLab: NSObject
                             
                             
                             component = .month
-                            beforeDaysOrWeekOrMonth = 10
+                            beforeDaysOrWeekOrMonth = 3
                             let daysAgo = Calendar.current.date(byAdding: component, value: -beforeDaysOrWeekOrMonth, to: now)!
                             
                             let timeIntervalByLastMonth:Double = daysAgo.timeIntervalSince1970
                             //print("timeIntervalByLastMonth",getDateMediumFormat(time:timeIntervalByLastMonth))
                             let timeIntervalByNow:Double = now.timeIntervalSince1970
-                            
-                            print("timeStampOfLabData \(timeStampOfLabData)")
-                            print("timeIntervalByLastMonth \(timeIntervalByLastMonth)")
-                            print("timeIntervalByNow \(timeIntervalByNow)")
+//
+                            /*
+                             For testing,If data is more than 3 months old, we can test by  beforeDaysOrWeekOrMonth = 10 and timeStampOfLabData = timeIntervalByNow
+                             */
+//                            print("timeStampOfLabData \(timeStampOfLabData)")
+//                            print("timeIntervalByLastMonth \(timeIntervalByLastMonth)")
+//                            print("timeIntervalByNow \(timeIntervalByNow)")
+//
                             //Below code need to uncomment....
                             if (timeStampOfLabData >= timeIntervalByLastMonth && timeStampOfLabData <= timeIntervalByNow){
                                 
                                 //Pass value,code and timestamp to manager of all system...
-                                if let value = (valueQuantity?["value"] as? Double)  ,var code = (dictionaryCoding?["code"] as? String)  {
+                                if let value = (valueQuantity?["value"] as? Double)  ,let code = (dictionaryCoding?["code"] as? String)  {
                                     print("[code]",code)
                                     //code = "2951-2" // Comment this
                                     //if code == "2823-3"{ //Uncoment this....
@@ -115,7 +119,10 @@ class HKManagerReadLab: NSObject
                                     SDHManager.sharedManager.saveLabData(code: code, value: value, timeStamp: Double(timeStampOfLabData))
                                     //Save Data For Musc System..
                                     MuscManager.sharedManager.saveLabData(code: code, value: value, timeStamp: Double(timeStampOfLabData))
-                                    
+                                    //Save Data For Skin System..
+                                    SkinManager.sharedManager.saveLabData(code: code, value: value, timeStamp: Double(timeStampOfLabData))
+                                    //Save Data For Heent System..
+                                    HeentManager.sharedManager.saveLabData(code: code, value: value, timeStamp: Double(timeStampOfLabData))
                                     //}
                                     
                                 }
