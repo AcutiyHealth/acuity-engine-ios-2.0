@@ -108,32 +108,26 @@ class DBManager: NSObject {
     
     func insertConditionData(completionHandler: (_ success:Bool,_ error:Error?) -> Void) {
         if openDatabase() {
-            if let pathToConditionsFile = Bundle.main.path(forResource: "Conditions", ofType: "txt") {
-                do {
-                    let conditionsFileContents = try String(contentsOfFile: pathToConditionsFile)
-                    
-                    let conditionsData = conditionsFileContents.components(separatedBy: "\n")
-                    
-                    var query = ""
-                    for conditionTitle in ConditionType.allCases {
-                        if conditionTitle != ConditionType(rawValue: ""){
-                            print("conditionTitle--->",conditionTitle)
-                            query += "insert into conditions (\(field_ConditionName)) values ('\(conditionTitle.rawValue)');"
-                        }
+            
+            do {
+                
+                var query = ""
+                for conditionTitle in ConditionType.allCases {
+                    if conditionTitle != ConditionType(rawValue: ""){
+                        print("conditionTitle--->",conditionTitle)
+                        //Here is first select condition, if it's not exist insert into database, so duplicate entry can't be done.
+                        query += "insert into conditions (\(field_ConditionName)) SELECT ('\(conditionTitle.rawValue)') WHERE not exists (select * from conditions where (\(field_ConditionName)) = ('\(conditionTitle.rawValue)'));"
                     }
-                    
-                    if !database.executeStatements(query) {
-                        print("Failed to insert initial data into the database.")
-                        print(database.lastError() ?? NSError(), database.lastErrorMessage() as Any)
-                        completionHandler(false,database.lastError())
-                    }
-                    completionHandler(true,nil)
                 }
-                catch {
-                    print(error.localizedDescription)
-                    completionHandler(false,error)
+                
+                if !database.executeStatements(query) {
+                    print("Failed to insert initial data into the database.")
+                    print(database.lastError() ?? NSError(), database.lastErrorMessage() as Any)
+                    completionHandler(false,database.lastError())
                 }
+                completionHandler(true,nil)
             }
+            
             
             database.close()
         }
@@ -207,8 +201,6 @@ class DBManager: NSObject {
     }
     
     func loadCondition(withID ID: Int, completionHandler: (_ success:Bool,_ conditionInfo: ConditionsModel?) -> Void) {
-        var conditionInfo: ConditionsModel!
-        
         if openDatabase() {
             let query = "select * from conditions where \(field_ConditionID)=?"
             

@@ -18,40 +18,72 @@ class ConditionsListViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        loadConditionsData()
+        //loadConditionsData()
         
         // Do any additional setup after loading the view.
     }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        if conditionArray.count == 0{
+            print("loadConditionsData");
+            loadConditionsData()
+        }
+        
+    }
+    //MARK: loadConditionsData
+    
     func loadConditionsData(){
         DispatchQueue.global().async {
             do {
-                // Fetch data from Txt file and convert it in array to display in tableview
-                if  let isConditionDataAdded = UserDefaults.standard.string(forKey: "isConditionDataAdded"){
+                // Fetch data from database  and convert it in array to display in tableview
+                if  let isConditionDataAdded = UserDefaults.standard.string(forKey: kIsConditionDataAdded){
                     if isConditionDataAdded == "Yes"{
                         self.fetchConditionsDataFromDatabase()
                     }
                 }else{
                     //save condition data in database
-                    DBManager.shared.insertConditionData(completionHandler: { (sucess,error) in
-                        if sucess{
-                            UserDefaults.standard.set("Yes", forKey: "isConditionDataAdded") //String
-                            self.fetchConditionsDataFromDatabase()
-                        }
-                    })
+                    self.saveDataInDatabase()
                 }
                 
             }
         }
     }
     
+    //MARK: saveDataInDatabase
+    func saveDataInDatabase(){
+        DBManager.shared.insertConditionData(completionHandler: { (sucess,error) in
+            if sucess{
+                UserDefaults.standard.set("Yes", forKey: kIsConditionDataAdded) //String
+                self.fetchConditionsDataFromDatabase()
+            }
+        })
+    }
+    
+    //MARK: fetchConditionsDataFromDatabase
     func fetchConditionsDataFromDatabase(){
         guard let conditionArray = DBManager.shared.loadConditions() else { return }
+        self.conditionArray = [];
         self.conditionArray.append(contentsOf: conditionArray)
-        DispatchQueue.main.async {
-            
-            self.tblConditions.reloadData()
-        }
         
+        /*
+         Fetch data from database. If data from database and ConditionType' all cases not same then insert new entry which is not exist in database and rewrite or save data in database...
+         
+         NOTE: Here there is only logic of adding new entry. If there will be any entry remove from ConditionType, that entry still will show in condition list...
+         //If you want to remove that entry from database list also, logic needs to be setup.
+         */
+        
+        if self.conditionArray.count < ConditionType.allCases.count{
+            saveDataInDatabase()
+        }
+        else{
+            
+            DispatchQueue.main.async {
+                
+                self.tblConditions.reloadData()
+            }
+        }
     }
 }
 extension ConditionsListViewController:UITableViewDelegate,UITableViewDataSource{
