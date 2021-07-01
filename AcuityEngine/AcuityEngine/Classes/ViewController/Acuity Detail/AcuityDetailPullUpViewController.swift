@@ -14,8 +14,10 @@ class AcuityDetailPullUpViewController: UIViewController {
     // MARK: - Outlet
     
     @IBOutlet weak var chart: Chart!
+    @IBOutlet weak var chartView: UIView!
     @IBOutlet weak var labelInChartForSelectedValue: UILabel!
     @IBOutlet weak var labelLeadingMarginConstraint: NSLayoutConstraint!
+    @IBOutlet weak var handleHeightConstraint: NSLayoutConstraint!
     
     @IBOutlet weak var lblTitle: UILabel!
     @IBOutlet weak var lblNoDataAvailable: UILabel!
@@ -32,6 +34,8 @@ class AcuityDetailPullUpViewController: UIViewController {
     @IBOutlet weak var tblVitals: UITableView!
     @IBOutlet weak var tblLab: UITableView!
     
+    //Handle view for Swipe up/down
+    var handleHeight: CGFloat = 60
     
     //Object of Acuity detial value viewcontroller...
     var detailConditionVC : AcuityMetricsDetailViewController?
@@ -68,10 +72,17 @@ class AcuityDetailPullUpViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        //handleArea.backgroundColor = UIColor.red
         //set initial margin for label...
         labelLeadingMarginInitialConstant = labelLeadingMarginConstraint.constant
         setFontForLabel()
         setupSegmentControl()
+        //change handle height for consistent swipe up...
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
+            // your code here
+            self.setHandleViewHeight()
+        }
+        
         print("viewDidLoad AcuityDetailPullUpViewController")
     }
     
@@ -79,7 +90,7 @@ class AcuityDetailPullUpViewController: UIViewController {
         lblTitle.font = Fonts.kAcuityDetailTitleFont
         lblScore.font = Fonts.kAcuityDetailValueFont
     }
-    //MARK: show system data in tableview
+  
     func setupSegmentControl(){
         viewModelObj.setUpSegmentControl(segmentControl: segmentControl)
     }
@@ -94,17 +105,13 @@ class AcuityDetailPullUpViewController: UIViewController {
         //Display data from acuityModel
         displayDatailTitleFromAcuityModel(acuityModel: acuityModel)
         
-        //Prepare Array from acuityModel
-        prepareArrayFromAcuityModel()
-       
-       
         self.showScoreAndChartData()
         
         self.reloadTableView()
-        
+       
     }
     func displayDatailTitleFromAcuityModel(acuityModel:AcuityDisplayModel){
-        systemMetricsData = acuityModel.metricCardio
+        systemMetricsData = acuityModel.metricDictionary
         lblTitle.text = acuityModel.name?.rawValue
         lblScore.text = acuityModel.score
         MyWellScore.sharedManager.selectedSystem = acuityModel.name ?? SystemName.Cardiovascular
@@ -112,20 +119,27 @@ class AcuityDetailPullUpViewController: UIViewController {
     }
     //MARK: prepare array from AcuityModel
     func prepareArrayFromAcuityModel(){
-        //generate array of arrConditions,lab,imp data,arrSymptoms
+        //generate array of conditions,lab,vital,symptoms
         self.arrConditions = []
         self.arrSymptoms = []
         self.arrLabs = []
         self.arrVitals = []
-        
-        //reload tableview....
-        self.reloadTableView()
-        reloadTables()
-        
-        self.arrConditions = systemMetricsData![MetricsType.Conditions.rawValue] as! [ConditionsModel]
-        self.arrSymptoms = systemMetricsData![MetricsType.Sympotms.rawValue] as! [SymptomsModel]
-        self.arrLabs = systemMetricsData![MetricsType.LabData.rawValue] as! [LabModel]
-        self.arrVitals = systemMetricsData![MetricsType.Vitals.rawValue] as! [VitalsModel]
+        guard let arrConditions = systemMetricsData?[MetricsType.Conditions.rawValue] as? [ConditionsModel] else {
+            return
+        }
+        guard let arrSymptoms = systemMetricsData?[MetricsType.Sympotms.rawValue] as? [SymptomsModel] else {
+            return
+        }
+        guard let arrLabs = systemMetricsData?[MetricsType.LabData.rawValue] as? [LabModel] else {
+            return
+        }
+        guard let arrVitals = systemMetricsData?[MetricsType.Vitals.rawValue] as? [VitalsModel] else {
+            return
+        }
+        self.arrConditions = arrConditions
+        self.arrSymptoms = arrSymptoms
+        self.arrLabs = arrLabs
+        self.arrVitals = arrVitals
         
         //Sorting of array...
         self.arrConditions.sort {
@@ -140,11 +154,18 @@ class AcuityDetailPullUpViewController: UIViewController {
         self.arrLabs.sort {
             $0.title ?? "" < $1.title ?? ""
         }
+        
+        //reload tableview....
+        self.reloadTableView()
+        
     }
     //MARK: setup chart
     func setUpChartView(data:[(x: Int, y: Double)]){
         chart.removeAllSeries()
-        chart.delegate = self
+        /*
+         Uncomment below line if you want to start Touch in chart..
+         */
+        //chart.delegate = self
         // Simple chart
         //let labelsAsString: Array<String> = labelsAsStringForWeek
         
@@ -164,9 +185,13 @@ class AcuityDetailPullUpViewController: UIViewController {
         var data = [(x:0, y:0.0)]
         var arraySystemScore:[Double] = []
         print("<--------------------showScoreAndChartData-------------------->")
+        /*
+         NOTE: getScoreAndArrayOfSystemScore use to calculate system score for 7 days/1 Month/ 3 Month for every selected system.....
+         */
         let scoreTupple = viewModelObj.getScoreAndArrayOfSystemScore()
-        scoreText = scoreTupple.0
-        arraySystemScore = scoreTupple.1
+        scoreText = scoreTupple.0 //scoreText
+        arraySystemScore = scoreTupple.1 //arraySystemScore
+        systemMetricsData = scoreTupple.2 //metricDictionary
         var i = 0;
         for item in arraySystemScore{
             data.append((x:i,y:item))
@@ -194,6 +219,10 @@ class AcuityDetailPullUpViewController: UIViewController {
         case .OneDay:
             break
         }
+        
+        //Prepare Array from acuityModel
+        prepareArrayFromAcuityModel()
+        
         lblScore.text = scoreText
         
         setColorForScoreAndChart()
@@ -386,8 +415,9 @@ extension AcuityDetailPullUpViewController: UITableViewDelegate, UITableViewData
         visualEffectView.addSubview((detailConditionVC?.view)!)
         detailConditionVC?.didMove(toParent: self)
         
-        //PAss metrix Item to display data...
-        detailConditionVC?.metrixType = metrixType
+        //when detail screen open make handle height small......
+        handleHeightConstraint.constant = handleHeight;
+        
         switch metrixType {
         case .Conditions:
             detailConditionVC?.arrConditions = self.arrConditions
@@ -397,9 +427,11 @@ extension AcuityDetailPullUpViewController: UITableViewDelegate, UITableViewData
             detailConditionVC?.arrSymptoms = self.arrSymptoms
         case .LabData:
             detailConditionVC?.arrLabs = self.arrLabs
-        default:
-            break
+        
         }
+        
+        //PAss metrix Item to display data...
+        detailConditionVC?.metrixType = metrixType
         setUpCloseButton()
         
         //Hide main view of Detail Pullup class
@@ -426,6 +458,12 @@ extension AcuityDetailPullUpViewController: UITableViewDelegate, UITableViewData
         handleArea.btnClose!.addTarget(self, action: #selector(btnCloseClickedInAcuityValueViewController), for: UIControl.Event.touchUpInside)
         
     }
+    //set handle view height to pull up consistently...
+    func setHandleViewHeight(){
+        //make handle height to chart view's max y....
+        handleHeightConstraint.constant = segmentControl.frame.origin.y;
+       
+    }
     //MARK: Btn close click
     @objc func btnCloseClickedInAcuityValueViewController(){
         if detailConditionVC != nil{
@@ -435,8 +473,8 @@ extension AcuityDetailPullUpViewController: UITableViewDelegate, UITableViewData
             detailConditionVC?.view.removeFromSuperview()
             detailConditionVC?.removeFromParent()
             mainView.isHidden = false
-            
-            
+            //set handle view height to pull up consistently...
+            setHandleViewHeight()
         }
     }
     //MARK: Btn Back click

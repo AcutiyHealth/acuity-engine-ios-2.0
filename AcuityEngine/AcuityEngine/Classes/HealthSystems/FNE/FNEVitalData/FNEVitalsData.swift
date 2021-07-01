@@ -40,12 +40,6 @@ class FNEVitalsData:VitalCalculation {
         
         
     }
-    
-    func getStartDate()->String{
-        return getDateMediumFormat(time: startTimeStamp)
-    }
-    func getEndDate()->String{
-        return getDateMediumFormat(time: endTimeStamp)
-    }
+  
 }
 

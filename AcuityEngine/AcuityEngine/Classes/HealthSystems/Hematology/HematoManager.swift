@@ -37,7 +37,7 @@ class HematoManager: NSObject {
             systolicBP.startTimeStamp = element.startTimestamp
             self.hematoData.hematoVital.systolicBloodPressureData.append(systolicBP)
             
-            print("---------\n bloodPressureSystolic \nValue \(systolicBP.value)\n Score \(systolicBP.score)\n Max Score\(systolicBP.maxScore ?? 0.0) \n---------")
+            print("---------\n bloodPressureSystolic \nValue \(systolicBP.value)\n Score \(systolicBP.score)\n Max Score\(systolicBP.maxScore ) \n---------")
         }
         //bloodPressureDiastolic
         else if quantityType == QuantityType.bloodPressureDiastolic {
@@ -119,5 +119,72 @@ class HematoManager: NSObject {
             break
         }
     }
+    //MARK: Save Lab Data
+    func saveLabData(code:String,value:Double,timeStamp:Double){
+        let labCodeConstant = LabCodeConstant(rawValue: code)
+        
+        //Create Lab Model Object
+        let labData = HematoLabData()
+        labData.value = value
+        labData.startTimeStamp = timeStamp
+        
+        switch labCodeConstant {
+        
+        //hemoglobin
+        case .hemoglobin:
+            do{
+                labData.type = .hemoglobin
+                HematoManager.sharedManager.hematoData.hematoLab.hemaglobinData.append(labData)
+            }
+        //platelets
+        case .platelets:
+            do{
+                labData.type = .platelets
+                HematoManager.sharedManager.hematoData.hematoLab.plateletsData.append(labData)
+            }
+        //WBC
+        case .WBC:
+            do{
+                labData.type = .WBC
+                HematoManager.sharedManager.hematoData.hematoLab.WBCData.append(labData)
+            }
+        //neutrophil
+        case .neutrophil:
+            do{
+                labData.type = .neutrophil
+                HematoManager.sharedManager.hematoData.hematoLab.neutrophilData.append(labData)
+            }
+        //MCV
+        case .MCV:
+            do{
+                labData.type = .MCV
+                HematoManager.sharedManager.hematoData.hematoLab.MCVData.append(labData)
+            }
+        //alkalinePhosphatase
+        case .alkalinePhosphatase:
+            do{
+                labData.type = .alkalinePhosphatase
+                HematoManager.sharedManager.hematoData.hematoLab.alkalinePhosphataseData.append(labData)
+            }
+        //anionGap
+        case .anionGap:
+            do{
+                labData.type = .anionGap
+                HematoManager.sharedManager.hematoData.hematoLab.anionGapData.append(labData)
+            }
+        //b12Level
+        case .b12Level:
+            do{
+                labData.type = .b12Level
+                HematoManager.sharedManager.hematoData.hematoLab.b12LevelData.append(labData)
+            }
+            
+        default:
+            break
+        }
+    }
 }
+
+
+
 

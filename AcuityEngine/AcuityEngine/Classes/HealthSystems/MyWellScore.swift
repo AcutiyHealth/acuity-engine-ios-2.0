@@ -82,10 +82,26 @@ class MyWellScore: NSObject {
         let maxScoreHematoData = HematoManager.sharedManager.hematoData.maxScore
         //Endocrine
         let maxScoreEndocrineData = EndocrineManager.sharedManager.endocrineData.maxScore
+        //Gastrointestinal
+        let maxScoreGastrointestinalData = GastrointestinalManager.sharedManager.gastrointestinalData.maxScore
+        //Genitourinary
+        let maxScoreGenitourinaryData = GenitourinaryManager.sharedManager.genitourinaryData.maxScore
+        //Neuro
+        let maxScoreNeuroData = NeuroManager.sharedManager.neuroData.maxScore
+        //SDH
+        let maxScoreSDHData = SDHManager.sharedManager.sdhData.maxScore
+        //Musc
+        let maxScoreMuscData = MuscManager.sharedManager.muscData.maxScore
+        //Skin
+        let maxScoreSkinData = SkinManager.sharedManager.skinData.maxScore
+        //Heent
+        let maxScoreHeentData = HeentManager.sharedManager.heentData.maxScore
         
         let totalMaxScore1 = maxScoreCardioData +  maxScoreRespiratoryData + maxScoreRenalData + maxScoreDiseaseData
         let totalMaxScore2 = maxScoreFNEData + maxScoreHematoData + maxScoreEndocrineData
-        return totalMaxScore1 + totalMaxScore2
+        let totalMaxScore3 = maxScoreGastrointestinalData + maxScoreGenitourinaryData + maxScoreNeuroData
+        let totalMaxScore4 = maxScoreSDHData + maxScoreMuscData + maxScoreSkinData + maxScoreHeentData
+        return totalMaxScore1 + totalMaxScore2 + totalMaxScore3 + totalMaxScore4
     }
     
     func getTotalWeightedSystemScore()->Double{
@@ -106,10 +122,26 @@ class MyWellScore: NSObject {
         let hematoWeightedSystemScore = HematoManager.sharedManager.hematoData.hematoWeightedSystemScore
         //Endocrine
         let endocrineWeightedSystemScore = EndocrineManager.sharedManager.endocrineData.endocrineWeightedSystemScore
+        //Gastrointestinal
+        let gastrointestinalWeightedSystemScore = GastrointestinalManager.sharedManager.gastrointestinalData.gastrointestinalWeightedSystemScore
+        //Genitourinary
+        let genitourinaryWeightedSystemScore = GenitourinaryManager.sharedManager.genitourinaryData.genitourinaryWeightedSystemScore
+        //Neuro
+        let neuroWeightedSystemScore = NeuroManager.sharedManager.neuroData.neuroWeightedSystemScore
+        //SDH
+        let sdhWeightedSystemScore = SDHManager.sharedManager.sdhData.sdhWeightedSystemScore
+        //Musc
+        let muscWeightedSystemScore = MuscManager.sharedManager.muscData.muscWeightedSystemScore
+        //Skin
+        let skinWeightedSystemScore = SkinManager.sharedManager.skinData.skinWeightedSystemScore
+        //heent
+        let heentWeightedSystemScore = HeentManager.sharedManager.heentData.heentWeightedSystemScore
         
         let totalWeightedSystemScore1 = cardioWeightedSystemScore + respiratoryWeightedSystemScore + renalWeightedSystemScore + iDiseaseWeightedSystemScore
         let totalWeightedSystemScore2 = fneWeightedSystemScore + hematoWeightedSystemScore + endocrineWeightedSystemScore
+        let totalWeightedSystemScore3 = gastrointestinalWeightedSystemScore + genitourinaryWeightedSystemScore + neuroWeightedSystemScore
+        let totalWeightedSystemScore4 = sdhWeightedSystemScore + muscWeightedSystemScore + skinWeightedSystemScore + heentWeightedSystemScore
         
-        return totalWeightedSystemScore1 + totalWeightedSystemScore2
+        return totalWeightedSystemScore1 + totalWeightedSystemScore2 + totalWeightedSystemScore3 + totalWeightedSystemScore4
     }
 }

@@ -50,12 +50,12 @@ class CardioManager: NSObject {
             let diastolicBP = CardioVitalsData(type: VitalsName.bloodPressureDiastolic)
             diastolicBP.value = Double(element.harmonized.value)
             diastolicBP.startTimeStamp = element.startTimestamp
-            print("diastolicBP date",getDateMediumFormat(time: diastolicBP.startTimeStamp))
+            //print("diastolicBP date",getDateMediumFormat(time: diastolicBP.startTimeStamp))
             self.cardioData.cardioVital.diastolicBloodPressureData.append(diastolicBP)
             
             
             
-            print("---------\n bloodPressureDiastolic \nValue \(diastolicBP.value)\n Score \(diastolicBP.score)\n Max Score\(diastolicBP.maxScore ?? 0.0) \n---------")
+            //print("---------\n bloodPressureDiastolic \nValue \(diastolicBP.value)\n Score \(diastolicBP.score)\n Max Score\(diastolicBP.maxScore ?? 0.0) \n---------")
             
         }
         else if quantityType == QuantityType.vo2Max {
@@ -67,7 +67,7 @@ class CardioManager: NSObject {
             
             
             
-            print("---------\n vO2MaxData \nValue \(vo2Max.value)\n Score \(vo2Max.score)\n Max Score\(vo2Max.maxScore ?? 0.0) \n---------")
+            //print("---------\n vO2MaxData \nValue \(vo2Max.value)\n Score \(vo2Max.score)\n Max Score\(vo2Max.maxScore ?? 0.0) \n---------")
             //print("---------\n VO2MaxData \nValue \(vo2Max.value)\n Score \(vo2Max.score)\n Max Score\(vo2Max.maxScore ?? 0.0) \n---------")
             
         }
@@ -81,9 +81,12 @@ class CardioManager: NSObject {
             //print("---------\n HeartRateData \nValue \(heartRate.value)\n Score \(heartRate.score)\n Max Score\(heartRate.maxScore ?? 0.0) \n---------")
         }
         else if quantityType == QuantityType.oxygenSaturation {
-            
+            /*
+             Multiply value with 100 because we get oxygen saturation value in Float from health app. Oxygen saturation 1- 100 will get 0.1-1 from health app
+             */
             let oxygenSaturation = CardioVitalsData(type: VitalsName.oxygenSaturation)
-            oxygenSaturation.value = Double(element.harmonized.value)
+            let newValue = Double(element.harmonized.value) * 100
+            oxygenSaturation.value = newValue
             oxygenSaturation.startTimeStamp = element.startTimestamp
             self.cardioData.cardioVital.oxygenSaturationData.append(oxygenSaturation)
             
@@ -201,6 +204,56 @@ class CardioManager: NSObject {
             break
         }
         
+    }
+    
+    //MARK: Save Lab Data
+    func saveLabData(code:String,value:Double,timeStamp:Double){
+        let labCodeConstant = LabCodeConstant(rawValue: code)
+        
+        //Create Lab Model Object
+        let labData = CardioLabData()
+        labData.value = value
+        labData.startTimeStamp = timeStamp
+        
+        switch labCodeConstant {
+        case .potassiumLevel:
+            do{
+                labData.type = .potassiumLevel
+                CardioManager.sharedManager.cardioData.cardioLab.potassiumLevelData.append(labData)
+            }
+        case .sodium:
+            do{
+                labData.type = .sodium
+                CardioManager.sharedManager.cardioData.cardioLab.sodiumData.append(labData)
+            }
+        case .chloride:
+            do{
+                labData.type = .chloride
+                CardioManager.sharedManager.cardioData.cardioLab.chlorideData.append(labData)
+            }
+        case .albumin:
+            do{
+                labData.type = .albumin
+                CardioManager.sharedManager.cardioData.cardioLab.albuminData.append(labData)
+            }
+        case .microalbuminCreatinineRatio:
+            do{
+                labData.type = .microalbuminCreatinineRatio
+                CardioManager.sharedManager.cardioData.cardioLab.microalbuminData.append(labData)
+            }
+        case .bPeptide:
+            do{
+                labData.type = .bPeptide
+                CardioManager.sharedManager.cardioData.cardioLab.bPeptideData.append(labData)
+            }
+        case .hemoglobin:
+            do{
+                labData.type = .hemoglobin
+                CardioManager.sharedManager.cardioData.cardioLab.hemoglobinData.append(labData)
+            }
+        default:
+            break
+        }
     }
 }
 

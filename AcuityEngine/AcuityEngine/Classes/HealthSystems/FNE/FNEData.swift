@@ -19,8 +19,8 @@ class FNEData {
             getWeightedSystemScore()
         }
     }
-    var fneRelativeImportance:Double = 100
-    var maxScore:Double = 100
+    var fneRelativeImportance:Double = SystemRelativeImportance.Fluids
+    var maxScore:Double = SystemRelativeImportance.Fluids
     
     
     func getWeightedSystemScore()->Double{

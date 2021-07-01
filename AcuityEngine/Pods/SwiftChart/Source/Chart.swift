@@ -718,12 +718,12 @@ open class Chart: UIControl {
             return
         }
 
-        drawHighlightLineFromLeftPosition(left)
+        
 
         if delegate == nil {
             return
         }
-
+        drawHighlightLineFromLeftPosition(left)
         var indexes: [Int?] = []
 
         for series in self.series {

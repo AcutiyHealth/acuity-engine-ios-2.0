@@ -19,28 +19,34 @@ struct RespiratoryLabRelativeImportance {
 }
 class RespiratoryLabData:LabCalculation {
     
-    init(type:LabType) {
-        super.init()
-        super.metricType = type
-        super.systemName = SystemName.Respiratory
-        switch type {
-        case .sodium:
-            self.relativeValue = RespiratoryLabRelativeImportance.sodium
-        case .chloride:
-            self.relativeValue = RespiratoryLabRelativeImportance.chloride
-        case .carbonDioxide:
-            self.relativeValue = RespiratoryLabRelativeImportance.carbonDioxide
-        case .WBC:
-            self.relativeValue = RespiratoryLabRelativeImportance.WBC
-        case .neutrophil:
-            self.relativeValue = RespiratoryLabRelativeImportance.neutrophil
+    var type:LabType = .sodium{
+        didSet{
             
-        default:
-            break
+            super.metricType = type
+            switch type {
+            case .sodium:
+                self.relativeValue = RespiratoryLabRelativeImportance.sodium
+            case .chloride:
+                self.relativeValue = RespiratoryLabRelativeImportance.chloride
+            case .carbonDioxide:
+                self.relativeValue = RespiratoryLabRelativeImportance.carbonDioxide
+            case .WBC:
+                self.relativeValue = RespiratoryLabRelativeImportance.WBC
+            case .neutrophil:
+                self.relativeValue = RespiratoryLabRelativeImportance.neutrophil
+                
+            default:
+                break
+            }
+            
+            
         }
-        
-        
     }
+    override init() {
+        super.init()
+        super.systemName = SystemName.Respiratory
+    }
+  
     
 }
 

@@ -14,7 +14,7 @@ class HKManagerReadSymptoms: NSObject
     static let sharedManager = HKManagerReadSymptoms()
     private var reporter: HealthKitReporter?
    
-    private lazy var heartRateType: HKQuantityType? = HKObjectType.quantityType(forIdentifier: .heartRate)
+    //private lazy var heartRateType: HKQuantityType? = HKObjectType.quantityType(forIdentifier: .heartRate)
     
     override init() {
         super.init()
@@ -52,7 +52,7 @@ class HKManagerReadSymptoms: NSObject
                      
                      }*/
                     component = .month
-                    beforeDaysOrWeekOrMonth = 3
+                    beforeDaysOrWeekOrMonth = ValueForMonths.ThreeMonths.rawValue
                     let daysAgo = Calendar.current.date(byAdding: component, value: -beforeDaysOrWeekOrMonth, to: now)!
                     
                     let startOfDaysAgo = Calendar.current.startOfDay(for: daysAgo)
@@ -96,6 +96,27 @@ class HKManagerReadSymptoms: NSObject
                                             
                                             //Save data for Endocrine...
                                             EndocrineManager.sharedManager.saveSymptomsData(category: category, element: element)
+                                            
+                                            //Save data for Gastrointestinal...
+                                            GastrointestinalManager.sharedManager.saveSymptomsData(category: category, element: element)
+                                            
+                                            //Save data for Genitourinary...
+                                            GenitourinaryManager.sharedManager.saveSymptomsData(category: category, element: element)
+                                            
+                                            //Save data for Neuro...
+                                            NeuroManager.sharedManager.saveSymptomsData(category: category, element: element)
+                                            
+                                            //Save data for SDH...
+                                            SDHManager.sharedManager.saveSymptomsData(category: category, element: element)
+                                            
+                                            //Save data for Musc...
+                                            MuscManager.sharedManager.saveSymptomsData(category: category, element: element)
+                                            
+                                            //Save data for Skin...
+                                            SkinManager.sharedManager.saveSymptomsData(category: category, element: element)
+                                            
+                                            //Save data for Heent System...
+                                            HeentManager.sharedManager.saveSymptomsData(category: category, element: element)
                                         }
                                         dispatchGroup.leave()
                                         

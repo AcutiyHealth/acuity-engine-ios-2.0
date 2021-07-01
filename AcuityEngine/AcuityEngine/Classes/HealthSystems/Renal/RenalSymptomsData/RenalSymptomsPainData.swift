@@ -23,33 +23,31 @@ struct RenalSymptomsRelativeImportance {
 
 class RenalSymptomsPainData:SymptomCalculation {
    
-    var title:String = ""
-
      init(type:CategoryType) {
         super.init()
         super.symptomsType = type
         super.systemName = SystemName.Renal
         switch type {
         case .rapidPoundingOrFlutteringHeartbeat:
-            self.title = SymptomsName.rapidHeartbeat.rawValue
+            super.title = SymptomsName.rapidHeartbeat.rawValue
             self.relativeValue = RenalSymptomsRelativeImportance.rapidHeartbeat
         case .lowerBackPain:
-            self.title = SymptomsName.lowerBackPain.rawValue
+            super.title = SymptomsName.lowerBackPain.rawValue
             self.relativeValue = RenalSymptomsRelativeImportance.lowerBackPain
         case .dizziness:
-            self.title = SymptomsName.dizziness.rawValue
+            super.title = SymptomsName.dizziness.rawValue
             self.relativeValue = RenalSymptomsRelativeImportance.dizziness
         case .fainting:
-            self.title = SymptomsName.fainting.rawValue
+            super.title = SymptomsName.fainting.rawValue
             self.relativeValue = RenalSymptomsRelativeImportance.fainting
         case .fatigue:
-            self.title = SymptomsName.fatigue.rawValue
+            super.title = SymptomsName.fatigue.rawValue
             self.relativeValue = RenalSymptomsRelativeImportance.fatigue
         case .nausea:
-            self.title = SymptomsName.nausea.rawValue
+            super.title = SymptomsName.nausea.rawValue
             self.relativeValue = RenalSymptomsRelativeImportance.nausea
         case .vomiting:
-            self.title = SymptomsName.vomiting.rawValue
+            super.title = SymptomsName.vomiting.rawValue
             self.relativeValue = RenalSymptomsRelativeImportance.vomiting
   
         default:

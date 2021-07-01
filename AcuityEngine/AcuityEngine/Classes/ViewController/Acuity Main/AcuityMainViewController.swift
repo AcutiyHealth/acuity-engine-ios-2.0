@@ -108,7 +108,7 @@ class AcuityMainViewController: PullUpViewController, UIScrollViewDelegate,Rotar
     @objc  func refreshWheeltoShowDayWiseData(){
         self.setUpAcuityCircleView()
     }
-
+    
     func loadHealthData(days:SegmentValueForGraph,completion: @escaping (Bool, HealthkitSetupError?) -> Swift.Void){
         
         //Show Progress HUD
@@ -136,7 +136,7 @@ class AcuityMainViewController: PullUpViewController, UIScrollViewDelegate,Rotar
     //MARK: set up Acuity circle view...
     
     @objc func setUpAcuityCircleView() {
-     
+        
         //Select system index from array of arrBodySystems
         let acuityId = strSelectedAcuityId
         var selSystem = 0
@@ -199,8 +199,18 @@ class AcuityMainViewController: PullUpViewController, UIScrollViewDelegate,Rotar
     //MARK: Show data in header..
     func displayMyWellScoreData(){
         //self.headerView.lblSystemScore!.text = String(format: "%.2f", (MyWellScore.sharedManager.myWellScore))
-        lblScore.text = String(format: "%.2f", (MyWellScore.sharedManager.myWellScore))
-        lblScoreWhenPopup.text = String(format: "%.2f", (MyWellScore.sharedManager.myWellScore))
+        let score = (MyWellScore.sharedManager.myWellScore)
+       
+        lblScore.text = getStringToDisplayScore(score: score)
+        lblScore.sizeToFit()
+        //Score label in popup....
+        lblScoreWhenPopup.text = lblScore.text
+        
+        //Set text color according to score....
+        let themeColor = getThemeColor(index: lblScore.text, isForWheel: true)
+        lblScore.textColor = themeColor
+        lblScoreWhenPopup.textColor = lblScore.textColor
+        
     }
     
     //MARK: Draw Wheel..
@@ -298,8 +308,13 @@ class AcuityMainViewController: PullUpViewController, UIScrollViewDelegate,Rotar
         self.stackProfileView.isHidden = true
         self.pullUpController.isExpanded = false
     }
+    //
     @objc func showAcuityDetailPopup(){
-        self.wheelDidChangeValue(Int32(self.lastSelectedIndex))
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.9) {
+            // your code here
+            self.wheelDidChangeValue(Int32(self.lastSelectedIndex))
+        }
+        
         
     }
     @objc func showSubScoreView(){

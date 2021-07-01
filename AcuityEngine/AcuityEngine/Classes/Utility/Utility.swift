@@ -67,7 +67,11 @@ func isiPhone() -> Bool{
     return false
 }
 
-
+//MARK:
+func getStringToDisplayScore(score:Double)->String{
+    let isScoreInteger = score.truncatingRemainder(dividingBy: 1) == 0
+    return isScoreInteger ? String(format: "%.0f", score) : String(format: "%.2f", score)
+}
 func getDateMediumFormat(time:Double)->String{
     
     let date = Date(timeIntervalSince1970: time)
@@ -107,24 +111,25 @@ func getNumberOfTimesLoopToExecute(days:SegmentValueForGraph)->[String:AnyObject
     switch days {
     case .SevenDays:
         component = .day
-        noOfTimesLoopExecute = 7
+        noOfTimesLoopExecute = ValueForMonths.SevenDays.rawValue
     case .ThirtyDays:
         component = .weekOfMonth
-        let calendar = Calendar.current
-        let weekRange = calendar.range(of: .weekOfMonth,
-                                       in: .month,
-                                       for: now)
-        noOfTimesLoopExecute = weekRange?.count ?? 0
+       
+        let prevmonth = Calendar.current.date(byAdding: .month, value: -1, to: now) ?? Date()
+        let weekRange = Calendar.current.dateComponents([.weekOfMonth], from: prevmonth, to: now).weekOfMonth ?? 0
+      
+        noOfTimesLoopExecute = weekRange
         print("noOfTimesLoopExecute ThirtyDays=====>",noOfTimesLoopExecute)
     case .ThreeMonths:
         component = .month
-        noOfTimesLoopExecute = 3
+        noOfTimesLoopExecute = ValueForMonths.ThreeMonths.rawValue
         
     case .OneDay:
         component = .day
-        noOfTimesLoopExecute = 1
+        noOfTimesLoopExecute = ValueForMonths.One.rawValue
     }
     let componentAndLoopDictionary = ["component":component,"noOfTimesLoopExecute":noOfTimesLoopExecute] as [String : AnyObject]
+   
     return componentAndLoopDictionary
 }
 
@@ -149,11 +154,11 @@ func daywiseFilterMetrixsData(days:SegmentValueForGraph,array:[Metrix],metriXTyp
         
         if metriXType == MetricsType.Sympotms{
             filteredArray = array.filter { item in
-                filterConditionForSymptoms(sampleItem: item, timeIntervalByLastMonth: timeIntervalByLastMonth, timeIntervalByNow: timeIntervalByNow)
+                filterMatricsForSymptoms(sampleItem: item, timeIntervalByLastMonth: timeIntervalByLastMonth, timeIntervalByNow: timeIntervalByNow)
             }
         }else{
             filteredArray = array.filter { item in
-                filterConditionForOtherMetrix(sampleItem: item, timeIntervalByLastMonth: timeIntervalByLastMonth, timeIntervalByNow: timeIntervalByNow)
+                filterMatricsForVitalOrLab(sampleItem: item, timeIntervalByLastMonth: timeIntervalByLastMonth, timeIntervalByNow: timeIntervalByNow)
             }
         }
         let averageScore = (Double(filteredArray.sum(\.score)).isNaN ? 0 :  Double(filteredArray.sum(\.score)))
@@ -163,6 +168,8 @@ func daywiseFilterMetrixsData(days:SegmentValueForGraph,array:[Metrix],metriXTyp
     }
     return averageScoreArray
 }
+
+//MARK: Get score for conditions in system
 func getScoreForConditions(array:[Metrix],days:SegmentValueForGraph)->[Double]{
     let getComponentAndLoop = getNumberOfTimesLoopToExecute(days: days)
 
@@ -182,22 +189,34 @@ func getScoreForConditions(array:[Metrix],days:SegmentValueForGraph)->[Double]{
     
     return averageScoreArray
 }
+//MARK: getScoreForVitalData
 func getScoreForVitalDataWithGivenDateRange(sampleItem:[Metrix],timeIntervalByLastMonth:Double,timeIntervalByNow:Double)->Double{
     var filteredArray:[Metrix] = []
     
     filteredArray = sampleItem.filter { item in
-        filterConditionForOtherMetrix(sampleItem: item, timeIntervalByLastMonth: timeIntervalByLastMonth, timeIntervalByNow: timeIntervalByNow)
+        filterMatricsForVitalOrLab(sampleItem: item, timeIntervalByLastMonth: timeIntervalByLastMonth, timeIntervalByNow: timeIntervalByNow)
     }
     
     let averageScore = (Double(filteredArray.average(\.score)).isNaN ? 0 :  Double(filteredArray.average(\.score)))
     return averageScore
 }
-
+//MARK: getScoreForLabData
+func getScoreForLabDataWithGivenDateRange(sampleItem:[Metrix],timeIntervalByLastMonth:Double,timeIntervalByNow:Double)->Double{
+    var filteredArray:[Metrix] = []
+    
+    filteredArray = sampleItem.filter { item in
+        filterMatricsForVitalOrLab(sampleItem: item, timeIntervalByLastMonth: timeIntervalByLastMonth, timeIntervalByNow: timeIntervalByNow)
+    }
+    
+    let averageScore = (Double(filteredArray.average(\.score)).isNaN ? 0 :  Double(filteredArray.average(\.score)))
+    return averageScore
+}
+//MARK: getScoreForSymptomsData
 func getScoreForSymptomsDataWithGivenDateRange(sampleItem:[Metrix],timeIntervalByLastMonth:Double,timeIntervalByNow:Double)->Double{
     var filteredArray:[Metrix] = []
     
     filteredArray = sampleItem.filter { item in
-        filterConditionForSymptoms(sampleItem: item, timeIntervalByLastMonth: timeIntervalByLastMonth, timeIntervalByNow: timeIntervalByNow)
+        filterMatricsForSymptoms(sampleItem: item, timeIntervalByLastMonth: timeIntervalByLastMonth, timeIntervalByNow: timeIntervalByNow)
     }
     
     let averageScore = (Double(filteredArray.average(\.score)).isNaN ? 0 :  Double(filteredArray.average(\.score)))
@@ -207,22 +226,21 @@ func getScoreForSymptomsDataWithGivenDateRange(sampleItem:[Metrix],timeIntervalB
 func getTimeIntervalBySelectedSegmentOfDays(days:SegmentValueForGraph)->Double{
     let now = MyWellScore.sharedManager.todaysDate
     var component = Calendar.Component.day
-    var beforeDaysOrWeekOrMonth = 1
+    var beforeDaysOrWeekOrMonth = ValueForMonths.One.rawValue
     
     switch days {
     case .SevenDays:
         component = .day
-        beforeDaysOrWeekOrMonth = 7
+        beforeDaysOrWeekOrMonth = ValueForMonths.SevenDays.rawValue
     case .ThirtyDays:
         component = .month
-        beforeDaysOrWeekOrMonth = 1
+        beforeDaysOrWeekOrMonth = ValueForMonths.One.rawValue
     case .ThreeMonths:
         component = .month
-        beforeDaysOrWeekOrMonth = 3
-        
-        
+        beforeDaysOrWeekOrMonth = ValueForMonths.ThreeMonths.rawValue
     case .OneDay:
-        break
+        component = .day
+        break;
     }
     
     let daysAgo = Calendar.current.date(byAdding: component, value: -beforeDaysOrWeekOrMonth, to: now)!
@@ -233,7 +251,7 @@ func getTimeIntervalBySelectedSegmentOfDays(days:SegmentValueForGraph)->Double{
     return timeIntervalByLastMonth
 }
 
-func filterConditionForSymptoms(sampleItem:Metrix,timeIntervalByLastMonth:Double,timeIntervalByNow:Double)->Bool{
+func filterMatricsForSymptoms(sampleItem:Metrix,timeIntervalByLastMonth:Double,timeIntervalByNow:Double)->Bool{
     let timeIntervalStart = sampleItem.startTimeStamp
     let timeIntervalEnd = sampleItem.endTimeStamp
     if (timeIntervalStart >= timeIntervalByLastMonth && timeIntervalStart <= timeIntervalByNow) || (timeIntervalEnd >= timeIntervalByLastMonth && timeIntervalEnd <= timeIntervalByNow) || (timeIntervalStart <= timeIntervalByNow && timeIntervalEnd >= timeIntervalByNow){
@@ -243,11 +261,14 @@ func filterConditionForSymptoms(sampleItem:Metrix,timeIntervalByLastMonth:Double
     return false
 }
 
-func filterConditionForOtherMetrix(sampleItem:Metrix,timeIntervalByLastMonth:Double,timeIntervalByNow:Double)->Bool{
+func filterMatricsForVitalOrLab(sampleItem:Metrix,timeIntervalByLastMonth:Double,timeIntervalByNow:Double)->Bool{
     let timeIntervalStart = sampleItem.startTimeStamp
+    /*
+     Here it's checking vitals's start time with timeIntervalByNow/Current time and timeIntervalByMonth/Day. So, if vitals's start time is between timeIntervalByNow/Current time and timeIntervalByMonth/Da, you will get filter data.
+     */
     if (timeIntervalStart >= timeIntervalByLastMonth && timeIntervalStart <= timeIntervalByNow){
-        print("sampleItem Vitals value----->",sampleItem.value)
-        print("sampleItem Vitals score----->",sampleItem.score)
+        //print("sampleItem Vitals value----->",sampleItem.value)
+        //print("sampleItem Vitals score----->",sampleItem.score)
         return true
     }
     return false

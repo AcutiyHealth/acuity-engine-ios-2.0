@@ -8,7 +8,7 @@
 import Foundation
 import UIKit
 
-enum HeartRateValue:Double {
+enum RYGValue:Double {
     case Red = 1
     case Yellow = 0.5
     case Green = 0
@@ -41,7 +41,7 @@ enum SymptomsTextValue:String {
 }
 enum SystemName:String {
     case Cardiovascular = "Cardiovascular"
-    case Respiratory = "Respiratory"
+    case Respiratory = "Pulmonary"
     case Renal = "Renal"
     case Gastrointestinal = "Gastrointestinal"
     case Genitourinary = "Genitourinary"
@@ -73,7 +73,12 @@ enum SegmentValueForGraph:String {
     case SevenDays = "7 Days"
     case ThirtyDays = "1 Month"
     case ThreeMonths = "3 Months"
-    case OneDay = "31 Day"
+    case OneDay = "1 Day"
+}
+enum ValueForMonths:Int {
+    case SevenDays = 7
+    case One = 1
+    case ThreeMonths = 3
 }
 enum MetricsType:String {
     case Sympotms = "Symptoms"
@@ -102,6 +107,10 @@ enum NSNotificationName: String {
     case pullUpClose = "pullUpClose"
     case showAcuityDetailPopup = "showAcuityDetailPopup"
     case refreshCircleView = "refreshCircleView"
+}
+struct AlertMessages {
+    static let STARTDATEGRATETHANENDDATE = "Start date should be less than End date"
+    static let OK = "OK"
 }
 struct WheelColor {
     static let BLUECOLORLABELTITLE = UIColor(red: 41.0 / 255.0, green: 121.0 / 255.0, blue: 255.0 / 255.0, alpha: 1.0)
@@ -151,10 +160,6 @@ struct Screen{
         568
 }
 
-struct AlertMessages {
-    
-}
-
 struct AcuityData {
     static let kAcuityId = "id"
 }
@@ -173,7 +178,7 @@ struct AcuityImages {
     static let kIntegumentary = "integumentary.png"
     static let kFluids = "fluids.png"
     static let kIDs = "infectious_disease.png"
-    static let kDisposition = "disposition_information.png"
+    static let kSDH = "disposition_information.png"
     static let kHeent = "heent.png"
 }
 

@@ -26,9 +26,7 @@ struct HematoSymptomsRelativeImportance {
 }
 
 class HematoSymptomsPainData:SymptomCalculation {
-    
-    var title:String = ""
-    
+   
     init(type:CategoryType) {
         super.init()
         super.symptomsType = type
@@ -36,28 +34,28 @@ class HematoSymptomsPainData:SymptomCalculation {
         switch type {
         //dizziness
         case .dizziness:
-            self.title = SymptomsName.dizziness.rawValue
+            super.title = SymptomsName.dizziness.rawValue
             self.relativeValue = HematoSymptomsRelativeImportance.dizziness
         //fatigue
         case .fatigue:
-            self.title = SymptomsName.fatigue.rawValue
+            super.title = SymptomsName.fatigue.rawValue
             self.relativeValue = HematoSymptomsRelativeImportance.fatigue
         //rapidPoundingOrFlutteringHeartbeat
         case .rapidPoundingOrFlutteringHeartbeat:
-            self.title = SymptomsName.rapidHeartbeat.rawValue
+            super.title = SymptomsName.rapidHeartbeat.rawValue
             self.relativeValue = HematoSymptomsRelativeImportance.rapidPoundingOrFlutteringHeartbeat
             
         //fainting
         case .fainting:
-            self.title = SymptomsName.fainting.rawValue
+            super.title = SymptomsName.fainting.rawValue
             self.relativeValue = HematoSymptomsRelativeImportance.fainting
         //chestTightnessOrPain
         case .chestTightnessOrPain:
-            self.title = SymptomsName.chestPain.rawValue
+            super.title = SymptomsName.chestPain.rawValue
             self.relativeValue = HematoSymptomsRelativeImportance.chestPain
         //shortnessOfBreath
         case .shortnessOfBreath:
-            self.title = SymptomsName.shortnessOfBreath.rawValue
+            super.title = SymptomsName.shortnessOfBreath.rawValue
             self.relativeValue = HematoSymptomsRelativeImportance.shortnessOfBreath
 
         default:

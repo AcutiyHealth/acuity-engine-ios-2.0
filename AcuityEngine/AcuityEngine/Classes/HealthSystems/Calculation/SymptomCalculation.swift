@@ -10,10 +10,17 @@ import HealthKitReporter
 
 class SymptomCalculation:Metrix {
     
+    var title:String = ""
     var symptomsType: CategoryType = .chestTightnessOrPain // calculate based on symtomps type
     var systemName:SystemName = SystemName.Cardiovascular
     override var value:Double{
         didSet{
+            /*
+             For sleepChanges, it's diffrenct than other symptoms in Red,Yellow and Green....
+             */
+            /*
+             InfectiousDisease system's dizziness symptoms have same calculation as sleep change.
+             */
             if symptomsType == CategoryType.sleepChanges{
                 self.calculatedValue = getSymptomSleepChangeValue().rawValue
             }

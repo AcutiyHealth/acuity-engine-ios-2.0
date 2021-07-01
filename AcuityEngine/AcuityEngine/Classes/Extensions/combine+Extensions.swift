@@ -25,3 +25,48 @@ extension Int {
         return self == 1 ? true : false
     }
 }
+extension ISO8601DateFormatter {
+    convenience init(_ formatOptions: Options) {
+        self.init()
+        self.formatOptions = formatOptions
+    }
+}
+extension Formatter {
+    static let iso8601withFractionalSeconds: DateFormatter = {
+        let formatter = DateFormatter()
+        formatter.calendar = Calendar(identifier: .iso8601)
+        formatter.locale = Locale(identifier: "en_US_POSIX")
+        formatter.timeZone = TimeZone(secondsFromGMT: 0)
+        formatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss'Z'"
+        return formatter
+    }()
+    
+    static let iso8601withFractionalSecondsNew: DateFormatter = {
+        let formatter = DateFormatter()
+        formatter.calendar = Calendar(identifier: .iso8601)
+        formatter.locale = Locale(identifier: "en_US_POSIX")
+        formatter.timeZone = TimeZone(secondsFromGMT: 0)
+        formatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ssXXX"
+        return formatter
+    }()
+}
+extension Date {
+    var iso8601withFractionalSeconds: String { return Formatter.iso8601withFractionalSeconds.string(from: self) }
+    var iso8601withFractionalSecondsNew: String { return Formatter.iso8601withFractionalSecondsNew.string(from: self) }
+}
+extension String {
+    var iso8601withFractionalSeconds: Date? { return Formatter.iso8601withFractionalSeconds.date(from: self) }
+    var iso8601withFractionalSecondsNew: Date? { return Formatter.iso8601withFractionalSecondsNew.date(from: self)}
+}
+extension JSONDecoder.DateDecodingStrategy {
+    static let iso8601withFractionalSeconds = custom {
+        let container = try $0.singleValueContainer()
+        let string = try container.decode(String.self)
+        guard let date = Formatter.iso8601withFractionalSeconds.date(from: string) else {
+            throw DecodingError.dataCorruptedError(in: container,
+                  debugDescription: "Invalid date: " + string)
+        }
+        return date
+    }
+    
+}
