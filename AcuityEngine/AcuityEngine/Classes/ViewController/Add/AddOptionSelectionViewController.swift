@@ -116,7 +116,9 @@ extension AddOptionSelectionViewController: UITableViewDelegate, UITableViewData
         self.addChild(symptomsVC!)
         let originY:CGFloat = 15
         symptomsVC?.view.frame = CGRect(x: 0, y: originY, width: visualEffectView.frame.size.width, height: visualEffectView.frame.size.height-originY)
-        visualEffectView.addSubview((symptomsVC?.view)!)
+        //Show animation when view added.....
+        animationForDetailViewWhenAdded(subviewToAdd: (symptomsVC?.view)!, in: self.visualEffectView)
+        
         symptomsVC?.didMove(toParent: self)
         
         //Add close button target
@@ -146,8 +148,12 @@ extension AddOptionSelectionViewController: UITableViewDelegate, UITableViewData
         self.addChild(vitalsVC!)
         let originY:CGFloat = 15
         vitalsVC?.view.frame = CGRect(x: 0, y: originY, width: visualEffectView.frame.size.width, height: visualEffectView.frame.size.height-originY)
-        visualEffectView.addSubview((vitalsVC?.view)!)
+       
+        //Show animation when view added.....
+        animationForDetailViewWhenAdded(subviewToAdd: (vitalsVC?.view)!, in: self.visualEffectView)
+        
         vitalsVC?.didMove(toParent: self)
+        vitalsVC?.lblTitle.text = title
         
         //Add close button target
         setUpCloseButton()
@@ -173,9 +179,13 @@ extension AddOptionSelectionViewController: UITableViewDelegate, UITableViewData
         conditionsVC = UIStoryboard(name: Storyboard.add.rawValue, bundle: nil).instantiateViewController(withIdentifier: "ConditionsListViewController") as? ConditionsListViewController
         self.addChild(conditionsVC!)
         let originY:CGFloat = 15
-        conditionsVC?.view.frame = CGRect(x: 0, y:originY, width: visualEffectView.frame.size.width, height: visualEffectView.frame.size.height-originY)
-        visualEffectView.addSubview((conditionsVC?.view)!)
+        conditionsVC?.view.frame = CGRect(x: 0, y: originY, width: visualEffectView.frame.size.width, height: visualEffectView.frame.size.height-originY)
+       
+         //Show animation when view added.....
+         animationForDetailViewWhenAdded(subviewToAdd: (conditionsVC?.view)!, in: self.visualEffectView)
+         
         conditionsVC?.didMove(toParent: self)
+        conditionsVC?.lblTitle.text = title
         
         //Add close button target
         setUpCloseButton()
@@ -234,7 +244,9 @@ extension AddOptionSelectionViewController: UITableViewDelegate, UITableViewData
     }
     
     func removeVitalView(){
-        
+        //Show animation when view is removed.....
+        animationForDetailViewWhenRemoved(from: self.visualEffectView)
+        ////
         self.vitalsVC?.tblVitals?.removeFromSuperview()
         self.vitalsVC?.view.removeFromSuperview()
         self.vitalsVC?.removeFromParent()
@@ -244,7 +256,9 @@ extension AddOptionSelectionViewController: UITableViewDelegate, UITableViewData
         
     }
     func removeSymptomsView(){
-        
+        //Show animation when view is removed.....
+        animationForDetailViewWhenRemoved(from: self.visualEffectView)
+        ////
         self.symptomsVC?.symptomView?.removeFromSuperview()
         self.symptomsVC?.view.removeFromSuperview()
         self.symptomsVC?.removeFromParent()
@@ -254,7 +268,9 @@ extension AddOptionSelectionViewController: UITableViewDelegate, UITableViewData
     }
     
     func removeConditionView(){
-        
+        //Show animation when view is removed.....
+        animationForDetailViewWhenRemoved(from: self.visualEffectView)
+        ////
         conditionsVC?.view.removeFromSuperview()
         conditionsVC?.removeFromParent()
         self.conditionsVC = nil

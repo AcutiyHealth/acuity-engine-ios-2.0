@@ -16,12 +16,15 @@ class VitalsListViewController: UIViewController {
     var addVitalsVC : AddVitalsViewController?
     var handler: CompletionaddVitalsViewOpen?
     @IBOutlet weak var lblTitle: UILabel!
-    
+    @IBOutlet weak var vitalView: UIView!
     
     @IBOutlet weak var btnClose: UIButton!
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        //set font for title
+        setFontForLabel()
         
         //Load Vitals from File
         loadVitalsData()
@@ -29,7 +32,9 @@ class VitalsListViewController: UIViewController {
         tblVitals.reloadData()
         // Do any additional setup after loading the view.
     }
-    
+    func  setFontForLabel() {
+        self.lblTitle.font = Fonts.kCellTitleFontListInAddSection
+    }
     func setHandler(handler: @escaping CompletionaddVitalsViewOpen){
         self.handler = handler
     }
@@ -69,8 +74,8 @@ extension VitalsListViewController:UITableViewDelegate,UITableViewDataSource{
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let cell: LabelDisplayCell = tableView.dequeueReusableCell(withIdentifier: "LabelDisplayCell", for: indexPath as IndexPath) as? LabelDisplayCell else {
-            fatalError("AcuityDetailDisplayCell cell is not found")
+        guard let cell: LabelInListAddSectionCell = tableView.dequeueReusableCell(withIdentifier: "LabelInListAddSectionCell", for: indexPath as IndexPath) as? LabelInListAddSectionCell else {
+            fatalError("LabelInListAddSectionCell cell is not found")
         }
         let vitalModel = vitalsArray[indexPath.row]
         cell.displayData(title: vitalModel.name.rawValue )
@@ -93,8 +98,10 @@ extension VitalsListViewController:UITableViewDelegate,UITableViewDataSource{
         addVitalsVC = UIStoryboard(name: Storyboard.add.rawValue, bundle: nil).instantiateViewController(withIdentifier: "AddVitalsViewController") as? AddVitalsViewController
         self.addChild(addVitalsVC!)
         addVitalsVC?.view.frame = CGRect(x: 0, y: 0, width: self.view.frame.size.width, height: self.view.frame.size.height)
+    
+        //Show animation when view added.....
+        animationForDetailViewWhenAdded(subviewToAdd: (addVitalsVC?.view)!, in: self.view)
         
-        self.view.addSubview((addVitalsVC?.view)!)
         addVitalsVC?.view.setNeedsDisplay()
         addVitalsVC?.didMove(toParent: self)
         addVitalsVC?.view.tag = 111
@@ -105,7 +112,7 @@ extension VitalsListViewController:UITableViewDelegate,UITableViewDataSource{
         //setUpCloseButton(frame:btnFrame , btnImage:btnImage , btnTintColor:btnTintColor! )
         //Hide main view of Detail Pullup class
         
-        tblVitals.isHidden = true
+        vitalView.isHidden = true
         
         
         if let handler = handler{
@@ -113,8 +120,11 @@ extension VitalsListViewController:UITableViewDelegate,UITableViewDataSource{
         }
     }
     func removeAddVitalsViewController(){
+        //Show animation when view removed from superview.......
+        animationForDetailViewWhenRemoved(from: self.view)
+        
         if addVitalsVC != nil{
-            tblVitals.isHidden = false
+            vitalView.isHidden = false
             addVitalsVC?.view.removeFromSuperview()
             addVitalsVC?.removeFromParent()
         }

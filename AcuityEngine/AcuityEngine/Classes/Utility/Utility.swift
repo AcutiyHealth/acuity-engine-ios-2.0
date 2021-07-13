@@ -33,6 +33,28 @@ func unescapeJSONString(_ string: String) -> String {
     return string.replacingOccurrences(of: "\\/", with: "/").replacingOccurrences(of: "\\\\", with: "\\")
 }
 
+//MARK: Apply Animation For Adding View
+func animationForDetailViewWhenAdded(subviewToAdd:UIView, in   view:UIView){
+    let transition = CATransition()
+    transition.type = CATransitionType.push
+    transition.subtype = CATransitionSubtype.fromRight
+    view.layer.add(transition, forKey: nil)
+    view.addSubview(subviewToAdd)
+}
+//MARK: Apply Animation For Removing View
+func animationForDetailViewWhenRemoved(from   view:UIView){
+    let transition = CATransition()
+    transition.type = CATransitionType.push
+    transition.subtype = CATransitionSubtype.fromLeft
+    view.layer.add(transition, forKey: nil)
+}
+//MARK: Animation For Score Label....
+func animateScoreView(view:UIView){
+    view.alpha = 0.0
+    UIView.animate(withDuration: 0.5) {
+        view.alpha = 1.0
+    }
+}
 //MARK: Chart Segment Color
 func getThemeColor(index: String?,isForWheel:Bool) -> UIColor? {
     let indexValue = Double(index ?? "") ?? 0
@@ -99,6 +121,14 @@ func getDateWithTime(date:Date)->String{
     formatter.dateFormat = "M/dd/yyyy hh:mm a"
     let localDate = formatter.string(from: date)
     return localDate
+    
+}
+func getDateFromString(date:String)->Date{
+    
+    let formatter = DateFormatter()
+    formatter.dateFormat = "M/dd/yyyy hh:mm a"
+    let localDate = formatter.date(from: date)
+    return localDate ?? Date()
     
 }
 

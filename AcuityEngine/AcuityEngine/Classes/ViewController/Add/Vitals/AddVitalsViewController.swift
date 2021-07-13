@@ -61,6 +61,8 @@ class AddVitalsViewController: UIViewController {
         
         //set fonts..
         setFontForLabel()
+        //set up UI for buttons....
+        setUpDesignForDateButtons()
         //Setup Toolbar For Number Pad...
         setupToolbarForNumberPad()
         
@@ -99,15 +101,25 @@ class AddVitalsViewController: UIViewController {
         txtFieldBP2.font = Fonts.kValueFont
         btnEnd.titleLabel?.font =  Fonts.kValueFont
         btnStart.titleLabel?.font =  Fonts.kValueFont
+       
         
         setupViewBorder(view: viewBP1)
         setupViewBorder(view: viewBP2)
         setupViewBorder(view: viewValue)
     }
     
+    func setUpDesignForDateButtons(){
+        btnEnd.layer.cornerRadius = 5;
+        btnStart.layer.cornerRadius = 5;
+        btnEnd.backgroundColor = UIColor.white.withAlphaComponent(0.2)
+        btnStart.backgroundColor = UIColor.white.withAlphaComponent(0.2)
+    }
+    
     func setupViewBorder(view:UIView){
         view.layer.borderWidth = 1
+        view.layer.cornerRadius = 5
         view.layer.borderColor = UIColor.white.cgColor
+        view.backgroundColor = UIColor.white.withAlphaComponent(0.3)
     }
     //MARK:--------------------------------------
     //MARK: Setup Toolbar For Number Pad...
@@ -298,11 +310,19 @@ extension AddVitalsViewController{
     @IBAction func btnStartDateClick(sender:UIButton){
         viewDatePicker.isHidden = false
         selectedButton = btnStart
+        guard ((btnStart.titleLabel?.text) != nil) else {
+            return
+        }
+        datePicker.date = getDateFromString(date: btnStart.titleLabel!.text!)
     }
     
     @IBAction func btnEndDateClick(sender:UIButton){
         viewDatePicker.isHidden = false
         selectedButton = btnEnd
+        guard ((btnEnd.titleLabel?.text) != nil) else {
+            return
+        }
+        datePicker.date = getDateFromString(date: btnEnd.titleLabel!.text!)
     }
     
     @IBAction func cancelBtnClicked(_ button: UIBarButtonItem?) {

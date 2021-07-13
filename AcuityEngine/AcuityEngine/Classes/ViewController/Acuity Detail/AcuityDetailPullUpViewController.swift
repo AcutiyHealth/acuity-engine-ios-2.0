@@ -28,6 +28,12 @@ class AcuityDetailPullUpViewController: UIViewController {
     @IBOutlet weak var visualEffectMainView: UIVisualEffectView!
     @IBOutlet weak var segmentControl: UISegmentedControl!
     
+    //4 tile UIView...
+    @IBOutlet weak var viewCondition: UIView!
+    @IBOutlet weak var viewSymptom: UIView!
+    @IBOutlet weak var viewVitals: UIView!
+    @IBOutlet weak var viewLab: UIView!
+    
     //4 tile tableview...
     @IBOutlet weak var tblCondition: UITableView!
     @IBOutlet weak var tblSymptom: UITableView!
@@ -77,6 +83,7 @@ class AcuityDetailPullUpViewController: UIViewController {
         labelLeadingMarginInitialConstant = labelLeadingMarginConstraint.constant
         setFontForLabel()
         setupSegmentControl()
+        showButtonLooksForAllMetrics()
         //change handle height for consistent swipe up...
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
             // your code here
@@ -90,11 +97,18 @@ class AcuityDetailPullUpViewController: UIViewController {
         lblTitle.font = Fonts.kAcuityDetailTitleFont
         lblScore.font = Fonts.kAcuityDetailValueFont
     }
-  
+    
     func setupSegmentControl(){
         viewModelObj.setUpSegmentControl(segmentControl: segmentControl)
     }
     
+    //MARK:
+    func showButtonLooksForAllMetrics(){
+        self.setBackgroundColorForMetricsView(view: viewCondition)
+        self.setBackgroundColorForMetricsView(view: viewVitals)
+        self.setBackgroundColorForMetricsView(view: viewSymptom)
+        self.setBackgroundColorForMetricsView(view: viewLab)
+    }
     //MARK: show system data in tableview
     func showSystemData(){
         guard let systemData = systemData else {
@@ -108,7 +122,7 @@ class AcuityDetailPullUpViewController: UIViewController {
         self.showScoreAndChartData()
         
         self.reloadTableView()
-       
+        
     }
     func displayDatailTitleFromAcuityModel(acuityModel:AcuityDisplayModel){
         systemMetricsData = acuityModel.metricDictionary
@@ -410,42 +424,61 @@ extension AcuityDetailPullUpViewController: UITableViewDelegate, UITableViewData
         
         //Add detail value view as child view
         detailConditionVC = UIStoryboard(name: Storyboard.acuityDetailPullUp.rawValue, bundle: nil).instantiateViewController(withIdentifier: "AcuityMetricsDetailViewController") as? AcuityMetricsDetailViewController
-        self.addChild(detailConditionVC!)
-        detailConditionVC?.view.frame.size = CGSize(width: visualEffectView.frame.size.width, height: visualEffectView.frame.size.height)
-        visualEffectView.addSubview((detailConditionVC?.view)!)
-        detailConditionVC?.didMove(toParent: self)
         
-        //when detail screen open make handle height small......
-        handleHeightConstraint.constant = handleHeight;
         
         switch metrixType {
         case .Conditions:
             detailConditionVC?.arrConditions = self.arrConditions
+            self.setBackgroundColorWhenViewSelcted(view: viewCondition)
         case .Vitals:
             detailConditionVC?.arrVitals = self.arrVitals
+            self.setBackgroundColorWhenViewSelcted(view: viewVitals)
         case .Sympotms:
             detailConditionVC?.arrSymptoms = self.arrSymptoms
+            self.setBackgroundColorWhenViewSelcted(view: viewSymptom)
         case .LabData:
             detailConditionVC?.arrLabs = self.arrLabs
-        
+            self.setBackgroundColorWhenViewSelcted(view: viewLab)
+            
         }
         
-        //PAss metrix Item to display data...
-        detailConditionVC?.metrixType = metrixType
-        setUpCloseButton()
-        
-        //Hide main view of Detail Pullup class
-        mainView.isHidden = true
-        detailConditionVC?.setHandler(handler: { [weak self] (open) in
-            if open ?? false{
-                self?.visualEffectView.bringSubviewToFront((self?.handleArea)!)
-                self?.setupBackButton()
-            }else{
-                self?.detailConditionVC?.view.removeFromSuperview()
-                self?.detailConditionVC?.removeFromParent()
-            }
-        })
-        visualEffectView.bringSubviewToFront(handleArea)
+        let delayInSeconds = 0.15
+        DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + delayInSeconds) { [self] in
+            
+            self.addChild(detailConditionVC!)
+            
+            //Make setBackgroundColorWhenViewUnSelcted
+            self.setBackgroundColorWhenViewUnSelcted()
+            
+            detailConditionVC?.view.frame.size = CGSize(width: visualEffectView.frame.size.width, height: visualEffectView.frame.size.height)
+            
+            
+            self.detailConditionVC?.didMove(toParent: self)
+            
+            //Show animation when view added.....
+            animationForDetailViewWhenAdded(subviewToAdd: (detailConditionVC?.view)!, in: self.visualEffectView)
+            
+            //when detail screen open make handle height small......
+            handleHeightConstraint.constant = handleHeight;
+            
+            
+            //PAss metrix Item to display data...
+            detailConditionVC?.metrixType = metrixType
+            setUpCloseButton()
+            
+            //Hide main view of Detail Pullup class
+            mainView.isHidden = true
+            detailConditionVC?.setHandler(handler: { [weak self] (open) in
+                if open ?? false{
+                    self?.visualEffectView.bringSubviewToFront((self?.handleArea)!)
+                    self?.setupBackButton()
+                }else{
+                    //Remove Detail View
+                    removeDetailViewFromParent()
+                }
+            })
+            visualEffectView.bringSubviewToFront(handleArea)
+        }
     }
     
     func setupBackButton(){
@@ -462,20 +495,47 @@ extension AcuityDetailPullUpViewController: UITableViewDelegate, UITableViewData
     func setHandleViewHeight(){
         //make handle height to chart view's max y....
         handleHeightConstraint.constant = segmentControl.frame.origin.y;
-       
+        
     }
+
+    //MARK: Set background view of Conditions,lab,symptoms and vital
+    func setBackgroundColorForMetricsView(view:UIView){
+        view.layer.cornerRadius = 5;
+        view.backgroundColor = UIColor.white.withAlphaComponent(0.2)
+    }
+    
+    //MARK: Make view of Conditions,lab,symptoms and vital selected
+    func setBackgroundColorWhenViewSelcted(view:UIView){
+        view.layer.borderColor = UIColor.white.cgColor
+        view.layer.borderWidth = 1;
+    }
+    
+    //MARK: Make view of Conditions,lab,symptoms and vital unselected
+    func setBackgroundColorWhenViewUnSelcted(){
+        viewLab.layer.borderWidth = 0;
+        viewVitals.layer.borderWidth = 0;
+        viewSymptom.layer.borderWidth = 0;
+        viewCondition.layer.borderWidth = 0;
+    }
+    
     //MARK: Btn close click
     @objc func btnCloseClickedInAcuityValueViewController(){
         if detailConditionVC != nil{
             
             handleArea.btnClose?.isHidden = true
             handleArea.btnBack?.isHidden = true
-            detailConditionVC?.view.removeFromSuperview()
-            detailConditionVC?.removeFromParent()
             mainView.isHidden = false
+            //Remove Detail View
+            removeDetailViewFromParent()
             //set handle view height to pull up consistently...
             setHandleViewHeight()
         }
+    }
+    
+    func removeDetailViewFromParent(){
+        animationForDetailViewWhenRemoved(from: self.visualEffectView)
+        detailConditionVC?.view.removeFromSuperview()
+        detailConditionVC?.removeFromParent()
     }
     //MARK: Btn Back click
     @objc func btnBackClickedInAcuityValueViewController(){

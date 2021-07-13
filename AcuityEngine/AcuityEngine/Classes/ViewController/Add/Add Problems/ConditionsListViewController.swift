@@ -14,11 +14,13 @@ class ConditionsListViewController: UIViewController {
     var conditionArray : [ConditionsModel] = []
     
     @IBOutlet weak var btnClose: UIButton!
+    @IBOutlet weak var lblTitle: UILabel!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        //loadConditionsData()
+        //set font for title
+        setFontForLabel()
         
         // Do any additional setup after loading the view.
     }
@@ -31,6 +33,10 @@ class ConditionsListViewController: UIViewController {
             loadConditionsData()
         }
         
+    }
+    
+    func setFontForLabel() {
+        self.lblTitle.font = Fonts.kCellTitleFontListInAddSection
     }
     //MARK: loadConditionsData
     

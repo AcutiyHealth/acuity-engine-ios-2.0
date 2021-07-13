@@ -49,44 +49,6 @@ class DataDisplayCell: UITableViewCell {
 }
 
 //MARK: - Picked Pullup TableCell
-class AcuityDetailDisplayCell: UITableViewCell {
-    
-    
-    @IBOutlet weak var titleLabel: UILabel!
-    
-    @IBOutlet weak var maxScore: UILabel!
-    @IBOutlet weak var disclousreButton: UIButton!
-    
-    
-    override func awakeFromNib() {
-        
-        super.awakeFromNib()
-        setFontForLabel()
-        // Initialization code
-    }
-    
-    func setFontForLabel(){
-        titleLabel.font = Fonts.kAcuityDetailCellFont
-        maxScore.font = Fonts.kAcuityDetailCellFont
-    }
-    
-    func displayData(metrixItem:AcuityDetailPulllUpModel){
-        
-        titleLabel.text = metrixItem.title
-        maxScore.text = metrixItem.value 
-        
-    }
-    
-    override func setSelected(_ selected: Bool, animated: Bool) {
-        
-        super.setSelected(selected, animated: animated)
-        
-        // Configure the view for the selected state
-    }
-    
-}
-
-//MARK: - Picked Pullup TableCell
 class AcuityDetailValueDisplayCell: UITableViewCell {
     
     
@@ -152,12 +114,12 @@ class LabelDisplayCell: UITableViewCell {
     override func awakeFromNib() {
         
         super.awakeFromNib()
-        setFontForLabel()
+        setFontForLabel(font:Fonts.kCellTitleFont)
         // Initialization code
     }
     
-    func setFontForLabel(){
-        titleLabel.font = Fonts.kCellTitleFont
+    func setFontForLabel(font:UIFont){
+        titleLabel.font = font
     }
     
     func displayData(title:String){
@@ -165,10 +127,8 @@ class LabelDisplayCell: UITableViewCell {
         titleLabel.text = title
         
     }
-    
-    
-}
 
+}
 class ProfileViewCell: UITableViewCell{
     
     
@@ -195,12 +155,26 @@ class ProfileViewCell: UITableViewCell{
     
 }
 //==========================================================================================//
+//==========================================================================================//
 
-//MARK: - Add Condition Selection Cell
-class AddConditionCell: UITableViewCell {
+//MARK: - Cell of List screen in Add Section
+class LabelInListAddSectionCell: LabelDisplayCell {
+  
+    override func awakeFromNib() {
+        
+        super.awakeFromNib()
+        setFontForLabel(font:Fonts.kCellTextFontListInAddSection)
+        // Initialization code
+    }
+ 
+}
+//MARK: - Add symptoms Selection Cell
+class AddSymptomsCell: UITableViewCell {
     
     @IBOutlet weak var titleLabel: UILabel!
-    @IBOutlet weak var yesOrNoSwitch: UISwitch!
+    @IBOutlet weak var imgViewCheckMark: UIImageView!
+    @IBOutlet weak var viewContainer: UIView!
+    
     
     override func awakeFromNib() {
         
@@ -210,7 +184,43 @@ class AddConditionCell: UITableViewCell {
     }
     
     func setFontForLabel(){
-        titleLabel.font = Fonts.kCellTitleFont
+        titleLabel.font = Fonts.kAcuitySystemCellFont
+    }
+    
+    func displayData(title:String){
+        
+        titleLabel.text = title
+        
+    }
+    
+    func setBorderToCell(){
+        self.viewContainer.layer.borderWidth = 1;
+        self.viewContainer.layer.cornerRadius = 5;
+        self.viewContainer.layer.borderColor = UIColor.white.cgColor;
+        self.setCellUnSelected()
+    }
+    func setCellUnSelected(){
+        self.viewContainer.backgroundColor = UIColor.white.withAlphaComponent(0.15)
+        self.imgViewCheckMark.alpha = 0.10
+    }
+    func setCellSelected(){
+        self.viewContainer.backgroundColor = UIColor.white.withAlphaComponent(0.6)
+        self.imgViewCheckMark.alpha = 1
+    }
+}
+
+//==========================================================================================//
+
+//MARK: - Add Condition Selection Cell
+class AddConditionCell: LabelDisplayCell {
+    
+    @IBOutlet weak var yesOrNoSwitch: UISwitch!
+    
+    override func awakeFromNib() {
+        
+        super.awakeFromNib()
+        setFontForLabel(font:Fonts.kCellTextFontListInAddSection)
+        // Initialization code
     }
     
     func displayData(title:String,isOn:Bool){

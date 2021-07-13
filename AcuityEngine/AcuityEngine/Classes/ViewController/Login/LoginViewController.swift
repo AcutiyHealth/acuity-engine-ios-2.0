@@ -18,6 +18,7 @@ class LoginViewController: UIViewController {
         self.view.backgroundColor = ColorSchema.kMainThemeColor
         //fetch data from healthkit and load in tableview
         //self.setupSOAppleSignIn()
+        moveToHealhDataScreen()
     }
     
     //Add button for Sign in with Apple
@@ -30,7 +31,7 @@ class LoginViewController: UIViewController {
     }
     
     // Perform acton on click of Sign in with Apple button
-    @objc func actionHandleAppleSignin() {
+    @IBAction func actionHandleAppleSignin() {
         let appleIDProvider = ASAuthorizationAppleIDProvider()
         let request = appleIDProvider.createRequest()
         request.requestedScopes = [.fullName, .email]
@@ -54,21 +55,32 @@ extension LoginViewController: ASAuthorizationControllerDelegate {
     func authorizationController(controller: ASAuthorizationController, didCompleteWithAuthorization authorization: ASAuthorization) {
         if let appleIDCredential = authorization.credential as? ASAuthorizationAppleIDCredential {
             // Create an account as per your requirement
-            /*let appleId = appleIDCredential.user
-            let appleUserFirstName = appleIDCredential.fullName?.givenName
-            let appleUserLastName = appleIDCredential.fullName?.familyName
-            let appleUserEmail = appleIDCredential.email*/
+            if let appleUser = AppleUser(appleIDCredential: appleIDCredential),
+               let appleUserData = try? JSONEncoder().encode(appleUser){
+                UserDefaults.standard.setValue(appleUserData, forKey: "appleUser")
+                print("save apple user",appleUserData)
+            }
+            else{
+                print("missing some fields", appleIDCredential.email, appleIDCredential.fullName, appleIDCredential.user)
+                
+                guard
+                    let appleUserData = UserDefaults.standard.data(forKey: "appleUser"),
+                    let appleUser = try? JSONDecoder().decode(AppleUser.self, from: appleUserData)
+                else { return }
+                
+                print(appleUser)
+            }
             moveToHealhDataScreen()
             //Write your code
         } else if let passwordCredential = authorization.credential as? ASPasswordCredential {
-            /*let appleUsername = passwordCredential.user
-            let applePassword = passwordCredential.password*/
+            let appleUsername = passwordCredential.user
+            let applePassword = passwordCredential.password
             moveToHealhDataScreen()
         }
     }
     
    @IBAction func moveToHealhDataScreen(){
-        guard let detailVC = UIStoryboard(name: Storyboard.main.rawValue, bundle: nil).instantiateViewController(withIdentifier: "HealthDataViewController")  as? HealthDataViewController else {return }
+        guard let detailVC = UIStoryboard(name: Storyboard.main.rawValue, bundle: nil).instantiateViewController(withIdentifier: "AcuityMainViewController")  as? AcuityMainViewController else {return }
         self.navigationController?.pushViewController(detailVC, animated: true)
     }
 }
