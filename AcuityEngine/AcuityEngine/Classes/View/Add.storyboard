@@ -194,33 +194,38 @@
                                                     <autoresizingMask key="autoresizingMask"/>
                                                     <subviews>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="wordWrap" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1pg-tB-Qib">
-                                                            <rect key="frame" x="11" y="0.0" width="328" height="60"/>
+                                                            <rect key="frame" x="11" y="0.0" width="290" height="60"/>
                                                             <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                             <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
-                                                        <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="7uB-6P-ZGu">
-                                                            <rect key="frame" x="349" y="14.5" width="51" height="31"/>
+                                                        <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="bordered" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="hjw-ez-pUS">
+                                                            <rect key="frame" x="312" y="14.5" width="81" height="32"/>
                                                             <constraints>
-                                                                <constraint firstAttribute="height" constant="31" id="Ve2-Si-onR"/>
+                                                                <constraint firstAttribute="height" constant="31" id="CUi-Ce-FjU"/>
+                                                                <constraint firstAttribute="width" constant="81" id="x6P-ms-RQO"/>
                                                             </constraints>
-                                                        </switch>
+                                                            <segments>
+                                                                <segment title="Yes"/>
+                                                                <segment title="No"/>
+                                                            </segments>
+                                                        </segmentedControl>
                                                     </subviews>
                                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                     <constraints>
-                                                        <constraint firstItem="7uB-6P-ZGu" firstAttribute="leading" secondItem="1pg-tB-Qib" secondAttribute="trailing" constant="10" id="CZJ-1r-FBu"/>
+                                                        <constraint firstAttribute="trailingMargin" secondItem="hjw-ez-pUS" secondAttribute="trailing" constant="5" id="8zO-nD-pwx"/>
+                                                        <constraint firstItem="hjw-ez-pUS" firstAttribute="centerY" secondItem="0eX-cS-nEU" secondAttribute="centerY" id="BtQ-Sh-hTf"/>
+                                                        <constraint firstItem="hjw-ez-pUS" firstAttribute="leading" secondItem="1pg-tB-Qib" secondAttribute="trailing" constant="11" id="M4N-jf-EeG"/>
                                                         <constraint firstItem="1pg-tB-Qib" firstAttribute="top" secondItem="0eX-cS-nEU" secondAttribute="top" id="MEt-U3-SAC"/>
-                                                        <constraint firstItem="7uB-6P-ZGu" firstAttribute="centerY" secondItem="0eX-cS-nEU" secondAttribute="centerY" id="NB4-qE-1cN"/>
                                                         <constraint firstAttribute="bottom" secondItem="1pg-tB-Qib" secondAttribute="bottom" id="T5n-I8-SmU"/>
                                                         <constraint firstItem="1pg-tB-Qib" firstAttribute="leading" secondItem="0eX-cS-nEU" secondAttribute="leading" constant="11" id="oj7-CY-wwX"/>
-                                                        <constraint firstAttribute="trailingMargin" secondItem="7uB-6P-ZGu" secondAttribute="trailing" id="tDN-wC-RY6"/>
                                                     </constraints>
                                                 </tableViewCellContentView>
                                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <connections>
                                                     <outlet property="titleLabel" destination="1pg-tB-Qib" id="P10-Zx-gaD"/>
-                                                    <outlet property="yesOrNoSwitch" destination="7uB-6P-ZGu" id="7yz-KS-IBD"/>
+                                                    <outlet property="yesOrNoSegmentControl" destination="hjw-ez-pUS" id="jgW-46-QBO"/>
                                                 </connections>
                                             </tableViewCell>
                                         </prototypes>

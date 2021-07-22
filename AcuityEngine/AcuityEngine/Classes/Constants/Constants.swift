@@ -75,6 +75,11 @@ enum SegmentValueForGraph:String {
     case ThreeMonths = "3 Months"
     case OneDay = "1 Day"
 }
+
+enum SegmentValueForCondition:String {
+    case Yes = "Yes"
+    case No = "No"
+}
 enum ValueForMonths:Int {
     case SevenDays = 7
     case One = 1
@@ -143,11 +148,13 @@ enum ColorSchema {
     //Main screen background
     static let kMainThemeColor =  UIColor(red: 20.0 / 255.0, green: 41 / 255.0, blue: 113 / 255.0, alpha: 1.0)
     static let kMainThemeColorForPullup =  UIColor(red: 20.0 / 255.0, green: 41 / 255.0, blue: 113 / 255.0, alpha: 0.3)
-}
+}//rgba(53, 85, 189, 1)
+
 struct ChartSize {
     static let kAcuityCircleWidth  = (Int(Screen.screenWidth)*360)/Screen.iPhone11ScreenWidth
     static let kAcuityCircleHeight  = (Int(Screen.screenWidth)*360)/Screen.iPhone11ScreenWidth
 }
+
 struct Screen{
     static let screenSize = UIScreen.main.bounds
     static let screenWidth = screenSize.width
@@ -198,6 +205,10 @@ struct Fonts {
     static let kCellTitleFont = UIFont.SFProDisplaySemiBold(of: 18)
     static let kValueFont = UIFont.SFProDisplayMedium(of: 18)
     
+    //List in Add Section cell
+    static let kCellTextFontListInAddSection = UIFont.SFProDisplaySemiBold(of: 20)
+    static let kCellTitleFontListInAddSection = UIFont.SFProDisplayBold(of: 28)
+    
     //Pull up
     static let kAcuityAddOptionTitleFont = UIFont.SFProDisplayBold(of: 22)
     static let kAcuityAddOptionValueFont = UIFont.SFProDisplayMedium(of: 12)
@@ -205,5 +216,14 @@ struct Fonts {
 }
 
 let dayArray = ["Mon","Tue","Wed","Thu","Fri","Sat","Sun"]
-let appName = Bundle.main.infoDictionary?["CFBundleDisplayName"] as? String ?? "AcuityEngine"
-let kIsConditionDataAdded = "isConditionDataAdded" as  String
+
+
+struct Key {
+    static let kIsConditionDataAdded = "isConditionDataAdded" as  String
+    static let kAppleFirstName = "appleFirstName" as  String
+    static let kAppleLastName = "appleLastName" as  String
+    static let kAppleEmail = "appleEmail" as  String
+    static let kAppleUserID = "appleUserID" as  String
+    static let kAppName = Bundle.main.infoDictionary?["CFBundleDisplayName"] as? String ?? "AcuityEngine"
+}
+

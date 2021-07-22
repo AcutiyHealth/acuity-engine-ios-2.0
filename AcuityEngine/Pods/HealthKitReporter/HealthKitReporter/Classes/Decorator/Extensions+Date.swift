@@ -12,7 +12,9 @@ public extension Date {
     static var iso8601: String {
         return "yyyy-MM-dd'T'HH:mm:ss.SSSZZZZZ"
     }
-
+    static var yyyyMMdd: String {
+        return "yyyy-MM-dd"
+    }
     var millisecondsSince1970: Double {
         return timeIntervalSince1970 * 1000
     }

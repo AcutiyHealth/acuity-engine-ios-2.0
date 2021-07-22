@@ -20,7 +20,7 @@ class HKManagerReadConditions: NSObject
         DispatchQueue.global().async {
             do {
                 // Fetch data from database if data already stored.....
-                if  let isConditionDataAdded = UserDefaults.standard.string(forKey: kIsConditionDataAdded){
+                if  let isConditionDataAdded = UserDefaults.standard.string(forKey: Key.kIsConditionDataAdded){
                     if isConditionDataAdded == "Yes"{
                         self.fetchConditionsDataFromDatabase { (success, error) in
                             completion(success,error)
@@ -30,7 +30,7 @@ class HKManagerReadConditions: NSObject
                     //save condition data in database
                     DBManager.shared.insertConditionData(completionHandler: { (sucess,error) in
                         if sucess{
-                            UserDefaults.standard.set("Yes", forKey: kIsConditionDataAdded) //String
+                            UserDefaults.standard.set("Yes", forKey: Key.kIsConditionDataAdded) //String
                             //Once data stored iin database, fetch it to use in calculation...
                             self.fetchConditionsDataFromDatabase{ (success, error) in
                                 completion(success,error)

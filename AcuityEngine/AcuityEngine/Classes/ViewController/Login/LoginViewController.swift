@@ -32,16 +32,25 @@ class LoginViewController: UIViewController {
     
     // Perform acton on click of Sign in with Apple button
     @IBAction func actionHandleAppleSignin() {
-        let appleIDProvider = ASAuthorizationAppleIDProvider()
-        let request = appleIDProvider.createRequest()
-        request.requestedScopes = [.fullName, .email]
         
-        let authorizationController = ASAuthorizationController(authorizationRequests: [request])
-        authorizationController.delegate = self
-        authorizationController.presentationContextProvider = self
-        authorizationController.performRequests()
+        if #available(iOS 13.0, *) {
+            let appleIDProvider = ASAuthorizationAppleIDProvider()
+            let request = appleIDProvider.createRequest()
+            request.requestedScopes = [.fullName, .email]
+            let authorizationController = ASAuthorizationController(authorizationRequests: [request])
+            authorizationController.delegate = self
+            authorizationController.performRequests()
+        } else {
+            // Fallback on earlier versions
+        }
     }
     
+    //========================================================================================================
+    //MARK:- Call Login Api
+    //========================================================================================================
+    func loginWithApple(){
+        
+    }
 }
 
 extension LoginViewController: ASAuthorizationControllerDelegate {
@@ -55,21 +64,25 @@ extension LoginViewController: ASAuthorizationControllerDelegate {
     func authorizationController(controller: ASAuthorizationController, didCompleteWithAuthorization authorization: ASAuthorization) {
         if let appleIDCredential = authorization.credential as? ASAuthorizationAppleIDCredential {
             // Create an account as per your requirement
-            if let appleUser = AppleUser(appleIDCredential: appleIDCredential),
-               let appleUserData = try? JSONEncoder().encode(appleUser){
-                UserDefaults.standard.setValue(appleUserData, forKey: "appleUser")
-                print("save apple user",appleUserData)
+            print(appleIDCredential)
+            var name = ""
+            if let nm = appleIDCredential.fullName?.givenName
+            {
+                name = "\(nm)"
+                setKeyChain(key: Key.kAppleFirstName, value: name)
             }
-            else{
-                print("missing some fields", appleIDCredential.email, appleIDCredential.fullName, appleIDCredential.user)
-                
-                guard
-                    let appleUserData = UserDefaults.standard.data(forKey: "appleUser"),
-                    let appleUser = try? JSONDecoder().decode(AppleUser.self, from: appleUserData)
-                else { return }
-                
-                print(appleUser)
+            
+            if let nm = appleIDCredential.fullName?.familyName
+            {
+                name = nm + " \(name)"
+                setKeyChain(key: Key.kAppleLastName, value: name)
             }
+            
+            if let em = appleIDCredential.email
+            {
+                setKeyChain(key: Key.kAppleEmail, value: em)
+            }
+            setKeyChain(key: Key.kAppleUserID, value: appleIDCredential.user)
             moveToHealhDataScreen()
             //Write your code
         } else if let passwordCredential = authorization.credential as? ASPasswordCredential {

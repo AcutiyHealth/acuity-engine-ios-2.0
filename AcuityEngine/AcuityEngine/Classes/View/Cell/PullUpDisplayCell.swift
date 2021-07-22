@@ -215,19 +215,29 @@ class AddSymptomsCell: UITableViewCell {
 class AddConditionCell: LabelDisplayCell {
     
     @IBOutlet weak var yesOrNoSwitch: UISwitch!
+    @IBOutlet weak var yesOrNoSegmentControl: UISegmentedControl!
     
     override func awakeFromNib() {
         
         super.awakeFromNib()
         setFontForLabel(font:Fonts.kCellTextFontListInAddSection)
+        setUpSegmentControl(segmentControl: yesOrNoSegmentControl)
         // Initialization code
     }
     
     func displayData(title:String,isOn:Bool){
         titleLabel.text = title
-        yesOrNoSwitch.isOn = isOn
+        yesOrNoSegmentControl.selectedSegmentIndex = isOn ? 0 : 1;
     }
-    
+
+    func setUpSegmentControl(segmentControl:UISegmentedControl){
+        segmentControl.setTitle(SegmentValueForCondition.Yes.rawValue, forSegmentAt: 0)
+        segmentControl.setTitle(SegmentValueForCondition.No.rawValue, forSegmentAt: 1)
+        segmentControl.defaultConfiguration(font: Fonts.kAcuityDetailSegmentFont, color: UIColor.white)
+        segmentControl.selectedConfiguration(font: Fonts.kAcuityDetailSegmentFont, color: UIColor.black)
+        segmentControl.selectedSegmentIndex = 1
+        //self.segmentClicked(segmentControl)
+    }
     
 }
 //MARK: - Add Condition Selection Cell

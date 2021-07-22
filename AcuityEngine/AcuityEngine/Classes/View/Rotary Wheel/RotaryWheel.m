@@ -83,12 +83,20 @@ chevrons will be used for smooth rotating, using min, mid and max value.
     _panGestureRecognizer =[[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(recognizeCircularViewGesture:)];
     _panGestureRecognizer.delegate = (id)self;
     [container addGestureRecognizer:_panGestureRecognizer];
+    
+    CGFloat x = (self.bounds.size.width*kChevronHeight*2/340 - self.bounds.size.width)/2 + 1;
+    UIView *outSideBorderView = [[UIView alloc] initWithFrame:CGRectMake(-x, -x,self.bounds.size.width*kChevronHeight*2/340 + 2, self.bounds.size.width*kChevronHeight*2/340 + 2)];
+    outSideBorderView.layer.cornerRadius = outSideBorderView.frame.size.width/2;
+    outSideBorderView.layer.borderColor = UIColor.whiteColor.CGColor;
+    outSideBorderView.layer.borderWidth = 1;
+    outSideBorderView.userInteractionEnabled = false;
+    //[container addSubview:outSideBorderView];
     /*
      In this, circle will have 360 degree and number of angle will be number of sections. so chevron width(kChevronWidth) will be change accordingly. kChevronHeight is kAcuityCircleHeight/2
      Arc length = Angle * Radius
      kChevronWidth = Angle * kChevronHeight
      If 14 system is there... Angle = (2 * 3.14)/14 so It will be 0.4485.
-     kChevronWidth = 0.4485 * 180 = 80
+     kChevronWidth = 0.4485 * 180 = 80. Make change in  constant kChevronWidth
      */
     CGFloat angleSize = 2*M_PI/numberOfSections;
     
@@ -139,11 +147,13 @@ chevrons will be used for smooth rotating, using min, mid and max value.
         UITapGestureRecognizer *tapGestureRecognizer =[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(recognizeChevronGesture:)];
         tapGestureRecognizer.delegate = (id)self;
         [chevronImageView addGestureRecognizer:tapGestureRecognizer];
-        CGFloat x = 22;
+        CGFloat y = 7;
         if (self.frame.size.width<290) {
-            x = 18;
+            y = 10;
         }
-        UIImageView *imageView = [[UIImageView alloc] initWithFrame:CGRectMake(x*self.bounds.size.width/kAcuityCircleWidth, 5, 38,25)];
+        y = 9*self.frame.size.width/340;
+        //Small Image/Icon in Middle Of Chevron.......
+        UIImageView *imageView = [[UIImageView alloc] initWithFrame:CGRectMake(20*self.bounds.size.width/kAcuityCircleWidth, y*self.bounds.size.width/kAcuityCircleWidth, 45*self.bounds.size.width/kAcuityCircleWidth,30*self.bounds.size.width/kAcuityCircleWidth)];
         [imageView setUserInteractionEnabled:NO];
         [imageView setTag:9999];
        
@@ -154,6 +164,7 @@ chevrons will be used for smooth rotating, using min, mid and max value.
         imageView.backgroundColor = UIColor.clearColor;
         [chevronView addSubview:chevronImageView];
         [chevronView addSubview:imageView];
+   
         [container addSubview:chevronView];
     }
     
@@ -171,7 +182,8 @@ chevrons will be used for smooth rotating, using min, mid and max value.
     _whiteCircleContainerView = [[UIView alloc] initWithFrame:CGRectMake(0,0,self.frame.size.width, self.frame.size.height)];
     [_whiteCircleContainerView setBackgroundColor:[UIColor clearColor]];
     
-    roundbackGroundView = [[UIView alloc] initWithFrame:CGRectMake(30,30, _whiteCircleContainerView.frame.size.width - 60, _whiteCircleContainerView.frame.size.height - 60)];
+    CGFloat xOfwhiteCircleImageView = 70*self.frame.size.width/340;
+    roundbackGroundView = [[UIView alloc] initWithFrame:CGRectMake(xOfwhiteCircleImageView/2,xOfwhiteCircleImageView/2, _whiteCircleContainerView.frame.size.width - xOfwhiteCircleImageView, _whiteCircleContainerView.frame.size.height - xOfwhiteCircleImageView)];
     roundbackGroundView.layer.cornerRadius = roundbackGroundView.frame.size.height/2;
     roundbackGroundView.center = CGPointMake(_whiteCircleContainerView.center.x, _whiteCircleContainerView.center.y);
     roundbackGroundView.backgroundColor = UIColor.clearColor;
@@ -179,7 +191,9 @@ chevrons will be used for smooth rotating, using min, mid and max value.
     
     [self addSubview:roundbackGroundView];
     
-   UIImageView *whiteCircleImageView = [[UIImageView alloc] initWithFrame:CGRectMake(30,30, _whiteCircleContainerView.frame.size.width - 52, _whiteCircleContainerView.frame.size.height - 52)];
+ 
+    
+   UIImageView *whiteCircleImageView = [[UIImageView alloc] initWithFrame:CGRectMake(xOfwhiteCircleImageView/2,xOfwhiteCircleImageView/2, _whiteCircleContainerView.frame.size.width - xOfwhiteCircleImageView, _whiteCircleContainerView.frame.size.height - xOfwhiteCircleImageView)];
     whiteCircleImageView.image = [UIImage imageNamed:@"white_circle"];
     [whiteCircleImageView setUserInteractionEnabled:NO];
     //whiteCircleImageView.layer.anchorPoint = CGPointMake(0.5f,0.5f);
