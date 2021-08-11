@@ -11,26 +11,10 @@
     },
     {
       "extent" : "full-screen",
-      "idiom" : "iphone",
-      "minimum-system-version" : "12.0",
-      "orientation" : "landscape",
-      "scale" : "3x",
-      "subtype" : "2688h"
-    },
-    {
-      "extent" : "full-screen",
       "filename" : "iPhone XR.png",
       "idiom" : "iphone",
       "minimum-system-version" : "12.0",
       "orientation" : "portrait",
-      "scale" : "2x",
-      "subtype" : "1792h"
-    },
-    {
-      "extent" : "full-screen",
-      "idiom" : "iphone",
-      "minimum-system-version" : "12.0",
-      "orientation" : "landscape",
       "scale" : "2x",
       "subtype" : "1792h"
     },
@@ -45,26 +29,10 @@
     },
     {
       "extent" : "full-screen",
-      "idiom" : "iphone",
-      "minimum-system-version" : "11.0",
-      "orientation" : "landscape",
-      "scale" : "3x",
-      "subtype" : "2436h"
-    },
-    {
-      "extent" : "full-screen",
-      "filename" : "hd.png",
+      "filename" : "iPhone 6S plus.7 Plus .8 Plus.png",
       "idiom" : "iphone",
       "minimum-system-version" : "8.0",
       "orientation" : "portrait",
-      "scale" : "3x",
-      "subtype" : "736h"
-    },
-    {
-      "extent" : "full-screen",
-      "idiom" : "iphone",
-      "minimum-system-version" : "8.0",
-      "orientation" : "landscape",
       "scale" : "3x",
       "subtype" : "736h"
     },
@@ -76,45 +44,6 @@
       "orientation" : "portrait",
       "scale" : "2x",
       "subtype" : "667h"
-    },
-    {
-      "extent" : "full-screen",
-      "filename" : "iPhone 4S.png",
-      "idiom" : "iphone",
-      "minimum-system-version" : "7.0",
-      "orientation" : "portrait",
-      "scale" : "2x"
-    },
-    {
-      "extent" : "full-screen",
-      "filename" : "iPhone 5.png",
-      "idiom" : "iphone",
-      "minimum-system-version" : "7.0",
-      "orientation" : "portrait",
-      "scale" : "2x",
-      "subtype" : "retina4"
-    },
-    {
-      "extent" : "full-screen",
-      "filename" : "iPhone 5 copy.png",
-      "idiom" : "iphone",
-      "orientation" : "portrait",
-      "scale" : "1x"
-    },
-    {
-      "extent" : "full-screen",
-      "filename" : "iPhone 4S-1.png",
-      "idiom" : "iphone",
-      "orientation" : "portrait",
-      "scale" : "2x"
-    },
-    {
-      "extent" : "full-screen",
-      "filename" : "iPhone 5-1.png",
-      "idiom" : "iphone",
-      "orientation" : "portrait",
-      "scale" : "2x",
-      "subtype" : "retina4"
     }
   ],
   "info" : {

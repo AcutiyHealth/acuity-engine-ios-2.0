@@ -87,7 +87,8 @@ class AcuityMetricsValueViewModel: NSObject
             do{
                 arrLab = HeentManager.sharedManager.heentData.heentLab.getArrayDataForLabs(days:MyWellScore.sharedManager.daysToCalculateSystemScore, title: title)
             }
-            
+        default:
+        break
         }
         
         return arrLab
@@ -152,7 +153,8 @@ class AcuityMetricsValueViewModel: NSObject
             do{
                 arrSymptoms = HeentManager.sharedManager.heentData.heentSymptoms.getArrayDataForSymptoms(days:MyWellScore.sharedManager.daysToCalculateSystemScore, title: title)
             }
-     
+        default:
+        break
         }
         
         return arrSymptoms
@@ -218,6 +220,8 @@ class AcuityMetricsValueViewModel: NSObject
             do{
                 arrVitals = HeentManager.sharedManager.heentData.heentVital.getArrayDataForVitals(days:MyWellScore.sharedManager.daysToCalculateSystemScore, title: title)
             }
+        default:
+        break
         }
         return arrVitals
     }

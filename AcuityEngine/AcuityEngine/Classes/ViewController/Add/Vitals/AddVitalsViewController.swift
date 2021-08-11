@@ -94,13 +94,13 @@ class AddVitalsViewController: UIViewController {
     }
     func setFontForLabel(){
         lblTitle.font = Fonts.kAcuityDetailTitleFont
-        lblStart.font = Fonts.kCellTitleFont
-        lblEnd.font = Fonts.kCellTitleFont
-        txtFieldValue.font = Fonts.kValueFont
-        txtFieldBP1.font = Fonts.kValueFont
-        txtFieldBP2.font = Fonts.kValueFont
-        btnEnd.titleLabel?.font =  Fonts.kValueFont
-        btnStart.titleLabel?.font =  Fonts.kValueFont
+        lblStart.font = Fonts.kStartEndTitleFont
+        lblEnd.font = Fonts.kStartEndTitleFont
+        txtFieldValue.font = Fonts.kStartEndValueFont
+        txtFieldBP1.font = Fonts.kStartEndValueFont
+        txtFieldBP2.font = Fonts.kStartEndValueFont
+        btnEnd.titleLabel?.font =  Fonts.kStartEndValueFont
+        btnStart.titleLabel?.font =  Fonts.kStartEndValueFont
        
         
         setupViewBorder(view: viewBP1)

@@ -12,7 +12,7 @@
 #import "Chevron.h"
 
 #define kChevronHeight 180
-#define kChevronWidth 80
+#define kChevronWidth 75.36
 #define kAcuityCircleWidth  360
 #define kAcuityCircleHeight  360
 #define BLUECOLORLABELTITLE [UIColor colorWithRed:41.0/255.0 green:121.0/255.0 blue:255.0/255.0 alpha:1.0]
@@ -83,14 +83,7 @@ chevrons will be used for smooth rotating, using min, mid and max value.
     _panGestureRecognizer =[[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(recognizeCircularViewGesture:)];
     _panGestureRecognizer.delegate = (id)self;
     [container addGestureRecognizer:_panGestureRecognizer];
-    
-    CGFloat x = (self.bounds.size.width*kChevronHeight*2/340 - self.bounds.size.width)/2 + 1;
-    UIView *outSideBorderView = [[UIView alloc] initWithFrame:CGRectMake(-x, -x,self.bounds.size.width*kChevronHeight*2/340 + 2, self.bounds.size.width*kChevronHeight*2/340 + 2)];
-    outSideBorderView.layer.cornerRadius = outSideBorderView.frame.size.width/2;
-    outSideBorderView.layer.borderColor = UIColor.whiteColor.CGColor;
-    outSideBorderView.layer.borderWidth = 1;
-    outSideBorderView.userInteractionEnabled = false;
-    //[container addSubview:outSideBorderView];
+
     /*
      In this, circle will have 360 degree and number of angle will be number of sections. so chevron width(kChevronWidth) will be change accordingly. kChevronHeight is kAcuityCircleHeight/2
      Arc length = Angle * Radius
@@ -107,7 +100,7 @@ chevrons will be used for smooth rotating, using min, mid and max value.
         [chevronView setBackgroundColor:[UIColor clearColor]];
         chevronView.layer.bounds = CGRectMake(0.0, 0.0,self.bounds.size.width*kChevronWidth/340,self.bounds.size.width*kChevronHeight/340);
         chevronView.layer.position = CGPointMake(CGRectGetMidX(self.bounds),CGRectGetMidY(self.bounds));
-        chevronView.transform = CGAffineTransformMakeRotation(angleSize*i);
+        chevronView.transform = CGAffineTransformMakeRotation((angleSize*i));
         chevronView.userInteractionEnabled = YES;
         chevronView.backgroundColor = [UIColor clearColor];
         chevronView.alpha = maxAlphavalue;
@@ -151,9 +144,9 @@ chevrons will be used for smooth rotating, using min, mid and max value.
         if (self.frame.size.width<290) {
             y = 10;
         }
-        y = 9*self.frame.size.width/340;
+        y = 4*self.frame.size.width/340;
         //Small Image/Icon in Middle Of Chevron.......
-        UIImageView *imageView = [[UIImageView alloc] initWithFrame:CGRectMake(20*self.bounds.size.width/kAcuityCircleWidth, y*self.bounds.size.width/kAcuityCircleWidth, 45*self.bounds.size.width/kAcuityCircleWidth,30*self.bounds.size.width/kAcuityCircleWidth)];
+        UIImageView *imageView = [[UIImageView alloc] initWithFrame:CGRectMake(15*self.bounds.size.width/kAcuityCircleWidth, y*self.bounds.size.width/kAcuityCircleWidth, 50*self.bounds.size.width/kAcuityCircleWidth,35*self.bounds.size.width/kAcuityCircleWidth)];
         [imageView setUserInteractionEnabled:NO];
         [imageView setTag:9999];
        
@@ -221,6 +214,14 @@ chevrons will be used for smooth rotating, using min, mid and max value.
     [self makeviewRounded:_whiteCircleContainerView];
     
     [self.delegate wheelDidChangeValue:selectedSystem];
+    
+    CGFloat x = (self.bounds.size.width*kChevronHeight*2/340 - self.bounds.size.width)/2 + 1.8;
+    UIView *outSideBorderView = [[UIView alloc] initWithFrame:CGRectMake(-x, -x,self.bounds.size.width*kChevronHeight*2/340 + 3.6, self.bounds.size.width*kChevronHeight*2/340 + 3.6)];
+    outSideBorderView.layer.cornerRadius = outSideBorderView.frame.size.width/2;
+    outSideBorderView.layer.borderColor = UIColor.whiteColor.CGColor;
+    outSideBorderView.layer.borderWidth = 2;
+    outSideBorderView.userInteractionEnabled = false;
+    [container addSubview:outSideBorderView];
 }
 #pragma mark - Make Rounded view
 -(void)makeviewRounded:(UIView* )view{

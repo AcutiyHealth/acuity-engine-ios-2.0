@@ -64,10 +64,10 @@ class AddSymptomViewController: UIViewController {
     
     func setFontForLabel(){
         lblTitle.font = Fonts.kCellTitleFontListInAddSection
-        lblStart.font = Fonts.kCellTitleFont
-        lblEnd.font = Fonts.kCellTitleFont
-        btnEnd.titleLabel?.font =  Fonts.kValueFont
-        btnStart.titleLabel?.font =  Fonts.kValueFont
+        lblStart.font = Fonts.kStartEndTitleFont
+        lblEnd.font = Fonts.kStartEndTitleFont
+        btnEnd.titleLabel?.font =  Fonts.kStartEndValueFont
+        btnStart.titleLabel?.font =  Fonts.kStartEndValueFont
         
     }
     

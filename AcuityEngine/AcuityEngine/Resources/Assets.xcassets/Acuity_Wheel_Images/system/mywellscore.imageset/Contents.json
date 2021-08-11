@@ -1,17 +1,17 @@
 {
   "images" : [
     {
-      "filename" : "iPhone SE-1.png",
+      "filename" : "Group 2.png",
       "idiom" : "universal",
       "scale" : "1x"
     },
     {
-      "filename" : "iPhone SE.png",
+      "filename" : "Group 2@2x.png",
       "idiom" : "universal",
       "scale" : "2x"
     },
     {
-      "filename" : "iPhone XS Max.png",
+      "filename" : "Group 2@3x.png",
       "idiom" : "universal",
       "scale" : "3x"
     }

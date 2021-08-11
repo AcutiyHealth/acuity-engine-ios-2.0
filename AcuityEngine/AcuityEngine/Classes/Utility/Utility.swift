@@ -88,8 +88,15 @@ func isiPhone() -> Bool{
     }
     return false
 }
-
+//MARK-
+func getFontAsPerDeviceSize(fontName:UIFont,fontSize:CGFloat)->UIFont{
+    return fontName.withSize(fontSize*DeviceSize.screenWidth/320)
+}
 //MARK:
+func getRowHeightAsPerDeviceSize(height:CGFloat)->CGFloat{
+    return height*DeviceSize.screenWidth/320
+}
+//MARK:-
 func getStringToDisplayScore(score:Double)->String{
     let isScoreInteger = score.truncatingRemainder(dividingBy: 1) == 0
     return isScoreInteger ? String(format: "%.0f", score) : String(format: "%.2f", score)
@@ -244,8 +251,10 @@ func getScoreForLabDataWithGivenDateRange(sampleItem:[Metrix],timeIntervalByLast
 //MARK: getScoreForSymptomsData
 func getScoreForSymptomsDataWithGivenDateRange(sampleItem:[Metrix],timeIntervalByLastMonth:Double,timeIntervalByNow:Double)->Double{
     var filteredArray:[Metrix] = []
-    
+    //print("timeIntervalByLastMonth",timeIntervalByLastMonth)
+    //print("timeIntervalByNow",timeIntervalByNow)
     filteredArray = sampleItem.filter { item in
+       
         filterMatricsForSymptoms(sampleItem: item, timeIntervalByLastMonth: timeIntervalByLastMonth, timeIntervalByNow: timeIntervalByNow)
     }
     
@@ -275,8 +284,8 @@ func getTimeIntervalBySelectedSegmentOfDays(days:SegmentValueForGraph)->Double{
     
     let daysAgo = Calendar.current.date(byAdding: component, value: -beforeDaysOrWeekOrMonth, to: now)!
     
-    let startOfDaysAgo = Calendar.current.startOfDay(for: daysAgo)
-    let timeIntervalByLastMonth:Double = startOfDaysAgo.timeIntervalSince1970
+    //let startOfDaysAgo = Calendar.current.startOfDay(for: daysAgo)
+    let timeIntervalByLastMonth:Double = daysAgo.timeIntervalSince1970
     
     return timeIntervalByLastMonth
 }
@@ -285,6 +294,8 @@ func filterMatricsForSymptoms(sampleItem:Metrix,timeIntervalByLastMonth:Double,t
     let timeIntervalStart = sampleItem.startTimeStamp
     let timeIntervalEnd = sampleItem.endTimeStamp
     if (timeIntervalStart >= timeIntervalByLastMonth && timeIntervalStart <= timeIntervalByNow) || (timeIntervalEnd >= timeIntervalByLastMonth && timeIntervalEnd <= timeIntervalByNow) || (timeIntervalStart <= timeIntervalByNow && timeIntervalEnd >= timeIntervalByNow){
+        print("item startTime",sampleItem.startTimeStamp)
+        print("item endTimeStamp",sampleItem.endTimeStamp)
         print("sampleItem Symptoms----->",sampleItem.value)
         return true
     }

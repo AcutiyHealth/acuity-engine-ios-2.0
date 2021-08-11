@@ -14,10 +14,10 @@ class AcuityDisplayModel {
     var index: String?
     var image: String?
     var metricDictionary: [String:Any]?
-    
+    var myWellScoreDataDictionary: [[String:Any]]?
     //MARK: To display data in Pull up...
     func dictionaryRepresentation()->[String:Any]{
-        return ["id":id ?? "","name":name?.rawValue ?? "","score":score ?? "","image":image ?? "","metricDictionary":(metricDictionary ?? []) ]
+        return [Keys.kAcuityId:id ?? "",Keys.kSystemName:name?.rawValue ?? "",Keys.kScore:score ?? "",Keys.kImage:image ?? "",Keys.kMetricDictionary:(metricDictionary ?? []),Keys.kMyWellScoreDataDictionary:(myWellScoreDataDictionary ?? []) ]
     }
 }
 

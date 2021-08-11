@@ -20,7 +20,70 @@ class AcuityDetailPullUpViewModel: NSObject
         tblView.backgroundView = noDataLabel
         
     }
+    func setBackGroundColorFor(viewSymptom:UIView,viewCondition:UIView,viewVital:UIView,viewLab:UIView){
+        self.setBackgroundColorForMetricsView(view: viewCondition)
+        self.setBackgroundColorForMetricsView(view: viewVital)
+        self.setBackgroundColorForMetricsView(view: viewSymptom)
+        self.setBackgroundColorForMetricsView(view: viewLab)
+    }
     
+    //MARK: Set background view of Conditions,lab,symptoms and vital
+    func setBackgroundColorForMetricsView(view:UIView){
+        view.layer.cornerRadius = 5;
+        view.backgroundColor = UIColor.white.withAlphaComponent(0.2)
+    }
+    //MARK: Make view of Conditions,lab,symptoms and vital selected
+    func setBackgroundColorWhenViewSelcted(view:UIView){
+        view.layer.borderColor = UIColor.white.cgColor
+        view.layer.borderWidth = 1;
+    }
+    
+    //MARK: Make view of Conditions,lab,symptoms and vital unselected
+    func setBackgroundColorWhenViewUnSelcted(viewSymptom:UIView,viewCondition:UIView,viewVital:UIView,viewLab:UIView){
+        viewLab.layer.borderWidth = 0;
+        viewVital.layer.borderWidth = 0;
+        viewSymptom.layer.borderWidth = 0;
+        viewCondition.layer.borderWidth = 0;
+    }
+    
+    func prepareArrayFromAcuityModel(systemMetricsData:[String:Any]?)->([ConditionsModel],[SymptomsModel],[VitalsModel],[LabModel]){
+        //generate array of conditions,lab,vital,symptoms
+        var arrConditions:[ConditionsModel] = []
+        var arrSymptoms:[SymptomsModel] = []
+        var arrLabs:[LabModel] = []
+        var arrVitals:[VitalsModel] = []
+        guard let arrCondition = systemMetricsData?[MetricsType.Conditions.rawValue] as? [ConditionsModel] else {
+            return (arrConditions,arrSymptoms,arrVitals,arrLabs)
+        }
+        guard let arrSymptom = systemMetricsData?[MetricsType.Sympotms.rawValue] as? [SymptomsModel] else {
+            return (arrConditions,arrSymptoms,arrVitals,arrLabs)
+        }
+        guard let arrLab = systemMetricsData?[MetricsType.LabData.rawValue] as? [LabModel] else {
+            return (arrConditions,arrSymptoms,arrVitals,arrLabs)
+        }
+        guard let arrVital = systemMetricsData?[MetricsType.Vitals.rawValue] as? [VitalsModel] else {
+            return (arrConditions,arrSymptoms,arrVitals,arrLabs)
+        }
+        arrConditions = arrCondition
+        arrSymptoms = arrSymptom
+        arrLabs = arrLab
+        arrVitals = arrVital
+        
+        //Sorting of array...
+        arrConditions.sort {
+            $0.title ?? "" < $1.title ?? ""
+        }
+        arrVitals.sort {
+            $0.title ?? "" < $1.title ?? ""
+        }
+        arrSymptoms.sort {
+            $0.title ?? "" < $1.title ?? ""
+        }
+        arrLabs.sort {
+            $0.title ?? "" < $1.title ?? ""
+        }
+        return (arrConditions,arrSymptoms,arrVitals,arrLabs)
+    }
     func setUpSegmentControl(segmentControl:UISegmentedControl){
         segmentControl.setTitle(SegmentValueForGraph.SevenDays.rawValue, forSegmentAt: 0)
         segmentControl.setTitle(SegmentValueForGraph.ThirtyDays.rawValue, forSegmentAt: 1)
@@ -33,11 +96,12 @@ class AcuityDetailPullUpViewModel: NSObject
     
     func prepareAcuityModelFromSystemData(systemData:[String:Any])->AcuityDisplayModel{
         let acuityModel = AcuityDisplayModel()
-        acuityModel.id = systemData["id"] as? String
-        acuityModel.name = SystemName(rawValue: systemData["name"] as! String )
-        acuityModel.score = systemData["score"]  as? String ?? ""
-        acuityModel.image = systemData["image"]  as? String ?? ""
-        acuityModel.metricDictionary = systemData["metricDictionary"] as? [String:Any]
+        acuityModel.id = systemData[Keys.kAcuityId] as? String
+        acuityModel.name = SystemName(rawValue: systemData[Keys.kSystemName] as! String )
+        acuityModel.score = systemData[Keys.kScore]  as? String ?? ""
+        acuityModel.image = systemData[Keys.kImage]  as? String ?? ""
+        acuityModel.metricDictionary = systemData[Keys.kMetricDictionary] as? [String:Any]
+        acuityModel.myWellScoreDataDictionary = systemData[Keys.kMyWellScoreDataDictionary] as? [[String:Double]]
         return acuityModel
     }
     func getScoreAndArrayOfSystemScore()->(String,[Double],[String:Any]){
@@ -149,9 +213,32 @@ class AcuityDetailPullUpViewModel: NSObject
                 arraySystemScore = HeentManager.sharedManager.heentData.arrayDayWiseSystemScore
             }
             
+        default:
+            break
         }
+        
         return (scoreText,arraySystemScore,metricDictionary)
         
+    }
+    func getScoreAndArrayOfSystemScoreForMyWellScore()->(String,[Double],[[String:Any]]){
+        /*
+         From this method, score for each system will be calculated for 7 days, 1 month and 3 months based upon selected segment.
+         */
+        var scoreText = String(format: "0.00")
+        var arraySystemScore:[Double] = []
+        var metricDictionary:[[String:Any]] = [[:]]
+        
+        let systemScore = MyWellScore.sharedManager.myWellScore
+        scoreText = systemScore == 100 ? String(format: "%.0f", systemScore) : String(format: "%.2f", systemScore)
+        //scoreText = String(format: "%.2f", systemScore)
+        metricDictionary = MyWellScore.sharedManager.dictionaryOfSystemScore
+        for dict in metricDictionary{
+            if let score = dict[Keys.kScore]{
+                arraySystemScore.append(score as! Double)
+            }
+        }
+        
+        return (scoreText,arraySystemScore,metricDictionary)
     }
     
 }

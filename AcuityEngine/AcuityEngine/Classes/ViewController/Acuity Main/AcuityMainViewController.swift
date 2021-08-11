@@ -297,8 +297,9 @@ class AcuityMainViewController: PullUpViewController, UIScrollViewDelegate,Rotar
     func setUIColorForMainView(){
         self.view.backgroundColor = ColorSchema.kMainThemeColor
     }
-    
+    //========================================================================================================
     //MARK: set font of my well score according to  view
+    //========================================================================================================
     func setFontForMyWellScore(){
         if self.view.frame.height <= 667{
             lblScore.font = lblScore.font.withSize((self.view.frame.height * 100)/896)
@@ -308,8 +309,10 @@ class AcuityMainViewController: PullUpViewController, UIScrollViewDelegate,Rotar
             lblScoreWhenPopup.font = lblScoreText.font.withSize((self.view.frame.height * 60)/896)
         }
     }
-    
+    //========================================================================================================
     //MARK: Show data in header..
+    //========================================================================================================
+
     func displayMyWellScoreData(){
         //self.headerView.lblSystemScore!.text = String(format: "%.2f", (MyWellScore.sharedManager.myWellScore))
         let score = (MyWellScore.sharedManager.myWellScore)
@@ -327,7 +330,7 @@ class AcuityMainViewController: PullUpViewController, UIScrollViewDelegate,Rotar
     }
     
     
-    //MARK: Seet background color in round view
+    //MARK: Set background color in round view
     func setBackGroundColorRoundView(index:String){
         let themeColor = getThemeColor(index: index,isForWheel: true)
         wheel?.roundbackGroundView.backgroundColor = themeColor;
@@ -419,6 +422,7 @@ class AcuityMainViewController: PullUpViewController, UIScrollViewDelegate,Rotar
                 
                 //set selected system data..
                 //IT's from PullViewController..When user change system in didSet it will change data...
+                
                 self?.selectPullUpType = .Detail
                 self?.openDetailPullUpViewController(withAnimation: true)
                 self?.systemData = item

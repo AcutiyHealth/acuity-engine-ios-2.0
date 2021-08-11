@@ -126,11 +126,16 @@ extension PullUpViewController: SOPullUpViewDataSource {
                     return addVC
                 }
             }
+        default:break
         }
-        
+ 
+        return vc
     }
     
     func pullUpViewExpandedViewHeight() -> CGFloat {
+        if Screen.screenHeight == CGFloat(Screen.iPhoneSEHeight){
+            return expandedViewHeight+5
+        }
         return expandedViewHeight
     }
 }

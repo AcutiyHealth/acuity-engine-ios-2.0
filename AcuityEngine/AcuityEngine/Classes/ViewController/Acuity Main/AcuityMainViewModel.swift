@@ -25,7 +25,7 @@ class AcuityMainViewModel: NSObject {
         let metricDictionary = CardioManager.sharedManager.cardioData.dictionaryRepresentation()
         
         let dictCardiovascular =   AcuityDisplayModel()
-        dictCardiovascular.id = "0"
+        dictCardiovascular.id = SystemId.Id_Cardiovascular
         dictCardiovascular.name = SystemName.Cardiovascular
         dictCardiovascular.score = String(format: "%.2f", (CardioManager.sharedManager.cardioData.cardioSystemScore))
         //dictCardiovascular.index = "89"
@@ -34,7 +34,7 @@ class AcuityMainViewModel: NSObject {
         
         let metricRespiratory = RespiratoryManager.sharedManager.respiratoryData.dictionaryRepresentation()
         let dictRespiratory =   AcuityDisplayModel()
-        dictRespiratory.id = "15"
+        dictRespiratory.id = SystemId.Id_Respiratory
         dictRespiratory.name = SystemName.Respiratory
         dictRespiratory.score = String(format: "%.2f", (RespiratoryManager.sharedManager.respiratoryData.respiratorySystemScore))
         //dictRespiratory.index = "23"
@@ -43,7 +43,7 @@ class AcuityMainViewModel: NSObject {
         
         let metricRenal = RenalManager.sharedManager.renalData.dictionaryRepresentation()
         let dictRenal =   AcuityDisplayModel()
-        dictRenal.id = "20"
+        dictRenal.id = SystemId.Id_Renal
         dictRenal.name = SystemName.Renal
         dictRenal.score = String(format: "%.2f", (RenalManager.sharedManager.renalData.renalSystemScore))
         //dictRespiratory.index = "23"
@@ -52,7 +52,7 @@ class AcuityMainViewModel: NSObject {
         
         let metriciDisease = IDiseaseManager.sharedManager.iDiseaseData.dictionaryRepresentation()
         let dictInfectious =   AcuityDisplayModel()
-        dictInfectious.id = "98"
+        dictInfectious.id = SystemId.Id_InfectiousDisease
         dictInfectious.name = SystemName.InfectiousDisease
         dictInfectious.score = String(format: "%.2f", (IDiseaseManager.sharedManager.iDiseaseData.iDiseaseSystemScore))
         //dictInfectious.index = "98"
@@ -62,7 +62,7 @@ class AcuityMainViewModel: NSObject {
         //FNE
         let metricFNE = FNEManager.sharedManager.fneData.dictionaryRepresentation()
         let dictFluids =   AcuityDisplayModel()
-        dictFluids.id = "432"
+        dictFluids.id = SystemId.Id_Fluids
         dictFluids.name = SystemName.Fluids
         dictFluids.score = String(format: "%.2f", (FNEManager.sharedManager.fneData.fneSystemScore))
         //dictFluids.index = "74"
@@ -72,7 +72,7 @@ class AcuityMainViewModel: NSObject {
         //Hematology
         let metricHematology = HematoManager.sharedManager.hematoData.dictionaryRepresentation()
         let dictHematology =   AcuityDisplayModel()
-        dictHematology.id = "36"
+        dictHematology.id = SystemId.Id_Hematology
         dictHematology.name = SystemName.Hematology
         dictHematology.score = String(format: "%.2f", (HematoManager.sharedManager.hematoData.hematoSystemScore))
         //dictHematology.index = "91"
@@ -82,7 +82,7 @@ class AcuityMainViewModel: NSObject {
         //Endocrine
         let metricEndocrine = EndocrineManager.sharedManager.endocrineData.dictionaryRepresentation()
         let dictEndocrine =   AcuityDisplayModel()
-        dictEndocrine.id = "46"
+        dictEndocrine.id = SystemId.Id_Endocrine
         dictEndocrine.name = SystemName.Endocrine
         dictEndocrine.score = String(format: "%.2f", (EndocrineManager.sharedManager.endocrineData.endocrineSystemScore))
         //dictEndocrine.index = "90"
@@ -92,7 +92,7 @@ class AcuityMainViewModel: NSObject {
         //Gastrointestinal
         let metricGastrointestinal = GastrointestinalManager.sharedManager.gastrointestinalData.dictionaryRepresentation()
         let dictGastrointestinal =   AcuityDisplayModel()
-        dictGastrointestinal.id = "45"
+        dictGastrointestinal.id = SystemId.Id_Gastrointestinal
         dictGastrointestinal.name = SystemName.Gastrointestinal
         dictGastrointestinal.score = String(format: "%.2f", (GastrointestinalManager.sharedManager.gastrointestinalData.gastrointestinalSystemScore))
         //dictGastrointestinal.index = "38"
@@ -102,7 +102,7 @@ class AcuityMainViewModel: NSObject {
         //Gastrointestinal
         let metricGenitourinary = GenitourinaryManager.sharedManager.genitourinaryData.dictionaryRepresentation()
         let dictGenitourinary =   AcuityDisplayModel()
-        dictGenitourinary.id = "32"
+        dictGenitourinary.id = SystemId.Id_Genitourinary
         dictGenitourinary.name = SystemName.Genitourinary
         dictGenitourinary.score = String(format: "%.2f", (GenitourinaryManager.sharedManager.genitourinaryData.genitourinarySystemScore))
         //dictGenitourinary.index = "98"
@@ -112,7 +112,7 @@ class AcuityMainViewModel: NSObject {
         //Neuro
         let metricNeuro = NeuroManager.sharedManager.neuroData.dictionaryRepresentation()
         let dictNuerological =   AcuityDisplayModel()
-        dictNuerological.id = "78"
+        dictNuerological.id = SystemId.Id_Nuerological
         dictNuerological.name = SystemName.Nuerological
         dictNuerological.score = String(format: "%.2f", (NeuroManager.sharedManager.neuroData.neuroSystemScore))
         //dictNuerological.index = "82"
@@ -122,7 +122,7 @@ class AcuityMainViewModel: NSObject {
         //Musc
         let metricMusc = MuscManager.sharedManager.muscData.dictionaryRepresentation()
         let dictMusculatory =   AcuityDisplayModel()
-        dictMusculatory.id = "23"
+        dictMusculatory.id = SystemId.Id_Musculatory
         dictMusculatory.name = SystemName.Musculatory
         dictMusculatory.score = String(format: "%.2f", (MuscManager.sharedManager.muscData.muscSystemScore))
         //dictMusculatory.index = "68"
@@ -132,7 +132,7 @@ class AcuityMainViewModel: NSObject {
         //Skin
         let metricSkin = SkinManager.sharedManager.skinData.dictionaryRepresentation()
         let dictIntegumentary =   AcuityDisplayModel()
-        dictIntegumentary.id = "89"
+        dictIntegumentary.id = SystemId.Id_Integumentary
         dictIntegumentary.name = SystemName.Integumentary
         dictIntegumentary.score = String(format: "%.2f", (SkinManager.sharedManager.skinData.skinSystemScore))
         //dictIntegumentary.index = "92"
@@ -142,7 +142,7 @@ class AcuityMainViewModel: NSObject {
         //SDH
         let metricSDH = SDHManager.sharedManager.sdhData.dictionaryRepresentation()
         let dictSDH =   AcuityDisplayModel()
-        dictSDH.id = "248"
+        dictSDH.id = SystemId.Id_SocialDeterminantsofHealth
         dictSDH.name = SystemName.SocialDeterminantsofHealth
         dictSDH.score = String(format: "%.2f", (SDHManager.sharedManager.sdhData.sdhSystemScore))
         //dictSDH.index = "84"
@@ -152,12 +152,22 @@ class AcuityMainViewModel: NSObject {
         //Heent
         let metricHeent = HeentManager.sharedManager.heentData.dictionaryRepresentation()
         let dictHeent =   AcuityDisplayModel()
-        dictHeent.id = "111"
+        dictHeent.id = SystemId.Id_Heent
         dictHeent.name = SystemName.Heent
         dictHeent.score = String(format: "%.2f", (HeentManager.sharedManager.heentData.heentSystemScore))
         //dictHeent.index = "78"
         dictHeent.image = AcuityImages.kHeent
         dictHeent.metricDictionary = metricHeent
+        
+        //MyWellScore
+        let metricMyWellScore = MyWellScore.sharedManager.dictionaryOfSystemScore
+        let dictMyWellScore =   AcuityDisplayModel()
+        dictMyWellScore.id = SystemId.Id_MyWellScore
+        dictMyWellScore.name = SystemName.MyWellScore
+        dictMyWellScore.score = String(format: "%.2f", (MyWellScore.sharedManager.myWellScore))
+        //dictHeent.index = "78"
+        dictMyWellScore.image = AcuityImages.kMyWellScore
+        dictMyWellScore.myWellScoreDataDictionary = metricMyWellScore
         
         arrBodySystems.append(dictCardiovascular.dictionaryRepresentation())
         arrBodySystems.append(dictRespiratory.dictionaryRepresentation())
@@ -175,6 +185,7 @@ class AcuityMainViewModel: NSObject {
         arrBodySystems.append(dictMusculatory.dictionaryRepresentation())
         arrBodySystems.append(dictIntegumentary.dictionaryRepresentation())
         arrBodySystems.append(dictHeent.dictionaryRepresentation())
+        arrBodySystems.append(dictMyWellScore.dictionaryRepresentation())
         
         return arrBodySystems
     }

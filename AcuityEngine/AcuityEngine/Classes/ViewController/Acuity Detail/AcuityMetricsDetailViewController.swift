@@ -153,12 +153,12 @@ extension AcuityMetricsDetailViewController: UITableViewDelegate, UITableViewDat
         case .none:
             break
         }
-        
+        cell.setFontForLabel(font:Fonts.kAcuityDetailCellFont)
         cell.backgroundColor = UIColor.clear
         return cell
     }
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 40
+        return getRowHeightAsPerDeviceSize(height:40)
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {

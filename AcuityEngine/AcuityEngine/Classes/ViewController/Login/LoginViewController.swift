@@ -18,7 +18,7 @@ class LoginViewController: UIViewController {
         self.view.backgroundColor = ColorSchema.kMainThemeColor
         //fetch data from healthkit and load in tableview
         //self.setupSOAppleSignIn()
-        moveToHealhDataScreen()
+        //moveToHealhDataScreen()
     }
     
     //Add button for Sign in with Apple

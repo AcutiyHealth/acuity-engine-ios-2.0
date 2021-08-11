@@ -48,7 +48,7 @@ class DataDisplayCell: UITableViewCell {
     
 }
 
-//MARK: - Picked Pullup TableCell
+//MARK: - Detail Screen Of Pullup TableCell
 class AcuityDetailValueDisplayCell: UITableViewCell {
     
     
@@ -59,7 +59,7 @@ class AcuityDetailValueDisplayCell: UITableViewCell {
     override func awakeFromNib() {
         
         super.awakeFromNib()
-        setFontForLabel(font:Fonts.kAcuitySystemCellFont)
+        setFontForLabel(font:Fonts.kAcuityDetailCellFont)
         // Initialization code
     }
     
@@ -99,10 +99,35 @@ class AcuityDetailValueDisplayCell: UITableViewCell {
         titleLabel.text = item.title
         maxScore.text = item.value
         maxScore.textColor = item.color
-        
     }
-    
+
 }
+//MARK: - Detail Screen Of Pullup TableCell
+class AcuityPullUpMetricsDisplayCell: AcuityDetailValueDisplayCell {
+    
+    override func awakeFromNib() {
+        
+        super.awakeFromNib()
+        setFontForLabel(font:Fonts.kAcuityPullUpMetricCellFont)
+        // Initialization code
+    }
+
+    func displaySystemScore(item:[String:Any]){
+
+
+        titleLabel.text =  item[Keys.kSystemName] as? String
+        titleLabel.font =
+            Fonts.kAcuityMyWellTblCellTitleFont
+        titleLabel.textColor =  UIColor.white
+        if let score = item[Keys.kScore] as? Double{
+            maxScore.text = getStringToDisplayScore(score: score)
+        }
+        maxScore.font =  Fonts.kAcuityMyWellTblValueFont
+        maxScore.textColor =  getThemeColor(index: maxScore.text, isForWheel: false)
+      
+    }
+}
+
 //==========================================================================================//
 
 //MARK: - Profile Option Selection Cell
