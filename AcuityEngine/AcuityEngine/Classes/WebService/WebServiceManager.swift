@@ -5,7 +5,7 @@
 //  Created by DevDigital on 19/08/19.
 //  Copyright © 2019 DevDigital LLC. All rights reserved.
 //
-
+/*
 import Foundation
 import CFNetwork
 import SystemConfiguration
@@ -263,3 +263,4 @@ class WebServiceManager : NSObject {
         }
     }
 }
+*/

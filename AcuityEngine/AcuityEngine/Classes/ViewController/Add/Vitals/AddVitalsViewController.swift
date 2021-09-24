@@ -10,11 +10,16 @@ import HealthKit
 
 class AddVitalsViewController: UIViewController {
     
-    @IBOutlet weak var vitalsView: UIView!
-    @IBOutlet weak var bloddPressureView: UIView!
-    @IBOutlet weak var lblTitle: UILabel!
-    @IBOutlet weak var txtFieldValue: UITextField!
-    @IBOutlet weak var viewValue: UIView!
+    @IBOutlet weak var viewVitals: UIView!
+    @IBOutlet weak var viewBloodPressure: UIView!
+    @IBOutlet weak var viewOxygenSaturation: UIView!
+    @IBOutlet weak var lblTitleBloodPressure: UILabel!
+    @IBOutlet weak var lblTitleVital: UILabel!
+    @IBOutlet weak var lblTitleOxygenSaturation: UILabel!
+    @IBOutlet weak var txtFieldVital: UITextField!
+    @IBOutlet weak var txtFieldOxygenSaturation: UITextField!
+    @IBOutlet weak var viewVitalWithTextField: UIView!
+    @IBOutlet weak var viewOxygenSaturationWithTextField: UIView!
     @IBOutlet weak var txtFieldBP1: UITextField!
     @IBOutlet weak var viewBP1: UIView!
     @IBOutlet weak var txtFieldBP2: UITextField!
@@ -28,8 +33,9 @@ class AddVitalsViewController: UIViewController {
     @IBOutlet weak var lblStart: UILabel!
     @IBOutlet weak var lblEnd: UILabel!
     @IBOutlet weak var btnSave: SaveButton!
-    
     @IBOutlet weak var topConstraintForStartEndView: NSLayoutConstraint!
+    @IBOutlet weak var topConstraintForvitalsView: NSLayoutConstraint!
+    
     
     var selectedButton: UIButton?
     var startDate:Date?
@@ -44,9 +50,7 @@ class AddVitalsViewController: UIViewController {
     //Get from SymptomsVC for selected symptoms....
     var vitalModel:VitalModel?{
         didSet{
-            
             loadVitalsData()
-            
         }
     }
     
@@ -72,40 +76,60 @@ class AddVitalsViewController: UIViewController {
         // Do any additional setup after loading the view.
     }
     func showViewAsPerVital(){
+        /*
+         Note: viewVitals will use for display all other vital except Oxygen Saturation and Blood Pressure
+         viewBloodPressure will use for display blood pressure
+         viewOxygenSaturation will use for display oxygen saturation..
+         */
         if vitalModel?.name == VitalsName.bloodPressure {
-            vitalsView.isHidden = true
-            bloddPressureView.isHidden = false
+            viewVitals.isHidden = false
+            viewBloodPressure.isHidden = false
             viewEnd.isHidden = true
-            
+            viewOxygenSaturation.isHidden = true
         }
-        else if vitalModel?.name == VitalsName.heartRate || vitalModel?.name == VitalsName.InhalerUsage || vitalModel?.name == VitalsName.peakflowRate ||  vitalModel?.name == VitalsName.BMI || vitalModel?.name == VitalsName.temperature || vitalModel?.name == VitalsName.weight || vitalModel?.name == VitalsName.bloodSugar || vitalModel?.name == VitalsName.oxygenSaturation || vitalModel?.name == VitalsName.vo2Max || vitalModel?.name == VitalsName.respiratoryRate  || vitalModel?.name == VitalsName.headPhoneAudioLevel || vitalModel?.name == VitalsName.stepLength {
-            vitalsView.isHidden = false
-            bloddPressureView.isHidden = true
+        else if vitalModel?.name == VitalsName.oxygenSaturation {
+            viewOxygenSaturation.isHidden = false
+            viewVitals.isHidden = false
+            viewBloodPressure.isHidden = true
             viewEnd.isHidden = true
+        }
+        else if vitalModel?.name == VitalsName.heartRate || vitalModel?.name == VitalsName.InhalerUsage || vitalModel?.name == VitalsName.peakflowRate ||  vitalModel?.name == VitalsName.BMI || vitalModel?.name == VitalsName.temperature || vitalModel?.name == VitalsName.weight || vitalModel?.name == VitalsName.bloodSugar || vitalModel?.name == VitalsName.vo2Max || vitalModel?.name == VitalsName.respiratoryRate  || vitalModel?.name == VitalsName.headPhoneAudioLevel || vitalModel?.name == VitalsName.stepLength {
+            /*
+             Hide BP view and Oxygen Saturation View
+             */
+            viewVitals.isHidden = false
+            viewBloodPressure.isHidden = true
+            viewOxygenSaturation.isHidden = true
+            viewEnd.isHidden = true
+            topConstraintForvitalsView.constant = -(viewBloodPressure.frame.size.height-20)
             
         }
         else if vitalModel?.name == VitalsName.irregularRhymesNotification || vitalModel?.name == VitalsName.highHeartRate || vitalModel?.name == VitalsName.lowHeartRate{
-            vitalsView.isHidden = true
-            bloddPressureView.isHidden = true
+            viewVitals.isHidden = true
+            viewBloodPressure.isHidden = true
             viewEnd.isHidden = false
             btnSave.isEnabled = true
             topConstraintForStartEndView.constant = -45
         }
+        
     }
     func setFontForLabel(){
-        lblTitle.font = Fonts.kAcuityDetailTitleFont
+        lblTitleBloodPressure.font = Fonts.kAcuityDetailTitleFont
+        lblTitleVital.font = Fonts.kAcuityDetailTitleFont
+        lblTitleOxygenSaturation.font = Fonts.kAcuityDetailTitleFont
         lblStart.font = Fonts.kStartEndTitleFont
         lblEnd.font = Fonts.kStartEndTitleFont
-        txtFieldValue.font = Fonts.kStartEndValueFont
+        txtFieldVital.font = Fonts.kStartEndValueFont
         txtFieldBP1.font = Fonts.kStartEndValueFont
         txtFieldBP2.font = Fonts.kStartEndValueFont
         btnEnd.titleLabel?.font =  Fonts.kStartEndValueFont
         btnStart.titleLabel?.font =  Fonts.kStartEndValueFont
-       
         
-        setupViewBorder(view: viewBP1)
-        setupViewBorder(view: viewBP2)
-        setupViewBorder(view: viewValue)
+        
+        setupViewBorderForAddSection(view: viewBP1)
+        setupViewBorderForAddSection(view: viewBP2)
+        setupViewBorderForAddSection(view: viewVitalWithTextField)
+        setupViewBorderForAddSection(view: viewOxygenSaturationWithTextField)
     }
     
     func setUpDesignForDateButtons(){
@@ -115,12 +139,7 @@ class AddVitalsViewController: UIViewController {
         btnStart.backgroundColor = UIColor.white.withAlphaComponent(0.2)
     }
     
-    func setupViewBorder(view:UIView){
-        view.layer.borderWidth = 1
-        view.layer.cornerRadius = 5
-        view.layer.borderColor = UIColor.white.cgColor
-        view.backgroundColor = UIColor.white.withAlphaComponent(0.3)
-    }
+ 
     //MARK:--------------------------------------
     //MARK: Setup Toolbar For Number Pad...
     func setupToolbarForNumberPad(){
@@ -133,9 +152,10 @@ class AddVitalsViewController: UIViewController {
         
         numberToolbar.sizeToFit()
         
-        txtFieldValue.inputAccessoryView = numberToolbar //do it for every relevant textfield if there are more than one
+        txtFieldVital.inputAccessoryView = numberToolbar //do it for every relevant textfield if there are more than one
         txtFieldBP1.inputAccessoryView = numberToolbar //do it for every relevant textfield if there are more than one
         txtFieldBP2.inputAccessoryView = numberToolbar //do it for every relevant textfield if there are more than one
+        txtFieldOxygenSaturation.inputAccessoryView = numberToolbar
     }
     
     @objc func donebuttonClickedInNumberToolbar(){
@@ -148,9 +168,14 @@ class AddVitalsViewController: UIViewController {
         }
         switch vitalModel.name {
         case .oxygenSaturation:
-            lblTitle.text = String("Oxygen Saturation %")
+            lblTitleOxygenSaturation.text = String("Oxygen Saturation %")
+            lblTitleVital.text = VitalsName.heartRate.rawValue
+        case .bloodPressure:
+            lblTitleBloodPressure.text = vitalModel.name.rawValue
+            lblTitleVital.text = VitalsName.heartRate.rawValue
+            
         default:
-            lblTitle.text = vitalModel.name.rawValue
+            lblTitleVital.text = vitalModel.name.rawValue
         }
         
         //Make btn disable or enable...
@@ -170,7 +195,9 @@ class AddVitalsViewController: UIViewController {
         let objWriterManager = HKWriterManager()
         
         //Textfield For all vitals except blood pressure
-        let quantityValue = Double(self.txtFieldValue.text ?? "0")
+        let vitalValue = Double(self.txtFieldVital.text ?? "0")
+        //Textfield For oxygenSaturation
+        let oxygenSaturationValue = Double(self.txtFieldOxygenSaturation.text ?? "0")
         //Textfiled for blood presure..
         let bpSystolic = Double(self.txtFieldBP1.text ?? "0") ?? 0
         let bpDiastolic = Double(self.txtFieldBP2.text ?? "0") ?? 0
@@ -192,22 +219,40 @@ class AddVitalsViewController: UIViewController {
                     self?.vitalModel?.name == VitalsName.BMI ||
                     self?.vitalModel?.name == VitalsName.temperature ||
                     self?.vitalModel?.name == VitalsName.weight || self?.vitalModel?.name == VitalsName.bloodSugar ||
-                    self?.vitalModel?.name == VitalsName.oxygenSaturation ||
                     self?.vitalModel?.name == VitalsName.vo2Max ||
                     self?.vitalModel?.name == VitalsName.respiratoryRate || self?.vitalModel?.name == VitalsName.stepLength {
                     
-                    objWriterManager.saveQuantityData(value: quantityValue ?? 0, quantityTypeIdentifier: self?.vitalModel?.healthQuantityType, date: self?.startDate ?? Date()) { (error) in
+                    self?.saveVitalsDataInHealthKit(vitalModel: (self?.vitalModel)!, objWriterManager: objWriterManager, quantityValue: vitalValue ?? 0, quantityTypeIdentifier: self?.vitalModel?.healthQuantityType) { (error) in
                         
-                        if (error == nil){
-                            //show alert
-                            let message = "\(String(describing: vitalModel.name!.rawValue)) saved in health kit"
-                            let okAction = self?.getOKActionForVitalList()
-                            self?.showAlertForDataSaved(message:message,okAction: okAction!)
-                            
+                        let message = "\(String(describing: vitalModel.name!.rawValue)) saved in health kit"
+                        self?.vitalsSavedSuccessfully(message: message)
+                    }
+                    
+                }
+                else  if
+                    self?.vitalModel?.name == VitalsName.oxygenSaturation
+                {
+                    
+                    self?.saveVitalsDataInHealthKit(vitalModel: (self?.vitalModel)!, objWriterManager: objWriterManager, quantityValue: oxygenSaturationValue ?? 0, quantityTypeIdentifier: self?.vitalModel?.healthQuantityType) { (error) in
+                        
+                        /*
+                         Note: After saving BP in health kit call Heart Rate to save in Healthkit...
+                         */
+                        if let vitalValue = vitalValue{
+                            let heartRateVitalModel = VitalModel(name: VitalsName.heartRate)
+                            heartRateVitalModel.healthQuantityType = .heartRate
+                            if error == nil{
+                                self?.saveVitalsDataInHealthKit(vitalModel: heartRateVitalModel, objWriterManager: objWriterManager, quantityValue: vitalValue , quantityTypeIdentifier: heartRateVitalModel.healthQuantityType) { (error) in
+                                    
+                                    if error == nil{
+                                        let message = "Oxygen Saturation and Heart Rate saved in health kit"
+                                        self?.vitalsSavedSuccessfully(message: message)
+                                    }
+                                }
+                            }
                         }else{
-                            let message = "\(String(describing: vitalModel.name!.rawValue)) is not authorized. You can authorized it by making Turn on from Settings -> Health -> DATA -> \(Key.kAppName) -> Health Data"
-                            let okAction = UIAlertAction(title: "OK", style: .default, handler: nil)
-                            self?.showAlertForDataSaved(message:message,okAction: okAction)
+                            let message = "Oxygen Saturation saved in health kit"
+                            self?.vitalsSavedSuccessfully(message: message)
                         }
                     }
                     
@@ -227,18 +272,31 @@ class AddVitalsViewController: UIViewController {
                         //Both bpSystolic and bpDiastolic...
                         if success{
                             
-                            objWriterManager.storeBloodPressure(systolic: bpSystolic, diastolic: bpDiastolic, date: self?.startDate ?? Date()) { [self] (error) in
-                                if (error == nil){
-                                    //show alert
-                                    let okAction = self?.getOKActionForVitalList()
-                                    self?.showAlertForDataSaved(message: "Blood Pressure saved in health kit",okAction: okAction!)
-                                }
-                                else{
-                                    let message = "\(String(describing: vitalModel.name!.rawValue)) is not authorized. You can authorized it by making Turn on from Settings -> Health -> DATA -> \(Key.kAppName ) -> Health Data"
-                                    let okAction = UIAlertAction(title: "OK", style: .default, handler: nil)
-                                    self?.showAlertForDataSaved(message:message,okAction: okAction)
+                            self?.saveBloodPressurexDataInHealthKit(bpSystolic: bpSystolic, bpDiastolic: bpDiastolic, objWriterManager: objWriterManager) { (error) in
+                                
+                                /*
+                                 Note: After saving BP in health kit call Heart Rate to save in Healthkit...
+                                 */
+                                if let vitalValue = vitalValue{
+                                    let heartRateVitalModel = VitalModel(name: VitalsName.heartRate)
+                                    heartRateVitalModel.healthQuantityType = .heartRate
+                                    if error == nil{
+                                        self?.saveVitalsDataInHealthKit(vitalModel: (heartRateVitalModel), objWriterManager: objWriterManager, quantityValue: vitalValue, quantityTypeIdentifier: heartRateVitalModel.healthQuantityType) { (error) in
+                                            
+                                            if error == nil{
+                                                let message = "Blood Pressure and Heart Rate saved in health kit"
+                                                self?.vitalsSavedSuccessfully(message: message)
+                                            }
+                                        }
+                                    }
+                                }else{
+                                    let message = "Blood Pressure saved in health kit"
+                                    self?.vitalsSavedSuccessfully(message: message)
                                 }
                             }
+                            
+                            
+                            //Save Heart Rate Data.....
                         }
                     })
                 }
@@ -247,6 +305,47 @@ class AddVitalsViewController: UIViewController {
             }
         })
     }
+    //MARK: Save Vitals Data except Blood Pressure
+    func saveVitalsDataInHealthKit(vitalModel:VitalModel,objWriterManager:HKWriterManager,quantityValue: Double,quantityTypeIdentifier:HKQuantityTypeIdentifier?,completion: @escaping (Error?) -> Swift.Void){
+        objWriterManager.saveQuantityData(value: quantityValue, quantityTypeIdentifier: quantityTypeIdentifier, date: self.startDate ?? Date()) {[weak self] (error) in
+            
+            if (error == nil){
+                
+                completion(nil)
+                
+            }else{
+                let message = "\(String(describing: vitalModel.name!.rawValue)) is not authorized. You can authorized it by making Turn on from Settings -> Health -> DATA -> \(Key.kAppName) -> Health Data"
+                self?.vitalsSavedFailed(message: message)
+                completion(error)
+            }
+        }
+    }
+    
+    //MARK: Save Vitals Blood Pressure
+    func saveBloodPressurexDataInHealthKit(bpSystolic:Double,bpDiastolic:Double,objWriterManager:HKWriterManager,completion: @escaping (Error?) -> Swift.Void){
+        objWriterManager.storeBloodPressure(systolic: bpSystolic, diastolic: bpDiastolic, date: self.startDate ?? Date()) { [weak self] (error) in
+            if (error == nil){
+                completion(nil)
+            }
+            else{
+                let message = "\(String(describing: VitalsName.bloodPressure.rawValue)) is not authorized. You can authorized it by making Turn on from Settings -> Health -> DATA -> \(Key.kAppName ) -> Health Data"
+                self?.vitalsSavedFailed(message: message)
+                completion(error)
+            }
+        }
+    }
+    
+    //MARK: Show Alert For Success of Data Save in Healthkit
+    func vitalsSavedSuccessfully(message:String){
+        let okAction = self.getOKActionForVitalList()
+        self.showAlertForDataSaved(message:message,okAction: okAction)
+    }
+    //MARK: Show Alert For Fail of Data Save in Healthkit
+    func vitalsSavedFailed(message:String){
+        let okAction = UIAlertAction(title: "OK", style: .default, handler: nil)
+        self.showAlertForDataSaved(message:message,okAction: okAction)
+    }
+    
     
     func getOKActionForVitalList()->UIAlertAction{
         let okAction = UIAlertAction(title: "OK", style: .default){ (_) in
@@ -265,10 +364,6 @@ class AddVitalsViewController: UIViewController {
         
         //show alert
         DispatchQueue.main.async {
-            
-            
-            
-            // Please enable camera access from Settings > AppName > Camera to take photos
             
             let vc = self.parent
             vc?.presentAlert(title: "\(Key.kAppName)",
@@ -293,7 +388,7 @@ class AddVitalsViewController: UIViewController {
             btnSave.isEnabled = true
         }else{
             guard
-                let _ = txtFieldValue.text,!txtFieldValue.text!.isEmpty
+                let _ = txtFieldVital.text,!txtFieldVital.text!.isEmpty
             else {
                 btnSave.isEnabled = false
                 return

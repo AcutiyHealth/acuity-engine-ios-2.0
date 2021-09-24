@@ -14,6 +14,7 @@ class VitalsListViewController: UIViewController {
     var arrayOfStringsSymptom: [String] = []
     var vitalsArray : [VitalModel] = []
     var addVitalsVC : AddVitalsViewController?
+    var bmiCalculatorVC : BMICalculatorViewController?
     var handler: CompletionaddVitalsViewOpen?
     @IBOutlet weak var lblTitle: UILabel!
     @IBOutlet weak var vitalView: UIView!
@@ -46,7 +47,7 @@ class VitalsListViewController: UIViewController {
         //quantityTypeIdentifier will use to authorize and save in Healthkit...
         vitalsArray = [VitalModel(name: VitalsName.bloodPressure),
                        VitalModel(name: VitalsName.heartRate),
-                       VitalModel(name: VitalsName.vo2Max),
+                       //VitalModel(name: VitalsName.vo2Max),
                        VitalModel(name: VitalsName.peakflowRate),
                        VitalModel(name: VitalsName.InhalerUsage),
                        VitalModel(name: VitalsName.temperature),
@@ -55,9 +56,9 @@ class VitalsListViewController: UIViewController {
                        VitalModel(name: VitalsName.weight),
                        VitalModel(name: VitalsName.oxygenSaturation),
                        VitalModel(name: VitalsName.respiratoryRate)]
-        if #available(iOS 14.0, *) {
+       /* if #available(iOS 14.0, *) {
             vitalsArray.append(VitalModel(name: VitalsName.stepLength))
-        }
+        }*/
         
         /*
          VitalModel(name: VitalsName.lowHeartRate),
@@ -118,6 +119,29 @@ extension VitalsListViewController:UITableViewDelegate,UITableViewDataSource{
         if let handler = handler{
             handler(true)
         }
+        /*bmiCalculatorVC = UIStoryboard(name: Storyboard.add.rawValue, bundle: nil).instantiateViewController(withIdentifier: "BMICalculatorViewController") as? BMICalculatorViewController
+        self.addChild(bmiCalculatorVC!)
+        bmiCalculatorVC?.view.frame = CGRect(x: 0, y: 0, width: self.view.frame.size.width, height: self.view.frame.size.height)
+    
+        //Show animation when view added.....
+        animationForDetailViewWhenAdded(subviewToAdd: (bmiCalculatorVC?.view)!, in: self.view)
+        
+        bmiCalculatorVC?.view.setNeedsDisplay()
+        bmiCalculatorVC?.didMove(toParent: self)
+        bmiCalculatorVC?.view.tag = 111
+        
+        //Pass selected Symptoms to AddSymptomViewController
+        //let vitalData = vitalsArray[index]
+        //addVitalsVC?.vitalModel = vitalData
+        //setUpCloseButton(frame:btnFrame , btnImage:btnImage , btnTintColor:btnTintColor! )
+        //Hide main view of Detail Pullup class
+        
+        vitalView.isHidden = true
+        
+        
+        if let handler = handler{
+            handler(true)
+        }*/
     }
     func removeAddVitalsViewController(){
         //Show animation when view removed from superview.......
@@ -127,6 +151,11 @@ extension VitalsListViewController:UITableViewDelegate,UITableViewDataSource{
             vitalView.isHidden = false
             addVitalsVC?.view.removeFromSuperview()
             addVitalsVC?.removeFromParent()
+        }
+        if bmiCalculatorVC != nil{
+            vitalView.isHidden = false
+            bmiCalculatorVC?.view.removeFromSuperview()
+            bmiCalculatorVC?.removeFromParent()
         }
         if let parentVC = self.parent {
             if let parentVC = parentVC as? AddOptionSelectionViewController {

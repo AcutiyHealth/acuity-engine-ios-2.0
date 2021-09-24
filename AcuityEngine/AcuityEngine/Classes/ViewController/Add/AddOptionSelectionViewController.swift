@@ -23,7 +23,7 @@ class AddOptionSelectionViewController:UIViewController{
     var conditionsVC : ConditionsListViewController?
     var vitalsVC : VitalsListViewController?
     
-    var addOptionArray: Array<String> = [AddOption.Symptom.rawValue,AddOption.Conditions.rawValue,AddOption.vitals.rawValue]
+    var addOptionArray: Array<String> = [AddOption.vitals.rawValue,AddOption.symptom.rawValue,AddOption.conditions.rawValue,AddOption.medications.rawValue,AddOption.otherHistory.rawValue]
     //var labelsAsStringForMonth: Array<String> = ["Week1","Week2","Week3","Week4"]
     // MARK: - Properties
     
@@ -83,25 +83,32 @@ extension AddOptionSelectionViewController: UITableViewDelegate, UITableViewData
         return cell
     }
     
-    //    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-    //        return 200
-    //    }
+        func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+            return getRowHeightAsPerDeviceSize(height:80)
+        }
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
         switch AddOption(rawValue: addOptionArray[indexPath.row]){
-        case .Symptom:
+        case .symptom:
             do{
-                openSymptomsViewController(title:AddOption.Symptom.rawValue)
+                openSymptomsViewController(title:AddOption.symptom.rawValue)
             }
-        case .Conditions:
+        case .conditions:
             do{
-                openConditionsViewController(title:AddOption.Conditions.rawValue)
+                openConditionsViewController(title:AddOption.conditions.rawValue)
             }
         case .vitals:
             do{
                 openVitalViewController(title:AddOption.vitals.rawValue)
             }
-            
+        case .medications:
+            do{
+                //openVitalViewController(title:AddOption.medications.rawValue)
+            }
+        case .otherHistory:
+            do{
+                //openVitalViewController(title:AddOption.otherHistory.rawValue)
+            }
             
         case .none:
             print("")
