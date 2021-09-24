@@ -220,12 +220,12 @@ class AcuityDetailPullUpViewModel: NSObject
         return (scoreText,arraySystemScore,metricDictionary)
         
     }
-    func getScoreAndArrayOfSystemScoreForMyWellScore()->(String,[Double],[[String:Any]]){
+    func getScoreAndArrayOfSystemScoreForMyWellScore()->(String,[String],[[String:Any]]){
         /*
          From this method, score for each system will be calculated for 7 days, 1 month and 3 months based upon selected segment.
          */
         var scoreText = String(format: "0.00")
-        var arraySystemScore:[Double] = []
+        var arraySystemScore:[String] = []
         var metricDictionary:[[String:Any]] = [[:]]
         
         let systemScore = MyWellScore.sharedManager.myWellScore
@@ -234,7 +234,7 @@ class AcuityDetailPullUpViewModel: NSObject
         metricDictionary = MyWellScore.sharedManager.dictionaryOfSystemScore
         for dict in metricDictionary{
             if let score = dict[Keys.kScore]{
-                arraySystemScore.append(score as! Double)
+                arraySystemScore.append(score as? String ?? "")
             }
         }
         

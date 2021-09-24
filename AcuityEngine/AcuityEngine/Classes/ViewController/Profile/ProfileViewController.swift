@@ -44,7 +44,7 @@ class ProfileViewController: UIViewController {
         do {
             let reporter = try HealthKitReporter()
             let characteristic = reporter.reader.characteristics()
-            birthDate = ((characteristic.birthday == "na" ? "Not Set":characteristic.birthday)) ?? ""
+            birthDate = ((characteristic.birthday == "na" ? "Not Set":calculateAndDisplayBirthDateAndAge(birthday: characteristic.birthday ?? "")))
             sex = ((characteristic.biologicalSex == "na" ? "Not Set":characteristic.biologicalSex)) ?? ""
             bloodType = ((characteristic.bloodType == "na" ? "Not Set":characteristic.bloodType)) ?? ""
             
@@ -55,7 +55,22 @@ class ProfileViewController: UIViewController {
             print(error)
         }
     }
-    
+    func calculateAndDisplayBirthDateAndAge(birthday:String)->String{
+        
+        let dateFormater = DateFormatter()
+        dateFormater.dateFormat = "yyyy-MM-dd"
+        let birthdayDate = dateFormater.date(from: birthday)
+        let calendar: NSCalendar! = NSCalendar(calendarIdentifier: .gregorian)
+        let now = Date()
+        if let birthdayDate = birthdayDate{
+            let calcAge = calendar.components(.year, from: birthdayDate, to: now, options: [])
+            let age = calcAge.year
+            return "\(birthday)/\(String(describing: age!))"
+            
+        }
+        return "\(birthday)"
+        
+    }
     func setCharactristicDataToArray(){
         
         let profileData1 = ProfileDataModel(title: "First Name:", value: "Name")

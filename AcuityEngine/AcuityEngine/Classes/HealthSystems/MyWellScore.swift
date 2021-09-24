@@ -115,72 +115,72 @@ class MyWellScore: NSObject {
        
         let cardioWeightedSystemScore = CardioManager.sharedManager.cardioData.cardioWeightedSystemScore
         let cardioSystemScore = CardioManager.sharedManager.cardioData.cardioSystemScore
-        prepareDictionaryForSystemScore(systemName: SystemName.Cardiovascular, score: cardioSystemScore)
+        prepareDictionaryForSystemScore(systemName: SystemName.Cardiovascular, score: cardioSystemScore,image:AcuityImages.kCardiovascular)
         
         //Respiratory
         let respiratoryWeightedSystemScore = RespiratoryManager.sharedManager.respiratoryData.respiratoryWeightedSystemScore
         let respiratorySystemScore = RespiratoryManager.sharedManager.respiratoryData.respiratorySystemScore
-        prepareDictionaryForSystemScore(systemName: SystemName.Respiratory, score: respiratorySystemScore)
+        prepareDictionaryForSystemScore(systemName: SystemName.Respiratory, score: respiratorySystemScore,image:AcuityImages.kRespiratory)
         
         //Renal
         let renalWeightedSystemScore = RenalManager.sharedManager.renalData.renalWeightedSystemScore
         let renalSystemScore = RenalManager.sharedManager.renalData.renalSystemScore
-        prepareDictionaryForSystemScore(systemName: SystemName.Renal, score: renalSystemScore)
+        prepareDictionaryForSystemScore(systemName: SystemName.Renal, score: renalSystemScore,image:AcuityImages.kRenal)
         
         //IDisease
         let iDiseaseWeightedSystemScore = IDiseaseManager.sharedManager.iDiseaseData.iDiseaseWeightedSystemScore
         let iDiseaseSystemScore = IDiseaseManager.sharedManager.iDiseaseData.iDiseaseSystemScore
-        prepareDictionaryForSystemScore(systemName: SystemName.InfectiousDisease, score: iDiseaseSystemScore)
+        prepareDictionaryForSystemScore(systemName: SystemName.InfectiousDisease, score: iDiseaseSystemScore,image:AcuityImages.kIDs)
         
         //fne
         let fneWeightedSystemScore = FNEManager.sharedManager.fneData.fneWeightedSystemScore
         let fneSystemScore = FNEManager.sharedManager.fneData.fneSystemScore
-        prepareDictionaryForSystemScore(systemName: SystemName.Fluids, score: fneSystemScore)
+        prepareDictionaryForSystemScore(systemName: SystemName.Fluids, score: fneSystemScore,image:AcuityImages.kFluids)
         
         //Hemato
         let hematoWeightedSystemScore = HematoManager.sharedManager.hematoData.hematoWeightedSystemScore
         let hematoSystemScore = HematoManager.sharedManager.hematoData.hematoSystemScore
-        prepareDictionaryForSystemScore(systemName: SystemName.Hematology, score: hematoSystemScore)
+        prepareDictionaryForSystemScore(systemName: SystemName.Hematology, score: hematoSystemScore,image:AcuityImages.kHematology)
         
         //Endocrine
         let endocrineWeightedSystemScore = EndocrineManager.sharedManager.endocrineData.endocrineWeightedSystemScore
         let endocrineSystemScore = EndocrineManager.sharedManager.endocrineData.endocrineSystemScore
-        prepareDictionaryForSystemScore(systemName: SystemName.Endocrine, score: endocrineSystemScore)
+        prepareDictionaryForSystemScore(systemName: SystemName.Endocrine, score: endocrineSystemScore,image:AcuityImages.kEndocrine)
         
         //Gastrointestinal
         let gastrointestinalWeightedSystemScore = GastrointestinalManager.sharedManager.gastrointestinalData.gastrointestinalWeightedSystemScore
         let gastrointestinalSystemScore = GastrointestinalManager.sharedManager.gastrointestinalData.gastrointestinalSystemScore
-        prepareDictionaryForSystemScore(systemName: SystemName.Gastrointestinal, score: gastrointestinalSystemScore)
+        prepareDictionaryForSystemScore(systemName: SystemName.Gastrointestinal, score: gastrointestinalSystemScore,image:AcuityImages.kGastrointestinal)
         
         //Genitourinary
         let genitourinaryWeightedSystemScore = GenitourinaryManager.sharedManager.genitourinaryData.genitourinaryWeightedSystemScore
         let genitourinarySystemScore = GenitourinaryManager.sharedManager.genitourinaryData.genitourinarySystemScore
-        prepareDictionaryForSystemScore(systemName: SystemName.Genitourinary, score: genitourinarySystemScore)
+        prepareDictionaryForSystemScore(systemName: SystemName.Genitourinary, score: genitourinarySystemScore,image:AcuityImages.kGenitourinary)
         
         //Neuro
         let neuroWeightedSystemScore = NeuroManager.sharedManager.neuroData.neuroWeightedSystemScore
         let neuroSystemScore = NeuroManager.sharedManager.neuroData.neuroSystemScore
-        prepareDictionaryForSystemScore(systemName: SystemName.Nuerological, score: neuroSystemScore)
+        prepareDictionaryForSystemScore(systemName: SystemName.Nuerological, score: neuroSystemScore,image:AcuityImages.kNuerological)
         
         //SDH
         let sdhWeightedSystemScore = SDHManager.sharedManager.sdhData.sdhWeightedSystemScore
         let sdhSystemScore = SDHManager.sharedManager.sdhData.sdhSystemScore
-        prepareDictionaryForSystemScore(systemName: SystemName.SocialDeterminantsofHealth, score: sdhSystemScore)
+        prepareDictionaryForSystemScore(systemName: SystemName.SocialDeterminantsofHealth, score: sdhSystemScore,image:AcuityImages.kSDH)
         
         //Musc
         let muscWeightedSystemScore = MuscManager.sharedManager.muscData.muscWeightedSystemScore
         let muscSystemScore = MuscManager.sharedManager.muscData.muscSystemScore
-        prepareDictionaryForSystemScore(systemName: SystemName.Musculatory, score: muscSystemScore)
+        prepareDictionaryForSystemScore(systemName: SystemName.Musculatory, score: muscSystemScore,image:AcuityImages.kMusculatory)
         
         //Skin
         let skinWeightedSystemScore = SkinManager.sharedManager.skinData.skinWeightedSystemScore
         let skinSystemScore = SkinManager.sharedManager.skinData.skinSystemScore
-        prepareDictionaryForSystemScore(systemName: SystemName.Integumentary, score: skinSystemScore)
+        prepareDictionaryForSystemScore(systemName: SystemName.Integumentary, score: skinSystemScore,image:AcuityImages.kSDH)
         
         //heent
         let heentWeightedSystemScore = HeentManager.sharedManager.heentData.heentWeightedSystemScore
         let heentSystemScore = HeentManager.sharedManager.heentData.heentSystemScore
-        prepareDictionaryForSystemScore(systemName: SystemName.Heent, score: heentSystemScore)
+        prepareDictionaryForSystemScore(systemName: SystemName.Heent, score: heentSystemScore,image:AcuityImages.kHeent)
      
         let totalWeightedSystemScore1 = cardioWeightedSystemScore + respiratoryWeightedSystemScore + renalWeightedSystemScore + iDiseaseWeightedSystemScore
         let totalWeightedSystemScore2 = fneWeightedSystemScore + hematoWeightedSystemScore + endocrineWeightedSystemScore
@@ -190,9 +190,15 @@ class MyWellScore: NSObject {
         return totalWeightedSystemScore1 + totalWeightedSystemScore2 + totalWeightedSystemScore3 + totalWeightedSystemScore4
     }
     
-    func prepareDictionaryForSystemScore(systemName:SystemName,score:Double){
-        
-        let dictCardio = [Keys.kSystemName:systemName.rawValue,Keys.kScore:score] as [String : Any];
+    func prepareDictionaryForSystemScore(systemName:SystemName,score:Double,image:String){
+         let score = getStringToDisplayScore(score: score)
+   
+        let dictCardio = [Keys.kSystemName:systemName.rawValue,Keys.kScore:score,Keys.kImage:image] as [String : Any];
         dictionaryOfSystemScore.append(dictCardio)
+    }
+    
+    func reorderDictionaryOfSystemScoreBasedOnScore(){
+        let acuityMainModel = AcuityMainViewModel()
+        dictionaryOfSystemScore = acuityMainModel.sortDictionaryDataBasedOnScore(bodySystemArray: dictionaryOfSystemScore)
     }
 }

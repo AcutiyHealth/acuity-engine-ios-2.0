@@ -9,8 +9,14 @@
 
 import UIKit
 import HealthKitReporter
-let btnWheelSelectionWidth = 84
-let btnWheelSelectionHeight = 84
+let btnWheelSelectionWidth = 70
+let btnWheelSelectionHeight = 70
+
+enum ToggleCaseForBtnSelection: Int {
+    case showNormalWheel = 1
+    case showReorderWheel = 2
+    case refreshData = 3
+}
 
 class AcuityMainViewController: PullUpViewController, UIScrollViewDelegate,RotaryProtocol{
     
@@ -40,6 +46,8 @@ class AcuityMainViewController: PullUpViewController, UIScrollViewDelegate,Rotar
     var lastSelectedIndex = 0
     //@IBOutlet var roundView: UIView!
     var btnWheelSelection: UIButton = UIButton()
+    //===========btnWheelSelection will have 3 toggles===========//
+    var btnWheelSelectionToggle = 1;
     
     //Wheel contain System
     var wheel: RotaryWheel?
@@ -77,6 +85,7 @@ class AcuityMainViewController: PullUpViewController, UIScrollViewDelegate,Rotar
         NotificationCenter.default.addObserver(self, selector: #selector(self.showAcuityDetailPopup), name: Notification.Name(NSNotificationName.showAcuityDetailPopup.rawValue), object: nil)
         //Add notification when segment change from popup
         NotificationCenter.default.addObserver(self, selector: #selector(self.refreshWheeltoShowDayWiseData), name: Notification.Name(NSNotificationName.refreshCircleView.rawValue), object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(self.callLoadHealthData), name: Notification.Name(NSNotificationName.refreshDataInCircle.rawValue), object: nil)
     }
     
     deinit {
@@ -92,6 +101,7 @@ class AcuityMainViewController: PullUpViewController, UIScrollViewDelegate,Rotar
         NotificationCenter.default.removeObserver(self,name: Notification.Name(NSNotificationName.pullUpClose.rawValue), object: nil)
         NotificationCenter.default.removeObserver(self,name: Notification.Name(NSNotificationName.showAcuityDetailPopup.rawValue), object: nil)
         NotificationCenter.default.removeObserver(self,name: Notification.Name(NSNotificationName.refreshCircleView.rawValue), object: nil)
+        NotificationCenter.default.removeObserver(self,name: Notification.Name(NSNotificationName.refreshDataInCircle.rawValue), object: nil)
     }
     //========================================================================================================
     //MARK: Notifications Methods..
@@ -178,9 +188,10 @@ class AcuityMainViewController: PullUpViewController, UIScrollViewDelegate,Rotar
         var selSystem = 0
         
         //When Center wheel button selected..sort all data in Array Body System to Green,Red,Yellow..
-        if btnWheelSelection.isSelected == true {
-            
+        //if btnWheelSelection.isSelected == true {
+        if btnWheelSelectionToggle == ToggleCaseForBtnSelection.showReorderWheel.rawValue{
             sortArrayBodySystem()
+            MyWellScore.sharedManager.reorderDictionaryOfSystemScoreBasedOnScore()
             selSystem = viewModelAcuityMain.arrayIndexFromBodySystem(bodyStystem: arrSortedArray!, andAcuityId: acuityId ?? "0")
             
             btnWheelSelected(selectedSystemIndex: selSystem)
@@ -211,6 +222,7 @@ class AcuityMainViewController: PullUpViewController, UIScrollViewDelegate,Rotar
         }
         
     }
+  
     //========================================================================================================
     //MARK: Draw Wheel..
     //========================================================================================================
@@ -223,6 +235,7 @@ class AcuityMainViewController: PullUpViewController, UIScrollViewDelegate,Rotar
         mutableBodySystemArray.addObjects(from: arrSelectedBodySystem)
         
         wheel = RotaryWheel(frame: CGRect(x: (Int(CGFloat(Screen.screenWidth)) - ChartSize.kAcuityCircleWidth)/2, y: (Int(CGFloat(Screen.screenHeight)) - ChartSize.kAcuityCircleHeight)/2 , width: ChartSize.kAcuityCircleWidth, height: ChartSize.kAcuityCircleHeight), andDelegate: self, withSections: Int32(arrSelectedBodySystem.count), bodySystems: mutableBodySystemArray, selectedSystem: Int32(selSystem), needToRotateChevron: rotateChevron)
+        
         
         //To show blue circle view
         let xOfwhiteCircleImageView = 92*((wheel?.whiteCircleContainerView.frame.size.width)!)/340;
@@ -241,7 +254,8 @@ class AcuityMainViewController: PullUpViewController, UIScrollViewDelegate,Rotar
         
         wheel?.addSubview(btnWheelSelection)
         wheel?.whiteCircleContainerView?.addSubview(innerView)
-        
+        //================ Keep arrowDownImageView on topmost ==========================//
+        wheel?.whiteCircleContainerView?.bringSubviewToFront((wheel?.arrowDownImageView)!)
         
         if ((wheel) != nil){
             
@@ -256,13 +270,44 @@ class AcuityMainViewController: PullUpViewController, UIScrollViewDelegate,Rotar
     //========================================================================================================
     @objc @IBAction func btnWheelSelectionClicked(_ sender: Any) {
         
-        if btnWheelSelection.isSelected == false {
+        btnWheelSelectionToggle = btnWheelSelectionToggle + 1;
+        /*if btnWheelSelection.isSelected == false {
+            MyWellScore.sharedManager.reorderDictionaryOfSystemScoreBasedOnScore()
             btnWheelSelected(selectedSystemIndex: 0)
+          
+            self.openDetailPullUpViewController(withAnimation: false)
         }
         else{
             btnWheelNotSelected(selectedSystemIndex: 0)
         }
-        btnWheelSelection.isSelected = !btnWheelSelection.isSelected
+        btnWheelSelection.isSelected = !btnWheelSelection.isSelected*/
+        
+        switch btnWheelSelectionToggle {
+        case ToggleCaseForBtnSelection.showNormalWheel.rawValue:
+            do{
+                btnWheelNotSelected(selectedSystemIndex: 0)
+            }
+            break;
+        case ToggleCaseForBtnSelection.showReorderWheel.rawValue:
+            do{
+                MyWellScore.sharedManager.reorderDictionaryOfSystemScoreBasedOnScore()
+                btnWheelSelected(selectedSystemIndex: 0)
+              
+                self.openDetailPullUpViewController(withAnimation: false)
+            }
+            break;
+        case ToggleCaseForBtnSelection.refreshData.rawValue:
+            do{
+                
+                //======= Refresh Health Data For Calculation===========//
+                callLoadHealthData()
+                btnWheelSelectionToggle = 1;
+            }
+            break;
+        default:
+            break;
+        }
+      
     }
     
     func btnWheelSelected(selectedSystemIndex:Int){
@@ -327,6 +372,10 @@ class AcuityMainViewController: PullUpViewController, UIScrollViewDelegate,Rotar
         lblScore.textColor = themeColor
         lblScoreWhenPopup.textColor = lblScore.textColor
         
+        //show color to center button ring...
+        btnWheelSelection.layer.borderColor = lblScore.textColor.cgColor
+        btnWheelSelection.layer.borderWidth = 5;
+        btnWheelSelection.layer.cornerRadius = btnWheelSelection.frame.size.height/2;
     }
     
     

@@ -181,10 +181,10 @@ class AcuityMainViewModel: NSObject {
         arrBodySystems.append(dictGenitourinary.dictionaryRepresentation())
         arrBodySystems.append(dictNuerological.dictionaryRepresentation())
         
-        arrBodySystems.append(dictSDH.dictionaryRepresentation())
         arrBodySystems.append(dictMusculatory.dictionaryRepresentation())
         arrBodySystems.append(dictIntegumentary.dictionaryRepresentation())
         arrBodySystems.append(dictHeent.dictionaryRepresentation())
+        arrBodySystems.append(dictSDH.dictionaryRepresentation())
         arrBodySystems.append(dictMyWellScore.dictionaryRepresentation())
         
         return arrBodySystems
@@ -202,13 +202,14 @@ class AcuityMainViewModel: NSObject {
     }
     
     //MARK: Return sorted data array...
-    func returnSortedArrayUsingIndexandSequence(bodySystemArray:[[String:Any]]) -> [[String:Any]] {
+    func sortDictionaryDataBasedOnScore(bodySystemArray:[[String:Any]]) -> [[String:Any]] {
+        
         var redColorElememnts : [[String:Any]] = []
         var yellowColorElememnts : [[String:Any]] = []
         var greenColorElememnts : [[String:Any]] = []
-        
+ 
         for item in bodySystemArray{
-            let indexValue = Int(item["score"] as! String) ?? 0
+            let indexValue =  Double(item["score"] as? String ?? "") ?? 0
             if indexValue  > 0 && indexValue <= 75{
                 redColorElememnts.append(item)
             }else if indexValue  > 75 && indexValue <= 85{
@@ -217,11 +218,29 @@ class AcuityMainViewModel: NSObject {
                 greenColorElememnts.append(item)
             }
         }
-        var finalArray: [[String:Any]] = []
-        finalArray.append(contentsOf: redColorElememnts)
-        finalArray.append(contentsOf: yellowColorElememnts)
-        finalArray.append(contentsOf: greenColorElememnts)
+            var finalArray: [[String:Any]] = []
+            finalArray.append(contentsOf: redColorElememnts)
+            finalArray.append(contentsOf: yellowColorElememnts)
+            finalArray.append(contentsOf: greenColorElememnts)
+            
+            
         return finalArray
     }
     
+    func returnSortedArrayUsingIndexandSequence(bodySystemArray:[[String:Any]]) -> [[String:Any]] {
+      
+        var filterdBodySystemArray = bodySystemArray
+        var finalArray: [[String:Any]] = []
+        /*let filterMyWellData:[[String:Any]] = bodySystemArray.filter { $0["id"] as? String != SystemId.Id_MyWellScore}
+        if let index = bodySystemArray.firstIndex(where: {$0["id"] as? String != SystemId.Id_MyWellScore}) {
+            filterdBodySystemArray.remove(at: index)
+        }
+        if filterMyWellData.count > 0
+        {
+            finalArray.append(filterMyWellData.first!)
+        }*/
+        finalArray = sortDictionaryDataBasedOnScore(bodySystemArray: filterdBodySystemArray)
+       
+        return finalArray
+    }
 }

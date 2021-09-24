@@ -20,6 +20,12 @@ func hideIndicator(){
     let hud = JGProgressHUD()
     hud.dismiss()
 }
+func setupViewBorderForAddSection(view:UIView){
+    view.layer.borderWidth = 1
+    view.layer.cornerRadius = 5
+    view.layer.borderColor = UIColor.white.cgColor
+    view.backgroundColor = UIColor.white.withAlphaComponent(0.3)
+}
 /// Standardize the display of dates within the app.
 func createDefaultDateFormatter() -> DateFormatter {
     let formatter = DateFormatter()
@@ -79,6 +85,29 @@ func getThemeColor(index: String?,isForWheel:Bool) -> UIColor? {
         }
         
     }
+}
+//MARK: Sorting Of Systems Based on Score
+func sortingOfSystemBasedONScore(item: [String:Any]) -> [[String:Any]] {
+    var redColorElememnts : [[String:Any]] = []
+    var yellowColorElememnts : [[String:Any]] = []
+    var greenColorElememnts : [[String:Any]] = []
+   
+    let indexValue =  Double(item["score"] as? String ?? "") ?? 0
+    if indexValue  > 0 && indexValue <= 75{
+        redColorElememnts.append(item)
+    }else if indexValue  > 75 && indexValue <= 85{
+        yellowColorElememnts.append(item)
+    }else{
+        greenColorElememnts.append(item)
+    }
+
+    var finalArray: [[String:Any]] = []
+    finalArray.append(contentsOf: redColorElememnts)
+    finalArray.append(contentsOf: yellowColorElememnts)
+    finalArray.append(contentsOf: greenColorElememnts)
+    
+    
+    return finalArray
 }
 
 func isiPhone() -> Bool{
@@ -151,10 +180,10 @@ func getNumberOfTimesLoopToExecute(days:SegmentValueForGraph)->[String:AnyObject
         noOfTimesLoopExecute = ValueForMonths.SevenDays.rawValue
     case .ThirtyDays:
         component = .weekOfMonth
-       
+        
         let prevmonth = Calendar.current.date(byAdding: .month, value: -1, to: now) ?? Date()
         let weekRange = Calendar.current.dateComponents([.weekOfMonth], from: prevmonth, to: now).weekOfMonth ?? 0
-      
+        
         noOfTimesLoopExecute = weekRange
         print("noOfTimesLoopExecute ThirtyDays=====>",noOfTimesLoopExecute)
     case .ThreeMonths:
@@ -166,7 +195,7 @@ func getNumberOfTimesLoopToExecute(days:SegmentValueForGraph)->[String:AnyObject
         noOfTimesLoopExecute = ValueForMonths.One.rawValue
     }
     let componentAndLoopDictionary = ["component":component,"noOfTimesLoopExecute":noOfTimesLoopExecute] as [String : AnyObject]
-   
+    
     return componentAndLoopDictionary
 }
 
@@ -209,7 +238,7 @@ func daywiseFilterMetrixsData(days:SegmentValueForGraph,array:[Metrix],metriXTyp
 //MARK: Get score for conditions in system
 func getScoreForConditions(array:[Metrix],days:SegmentValueForGraph)->[Double]{
     let getComponentAndLoop = getNumberOfTimesLoopToExecute(days: days)
-
+    
     let noOfTimesLoopExecute:Int = getComponentAndLoop["noOfTimesLoopExecute"] as! Int
     var averageScoreArray:[Double] = []
     for _ in 0...noOfTimesLoopExecute-1{
@@ -254,7 +283,7 @@ func getScoreForSymptomsDataWithGivenDateRange(sampleItem:[Metrix],timeIntervalB
     //print("timeIntervalByLastMonth",timeIntervalByLastMonth)
     //print("timeIntervalByNow",timeIntervalByNow)
     filteredArray = sampleItem.filter { item in
-       
+        
         filterMatricsForSymptoms(sampleItem: item, timeIntervalByLastMonth: timeIntervalByLastMonth, timeIntervalByNow: timeIntervalByNow)
     }
     

@@ -105,6 +105,8 @@ class AcuityDetailValueDisplayCell: UITableViewCell {
 //MARK: - Detail Screen Of Pullup TableCell
 class AcuityPullUpMetricsDisplayCell: AcuityDetailValueDisplayCell {
     
+    @IBOutlet weak var imageIcon: UIImageView!
+    
     override func awakeFromNib() {
         
         super.awakeFromNib()
@@ -119,12 +121,13 @@ class AcuityPullUpMetricsDisplayCell: AcuityDetailValueDisplayCell {
         titleLabel.font =
             Fonts.kAcuityMyWellTblCellTitleFont
         titleLabel.textColor =  UIColor.white
-        if let score = item[Keys.kScore] as? Double{
-            maxScore.text = getStringToDisplayScore(score: score)
-        }
+        maxScore.text = item[Keys.kScore] as? String
+//        if let score = item[Keys.kScore] as? Double{
+//            maxScore.text = getStringToDisplayScore(score: score)
+//        }
         maxScore.font =  Fonts.kAcuityMyWellTblValueFont
         maxScore.textColor =  getThemeColor(index: maxScore.text, isForWheel: false)
-      
+        imageIcon.image =  UIImage(named: item[Keys.kImage] as? String ?? "")
     }
 }
 
@@ -288,7 +291,7 @@ class AddOptionCell: UITableViewCell {
     
     func displayData(title:String){
         titleLabel.text = title
-        valueLabel.text = "Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda."
+        valueLabel.text = "\(title) use to know well score of person."
     }
     
     

@@ -195,6 +195,15 @@ chevrons will be used for smooth rotating, using min, mid and max value.
     [_whiteCircleContainerView addSubview:whiteCircleImageView];
     [self addSubview:_whiteCircleContainerView];
     
+    _arrowDownImageView = [[UIImageView alloc] initWithFrame:CGRectMake(xOfwhiteCircleImageView/2,xOfwhiteCircleImageView/2, _whiteCircleContainerView.frame.size.width - xOfwhiteCircleImageView, _whiteCircleContainerView.frame.size.height - xOfwhiteCircleImageView)];
+    _arrowDownImageView.image = [UIImage imageNamed:@"arrow_on_ring"];
+     [_arrowDownImageView setUserInteractionEnabled:NO];
+     //whiteCircleImageView.layer.anchorPoint = CGPointMake(0.5f,0.5f);
+     [_arrowDownImageView setBackgroundColor:[UIColor clearColor]];
+    _arrowDownImageView.center = CGPointMake(_whiteCircleContainerView.center.x, _whiteCircleContainerView.center.y);
+     [_whiteCircleContainerView addSubview:_arrowDownImageView];
+   
+    
     UIPanGestureRecognizer *whiteImageViewpanGestureRecognizer =[[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(recognizeWhiteCircleViewGesture:)];
     whiteImageViewpanGestureRecognizer.delegate = (id)self;
     [_whiteCircleContainerView addGestureRecognizer:whiteImageViewpanGestureRecognizer];
@@ -212,7 +221,7 @@ chevrons will be used for smooth rotating, using min, mid and max value.
 
     [self makeviewRounded:roundbackGroundView];
     [self makeviewRounded:_whiteCircleContainerView];
-    
+    [self makeviewRounded:_arrowDownImageView];
     [self.delegate wheelDidChangeValue:selectedSystem];
     
     CGFloat x = (self.bounds.size.width*kChevronHeight*2/340 - self.bounds.size.width)/2 + 1.8;
@@ -426,6 +435,7 @@ This method will return color string based on index value.
     if(needToRotateChevron){
         double requiredRotationAngle = (numberOfSections-(selectedIndex-previousIndex))*(2*M_PI/numberOfSections);
         container.transform = CGAffineTransformRotate(container.transform, requiredRotationAngle);
+        _arrowDownImageView.transform = CGAffineTransformRotate(_arrowDownImageView.transform, requiredRotationAngle);
         currentValue = selectedIndex;
         roundbackGroundView.backgroundColor = [RotaryWheel getThemeColor:[[arrBodySystems objectAtIndex:selectedSystem] objectForKey:@"score"]];
         [self.delegate wheelDidChangeValue:selectedIndex];
@@ -547,6 +557,7 @@ currentValue is the value of selected system after rotation.
             //After
             [UIView animateWithDuration:0.1 animations:^{
                 self->container.transform = CGAffineTransformRotate(self->startTransform, -angleDifference);
+                self->_arrowDownImageView.transform = CGAffineTransformRotate(self->startTransform, -angleDifference);
             } completion:^(BOOL finished){
             }];
             CGFloat radians = atan2f(container.transform.b, container.transform.a);
@@ -582,6 +593,7 @@ currentValue is the value of selected system after rotation.
             [UIView setAnimationDuration:0.2];
             CGAffineTransform t = CGAffineTransformRotate(container.transform, -newVal);
             container.transform = t;
+            _arrowDownImageView.transform = t;
             [UIView commitAnimations];
             self.shouldGestureApply = NO;
         }

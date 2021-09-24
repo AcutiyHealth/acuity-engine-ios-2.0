@@ -79,8 +79,10 @@ enum ConditionValueText:String {
     case No = "No"
 }
 struct ImageSet {
-    static let wheel1 = UIImage(named:"wheel_option_1.png")
-    static let wheel2 = UIImage(named:"wheel_option_2.png")
+    //static let wheel1 = UIImage(named:"wheel_option_1.png")
+    //static let wheel2 = UIImage(named:"wheel_option_2.png") //AppIcon
+    static let wheel1 = UIImage(named:"center_button.png")
+    static let wheel2 = UIImage(named:"center_button.png")
 }
 enum PullUpType {
     case Detail
@@ -123,19 +125,24 @@ enum ProfileOption: String {
     case termsOfService = "Terms Of Service"
 }
 enum AddOption: String {
-    case Symptom = "Symptoms Tracker"
-    case Conditions = "Conditions"
+    case symptom = "Symptoms Tracker"
+    case conditions = "Conditions"
     case vitals = "Vitals"
+    case medications = "Medications"
+    case otherHistory = "Other Histories"
 }
 enum NSNotificationName: String {
     case pullUpOpen = "pullUpOpen"
     case pullUpClose = "pullUpClose"
     case showAcuityDetailPopup = "showAcuityDetailPopup"
     case refreshCircleView = "refreshCircleView"
+    case refreshDataInCircle = "refreshDataInCircle"
 }
 struct AlertMessages {
     static let STARTDATEGRATETHANENDDATE = "Start date should be less than End date"
     static let OK = "OK"
+    static let BP_AND_HEARTRATE_SAVED = "Blood Pressure and Heart Rate saved in health kit"
+    static let o2_AND_HEARTRATE_SAVED = "Oxygen Saturation and Heart Rate saved in health kit"
 }
 struct WheelColor {
     static let BLUECOLORLABELTITLE = UIColor(red: 41.0 / 255.0, green: 121.0 / 255.0, blue: 255.0 / 255.0, alpha: 1.0)
@@ -166,8 +173,11 @@ enum ColorSchema {
     static let lightTextColor = UIColor(named: "light_text_color")
     
     //Main screen background
-    static let kMainThemeColor =  UIColor(red: 25.0 / 255.0, green: 25 / 255.0, blue: 112 / 255.0, alpha: 1.0)
-    static let kMainThemeColorForPullup =  UIColor(red: 61.0 / 255.0, green: 89 / 255.0, blue: 171 / 255.0, alpha: 0.3)
+//    static let kMainThemeColor =  UIColor(red: 25.0 / 255.0, green: 25 / 255.0, blue: 112 / 255.0, alpha: 1.0)
+//    static let kMainThemeColorForPullup =  UIColor(red: 61.0 / 255.0, green: 89 / 255.0, blue: 171 / 255.0, alpha: 0.3)
+    static let kMainThemeColor =  UIColor.black
+    static let kMainThemeColorForPullup =  UIColor(red: 28.0 / 255.0, green: 28 / 255.0, blue: 30 / 255.0, alpha: 1)//rgba(28,28,30,255)
+
 }//rgba(53, 85, 189, 1)
 
 struct ChartSize {
