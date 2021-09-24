@@ -21,6 +21,7 @@
 @property (nonatomic, strong) NSMutableArray *arrBodySystems;
 @property (nonatomic, strong) UIImageView *backGroundImageView;
 @property (nonatomic, strong) UIView *whiteCircleContainerView;
+@property (nonatomic, strong) UIImageView *arrowDownImageView;
 @property (nonatomic, strong) UIView *roundbackGroundView;
 
 

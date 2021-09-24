@@ -54,6 +54,8 @@ class AddSymptomViewController: UIViewController {
         
         //set fonts..
         setFontForLabel()
+        //set rounded corner button.....
+        setButtonRadiusAndBackgroundColor()
         if !UIDevice.current.hasNotch{
             btnHeight .constant = 50
         }
@@ -61,11 +63,19 @@ class AddSymptomViewController: UIViewController {
     }
     
     func setFontForLabel(){
-        lblTitle.font = Fonts.kAcuityDetailTitleFont
-        lblStart.font = Fonts.kCellTitleFont
-        lblEnd.font = Fonts.kCellTitleFont
-        btnEnd.titleLabel?.font =  Fonts.kValueFont
-        btnStart.titleLabel?.font =  Fonts.kValueFont
+        lblTitle.font = Fonts.kCellTitleFontListInAddSection
+        lblStart.font = Fonts.kStartEndTitleFont
+        lblEnd.font = Fonts.kStartEndTitleFont
+        btnEnd.titleLabel?.font =  Fonts.kStartEndValueFont
+        btnStart.titleLabel?.font =  Fonts.kStartEndValueFont
+        
+    }
+    
+    func setButtonRadiusAndBackgroundColor(){
+        btnEnd.layer.cornerRadius =  5
+        btnStart.layer.cornerRadius =  5
+        btnStart.backgroundColor = UIColor.white.withAlphaComponent(0.2)
+        btnEnd.backgroundColor = UIColor.white.withAlphaComponent(0.2)
     }
     func loadSymptomsData(){
         guard let symptomsModel = symptomsModel else {
@@ -155,7 +165,7 @@ class AddSymptomViewController: UIViewController {
                         self?.showAlertForDataSaved(message:message,okAction: okAction!)
                         
                     }else{
-                        let message = "\(name) is not authorized. You can authorized it by making Turn on from Settings -> Health -> DATA -> \(appName) -> Health Data"
+                        let message = "\(name) is not authorized. You can authorized it by making Turn on from Settings -> Health -> DATA -> \(Key.kAppName) -> Health Data"
                         let okAction = UIAlertAction(title: "OK", style: .default, handler: nil)
                         self?.showAlertForDataSaved(message:message,okAction: okAction)
                     }
@@ -184,7 +194,7 @@ class AddSymptomViewController: UIViewController {
         DispatchQueue.main.async {
             
             let vc = self.parent
-            vc?.presentAlert(title: "\(appName)",
+            vc?.presentAlert(title: "\(Key.kAppName)",
                              message: message,
                              actions: okAction)
         }
@@ -204,7 +214,7 @@ extension AddSymptomViewController:UITableViewDelegate,UITableViewDataSource{
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let cell: LabelDisplayCell = tableView.dequeueReusableCell(withIdentifier: "LabelDisplayCell", for: indexPath as IndexPath) as? LabelDisplayCell else {
+        guard let cell: AddSymptomsCell = tableView.dequeueReusableCell(withIdentifier: "AddSymptomsCell", for: indexPath as IndexPath) as? AddSymptomsCell else {
             fatalError("AcuityDetailDisplayCell cell is not found")
         }
         
@@ -216,7 +226,7 @@ extension AddSymptomViewController:UITableViewDelegate,UITableViewDataSource{
             cell.displayData(title: symptom.rawValue )
         }
         
-        
+        cell.setBorderToCell()
         cell.selectionStyle = .none
         cell.tintColor = UIColor.white
         return cell
@@ -226,22 +236,23 @@ extension AddSymptomViewController:UITableViewDelegate,UITableViewDataSource{
         //Remove previously selected cell's accessorytype...
         if selectedSymptoms > -1{
             let previouslySelectedindexPath = IndexPath(row: selectedSymptoms, section: 0)
-            if let cell = tableView.cellForRow(at: previouslySelectedindexPath) {
-                cell.accessoryType = .none
-                
+            if let cell:AddSymptomsCell = tableView.cellForRow(at: previouslySelectedindexPath) as? AddSymptomsCell {
+                //cell.accessoryType = .none
+                cell.setCellUnSelected()
             }
         }
         //Make new cell's accessoryType to checkmark
-        if let cell = tableView.cellForRow(at: indexPath) {
+        if let cell:AddSymptomsCell = tableView.cellForRow(at: indexPath) as? AddSymptomsCell {
             selectedSymptoms = indexPath.row
-            cell.accessoryType = .checkmark
+            //cell.accessoryType = .checkmark
+            cell.setCellSelected()
         }
         //Make save button selected/deselected as per selectedSymptoms's value
         makeSaveBtnEnableOrDisable()
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 50
+        return 60
     }
     
 }
@@ -252,11 +263,19 @@ extension AddSymptomViewController{
     @IBAction func btnStartDateClick(sender:UIButton){
         viewDatePicker.isHidden = false
         selectedButton = btnStart
+        guard ((btnStart.titleLabel?.text) != nil) else {
+            return
+        }
+        datePicker.date = getDateFromString(date: btnStart.titleLabel!.text!)
     }
     
     @IBAction func btnEndDateClick(sender:UIButton){
         viewDatePicker.isHidden = false
         selectedButton = btnEnd
+        guard ((btnEnd.titleLabel?.text) != nil) else {
+            return
+        }
+        datePicker.date = getDateFromString(date: btnEnd.titleLabel!.text!)
     }
     
     @IBAction func cancelBtnClicked(_ button: UIBarButtonItem?) {

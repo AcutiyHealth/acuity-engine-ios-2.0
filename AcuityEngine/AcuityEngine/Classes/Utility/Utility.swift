@@ -20,6 +20,12 @@ func hideIndicator(){
     let hud = JGProgressHUD()
     hud.dismiss()
 }
+func setupViewBorderForAddSection(view:UIView){
+    view.layer.borderWidth = 1
+    view.layer.cornerRadius = 5
+    view.layer.borderColor = UIColor.white.cgColor
+    view.backgroundColor = UIColor.white.withAlphaComponent(0.3)
+}
 /// Standardize the display of dates within the app.
 func createDefaultDateFormatter() -> DateFormatter {
     let formatter = DateFormatter()
@@ -33,6 +39,28 @@ func unescapeJSONString(_ string: String) -> String {
     return string.replacingOccurrences(of: "\\/", with: "/").replacingOccurrences(of: "\\\\", with: "\\")
 }
 
+//MARK: Apply Animation For Adding View
+func animationForDetailViewWhenAdded(subviewToAdd:UIView, in   view:UIView){
+    let transition = CATransition()
+    transition.type = CATransitionType.push
+    transition.subtype = CATransitionSubtype.fromRight
+    view.layer.add(transition, forKey: nil)
+    view.addSubview(subviewToAdd)
+}
+//MARK: Apply Animation For Removing View
+func animationForDetailViewWhenRemoved(from   view:UIView){
+    let transition = CATransition()
+    transition.type = CATransitionType.push
+    transition.subtype = CATransitionSubtype.fromLeft
+    view.layer.add(transition, forKey: nil)
+}
+//MARK: Animation For Score Label....
+func animateScoreView(view:UIView){
+    view.alpha = 0.0
+    UIView.animate(withDuration: 0.5) {
+        view.alpha = 1.0
+    }
+}
 //MARK: Chart Segment Color
 func getThemeColor(index: String?,isForWheel:Bool) -> UIColor? {
     let indexValue = Double(index ?? "") ?? 0
@@ -58,6 +86,29 @@ func getThemeColor(index: String?,isForWheel:Bool) -> UIColor? {
         
     }
 }
+//MARK: Sorting Of Systems Based on Score
+func sortingOfSystemBasedONScore(item: [String:Any]) -> [[String:Any]] {
+    var redColorElememnts : [[String:Any]] = []
+    var yellowColorElememnts : [[String:Any]] = []
+    var greenColorElememnts : [[String:Any]] = []
+   
+    let indexValue =  Double(item["score"] as? String ?? "") ?? 0
+    if indexValue  > 0 && indexValue <= 75{
+        redColorElememnts.append(item)
+    }else if indexValue  > 75 && indexValue <= 85{
+        yellowColorElememnts.append(item)
+    }else{
+        greenColorElememnts.append(item)
+    }
+
+    var finalArray: [[String:Any]] = []
+    finalArray.append(contentsOf: redColorElememnts)
+    finalArray.append(contentsOf: yellowColorElememnts)
+    finalArray.append(contentsOf: greenColorElememnts)
+    
+    
+    return finalArray
+}
 
 func isiPhone() -> Bool{
     
@@ -66,8 +117,15 @@ func isiPhone() -> Bool{
     }
     return false
 }
-
+//MARK-
+func getFontAsPerDeviceSize(fontName:UIFont,fontSize:CGFloat)->UIFont{
+    return fontName.withSize(fontSize*DeviceSize.screenWidth/320)
+}
 //MARK:
+func getRowHeightAsPerDeviceSize(height:CGFloat)->CGFloat{
+    return height*DeviceSize.screenWidth/320
+}
+//MARK:-
 func getStringToDisplayScore(score:Double)->String{
     let isScoreInteger = score.truncatingRemainder(dividingBy: 1) == 0
     return isScoreInteger ? String(format: "%.0f", score) : String(format: "%.2f", score)
@@ -101,6 +159,14 @@ func getDateWithTime(date:Date)->String{
     return localDate
     
 }
+func getDateFromString(date:String)->Date{
+    
+    let formatter = DateFormatter()
+    formatter.dateFormat = "M/dd/yyyy hh:mm a"
+    let localDate = formatter.date(from: date)
+    return localDate ?? Date()
+    
+}
 
 //MARK: Daywise Filter
 func getNumberOfTimesLoopToExecute(days:SegmentValueForGraph)->[String:AnyObject]{
@@ -114,10 +180,10 @@ func getNumberOfTimesLoopToExecute(days:SegmentValueForGraph)->[String:AnyObject
         noOfTimesLoopExecute = ValueForMonths.SevenDays.rawValue
     case .ThirtyDays:
         component = .weekOfMonth
-       
+        
         let prevmonth = Calendar.current.date(byAdding: .month, value: -1, to: now) ?? Date()
         let weekRange = Calendar.current.dateComponents([.weekOfMonth], from: prevmonth, to: now).weekOfMonth ?? 0
-      
+        
         noOfTimesLoopExecute = weekRange
         print("noOfTimesLoopExecute ThirtyDays=====>",noOfTimesLoopExecute)
     case .ThreeMonths:
@@ -129,7 +195,7 @@ func getNumberOfTimesLoopToExecute(days:SegmentValueForGraph)->[String:AnyObject
         noOfTimesLoopExecute = ValueForMonths.One.rawValue
     }
     let componentAndLoopDictionary = ["component":component,"noOfTimesLoopExecute":noOfTimesLoopExecute] as [String : AnyObject]
-   
+    
     return componentAndLoopDictionary
 }
 
@@ -172,7 +238,7 @@ func daywiseFilterMetrixsData(days:SegmentValueForGraph,array:[Metrix],metriXTyp
 //MARK: Get score for conditions in system
 func getScoreForConditions(array:[Metrix],days:SegmentValueForGraph)->[Double]{
     let getComponentAndLoop = getNumberOfTimesLoopToExecute(days: days)
-
+    
     let noOfTimesLoopExecute:Int = getComponentAndLoop["noOfTimesLoopExecute"] as! Int
     var averageScoreArray:[Double] = []
     for _ in 0...noOfTimesLoopExecute-1{
@@ -214,8 +280,10 @@ func getScoreForLabDataWithGivenDateRange(sampleItem:[Metrix],timeIntervalByLast
 //MARK: getScoreForSymptomsData
 func getScoreForSymptomsDataWithGivenDateRange(sampleItem:[Metrix],timeIntervalByLastMonth:Double,timeIntervalByNow:Double)->Double{
     var filteredArray:[Metrix] = []
-    
+    //print("timeIntervalByLastMonth",timeIntervalByLastMonth)
+    //print("timeIntervalByNow",timeIntervalByNow)
     filteredArray = sampleItem.filter { item in
+        
         filterMatricsForSymptoms(sampleItem: item, timeIntervalByLastMonth: timeIntervalByLastMonth, timeIntervalByNow: timeIntervalByNow)
     }
     
@@ -245,8 +313,8 @@ func getTimeIntervalBySelectedSegmentOfDays(days:SegmentValueForGraph)->Double{
     
     let daysAgo = Calendar.current.date(byAdding: component, value: -beforeDaysOrWeekOrMonth, to: now)!
     
-    let startOfDaysAgo = Calendar.current.startOfDay(for: daysAgo)
-    let timeIntervalByLastMonth:Double = startOfDaysAgo.timeIntervalSince1970
+    //let startOfDaysAgo = Calendar.current.startOfDay(for: daysAgo)
+    let timeIntervalByLastMonth:Double = daysAgo.timeIntervalSince1970
     
     return timeIntervalByLastMonth
 }
@@ -255,6 +323,8 @@ func filterMatricsForSymptoms(sampleItem:Metrix,timeIntervalByLastMonth:Double,t
     let timeIntervalStart = sampleItem.startTimeStamp
     let timeIntervalEnd = sampleItem.endTimeStamp
     if (timeIntervalStart >= timeIntervalByLastMonth && timeIntervalStart <= timeIntervalByNow) || (timeIntervalEnd >= timeIntervalByLastMonth && timeIntervalEnd <= timeIntervalByNow) || (timeIntervalStart <= timeIntervalByNow && timeIntervalEnd >= timeIntervalByNow){
+        print("item startTime",sampleItem.startTimeStamp)
+        print("item endTimeStamp",sampleItem.endTimeStamp)
         print("sampleItem Symptoms----->",sampleItem.value)
         return true
     }

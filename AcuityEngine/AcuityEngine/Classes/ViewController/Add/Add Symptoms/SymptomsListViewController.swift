@@ -35,7 +35,7 @@ class SymptomsListViewController: UIViewController {
         // Do any additional setup after loading the view.
     }
     func  setFontForLabel() {
-        self.lblTitle.font = Fonts.kAcuityDetailTitleFont
+        self.lblTitle.font = Fonts.kCellTitleFontListInAddSection
     }
     func setHandler(handler: @escaping CompletionaddSymptomsViewOpen){
         self.handler = handler
@@ -66,8 +66,8 @@ extension SymptomsListViewController:UITableViewDelegate,UITableViewDataSource{
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let cell: LabelDisplayCell = tableView.dequeueReusableCell(withIdentifier: "LabelDisplayCell", for: indexPath as IndexPath) as? LabelDisplayCell else {
-            fatalError("AcuityDetailDisplayCell cell is not found")
+        guard let cell: LabelInListAddSectionCell = tableView.dequeueReusableCell(withIdentifier: "LabelInListAddSectionCell", for: indexPath as IndexPath) as? LabelInListAddSectionCell else {
+            fatalError("LabelInListAddSectionCell cell is not found")
         }
         let symptomsData = symptomArray[indexPath.row]
         cell.displayData(title: symptomsData.title?.rawValue ?? "")
@@ -91,7 +91,9 @@ extension SymptomsListViewController:UITableViewDelegate,UITableViewDataSource{
         self.addChild(addSymptomsVC!)
         addSymptomsVC?.view.frame = CGRect(x: 0, y: 0, width: self.view.frame.size.width, height: self.view.frame.size.height)
         
-        self.view.addSubview((addSymptomsVC?.view)!)
+        //Show animation when view added.....
+        animationForDetailViewWhenAdded(subviewToAdd: (addSymptomsVC?.view)!, in: self.view)
+        
         addSymptomsVC?.view.setNeedsDisplay()
         addSymptomsVC?.didMove(toParent: self)
         addSymptomsVC?.view.tag = 111
@@ -110,6 +112,10 @@ extension SymptomsListViewController:UITableViewDelegate,UITableViewDataSource{
         }
     }
     func removeAddSymptomsViewController(){
+        //Show animation when view removed from superview.......
+        animationForDetailViewWhenRemoved(from: self.view)
+        
+        //
         if addSymptomsVC != nil{
             symptomView.isHidden = false
             addSymptomsVC?.view.removeFromSuperview()

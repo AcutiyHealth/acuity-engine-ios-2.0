@@ -37,28 +37,31 @@
                                 </userDefinedRuntimeAttribute>
                             </userDefinedRuntimeAttributes>
                         </view>
-                        <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Ayg-8H-Kcq" customClass="CloseButton" customModule="AcuityEngine" customModuleProvider="target">
-                            <rect key="frame" x="374" y="0.0" width="30" height="40"/>
+                        <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Ayg-8H-Kcq" userLabel="Button1" customClass="CloseButton" customModule="AcuityEngine" customModuleProvider="target">
+                            <rect key="frame" x="370" y="3.5" width="34" height="34"/>
                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            <constraints>
+                                <constraint firstAttribute="width" constant="34" id="IaG-sl-u2k"/>
+                                <constraint firstAttribute="height" constant="34" id="Kpg-vE-H78"/>
+                            </constraints>
                         </button>
-                        <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="04q-sy-wQN" customClass="BackButton" customModule="AcuityEngine" customModuleProvider="target">
-                            <rect key="frame" x="10" y="0.0" width="30" height="40"/>
+                        <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="04q-sy-wQN" userLabel="Button2" customClass="BackButton" customModule="AcuityEngine" customModuleProvider="target">
+                            <rect key="frame" x="10" y="3.5" width="34" height="34"/>
                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            <constraints>
+                                <constraint firstAttribute="height" constant="34" id="A8P-b4-hMS"/>
+                                <constraint firstAttribute="width" constant="34" id="cXT-kE-DbN"/>
+                            </constraints>
                         </button>
                     </subviews>
                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     <constraints>
-                        <constraint firstAttribute="bottom" secondItem="04q-sy-wQN" secondAttribute="bottom" id="0FB-Ou-G2O"/>
                         <constraint firstItem="h30-bg-VKl" firstAttribute="top" secondItem="3mN-hW-Ccc" secondAttribute="top" constant="18" id="24f-Vy-Qt0"/>
-                        <constraint firstItem="Ayg-8H-Kcq" firstAttribute="width" secondItem="3mN-hW-Ccc" secondAttribute="height" multiplier="3:4" id="BHB-te-wQa"/>
-                        <constraint firstAttribute="bottom" secondItem="Ayg-8H-Kcq" secondAttribute="bottom" id="JNW-Va-0Ff"/>
-                        <constraint firstItem="04q-sy-wQN" firstAttribute="leading" secondItem="3mN-hW-Ccc" secondAttribute="leading" constant="10" id="NqG-D9-zSP"/>
-                        <constraint firstItem="04q-sy-wQN" firstAttribute="height" secondItem="Ayg-8H-Kcq" secondAttribute="height" id="REP-AS-6Pi"/>
-                        <constraint firstAttribute="trailing" secondItem="Ayg-8H-Kcq" secondAttribute="trailing" constant="10" id="VRw-cj-QXo"/>
+                        <constraint firstItem="04q-sy-wQN" firstAttribute="leading" secondItem="3mN-hW-Ccc" secondAttribute="leading" constant="10" id="7Ne-oN-Nqb"/>
+                        <constraint firstItem="04q-sy-wQN" firstAttribute="centerY" secondItem="h30-bg-VKl" secondAttribute="centerY" id="MRu-ig-sjv"/>
+                        <constraint firstItem="Ayg-8H-Kcq" firstAttribute="centerY" secondItem="h30-bg-VKl" secondAttribute="centerY" id="XUS-VU-tDg"/>
                         <constraint firstItem="h30-bg-VKl" firstAttribute="centerX" secondItem="3mN-hW-Ccc" secondAttribute="centerX" id="hcc-XK-pe1"/>
-                        <constraint firstItem="04q-sy-wQN" firstAttribute="width" secondItem="Ayg-8H-Kcq" secondAttribute="width" id="qra-4a-m81"/>
-                        <constraint firstItem="04q-sy-wQN" firstAttribute="top" secondItem="3mN-hW-Ccc" secondAttribute="top" id="vfY-NR-Ayd"/>
-                        <constraint firstItem="Ayg-8H-Kcq" firstAttribute="top" secondItem="3mN-hW-Ccc" secondAttribute="top" id="vsE-y6-iCD"/>
+                        <constraint firstAttribute="trailing" secondItem="Ayg-8H-Kcq" secondAttribute="trailing" constant="10" id="pgc-iV-m9u"/>
                     </constraints>
                 </view>
             </subviews>

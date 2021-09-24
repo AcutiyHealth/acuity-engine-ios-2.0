@@ -24,7 +24,7 @@ public struct Characteristic: Codable {
         wheelchairUse: HKWheelchairUseObject?
     ) {
         self.biologicalSex = biologicalSex?.biologicalSex.string
-        self.birthday = birthday?.date?.formatted(with: Date.iso8601)
+        self.birthday = birthday?.date?.formatted(with: Date.yyyyMMdd)
         self.bloodType = bloodType?.bloodType.string
         self.skinType = skinType?.skinType.string
         self.wheelchairUse = wheelchairUse?.wheelchairUse.string
@@ -41,7 +41,7 @@ public struct Characteristic: Codable {
         activityMoveMode: HKActivityMoveModeObject?
     ) {
         self.biologicalSex = biologicalSex?.biologicalSex.string
-        self.birthday = birthday?.date?.formatted(with: Date.iso8601)
+        self.birthday = birthday?.date?.formatted(with: Date.yyyyMMdd)
         self.bloodType = bloodType?.bloodType.string
         self.skinType = skinType?.skinType.string
         self.wheelchairUse = wheelchairUse?.wheelchairUse.string

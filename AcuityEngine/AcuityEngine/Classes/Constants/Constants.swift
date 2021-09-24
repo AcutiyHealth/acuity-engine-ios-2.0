@@ -54,19 +54,41 @@ enum SystemName:String {
     case InfectiousDisease = "Infectious Disease"
     case SocialDeterminantsofHealth = "Social Determinants of Health"
     case Heent = "Head,Eyes,Ears,Nose,Throat"
+    case MyWellScore = "MyWell  Score"
 }
+struct SystemId {
+    static let Id_Cardiovascular = "0"
+    static let Id_Respiratory = "15"
+    static let Id_Renal = "20"
+    static let Id_Gastrointestinal = "45"
+    static let Id_Genitourinary = "32"
+    static let Id_Endocrine = "46"
+    static let Id_Nuerological = "78"
+    static let Id_Hematology = "36"
+    static let Id_Musculatory = "23"
+    static let Id_Integumentary = "89"
+    static let Id_Fluids = "432"
+    static let Id_InfectiousDisease = "98"
+    static let Id_SocialDeterminantsofHealth = "248"
+    static let Id_Heent = "111"
+    static let Id_MyWellScore = "112"
+}
+
 enum ConditionValueText:String {
     case Yes = "Yes"
     case No = "No"
 }
 struct ImageSet {
-    static let wheel1 = UIImage(named:"wheel_option_1.png")
-    static let wheel2 = UIImage(named:"wheel_option_2.png")
+    //static let wheel1 = UIImage(named:"wheel_option_1.png")
+    //static let wheel2 = UIImage(named:"wheel_option_2.png") //AppIcon
+    static let wheel1 = UIImage(named:"center_button.png")
+    static let wheel2 = UIImage(named:"center_button.png")
 }
 enum PullUpType {
     case Detail
     case Profile
     case Add
+    case MyWellScore
 }
 
 enum SegmentValueForGraph:String {
@@ -74,6 +96,11 @@ enum SegmentValueForGraph:String {
     case ThirtyDays = "1 Month"
     case ThreeMonths = "3 Months"
     case OneDay = "1 Day"
+}
+
+enum SegmentValueForCondition:String {
+    case Yes = "Yes"
+    case No = "No"
 }
 enum ValueForMonths:Int {
     case SevenDays = 7
@@ -98,19 +125,24 @@ enum ProfileOption: String {
     case termsOfService = "Terms Of Service"
 }
 enum AddOption: String {
-    case Symptom = "Symptoms Tracker"
-    case Conditions = "Conditions"
+    case symptom = "Symptoms Tracker"
+    case conditions = "Conditions"
     case vitals = "Vitals"
+    case medications = "Medications"
+    case otherHistory = "Other Histories"
 }
 enum NSNotificationName: String {
     case pullUpOpen = "pullUpOpen"
     case pullUpClose = "pullUpClose"
     case showAcuityDetailPopup = "showAcuityDetailPopup"
     case refreshCircleView = "refreshCircleView"
+    case refreshDataInCircle = "refreshDataInCircle"
 }
 struct AlertMessages {
     static let STARTDATEGRATETHANENDDATE = "Start date should be less than End date"
     static let OK = "OK"
+    static let BP_AND_HEARTRATE_SAVED = "Blood Pressure and Heart Rate saved in health kit"
+    static let o2_AND_HEARTRATE_SAVED = "Oxygen Saturation and Heart Rate saved in health kit"
 }
 struct WheelColor {
     static let BLUECOLORLABELTITLE = UIColor(red: 41.0 / 255.0, green: 121.0 / 255.0, blue: 255.0 / 255.0, alpha: 1.0)
@@ -141,17 +173,22 @@ enum ColorSchema {
     static let lightTextColor = UIColor(named: "light_text_color")
     
     //Main screen background
-    static let kMainThemeColor =  UIColor(red: 20.0 / 255.0, green: 41 / 255.0, blue: 113 / 255.0, alpha: 1.0)
-    static let kMainThemeColorForPullup =  UIColor(red: 20.0 / 255.0, green: 41 / 255.0, blue: 113 / 255.0, alpha: 0.3)
-}
+//    static let kMainThemeColor =  UIColor(red: 25.0 / 255.0, green: 25 / 255.0, blue: 112 / 255.0, alpha: 1.0)
+//    static let kMainThemeColorForPullup =  UIColor(red: 61.0 / 255.0, green: 89 / 255.0, blue: 171 / 255.0, alpha: 0.3)
+    static let kMainThemeColor =  UIColor.black
+    static let kMainThemeColorForPullup =  UIColor(red: 28.0 / 255.0, green: 28 / 255.0, blue: 30 / 255.0, alpha: 1)//rgba(28,28,30,255)
+
+}//rgba(53, 85, 189, 1)
+
 struct ChartSize {
     static let kAcuityCircleWidth  = (Int(Screen.screenWidth)*360)/Screen.iPhone11ScreenWidth
     static let kAcuityCircleHeight  = (Int(Screen.screenWidth)*360)/Screen.iPhone11ScreenWidth
 }
+
 struct Screen{
     static let screenSize = UIScreen.main.bounds
-    static let screenWidth = screenSize.width
-    static let screenHeight = screenSize.height
+    static let screenWidth = screenSize.size.width
+    static let screenHeight = screenSize.size.height
     static let iPhone11ScreenHeight =
         896
     static let iPhone11ScreenWidth =
@@ -160,8 +197,13 @@ struct Screen{
         568
 }
 
-struct AcuityData {
+struct Keys {
     static let kAcuityId = "id"
+    static let kSystemName = "name"
+    static let kScore = "score"
+    static let kImage = "image"
+    static let kMetricDictionary = "metricDictionary"
+    static let kMyWellScoreDataDictionary = "myWellScoreDataDictionary"
 }
 
 
@@ -180,6 +222,7 @@ struct AcuityImages {
     static let kIDs = "infectious_disease.png"
     static let kSDH = "disposition_information.png"
     static let kHeent = "heent.png"
+    static let kMyWellScore = "mywellscore.png"
 }
 
 struct Fonts {
@@ -187,23 +230,47 @@ struct Fonts {
     static let kAcuityMainTitle1Font = UIFont.SFProDisplayBold(of: 22)
     static let kAcuityMainScoreFont = UIFont.SFProDisplayBold(of: 55)
     static let kAcuityMainTitle2Font = UIFont.SFProDisplayBold(of: 20)
+    
     //Pull up
-    static let kAcuityDetailTitleFont = UIFont.SFProDisplayBold(of: 26)
-    static let kAcuityDetailValueFont = UIFont.SFProDisplayBold(of: 26)
-    static let kAcuityDetailSegmentFont = UIFont.SFProDisplayMedium(of: 13)
-    static let kAcuityDetailCellFont = UIFont.SFProDisplayMedium(of: 12)
-    static let kAcuitySystemCellFont = UIFont.SFProDisplayBold(of: 16)
+    static let kAcuityDetailTitleFont = getFontAsPerDeviceSize(fontName: UIFont.SFProDisplayBold(of: 26), fontSize: 26)
+    static let kAcuityDetailValueFont = getFontAsPerDeviceSize(fontName: UIFont.SFProDisplayBold(of: 26), fontSize: 26)
+    static let kAcuityDetailSegmentFont = getFontAsPerDeviceSize(fontName: UIFont.SFProDisplayMedium(of: 13), fontSize: 13)
+    static let kAcuityDetailCellTitleFont = getFontAsPerDeviceSize(fontName: UIFont.SFProDisplayBold(of: 15), fontSize: 15)
+    static let kAcuityPullUpMetricCellFont = getFontAsPerDeviceSize(fontName: UIFont.SFProDisplayMedium(of: 12), fontSize: 12)
+    static let kAcuityDetailCellFont = getFontAsPerDeviceSize(fontName: UIFont.SFProDisplayMedium(of: 15), fontSize: 15)
+    static let kAcuitySystemCellFont = getFontAsPerDeviceSize(fontName: UIFont.SFProDisplayBold(of: 16), fontSize: 16)
+    static let kAcuityMyWellTblCellTitleFont = getFontAsPerDeviceSize(fontName: UIFont.SFProDisplaySemiBold(of: 16), fontSize: 16)
+    static let kAcuityMyWellTblValueFont = getFontAsPerDeviceSize(fontName: UIFont.SFProDisplayMedium(of: 16), fontSize: 16)
     
     //All other screen cell
-    static let kCellTitleFont = UIFont.SFProDisplaySemiBold(of: 18)
-    static let kValueFont = UIFont.SFProDisplayMedium(of: 18)
+    static let kCellTitleFont = getFontAsPerDeviceSize(fontName: UIFont.SFProDisplayBold(of: 18), fontSize: 18)
+    static let kValueFont = getFontAsPerDeviceSize(fontName: UIFont.SFProDisplayMedium(of: 18), fontSize: 18)
     
+    //List in Add Section cell
+    static let kCellTextFontListInAddSection = getFontAsPerDeviceSize(fontName: UIFont.SFProDisplaySemiBold(of: 18), fontSize: 18)
+    static let kCellTitleFontListInAddSection = getFontAsPerDeviceSize(fontName: UIFont.SFProDisplayBold(of: 26), fontSize: 26)
+    static let kStartEndTitleFont = getFontAsPerDeviceSize(fontName: UIFont.SFProDisplaySemiBold(of: 18), fontSize: 18)
+    static let kStartEndValueFont = getFontAsPerDeviceSize(fontName: UIFont.SFProDisplayMedium(of: 16), fontSize: 16)
     //Pull up
-    static let kAcuityAddOptionTitleFont = UIFont.SFProDisplayBold(of: 22)
-    static let kAcuityAddOptionValueFont = UIFont.SFProDisplayMedium(of: 12)
-  
+    static let kAcuityAddOptionTitleFont = getFontAsPerDeviceSize(fontName: UIFont.SFProDisplayBold(of: 18), fontSize: 18)
+    static let kAcuityAddOptionValueFont = getFontAsPerDeviceSize(fontName: UIFont.SFProDisplayMedium(of: 10), fontSize: 10)
+    
 }
 
 let dayArray = ["Mon","Tue","Wed","Thu","Fri","Sat","Sun"]
-let appName = Bundle.main.infoDictionary?["CFBundleDisplayName"] as? String ?? "AcuityEngine"
-let kIsConditionDataAdded = "isConditionDataAdded" as  String
+
+struct DeviceSize {
+    static let screenRect = UIScreen.main.bounds
+    static let screenWidth = screenRect.size.width
+    static let screenHeight = screenRect.size.height
+}
+
+struct Key {
+    static let kIsConditionDataAdded = "isConditionDataAdded" as  String
+    static let kAppleFirstName = "appleFirstName" as  String
+    static let kAppleLastName = "appleLastName" as  String
+    static let kAppleEmail = "appleEmail" as  String
+    static let kAppleUserID = "appleUserID" as  String
+    static let kAppName = Bundle.main.infoDictionary?["CFBundleDisplayName"] as? String ?? "AcuityEngine"
+}
+

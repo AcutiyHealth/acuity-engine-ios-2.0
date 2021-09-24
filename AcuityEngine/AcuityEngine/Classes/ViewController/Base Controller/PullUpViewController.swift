@@ -46,6 +46,15 @@ class PullUpViewController: UIViewController {
      
         
     }
+    //Remove view from it's super and add it again
+    func reloadCardViewWithAnimation(){
+        hide()
+        
+        pullUpController.dataSource = self
+        pullUpController.setupCardWithAnimation(from: self.view)
+     
+        
+    }
     //remove current view from it's super view
     func hide() {
         self.view.subviews.forEach { (subView) in
@@ -84,6 +93,7 @@ extension PullUpViewController: SOPullUpViewDataSource {
             do {
                 if  (self.pullUpController.pullUpVC != nil),self.pullUpController.pullUpVC.isKind(of: AcuityDetailPullUpViewController.self){
                     self.pullUpController.pullUpVC.viewDidLoad()
+                    self.pullUpController.animation()
                     return self.pullUpController.pullUpVC!
                 }else{
                     guard let detailVC = UIStoryboard(name: Storyboard.acuityDetailPullUp.rawValue, bundle: nil).instantiateViewController(withIdentifier: "AcuityDetailPullUpViewController")  as? AcuityDetailPullUpViewController else {return vc}
@@ -104,6 +114,8 @@ extension PullUpViewController: SOPullUpViewDataSource {
                     return profileVC
                 }
             }
+            //return UIViewController()
+        
         case .Add:
             do{
                 if  (self.pullUpController.pullUpVC != nil),self.pullUpController.pullUpVC.isKind(of: AddOptionSelectionViewController.self){
@@ -114,11 +126,16 @@ extension PullUpViewController: SOPullUpViewDataSource {
                     return addVC
                 }
             }
+        default:break
         }
-        
+ 
+        return vc
     }
     
     func pullUpViewExpandedViewHeight() -> CGFloat {
+        if Screen.screenHeight == CGFloat(Screen.iPhoneSEHeight){
+            return expandedViewHeight+5
+        }
         return expandedViewHeight
     }
 }

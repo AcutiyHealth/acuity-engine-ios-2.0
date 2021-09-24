@@ -77,7 +77,7 @@ public class SOPullUpControl {
         pullUpVC.view.tag = pullUpViewTag
         
         view.addSubview(pullUpVC.view)
-       
+    
         pullUpVC.view.frame = CGRect(x: 0, y: heightView - startCardHeight, width: widthView, height: endCardHeight)
         pullUpVC.view.clipsToBounds = true
         pullUpVC.view.roundCorners(corners: [.topLeft, .topRight], radius: 25)
@@ -92,6 +92,11 @@ public class SOPullUpControl {
         
     }
     
+    public func setupCardWithAnimation(from view: UIView) {
+        
+        self.setupCard(from: view)
+        animation()
+    }
     // used to hide the pullUpView from parentView
     public func hide() {
         parentView?.subviews.forEach { (subView) in
@@ -100,7 +105,13 @@ public class SOPullUpControl {
             }
         }
     }
-    
+    // used to hide the pullUpView from parentView
+    public func animation() {
+        pullUpVC.view.alpha = 0.0
+        UIView.animate(withDuration: 0.8) { [weak self] in
+            self?.pullUpVC.view.alpha = 1.0
+        }
+    }
     // used to show the pullUpView from parentView
     public func show() {
         parentView?.subviews.forEach { (subView) in

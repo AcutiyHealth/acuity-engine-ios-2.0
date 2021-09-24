@@ -1,17 +1,15 @@
 {
   "images" : [
     {
-      "filename" : "red_chevron@2x-2.png",
       "idiom" : "universal",
       "scale" : "1x"
     },
     {
-      "filename" : "red_chevron@2x.png",
+      "filename" : "Red 2 BORDER (1).png",
       "idiom" : "universal",
       "scale" : "2x"
     },
     {
-      "filename" : "red_chevron@2x-1.png",
       "idiom" : "universal",
       "scale" : "3x"
     }

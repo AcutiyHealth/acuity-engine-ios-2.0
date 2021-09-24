@@ -169,19 +169,15 @@ extension AcuityMetricsValueViewController: UITableViewDelegate, UITableViewData
                 cell.displayData(timeStamp: item.startTime, value: "\(String(describing: item.value ?? ""))", color: item.color)
                 cell.selectionStyle = .none
             }
-            
-            
-        case .none:
-            do{
-                
-            }
+        default:break;
         }
-        
+        //Set Font For Cell As per Device Size.....
+        cell.setFontForLabel(font:Fonts.kAcuityDetailCellFont)
         cell.backgroundColor = UIColor.clear
         return cell
     }
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 40
+        return getRowHeightAsPerDeviceSize(height:40)
     }
     
     

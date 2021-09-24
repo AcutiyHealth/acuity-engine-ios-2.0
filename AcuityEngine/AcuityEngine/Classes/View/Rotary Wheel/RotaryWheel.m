@@ -12,7 +12,7 @@
 #import "Chevron.h"
 
 #define kChevronHeight 180
-#define kChevronWidth 80
+#define kChevronWidth 75.36
 #define kAcuityCircleWidth  360
 #define kAcuityCircleHeight  360
 #define BLUECOLORLABELTITLE [UIColor colorWithRed:41.0/255.0 green:121.0/255.0 blue:255.0/255.0 alpha:1.0]
@@ -83,12 +83,13 @@ chevrons will be used for smooth rotating, using min, mid and max value.
     _panGestureRecognizer =[[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(recognizeCircularViewGesture:)];
     _panGestureRecognizer.delegate = (id)self;
     [container addGestureRecognizer:_panGestureRecognizer];
+
     /*
      In this, circle will have 360 degree and number of angle will be number of sections. so chevron width(kChevronWidth) will be change accordingly. kChevronHeight is kAcuityCircleHeight/2
      Arc length = Angle * Radius
      kChevronWidth = Angle * kChevronHeight
      If 14 system is there... Angle = (2 * 3.14)/14 so It will be 0.4485.
-     kChevronWidth = 0.4485 * 180 = 80
+     kChevronWidth = 0.4485 * 180 = 80. Make change in  constant kChevronWidth
      */
     CGFloat angleSize = 2*M_PI/numberOfSections;
     
@@ -99,7 +100,7 @@ chevrons will be used for smooth rotating, using min, mid and max value.
         [chevronView setBackgroundColor:[UIColor clearColor]];
         chevronView.layer.bounds = CGRectMake(0.0, 0.0,self.bounds.size.width*kChevronWidth/340,self.bounds.size.width*kChevronHeight/340);
         chevronView.layer.position = CGPointMake(CGRectGetMidX(self.bounds),CGRectGetMidY(self.bounds));
-        chevronView.transform = CGAffineTransformMakeRotation(angleSize*i);
+        chevronView.transform = CGAffineTransformMakeRotation((angleSize*i));
         chevronView.userInteractionEnabled = YES;
         chevronView.backgroundColor = [UIColor clearColor];
         chevronView.alpha = maxAlphavalue;
@@ -139,11 +140,13 @@ chevrons will be used for smooth rotating, using min, mid and max value.
         UITapGestureRecognizer *tapGestureRecognizer =[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(recognizeChevronGesture:)];
         tapGestureRecognizer.delegate = (id)self;
         [chevronImageView addGestureRecognizer:tapGestureRecognizer];
-        CGFloat x = 22;
+        CGFloat y = 7;
         if (self.frame.size.width<290) {
-            x = 18;
+            y = 10;
         }
-        UIImageView *imageView = [[UIImageView alloc] initWithFrame:CGRectMake(x*self.bounds.size.width/kAcuityCircleWidth, 5, 38,25)];
+        y = 4*self.frame.size.width/340;
+        //Small Image/Icon in Middle Of Chevron.......
+        UIImageView *imageView = [[UIImageView alloc] initWithFrame:CGRectMake(15*self.bounds.size.width/kAcuityCircleWidth, y*self.bounds.size.width/kAcuityCircleWidth, 50*self.bounds.size.width/kAcuityCircleWidth,35*self.bounds.size.width/kAcuityCircleWidth)];
         [imageView setUserInteractionEnabled:NO];
         [imageView setTag:9999];
        
@@ -154,6 +157,7 @@ chevrons will be used for smooth rotating, using min, mid and max value.
         imageView.backgroundColor = UIColor.clearColor;
         [chevronView addSubview:chevronImageView];
         [chevronView addSubview:imageView];
+   
         [container addSubview:chevronView];
     }
     
@@ -171,7 +175,8 @@ chevrons will be used for smooth rotating, using min, mid and max value.
     _whiteCircleContainerView = [[UIView alloc] initWithFrame:CGRectMake(0,0,self.frame.size.width, self.frame.size.height)];
     [_whiteCircleContainerView setBackgroundColor:[UIColor clearColor]];
     
-    roundbackGroundView = [[UIView alloc] initWithFrame:CGRectMake(30,30, _whiteCircleContainerView.frame.size.width - 60, _whiteCircleContainerView.frame.size.height - 60)];
+    CGFloat xOfwhiteCircleImageView = 70*self.frame.size.width/340;
+    roundbackGroundView = [[UIView alloc] initWithFrame:CGRectMake(xOfwhiteCircleImageView/2,xOfwhiteCircleImageView/2, _whiteCircleContainerView.frame.size.width - xOfwhiteCircleImageView, _whiteCircleContainerView.frame.size.height - xOfwhiteCircleImageView)];
     roundbackGroundView.layer.cornerRadius = roundbackGroundView.frame.size.height/2;
     roundbackGroundView.center = CGPointMake(_whiteCircleContainerView.center.x, _whiteCircleContainerView.center.y);
     roundbackGroundView.backgroundColor = UIColor.clearColor;
@@ -179,7 +184,9 @@ chevrons will be used for smooth rotating, using min, mid and max value.
     
     [self addSubview:roundbackGroundView];
     
-   UIImageView *whiteCircleImageView = [[UIImageView alloc] initWithFrame:CGRectMake(30,30, _whiteCircleContainerView.frame.size.width - 52, _whiteCircleContainerView.frame.size.height - 52)];
+ 
+    
+   UIImageView *whiteCircleImageView = [[UIImageView alloc] initWithFrame:CGRectMake(xOfwhiteCircleImageView/2,xOfwhiteCircleImageView/2, _whiteCircleContainerView.frame.size.width - xOfwhiteCircleImageView, _whiteCircleContainerView.frame.size.height - xOfwhiteCircleImageView)];
     whiteCircleImageView.image = [UIImage imageNamed:@"white_circle"];
     [whiteCircleImageView setUserInteractionEnabled:NO];
     //whiteCircleImageView.layer.anchorPoint = CGPointMake(0.5f,0.5f);
@@ -187,6 +194,15 @@ chevrons will be used for smooth rotating, using min, mid and max value.
     whiteCircleImageView.center = CGPointMake(_whiteCircleContainerView.center.x, _whiteCircleContainerView.center.y);
     [_whiteCircleContainerView addSubview:whiteCircleImageView];
     [self addSubview:_whiteCircleContainerView];
+    
+    _arrowDownImageView = [[UIImageView alloc] initWithFrame:CGRectMake(xOfwhiteCircleImageView/2,xOfwhiteCircleImageView/2, _whiteCircleContainerView.frame.size.width - xOfwhiteCircleImageView, _whiteCircleContainerView.frame.size.height - xOfwhiteCircleImageView)];
+    _arrowDownImageView.image = [UIImage imageNamed:@"arrow_on_ring"];
+     [_arrowDownImageView setUserInteractionEnabled:NO];
+     //whiteCircleImageView.layer.anchorPoint = CGPointMake(0.5f,0.5f);
+     [_arrowDownImageView setBackgroundColor:[UIColor clearColor]];
+    _arrowDownImageView.center = CGPointMake(_whiteCircleContainerView.center.x, _whiteCircleContainerView.center.y);
+     [_whiteCircleContainerView addSubview:_arrowDownImageView];
+   
     
     UIPanGestureRecognizer *whiteImageViewpanGestureRecognizer =[[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(recognizeWhiteCircleViewGesture:)];
     whiteImageViewpanGestureRecognizer.delegate = (id)self;
@@ -205,8 +221,16 @@ chevrons will be used for smooth rotating, using min, mid and max value.
 
     [self makeviewRounded:roundbackGroundView];
     [self makeviewRounded:_whiteCircleContainerView];
-    
+    [self makeviewRounded:_arrowDownImageView];
     [self.delegate wheelDidChangeValue:selectedSystem];
+    
+    CGFloat x = (self.bounds.size.width*kChevronHeight*2/340 - self.bounds.size.width)/2 + 1.8;
+    UIView *outSideBorderView = [[UIView alloc] initWithFrame:CGRectMake(-x, -x,self.bounds.size.width*kChevronHeight*2/340 + 3.6, self.bounds.size.width*kChevronHeight*2/340 + 3.6)];
+    outSideBorderView.layer.cornerRadius = outSideBorderView.frame.size.width/2;
+    outSideBorderView.layer.borderColor = UIColor.whiteColor.CGColor;
+    outSideBorderView.layer.borderWidth = 2;
+    outSideBorderView.userInteractionEnabled = false;
+    [container addSubview:outSideBorderView];
 }
 #pragma mark - Make Rounded view
 -(void)makeviewRounded:(UIView* )view{
@@ -411,6 +435,7 @@ This method will return color string based on index value.
     if(needToRotateChevron){
         double requiredRotationAngle = (numberOfSections-(selectedIndex-previousIndex))*(2*M_PI/numberOfSections);
         container.transform = CGAffineTransformRotate(container.transform, requiredRotationAngle);
+        _arrowDownImageView.transform = CGAffineTransformRotate(_arrowDownImageView.transform, requiredRotationAngle);
         currentValue = selectedIndex;
         roundbackGroundView.backgroundColor = [RotaryWheel getThemeColor:[[arrBodySystems objectAtIndex:selectedSystem] objectForKey:@"score"]];
         [self.delegate wheelDidChangeValue:selectedIndex];
@@ -532,6 +557,7 @@ currentValue is the value of selected system after rotation.
             //After
             [UIView animateWithDuration:0.1 animations:^{
                 self->container.transform = CGAffineTransformRotate(self->startTransform, -angleDifference);
+                self->_arrowDownImageView.transform = CGAffineTransformRotate(self->startTransform, -angleDifference);
             } completion:^(BOOL finished){
             }];
             CGFloat radians = atan2f(container.transform.b, container.transform.a);
@@ -567,6 +593,7 @@ currentValue is the value of selected system after rotation.
             [UIView setAnimationDuration:0.2];
             CGAffineTransform t = CGAffineTransformRotate(container.transform, -newVal);
             container.transform = t;
+            _arrowDownImageView.transform = t;
             [UIView commitAnimations];
             self.shouldGestureApply = NO;
         }

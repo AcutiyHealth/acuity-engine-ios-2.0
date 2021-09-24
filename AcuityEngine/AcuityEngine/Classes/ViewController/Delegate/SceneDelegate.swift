@@ -6,18 +6,45 @@
 //
 
 import UIKit
+import AuthenticationServices
 
 class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
     var window: UIWindow?
 
-
-    func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
-        // Use this method to optionally configure and attach the UIWindow `window` to the provided UIWindowScene `scene`.
-        // If using a storyboard, the `window` property will automatically be initialized and attached to the scene.
-        // This delegate does not imply the connecting scene or session are new (see `application:configurationForConnectingSceneSession` instead).
-        guard let _ = (scene as? UIWindowScene) else { return }
-    }
+        func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
+            if let windowScene = scene as? UIWindowScene {
+                let window = UIWindow(windowScene: windowScene)
+                guard
+                    let appleUserData = UserDefaults.standard.data(forKey: "appleUser"),
+                    let appleUser = try? JSONDecoder().decode(AppleUser.self, from: appleUserData)
+                else { return }
+                
+                
+                let appleIDProvider = ASAuthorizationAppleIDProvider()
+                appleIDProvider.getCredentialState(forUserID: appleUser.userId) { (credentialState, error) in
+                    switch credentialState {
+                    case .authorized:
+                        DispatchQueue.main.async {
+                            // Override point for customization after application launch.
+                            let storyboard = UIStoryboard(name: "Main", bundle: nil)
+                               let navigationController = storyboard.instantiateInitialViewController() as UINavigationController
+                            let rootViewController = storyboard.instantiateViewController(withIdentifier: "AcuityMainViewController") as! AcuityMainViewController
+                               navigationController.viewControllers = [rootViewController]
+                               self.window?.rootViewController = navigationController
+                        
+                        }
+                        break // The Apple ID credential is valid.
+                    case .revoked, .notFound:
+                        // The Apple ID credential is either revoked or was not found, so show the sign-in UI.
+                       break
+                    default:
+                        break
+                    }
+                }
+                 window.makeKeyAndVisible()
+            }
+       }
 
     func sceneDidDisconnect(_ scene: UIScene) {
         // Called as the scene is being released by the system.

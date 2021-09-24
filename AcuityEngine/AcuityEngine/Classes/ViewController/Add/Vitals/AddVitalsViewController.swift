@@ -61,6 +61,8 @@ class AddVitalsViewController: UIViewController {
         
         //set fonts..
         setFontForLabel()
+        //set up UI for buttons....
+        setUpDesignForDateButtons()
         //Setup Toolbar For Number Pad...
         setupToolbarForNumberPad()
         
@@ -92,22 +94,32 @@ class AddVitalsViewController: UIViewController {
     }
     func setFontForLabel(){
         lblTitle.font = Fonts.kAcuityDetailTitleFont
-        lblStart.font = Fonts.kCellTitleFont
-        lblEnd.font = Fonts.kCellTitleFont
-        txtFieldValue.font = Fonts.kValueFont
-        txtFieldBP1.font = Fonts.kValueFont
-        txtFieldBP2.font = Fonts.kValueFont
-        btnEnd.titleLabel?.font =  Fonts.kValueFont
-        btnStart.titleLabel?.font =  Fonts.kValueFont
+        lblStart.font = Fonts.kStartEndTitleFont
+        lblEnd.font = Fonts.kStartEndTitleFont
+        txtFieldValue.font = Fonts.kStartEndValueFont
+        txtFieldBP1.font = Fonts.kStartEndValueFont
+        txtFieldBP2.font = Fonts.kStartEndValueFont
+        btnEnd.titleLabel?.font =  Fonts.kStartEndValueFont
+        btnStart.titleLabel?.font =  Fonts.kStartEndValueFont
+       
         
         setupViewBorder(view: viewBP1)
         setupViewBorder(view: viewBP2)
         setupViewBorder(view: viewValue)
     }
     
+    func setUpDesignForDateButtons(){
+        btnEnd.layer.cornerRadius = 5;
+        btnStart.layer.cornerRadius = 5;
+        btnEnd.backgroundColor = UIColor.white.withAlphaComponent(0.2)
+        btnStart.backgroundColor = UIColor.white.withAlphaComponent(0.2)
+    }
+    
     func setupViewBorder(view:UIView){
         view.layer.borderWidth = 1
+        view.layer.cornerRadius = 5
         view.layer.borderColor = UIColor.white.cgColor
+        view.backgroundColor = UIColor.white.withAlphaComponent(0.3)
     }
     //MARK:--------------------------------------
     //MARK: Setup Toolbar For Number Pad...
@@ -193,7 +205,7 @@ class AddVitalsViewController: UIViewController {
                             self?.showAlertForDataSaved(message:message,okAction: okAction!)
                             
                         }else{
-                            let message = "\(String(describing: vitalModel.name!.rawValue)) is not authorized. You can authorized it by making Turn on from Settings -> Health -> DATA -> \(appName) -> Health Data"
+                            let message = "\(String(describing: vitalModel.name!.rawValue)) is not authorized. You can authorized it by making Turn on from Settings -> Health -> DATA -> \(Key.kAppName) -> Health Data"
                             let okAction = UIAlertAction(title: "OK", style: .default, handler: nil)
                             self?.showAlertForDataSaved(message:message,okAction: okAction)
                         }
@@ -222,7 +234,7 @@ class AddVitalsViewController: UIViewController {
                                     self?.showAlertForDataSaved(message: "Blood Pressure saved in health kit",okAction: okAction!)
                                 }
                                 else{
-                                    let message = "\(String(describing: vitalModel.name!.rawValue)) is not authorized. You can authorized it by making Turn on from Settings -> Health -> DATA -> \(appName ) -> Health Data"
+                                    let message = "\(String(describing: vitalModel.name!.rawValue)) is not authorized. You can authorized it by making Turn on from Settings -> Health -> DATA -> \(Key.kAppName ) -> Health Data"
                                     let okAction = UIAlertAction(title: "OK", style: .default, handler: nil)
                                     self?.showAlertForDataSaved(message:message,okAction: okAction)
                                 }
@@ -259,7 +271,7 @@ class AddVitalsViewController: UIViewController {
             // Please enable camera access from Settings > AppName > Camera to take photos
             
             let vc = self.parent
-            vc?.presentAlert(title: "\(appName)",
+            vc?.presentAlert(title: "\(Key.kAppName)",
                              message: message,
                              actions: okAction)
         }
@@ -298,11 +310,19 @@ extension AddVitalsViewController{
     @IBAction func btnStartDateClick(sender:UIButton){
         viewDatePicker.isHidden = false
         selectedButton = btnStart
+        guard ((btnStart.titleLabel?.text) != nil) else {
+            return
+        }
+        datePicker.date = getDateFromString(date: btnStart.titleLabel!.text!)
     }
     
     @IBAction func btnEndDateClick(sender:UIButton){
         viewDatePicker.isHidden = false
         selectedButton = btnEnd
+        guard ((btnEnd.titleLabel?.text) != nil) else {
+            return
+        }
+        datePicker.date = getDateFromString(date: btnEnd.titleLabel!.text!)
     }
     
     @IBAction func cancelBtnClicked(_ button: UIBarButtonItem?) {

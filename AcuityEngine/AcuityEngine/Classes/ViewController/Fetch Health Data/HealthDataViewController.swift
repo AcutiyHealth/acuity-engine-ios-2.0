@@ -13,7 +13,7 @@ import HealthKitReporter
 
 class HealthDataViewController: UIViewController {
     
-    
+    /*
     //ViewModel Cardio
     private let viewModelCardio = CardioViewModel()
   
@@ -145,5 +145,5 @@ extension HealthDataViewController: UITableViewDelegate, UITableViewDataSource {
         tableView.estimatedRowHeight = 180
         tableView.rowHeight = UITableView.automaticDimension
         return UITableView.automaticDimension
-    }
+    }*/
 }

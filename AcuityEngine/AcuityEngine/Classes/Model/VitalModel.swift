@@ -97,7 +97,7 @@ enum VitalsName:String {
     case vo2Max = "VO2 Max"
     case irregularRhymesNotification = "Irregular Rhymes Notification"
     case respiratoryRate = "Respiratory Rate (breaths/min)"
-    case peakflowRate = "Peak Flow Rate(L/min) - male"
+    case peakflowRate = "Peak Flow Rate(L/min)"
     case InhalerUsage = "Inhaler Usage (times/day)"
     case temperature = "Temperature"
     case BMI = "Body Mass Index"

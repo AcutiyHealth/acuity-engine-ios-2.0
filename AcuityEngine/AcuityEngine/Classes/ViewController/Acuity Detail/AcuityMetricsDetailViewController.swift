@@ -153,12 +153,12 @@ extension AcuityMetricsDetailViewController: UITableViewDelegate, UITableViewDat
         case .none:
             break
         }
-        
+        cell.setFontForLabel(font:Fonts.kAcuityDetailCellFont)
         cell.backgroundColor = UIColor.clear
         return cell
     }
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 40
+        return getRowHeightAsPerDeviceSize(height:40)
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
@@ -208,7 +208,9 @@ extension AcuityMetricsDetailViewController: UITableViewDelegate, UITableViewDat
         detailValueVC = UIStoryboard(name: Storyboard.acuityDetailPullUp.rawValue, bundle: nil).instantiateViewController(withIdentifier: "AcuityMetricsValueViewController") as? AcuityMetricsValueViewController
         self.addChild(detailValueVC!)
         detailValueVC?.view.frame = CGRect(x: 0, y: 0, width: self.view.frame.size.width, height: self.view.frame.size.height)
-        self.view.addSubview((detailValueVC?.view)!)
+        //Show animation when view added.....
+        animationForDetailViewWhenAdded(subviewToAdd: (detailValueVC?.view)!, in: self.view)
+        
         detailValueVC?.view.setNeedsDisplay()
         detailValueVC?.didMove(toParent: self)
         detailValueVC?.view.tag = 111
@@ -222,11 +224,12 @@ extension AcuityMetricsDetailViewController: UITableViewDelegate, UITableViewDat
     }
     func removeDetailValueViewController(){
         if detailValueVC != nil{
+            animationForDetailViewWhenRemoved(from: self.view)
             mainView.isHidden = false
             detailValueVC?.view.removeFromSuperview()
             detailValueVC?.removeFromParent()
         }
     }
-    
+   
 }
 

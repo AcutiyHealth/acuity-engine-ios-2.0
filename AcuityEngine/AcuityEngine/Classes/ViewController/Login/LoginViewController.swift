@@ -18,6 +18,7 @@ class LoginViewController: UIViewController {
         self.view.backgroundColor = ColorSchema.kMainThemeColor
         //fetch data from healthkit and load in tableview
         //self.setupSOAppleSignIn()
+        //moveToHealhDataScreen()
     }
     
     //Add button for Sign in with Apple
@@ -30,17 +31,26 @@ class LoginViewController: UIViewController {
     }
     
     // Perform acton on click of Sign in with Apple button
-    @objc func actionHandleAppleSignin() {
-        let appleIDProvider = ASAuthorizationAppleIDProvider()
-        let request = appleIDProvider.createRequest()
-        request.requestedScopes = [.fullName, .email]
+    @IBAction func actionHandleAppleSignin() {
         
-        let authorizationController = ASAuthorizationController(authorizationRequests: [request])
-        authorizationController.delegate = self
-        authorizationController.presentationContextProvider = self
-        authorizationController.performRequests()
+        if #available(iOS 13.0, *) {
+            let appleIDProvider = ASAuthorizationAppleIDProvider()
+            let request = appleIDProvider.createRequest()
+            request.requestedScopes = [.fullName, .email]
+            let authorizationController = ASAuthorizationController(authorizationRequests: [request])
+            authorizationController.delegate = self
+            authorizationController.performRequests()
+        } else {
+            // Fallback on earlier versions
+        }
     }
     
+    //========================================================================================================
+    //MARK:- Call Login Api
+    //========================================================================================================
+    func loginWithApple(){
+        
+    }
 }
 
 extension LoginViewController: ASAuthorizationControllerDelegate {
@@ -54,21 +64,36 @@ extension LoginViewController: ASAuthorizationControllerDelegate {
     func authorizationController(controller: ASAuthorizationController, didCompleteWithAuthorization authorization: ASAuthorization) {
         if let appleIDCredential = authorization.credential as? ASAuthorizationAppleIDCredential {
             // Create an account as per your requirement
-            /*let appleId = appleIDCredential.user
-            let appleUserFirstName = appleIDCredential.fullName?.givenName
-            let appleUserLastName = appleIDCredential.fullName?.familyName
-            let appleUserEmail = appleIDCredential.email*/
+            print(appleIDCredential)
+            var name = ""
+            if let nm = appleIDCredential.fullName?.givenName
+            {
+                name = "\(nm)"
+                setKeyChain(key: Key.kAppleFirstName, value: name)
+            }
+            
+            if let nm = appleIDCredential.fullName?.familyName
+            {
+                name = nm + " \(name)"
+                setKeyChain(key: Key.kAppleLastName, value: name)
+            }
+            
+            if let em = appleIDCredential.email
+            {
+                setKeyChain(key: Key.kAppleEmail, value: em)
+            }
+            setKeyChain(key: Key.kAppleUserID, value: appleIDCredential.user)
             moveToHealhDataScreen()
             //Write your code
         } else if let passwordCredential = authorization.credential as? ASPasswordCredential {
-            /*let appleUsername = passwordCredential.user
-            let applePassword = passwordCredential.password*/
+            let appleUsername = passwordCredential.user
+            let applePassword = passwordCredential.password
             moveToHealhDataScreen()
         }
     }
     
    @IBAction func moveToHealhDataScreen(){
-        guard let detailVC = UIStoryboard(name: Storyboard.main.rawValue, bundle: nil).instantiateViewController(withIdentifier: "HealthDataViewController")  as? HealthDataViewController else {return }
+        guard let detailVC = UIStoryboard(name: Storyboard.main.rawValue, bundle: nil).instantiateViewController(withIdentifier: "AcuityMainViewController")  as? AcuityMainViewController else {return }
         self.navigationController?.pushViewController(detailVC, animated: true)
     }
 }

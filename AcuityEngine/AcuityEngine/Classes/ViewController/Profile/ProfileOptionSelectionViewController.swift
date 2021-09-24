@@ -54,6 +54,9 @@ extension ProfileOptionSelectionViewController: SOPullUpViewDelegate {
     func pullUpViewStatus(_ sender: UIViewController, didChangeTo status: PullUpStatus) {
         switch status {
         case .collapsed:
+            UIView.animate(withDuration: 0.9) {
+                self.view.alpha = 0.2
+            }
             NotificationCenter.default.post(name: Notification.Name("pullUpClose"), object: nil)
             NotificationCenter.default.post(name: Notification.Name("showAcuityDetailPopup"), object: nil)
             
@@ -117,7 +120,10 @@ extension ProfileOptionSelectionViewController: UITableViewDelegate, UITableView
         //Add detail value view as child view
         profileVC = UIStoryboard(name: Storyboard.profile.rawValue, bundle: nil).instantiateViewController(withIdentifier: "ProfileViewController") as? ProfileViewController
         self.addChild(profileVC!)
-        visualEffectView.addSubview((profileVC?.view)!)
+       
+        //Show animation when view added.....
+        animationForDetailViewWhenAdded(subviewToAdd: (profileVC?.view)!, in: self.visualEffectView)
+        
         profileVC?.didMove(toParent: self)
         
         //Add close button target
@@ -134,7 +140,10 @@ extension ProfileOptionSelectionViewController: UITableViewDelegate, UITableView
         //Add detail value view as child view
         settingVC = UIStoryboard(name: Storyboard.profile.rawValue, bundle: nil).instantiateViewController(withIdentifier: "SettingsViewController") as? SettingsViewController
         self.addChild(settingVC!)
-        visualEffectView.addSubview((settingVC?.view)!)
+        
+        //Show animation when view added.....
+        animationForDetailViewWhenAdded(subviewToAdd: (settingVC?.view)!, in: self.visualEffectView)
+        
         settingVC?.didMove(toParent: self)
         //Add close button target
         setUpCloseButton()
@@ -151,7 +160,10 @@ extension ProfileOptionSelectionViewController: UITableViewDelegate, UITableView
         //Add detail value view as child view
         termsVC = UIStoryboard(name: Storyboard.profile.rawValue, bundle: nil).instantiateViewController(withIdentifier: "TermsOfServiceViewController") as? TermsOfServiceViewController
         self.addChild(termsVC!)
-        visualEffectView.addSubview((termsVC?.view)!)
+ 
+        //Show animation when view added.....
+        animationForDetailViewWhenAdded(subviewToAdd: (termsVC?.view)!, in: self.visualEffectView)
+        
         termsVC?.didMove(toParent: self)
         
         //Add close button target
@@ -182,6 +194,9 @@ extension ProfileOptionSelectionViewController: UITableViewDelegate, UITableView
     
     //MARK: Btn close click
     @objc func btnCloseClickedInProfileViewController(){
+        //Show animation when view is removed.....
+        animationForDetailViewWhenRemoved(from: self.visualEffectView)
+        
         btnClose?.removeFromSuperview()
         if profileVC != nil{
             profileVC?.view.removeFromSuperview()

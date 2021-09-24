@@ -48,7 +48,9 @@ func ReadVitalsCategoryType()->[CategoryType]{
     [CategoryType.highHeartRateEvent, CategoryType.lowHeartRateEvent, CategoryType.irregularHeartRhythmEvent]
 }
 func ReadCharactristicType()->[CharacteristicType]{
-    [CharacteristicType.dateOfBirth]
+    [CharacteristicType.dateOfBirth,
+     CharacteristicType.biologicalSex,
+     CharacteristicType.bloodType]
 }
 
 func ReadVitalsQuantityType() -> [QuantityType]{
