@@ -100,7 +100,7 @@ enum VitalsName:String {
     case peakflowRate = "Peak Flow Rate(L/min)"
     case InhalerUsage = "Inhaler Usage (times/day)"
     case temperature = "Temperature"
-    case BMI = "Body Mass Index"
+    case BMI = "BMI"
     case bloodSugar = "Blood Sugar"
     case weight = "Weight"
     case oxygenSaturation = "Oxygen Saturation"

@@ -22,7 +22,9 @@ class AddOptionSelectionViewController:UIViewController{
     var symptomsVC : SymptomsListViewController?
     var conditionsVC : ConditionsListViewController?
     var vitalsVC : VitalsListViewController?
-    
+    var medicationsVC : AddMedicationsViewController?
+    var historiesVC : OtherHistoriesViewController?
+   
     var addOptionArray: Array<String> = [AddOption.vitals.rawValue,AddOption.symptom.rawValue,AddOption.conditions.rawValue,AddOption.medications.rawValue,AddOption.otherHistory.rawValue]
     //var labelsAsStringForMonth: Array<String> = ["Week1","Week2","Week3","Week4"]
     // MARK: - Properties
@@ -83,9 +85,9 @@ extension AddOptionSelectionViewController: UITableViewDelegate, UITableViewData
         return cell
     }
     
-        func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-            return getRowHeightAsPerDeviceSize(height:80)
-        }
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return getRowHeightAsPerDeviceSize(height:80)
+    }
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
         switch AddOption(rawValue: addOptionArray[indexPath.row]){
@@ -108,6 +110,7 @@ extension AddOptionSelectionViewController: UITableViewDelegate, UITableViewData
         case .otherHistory:
             do{
                 //openVitalViewController(title:AddOption.otherHistory.rawValue)
+              
             }
             
         case .none:
@@ -115,25 +118,14 @@ extension AddOptionSelectionViewController: UITableViewDelegate, UITableViewData
         }
     }
     
-    //MARK: open value detail screen
+    //MARK: Open Symptoms screen
     func openSymptomsViewController(title:String){
         
         //Add detail value view as child view
         symptomsVC = UIStoryboard(name: Storyboard.add.rawValue, bundle: nil).instantiateViewController(withIdentifier: "SymptomsListViewController") as? SymptomsListViewController
-        self.addChild(symptomsVC!)
-        let originY:CGFloat = 15
-        symptomsVC?.view.frame = CGRect(x: 0, y: originY, width: visualEffectView.frame.size.width, height: visualEffectView.frame.size.height-originY)
-        //Show animation when view added.....
-        animationForDetailViewWhenAdded(subviewToAdd: (symptomsVC?.view)!, in: self.visualEffectView)
-        
-        symptomsVC?.didMove(toParent: self)
-        
-        //Add close button target
-        setUpCloseButton()
+        setupTitleAndBackButtonForAllSubViewController(vc: (symptomsVC)!)
         symptomsVC?.lblTitle.text = title
         
-        //Hide main view of Detail Pullup class
-        mainView.isHidden = true
         symptomsVC?.setHandler(handler: { [weak self] (open) in
             if open ?? false{
                 self?.setupBackButton()
@@ -143,30 +135,20 @@ extension AddOptionSelectionViewController: UITableViewDelegate, UITableViewData
                 self?.symptomsVC?.removeFromParent()
             }
         })
-        visualEffectView.bringSubviewToFront(handleArea)
-        
     }
     
-    //MARK: open settings screen
+    
+    //MARK: Open Vital screen
     func openVitalViewController(title:String){
         
         //Add detail value view as child view
         vitalsVC = UIStoryboard(name: Storyboard.add.rawValue, bundle: nil).instantiateViewController(withIdentifier: "VitalsListViewController") as? VitalsListViewController
-        self.addChild(vitalsVC!)
-        let originY:CGFloat = 15
-        vitalsVC?.view.frame = CGRect(x: 0, y: originY, width: visualEffectView.frame.size.width, height: visualEffectView.frame.size.height-originY)
-       
-        //Show animation when view added.....
-        animationForDetailViewWhenAdded(subviewToAdd: (vitalsVC?.view)!, in: self.visualEffectView)
-        
-        vitalsVC?.didMove(toParent: self)
+        guard (vitalsVC != nil) else {
+            return
+        }
+        setupTitleAndBackButtonForAllSubViewController(vc: (vitalsVC)!)
         vitalsVC?.lblTitle.text = title
         
-        //Add close button target
-        setUpCloseButton()
-       
-        //Hide main view of Detail Pullup class
-        mainView.isHidden = true
         vitalsVC?.setHandler(handler: { [weak self] (open) in
             if open ?? false{
                 self?.setupBackButton()
@@ -176,32 +158,52 @@ extension AddOptionSelectionViewController: UITableViewDelegate, UITableViewData
                 self?.vitalsVC?.removeFromParent()
             }
         })
-        visualEffectView.bringSubviewToFront(handleArea)
     }
     
-    //MARK: open Terms screen
+    //MARK: open Conditions screen
     func openConditionsViewController(title:String){
         
         //Add detail value view as child view
         conditionsVC = UIStoryboard(name: Storyboard.add.rawValue, bundle: nil).instantiateViewController(withIdentifier: "ConditionsListViewController") as? ConditionsListViewController
-        self.addChild(conditionsVC!)
-        let originY:CGFloat = 15
-        conditionsVC?.view.frame = CGRect(x: 0, y: originY, width: visualEffectView.frame.size.width, height: visualEffectView.frame.size.height-originY)
-       
-         //Show animation when view added.....
-         animationForDetailViewWhenAdded(subviewToAdd: (conditionsVC?.view)!, in: self.visualEffectView)
-         
-        conditionsVC?.didMove(toParent: self)
+        guard (conditionsVC != nil) else {
+            return
+        }
+        setupTitleAndBackButtonForAllSubViewController(vc: conditionsVC!)
         conditionsVC?.lblTitle.text = title
+        
+    }
+    
+    //MARK: open Conditions screen
+    func openMedicationScreen(title:String){
+        
+        //Add detail value view as child view
+        conditionsVC = UIStoryboard(name: Storyboard.add.rawValue, bundle: nil).instantiateViewController(withIdentifier: "ConditionsListViewController") as? ConditionsListViewController
+        guard (conditionsVC != nil) else {
+            return
+        }
+        setupTitleAndBackButtonForAllSubViewController(vc: conditionsVC!)
+        conditionsVC?.lblTitle.text = title
+        
+    }
+    func setupTitleAndBackButtonForAllSubViewController(vc:UIViewController){
+        self.addChild(vc)
+        
+        //Hide main view of Detail Pullup class
+        mainView.isHidden = true
+        let originY:CGFloat = 15
+        vc.view.frame = CGRect(x: 0, y: originY, width: visualEffectView.frame.size.width, height: visualEffectView.frame.size.height-originY)
+        //Show animation when view added.....
+        animationForDetailViewWhenAdded(subviewToAdd: (vc.view)!, in: self.visualEffectView)
+        
+        vc.didMove(toParent: self)
         
         //Add close button target
         setUpCloseButton()
         
-        //Hide main view of Detail Pullup class
-        mainView.isHidden = true
-        
         visualEffectView.bringSubviewToFront(handleArea)
+        
     }
+    
     func setupBackButton(){
         handleArea.btnBack!.isHidden = false
         handleArea.btnBack!.addTarget(self, action: #selector(btnBackClickedInAddOptionVC), for: UIControl.Event.touchUpInside)

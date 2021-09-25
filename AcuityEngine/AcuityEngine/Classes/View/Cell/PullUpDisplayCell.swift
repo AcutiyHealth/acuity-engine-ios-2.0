@@ -100,7 +100,7 @@ class AcuityDetailValueDisplayCell: UITableViewCell {
         maxScore.text = item.value
         maxScore.textColor = item.color
     }
-
+    
 }
 //MARK: - Detail Screen Of Pullup TableCell
 class AcuityPullUpMetricsDisplayCell: AcuityDetailValueDisplayCell {
@@ -113,18 +113,18 @@ class AcuityPullUpMetricsDisplayCell: AcuityDetailValueDisplayCell {
         setFontForLabel(font:Fonts.kAcuityPullUpMetricCellFont)
         // Initialization code
     }
-
+    
     func displaySystemScore(item:[String:Any]){
-
-
+        
+        
         titleLabel.text =  item[Keys.kSystemName] as? String
         titleLabel.font =
             Fonts.kAcuityMyWellTblCellTitleFont
         titleLabel.textColor =  UIColor.white
         maxScore.text = item[Keys.kScore] as? String
-//        if let score = item[Keys.kScore] as? Double{
-//            maxScore.text = getStringToDisplayScore(score: score)
-//        }
+        //        if let score = item[Keys.kScore] as? Double{
+        //            maxScore.text = getStringToDisplayScore(score: score)
+        //        }
         maxScore.font =  Fonts.kAcuityMyWellTblValueFont
         maxScore.textColor =  getThemeColor(index: maxScore.text, isForWheel: false)
         imageIcon.image =  UIImage(named: item[Keys.kImage] as? String ?? "")
@@ -155,7 +155,7 @@ class LabelDisplayCell: UITableViewCell {
         titleLabel.text = title
         
     }
-
+    
 }
 class ProfileViewCell: UITableViewCell{
     
@@ -187,14 +187,21 @@ class ProfileViewCell: UITableViewCell{
 
 //MARK: - Cell of List screen in Add Section
 class LabelInListAddSectionCell: LabelDisplayCell {
-  
+    
     override func awakeFromNib() {
         
         super.awakeFromNib()
         setFontForLabel(font:Fonts.kCellTextFontListInAddSection)
         // Initialization code
     }
- 
+    override func displayData(title:String){
+        if title == VitalsName.BMI.rawValue{
+            titleLabel.text = ScreenTitle.BMIIndexCalculator
+        }else{
+            titleLabel.text = title
+        }
+        
+    }
 }
 //MARK: - Add symptoms Selection Cell
 class AddSymptomsCell: UITableViewCell {
@@ -257,7 +264,7 @@ class AddConditionCell: LabelDisplayCell {
         titleLabel.text = title
         yesOrNoSegmentControl.selectedSegmentIndex = isOn ? 0 : 1;
     }
-
+    
     func setUpSegmentControl(segmentControl:UISegmentedControl){
         segmentControl.setTitle(SegmentValueForCondition.Yes.rawValue, forSegmentAt: 0)
         segmentControl.setTitle(SegmentValueForCondition.No.rawValue, forSegmentAt: 1)
@@ -291,7 +298,7 @@ class AddOptionCell: UITableViewCell {
     
     func displayData(title:String){
         titleLabel.text = title
-        valueLabel.text = "\(title) use to know well score of person."
+        valueLabel.text = "\(title)\(AlertMessages.MESSAGE_IN_ADD_OPTION_SCREEN)"
     }
     
     

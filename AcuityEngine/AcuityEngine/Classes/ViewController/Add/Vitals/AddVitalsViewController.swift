@@ -101,7 +101,7 @@ class AddVitalsViewController: UIViewController {
             viewBloodPressure.isHidden = true
             viewOxygenSaturation.isHidden = true
             viewEnd.isHidden = true
-            topConstraintForvitalsView.constant = -(viewBloodPressure.frame.size.height-20)
+            topConstraintForvitalsView.constant = -(viewBloodPressure.frame.size.height-25)
             
         }
         else if vitalModel?.name == VitalsName.irregularRhymesNotification || vitalModel?.name == VitalsName.highHeartRate || vitalModel?.name == VitalsName.lowHeartRate{
@@ -114,9 +114,9 @@ class AddVitalsViewController: UIViewController {
         
     }
     func setFontForLabel(){
-        lblTitleBloodPressure.font = Fonts.kAcuityDetailTitleFont
-        lblTitleVital.font = Fonts.kAcuityDetailTitleFont
-        lblTitleOxygenSaturation.font = Fonts.kAcuityDetailTitleFont
+        lblTitleBloodPressure.font = Fonts.kAcuityAddDetailTitleFont
+        lblTitleVital.font = Fonts.kAcuityAddDetailTitleFont
+        lblTitleOxygenSaturation.font = Fonts.kAcuityAddDetailTitleFont
         lblStart.font = Fonts.kStartEndTitleFont
         lblEnd.font = Fonts.kStartEndTitleFont
         txtFieldVital.font = Fonts.kStartEndValueFont
@@ -139,7 +139,7 @@ class AddVitalsViewController: UIViewController {
         btnStart.backgroundColor = UIColor.white.withAlphaComponent(0.2)
     }
     
- 
+    
     //MARK:--------------------------------------
     //MARK: Setup Toolbar For Number Pad...
     func setupToolbarForNumberPad(){
@@ -386,7 +386,16 @@ class AddVitalsViewController: UIViewController {
                 return
             }
             btnSave.isEnabled = true
-        }else{
+        }else if vitalModel?.name == VitalsName.oxygenSaturation {
+            guard
+                let _ = txtFieldOxygenSaturation.text,(txtFieldOxygenSaturation.text != nil)
+            else {
+                btnSave.isEnabled = false
+                return
+            }
+            btnSave.isEnabled = true
+        }
+        else{
             guard
                 let _ = txtFieldVital.text,!txtFieldVital.text!.isEmpty
             else {

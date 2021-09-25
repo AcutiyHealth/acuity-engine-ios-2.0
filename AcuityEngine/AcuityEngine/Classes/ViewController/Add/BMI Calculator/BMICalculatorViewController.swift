@@ -57,7 +57,7 @@ class BMICalculatorViewController: UIViewController {
             btnHeightConstraint.constant = 50
         }
         
-        lblTitleBMICalculator.text = "BMI Calculator";
+        lblTitleBMICalculator.text = ScreenTitle.BMIIndexCalculator;
         // Do any additional setup after loading the view.
     }
     func setFontForLabel(){
@@ -146,12 +146,15 @@ class BMICalculatorViewController: UIViewController {
         let totalInches = (feet*12) + (inches);
         let temp = pounds / (totalInches * totalInches);
         BMIValue = (temp * 703)
-        lblTotalBMI.text =  "\(BMIValue)";
+        lblTotalBMI.text =  "Your BMI Index: \(BMIValue)";
     }
     
     @IBAction func btnSaveClick(sender:UIButton){
         
         //Create Object For HKWriterManager
+        if BMIValue<=0{
+            return;
+        }
         let objWriterManager = HKWriterManager()
         
         let vitalModel = VitalModel(name: VitalsName.BMI)

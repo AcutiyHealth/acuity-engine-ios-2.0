@@ -51,14 +51,17 @@ class VitalsListViewController: UIViewController {
                        VitalModel(name: VitalsName.peakflowRate),
                        VitalModel(name: VitalsName.InhalerUsage),
                        VitalModel(name: VitalsName.temperature),
-                       VitalModel(name: VitalsName.BMI),
                        VitalModel(name: VitalsName.bloodSugar),
                        VitalModel(name: VitalsName.weight),
                        VitalModel(name: VitalsName.oxygenSaturation),
-                       VitalModel(name: VitalsName.respiratoryRate)]
-       /* if #available(iOS 14.0, *) {
-            vitalsArray.append(VitalModel(name: VitalsName.stepLength))
-        }*/
+                       VitalModel(name: VitalsName.respiratoryRate),
+                       VitalModel(name: VitalsName.BMI),]
+        
+        //============= Append BMI calculator ===========//
+        
+        /* if #available(iOS 14.0, *) {
+         vitalsArray.append(VitalModel(name: VitalsName.stepLength))
+         }*/
         
         /*
          VitalModel(name: VitalsName.lowHeartRate),
@@ -90,16 +93,21 @@ extension VitalsListViewController:UITableViewDelegate,UITableViewDataSource{
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        openAddSymptomsViewController(index: indexPath.row)
+        let vitalModel = vitalsArray[indexPath.row]
+        if vitalModel.name == VitalsName.BMI{
+            openBMICalculatorViewController(index: indexPath.row)
+        }else{
+            openAddVitalsViewController(index: indexPath.row)
+        }
     }
     
-    func openAddSymptomsViewController(index:Int){
+    func openAddVitalsViewController(index:Int){
         
         //Add detail value view as child view
         addVitalsVC = UIStoryboard(name: Storyboard.add.rawValue, bundle: nil).instantiateViewController(withIdentifier: "AddVitalsViewController") as? AddVitalsViewController
         self.addChild(addVitalsVC!)
         addVitalsVC?.view.frame = CGRect(x: 0, y: 0, width: self.view.frame.size.width, height: self.view.frame.size.height)
-    
+        
         //Show animation when view added.....
         animationForDetailViewWhenAdded(subviewToAdd: (addVitalsVC?.view)!, in: self.view)
         
@@ -119,10 +127,15 @@ extension VitalsListViewController:UITableViewDelegate,UITableViewDataSource{
         if let handler = handler{
             handler(true)
         }
-        /*bmiCalculatorVC = UIStoryboard(name: Storyboard.add.rawValue, bundle: nil).instantiateViewController(withIdentifier: "BMICalculatorViewController") as? BMICalculatorViewController
+        
+    }
+    //MARK:- Open BMI Calculator.....
+    func openBMICalculatorViewController(index:Int){
+        
+        bmiCalculatorVC = UIStoryboard(name: Storyboard.add.rawValue, bundle: nil).instantiateViewController(withIdentifier: "BMICalculatorViewController") as? BMICalculatorViewController
         self.addChild(bmiCalculatorVC!)
         bmiCalculatorVC?.view.frame = CGRect(x: 0, y: 0, width: self.view.frame.size.width, height: self.view.frame.size.height)
-    
+        
         //Show animation when view added.....
         animationForDetailViewWhenAdded(subviewToAdd: (bmiCalculatorVC?.view)!, in: self.view)
         
@@ -141,8 +154,9 @@ extension VitalsListViewController:UITableViewDelegate,UITableViewDataSource{
         
         if let handler = handler{
             handler(true)
-        }*/
+        }
     }
+    //MARK:-
     func removeAddVitalsViewController(){
         //Show animation when view removed from superview.......
         animationForDetailViewWhenRemoved(from: self.view)

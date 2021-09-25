@@ -138,11 +138,15 @@ enum NSNotificationName: String {
     case refreshCircleView = "refreshCircleView"
     case refreshDataInCircle = "refreshDataInCircle"
 }
+struct ScreenTitle {
+    static let BMIIndexCalculator = "BMI Calculator"
+}
 struct AlertMessages {
     static let STARTDATEGRATETHANENDDATE = "Start date should be less than End date"
     static let OK = "OK"
     static let BP_AND_HEARTRATE_SAVED = "Blood Pressure and Heart Rate saved in health kit"
     static let o2_AND_HEARTRATE_SAVED = "Oxygen Saturation and Heart Rate saved in health kit"
+    static let MESSAGE_IN_ADD_OPTION_SCREEN = " use to know well score of person."
 }
 struct WheelColor {
     static let BLUECOLORLABELTITLE = UIColor(red: 41.0 / 255.0, green: 121.0 / 255.0, blue: 255.0 / 255.0, alpha: 1.0)
@@ -254,6 +258,7 @@ struct Fonts {
     //Pull up
     static let kAcuityAddOptionTitleFont = getFontAsPerDeviceSize(fontName: UIFont.SFProDisplayBold(of: 18), fontSize: 18)
     static let kAcuityAddOptionValueFont = getFontAsPerDeviceSize(fontName: UIFont.SFProDisplayMedium(of: 10), fontSize: 10)
+    static let kAcuityAddDetailTitleFont = getFontAsPerDeviceSize(fontName: UIFont.SFProDisplayBold(of: 24), fontSize: 24)
     
 }
 

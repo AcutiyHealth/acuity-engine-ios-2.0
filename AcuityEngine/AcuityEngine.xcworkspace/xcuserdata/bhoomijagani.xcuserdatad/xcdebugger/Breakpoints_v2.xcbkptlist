@@ -7,79 +7,239 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "67AB5FD2-7EB4-4AFE-96FA-93DE888B14C9"
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "AcuityEngine/Classes/Utility/Utility.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "26"
-            endingLineNumber = "26"
-            landmarkName = "getThemeColor(index:isForWheel:)"
-            landmarkType = "9">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "FC3705C6-0DEE-406F-827F-F9EF20AEC62E"
+            uuid = "874238E7-C897-4721-9199-CF2B5414DCAE"
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "AcuityEngine/Classes/HealthSystems/HKWriterManager.swift"
+            filePath = "AcuityEngine/Classes/View/Rotary Wheel/RotaryWheel.m"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "138"
-            endingLineNumber = "138"
-            landmarkName = "saveVO2Max(value:)"
+            startingLineNumber = "754"
+            endingLineNumber = "754"
+            landmarkName = "-getGestureDirection:"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "A1AAE88F-5D71-4957-AF2C-0F3C46B419B3"
+            uuid = "9A602EA2-0CFC-450B-A8FB-9B0F7BF28542"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "AcuityEngine/Classes/View/Rotary Wheel/RotaryWheel.m"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "738"
+            endingLineNumber = "738"
+            landmarkName = "-getGestureDirection:"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "59D98D46-3385-4434-A141-3D4D4B3A39FC"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "AcuityEngine/Classes/View/Rotary Wheel/RotaryWheel.m"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "520"
+            endingLineNumber = "520"
+            landmarkName = "-recognizeCircularViewGesture:"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "EC79A166-5931-49E3-B978-25C8100C44AB"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "AcuityEngine/Classes/View/Rotary Wheel/RotaryWheel.m"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "534"
+            endingLineNumber = "534"
+            landmarkName = "-recognizeCircularViewGesture:"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "CC75E918-D818-42E4-B2E7-4FA1080417FB"
             shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "AcuityEngine/Classes/HealthSystems/HKWriterManager.swift"
+            filePath = "AcuityEngine/Classes/View/Rotary Wheel/RotaryWheel.m"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "201"
-            endingLineNumber = "201"
-            landmarkName = "saveSymptomsData(categoryValue:caegoryTypeIdentifier:startdate:endDate:completion:)"
+            startingLineNumber = "147"
+            endingLineNumber = "147"
+            landmarkName = "-drawWheel"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "39CCA028-7AD8-460A-BB7F-C3095B20F468"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "AcuityEngine/Classes/View/Rotary Wheel/RotaryWheel.m"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "561"
+            endingLineNumber = "561"
+            landmarkName = "-recognizeCircularViewGesture:"
             landmarkType = "7">
             <Locations>
                <Location
-                  uuid = "A1AAE88F-5D71-4957-AF2C-0F3C46B419B3 - 8798b2f947385ff0"
+                  uuid = "39CCA028-7AD8-460A-BB7F-C3095B20F468 - 6361b91e166db0d3"
                   shouldBeEnabled = "Yes"
                   ignoreCount = "0"
                   continueAfterRunningActions = "No"
-                  symbolName = "AcuityEngine.HKWriterManager.saveSymptomsData(categoryValue: AcuityEngine.SymptomsTextValue, caegoryTypeIdentifier: Swift.Optional&lt;__C.HKCategoryTypeIdentifier&gt;, startdate: Foundation.Date, endDate: Foundation.Date, completion: (Swift.Optional&lt;Swift.Error&gt;) -&gt; ()) -&gt; ()"
+                  symbolName = "__44-[RotaryWheel recognizeCircularViewGesture:]_block_invoke"
                   moduleName = "AcuityEngine"
                   usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/bhoomijagani/Projects/Projects/DevDigital/Bitbucket/AcuityEngine/acuity-engine-ios-2.0/AcuityEngine/AcuityEngine/Classes/HealthSystems/HKWriterManager.swift"
+                  urlString = "file:///Users/bhoomijagani/Projects/Projects/DevDigital/Bitbucket/AcuityEngine/acuity-engine-ios-2.0/AcuityEngine/AcuityEngine/Classes/View/Rotary%20Wheel/RotaryWheel.m"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "201"
-                  endingLineNumber = "201"
-                  offsetFromSymbolStart = "682">
+                  startingLineNumber = "561"
+                  endingLineNumber = "561"
+                  offsetFromSymbolStart = "525">
                </Location>
                <Location
-                  uuid = "A1AAE88F-5D71-4957-AF2C-0F3C46B419B3 - 724d6c8e4f29e0c9"
+                  uuid = "39CCA028-7AD8-460A-BB7F-C3095B20F468 - 5abf896aba95f4c3"
                   shouldBeEnabled = "Yes"
                   ignoreCount = "0"
                   continueAfterRunningActions = "No"
-                  symbolName = "closure #1 (Swift.Bool, Swift.Optional&lt;Swift.Error&gt;) -&gt; () in AcuityEngine.HKWriterManager.saveSymptomsData(categoryValue: AcuityEngine.SymptomsTextValue, caegoryTypeIdentifier: Swift.Optional&lt;__C.HKCategoryTypeIdentifier&gt;, startdate: Foundation.Date, endDate: Foundation.Date, completion: (Swift.Optional&lt;Swift.Error&gt;) -&gt; ()) -&gt; ()"
+                  symbolName = "__44-[RotaryWheel recognizeCircularViewGesture:]_block_invoke.166"
                   moduleName = "AcuityEngine"
                   usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/bhoomijagani/Projects/Projects/DevDigital/Bitbucket/AcuityEngine/acuity-engine-ios-2.0/AcuityEngine/AcuityEngine/Classes/HealthSystems/HKWriterManager.swift"
+                  urlString = "file:///Users/bhoomijagani/Projects/Projects/DevDigital/Bitbucket/AcuityEngine/acuity-engine-ios-2.0/AcuityEngine/AcuityEngine/Classes/View/Rotary%20Wheel/RotaryWheel.m"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "203"
-                  endingLineNumber = "203"
-                  offsetFromSymbolStart = "304">
+                  startingLineNumber = "562"
+                  endingLineNumber = "562"
+                  offsetFromSymbolStart = "20">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "46C3BA44-795A-4653-80E8-9BDD57E38D07"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "AcuityEngine/Classes/ViewController/Acuity Detail/AcuityDetailPullUpViewController.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "159"
+            endingLineNumber = "159"
+            landmarkName = "showSystemData()"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "E86EB18D-722E-4E78-A851-19E848BE0700"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "AcuityEngine/Classes/HealthSystems/MyWellScore.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "202"
+            endingLineNumber = "202"
+            landmarkName = "reorderDictionaryOfSystemScoreBasedOnScore()"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "3762E0D2-66AB-43BD-81A6-BB7026B5F47E"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "AcuityEngine/Classes/ViewController/Add/Vitals/AddVitalsViewController.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "241"
+            endingLineNumber = "241"
+            landmarkName = "btnSaveClick(sender:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "1CB26329-2C0D-42EE-99E9-9C9212E62018"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "AcuityEngine/Classes/ViewController/Add/BMI Calculator/BMICalculatorViewController.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "161"
+            endingLineNumber = "161"
+            landmarkName = "btnSaveClick(sender:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "C42FA858-C7B8-48E1-8F8A-993A57651C89"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "AcuityEngine/Classes/ViewController/Add/BMI Calculator/BMICalculatorViewController.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "169"
+            endingLineNumber = "169"
+            landmarkName = "btnSaveClick(sender:)"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  uuid = "C42FA858-C7B8-48E1-8F8A-993A57651C89 - d4844eddae15a91b"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #1 (Swift.Bool, Swift.Optional&lt;Swift.Error&gt;) -&gt; () in AcuityEngine.BMICalculatorViewController.btnSaveClick(sender: __C.UIButton) -&gt; ()"
+                  moduleName = "AcuityEngine"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/bhoomijagani/Projects/Projects/DevDigital/Bitbucket/AcuityEngine/acuity-engine-ios-2.0/AcuityEngine/AcuityEngine/Classes/ViewController/Add/BMI%20Calculator/BMICalculatorViewController.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "169"
+                  endingLineNumber = "169"
+                  offsetFromSymbolStart = "289">
+               </Location>
+               <Location
+                  uuid = "C42FA858-C7B8-48E1-8F8A-993A57651C89 - 76661e43b6892cc2"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #1 (Swift.Optional&lt;Swift.Error&gt;) -&gt; () in closure #1 (Swift.Bool, Swift.Optional&lt;Swift.Error&gt;) -&gt; () in AcuityEngine.BMICalculatorViewController.btnSaveClick(sender: __C.UIButton) -&gt; ()"
+                  moduleName = "AcuityEngine"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/bhoomijagani/Projects/Projects/DevDigital/Bitbucket/AcuityEngine/acuity-engine-ios-2.0/AcuityEngine/AcuityEngine/Classes/ViewController/Add/BMI%20Calculator/BMICalculatorViewController.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "163"
+                  endingLineNumber = "163"
+                  offsetFromSymbolStart = "208">
                </Location>
             </Locations>
          </BreakpointContent>
