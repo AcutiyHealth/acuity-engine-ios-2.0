@@ -62,4 +62,7 @@ extension UIFont {
     static func SFProDisplayBoldItalic(of size: CGFloat = 14) -> UIFont {
         return UIFont.SFProDisplay(ofSize: size, weight: .italic)
     }
+    static func SFProDisplayRegular(of size: CGFloat = 14) -> UIFont {
+        return UIFont.SFProDisplay(ofSize: size, weight: .regular)
+    }
 }

@@ -39,6 +39,10 @@ class BMICalculatorViewController: UIViewController {
     @IBOutlet weak var datePicker: UIDatePicker!
     
     @IBOutlet weak var btnHeightConstraint: NSLayoutConstraint!
+    
+    //========================================================================================================
+    //MARK: viewDidLoad..
+    //========================================================================================================
     override func viewDidLoad() {
         super.viewDidLoad()
         datePicker.maximumDate = Date()
@@ -46,6 +50,8 @@ class BMICalculatorViewController: UIViewController {
         let dateStr = getDateWithTime(date: datePicker.date)
         btnStart.setTitle(dateStr, for: .normal)
         
+        //set placeholder
+        setPlaceHodlerInTextField()
         //set fonts..
         setFontForLabel()
         //set up UI for buttons....
@@ -60,6 +66,22 @@ class BMICalculatorViewController: UIViewController {
         lblTitleBMICalculator.text = ScreenTitle.BMIIndexCalculator;
         // Do any additional setup after loading the view.
     }
+    //========================================================================================================
+    //MARK: Set PlaceHodler In TextField..
+    //========================================================================================================
+    func setPlaceHodlerInTextField(){
+        txtFieldWeight.attributedPlaceholder = setAttributedPlaceHolder(placeholder: "lbs");
+        txtFieldHeightFeet.attributedPlaceholder = setAttributedPlaceHolder(placeholder: "ft")
+        txtFieldHeightInches.attributedPlaceholder = setAttributedPlaceHolder(placeholder: "inchs")
+        
+    }
+    func setAttributedPlaceHolder(placeholder:String)->NSAttributedString{
+        let color = UIColor.white
+        return NSAttributedString(string: placeholder, attributes: [NSAttributedString.Key.foregroundColor : color,NSAttributedString.Key.font : Fonts.kStartEndValueFont])
+    }
+    //========================================================================================================
+    //MARK: Set Font For Label..
+    //========================================================================================================
     func setFontForLabel(){
         lblTitleBMICalculator.font = Fonts.kAcuityDetailTitleFont
         lblTitleHeight.font = Fonts.kStartEndTitleFont
@@ -76,13 +98,17 @@ class BMICalculatorViewController: UIViewController {
         setupViewBorderForAddSection(view: viewHeightInches)
         
     }
-    
+    //========================================================================================================
+    //MARK: Set Up Design For DateButtons..
+    //========================================================================================================
     func setUpDesignForDateButtons(){
         btnStart.layer.cornerRadius = 5;
         btnStart.backgroundColor = UIColor.white.withAlphaComponent(0.2)
     }
-    //MARK:--------------------------------------
-    //MARK: Setup Toolbar For Number Pad...
+    //========================================================================================================
+    //MARK:Setup Toolbar For Number Pad.
+    //========================================================================================================
+    
     func setupToolbarForNumberPad(){
         let numberToolbar: UIToolbar = UIToolbar()
         numberToolbar.barStyle = UIBarStyle.default
@@ -98,18 +124,15 @@ class BMICalculatorViewController: UIViewController {
         txtFieldHeightInches.inputAccessoryView = numberToolbar //do it for every relevant textfield if there are more than one
         
     }
+    //========================================================================================================
+    //MARK: Done button Clicked In NumberToolbar..
+    //========================================================================================================
     @objc func donebuttonClickedInNumberToolbar(){
         self.view.endEditing(true)
     }
-    /*
-     // MARK: - Navigation
-     
-     // In a storyboard-based application, you will often want to do a little preparation before navigation
-     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-     // Get the new view controller using segue.destination.
-     // Pass the selected object to the new view controller.
-     }
-     */
+    //========================================================================================================
+    //MARK: editingChanged in Textfield..
+    //========================================================================================================
     @IBAction func editingChanged(_ textField: UITextField) {
         if textField.text?.count == 1 {
             if textField.text?.first == " " {
@@ -126,17 +149,21 @@ class BMICalculatorViewController: UIViewController {
             return
         }
         btnCalculate.isEnabled = true
-        btnSave.isEnabled = true
+        //btnSave.isEnabled = true
         
     }
-    
-    //MARK: Button Methods..
+    //========================================================================================================
+    //MARK: Btn Calculate Click..
+    //========================================================================================================
     
     @IBAction func btnCalculateClick(sender:UIButton){
         let feet = Double(txtFieldHeightFeet.text ?? "") ?? 0;
         let inches = Double(txtFieldHeightInches.text ?? "") ?? 0;
         let pounds = Double(txtFieldWeight.text ?? "") ?? 0;
         calcBMI(feet: feet, inches: inches, pounds: pounds)
+        
+        //Enable Save button....
+        btnSave.isEnabled = true
     }
     func calcBMI(feet:Double, inches:Double, pounds:Double) {
         /*
@@ -146,9 +173,12 @@ class BMICalculatorViewController: UIViewController {
         let totalInches = (feet*12) + (inches);
         let temp = pounds / (totalInches * totalInches);
         BMIValue = (temp * 703)
-        lblTotalBMI.text =  "Your BMI Index: \(BMIValue)";
+        lblTotalBMI.text =  "Your BMI Index: \(String(format: "%.2f", BMIValue))";
     }
     
+    //========================================================================================================
+    //MARK: Btn Save Click..
+    //========================================================================================================
     @IBAction func btnSaveClick(sender:UIButton){
         
         //Create Object For HKWriterManager
@@ -172,14 +202,15 @@ class BMICalculatorViewController: UIViewController {
                     self?.vitalsSavedSuccessfully(message: message)
                 }
                 
-                
-                
             }else{
                 print(error ?? "")
             }
         })
     }
-    //MARK: Save Vitals Data except Blood Pressure
+    
+    //========================================================================================================
+    //MARK:Save BMI Data..
+    //========================================================================================================
     func saveVitalsDataInHealthKit(vitalModel:VitalModel,objWriterManager:HKWriterManager,quantityValue: Double,quantityTypeIdentifier:HKQuantityTypeIdentifier?,completion: @escaping (Error?) -> Swift.Void){
         objWriterManager.saveQuantityData(value: quantityValue, quantityTypeIdentifier: quantityTypeIdentifier, date: self.startDate ?? Date()) {[weak self] (error) in
             
@@ -195,18 +226,24 @@ class BMICalculatorViewController: UIViewController {
         }
     }
     
-    
+    //========================================================================================================
     //MARK: Show Alert For Success of Data Save in Healthkit
+    //========================================================================================================
+    
     func vitalsSavedSuccessfully(message:String){
         let okAction = self.getOKActionForVitalList()
         self.showAlertForDataSaved(message:message,okAction: okAction)
     }
+    //========================================================================================================
     //MARK: Show Alert For Fail of Data Save in Healthkit
+    //========================================================================================================
     func vitalsSavedFailed(message:String){
         let okAction = UIAlertAction(title: "OK", style: .default, handler: nil)
         self.showAlertForDataSaved(message:message,okAction: okAction)
     }
-    
+    //========================================================================================================
+    //MARK: Get OK Action For VitalList
+    //========================================================================================================
     
     func getOKActionForVitalList()->UIAlertAction{
         let okAction = UIAlertAction(title: "OK", style: .default){ (_) in
@@ -219,7 +256,9 @@ class BMICalculatorViewController: UIViewController {
         }
         return okAction
     }
-    
+    //========================================================================================================
+    //MARK: Show Alert For Data Saved
+    //========================================================================================================
     
     func showAlertForDataSaved(message:String,okAction:UIAlertAction){
         
@@ -238,7 +277,10 @@ class BMICalculatorViewController: UIViewController {
     }
     
 }
-//MARK: Date Picker
+//========================================================================================================
+//MARK: extension BMICalculatorViewController
+//========================================================================================================
+
 extension BMICalculatorViewController{
     
     @IBAction func btnStartDateClick(sender:UIButton){

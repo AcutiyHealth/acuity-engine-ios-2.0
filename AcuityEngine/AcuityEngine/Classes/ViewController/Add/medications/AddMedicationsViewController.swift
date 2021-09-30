@@ -8,7 +8,7 @@
 import UIKit
 
 class AddMedicationsViewController: UIViewController {
-
+    @IBOutlet weak var lblTitle: UILabel!
     override func viewDidLoad() {
         super.viewDidLoad()
 

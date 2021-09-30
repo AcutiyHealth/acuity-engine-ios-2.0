@@ -8,10 +8,14 @@
 
 /* Begin PBXBuildFile section */
 		08B879B268566B06F141D3F3 /* Pods_AcuityEngine.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2674AE460659ECA36794A9A0 /* Pods_AcuityEngine.framework */; };
+		7A04F4F82705CFD50006123F /* AddOtherHistoriesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A04F4F72705CFD50006123F /* AddOtherHistoriesViewController.swift */; };
 		7A22C1B825E786F10028319D /* AcuityEngine.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 7A22C1B625E786F10028319D /* AcuityEngine.xcdatamodeld */; };
 		7A22C1BA25E786F20028319D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7A22C1B925E786F20028319D /* Assets.xcassets */; };
 		7A22C1BD25E786F20028319D /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7A22C1BB25E786F20028319D /* LaunchScreen.storyboard */; };
 		7A22C22D25E788CE0028319D /* HealthKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7A22C22C25E788CE0028319D /* HealthKit.framework */; };
+		7A3086632702A35900C0A45B /* OtherHistoryDataTableHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A3086612702A35900C0A45B /* OtherHistoryDataTableHeaderView.swift */; };
+		7A3086642702A35900C0A45B /* OtherHistoryDataTableHeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7A3086622702A35900C0A45B /* OtherHistoryDataTableHeaderView.xib */; };
+		7A59AFA827030D7400B2E384 /* HistoryModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A59AFA727030D7400B2E384 /* HistoryModels.swift */; };
 		7A73077A26FF1EB2005F9F5E /* CardioViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A73060F26FF1EB1005F9F5E /* CardioViewModel.swift */; };
 		7A73077B26FF1EB2005F9F5E /* Conditions.txt in Resources */ = {isa = PBXBuildFile; fileRef = 7A73061126FF1EB1005F9F5E /* Conditions.txt */; };
 		7A73077C26FF1EB2005F9F5E /* Vitals.txt in Resources */ = {isa = PBXBuildFile; fileRef = 7A73061226FF1EB1005F9F5E /* Vitals.txt */; };
@@ -237,7 +241,6 @@
 		7A73085D26FF1EB2005F9F5E /* AddMedicationsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A73076026FF1EB2005F9F5E /* AddMedicationsViewController.swift */; };
 		7A73085E26FF1EB2005F9F5E /* BMICalculatorViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A73076226FF1EB2005F9F5E /* BMICalculatorViewController.swift */; };
 		7A73085F26FF1EB2005F9F5E /* ConditionsListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A73076426FF1EB2005F9F5E /* ConditionsListViewController.swift */; };
-		7A73086026FF1EB2005F9F5E /* OtherHistoriesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A73076626FF1EB2005F9F5E /* OtherHistoriesViewController.swift */; };
 		7A73086126FF1EB2005F9F5E /* SymptomsListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A73076826FF1EB2005F9F5E /* SymptomsListViewController.swift */; };
 		7A73086226FF1EB2005F9F5E /* AddSymptomViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A73076926FF1EB2005F9F5E /* AddSymptomViewController.swift */; };
 		7A73086326FF1EB2005F9F5E /* AcuityMetricsDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A73076B26FF1EB2005F9F5E /* AcuityMetricsDetailViewController.swift */; };
@@ -263,12 +266,14 @@
 		7AD7E70626036E750076F14E /* SFProDisplay-HeavyItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 7AD7E6FB26036E750076F14E /* SFProDisplay-HeavyItalic.ttf */; };
 		7AD7E70726036E750076F14E /* SFProDisplay-Semibold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 7AD7E6FC26036E750076F14E /* SFProDisplay-Semibold.ttf */; };
 		7AD7E70826036E750076F14E /* SFProDisplay-LightItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 7AD7E6FD26036E750076F14E /* SFProDisplay-LightItalic.ttf */; };
+		7AE1446C2701D5A3000A6E20 /* OtherHistoryInputView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AE1446A2701D5A3000A6E20 /* OtherHistoryInputView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		2674AE460659ECA36794A9A0 /* Pods_AcuityEngine.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_AcuityEngine.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		2E9A2C77FCE70E2F05B2179B /* Pods-AcuityEngine.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-AcuityEngine.debug.xcconfig"; path = "Target Support Files/Pods-AcuityEngine/Pods-AcuityEngine.debug.xcconfig"; sourceTree = "<group>"; };
 		5E581811A157C643B3DE3D9C /* Pods-AcuityEngine.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-AcuityEngine.release.xcconfig"; path = "Target Support Files/Pods-AcuityEngine/Pods-AcuityEngine.release.xcconfig"; sourceTree = "<group>"; };
+		7A04F4F72705CFD50006123F /* AddOtherHistoriesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddOtherHistoriesViewController.swift; sourceTree = "<group>"; };
 		7A22C1AA25E786F10028319D /* AcuityEngine.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = AcuityEngine.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		7A22C1B725E786F10028319D /* AcuityEngine.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = AcuityEngine.xcdatamodel; sourceTree = "<group>"; };
 		7A22C1B925E786F20028319D /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -276,6 +281,9 @@
 		7A22C1BE25E786F20028319D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		7A22C22A25E788CE0028319D /* AcuityEngine.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = AcuityEngine.entitlements; sourceTree = "<group>"; };
 		7A22C22C25E788CE0028319D /* HealthKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = HealthKit.framework; path = System/Library/Frameworks/HealthKit.framework; sourceTree = SDKROOT; };
+		7A3086612702A35900C0A45B /* OtherHistoryDataTableHeaderView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OtherHistoryDataTableHeaderView.swift; sourceTree = "<group>"; };
+		7A3086622702A35900C0A45B /* OtherHistoryDataTableHeaderView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = OtherHistoryDataTableHeaderView.xib; sourceTree = "<group>"; };
+		7A59AFA727030D7400B2E384 /* HistoryModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryModels.swift; sourceTree = "<group>"; };
 		7A6AF7FD25E7A2C2001FB132 /* AcuityEngine-Bridging-Header.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "AcuityEngine-Bridging-Header.h"; sourceTree = "<group>"; };
 		7A73060F26FF1EB1005F9F5E /* CardioViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CardioViewModel.swift; sourceTree = "<group>"; };
 		7A73061126FF1EB1005F9F5E /* Conditions.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Conditions.txt; sourceTree = "<group>"; };
@@ -512,7 +520,6 @@
 		7A73076026FF1EB2005F9F5E /* AddMedicationsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddMedicationsViewController.swift; sourceTree = "<group>"; };
 		7A73076226FF1EB2005F9F5E /* BMICalculatorViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BMICalculatorViewController.swift; sourceTree = "<group>"; };
 		7A73076426FF1EB2005F9F5E /* ConditionsListViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConditionsListViewController.swift; sourceTree = "<group>"; };
-		7A73076626FF1EB2005F9F5E /* OtherHistoriesViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OtherHistoriesViewController.swift; sourceTree = "<group>"; };
 		7A73076826FF1EB2005F9F5E /* SymptomsListViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SymptomsListViewController.swift; sourceTree = "<group>"; };
 		7A73076926FF1EB2005F9F5E /* AddSymptomViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddSymptomViewController.swift; sourceTree = "<group>"; };
 		7A73076B26FF1EB2005F9F5E /* AcuityMetricsDetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AcuityMetricsDetailViewController.swift; sourceTree = "<group>"; };
@@ -538,6 +545,7 @@
 		7AD7E6FB26036E750076F14E /* SFProDisplay-HeavyItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SFProDisplay-HeavyItalic.ttf"; sourceTree = "<group>"; };
 		7AD7E6FC26036E750076F14E /* SFProDisplay-Semibold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SFProDisplay-Semibold.ttf"; sourceTree = "<group>"; };
 		7AD7E6FD26036E750076F14E /* SFProDisplay-LightItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SFProDisplay-LightItalic.ttf"; sourceTree = "<group>"; };
+		7AE1446A2701D5A3000A6E20 /* OtherHistoryInputView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OtherHistoryInputView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -609,7 +617,6 @@
 				7A73060E26FF1EB1005F9F5E /* ViewModel */,
 				7A73061026FF1EB1005F9F5E /* Database */,
 				7A73062226FF1EB1005F9F5E /* Constants */,
-				7A73062526FF1EB1005F9F5E /* Models */,
 				7A73062726FF1EB1005F9F5E /* 3rd party */,
 				7A73062D26FF1EB1005F9F5E /* Extensions */,
 				7A73063426FF1EB1005F9F5E /* WebService */,
@@ -669,13 +676,6 @@
 				7A73062426FF1EB1005F9F5E /* APIParamConstant.swift */,
 			);
 			path = Constants;
-			sourceTree = "<group>";
-		};
-		7A73062526FF1EB1005F9F5E /* Models */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Models;
 			sourceTree = "<group>";
 		};
 		7A73062726FF1EB1005F9F5E /* 3rd party */ = {
@@ -1477,6 +1477,7 @@
 				7A73073026FF1EB1005F9F5E /* AddProblemssymptomsModel.swift */,
 				7A73073126FF1EB1005F9F5E /* SymptomsModel.swift */,
 				7A73073226FF1EB1005F9F5E /* AppleUser.swift */,
+				7A59AFA727030D7400B2E384 /* HistoryModels.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -1484,6 +1485,7 @@
 		7A73073326FF1EB1005F9F5E /* View */ = {
 			isa = PBXGroup;
 			children = (
+				7AE144682701D2EC000A6E20 /* OtherHistory */,
 				7A73073426FF1EB1005F9F5E /* Buttons */,
 				7A73073626FF1EB1005F9F5E /* AcuityDetailPullUp.storyboard */,
 				7A73073726FF1EB1005F9F5E /* Add.storyboard */,
@@ -1662,7 +1664,7 @@
 		7A73076526FF1EB2005F9F5E /* Other Histories */ = {
 			isa = PBXGroup;
 			children = (
-				7A73076626FF1EB2005F9F5E /* OtherHistoriesViewController.swift */,
+				7A04F4F72705CFD50006123F /* AddOtherHistoriesViewController.swift */,
 			);
 			path = "Other Histories";
 			sourceTree = "<group>";
@@ -1732,6 +1734,16 @@
 				7AD7E6FD26036E750076F14E /* SFProDisplay-LightItalic.ttf */,
 			);
 			path = Fonts;
+			sourceTree = "<group>";
+		};
+		7AE144682701D2EC000A6E20 /* OtherHistory */ = {
+			isa = PBXGroup;
+			children = (
+				7AE1446A2701D5A3000A6E20 /* OtherHistoryInputView.swift */,
+				7A3086612702A35900C0A45B /* OtherHistoryDataTableHeaderView.swift */,
+				7A3086622702A35900C0A45B /* OtherHistoryDataTableHeaderView.xib */,
+			);
+			path = OtherHistory;
 			sourceTree = "<group>";
 		};
 		BE8F74FDC050DC06E099C075 /* Pods */ = {
@@ -1806,6 +1818,7 @@
 				7A73085226FF1EB2005F9F5E /* Header.xib in Resources */,
 				7A22C1BD25E786F20028319D /* LaunchScreen.storyboard in Resources */,
 				7AD7E70026036E750076F14E /* SFProDisplay-BoldItalic.ttf in Resources */,
+				7A3086642702A35900C0A45B /* OtherHistoryDataTableHeaderView.xib in Resources */,
 				7A73084626FF1EB2005F9F5E /* Profile.storyboard in Resources */,
 				7A73085026FF1EB2005F9F5E /* HandleView.xib in Resources */,
 				7AD7E6FF26036E750076F14E /* BRUSHSCI_1.TTF in Resources */,
@@ -1890,6 +1903,7 @@
 				7A7307D626FF1EB2005F9F5E /* RenalSymptomsPainData.swift in Sources */,
 				7A73085E26FF1EB2005F9F5E /* BMICalculatorViewController.swift in Sources */,
 				7A73080F26FF1EB2005F9F5E /* IDiseaseLab.swift in Sources */,
+				7A3086632702A35900C0A45B /* OtherHistoryDataTableHeaderView.swift in Sources */,
 				7A73083826FF1EB2005F9F5E /* HematoData.swift in Sources */,
 				7A7307E926FF1EB2005F9F5E /* EndocrineVitalData.swift in Sources */,
 				7A7307A426FF1EB2005F9F5E /* GastrointestinalVital.swift in Sources */,
@@ -1901,6 +1915,7 @@
 				7A7307D126FF1EB2005F9F5E /* RenalVital.swift in Sources */,
 				7A7307F926FF1EB2005F9F5E /* NeuroCondition.swift in Sources */,
 				7A7307C726FF1EB2005F9F5E /* CardioSymptomsPainData.swift in Sources */,
+				7AE1446C2701D5A3000A6E20 /* OtherHistoryInputView.swift in Sources */,
 				7A73079026FF1EB2005F9F5E /* WebServiceManager.swift in Sources */,
 				7A7307B926FF1EB2005F9F5E /* SDHVitalsData.swift in Sources */,
 				7A73079C26FF1EB2005F9F5E /* MuscVital.swift in Sources */,
@@ -1945,9 +1960,9 @@
 				7A7307AA26FF1EB2005F9F5E /* SkinLabData.swift in Sources */,
 				7A7307CF26FF1EB2005F9F5E /* RenalData.swift in Sources */,
 				7A7307D326FF1EB2005F9F5E /* RenalLab.swift in Sources */,
-				7A73086026FF1EB2005F9F5E /* OtherHistoriesViewController.swift in Sources */,
 				7A73081526FF1EB2005F9F5E /* IDiseaseSymptoms.swift in Sources */,
 				7A73082C26FF1EB2005F9F5E /* RespiratorySymptoms.swift in Sources */,
+				7A04F4F82705CFD50006123F /* AddOtherHistoriesViewController.swift in Sources */,
 				7A73084826FF1EB2005F9F5E /* UIFont+Extensions.swift in Sources */,
 				7A73081426FF1EB2005F9F5E /* IDiseaseSymptomsPainData.swift in Sources */,
 				7A73081626FF1EB2005F9F5E /* FNEVital.swift in Sources */,
@@ -1989,6 +2004,7 @@
 				7A73079826FF1EB2005F9F5E /* MuscLab.swift in Sources */,
 				7A73081326FF1EB2005F9F5E /* IDiseaseData.swift in Sources */,
 				7A7307B726FF1EB2005F9F5E /* SDHLabData.swift in Sources */,
+				7A59AFA827030D7400B2E384 /* HistoryModels.swift in Sources */,
 				7A7307EC26FF1EB2005F9F5E /* CommonSystemCalculation.swift in Sources */,
 				7A7307BB26FF1EB2005F9F5E /* SDHSymptoms.swift in Sources */,
 				7A73077F26FF1EB2005F9F5E /* FMDatabaseQueue.m in Sources */,

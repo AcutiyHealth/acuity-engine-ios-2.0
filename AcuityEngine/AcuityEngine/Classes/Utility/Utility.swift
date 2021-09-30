@@ -168,6 +168,11 @@ func getDateFromString(date:String)->Date{
     
 }
 
+func getTimeStampForCurrenTime()->Double{
+    let timestamp = Date().timeIntervalSince1970
+    return timestamp
+}
+
 //MARK: Daywise Filter
 func getNumberOfTimesLoopToExecute(days:SegmentValueForGraph)->[String:AnyObject]{
     let now = MyWellScore.sharedManager.todaysDate

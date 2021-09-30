@@ -23,8 +23,8 @@ class AddOptionSelectionViewController:UIViewController{
     var conditionsVC : ConditionsListViewController?
     var vitalsVC : VitalsListViewController?
     var medicationsVC : AddMedicationsViewController?
-    var historiesVC : OtherHistoriesViewController?
-   
+    var historiesVC : AddOtherHistoriesViewController?
+    
     var addOptionArray: Array<String> = [AddOption.vitals.rawValue,AddOption.symptom.rawValue,AddOption.conditions.rawValue,AddOption.medications.rawValue,AddOption.otherHistory.rawValue]
     //var labelsAsStringForMonth: Array<String> = ["Week1","Week2","Week3","Week4"]
     // MARK: - Properties
@@ -105,12 +105,11 @@ extension AddOptionSelectionViewController: UITableViewDelegate, UITableViewData
             }
         case .medications:
             do{
-                //openVitalViewController(title:AddOption.medications.rawValue)
+                openMedicationScreen(title: AddOption.medications.rawValue)
             }
         case .otherHistory:
             do{
-                //openVitalViewController(title:AddOption.otherHistory.rawValue)
-              
+                openOtherHistoriesScreen(title: AddOption.otherHistory.rawValue)
             }
             
         case .none:
@@ -118,7 +117,9 @@ extension AddOptionSelectionViewController: UITableViewDelegate, UITableViewData
         }
     }
     
-    //MARK: Open Symptoms screen
+    //========================================================================================================
+    //MARK: Open Symptom Screen
+    //========================================================================================================
     func openSymptomsViewController(title:String){
         
         //Add detail value view as child view
@@ -137,8 +138,9 @@ extension AddOptionSelectionViewController: UITableViewDelegate, UITableViewData
         })
     }
     
-    
-    //MARK: Open Vital screen
+    //========================================================================================================
+    //MARK: Open Vital Screen
+    //========================================================================================================
     func openVitalViewController(title:String){
         
         //Add detail value view as child view
@@ -160,7 +162,9 @@ extension AddOptionSelectionViewController: UITableViewDelegate, UITableViewData
         })
     }
     
-    //MARK: open Conditions screen
+    //========================================================================================================
+    //MARK: Open Condition Screen
+    //========================================================================================================
     func openConditionsViewController(title:String){
         
         //Add detail value view as child view
@@ -172,19 +176,37 @@ extension AddOptionSelectionViewController: UITableViewDelegate, UITableViewData
         conditionsVC?.lblTitle.text = title
         
     }
-    
-    //MARK: open Conditions screen
+    //========================================================================================================
+    //MARK: Open Medication Screen
+    //========================================================================================================
     func openMedicationScreen(title:String){
         
         //Add detail value view as child view
-        conditionsVC = UIStoryboard(name: Storyboard.add.rawValue, bundle: nil).instantiateViewController(withIdentifier: "ConditionsListViewController") as? ConditionsListViewController
-        guard (conditionsVC != nil) else {
+        medicationsVC = UIStoryboard(name: Storyboard.add.rawValue, bundle: nil).instantiateViewController(withIdentifier: "AddMedicationsViewController") as? AddMedicationsViewController
+        guard (medicationsVC != nil) else {
             return
         }
-        setupTitleAndBackButtonForAllSubViewController(vc: conditionsVC!)
-        conditionsVC?.lblTitle.text = title
+        setupTitleAndBackButtonForAllSubViewController(vc: medicationsVC!)
+        medicationsVC?.lblTitle.text = title
         
     }
+    //========================================================================================================
+    //MARK: Open Other Histories Screen
+    //========================================================================================================
+    func openOtherHistoriesScreen(title:String){
+        
+        //Add detail value view as child view
+        historiesVC = UIStoryboard(name: Storyboard.add.rawValue, bundle: nil).instantiateViewController(withIdentifier: "AddOtherHistoriesViewController") as? AddOtherHistoriesViewController
+        guard (historiesVC != nil) else {
+            return
+        }
+        setupTitleAndBackButtonForAllSubViewController(vc: historiesVC!)
+        historiesVC?.lblTitle.text = title
+        
+    }
+    //========================================================================================================
+    //MARK: Setup Title And BackButton For All SubViewController
+    //========================================================================================================
     func setupTitleAndBackButtonForAllSubViewController(vc:UIViewController){
         self.addChild(vc)
         
@@ -214,8 +236,9 @@ extension AddOptionSelectionViewController: UITableViewDelegate, UITableViewData
         handleArea.btnClose!.addTarget(self, action: #selector(btnCloseClickedInAddOptionVC), for: UIControl.Event.touchUpInside)
         
     }
-    
-    //MARK: Btn close click
+    //========================================================================================================
+    //MARK: Btn Close Clicked
+    //========================================================================================================
     @objc func btnCloseClickedInAddOptionVC(){
         
         if symptomsVC != nil{
@@ -227,9 +250,16 @@ extension AddOptionSelectionViewController: UITableViewDelegate, UITableViewData
         if conditionsVC != nil{
             removeConditionView()
         }
-        
+        if medicationsVC != nil{
+            removeMedicationView()
+        }
+        if historiesVC != nil{
+            removeHistoryView()
+        }
     }
-    //MARK: Btn Back click
+    //========================================================================================================
+    //MARK: Btn Back Clicked
+    //========================================================================================================
     @objc func btnBackClickedInAddOptionVC(){
         
         if symptomsVC != nil{
@@ -257,11 +287,8 @@ extension AddOptionSelectionViewController: UITableViewDelegate, UITableViewData
         animationForDetailViewWhenRemoved(from: self.visualEffectView)
         ////
         self.vitalsVC?.tblVitals?.removeFromSuperview()
-        self.vitalsVC?.view.removeFromSuperview()
-        self.vitalsVC?.removeFromParent()
+        removeSubView(vc: vitalsVC!)
         self.vitalsVC = nil
-        removeCloseButton()
-        removeBackButton()
         
     }
     func removeSymptomsView(){
@@ -269,23 +296,33 @@ extension AddOptionSelectionViewController: UITableViewDelegate, UITableViewData
         animationForDetailViewWhenRemoved(from: self.visualEffectView)
         ////
         self.symptomsVC?.symptomView?.removeFromSuperview()
-        self.symptomsVC?.view.removeFromSuperview()
-        self.symptomsVC?.removeFromParent()
+        removeSubView(vc: symptomsVC!)
         self.symptomsVC = nil
+    }
+    
+    func removeConditionView(){
+        removeSubView(vc: conditionsVC!)
+        conditionsVC = nil;
+    }
+    func removeMedicationView(){
+        removeSubView(vc: medicationsVC!)
+        medicationsVC = nil;
+    }
+    func removeHistoryView(){
+        removeSubView(vc: historiesVC!)
+        historiesVC = nil;
+    }
+    
+    func removeSubView(vc:UIViewController){
+        //Show animation when view is removed.....
+        animationForDetailViewWhenRemoved(from: self.visualEffectView)
+        ////
+        vc.view.removeFromSuperview()
+        vc.removeFromParent()
         removeCloseButton()
         removeBackButton()
     }
     
-    func removeConditionView(){
-        //Show animation when view is removed.....
-        animationForDetailViewWhenRemoved(from: self.visualEffectView)
-        ////
-        conditionsVC?.view.removeFromSuperview()
-        conditionsVC?.removeFromParent()
-        self.conditionsVC = nil
-        removeCloseButton()
-        removeBackButton()
-    }
     func removeCloseButton(){
         mainView.isHidden = false
         handleArea.btnClose!.isHidden = true

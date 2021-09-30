@@ -35,7 +35,7 @@ class AddVitalsViewController: UIViewController {
     @IBOutlet weak var btnSave: SaveButton!
     @IBOutlet weak var topConstraintForStartEndView: NSLayoutConstraint!
     @IBOutlet weak var topConstraintForvitalsView: NSLayoutConstraint!
-    
+    @IBOutlet weak var heightConstraintForvitalsView: NSLayoutConstraint!
     
     var selectedButton: UIButton?
     var startDate:Date?
@@ -53,7 +53,9 @@ class AddVitalsViewController: UIViewController {
             loadVitalsData()
         }
     }
-    
+    //========================================================================================================
+    //MARK: viewDidLoad
+    //========================================================================================================
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -73,8 +75,16 @@ class AddVitalsViewController: UIViewController {
         if !UIDevice.current.hasNotch{
             btnHeight.constant = 50
         }
+        
+        //Setup Height Of Vital View according to device height...
+        heightConstraintForvitalsView.constant = heightConstraintForvitalsView.constant + (heightConstraintForvitalsView.constant*(DeviceSize.screenHeight)/CGFloat(Screen.iPhoneSEHeight))/4.5
         // Do any additional setup after loading the view.
     }
+    
+    //========================================================================================================
+    //MARK: Show View As Per Vital
+    //========================================================================================================
+    
     func showViewAsPerVital(){
         /*
          Note: viewVitals will use for display all other vital except Oxygen Saturation and Blood Pressure
@@ -113,6 +123,10 @@ class AddVitalsViewController: UIViewController {
         }
         
     }
+    //========================================================================================================
+    //MARK: Set Font For Label
+    //========================================================================================================
+    
     func setFontForLabel(){
         lblTitleBloodPressure.font = Fonts.kAcuityAddDetailTitleFont
         lblTitleVital.font = Fonts.kAcuityAddDetailTitleFont
@@ -131,6 +145,9 @@ class AddVitalsViewController: UIViewController {
         setupViewBorderForAddSection(view: viewVitalWithTextField)
         setupViewBorderForAddSection(view: viewOxygenSaturationWithTextField)
     }
+    //========================================================================================================
+    //MARK: SetUp Design For Date Buttons
+    //========================================================================================================
     
     func setUpDesignForDateButtons(){
         btnEnd.layer.cornerRadius = 5;
@@ -139,9 +156,10 @@ class AddVitalsViewController: UIViewController {
         btnStart.backgroundColor = UIColor.white.withAlphaComponent(0.2)
     }
     
-    
-    //MARK:--------------------------------------
+    //========================================================================================================
     //MARK: Setup Toolbar For Number Pad...
+    //========================================================================================================
+    
     func setupToolbarForNumberPad(){
         let numberToolbar: UIToolbar = UIToolbar()
         numberToolbar.barStyle = UIBarStyle.default
@@ -157,11 +175,17 @@ class AddVitalsViewController: UIViewController {
         txtFieldBP2.inputAccessoryView = numberToolbar //do it for every relevant textfield if there are more than one
         txtFieldOxygenSaturation.inputAccessoryView = numberToolbar
     }
+    //========================================================================================================
+    //MARK: Donebutton Clicked In NumberToolbar
+    //========================================================================================================
     
     @objc func donebuttonClickedInNumberToolbar(){
         self.view.endEditing(true)
     }
-    //MARK:--------------------------------------
+    //========================================================================================================
+    //MARK: Load Vitals Data
+    //========================================================================================================
+    
     func loadVitalsData(){
         guard let vitalModel = vitalModel else {
             return
@@ -185,9 +209,9 @@ class AddVitalsViewController: UIViewController {
         
     }
     
-    func makeSaveBtnEnableOrDisable(){
-        
-    }
+    //========================================================================================================
+    //MARK: Btn Save Click
+    //========================================================================================================
     
     @IBAction func btnSaveClick(sender:UIButton){
         
@@ -232,11 +256,13 @@ class AddVitalsViewController: UIViewController {
                 else  if
                     self?.vitalModel?.name == VitalsName.oxygenSaturation
                 {
-                    
+                    /*
+                     Oxygen Saturation and Heart Rate to save in Healthkit..
+                     */
                     self?.saveVitalsDataInHealthKit(vitalModel: (self?.vitalModel)!, objWriterManager: objWriterManager, quantityValue: oxygenSaturationValue ?? 0, quantityTypeIdentifier: self?.vitalModel?.healthQuantityType) { (error) in
                         
                         /*
-                         Note: After saving BP in health kit call Heart Rate to save in Healthkit...
+                         Note: After saving O2 in health kit call Heart Rate to save in Healthkit...
                          */
                         if let vitalValue = vitalValue{
                             let heartRateVitalModel = VitalModel(name: VitalsName.heartRate)
@@ -305,7 +331,11 @@ class AddVitalsViewController: UIViewController {
             }
         })
     }
+    //========================================================================================================
     //MARK: Save Vitals Data except Blood Pressure
+    //========================================================================================================
+    
+    
     func saveVitalsDataInHealthKit(vitalModel:VitalModel,objWriterManager:HKWriterManager,quantityValue: Double,quantityTypeIdentifier:HKQuantityTypeIdentifier?,completion: @escaping (Error?) -> Swift.Void){
         objWriterManager.saveQuantityData(value: quantityValue, quantityTypeIdentifier: quantityTypeIdentifier, date: self.startDate ?? Date()) {[weak self] (error) in
             
@@ -320,8 +350,11 @@ class AddVitalsViewController: UIViewController {
             }
         }
     }
-    
+    //========================================================================================================
     //MARK: Save Vitals Blood Pressure
+    //========================================================================================================
+    
+    
     func saveBloodPressurexDataInHealthKit(bpSystolic:Double,bpDiastolic:Double,objWriterManager:HKWriterManager,completion: @escaping (Error?) -> Swift.Void){
         objWriterManager.storeBloodPressure(systolic: bpSystolic, diastolic: bpDiastolic, date: self.startDate ?? Date()) { [weak self] (error) in
             if (error == nil){
@@ -334,19 +367,25 @@ class AddVitalsViewController: UIViewController {
             }
         }
     }
-    
+    //========================================================================================================
     //MARK: Show Alert For Success of Data Save in Healthkit
+    //========================================================================================================
     func vitalsSavedSuccessfully(message:String){
         let okAction = self.getOKActionForVitalList()
         self.showAlertForDataSaved(message:message,okAction: okAction)
     }
+    //========================================================================================================
     //MARK: Show Alert For Fail of Data Save in Healthkit
+    //========================================================================================================
+    
     func vitalsSavedFailed(message:String){
         let okAction = UIAlertAction(title: "OK", style: .default, handler: nil)
         self.showAlertForDataSaved(message:message,okAction: okAction)
     }
     
-    
+    //========================================================================================================
+    //MARK:Get OK Action For VitalList
+    //========================================================================================================
     func getOKActionForVitalList()->UIAlertAction{
         let okAction = UIAlertAction(title: "OK", style: .default){ (_) in
             if let parentVC = self.parent {
@@ -359,7 +398,9 @@ class AddVitalsViewController: UIViewController {
         return okAction
     }
     
-    
+    //========================================================================================================
+    //MARK: Show Alert For Data Saved
+    //========================================================================================================
     func showAlertForDataSaved(message:String,okAction:UIAlertAction){
         
         //show alert
@@ -371,6 +412,9 @@ class AddVitalsViewController: UIViewController {
                              actions: okAction)
         }
     }
+    //========================================================================================================
+    //MARK: editingChanged in Textfield
+    //========================================================================================================
     @IBAction func editingChanged(_ textField: UITextField) {
         if textField.text?.count == 1 {
             if textField.text?.first == " " {
@@ -388,7 +432,7 @@ class AddVitalsViewController: UIViewController {
             btnSave.isEnabled = true
         }else if vitalModel?.name == VitalsName.oxygenSaturation {
             guard
-                let _ = txtFieldOxygenSaturation.text,(txtFieldOxygenSaturation.text != nil)
+                let _ = txtFieldOxygenSaturation.text,(txtFieldOxygenSaturation.text != nil),!txtFieldOxygenSaturation.text!.isEmpty
             else {
                 btnSave.isEnabled = false
                 return
@@ -407,8 +451,10 @@ class AddVitalsViewController: UIViewController {
         
     }
 }
+//========================================================================================================
+//MARK: extension AddVitalsViewController
+//========================================================================================================
 
-//MARK: Date Picker
 extension AddVitalsViewController{
     
     @IBAction func btnStartDateClick(sender:UIButton){

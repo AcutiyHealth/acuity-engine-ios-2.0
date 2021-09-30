@@ -138,6 +138,23 @@ enum NSNotificationName: String {
     case refreshCircleView = "refreshCircleView"
     case refreshDataInCircle = "refreshDataInCircle"
 }
+//=============================Other History=================================================//
+enum OtherHistory:String {
+    case otherConditions = "Other Conditions"
+    case surgicalHistory = "Surgical History"
+    case familyHistory = "Family History"
+    case socialHistory = "Social History"
+    case allergies = "Allergies"
+    case none = "none"
+}
+enum OtherHistoryId:Int,CaseIterable {
+    case otherConditionsId = 1
+    case surgicalHistoryId = 2
+    case familyHistoryId = 3
+    case socialHistoryId = 4
+    case allergiesId = 5
+}
+//==============================================================================//
 struct ScreenTitle {
     static let BMIIndexCalculator = "BMI Calculator"
 }
@@ -167,6 +184,9 @@ enum ColorSchema {
     static let titleLabelColor = UIColor.white
     static let smallTitleColor = UIColor.white
     static let detailLabelColor = UIColor.white
+    
+    //Add Option Round view color...
+    static let addOptionGrayColor =  UIColor(red: 1, green: 0.99, blue: 1, alpha: 0.22)
     
     // Button Color
     static let buttonShadowColor = UIColor(red: 0, green: 0, blue: 0, alpha: 0.25)
@@ -253,8 +273,11 @@ struct Fonts {
     //List in Add Section cell
     static let kCellTextFontListInAddSection = getFontAsPerDeviceSize(fontName: UIFont.SFProDisplaySemiBold(of: 18), fontSize: 18)
     static let kCellTitleFontListInAddSection = getFontAsPerDeviceSize(fontName: UIFont.SFProDisplayBold(of: 26), fontSize: 26)
+    static let kCellHistoryTitleFontInAddSection = getFontAsPerDeviceSize(fontName: UIFont.SFProDisplaySemiBold(of: 22), fontSize: 22)
+    static let kCellHistoryDescriptionFontInAddSection = getFontAsPerDeviceSize(fontName: UIFont.SFProDisplayRegular(of: 16), fontSize: 16)
     static let kStartEndTitleFont = getFontAsPerDeviceSize(fontName: UIFont.SFProDisplaySemiBold(of: 18), fontSize: 18)
     static let kStartEndValueFont = getFontAsPerDeviceSize(fontName: UIFont.SFProDisplayMedium(of: 16), fontSize: 16)
+    static let kAcuityBtnAdd = getFontAsPerDeviceSize(fontName: UIFont.SFProDisplayBold(of: 16), fontSize: 16)
     //Pull up
     static let kAcuityAddOptionTitleFont = getFontAsPerDeviceSize(fontName: UIFont.SFProDisplayBold(of: 18), fontSize: 18)
     static let kAcuityAddOptionValueFont = getFontAsPerDeviceSize(fontName: UIFont.SFProDisplayMedium(of: 10), fontSize: 10)

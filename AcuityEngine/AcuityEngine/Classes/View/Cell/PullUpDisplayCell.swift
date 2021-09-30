@@ -294,6 +294,7 @@ class AddOptionCell: UITableViewCell {
         valueLabel.numberOfLines = 0
         valueLabel.sizeToFit()
         containerView.layer.cornerRadius = 20
+        containerView.backgroundColor = ColorSchema.addOptionGrayColor
     }
     
     func displayData(title:String){
