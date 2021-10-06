@@ -198,6 +198,16 @@ class CardioVital:VitalProtocol {
         case .bloodPressureDiastolic:
             filterArray = filterVitalArrayWithSelectedSegmentInGraph(days: days, array: diastolicBloodPressureData)
             
+       //bloodPressureSystolicDiastolic
+        case .bloodPressureSystolicDiastolic:
+           
+            /* Note: Here we combine data of BP Systolic and Diastolic in one combine array..
+             We execute loop for systeolic and get starttime stamp and match with diastolic array time stamp..
+             And create one array which contain entry from both array..
+             */
+            let filterArraySystolic = filterVitalArrayWithSelectedSegmentInGraph(days: days, array: systolicBloodPressureData)
+            let filterArrayDiastolic = filterVitalArrayWithSelectedSegmentInGraph(days: days, array: diastolicBloodPressureData)
+            arrVital = combineBPSystolicAndDiastolic(arraySystolic: filterArraySystolic, arrayDiastolic: filterArrayDiastolic)
         case .heartRate:
             filterArray = filterVitalArrayWithSelectedSegmentInGraph(days: days, array: heartRateData)
             
@@ -220,8 +230,10 @@ class CardioVital:VitalProtocol {
         default:
             break
         }
-        for item in filterArray{
-            arrVital.append(saveVitalsInArray(item: item))
+        if vitalsName != .bloodPressureSystolicDiastolic{
+            for item in filterArray{
+                arrVital.append(saveVitalsInArray(item: item))
+            }
         }
         return arrVital
     }

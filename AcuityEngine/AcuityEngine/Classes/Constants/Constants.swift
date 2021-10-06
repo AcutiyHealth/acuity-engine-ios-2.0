@@ -284,6 +284,8 @@ struct Fonts {
     static let kAcuityAddDetailTitleFont = getFontAsPerDeviceSize(fontName: UIFont.SFProDisplayBold(of: 24), fontSize: 24)
     
 }
+//
+let VERSION_KEY = "version"
 
 let dayArray = ["Mon","Tue","Wed","Thu","Fri","Sat","Sun"]
 

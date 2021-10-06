@@ -80,7 +80,7 @@ class AcuityDetailPullUpViewController: UIViewController {
         chartView.initialize()
         chartView.delegate = self
         chartView.frame = CGRect(x: 0, y: 0, width: self.chartView.frame.size.width, height: self.chartView.frame.size.height)
-       
+        
         //chartView.backgroundColor = UIColor.gray
         return chartView
     }()
@@ -92,7 +92,7 @@ class AcuityDetailPullUpViewController: UIViewController {
     
     //=================== My Well Score Data =====================//
     var systemMyWellScoreData:[[String:Any]]?
-
+    
     @IBOutlet var tblMyWellScoreData:UITableView!
     
     //===================//===================//===================//
@@ -197,10 +197,10 @@ class AcuityDetailPullUpViewController: UIViewController {
     //========================================================================================================
     
     func showScoreAndChartDataForMyWellScore(){
-       
+        
         let scoreTupple = viewModelObj.getScoreAndArrayOfSystemScoreForMyWellScore()
         systemMyWellScoreData = scoreTupple.2 //metricDictionary
-     
+        
         //=========Uncomment below code if want to show chart when MyWell Score selected..=======//
         //Display Chart and Score Data
         //displayScoreAndChartData(scoreText: scoreText, arraySystemScore: arraySystemScore)
@@ -279,11 +279,15 @@ class AcuityDetailPullUpViewController: UIViewController {
         self.arrSymptoms = scoreTupple.1 //arrSymptoms
         self.arrVitals = scoreTupple.2 //arrVitals
         self.arrLabs = scoreTupple.3 //arrLabs
-        
+        //=============Combine BP Systolic and Disastolic in One Entry in Vital Array.=============//
+        self.arrVitals = viewModelObj.combineBPSystolicandDisastolicInVitalArray(arrVital: arrVitals)
+        //=============Combine Free Condition with Add Section Condition Data.=============//
+        self.arrConditions = viewModelObj.fetchFreeConditionDataAndCombineWithAddSectionCondition(arrConditions: self.arrConditions)
         //reload tableview....
         self.reloadTableView()
         
     }
+    
     //========================================================================================================
     //MARK: Display Chart and Score Data
     //========================================================================================================
@@ -490,7 +494,8 @@ extension AcuityDetailPullUpViewController: UITableViewDelegate, UITableViewData
         if tableView != tblMyWellScoreData{
             return cellHeight
         }
-        return getRowHeightAsPerDeviceSize(height:40)
+        //return getRowHeightAsPerDeviceSize(height:40)
+        return UITableView.automaticDimension
     }
     
     //========================================================================================================
@@ -636,16 +641,16 @@ extension AcuityDetailPullUpViewController{
     
     func addLineChartViewInMainChartView(){
         
-         lineChartView.removeFromSuperview()
-         self.chartView.addSubview(lineChartView)
-         lineChartView.translatesAutoresizingMaskIntoConstraints = false
-             let leadingConstraint = NSLayoutConstraint(item: lineChartView, attribute: NSLayoutConstraint.Attribute.leading, relatedBy: NSLayoutConstraint.Relation.equal, toItem: self.chartView, attribute: NSLayoutConstraint.Attribute.leading, multiplier: 1, constant: 0)
-             let trailingConstraint = NSLayoutConstraint(item: lineChartView, attribute: NSLayoutConstraint.Attribute.trailing, relatedBy: NSLayoutConstraint.Relation.equal, toItem: self.chartView, attribute: NSLayoutConstraint.Attribute.trailing, multiplier: 1, constant: 0)
-             let topConstraint =  NSLayoutConstraint(item: lineChartView, attribute: NSLayoutConstraint.Attribute.top, relatedBy: NSLayoutConstraint.Relation.equal, toItem: self.chartView, attribute: NSLayoutConstraint.Attribute.top, multiplier: 1, constant: 0)
-             let bottomConstraint = NSLayoutConstraint(item: lineChartView, attribute: NSLayoutConstraint.Attribute.bottom, relatedBy: NSLayoutConstraint.Relation.equal, toItem: self.chartView, attribute: NSLayoutConstraint.Attribute.bottom, multiplier: 1, constant: 0)
-         chartView.addConstraints([leadingConstraint, trailingConstraint, topConstraint, bottomConstraint])
-         
-
+        lineChartView.removeFromSuperview()
+        self.chartView.addSubview(lineChartView)
+        lineChartView.translatesAutoresizingMaskIntoConstraints = false
+        let leadingConstraint = NSLayoutConstraint(item: lineChartView, attribute: NSLayoutConstraint.Attribute.leading, relatedBy: NSLayoutConstraint.Relation.equal, toItem: self.chartView, attribute: NSLayoutConstraint.Attribute.leading, multiplier: 1, constant: 0)
+        let trailingConstraint = NSLayoutConstraint(item: lineChartView, attribute: NSLayoutConstraint.Attribute.trailing, relatedBy: NSLayoutConstraint.Relation.equal, toItem: self.chartView, attribute: NSLayoutConstraint.Attribute.trailing, multiplier: 1, constant: 0)
+        let topConstraint =  NSLayoutConstraint(item: lineChartView, attribute: NSLayoutConstraint.Attribute.top, relatedBy: NSLayoutConstraint.Relation.equal, toItem: self.chartView, attribute: NSLayoutConstraint.Attribute.top, multiplier: 1, constant: 0)
+        let bottomConstraint = NSLayoutConstraint(item: lineChartView, attribute: NSLayoutConstraint.Attribute.bottom, relatedBy: NSLayoutConstraint.Relation.equal, toItem: self.chartView, attribute: NSLayoutConstraint.Attribute.bottom, multiplier: 1, constant: 0)
+        chartView.addConstraints([leadingConstraint, trailingConstraint, topConstraint, bottomConstraint])
+        
+        
     }
 }
 

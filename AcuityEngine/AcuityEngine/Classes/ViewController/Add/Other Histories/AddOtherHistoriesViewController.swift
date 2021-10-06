@@ -236,7 +236,8 @@ class AddOtherHistoriesViewController:UIViewController, UITableViewDelegate, UIT
     }
     //MARK:- Add History Data
     func addHistory(_ model: HistoryDataDisplayModel,indexPath:IndexPath) {
-        
+        //========================================================================//
+        self.view.endEditing(true)
         //========================================================================//
         //Find index of model name as key from array.....
         let index =  self.arrayForTblDataView.firstIndex{$0.first?.key == model.name}
@@ -317,5 +318,6 @@ class AddOtherHistoriesViewController:UIViewController, UITableViewDelegate, UIT
             
         }
     }
+  
 }
 

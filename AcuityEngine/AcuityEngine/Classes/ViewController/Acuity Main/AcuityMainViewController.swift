@@ -69,6 +69,8 @@ class AcuityMainViewController: PullUpViewController, UIScrollViewDelegate,Rotar
         //========================================================================================================
         setFontForMyWellScore()
         //========================================================================================================
+        setPanGestureForProfileAndAddButton()
+        //========================================================================================================
         headerView.delegate = self
         //========================================================================================================
         //Set pullup view height
@@ -341,6 +343,12 @@ class AcuityMainViewController: PullUpViewController, UIScrollViewDelegate,Rotar
     //========================================================================================================
     func setUIColorForMainView(){
         self.view.backgroundColor = ColorSchema.kMainThemeColor
+    }
+    //========================================================================================================
+    //MARK: Set PanGesture For Profile And Add Button
+    //========================================================================================================
+    func setPanGestureForProfileAndAddButton(){
+        
     }
     //========================================================================================================
     //MARK: set font of my well score according to  view

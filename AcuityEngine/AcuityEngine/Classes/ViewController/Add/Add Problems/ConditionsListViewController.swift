@@ -10,7 +10,7 @@ import UIKit
 class ConditionsListViewController: UIViewController {
     
     @IBOutlet weak var tblConditions: UITableView!
-    var arrayOfStringsCondition: [String] = []
+    var arrayOfFetchedConditionFromDatabase: [ConditionsModel] = []
     var conditionArray : [ConditionsModel] = []
     
     @IBOutlet weak var btnClose: UIButton!
@@ -24,7 +24,12 @@ class ConditionsListViewController: UIViewController {
         
         // Do any additional setup after loading the view.
     }
-    
+    /**
+     Logic : Here we prepare conditionArray from Global condition array data....
+     First, we fetch data from Database and compare all that Ids with Global condition data's Ids. Whose IDs are match that model will have isOn = true and that entry will display in table switch value.
+     When switch ON from table, insert that condition Id in Database.
+     When switch Off from table, remove that condition Id in Database.
+     */
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
@@ -34,70 +39,55 @@ class ConditionsListViewController: UIViewController {
         }
         
     }
+    
     //========================================================================================================
     //MARK:Set Font For Label..
     //========================================================================================================
     func setFontForLabel() {
         self.lblTitle.font = Fonts.kCellTitleFontListInAddSection
     }
-
+    
     //========================================================================================================
-    //MARK: load Conditions Data..
+    //MARK: load Conditions Data From Database..
     //========================================================================================================
     
     func loadConditionsData(){
         DispatchQueue.global().async {
-            do {
-                // Fetch data from database  and convert it in array to display in tableview
-                if  let isConditionDataAdded = UserDefaults.standard.string(forKey: Key.kIsConditionDataAdded){
-                    if isConditionDataAdded == "Yes"{
-                        self.fetchConditionsDataFromDatabase()
-                    }
-                }else{
-                    //save condition data in database
-                    self.saveDataInDatabase()
-                }
-                
-            }
+            self.fetchConditionsDataFromDatabase()
         }
     }
-    //========================================================================================================
-    //MARK: Save Data In Database..
-    //========================================================================================================
     
-    func saveDataInDatabase(){
-        DBManager.shared.insertConditionData(completionHandler: { (sucess,error) in
-            if sucess{
-                UserDefaults.standard.set("Yes", forKey: Key.kIsConditionDataAdded) //String
-                self.fetchConditionsDataFromDatabase()
-            }
-        })
-    }
     //========================================================================================================
     //MARK: Fetch Conditions Data From Database..
     //========================================================================================================
     
     func fetchConditionsDataFromDatabase(){
-        guard let conditionArray = DBManager.shared.loadConditions() else { return }
-        self.conditionArray = [];
-        self.conditionArray.append(contentsOf: conditionArray)
+        self.arrayOfFetchedConditionFromDatabase = DBManager.shared.loadConditions();
         
-        /*
-         Fetch data from database. If data from database and ConditionType' all cases not same then insert new entry which is not exist in database and rewrite or save data in database...
-         
-         NOTE: Here there is only logic of adding new entry. If there will be any entry remove from ConditionType, that entry still will show in condition list...
-         //If you want to remove that entry from database list also, logic needs to be setup.
-         */
+        self.createConditionArray()
         
-        if self.conditionArray.count < ConditionType.allCases.count{
-            saveDataInDatabase()
-        }
-        else{
+        DispatchQueue.main.async {
             
-            DispatchQueue.main.async {
-                
-                self.tblConditions.reloadData()
+            self.tblConditions.reloadData()
+        }
+    }
+    
+    
+    //========================================================================================================
+    //MARK:Create Condition Array For Table Data..
+    //========================================================================================================
+    func createConditionArray(){
+        for item in arrConditionData.sorted(by: {$0.value.rawValue < $1.value.rawValue}){
+            let id:Int = item.key
+            let title:String = item.value.rawValue
+            let filterArray = arrayOfFetchedConditionFromDatabase.filter({$0.id == id})
+            var valueYesOrNo:ConditionValue = .No
+            if filterArray.count>0{
+                valueYesOrNo = .Yes
             }
+            let model = ConditionsModel(title:title , value: valueYesOrNo, conditionId: id)
+            conditionArray.append(model)
+            
         }
     }
 }
@@ -115,26 +105,32 @@ extension ConditionsListViewController:UITableViewDelegate,UITableViewDataSource
             fatalError("AcuityDetailDisplayCell cell is not found")
         }
         let conditionData = conditionArray[indexPath.row]
-        //cell.yesOrNoSwitch.tag = indexPath.row
-        //cell.yesOrNoSwitch.addTarget(self, action: #selector(changeSwitchStatus(onOffSwitch:)), for: UIControl.Event.touchUpInside)
         cell.yesOrNoSegmentControl.tag = indexPath.row
         cell.yesOrNoSegmentControl.addTarget(self, action: #selector(changeSegmentControlStatus(yesNoSegment:)), for: UIControl.Event.valueChanged)
+        
         cell.displayData(title: conditionData.title ?? "",isOn:conditionData.isOn ?? false)
         cell.selectionStyle = .none
         
         return cell
     }
-
+    
     @objc func changeSegmentControlStatus(yesNoSegment:UISegmentedControl){
+        
         let tag = yesNoSegment.tag
         let conditionData = conditionArray[tag]
         let isConditionYes = yesNoSegment.selectedSegmentIndex == 0
         conditionData.isOn = isConditionYes
         conditionData.value = isConditionYes ? ConditionValue.Yes : ConditionValue.No
-        //        if let row = self.conditionArray.firstIndex(where: {$0.id == tag}) {
-        //            conditionArray[row] = conditionData
-        //        }
-        DBManager.shared.updateCondition(withID: conditionData.id, isSelected: isConditionYes)
+        let timeStamp:Double = getTimeStampForCurrenTime()
+        
+        //==========If Switch On Insert that Entry with ID in Database.....==========//
+        if isConditionYes{
+            DBManager.shared.insertSingleCondition(withID: conditionData.id, timeStamp: timeStamp) { (success, error) in
+            }
+        }else{
+            //==========If Switch Off Delete that Entry with ID in Database.....==========//
+            let _ =  DBManager.shared.deleteCondition(withID: conditionData.id)
+        }
     }
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
@@ -146,15 +142,4 @@ extension ConditionsListViewController:UITableViewDelegate,UITableViewDataSource
 }
 
 
-/*
- @objc func changeSwitchStatus(onOffSwitch:UISwitch){
-     let tag = onOffSwitch.tag
-     let conditionData = conditionArray[tag]
-     conditionData.isOn = onOffSwitch.isOn
-     conditionData.value = onOffSwitch.isOn ? ConditionValue.Yes : ConditionValue.No
-     //        if let row = self.conditionArray.firstIndex(where: {$0.id == tag}) {
-     //            conditionArray[row] = conditionData
-     //        }
-     DBManager.shared.updateCondition(withID: conditionData.id, isSelected: onOffSwitch.isOn)
- }
- */
+

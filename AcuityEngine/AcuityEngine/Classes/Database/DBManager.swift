@@ -13,6 +13,7 @@ class DBManager: NSObject {
     let field_ConditionID = "id"
     let field_ConditionName = "name"
     let field_ConditionIsSelected = "isSelected"
+    let tbl_conditions = "conditions"
     //
     let field_historyTypeId = "historyTypeId"
     let field_historyType = "historyType"
@@ -186,27 +187,26 @@ class DBManager: NSObject {
         return historyData
     }
     
-    func loadHisory(withID ID: Int, completionHandler: (_ success:Bool,_ conditionInfo: HistoryDataDisplayModel?) -> Void) {
+    func loadHisory(withID ID: Int, completionHandler: (_ success:Bool,_ historyInfo: [HistoryDataDisplayModel]?) -> Void) {
+        var historyInfo:[HistoryDataDisplayModel] = []
         if openDatabase() {
             let query = "SELECT * FROM \(tbl_history) WHERE  \(field_historyTypeId)=?"
             
             do {
                 let results = try database.executeQuery(query, values: [ID])
                 
-                if results.next() {
+                while results.next() {
                     let history = prepareHistoryModelFromResult(results: results)
-                    completionHandler(true,history)
+                    historyInfo.append(history)
                 }
-                else {
-                    print(database.lastError() as Any)
-                    completionHandler(false,nil)
-                }
+                
+                
             }
             catch {
                 print(error.localizedDescription)
-                completionHandler(false,nil)
+                completionHandler(false,historyInfo)
             }
-            
+            completionHandler(true,historyInfo)
             database.close()
         }
         
@@ -243,14 +243,20 @@ class DBManager: NSObject {
             do {
                 
                 var query = ""
-                for conditionTitle in ConditionType.allCases {
-                    if conditionTitle != ConditionType(rawValue: ""){
-                        print("conditionTitle--->",conditionTitle)
-                        //Here is first select condition, if it's not exist insert into database, so duplicate entry can't be done.
-                        query += "insert into conditions (\(field_ConditionName)) SELECT ('\(conditionTitle.rawValue)') WHERE not exists (select * from conditions where (\(field_ConditionName)) = ('\(conditionTitle.rawValue)'));"
-                    }
+                //                for conditionTitle in ConditionType.allCases {
+                //                    if conditionTitle != ConditionType(rawValue: ""){
+                //                        print("conditionTitle--->",conditionTitle)
+                //                        //Here is first select condition, if it's not exist insert into database, so duplicate entry can't be done.
+                //                        query += "insert into conditions (\(field_ConditionName)) SELECT ('\(conditionTitle.rawValue)') WHERE not exists (select * from conditions where (\(field_ConditionName)) = ('\(conditionTitle.rawValue)'));"
+                //                    }
+                //                }
+                for condition in arrConditionData.sorted(by: {$0.key<$1.key}){
+                    let conditionId = condition.key
+                    let conditionaName = condition.value
+                    let timeStamp = 0//getTimeStampForCurrenTime()
+                    print("conditionId",conditionId)
+                    query += "INSERT INTO \(tbl_conditions) (\(field_ConditionID),\(field_ConditionName),\(field_timeStamp)) VALUES (\(conditionId),'\(conditionaName)',\(timeStamp)) ;"
                 }
-                
                 if !database.executeStatements(query) {
                     print("Failed to insert initial data into the database.")
                     print(database.lastError() ?? NSError(), database.lastErrorMessage() as Any)
@@ -265,21 +271,19 @@ class DBManager: NSObject {
     }
     
     
-    func loadConditions() -> [ConditionsModel]! {
-        var conditions: [ConditionsModel]!
+    func loadConditions() -> [ConditionsModel] {
+        var conditions: [ConditionsModel] = []
         
         if openDatabase() {
-            let query = "select * from conditions order by \(field_ConditionName) asc"
-            
+            // let query = "select * from conditions order by \(field_ConditionName) asc"
+            let query = "select * from conditions"
             do {
                 
                 let results = try database.executeQuery(query, values: nil)
                 
                 while results.next() {
                     let condition = prepareConditionModelFromResult(results: results)
-                    if conditions == nil{
-                        conditions = [ConditionsModel]()
-                    }
+                    
                     conditions.append(condition)
                 }
             }
@@ -325,9 +329,17 @@ class DBManager: NSObject {
         var isSelected = 0
         isSelected =  Int((results.int(forColumn: field_ConditionIsSelected)))
         let conditionId = Int((results.int(forColumn: field_ConditionID)))
-        let conditionName = results.string(forColumn: field_ConditionName)
-        let condition = ConditionsModel(title: conditionName ?? "", value:ConditionValue(rawValue: Double(isSelected))!, conditionId: conditionId)
-        
+        let startTime = Double((results.double(forColumn: field_timeStamp)))
+        //============================================================================================//
+        //====== Filer global condition array with Id' from Database to fetch Name of Condition========//
+        let filterConditionArray = arrConditionData.filter({$0.key == conditionId})
+        var conditionName = ""
+        if filterConditionArray.count > 0{
+            conditionName = filterConditionArray.first?.value.rawValue ?? ""
+        }
+        //============================================================================================//
+        let condition = ConditionsModel(title: conditionName, value:ConditionValue(rawValue: Double(isSelected))!, conditionId: conditionId)
+        condition.startTime = startTime
         return condition
     }
     
@@ -373,7 +385,27 @@ class DBManager: NSObject {
             database.close()
         }
     }
-    
+    func insertSingleCondition(withID ID: Int, timeStamp: Double,completionHandler: (_ success:Bool,_ error:Error?) -> Void) {
+        if openDatabase() {
+            
+            do {
+                
+                var query = ""
+                
+                query += "INSERT INTO \(tbl_conditions) (\(field_ConditionID),\(field_ConditionIsSelected),\(field_timeStamp)) VALUES (\(ID),1,\(timeStamp)) ;"
+                
+                if !database.executeStatements(query) {
+                    print("Failed to insert initial data into the database.")
+                    print(database.lastError() ?? NSError(), database.lastErrorMessage() as Any)
+                    completionHandler(false,database.lastError())
+                }
+                completionHandler(true,nil)
+            }
+            
+            
+            database.close()
+        }
+    }
     
     func deleteCondition(withID ID: Int) -> Bool {
         var deleted = false

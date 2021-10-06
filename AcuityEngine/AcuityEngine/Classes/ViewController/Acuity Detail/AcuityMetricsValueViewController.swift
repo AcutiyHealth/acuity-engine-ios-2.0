@@ -145,7 +145,12 @@ extension AcuityMetricsValueViewController: UITableViewDelegate, UITableViewData
             do{
                 
                 let item = arrVitals[indexPath.row]
-                cell.displayData(timeStamp: item.startTime, value: "\(String(describing: item.value ?? ""))", color: item.color)
+                if item.isBPModel{
+                    cell.displayValueDataForBPModel(item: item)
+                }else{
+                    cell.displayData(timeStamp: item.startTime, value: "\(String(describing: item.value ?? ""))", color: item.color)
+                }
+                
                 cell.selectionStyle = .none
             }
         case .Conditions:

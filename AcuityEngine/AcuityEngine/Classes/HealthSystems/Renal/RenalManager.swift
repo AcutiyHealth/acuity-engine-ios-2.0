@@ -89,6 +89,7 @@ class RenalManager: NSObject {
         }
         let conditionData = RenalConditionData(type: conditionTypeData)
         conditionData.value = element.value.rawValue
+        conditionData.startTimeStamp = element.startTime
         
         switch conditionType {
         case .kidneyDiease:

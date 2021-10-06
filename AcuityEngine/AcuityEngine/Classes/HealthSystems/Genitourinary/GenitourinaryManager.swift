@@ -116,6 +116,7 @@ class GenitourinaryManager: NSObject {
         }
         let conditionData = GenitourinaryConditionData(type: conditionTypeData)
         conditionData.value = element.value.rawValue
+        conditionData.startTimeStamp = element.startTime
         
         switch conditionType {
         //UTI

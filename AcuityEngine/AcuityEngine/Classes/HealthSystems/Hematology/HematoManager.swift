@@ -107,6 +107,7 @@ class HematoManager: NSObject {
         }
         let conditionData = HematoConditionData(type: conditionTypeData)
         conditionData.value = element.value.rawValue
+        conditionData.startTimeStamp = element.startTime
         
         switch conditionType {
         case .anemia:

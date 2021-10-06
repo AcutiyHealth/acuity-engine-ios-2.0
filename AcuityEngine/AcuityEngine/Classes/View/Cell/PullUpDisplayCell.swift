@@ -72,8 +72,14 @@ class AcuityDetailValueDisplayCell: UITableViewCell {
         titleLabel.text = getDateMediumFormat(time: timeStamp)
         maxScore.text = value
         maxScore.textColor = color
+        
     }
-    
+    func displayValueDataForBPModel(item:VitalsModel){
+        titleLabel.text = getDateMediumFormat(time: item.startTime)
+        maxScore.textColor = UIColor.white
+        maxScore.attributedText = createAttributeStringForBp(item: item)
+        
+    }
     func displayConditionData(item:ConditionsModel){
         titleLabel.text = item.title
         maxScore.textColor = item.color
@@ -96,11 +102,31 @@ class AcuityDetailValueDisplayCell: UITableViewCell {
         maxScore.textColor = item.color
     }
     func displayVitals(item:VitalsModel){
-        titleLabel.text = item.title
-        maxScore.text = item.value
-        maxScore.textColor = item.color
+    
+        if item.isBPModel{
+            titleLabel.text = "BP"
+            maxScore.textColor = UIColor.white
+            maxScore.attributedText = createAttributeStringForBp(item: item)
+        }else{
+            titleLabel.text = item.title
+            maxScore.text = item.value
+            maxScore.textColor = item.color
+        }
     }
     
+    func createAttributeStringForBp(item:VitalsModel)->NSMutableAttributedString{
+        //Remove .00 from string In BP...
+        let strSystolic = (item.value ?? "").replacingOccurrences(of: ".00", with: "")
+        let strDystolic = (item.valueForDiastolic ?? "").replacingOccurrences(of: ".00", with: "")
+        let mainString = "\(strSystolic) / \(strDystolic)"
+        let rangeSystolic = (mainString as NSString).range(of: strSystolic)
+        let rangeDystolic = (mainString as NSString).range(of: strDystolic)
+        let mutableAttributedString = NSMutableAttributedString.init(string: mainString)
+        mutableAttributedString.addAttribute(NSAttributedString.Key.foregroundColor, value: item.color, range: rangeSystolic)
+        mutableAttributedString.addAttribute(NSAttributedString.Key.foregroundColor, value: item.colorForDiastolic, range: rangeDystolic)
+        
+        return mutableAttributedString
+    }
 }
 //MARK: - Detail Screen Of Pullup TableCell
 class AcuityPullUpMetricsDisplayCell: AcuityDetailValueDisplayCell {
@@ -261,7 +287,11 @@ class AddConditionCell: LabelDisplayCell {
     }
     
     func displayData(title:String,isOn:Bool){
+        if title == "" {
+            
+        }
         titleLabel.text = title
+        
         yesOrNoSegmentControl.selectedSegmentIndex = isOn ? 0 : 1;
     }
     

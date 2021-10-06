@@ -89,6 +89,7 @@ class SkinManager: NSObject {
         }
         let conditionData = SkinConditionData(type: conditionTypeData)
         conditionData.value = element.value.rawValue
+        conditionData.startTimeStamp = element.startTime
         
         switch conditionType {
         //rashOrAcne

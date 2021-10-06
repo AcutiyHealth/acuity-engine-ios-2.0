@@ -125,6 +125,7 @@ class HeentManager: NSObject {
         }
         let conditionData = HeentConditionData(type: conditionTypeData)
         conditionData.value = element.value.rawValue
+        conditionData.startTimeStamp = element.startTime
         
         switch conditionType {
         //allergicRhiniitis

@@ -130,6 +130,7 @@ class EndocrineManager: NSObject {
         }
         let conditionData = EndocrineConditionData(type: conditionTypeData)
         conditionData.value = element.value.rawValue
+        conditionData.startTimeStamp = element.startTime
         
         switch conditionType {
         //diabetes

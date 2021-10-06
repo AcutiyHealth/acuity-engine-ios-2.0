@@ -123,6 +123,7 @@ class NeuroManager: NSObject {
         }
         let conditionData = NeuroConditionData(type: conditionTypeData)
         conditionData.value = element.value.rawValue
+        conditionData.startTimeStamp = element.startTime
         
         switch conditionType {
         //depressionAnxiety

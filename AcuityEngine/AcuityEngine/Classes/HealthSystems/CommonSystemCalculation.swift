@@ -133,7 +133,9 @@ func getLabModel(item:LabCalculation)->LabModel{
 //MARK: Create or Get Conditions Models..
 func getConditionsModel(condition:ConditionCalculation)->ConditionsModel{
     let conditionValue = condition.calculatedValue < 0 ? 0 : condition.calculatedValue
-    return ConditionsModel(title: condition.type.rawValue, value: ConditionValue(rawValue: conditionValue)!)
+    let conditionsModel = ConditionsModel(title: condition.type.rawValue, value: ConditionValue(rawValue: conditionValue)!)
+    conditionsModel.startTime = condition.startTimeStamp
+    return conditionsModel
 }
 //MARK: Create or Get Symptoms Models..
 func getSymptomsModel(symptom:SymptomCalculation)->SymptomsModel{
@@ -167,6 +169,28 @@ func filterVitalArrayWithSelectedSegmentInGraph(days:SegmentValueForGraph,array:
     }
     
     return filteredArray
+}
+func combineBPSystolicAndDiastolic(arraySystolic:[VitalCalculation],arrayDiastolic:[VitalCalculation])->[VitalsModel]{
+    var arrayVitalBPModel:[VitalsModel] = []
+    for modelSystolic in arraySystolic {
+      let filterDiastolicArray = arrayDiastolic.filter { (modelDiastolic)  in
+            return modelDiastolic.startTimeStamp == modelSystolic.startTimeStamp
+        }
+        var diastolicValue:Double = 0
+        var diastolicColor = UIColor.clear
+        if filterDiastolicArray.count>0{
+            let item = filterDiastolicArray[0]
+            diastolicValue = item.value
+            diastolicColor = item.getUIColorFromCalculatedValue()
+        }
+        
+        let newVitalModel = VitalsModel(title: VitalsName.bloodPressureSystolicDiastolic.rawValue, value: String(format: "%.2f", modelSystolic.value) , isBPModel: true, valueForDiastolic: String(format: "%.2f", diastolicValue), colorForDiastolic: diastolicColor)
+        newVitalModel.startTime = modelSystolic.startTimeStamp
+        newVitalModel.endTime = modelSystolic.endTimeStamp
+        arrayVitalBPModel.append(newVitalModel)
+    }
+    
+    return arrayVitalBPModel;
 }
 func filterSymptomsArrayWithSelectedSegmentInGraph(days:SegmentValueForGraph,array:[SymptomCalculation])->[SymptomCalculation]{
     let now = MyWellScore.sharedManager.todaysDate

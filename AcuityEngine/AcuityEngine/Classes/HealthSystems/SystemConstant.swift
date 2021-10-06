@@ -56,7 +56,7 @@ enum ConditionType:String,CaseIterable {
     case arrhythmia  = "Arrhythmia"
     case bipolarDisorder = "Bipolar Disorder"
     case covid = "Covid"
-    case coronaryArteryDisease = "Coronary Artery Disease/Peripheral Vascular Disease"
+    case coronaryArteryDisease = "CAD or PVD"
     case crohnsDisease = "Crohns Disease"
     case cellulitis = "Cellulitis"
     case cancer = "Cancer"

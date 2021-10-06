@@ -102,12 +102,25 @@ class VitalsModel {
     var endTime: Double = 0
     var color: UIColor = ChartColor.GREENCOLOR
     
+    //For BP model
+    var isBPModel:Bool = false
+    var colorForDiastolic: UIColor = ChartColor.GREENCOLOR
+    var valueForDiastolic: String?
+    init() {
+        
+    }
     init(title:String,value:String) {
         self.title = title
         self.value = value
         
     }
-    
+    init(title:String,value:String,isBPModel:Bool,valueForDiastolic:String,colorForDiastolic:UIColor) {
+        self.title = title
+        self.value = value
+        self.isBPModel = isBPModel
+        self.valueForDiastolic = valueForDiastolic
+        self.colorForDiastolic = colorForDiastolic
+    }
 }
 class Symptoms {
     

@@ -157,6 +157,7 @@ class RespiratoryManager: NSObject {
         }
         let conditionData = RespiratoryConditionData(type: conditionTypeData)
         conditionData.value = element.value.rawValue
+        conditionData.startTimeStamp = element.startTime
         
         switch conditionType {
         case .asthma:

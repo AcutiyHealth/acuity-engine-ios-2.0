@@ -98,6 +98,7 @@ class MuscManager: NSObject {
         }
         let conditionData = MuscConditionData(type: conditionTypeData)
         conditionData.value = element.value.rawValue
+        conditionData.startTimeStamp = element.startTime
         
         switch conditionType {
         //muscularSprain

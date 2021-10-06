@@ -130,6 +130,7 @@ class IDiseaseManager: NSObject {
         }
         let conditionData = IDiseaseConditionData(type: conditionTypeData)
         conditionData.value = element.value.rawValue
+        conditionData.startTimeStamp = element.startTime
         
         switch conditionType {
         case .UTI:

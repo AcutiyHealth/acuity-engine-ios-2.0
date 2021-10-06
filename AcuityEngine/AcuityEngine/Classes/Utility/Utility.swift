@@ -38,7 +38,14 @@ func createDefaultDateFormatter() -> DateFormatter {
 func unescapeJSONString(_ string: String) -> String {
     return string.replacingOccurrences(of: "\\/", with: "/").replacingOccurrences(of: "\\\\", with: "\\")
 }
-
+//========================================================================================================
+//MARK: Version Number String..
+//========================================================================================================
+func versionNumberString() -> String? {
+    let infoDictionary = Bundle.main.infoDictionary
+    let majorVersion = infoDictionary?["CFBundleShortVersionString"] as? String
+    return majorVersion
+}
 //MARK: Apply Animation For Adding View
 func animationForDetailViewWhenAdded(subviewToAdd:UIView, in   view:UIView){
     let transition = CATransition()

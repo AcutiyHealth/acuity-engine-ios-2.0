@@ -50,6 +50,13 @@ class OtherHistoryInputView: UITableViewCell,UITextFieldDelegate {
     func textFieldDidEndEditing(_ textField: UITextField) {
         //returnValue?(txtFieldHistoryText.text ?? "") // Use callback to return data
     }
+    //========================================================================================================
+    //MARK: Text Delegate..
+    //========================================================================================================
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        self.superview?.endEditing(true)
+        return false
+    }
     @objc func editingChanged(_ textField: UITextField) {
         if textField.text?.count == 1 {
             if textField.text?.first == " " {

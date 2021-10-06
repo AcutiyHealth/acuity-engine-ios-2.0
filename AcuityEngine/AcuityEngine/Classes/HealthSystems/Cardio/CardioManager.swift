@@ -184,7 +184,8 @@ class CardioManager: NSObject {
         }
         let conditionData = CardioConditionData(type: conditionTypeData)
         conditionData.value = element.value.rawValue
-        
+        conditionData.startTimeStamp = element.startTime
+    
         switch conditionType {
         case .hypertension:
             CardioManager.sharedManager.cardioData.cardioCondition.hyperTenstionData.append(conditionData)

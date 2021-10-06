@@ -241,4 +241,68 @@ class AcuityDetailPullUpViewModel: NSObject
         return (scoreText,arraySystemScore,metricDictionary)
     }
     
+    //========================================================================================================
+    //MARK: Combine Free Condition with Add Section Condition Data.
+    //========================================================================================================
+    func fetchFreeConditionDataAndCombineWithAddSectionCondition(arrConditions:[ConditionsModel])->[ConditionsModel]{
+        var newArrConditions = arrConditions
+        DBManager.shared.loadHisory(withID: OtherHistoryId.otherConditionsId.rawValue) { (success, historyData) in
+            if success{
+                //First convert otherConditions data to Condition Model...
+                guard (historyData != nil) else {
+                    return
+                }
+                for history in historyData!{
+                    let conditionModel = ConditionsModel(title: history.txtValue ?? "", value: .Yes)
+                    conditionModel.startTime = history.timeStamp ?? 0
+                    //======= Append Free Condition With Current Condition Data ======//
+                    newArrConditions.append(conditionModel)
+                }
+                
+                //======= Sort Condition Array TimeStamp Wise ======//
+                newArrConditions =  newArrConditions.sorted(by: { (model1, model2) -> Bool in
+                    return model1.startTime > model2.startTime
+                })
+            }
+        }
+        return newArrConditions
+    }
+    
+    //========================================================================================================
+    //MARK: Combine BP Systolic and Disastolic in One Entry in Vital Array.
+    //========================================================================================================
+    func combineBPSystolicandDisastolicInVitalArray(arrVital:[VitalsModel])->[VitalsModel]{
+        var arrVitals = arrVital
+        let vitalModelBP = VitalsModel()
+        vitalModelBP.title = VitalsName.bloodPressureSystolicDiastolic.rawValue
+        var indexBPSystolic = -1
+        var indexBPDiastolic = -1
+        for index in 0..<(arrVitals.count) {
+            let vitalModel = arrVitals[index]
+            
+            if vitalModel.title == VitalsName.bloodPressureSystolic.rawValue{
+                vitalModelBP.value = vitalModel.value ?? ""
+                vitalModelBP.isBPModel = true
+                vitalModelBP.color = vitalModel.color
+                indexBPSystolic = index;
+                //self.arrVitals.remove(at: index)
+            }
+            else if vitalModel.title == VitalsName.bloodPressureDiastolic.rawValue{
+                vitalModelBP.valueForDiastolic = vitalModel.value ?? ""
+                vitalModelBP.isBPModel = true
+                vitalModelBP.colorForDiastolic = vitalModel.color
+                indexBPDiastolic = index
+                //self.arrVitals.remove(at: index)
+            }
+            
+        }
+        
+        if vitalModelBP.isBPModel,indexBPSystolic>=0,indexBPDiastolic>=0{
+            arrVitals.remove(at: indexBPSystolic)
+            arrVitals.remove(at: indexBPDiastolic)
+            arrVitals.insert(vitalModelBP, at: 0)
+        }
+        return arrVitals
+    }
+    
 }

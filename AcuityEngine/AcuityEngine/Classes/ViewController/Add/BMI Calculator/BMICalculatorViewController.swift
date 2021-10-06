@@ -86,6 +86,7 @@ class BMICalculatorViewController: UIViewController {
         lblTitleBMICalculator.font = Fonts.kAcuityDetailTitleFont
         lblTitleHeight.font = Fonts.kStartEndTitleFont
         lblTitleWeight.font = Fonts.kStartEndTitleFont
+        lblTotalBMI.font = Fonts.kStartEndValueFont
         lblStart.font = Fonts.kStartEndTitleFont
         txtFieldWeight.font = Fonts.kStartEndValueFont
         txtFieldHeightFeet.font = Fonts.kStartEndValueFont

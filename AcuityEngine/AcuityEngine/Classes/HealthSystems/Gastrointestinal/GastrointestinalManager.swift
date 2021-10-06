@@ -102,6 +102,7 @@ class GastrointestinalManager: NSObject {
         }
         let conditionData = GastrointestinalConditionData(type: conditionTypeData)
         conditionData.value = element.value.rawValue
+        conditionData.startTimeStamp = element.startTime
         /*
          GERD
          Hyperlipidemia

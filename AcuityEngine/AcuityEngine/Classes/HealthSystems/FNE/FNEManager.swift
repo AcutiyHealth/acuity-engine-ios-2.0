@@ -131,6 +131,7 @@ class FNEManager: NSObject {
         }
         let conditionData = FNEConditionData(type: conditionTypeData)
         conditionData.value = element.value.rawValue
+        conditionData.startTimeStamp = element.startTime
         
         switch conditionType {
         //electrolyteDisorders
