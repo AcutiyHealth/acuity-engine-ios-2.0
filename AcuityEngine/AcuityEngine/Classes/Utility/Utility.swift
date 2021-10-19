@@ -26,6 +26,15 @@ func setupViewBorderForAddSection(view:UIView){
     view.layer.borderColor = UIColor.white.cgColor
     view.backgroundColor = UIColor.white.withAlphaComponent(0.3)
 }
+func roundCorners(view:UIView,_ corners: UIRectCorner, radius: CGFloat) {
+    view.layer.borderWidth = 1
+    view.layer.borderColor = UIColor.white.cgColor
+    view.layer.cornerRadius = 0
+         let path = UIBezierPath(roundedRect: view.bounds, byRoundingCorners: corners, cornerRadii: CGSize(width: radius, height: radius))
+         let mask = CAShapeLayer()
+         mask.path = path.cgPath
+    view.layer.mask = mask
+    }
 /// Standardize the display of dates within the app.
 func createDefaultDateFormatter() -> DateFormatter {
     let formatter = DateFormatter()

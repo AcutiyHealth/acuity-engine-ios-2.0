@@ -8,49 +8,50 @@
 
 import UIKit
 
-class OtherHistoryInputView: UITableViewCell,UITextFieldDelegate {
+class MedicationInputView: UITableViewCell,UITextFieldDelegate {
     
     @IBOutlet weak var btnAdd:UIButton!
-    @IBOutlet weak var lblHistoryText:UILabel!
-    @IBOutlet weak var lblHistoryDescription:UILabel!
-    @IBOutlet weak var txtFieldHistoryText:UITextField!
-    @IBOutlet weak var viewTxtFieldHistory: UIView!
+    @IBOutlet weak var lblMedicationText:UILabel!
+    @IBOutlet weak var lblMedicationDescription:UILabel!
+    @IBOutlet weak var txtFieldMedicationText:UITextField!
+    @IBOutlet weak var viewTxtFieldMedication: UIView!
     
     // Declare callback function variable
     var returnValue: ((_ value: String)->())?
     override func awakeFromNib() {
         super.awakeFromNib()
-    
+        
         // Initialization code
         setFontForLabel()
         //
         btnAdd.isEnabled = false
         //
-        txtFieldHistoryText.delegate = self
+        txtFieldMedicationText.delegate = self
         //Set border view......
-        setupViewBorderForAddSection(view: viewTxtFieldHistory)
+        setupViewBorderForAddSection(view: viewTxtFieldMedication)
+        //setupViewBorderForAddSection(view: btnAdd)
         btnAdd.layer.addBorder(edge: UIRectEdge.left, color: UIColor.white, thickness: 0.5)
         //Set Font For textfield and button......
-        txtFieldHistoryText.font = Fonts.kStartEndValueFont
+        txtFieldMedicationText.font = Fonts.kStartEndValueFont
         btnAdd.titleLabel?.font = Fonts.kAcuityBtnAdd
         btnAdd.backgroundColor = UIColor.darkGray
         //Set Btn Font Color....
         btnAdd.tintColor = UIColor.white
         //Add button and textfield target....
-        txtFieldHistoryText.addTarget(self, action: #selector(editingChanged), for: .editingChanged)
-        btnAdd.addTarget(self, action: #selector(addHistoryText), for: UIControl.Event.touchUpInside)
+        txtFieldMedicationText.addTarget(self, action: #selector(editingChanged), for: .editingChanged)
+        btnAdd.addTarget(self, action: #selector(addMedicationText), for: UIControl.Event.touchUpInside)
         
     }
     //========================================================================================================
     //MARK: Set Font For Label
     //========================================================================================================
     func setFontForLabel(){
-        lblHistoryDescription.font = Fonts.kCellHistoryDescriptionFontInAddSection
-        lblHistoryText.font = Fonts.kCellHistoryTitleFontInAddSection
+        lblMedicationDescription.font = Fonts.kCellHistoryDescriptionFontInAddSection
+        lblMedicationText.font = Fonts.kCellHistoryTitleFontInAddSection
     }
     //MARK: Text Editing methods...
     func textFieldDidEndEditing(_ textField: UITextField) {
-        //returnValue?(txtFieldHistoryText.text ?? "") // Use callback to return data
+        //returnValue?(txtFieldMedicationText.text ?? "") // Use callback to return data
     }
     //========================================================================================================
     //MARK: Text Delegate..
@@ -67,7 +68,7 @@ class OtherHistoryInputView: UITableViewCell,UITextFieldDelegate {
             }
         }
         guard
-            let medicin = txtFieldHistoryText.text, !medicin.isEmpty
+            let medicin = txtFieldMedicationText.text, !medicin.isEmpty
         
         else {
             btnAdd.isEnabled = false
@@ -76,18 +77,18 @@ class OtherHistoryInputView: UITableViewCell,UITextFieldDelegate {
         btnAdd.isEnabled = true
     }
     //MARK:- Button methods....
-    @objc func addHistoryText()  {
+    @objc func addMedicationText()  {
         btnAdd.isEnabled = false
-        let historyTxt = txtFieldHistoryText.text?.replacingOccurrences(of: "/s", with: "'s") ?? "";
-        returnValue?(historyTxt) //
+        let  medicationTxt = txtFieldMedicationText.text?.replacingOccurrences(of: "/s", with: "'s") ?? "";
+        returnValue?( medicationTxt) //
     }
     //========================================================================================================
     //MARK: Display Data..
     //========================================================================================================
-    func displayData(model:HistoryInputModel){
-        let historyTxt = model.name?.rawValue ?? ""
-        lblHistoryText.text = historyTxt.replacingOccurrences(of: "/s", with: "'s");
-        lblHistoryDescription.text = model.description ?? ""
+    func displayData(model:MedicationInputModel){
+        let  medicationTxt = model.name?.rawValue ?? ""
+        lblMedicationText.text =  medicationTxt.replacingOccurrences(of: "/s", with: "'s");
+        lblMedicationDescription.text = model.description ?? ""
     }
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
@@ -95,33 +96,33 @@ class OtherHistoryInputView: UITableViewCell,UITextFieldDelegate {
         // Configure the view for the selected state
     }
     
-  
+    
 }
 
 
-class OtherHistoryTextCell: UITableViewCell,UITextFieldDelegate {
-
-    @IBOutlet weak var lblHistoryText:UILabel!
+class  MedicationTextCell: UITableViewCell,UITextFieldDelegate {
+    
+    @IBOutlet weak var lblMedicationText:UILabel!
     @IBOutlet weak var btnDelete:UIButton!
     // Declare callback function variable
     var btnDeleteCall: (()->())?
     
     override func awakeFromNib() {
         super.awakeFromNib()
-        btnDelete.addTarget(self, action: #selector(deleteHistoryText), for: UIControl.Event.touchUpInside)
+        btnDelete.addTarget(self, action: #selector(deleteMedicationText), for: UIControl.Event.touchUpInside)
     }
     //========================================================================================================
-    //MARK: Delete History Text..
+    //MARK: Delete Medication Text..
     //========================================================================================================
-    @objc func deleteHistoryText()  {
+    @objc func deleteMedicationText()  {
         btnDeleteCall?() //
     }
     //========================================================================================================
     //MARK: Display Data..
     //========================================================================================================
-    func displayData(historyTxt:String){
-        lblHistoryText.text = historyTxt.replacingOccurrences(of: "/s", with: "'s");
-        lblHistoryText.font = Fonts.kCellHistoryDataValueFontInAddSection
+    func displayData( medicationTxt:String){
+        lblMedicationText.text =  medicationTxt.replacingOccurrences(of: "/s", with: "'s");
+        lblMedicationText.font = Fonts.kCellHistoryDataValueFontInAddSection
         btnDelete.titleLabel?.font = Fonts.kCellHistoryDataValueFontInAddSection
     }
     override func setSelected(_ selected: Bool, animated: Bool) {
@@ -129,5 +130,5 @@ class OtherHistoryTextCell: UITableViewCell,UITextFieldDelegate {
         
         // Configure the view for the selected state
     }
-   
+    
 }

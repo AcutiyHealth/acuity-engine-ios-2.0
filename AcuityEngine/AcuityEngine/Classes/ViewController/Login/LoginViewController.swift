@@ -94,6 +94,7 @@ extension LoginViewController: ASAuthorizationControllerDelegate {
     
    @IBAction func moveToHealhDataScreen(){
         guard let detailVC = UIStoryboard(name: Storyboard.main.rawValue, bundle: nil).instantiateViewController(withIdentifier: "AcuityMainViewController")  as? AcuityMainViewController else {return }
+    //guard let detailVC = UIStoryboard(name: Storyboard.main.rawValue, bundle: nil).instantiateViewController(withIdentifier: "ProfiletempVC")  as? ProfiletempVC else {return }
         self.navigationController?.pushViewController(detailVC, animated: true)
     }
 }

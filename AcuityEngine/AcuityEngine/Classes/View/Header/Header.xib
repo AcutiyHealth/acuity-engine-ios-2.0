@@ -11,6 +11,8 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="Header" customModule="AcuityEngine" customModuleProvider="target">
             <connections>
+                <outlet property="btnAdd" destination="9N6-FW-HTh" id="sXS-fk-yga"/>
+                <outlet property="btnProfile" destination="rDP-ab-9up" id="ECM-Ia-WqQ"/>
                 <outlet property="containerViewMain" destination="gPg-8W-vzu" id="Lfq-HA-Dg9"/>
             </connections>
         </placeholder>

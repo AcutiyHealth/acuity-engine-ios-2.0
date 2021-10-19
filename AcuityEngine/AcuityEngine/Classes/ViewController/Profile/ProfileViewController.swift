@@ -9,26 +9,25 @@ import UIKit
 import Foundation
 import HealthKitReporter
 import SOPullUpView
-
+import JGProgressHUD
 class ProfileViewController: UIViewController {
     
     // MARK: - Outlet
-    @IBOutlet weak var systemMetricsTable: UITableView!
-    @IBOutlet weak var titleLbl: UILabel!
-    @IBOutlet weak var scoreLbl: UILabel!
+    @IBOutlet weak var tblProfileData: UITableView!
+    @IBOutlet weak var tblHistoryOrMedicationData: UITableView!
+    @IBOutlet weak var viewHistoryOrMedicationData: UIView!
     @IBOutlet weak var handleArea: UIView!
-    @IBOutlet weak var segmentControl: UISegmentedControl!
-    @IBOutlet weak var btnClose: UIButton!
+    @IBOutlet weak var heightConstraintFortblHistoryOrMedicationDataView: NSLayoutConstraint!
     let labelsAsStringForWeek: Array<String> = dayArray
-    
+    var profileViewModel = ProfileViewModel()
     var profileDataArray: [ProfileDataModel] = []
     //var labelsAsStringForMonth: Array<String> = ["Week1","Week2","Week3","Week4"]
-    
+    var arrayForTblDataView:[[String:[String]]] = []
     var birthDate:String = "Not Set"
     var sex:String = "Not Set"
     var bloodType:String = "Not Set"
+    var progrssHUD:JGProgressHUD = JGProgressHUD()
     
-    var systemMetricsData:[[String:Any]]?
     // MARK: - Controller Life Cycle
     
     override func viewDidLoad() {
@@ -36,10 +35,44 @@ class ProfileViewController: UIViewController {
         
         //Read Basic Charactristic from Health Kit.....
         readBasicDetails()
+        self.tblHistoryOrMedicationData.addObserver(self, forKeyPath: "contentSize", options: NSKeyValueObservingOptions.new, context: nil)
+        progrssHUD = showIndicatorInView(view: self.view)
+        DispatchQueue.global(qos: .background).async {
+       
+            self.profileViewModel.fetchHistoryData { success, error, arrayForTblDataView in
+            if success{
+                self.arrayForTblDataView.append(contentsOf: arrayForTblDataView)
+                self.profileViewModel.fetchMedicationData { success, error, arrayForTblDataView in
+                    if success{
+                        self.arrayForTblDataView.append(contentsOf: arrayForTblDataView)
+                        DispatchQueue.main.async {
+                            //Hide Progress HUD
+                            self.progrssHUD.dismiss(animated: true)
+                            self.tblHistoryOrMedicationData.reloadData()
+                        }
+                    }
+                }
+            }
+        }
+        }
+        
     }
     
-    
-    
+    //========================================================================================================
+    //MARK:deinit..
+    //========================================================================================================
+    deinit {
+        self.tblHistoryOrMedicationData.removeObserver(self, forKeyPath: "contentSize")
+    }
+  
+    override func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey : Any]?, context: UnsafeMutableRawPointer?) {
+        tblHistoryOrMedicationData.layer.removeAllAnimations()
+        heightConstraintFortblHistoryOrMedicationDataView.constant = tblHistoryOrMedicationData.contentSize.height
+            self.updateViewConstraints()
+            self.view.layoutIfNeeded()
+        
+        
+    }
     private func readBasicDetails() {
         do {
             let reporter = try HealthKitReporter()
@@ -116,10 +149,15 @@ extension ProfileViewController: SOPullUpViewDelegate {
 
 extension ProfileViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        if tableView == tblProfileData{
         return profileDataArray.count
+        }else{
+            return arrayForTblDataView.count
+        }
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        if tableView == tblProfileData{
         guard let cell: ProfileViewCell = tableView.dequeueReusableCell(withIdentifier: "ProfileViewCell", for: indexPath as IndexPath) as? ProfileViewCell else {
             fatalError("AcuityDetailDisplayCell cell is not found")
         }
@@ -128,10 +166,33 @@ extension ProfileViewController: UITableViewDelegate, UITableViewDataSource {
         cell.selectionStyle = .none
         
         return cell
+        }else{
+            guard let cell: ProfileAddOptionsDataView = tableView.dequeueReusableCell(withIdentifier: "ProfileAddOptionsDataView", for: indexPath as IndexPath) as? ProfileAddOptionsDataView else {
+                fatalError("AcuityDetailDisplayCell cell is not found")
+            }
+           //"test test test test test test test test test test test test test test "
+            //cell.arrayOfData = ["test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test ","test","test","test","test"]
+        
+            //========================================================================//
+            /*
+             HistoryDataDisplayModel will have [key:value]. Key will be sectionTitle and array will be Data array..
+             */
+            let txtObject = arrayForTblDataView[indexPath.row];
+            cell.lblTitle.text = txtObject.first?.key ?? ""
+            cell.arrayOfData = txtObject.first?.value ?? []
+            cell.tblData.reloadData()
+            cell.selectionStyle = .none
+            return cell
+        }
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 50
+        
+            if tableView == tblHistoryOrMedicationData{
+                return HEIGHT_OF_ROW_IN_TBL_INPUT_VIEW;
+            }
+            return 50;
+        
     }
     
 }

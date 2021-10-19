@@ -82,10 +82,8 @@ class AcuityMetricsValueViewController: UIViewController {
             do{
                 arrLabs = viewModelObj.getLabData(title: metrixItem.title!)
             }
-        case .none:
-            do{
-                
-            }
+        default:
+        break;
         }
         self.reloadTableView()
     }
@@ -125,10 +123,8 @@ extension AcuityMetricsValueViewController: UITableViewDelegate, UITableViewData
             do{
                 return arrLabs.count
             }
-        case .none:
-            do{
-                
-            }
+        default:
+        break;
         }
         return 0 
     }

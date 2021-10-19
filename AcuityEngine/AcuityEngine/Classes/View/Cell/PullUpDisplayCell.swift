@@ -96,6 +96,10 @@ class AcuityDetailValueDisplayCell: UITableViewCell {
         maxScore.text = item.textValue?.rawValue
         maxScore.textColor = item.color
     }
+    func displayMedicationData(item:MedicationDataDisplayModel){
+        titleLabel.text = item.name?.rawValue 
+        maxScore.isHidden = true
+    }
     func displayLabsData(item:LabModel){
         titleLabel.text = item.title
         maxScore.text = item.value

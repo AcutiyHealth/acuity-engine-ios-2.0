@@ -20,6 +20,12 @@ class DBManager: NSObject {
     let field_historyText = "historyText"
     let field_timeStamp = "timeStamp"
     let tbl_history = "otherHistory"
+    //
+    let field_medicationTypeId = "medicationTypeId"
+    let field_medicationType = "medicationType"
+    let field_medicationText = "medicationText"
+    let tbl_medication = "medications"
+    
     
     static let shared: DBManager = DBManager()
     
@@ -80,6 +86,57 @@ class DBManager: NSObject {
         
         return false
     }
+    //MARK: Fetch Data
+    func fetchResultSet(query:String,values:[Any],completionHandler: (_ success:Bool,_ results:FMResultSet) -> Void){
+        
+        if openDatabase() {
+            do {
+                if values.count == 0{
+                    let results = try database.executeQuery(query, values: values)
+                    completionHandler(true,results)
+                }else{
+                    let results = try database.executeQuery(query, values: values)
+                    completionHandler(true,results)
+                }
+                
+                
+            }
+            catch {
+                print(error.localizedDescription)
+                completionHandler(false,FMResultSet())
+            }
+            
+            database.close()
+        }
+        
+        
+    }
+    //MARK: Update Data
+    func updateResultSet(query:String,values:[Any],completionHandler: (_ success:Bool,_ error:Error?) -> Void){
+        
+        if openDatabase() {
+            do {
+                if values.count == 0{
+                    try database.executeUpdate(query, values: nil)
+                    completionHandler(true,nil)
+                }else{
+                    try database.executeUpdate(query, values: values)
+                    completionHandler(true,nil)
+                }
+                
+                
+            }
+            catch {
+                print(error.localizedDescription)
+                completionHandler(false,error)
+            }
+            
+            database.close()
+        }
+        
+        
+    }
+    
     //MARK:- History
     func createTableOtherHistory() -> Bool {
         var created = false
@@ -149,29 +206,29 @@ class DBManager: NSObject {
     
     
     func loadHistories() -> [HistoryDataDisplayModel]! {
+        
         var arrHistory: [HistoryDataDisplayModel]!
         
-        if openDatabase() {
-            let query = "SELECT * FROM \(tbl_history)"
+        let query = "SELECT * FROM \(tbl_history)"
+        
+        do {
             
-            do {
-                
-                let results = try database.executeQuery(query, values: nil)
-                
-                while results.next() {
-                    let historyData = prepareHistoryModelFromResult(results: results)
-                    if arrHistory == nil{
-                        arrHistory = [HistoryDataDisplayModel]()
+            self.fetchResultSet(query: query, values: [], completionHandler: { (success, results:FMResultSet) in
+                if success{
+                    while results.next()  {
+                        
+                        let historyData = prepareHistoryModelFromResult(results: results)
+                        if arrHistory == nil{
+                            arrHistory = [HistoryDataDisplayModel]()
+                        }
+                        arrHistory.append(historyData)
                     }
-                    arrHistory.append(historyData)
                 }
-            }
-            catch {
-                print(error.localizedDescription)
-            }
+            })
             
-            database.close()
+            
         }
+        
         
         return arrHistory
     }
@@ -189,25 +246,27 @@ class DBManager: NSObject {
     
     func loadHisory(withID ID: Int, completionHandler: (_ success:Bool,_ historyInfo: [HistoryDataDisplayModel]?) -> Void) {
         var historyInfo:[HistoryDataDisplayModel] = []
-        if openDatabase() {
-            let query = "SELECT * FROM \(tbl_history) WHERE  \(field_historyTypeId)=?"
+        
+        let query = "SELECT * FROM \(tbl_history) WHERE  \(field_historyTypeId)=?"
+        
+        do {
             
-            do {
-                let results = try database.executeQuery(query, values: [ID])
-                
-                while results.next() {
-                    let history = prepareHistoryModelFromResult(results: results)
-                    historyInfo.append(history)
+            self.fetchResultSet(query: query, values: [ID], completionHandler: { (success, results:FMResultSet) in
+                if success{
+                    while results.next()  {
+                        
+                        let historyData = prepareHistoryModelFromResult(results: results)
+                        historyInfo.append(historyData)
+                        
+                    }
+                    
+                    completionHandler(true,historyInfo)
+                }else{
+                    
+                    completionHandler(false,historyInfo)
                 }
-                
-                
-            }
-            catch {
-                print(error.localizedDescription)
-                completionHandler(false,historyInfo)
-            }
-            completionHandler(true,historyInfo)
-            database.close()
+            })
+            
         }
         
         
@@ -219,18 +278,104 @@ class DBManager: NSObject {
             database.close()
             return false;
         }
+        
+        let query = "DELETE from \(tbl_history) where \(field_timeStamp)=?"
+        
+        do {
+            updateResultSet(query: query, values: [timeStamp]) {(success,error) in
+                if success{
+                    deleted = true
+                }
+            }
+            
+        }
+        
+        return deleted
+    }
+    //========================================================================================================
+    //MARK: Medication..
+    //========================================================================================================
+  
+    func insertMedicationData(model:MedicationDataDisplayModel,completionHandler: (_ success:Bool,_ error:Error?) -> Void) {
         if openDatabase() {
-            let query = "DELETE from \(tbl_history) where \(field_timeStamp)=?"
             
             do {
-                try database.executeUpdate(query, values: [timeStamp])
-                deleted = true
-            }
-            catch {
-                print(error.localizedDescription)
+                
+                var query = ""
+                guard (model.id != nil),let id = model.id?.rawValue, let name = model.name?.rawValue, let type = model.txtValue, let timeStamp = model.timeStamp   else {
+                    database.close()
+                    return
+                }
+                
+                query = "INSERT INTO \(tbl_medication) (\(field_medicationTypeId),\(field_medicationType),\(field_medicationText),\(field_timeStamp)) VALUES (\(id),'\(name)','\(type)',\(timeStamp)) ;"
+                
+                
+                if !database.executeStatements(query) {
+                    print("Failed to insert initial data into the database.")
+                    print(database.lastError() ?? NSError(), database.lastErrorMessage() as Any)
+                    completionHandler(false,database.lastError())
+                }
+                completionHandler(true,nil)
             }
             
+            
             database.close()
+        }
+    }
+    
+    
+    func loadMedications() -> [MedicationDataDisplayModel]! {
+        
+        var arrMedication: [MedicationDataDisplayModel] = []
+        
+        let query = "SELECT * FROM \(tbl_medication)"
+        
+        do {
+            
+            self.fetchResultSet(query: query, values: [], completionHandler: { (success, results:FMResultSet) in
+                if success{
+                    while results.next()  {
+                        
+                        let medicationData = prepareMedicationModelFromResult(results: results)
+                        arrMedication.append(medicationData)
+                    }
+                }
+            })
+            
+            
+        }
+        
+        
+        return arrMedication
+    }
+    
+    func prepareMedicationModelFromResult(results:FMResultSet)->MedicationDataDisplayModel{
+        
+        let medicationTypeId = Int((results.int(forColumn: field_medicationTypeId)))
+        let medicationText = results.string(forColumn: field_medicationText)
+        let timeStamp = results.double(forColumn: field_timeStamp)
+        let medicationData = MedicationDataDisplayModel(id: MedicationId(rawValue: medicationTypeId)!, txtValue: medicationText ?? "", timeStamp: timeStamp )
+        
+        return medicationData
+    }
+    
+    
+    func deleteMedication(model:MedicationDataDisplayModel) -> Bool {
+        var deleted = false
+        guard let timeStamp = model.timeStamp   else {
+            database.close()
+            return false;
+        }
+        
+        let query = "DELETE from \(tbl_medication) where \(field_timeStamp)=?"
+        
+        do {
+            updateResultSet(query: query, values: [timeStamp]) {(success,error) in
+                if success{
+                    deleted = true
+                }
+            }
+            
         }
         
         return deleted
@@ -274,53 +419,46 @@ class DBManager: NSObject {
     func loadConditions() -> [ConditionsModel] {
         var conditions: [ConditionsModel] = []
         
-        if openDatabase() {
-            // let query = "select * from conditions order by \(field_ConditionName) asc"
-            let query = "select * from conditions"
-            do {
-                
-                let results = try database.executeQuery(query, values: nil)
-                
-                while results.next() {
-                    let condition = prepareConditionModelFromResult(results: results)
-                    
-                    conditions.append(condition)
-                }
-            }
-            catch {
-                print(error.localizedDescription)
-            }
+        // let query = "select * from conditions order by \(field_ConditionName) asc"
+        let query = "select * from conditions"
+        do {
             
-            database.close()
+            self.fetchResultSet(query: query, values: [], completionHandler: { (success, results:FMResultSet) in
+                if success{
+                    while (results.next()) {
+                        let condition = prepareConditionModelFromResult(results: results)
+                        
+                        conditions.append(condition)
+                    }
+                }
+            })
+            
+            
         }
         
         return conditions
     }
     
     func loadOnConditionsOnly() -> [ConditionsModel]! {
-        var conditions: [ConditionsModel]!
+        var conditions: [ConditionsModel] = []
         
-        if openDatabase() {
-            let query = "select * from conditions where \(field_ConditionIsSelected)=?"
+        let query = "select * from conditions where \(field_ConditionIsSelected)=1"
+        
+        do {
             
-            do {
-                
-                let results = try database.executeQuery(query, values: [1])
-                
-                while results.next() {
-                    let condition = prepareConditionModelFromResult(results: results)
-                    if conditions == nil{
-                        conditions = [ConditionsModel]()
+            self.fetchResultSet(query: query, values: [], completionHandler: { (success, results:FMResultSet) in
+                if success{
+                    while results.next() {
+                        let condition = prepareConditionModelFromResult(results: results)
+                        
+                        conditions.append(condition)
                     }
-                    conditions.append(condition)
                 }
-            }
-            catch {
-                print(error.localizedDescription)
-            }
+            })
             
-            database.close()
+            
         }
+        
         
         return conditions
     }
@@ -341,33 +479,6 @@ class DBManager: NSObject {
         let condition = ConditionsModel(title: conditionName, value:ConditionValue(rawValue: Double(isSelected))!, conditionId: conditionId)
         condition.startTime = startTime
         return condition
-    }
-    
-    func loadCondition(withID ID: Int, completionHandler: (_ success:Bool,_ conditionInfo: ConditionsModel?) -> Void) {
-        if openDatabase() {
-            let query = "select * from conditions where \(field_ConditionID)=?"
-            
-            do {
-                let results = try database.executeQuery(query, values: [ID])
-                
-                if results.next() {
-                    let condition = prepareConditionModelFromResult(results: results)
-                    completionHandler(true,condition)
-                }
-                else {
-                    print(database.lastError() as Any)
-                    completionHandler(false,nil)
-                }
-            }
-            catch {
-                print(error.localizedDescription)
-                completionHandler(false,nil)
-            }
-            
-            database.close()
-        }
-        
-        
     }
     
     
@@ -410,18 +521,17 @@ class DBManager: NSObject {
     func deleteCondition(withID ID: Int) -> Bool {
         var deleted = false
         
-        if openDatabase() {
-            let query = "delete from conditions where \(field_ConditionID)=?"
-            
-            do {
-                try database.executeUpdate(query, values: [ID])
-                deleted = true
+        
+        let query = "delete from conditions where \(field_ConditionID)=?"
+        
+        do {
+            updateResultSet(query: query, values: [ID]) {(success,error) in
+                if success{
+                    deleted = true
+                }
             }
-            catch {
-                print(error.localizedDescription)
-            }
             
-            database.close()
+            
         }
         
         return deleted

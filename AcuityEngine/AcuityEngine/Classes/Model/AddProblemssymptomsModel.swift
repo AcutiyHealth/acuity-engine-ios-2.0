@@ -33,6 +33,7 @@ class ConditionsModel {
         }
     }
 }
+
 class SymptomsModel {
     
     var title: String?

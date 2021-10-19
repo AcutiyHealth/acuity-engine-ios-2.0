@@ -78,6 +78,10 @@ enum ConditionValueText:String {
     case Yes = "Yes"
     case No = "No"
 }
+enum MedicationValueText:String {
+    case Yes = "Yes"
+    case No = "No"
+}
 struct ImageSet {
     //static let wheel1 = UIImage(named:"wheel_option_1.png")
     //static let wheel2 = UIImage(named:"wheel_option_2.png") //AppIcon
@@ -111,6 +115,7 @@ enum MetricsType:String {
     case Sympotms = "Symptoms"
     case LabData = "Labs"
     case Conditions = "Conditions"
+    case Medication = "Medications"
     case Vitals = "Vitals"
 }
 enum Storyboard: String {
@@ -153,6 +158,16 @@ enum OtherHistoryId:Int,CaseIterable {
     case familyHistoryId = 3
     case socialHistoryId = 4
     case allergiesId = 5
+}
+//=============================Medications=================================================//
+enum Medication:String {
+    case vitamin = "Vitamin"
+    case diabetes = "Diabetes"
+    case none = "none"
+}
+enum MedicationId:Int,CaseIterable {
+    case vitaminId = 1
+    case diabetesId = 2
 }
 //==============================================================================//
 struct ScreenTitle {
@@ -219,6 +234,8 @@ struct Screen{
         414
     static let iPhoneSEHeight =
         568
+    static let iPhoneSEWidth =
+        320
 }
 
 struct Keys {
@@ -270,11 +287,16 @@ struct Fonts {
     static let kCellTitleFont = getFontAsPerDeviceSize(fontName: UIFont.SFProDisplayBold(of: 18), fontSize: 18)
     static let kValueFont = getFontAsPerDeviceSize(fontName: UIFont.SFProDisplayMedium(of: 18), fontSize: 18)
     
+    //Profile
+    static let kAcuityProfileDetailFont = getFontAsPerDeviceSize(fontName: UIFont.SFProDisplayRegular(of: 16), fontSize: 16)
+    
     //List in Add Section cell
     static let kCellTextFontListInAddSection = getFontAsPerDeviceSize(fontName: UIFont.SFProDisplaySemiBold(of: 18), fontSize: 18)
     static let kCellTitleFontListInAddSection = getFontAsPerDeviceSize(fontName: UIFont.SFProDisplayBold(of: 26), fontSize: 26)
     static let kCellHistoryTitleFontInAddSection = getFontAsPerDeviceSize(fontName: UIFont.SFProDisplaySemiBold(of: 22), fontSize: 22)
     static let kCellHistoryDescriptionFontInAddSection = getFontAsPerDeviceSize(fontName: UIFont.SFProDisplayRegular(of: 16), fontSize: 16)
+    static let kCellHistoryDataTitleFontInAddSection = getFontAsPerDeviceSize(fontName: UIFont.SFProDisplayBold(of: 18), fontSize: 18)
+    static let kCellHistoryDataValueFontInAddSection = getFontAsPerDeviceSize(fontName: UIFont.SFProDisplayRegular(of: 16), fontSize: 16)
     static let kStartEndTitleFont = getFontAsPerDeviceSize(fontName: UIFont.SFProDisplaySemiBold(of: 18), fontSize: 18)
     static let kStartEndValueFont = getFontAsPerDeviceSize(fontName: UIFont.SFProDisplayMedium(of: 16), fontSize: 16)
     static let kAcuityBtnAdd = getFontAsPerDeviceSize(fontName: UIFont.SFProDisplayBold(of: 16), fontSize: 16)

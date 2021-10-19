@@ -27,7 +27,7 @@ class AcuityMainViewController: PullUpViewController, UIScrollViewDelegate,Rotar
     
     //Array sorting based on it's index value..
     var arrSortedArray: [[String:Any]]?
-    
+   
     @IBOutlet var lblScore: UILabel!
     @IBOutlet var lblMyWell: UILabel!
     @IBOutlet var lblScoreText: UILabel!
@@ -56,8 +56,12 @@ class AcuityMainViewController: PullUpViewController, UIScrollViewDelegate,Rotar
     
     //ViewModel AcuityMain VC
     private let viewModelAcuityMain = AcuityMainViewModel()
+  
+    var leadingMyWellConstraint,topMyWellConstraint,centerMyWellConstraint,lblScoreCenterConstraint,lblScoreTopConstraint,lblScoreBottomConstraint,lblScoreTextLeadingConstraint,lblScoreTextCenterYConstraint: NSLayoutConstraint?
     
-    
+    var traillingMyWellConstraint,lblScoreTextCenterConstraint,lblScoreTextTopConstraint: NSLayoutConstraint?
+    var isAnimationConstraintAdded: Bool = false
+    var isProfileClicked:Bool = false
     //MARK: viewDidLoad
     override func viewDidLoad() {
         
@@ -69,7 +73,8 @@ class AcuityMainViewController: PullUpViewController, UIScrollViewDelegate,Rotar
         //========================================================================================================
         setFontForMyWellScore()
         //========================================================================================================
-        setPanGestureForProfileAndAddButton()
+        setDoubleTapGestureForProfileAndAddButton(button: headerView.btnAdd)
+        setDoubleTapGestureForProfileAndAddButton(button: headerView.btnProfile)
         //========================================================================================================
         headerView.delegate = self
         //========================================================================================================
@@ -88,8 +93,11 @@ class AcuityMainViewController: PullUpViewController, UIScrollViewDelegate,Rotar
         //Add notification when segment change from popup
         NotificationCenter.default.addObserver(self, selector: #selector(self.refreshWheeltoShowDayWiseData), name: Notification.Name(NSNotificationName.refreshCircleView.rawValue), object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(self.callLoadHealthData), name: Notification.Name(NSNotificationName.refreshDataInCircle.rawValue), object: nil)
+        setMainScoreViewsLabelAnimationConstrinat(isFirstTime: true)
+        self.setMainScoreViewsLabelConstrinat(isFirstTime: true)
     }
     
+   
     deinit {
         if (headerView != nil){
             headerView.delegate = nil
@@ -114,13 +122,15 @@ class AcuityMainViewController: PullUpViewController, UIScrollViewDelegate,Rotar
         })
     }
     @objc func showMainScoreViewWithAnimation(){
-        
+        if isProfileClicked {
+            self.removeMainScoreViewConstraintWhenaProfileOrAddClick(mainScoreView: mainScoreView, lblMyWell: lblMyWell, lblScoreText: lblScoreText, lblScore: lblScore, viewHeight: self.view.frame.height)
+        }
         showMainScoreView()
         animateScoreView(view: self.mainScoreView)
         
     }
     @objc func showSubScoreViewWithAnimation(){
-        
+        self.removeMainScoreViewConstraintWhenaProfileOrAddClick(mainScoreView: mainScoreView, lblMyWell: lblMyWell, lblScoreText: lblScoreText, lblScore: lblScore, viewHeight: self.view.frame.height)
         showSubScoreView()
         animateScoreView(view: self.subScoreView)
         
@@ -345,10 +355,161 @@ class AcuityMainViewController: PullUpViewController, UIScrollViewDelegate,Rotar
         self.view.backgroundColor = ColorSchema.kMainThemeColor
     }
     //========================================================================================================
-    //MARK: Set PanGesture For Profile And Add Button
+    //MARK: Set Score View Constraint For Animation
     //========================================================================================================
-    func setPanGestureForProfileAndAddButton(){
+    func setMainScoreViewsLabelConstrinat(isFirstTime:Bool){
+        //viewModelAcuityMain.setTopLabel(mainScoreView: mainScoreView, lblMyWell: lblMyWell, lblScoreText: lblScoreText, lblScore: lblScore, viewHeight: self.view.frame.height)
+        setTopLabel(isFirstTime:isFirstTime)
+    }
+    func setMainScoreViewsLabelAnimationConstrinat(isFirstTime:Bool){
+        //viewModelAcuityMain.setTopLabelAnimation(mainScoreView: mainScoreView, lblMyWell: lblMyWell, lblScoreText: lblScoreText, lblScore: lblScore, viewHeight: self.view.frame.height)
+        setTopLabelAnimation(isFirstTime:isFirstTime)
+    }
+    func setTopLabel(isFirstTime:Bool) {
         
+        if isAnimationConstraintAdded {
+            mainScoreView.removeConstraint(traillingMyWellConstraint!)
+            mainScoreView.removeConstraint(lblScoreTextCenterConstraint!)
+            mainScoreView.removeConstraint(lblScoreTextLeadingConstraint!)
+            mainScoreView.removeConstraint(topMyWellConstraint!)
+            mainScoreView.removeConstraint(lblScoreTopConstraint!)
+            mainScoreView.removeConstraint(lblScoreTextTopConstraint!)
+            isAnimationConstraintAdded = false
+        }
+        var animationDuration  = 0.7
+        if isFirstTime{
+            animationDuration = 0.0
+        }
+        UIView.animateKeyframes(withDuration: animationDuration, delay: 0.0, options: .calculationModeLinear) { [self] in
+//
+//            mainScoreView.backgroundColor = .red
+//            lblMyWell.backgroundColor = .black
+//            lblScoreText.backgroundColor = .black
+//            lblScore.backgroundColor = .black
+//
+            lblMyWell.font = lblMyWell.font.withSize(self.view.frame.height * 0.046) //UIFont.systemFont(ofSize: 26, weight: .semibold)
+            
+            lblScoreText.font = lblScoreText.font.withSize(self.view.frame.height * 0.030)
+                //UIFont.systemFont(ofSize: 32, weight: .semibold)
+           
+            lblScore.font = lblScore.font.withSize(self.view.frame.height * 0.046 + 12)
+                //UIFont.systemFont(ofSize: 32, weight: .semibold)
+            
+            
+            lblMyWell.translatesAutoresizingMaskIntoConstraints = false
+            lblScore.translatesAutoresizingMaskIntoConstraints = false
+            lblScoreText.translatesAutoresizingMaskIntoConstraints = false
+            
+            let margins = mainScoreView.layoutMarginsGuide
+            
+            
+            leadingMyWellConstraint = lblMyWell.leadingAnchor.constraint(equalTo: margins.leadingAnchor, constant: 20)
+            topMyWellConstraint = lblMyWell.topAnchor.constraint(equalTo: margins.topAnchor, constant: 0)
+            centerMyWellConstraint = lblMyWell.centerXAnchor.constraint(equalTo: margins.centerXAnchor, constant: 0)
+            
+            lblScoreCenterConstraint = lblScore.centerXAnchor.constraint(equalTo: lblMyWell.centerXAnchor, constant: 0)
+            lblScoreTopConstraint = lblScore.topAnchor.constraint(equalTo: lblMyWell.bottomAnchor, constant: 0)
+            lblScoreBottomConstraint = lblScore.bottomAnchor.constraint(equalTo: margins.bottomAnchor, constant: 5)
+            
+            lblScoreTextLeadingConstraint = lblScoreText.leadingAnchor.constraint(equalTo: lblScore.trailingAnchor, constant: 4)
+           
+            let height1 = lblMyWell.heightAnchor.constraint(equalTo: margins.heightAnchor, multiplier: 0.39)
+            let height2 = lblScore.heightAnchor.constraint(equalTo: margins.heightAnchor, multiplier: 0.6)
+            let height3 = lblScoreText.heightAnchor.constraint(equalTo: lblScore.heightAnchor, multiplier: 0.42)
+            lblScoreTextCenterYConstraint = lblScoreText.centerYAnchor.constraint(equalTo: lblScore.centerYAnchor, constant: lblScore.font.pointSize/lblScoreText.font.pointSize + (self.view.frame.height/CGFloat(Screen.iPhoneSEHeight))*2)
+            mainScoreView.addConstraint(leadingMyWellConstraint!)
+            mainScoreView.addConstraint(topMyWellConstraint!)
+            mainScoreView.addConstraint(centerMyWellConstraint!)
+            
+            mainScoreView.addConstraint(lblScoreCenterConstraint!)
+            mainScoreView.addConstraint(lblScoreTopConstraint!)
+            mainScoreView.addConstraint(lblScoreBottomConstraint!)
+//            mainScoreView.addConstraint(height3)
+//            mainScoreView.addConstraint(height1)
+//            mainScoreView.addConstraint(height2)
+            mainScoreView.addConstraint(lblScoreTextLeadingConstraint!)
+            mainScoreView.addConstraint(lblScoreTextCenterYConstraint!)
+            
+            mainScoreView.layoutIfNeeded()
+        } completion: { [self] (isSuccess) in
+            
+            
+        }
+    }
+    
+    func setTopLabelAnimation(isFirstTime:Bool) {
+        var animationDuration  = 0.7
+        if isFirstTime{
+            animationDuration = 0.0
+        }
+        
+        UIView.animateKeyframes(withDuration: animationDuration, delay: 0.0, options: .calculationModeLinear) { [self] in
+            isAnimationConstraintAdded = true
+            lblMyWell.font = lblMyWell.font.withSize(self.view.frame.height * 0.042)
+            lblScoreText.font = lblScoreText.font.withSize(self.view.frame.height *  0.042)
+            lblScore.font = lblScore.font.withSize(self.view.frame.height * 0.052)
+            
+            if !isFirstTime{
+                self.removeMainScoreViewConstraintWhenaProfileOrAddClick(mainScoreView: mainScoreView, lblMyWell: lblMyWell, lblScoreText: lblScoreText, lblScore: lblScore, viewHeight: self.view.frame.height)
+            }
+            lblMyWell.translatesAutoresizingMaskIntoConstraints = false
+            lblScore.translatesAutoresizingMaskIntoConstraints = false
+            lblScoreText.translatesAutoresizingMaskIntoConstraints = false
+            
+            let margins = mainScoreView.layoutMarginsGuide
+            
+            topMyWellConstraint = lblMyWell.topAnchor.constraint(equalTo: margins.topAnchor, constant: (self.view.frame.height/CGFloat(Screen.iPhoneSEHeight)) * 8)
+            lblScoreTopConstraint = lblScore.centerYAnchor.constraint(equalTo: lblMyWell.centerYAnchor, constant: 0)
+            lblScoreTextTopConstraint = lblScoreText.topAnchor.constraint(equalTo: lblMyWell.topAnchor, constant: 0)
+            
+            traillingMyWellConstraint = lblMyWell.trailingAnchor.constraint(equalTo: lblScoreText.leadingAnchor, constant: -4)
+            
+            lblScoreTextCenterConstraint = lblScoreText.centerXAnchor.constraint(equalTo: margins.centerXAnchor, constant: (self.view.frame.width/CGFloat(Screen.iPhoneSEWidth)) * 10)
+            //centerXAnchor.constraint(equalTo: margins.centerXAnchor, constant: 20)
+            //(self.view.frame.width/CGFloat(Screen.iPhoneSEWidth)) * 16))
+            lblScoreTextLeadingConstraint = lblScore.leadingAnchor.constraint(equalTo: lblScoreText.trailingAnchor, constant: 4)
+            
+            mainScoreView.addConstraint(traillingMyWellConstraint!)
+            mainScoreView.addConstraint(lblScoreTextCenterConstraint!)
+            mainScoreView.addConstraint(lblScoreTextLeadingConstraint!)
+            mainScoreView.addConstraint(topMyWellConstraint!)
+            mainScoreView.addConstraint(lblScoreTopConstraint!)
+            mainScoreView.addConstraint(lblScoreTextTopConstraint!)
+            mainScoreView.layoutIfNeeded()
+        } completion: { [self] (isSuccess) in
+            
+            
+        }
+    }
+    func removeMainScoreViewConstraintWhenaProfileOrAddClick(mainScoreView:UIView,lblMyWell:UILabel,lblScoreText:UILabel,lblScore:UILabel,viewHeight:CGFloat){
+        mainScoreView.removeConstraint(leadingMyWellConstraint!)
+        mainScoreView.removeConstraint(topMyWellConstraint!)
+        mainScoreView.removeConstraint(centerMyWellConstraint!)
+        
+        mainScoreView.removeConstraint(lblScoreCenterConstraint!)
+        mainScoreView.removeConstraint(lblScoreTopConstraint!)
+        mainScoreView.removeConstraint(lblScoreBottomConstraint!)
+        
+        mainScoreView.removeConstraint(lblScoreTextLeadingConstraint!)
+        mainScoreView.removeConstraint(lblScoreTextCenterYConstraint!)
+//        if isAnimationConstraintAdded {
+//        mainScoreView.removeConstraint(traillingMyWellConstraint!)
+//        mainScoreView.removeConstraint(lblScoreTextCenterConstraint!)
+//        mainScoreView.removeConstraint(lblScoreTextLeadingConstraint!)
+//        }
+    }
+    //========================================================================================================
+    //MARK: Set Double Tap For Profile And Add Button
+    //========================================================================================================
+    func setDoubleTapGestureForProfileAndAddButton(button:UIButton){
+        
+        let tap = UITapGestureRecognizer(target: self, action: #selector(doubleTapped(sender:)))
+        tap.numberOfTapsRequired = 2
+        button.addGestureRecognizer(tap)
+    }
+    @objc func doubleTapped(sender:UIButton) {
+        //When Double Tap Profile and Add button, collapse Profile and Add pull up and show main pull up.
+        pullUpController.collapsed()
     }
     //========================================================================================================
     //MARK: set font of my well score according to  view
@@ -391,16 +552,18 @@ class AcuityMainViewController: PullUpViewController, UIScrollViewDelegate,Rotar
     func setBackGroundColorRoundView(index:String){
         let themeColor = getThemeColor(index: index,isForWheel: true)
         wheel?.roundbackGroundView.backgroundColor = themeColor;
-        if pullUpController.isExpanded{
-            showSubScoreView()
-        }else{
-            showMainScoreView()
-        }
+//        if pullUpController.isExpanded{
+//            showSubScoreView()
+//        }else{
+//            showMainScoreView()
+//        }
     }
     
     //MARK: Show Main Score ..
     func showMainScoreView(){
-        
+        //activeTopConstraint()
+        //setUpTopLabelNormal()
+        self.setMainScoreViewsLabelConstrinat(isFirstTime: false)
         self.mainScoreView.isHidden = false
         self.subScoreView.isHidden = true
         self.stackAddView.isHidden = true
@@ -410,16 +573,16 @@ class AcuityMainViewController: PullUpViewController, UIScrollViewDelegate,Rotar
     }
     //MARK: Show Sub Score ..
     func showSubScoreView(){
-        
-        self.mainScoreView.isHidden = true
-        self.subScoreView.isHidden = false
+        //inActiveTopConstraint()
+        //setUpTopLabels()
+        self.setMainScoreViewsLabelAnimationConstrinat(isFirstTime: false)
+        self.mainScoreView.isHidden = false
+        self.subScoreView.isHidden = true
         self.stackAddView.isHidden = true
         self.stackProfileView.isHidden = true
         self.pullUpController.isExpanded = true
         
-        
     }
-    
     //========================================================================================================
     //MARK: Wheel change delegate method..
     //========================================================================================================
@@ -506,6 +669,7 @@ class AcuityMainViewController: PullUpViewController, UIScrollViewDelegate,Rotar
 
 extension AcuityMainViewController:HeaderDelegate{
     func btnAddClickedCallBack() {
+        isProfileClicked = true
         mainScoreView.isHidden = true
         subScoreView.isHidden = true
         stackAddView.isHidden = false
@@ -523,6 +687,7 @@ extension AcuityMainViewController:HeaderDelegate{
         }
     }
     func btnProfileClickedCallBack() {
+        isProfileClicked = true
         mainScoreView.isHidden = true
         subScoreView.isHidden = true
         stackAddView.isHidden = true

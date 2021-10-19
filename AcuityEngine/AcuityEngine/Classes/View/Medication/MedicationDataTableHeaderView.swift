@@ -8,7 +8,7 @@
 
 import UIKit
 
-class OtherHistoryDataTableHeaderView: UITableViewHeaderFooterView {
+class MedicationDataTableHeaderView: UITableViewHeaderFooterView {
 
     @IBOutlet weak var viewBg: UIView!
     @IBOutlet weak var lblTitle: UILabel!

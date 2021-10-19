@@ -9,7 +9,11 @@ import UIKit
 import JGProgressHUD
 
 let HEIGHT_OF_ROW_IN_TBL_INPUT_VIEW:CGFloat = UITableView.automaticDimension;
-let HEIGHT_OF_ROW_IN_TBL_DATA_VIEW:CGFloat = 50;
+let HEIGHT_OF_ROW_IN_TBL_DATA_VIEW:CGFloat = 40;
+var arrayOtherHistorySectionTitle = [OtherHistory.otherConditions,OtherHistory.familyHistory,OtherHistory.surgicalHistory,OtherHistory.socialHistory,OtherHistory.allergies];
+
+
+
 class AddOtherHistoriesViewController:UIViewController, UITableViewDelegate, UITableViewDataSource {
     @IBOutlet weak var lblTitle: UILabel!
     @IBOutlet weak var tblOtherHistoryInputView: UITableView!
@@ -19,9 +23,7 @@ class AddOtherHistoriesViewController:UIViewController, UITableViewDelegate, UIT
     var arrayForTblInputView:[HistoryInputModel] = []
     var arrayForTblDataView:[[OtherHistory:[HistoryDataDisplayModel]]] = []
     
-    var arraySectionTitle = [OtherHistory.otherConditions,OtherHistory.familyHistory,OtherHistory.surgicalHistory,OtherHistory.socialHistory,OtherHistory.allergies];
-    
-    
+  
     @IBOutlet weak var heightConstraintFortblOtherHistoryInputView: NSLayoutConstraint!
     @IBOutlet weak var heightConstraintFortblOtherHistoryDataView: NSLayoutConstraint!
     
@@ -49,6 +51,13 @@ class AddOtherHistoriesViewController:UIViewController, UITableViewDelegate, UIT
         fetchHistoryDataFromDatabase()
     }
     //========================================================================================================
+    //MARK:deinit..
+    //========================================================================================================
+    deinit {
+        self.tblOtherHistoryDataView.removeObserver(self, forKeyPath: "contentSize")
+        self.tblOtherHistoryInputView.removeObserver(self, forKeyPath: "contentSize")
+    }
+    //========================================================================================================
     //MARK:Set Font For Labels..
     //========================================================================================================
     func setFontForLabels(){
@@ -62,10 +71,7 @@ class AddOtherHistoriesViewController:UIViewController, UITableViewDelegate, UIT
         //Global Queue
         progrssHUD = showIndicatorInView(view: self.view)
         DispatchQueue.global(qos: .background).async {
-            
-            let isTableCreated = DBManager.shared.createTableOtherHistory()
-            //Fetch data......
-            if isTableCreated{
+          
                 let historyData = DBManager.shared.loadHistories()
                 //Main Queue......
                 DispatchQueue.main.async {
@@ -91,7 +97,7 @@ class AddOtherHistoriesViewController:UIViewController, UITableViewDelegate, UIT
                     //Hide Progress HUD
                     self.progrssHUD.dismiss(animated: true)
                 }
-            }
+            
         }
         /*
          Ex. of arrayForTblDataView = [[AcuityEngine.OtherHistory.otherConditions: [AcuityEngine.HistoryDataDisplayModel]], [AcuityEngine.OtherHistory.surgicalHistory: []],
@@ -130,7 +136,7 @@ class AddOtherHistoriesViewController:UIViewController, UITableViewDelegate, UIT
         case tblOtherHistoryDataView:
             do{
                 // Return the number of rows in the section.
-                let sectionTitle:OtherHistory = arraySectionTitle[section];
+                let sectionTitle:OtherHistory = arrayOtherHistorySectionTitle[section];
                 /*
                  arrayForTblDataView will have [key = sectionTitle and value = Array of model]...
                  So, first fetch key and then value for key...so number of rows in section will have count of array for key(sectionTitle)
@@ -150,7 +156,7 @@ class AddOtherHistoriesViewController:UIViewController, UITableViewDelegate, UIT
     }
     func numberOfSections(in tableView: UITableView) -> Int {
         if tableView == tblOtherHistoryDataView{
-            return arraySectionTitle.count
+            return arrayOtherHistorySectionTitle.count
         }
         return 1;
     }
@@ -165,8 +171,8 @@ class AddOtherHistoriesViewController:UIViewController, UITableViewDelegate, UIT
             let headerView = tableView.dequeueReusableHeaderFooterView(withIdentifier: "OtherHistoryDataTableHeaderView") as! OtherHistoryDataTableHeaderView
             
             print("section---\(section)")
-            print("arraySectionTitle[section].rawValue---\(arraySectionTitle[section].rawValue)")
-            headerView.lblTitle.text = arraySectionTitle[section].rawValue;
+            print("arrayOtherHistorySectionTitle[section].rawValue---\(arrayOtherHistorySectionTitle[section].rawValue)")
+            headerView.lblTitle.text = arrayOtherHistorySectionTitle[section].rawValue;
             return headerView
         }
         return UIView()
@@ -208,7 +214,7 @@ class AddOtherHistoriesViewController:UIViewController, UITableViewDelegate, UIT
                 /*
                  HistoryDataDisplayModel will have [key:value]. Key will be sectionTitle and array will be Data array..
                  */
-                let sectionTitle:OtherHistory = arraySectionTitle[indexPath.section];
+                let sectionTitle:OtherHistory = arrayOtherHistorySectionTitle[indexPath.section];
                 
                 var arrHistoryDataDisplayModel:[HistoryDataDisplayModel] = []
                 for item in arrayForTblDataView {

@@ -75,7 +75,7 @@ class HKManagerReadSymptoms: NSObject
                                         for element in results {
                                             
                                             let element:CategoryData = element
-                                            
+                                            print(element.identifier , "" ,element.startTimestamp)
                                             //Save data for Cardio...
                                             CardioManager.sharedManager.saveSymptomsData(category: category, element: element)
                                             

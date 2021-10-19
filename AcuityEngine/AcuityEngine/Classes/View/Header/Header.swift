@@ -23,6 +23,11 @@ class Header: UIView {
     @IBOutlet weak var lblMyWell: UILabel!
     @IBOutlet weak var lblSystemName: UILabel!
     @IBOutlet weak var lblSystemScore: UILabel!
+    
+    //Buttons....
+    @IBOutlet var btnAdd: UIButton!
+    @IBOutlet var btnProfile: UIButton!
+    
     @IBOutlet weak var containerViewMain: UIView!
     @IBOutlet weak var ContainverViewSub: UIView!
     @IBOutlet weak var centerMyWellConstraint:NSLayoutConstraint!

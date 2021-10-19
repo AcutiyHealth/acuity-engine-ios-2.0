@@ -168,7 +168,7 @@
                                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="5D8-s6-Utv" userLabel="2">
                                                                     <rect key="frame" x="144.5" y="0.0" width="139.5" height="150.5"/>
                                                                     <subviews>
-                                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Symptoms" textAlignment="natural" lineBreakMode="clip" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="RdG-qe-26v" customClass="LabelTitle" customModule="AcuityEngine" customModuleProvider="target">
+                                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Medications" textAlignment="natural" lineBreakMode="clip" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="RdG-qe-26v" customClass="LabelTitle" customModule="AcuityEngine" customModuleProvider="target">
                                                                             <rect key="frame" x="9" y="0.0" width="130.5" height="30"/>
                                                                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                             <fontDescription key="fontDescription" name="SFProDisplay-Bold" family="SF Pro Display" pointSize="16"/>
@@ -602,12 +602,13 @@
                         <outlet property="segmentControl" destination="5re-0I-Zkx" id="jmc-oI-Axr"/>
                         <outlet property="tblCondition" destination="Aia-1m-z86" id="btF-ah-6la"/>
                         <outlet property="tblLab" destination="dgT-Ri-5ah" id="M47-fr-Spf"/>
+                        <outlet property="tblMedication" destination="ueb-k0-9yj" id="ruV-5j-EBd"/>
                         <outlet property="tblMyWellScoreData" destination="iqY-4w-3oj" id="uZp-9E-Vml"/>
-                        <outlet property="tblSymptom" destination="ueb-k0-9yj" id="tQL-Fb-W2t"/>
                         <outlet property="tblVitals" destination="cgZ-Ig-7rS" id="GWF-so-da0"/>
                         <outlet property="viewCondition" destination="fZM-hK-D3q" id="0fS-0V-Pzt"/>
                         <outlet property="viewLab" destination="6cF-T5-645" id="eIg-oK-eoD"/>
                         <outlet property="viewOfMetrics" destination="Lj9-Ql-gZS" id="NGP-aJ-Lfq"/>
+                        <outlet property="viewOfMetricsBottomConstraint" destination="Jj6-Xr-Fjk" id="r7r-hv-piZ"/>
                         <outlet property="viewSymptom" destination="5D8-s6-Utv" id="LSd-Nj-L9p"/>
                         <outlet property="viewVitals" destination="LyY-nX-ibr" id="uuz-up-vdI"/>
                         <outlet property="visualEffectMainView" destination="Ozw-pf-cAr" id="KJH-AQ-zaq"/>
@@ -629,7 +630,7 @@
                 </tapGestureRecognizer>
                 <tapGestureRecognizer id="ug3-VJ-u45">
                     <connections>
-                        <action selector="viewSymptomsClicked:" destination="Ate-ft-AzV" id="Wsp-ss-DbP"/>
+                        <action selector="viewMedicationClicked:" destination="Ate-ft-AzV" id="1pj-KQ-Vqn"/>
                     </connections>
                 </tapGestureRecognizer>
                 <tapGestureRecognizer id="Czo-rZ-svj">
@@ -1061,7 +1062,7 @@
     </scenes>
     <designables>
         <designable name="RdG-qe-26v">
-            <size key="intrinsicContentSize" width="79" height="19.5"/>
+            <size key="intrinsicContentSize" width="90" height="19.5"/>
         </designable>
         <designable name="Uyj-bf-cIn">
             <size key="intrinsicContentSize" width="79.5" height="19.5"/>

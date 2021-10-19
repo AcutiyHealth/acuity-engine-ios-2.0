@@ -74,27 +74,46 @@ extension ProfileOptionSelectionViewController: SOPullUpViewDelegate {
 
 extension ProfileOptionSelectionViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return profileOptionArray.count
+        return profileOptionArray.count + 1
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let cell: LabelDisplayCell = tableView.dequeueReusableCell(withIdentifier: "LabelDisplayCell", for: indexPath as IndexPath) as? LabelDisplayCell else {
-            fatalError("AcuityDetailDisplayCell cell is not found")
+        if indexPath.row == 0{
+            let cell: UITableViewCell = tableView.dequeueReusableCell(withIdentifier: "ProfileDisplayCell", for: indexPath as IndexPath)
+            let profileImage = cell.viewWithTag(1) as? UIImageView
+            let nameLabel = cell.viewWithTag(2) as? UILabel
+            nameLabel?.text = "Test Test"
+            nameLabel?.font = Fonts.kCellTitleFont
+            cell.selectionStyle = .none
+            
+            return cell
+        }
+        else{
+            guard let cell: LabelDisplayCell = tableView.dequeueReusableCell(withIdentifier: "LabelDisplayCell", for: indexPath as IndexPath) as? LabelDisplayCell else {
+                fatalError("AcuityDetailDisplayCell cell is not found")
+            }
+            
+            cell.titleLabel?.text = profileOptionArray[indexPath.row-1]
+            
+            cell.selectionStyle = .none
+            
+            return cell
         }
         
-        cell.titleLabel?.text = profileOptionArray[indexPath.row]
-        
-        cell.selectionStyle = .none
-        
-        return cell
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 50
+        if indexPath.row == 0{
+            let cellHeight = getRowHeightAsPerDeviceSize(height:100)
+            return cellHeight > 108 ? 108 : cellHeight
+        }else{
+            return 50
+        }
+        
     }
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
-        switch ProfileOption(rawValue: profileOptionArray[indexPath.row]){
+        switch ProfileOption(rawValue: profileOptionArray[indexPath.row-1]){
         case .profile:
             do{
                 openProfileViewController()
@@ -120,7 +139,7 @@ extension ProfileOptionSelectionViewController: UITableViewDelegate, UITableView
         //Add detail value view as child view
         profileVC = UIStoryboard(name: Storyboard.profile.rawValue, bundle: nil).instantiateViewController(withIdentifier: "ProfileViewController") as? ProfileViewController
         self.addChild(profileVC!)
-       
+        
         //Show animation when view added.....
         animationForDetailViewWhenAdded(subviewToAdd: (profileVC?.view)!, in: self.visualEffectView)
         
@@ -160,7 +179,7 @@ extension ProfileOptionSelectionViewController: UITableViewDelegate, UITableView
         //Add detail value view as child view
         termsVC = UIStoryboard(name: Storyboard.profile.rawValue, bundle: nil).instantiateViewController(withIdentifier: "TermsOfServiceViewController") as? TermsOfServiceViewController
         self.addChild(termsVC!)
- 
+        
         //Show animation when view added.....
         animationForDetailViewWhenAdded(subviewToAdd: (termsVC?.view)!, in: self.visualEffectView)
         

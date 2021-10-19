@@ -19,8 +19,10 @@ class AcuityMetricsDetailViewController: UIViewController {
     
     //Condition data
     var arrConditions:[ConditionsModel] = []
-    //Symptoms Data
-    var arrSymptoms:[SymptomsModel] = []
+//    //Symptoms Data
+//    var arrSymptoms:[SymptomsModel] = []
+    //Medications Data
+    var arrMedications:[MedicationDataDisplayModel] = []
     //Lab Data
     var arrLabs:[LabModel] = []
     //Vitals
@@ -104,16 +106,18 @@ extension AcuityMetricsDetailViewController: UITableViewDelegate, UITableViewDat
             do{
                 return arrConditions.count
             }
-        case .Sympotms:
+        case .Medication:
             do{
-                return arrSymptoms.count
+                return arrMedications.count
             }
         case .LabData:
             do{
                 return arrLabs.count
             }
+        default:
+        break;
         }
-        
+       return 0
     }
     
     
@@ -136,11 +140,11 @@ extension AcuityMetricsDetailViewController: UITableViewDelegate, UITableViewDat
                 cell.displayConditionData(item: item)
                 cell.selectionStyle = .none
             }
-        case .Sympotms:
+        case .Medication:
             do{
                 cell = tableView.dequeueReusableCell(withIdentifier: "AcuityDetailValueDisplayCellSymptoms") as! AcuityDetailValueDisplayCell
-                let item = arrSymptoms[indexPath.row]
-                cell.displaySymptomsData(item: item)
+                let item = arrMedications[indexPath.row]
+                cell.displayMedicationData(item: item)
                 cell.selectionStyle = .none
             }
         case .LabData:
@@ -150,7 +154,7 @@ extension AcuityMetricsDetailViewController: UITableViewDelegate, UITableViewDat
                 cell.selectionStyle = .none
             }
             return cell
-        case .none:
+        default:
             break
         }
         cell.setFontForLabel(font:Fonts.kAcuityDetailCellFont)
@@ -163,7 +167,7 @@ extension AcuityMetricsDetailViewController: UITableViewDelegate, UITableViewDat
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         //If metrixType is condition, don't go in detail screen.
-        if metrixType == .Conditions{
+        if metrixType == .Conditions || metrixType == .Medication  {
             return
         }
         //open detail screen for other metrics..
@@ -177,12 +181,12 @@ extension AcuityMetricsDetailViewController: UITableViewDelegate, UITableViewDat
                 detailValueVC?.metrixItem = AcuityDetailPulllUpModel(title: item.title ?? "", value: item.value ?? "", metrixType: (metrixType ?? .none)!)
             }
             
-        case .Sympotms:
+        /*case .Sympotms:
             do{
                 
                 let item = arrSymptoms[indexPath.row]
                 detailValueVC?.metrixItem = AcuityDetailPulllUpModel(title: item.title ?? "", value: item.textValue?.rawValue ?? "", metrixType: (metrixType ?? .none)!)
-            }
+            }*/
         case .LabData:
             do{
                 

@@ -9,6 +9,12 @@ import Foundation
 
 class AcuityMainViewModel: NSObject {
     
+   
+    var leadingMyWellConstraint,topMyWellConstraint,centerMyWellConstraint,lblScoreCenterConstraint,lblScoreTopConstraint,lblScoreBottomConstraint,lblScoreTextLeadingConstraint,lblScoreTextBottomConstraint: NSLayoutConstraint?
+    
+    var traillingMyWellConstraint,lblScoreTextCenterConstraint: NSLayoutConstraint?
+    var isAnimationConstraintAdded: Bool = false
+    
     func getExpandedViewHeight(expandedViewHeight:CGFloat,headerViewHeight:CGFloat) -> CGFloat {
         if UIDevice.current.hasNotch {
             return expandedViewHeight - headerViewHeight
@@ -18,7 +24,162 @@ class AcuityMainViewModel: NSObject {
         
         
     }
+    func removeMainScoreViewConstraintWhenaProfileOrAddClick(mainScoreView:UIView,lblMyWell:UILabel,lblScoreText:UILabel,lblScore:UILabel,viewHeight:CGFloat){
+        mainScoreView.removeConstraint(leadingMyWellConstraint!)
+        mainScoreView.removeConstraint(topMyWellConstraint!)
+        mainScoreView.removeConstraint(centerMyWellConstraint!)
+        
+        mainScoreView.removeConstraint(lblScoreCenterConstraint!)
+        mainScoreView.removeConstraint(lblScoreTopConstraint!)
+        mainScoreView.removeConstraint(lblScoreBottomConstraint!)
+        
+        mainScoreView.removeConstraint(lblScoreTextLeadingConstraint!)
+        mainScoreView.removeConstraint(lblScoreTextBottomConstraint!)
+//        if isAnimationConstraintAdded {
+//        mainScoreView.removeConstraint(traillingMyWellConstraint!)
+//        mainScoreView.removeConstraint(lblScoreTextCenterConstraint!)
+//        mainScoreView.removeConstraint(lblScoreTextLeadingConstraint!)
+//        }
+    }
+    func setTopLabel(mainScoreView:UIView,lblMyWell:UILabel,lblScoreText:UILabel,lblScore:UILabel,viewHeight:CGFloat){
+        
+        if isAnimationConstraintAdded {
+            mainScoreView.removeConstraint(traillingMyWellConstraint!)
+            mainScoreView.removeConstraint(lblScoreTextCenterConstraint!)
+            mainScoreView.removeConstraint(lblScoreTextLeadingConstraint!)
+            isAnimationConstraintAdded = false
+        }
+        
+       // UIView.animateKeyframes(withDuration: 0.7, delay: 0.0, options: .calculationModeLinear) { [self] in
+        UIView.animateKeyframes(withDuration: 0.7, delay: 0.0, options: .calculationModeLinear)  { [self] in
+            
+            mainScoreView.backgroundColor = .red
+            lblMyWell.backgroundColor = .black
+            lblScoreText.backgroundColor = .black
+            lblScore.backgroundColor = .black
+            
+            lblMyWell.font = lblMyWell.font.withSize(viewHeight * 0.046) //UIFont.systemFont(ofSize: 26, weight: .semibold)
+            
+            lblScoreText.font = lblScoreText.font.withSize(viewHeight * 0.046)
+                //UIFont.systemFont(ofSize: 32, weight: .semibold)
+           
+            lblScore.font = lblScore.font.withSize(viewHeight * 0.046 + 12)
+                //UIFont.systemFont(ofSize: 32, weight: .semibold)
+            
+            
+            lblMyWell.translatesAutoresizingMaskIntoConstraints = false
+            lblScore.translatesAutoresizingMaskIntoConstraints = false
+            lblScoreText.translatesAutoresizingMaskIntoConstraints = false
+            
+            let margins = mainScoreView.layoutMarginsGuide
+            
+            
+            leadingMyWellConstraint = lblMyWell.leadingAnchor.constraint(equalTo: margins.leadingAnchor, constant: 20)
+            topMyWellConstraint = lblMyWell.topAnchor.constraint(equalTo: margins.topAnchor, constant: 0)
+            centerMyWellConstraint = lblMyWell.centerXAnchor.constraint(equalTo: margins.centerXAnchor, constant: 0)
+            
+            lblScoreCenterConstraint = lblScore.centerXAnchor.constraint(equalTo: lblMyWell.centerXAnchor, constant: 0)
+            lblScoreTopConstraint = lblScore.topAnchor.constraint(equalTo: lblMyWell.bottomAnchor, constant: 0)
+            lblScoreBottomConstraint = lblScore.bottomAnchor.constraint(equalTo: margins.bottomAnchor, constant: 0)
+            
+            lblScoreTextLeadingConstraint = lblScoreText.leadingAnchor.constraint(equalTo: lblScore.trailingAnchor, constant: 4)
+            lblScoreTextBottomConstraint = lblScoreText.bottomAnchor.constraint(equalTo: lblScore.bottomAnchor, constant: 0)
+            
+            mainScoreView.addConstraint(leadingMyWellConstraint!)
+            mainScoreView.addConstraint(topMyWellConstraint!)
+            mainScoreView.addConstraint(centerMyWellConstraint!)
+            
+            mainScoreView.addConstraint(lblScoreCenterConstraint!)
+            mainScoreView.addConstraint(lblScoreTopConstraint!)
+            mainScoreView.addConstraint(lblScoreBottomConstraint!)
+            
+            mainScoreView.addConstraint(lblScoreTextLeadingConstraint!)
+            mainScoreView.addConstraint(lblScoreTextBottomConstraint!)
+            
+            mainScoreView.layoutIfNeeded()
+        } completion: { [self] (isSuccess) in
+            
+            
+        }
+    }
     
+    func setTopLabelAnimation(mainScoreView:UIView,lblMyWell:UILabel,lblScoreText:UILabel,lblScore:UILabel,viewHeight:CGFloat) {
+        UIView.animateKeyframes(withDuration: 0.7, delay: 0.00, options: .calculationModeLinear) { [self] in
+            isAnimationConstraintAdded = true
+            lblMyWell.font = lblMyWell.font.withSize(viewHeight * 0.046)
+            lblScoreText.font = lblScoreText.font.withSize(viewHeight * 0.046)
+            lblScore.font = lblScore.font.withSize(viewHeight * 0.046)
+            
+            mainScoreView.removeConstraint(leadingMyWellConstraint!)
+            mainScoreView.removeConstraint(topMyWellConstraint!)
+            mainScoreView.removeConstraint(centerMyWellConstraint!)
+            
+            mainScoreView.removeConstraint(lblScoreCenterConstraint!)
+            mainScoreView.removeConstraint(lblScoreTopConstraint!)
+            mainScoreView.removeConstraint(lblScoreBottomConstraint!)
+            
+            mainScoreView.removeConstraint(lblScoreTextLeadingConstraint!)
+            mainScoreView.removeConstraint(lblScoreTextBottomConstraint!)
+            
+            lblMyWell.translatesAutoresizingMaskIntoConstraints = false
+            lblScore.translatesAutoresizingMaskIntoConstraints = false
+            lblScoreText.translatesAutoresizingMaskIntoConstraints = false
+            
+            let margins = mainScoreView.layoutMarginsGuide
+            
+            traillingMyWellConstraint = lblMyWell.trailingAnchor.constraint(equalTo: lblScoreText.leadingAnchor, constant: -4)
+            
+            lblScoreTextCenterConstraint = lblScoreText.centerXAnchor.constraint(equalTo: margins.centerXAnchor, constant: 20)
+            
+            lblScoreTextLeadingConstraint = lblScore.leadingAnchor.constraint(equalTo: lblScoreText.trailingAnchor, constant: 4)
+            
+            mainScoreView.addConstraint(traillingMyWellConstraint!)
+            mainScoreView.addConstraint(lblScoreTextCenterConstraint!)
+            mainScoreView.addConstraint(lblScoreTextLeadingConstraint!)
+            
+            mainScoreView.layoutIfNeeded()
+        }
+        /*UIView.animateKeyframes(withDuration: 0.5, delay: 0.0, options: .calculationModeLinear) { [self] in
+            isAnimationConstraintAdded = true
+            lblMyWell.font = lblMyWell.font.withSize(viewHeight * 0.046)
+            lblScoreText.font = lblScoreText.font.withSize(viewHeight * 0.046)
+            lblScore.font = lblScore.font.withSize(viewHeight * 0.046)
+            
+            mainScoreView.removeConstraint(leadingMyWellConstraint!)
+            mainScoreView.removeConstraint(topMyWellConstraint!)
+            mainScoreView.removeConstraint(centerMyWellConstraint!)
+            
+            mainScoreView.removeConstraint(lblScoreCenterConstraint!)
+            mainScoreView.removeConstraint(lblScoreTopConstraint!)
+            mainScoreView.removeConstraint(lblScoreBottomConstraint!)
+            
+            mainScoreView.removeConstraint(lblScoreTextLeadingConstraint!)
+            mainScoreView.removeConstraint(lblScoreTextBottomConstraint!)
+            
+            lblMyWell.translatesAutoresizingMaskIntoConstraints = false
+            lblScore.translatesAutoresizingMaskIntoConstraints = false
+            lblScoreText.translatesAutoresizingMaskIntoConstraints = false
+            
+            let margins = mainScoreView.layoutMarginsGuide
+            
+            
+            traillingMyWellConstraint = lblMyWell.trailingAnchor.constraint(equalTo: lblScoreText.leadingAnchor, constant: -4)
+            
+            lblScoreTextCenterConstraint = lblScoreText.centerXAnchor.constraint(equalTo: margins.centerXAnchor, constant: 30)
+            
+            lblScoreTextLeadingConstraint = lblScore.leadingAnchor.constraint(equalTo: lblScoreText.trailingAnchor, constant: 4)
+            topMyWellConstraint = lblMyWell.topAnchor.constraint(equalTo: margins.topAnchor, constant: 20)
+     
+            mainScoreView.addConstraint(traillingMyWellConstraint!)
+            mainScoreView.addConstraint(lblScoreTextCenterConstraint!)
+            mainScoreView.addConstraint(lblScoreTextLeadingConstraint!)
+            
+            mainScoreView.layoutIfNeeded()
+        } completion: { [self] (isSuccess) in
+            
+            
+        }*/
+    }
     func setupBodySystemData()->[[String:Any]] {
         var arrBodySystems:[[String:Any]] = []
         

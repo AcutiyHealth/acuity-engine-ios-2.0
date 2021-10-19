@@ -46,26 +46,29 @@ class AcuityDetailPullUpViewModel: NSObject
         viewCondition.layer.borderWidth = 0;
     }
     
-    func prepareArrayFromAcuityModel(systemMetricsData:[String:Any]?)->([ConditionsModel],[SymptomsModel],[VitalsModel],[LabModel]){
+    func prepareArrayFromAcuityModel(systemMetricsData:[String:Any]?)->([ConditionsModel],[MedicationDataDisplayModel],[VitalsModel],[LabModel]){
         //generate array of conditions,lab,vital,symptoms
         var arrConditions:[ConditionsModel] = []
-        var arrSymptoms:[SymptomsModel] = []
+        //var arrSymptoms:[SymptomsModel] = []
+        var arrMedications:[MedicationDataDisplayModel] = []
         var arrLabs:[LabModel] = []
         var arrVitals:[VitalsModel] = []
         guard let arrCondition = systemMetricsData?[MetricsType.Conditions.rawValue] as? [ConditionsModel] else {
-            return (arrConditions,arrSymptoms,arrVitals,arrLabs)
+            return (arrConditions,arrMedications,arrVitals,arrLabs)
         }
-        guard let arrSymptom = systemMetricsData?[MetricsType.Sympotms.rawValue] as? [SymptomsModel] else {
-            return (arrConditions,arrSymptoms,arrVitals,arrLabs)
-        }
+        arrMedications = self.fetchMedicationData() as [MedicationDataDisplayModel]
+        
+//        guard let arrSymptom = systemMetricsData?[MetricsType.Sympotms.rawValue] as? [SymptomsModel] else {
+//            return (arrConditions,arrMedications,arrVitals,arrLabs)
+//        }
         guard let arrLab = systemMetricsData?[MetricsType.LabData.rawValue] as? [LabModel] else {
-            return (arrConditions,arrSymptoms,arrVitals,arrLabs)
+            return (arrConditions,arrMedications,arrVitals,arrLabs)
         }
         guard let arrVital = systemMetricsData?[MetricsType.Vitals.rawValue] as? [VitalsModel] else {
-            return (arrConditions,arrSymptoms,arrVitals,arrLabs)
+            return (arrConditions,arrMedications,arrVitals,arrLabs)
         }
         arrConditions = arrCondition
-        arrSymptoms = arrSymptom
+        //arrSymptoms = arrSymptom
         arrLabs = arrLab
         arrVitals = arrVital
         
@@ -76,13 +79,13 @@ class AcuityDetailPullUpViewModel: NSObject
         arrVitals.sort {
             $0.title ?? "" < $1.title ?? ""
         }
-        arrSymptoms.sort {
-            $0.title ?? "" < $1.title ?? ""
+        arrMedications.sort {
+            $0.name?.rawValue ?? "" < $1.name?.rawValue ?? ""
         }
         arrLabs.sort {
             $0.title ?? "" < $1.title ?? ""
         }
-        return (arrConditions,arrSymptoms,arrVitals,arrLabs)
+        return (arrConditions,arrMedications,arrVitals,arrLabs)
     }
     func setUpSegmentControl(segmentControl:UISegmentedControl){
         segmentControl.setTitle(SegmentValueForGraph.SevenDays.rawValue, forSegmentAt: 0)
@@ -303,6 +306,16 @@ class AcuityDetailPullUpViewModel: NSObject
             arrVitals.insert(vitalModelBP, at: 0)
         }
         return arrVitals
+    }
+    //========================================================================================================
+    //MARK: Fetch Medication Data.
+    //========================================================================================================
+    func fetchMedicationData()->[MedicationDataDisplayModel]{
+       
+            var newArrMedications:[MedicationDataDisplayModel] = []
+            newArrMedications = DBManager.shared.loadMedications()
+            return newArrMedications
+        
     }
     
 }

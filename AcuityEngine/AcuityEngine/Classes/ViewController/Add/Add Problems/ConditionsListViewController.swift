@@ -107,7 +107,6 @@ extension ConditionsListViewController:UITableViewDelegate,UITableViewDataSource
         let conditionData = conditionArray[indexPath.row]
         cell.yesOrNoSegmentControl.tag = indexPath.row
         cell.yesOrNoSegmentControl.addTarget(self, action: #selector(changeSegmentControlStatus(yesNoSegment:)), for: UIControl.Event.valueChanged)
-        
         cell.displayData(title: conditionData.title ?? "",isOn:conditionData.isOn ?? false)
         cell.selectionStyle = .none
         
