@@ -24,7 +24,7 @@ class GastrointestinalData {
     
     
     func getWeightedSystemScore()->Double{
-        print("<--------------------Gastrointestinal------------------>")
+        Log.d("<--------------------Gastrointestinal------------------>")
         let score = totalSystemScoreWithDays(days: SegmentValueForGraph.OneDay)
         return (score * gastrointestinalRelativeImportance)/100
     }
@@ -32,13 +32,13 @@ class GastrointestinalData {
     
     //Total/Final System Score
     func totalSystemScoreWithDays(days:SegmentValueForGraph) -> Double{
-        print("<--------------------Gastrointestinal------------------>")
+        Log.d("<--------------------Gastrointestinal------------------>")
         let arrayDayWiseSystemScore = systemScoreWithDays(days: days)
         //Calculate average system core for 7 days/30 days/3 months
         //Final system score for Cardio
         gastrointestinalSystemScore = commonTotalSystemScoreWithDays(arrayDayWiseSystemScore: arrayDayWiseSystemScore)
         let calculatedScore = gastrointestinalSystemScore
-        print("Gastrointestinal calculatedScore",calculatedScore)
+        Log.d("Gastrointestinal calculatedScore--\(calculatedScore)")
         return calculatedScore
     }
     
@@ -83,7 +83,7 @@ class GastrointestinalData {
         let totalMaxScore = maxScoreVitals  + maxConditionData  + maxLabData + maxsymptomData
         
         
-        print("totalMaxScore=======\(totalMaxScore) maxScoreVitals===\(maxScoreVitals)  maxConditionData===\(maxConditionData)  maxLabData === \(maxLabData) maxsymptomData===\(maxsymptomData)")
+        Log.d("totalMaxScore=======\(totalMaxScore) maxScoreVitals===\(maxScoreVitals)  maxConditionData===\(maxConditionData)  maxLabData === \(maxLabData) maxsymptomData===\(maxsymptomData)")
         return totalMaxScore
         
     }

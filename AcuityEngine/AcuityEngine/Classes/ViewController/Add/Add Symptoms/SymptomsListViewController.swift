@@ -50,14 +50,14 @@ class SymptomsListViewController: UIViewController {
              arrayOfStringsSymptom = data.components(separatedBy: "\n")*/
             
             arrayOfStringsSymptom = getSymptomsArray()
-            print(arrayOfStringsSymptom)
+            Log.d(arrayOfStringsSymptom)
         }
         
         for item in arrayOfStringsSymptom{
             let Symptom = Symptoms(title: item)
             symptomArray.append(Symptom)
         }
-        print(symptomArray)
+        Log.d(symptomArray)
     }
 }
 extension SymptomsListViewController:UITableViewDelegate,UITableViewDataSource{

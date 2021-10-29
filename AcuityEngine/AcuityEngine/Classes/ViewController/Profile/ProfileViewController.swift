@@ -9,7 +9,7 @@ import UIKit
 import Foundation
 import HealthKitReporter
 import SOPullUpView
-import JGProgressHUD
+import SVProgressHUD
 class ProfileViewController: UIViewController {
     
     // MARK: - Outlet
@@ -26,8 +26,7 @@ class ProfileViewController: UIViewController {
     var birthDate:String = "Not Set"
     var sex:String = "Not Set"
     var bloodType:String = "Not Set"
-    var progrssHUD:JGProgressHUD = JGProgressHUD()
-    
+   
     // MARK: - Controller Life Cycle
     
     override func viewDidLoad() {
@@ -35,49 +34,68 @@ class ProfileViewController: UIViewController {
         
         //Read Basic Charactristic from Health Kit.....
         readBasicDetails()
+        //===== Set Height of tblHistoryOrMedicationData as per ContentSize =========//
         self.tblHistoryOrMedicationData.addObserver(self, forKeyPath: "contentSize", options: NSKeyValueObservingOptions.new, context: nil)
-        progrssHUD = showIndicatorInView(view: self.view)
+        self.fetchHistoryAndMedicationData()
+    }
+    
+    //========================================================================================================
+    //MARK: Fetch History And Medication Data..
+    //========================================================================================================
+    func fetchHistoryAndMedicationData(){
+        SVProgressHUD.show()
         DispatchQueue.global(qos: .background).async {
-       
+            
             self.profileViewModel.fetchHistoryData { success, error, arrayForTblDataView in
-            if success{
-                self.arrayForTblDataView.append(contentsOf: arrayForTblDataView)
-                self.profileViewModel.fetchMedicationData { success, error, arrayForTblDataView in
-                    if success{
-                        self.arrayForTblDataView.append(contentsOf: arrayForTblDataView)
-                        DispatchQueue.main.async {
-                            //Hide Progress HUD
-                            self.progrssHUD.dismiss(animated: true)
-                            self.tblHistoryOrMedicationData.reloadData()
+                if success{
+                    self.arrayForTblDataView.append(contentsOf: arrayForTblDataView)
+                    self.profileViewModel.fetchMedicationData { success, error, arrayForTblDataView in
+                        if success{
+                            self.arrayForTblDataView.append(contentsOf: arrayForTblDataView)
+                            DispatchQueue.main.async {
+                                //Hide Progress HUD
+                                SVProgressHUD.dismiss()
+                                self.tblHistoryOrMedicationData.reloadData()
+                            }
                         }
                     }
                 }
             }
         }
-        }
         
     }
-    
     //========================================================================================================
     //MARK:deinit..
     //========================================================================================================
     deinit {
         self.tblHistoryOrMedicationData.removeObserver(self, forKeyPath: "contentSize")
     }
-  
+    //========================================================================================================
+    //MARK: observeValue of Content size..
+    //========================================================================================================
+    
     override func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey : Any]?, context: UnsafeMutableRawPointer?) {
         tblHistoryOrMedicationData.layer.removeAllAnimations()
         heightConstraintFortblHistoryOrMedicationDataView.constant = tblHistoryOrMedicationData.contentSize.height
-            self.updateViewConstraints()
-            self.view.layoutIfNeeded()
+        self.updateViewConstraints()
+        self.view.layoutIfNeeded()
         
         
     }
+    //========================================================================================================
+    //MARK: Read Basic Details..
+    //========================================================================================================
     private func readBasicDetails() {
         do {
             let reporter = try HealthKitReporter()
             let characteristic = reporter.reader.characteristics()
-            birthDate = ((characteristic.birthday == "na" ? "Not Set":calculateAndDisplayBirthDateAndAge(birthday: characteristic.birthday ?? "")))
+            var birthDay = characteristic.birthday ?? ""
+            let age = calculateAgeFromBirthDate(birthday: birthDay)
+            
+            if age > 0{
+                birthDay = "\(birthDay)/\(String(describing: age))"
+            }
+            birthDate = characteristic.birthday == "na" ? "Not Set":birthDay
             sex = ((characteristic.biologicalSex == "na" ? "Not Set":characteristic.biologicalSex)) ?? ""
             bloodType = ((characteristic.bloodType == "na" ? "Not Set":characteristic.bloodType)) ?? ""
             
@@ -88,22 +106,7 @@ class ProfileViewController: UIViewController {
             print(error)
         }
     }
-    func calculateAndDisplayBirthDateAndAge(birthday:String)->String{
-        
-        let dateFormater = DateFormatter()
-        dateFormater.dateFormat = "yyyy-MM-dd"
-        let birthdayDate = dateFormater.date(from: birthday)
-        let calendar: NSCalendar! = NSCalendar(calendarIdentifier: .gregorian)
-        let now = Date()
-        if let birthdayDate = birthdayDate{
-            let calcAge = calendar.components(.year, from: birthdayDate, to: now, options: [])
-            let age = calcAge.year
-            return "\(birthday)/\(String(describing: age!))"
-            
-        }
-        return "\(birthday)"
-        
-    }
+    
     func setCharactristicDataToArray(){
         
         let profileData1 = ProfileDataModel(title: "First Name:", value: "Name")
@@ -127,16 +130,16 @@ extension ProfileViewController: SOPullUpViewDelegate {
             do{
                 
             }
-        /*UIView.animate(withDuration: 0.6)  { [weak self] in
-         //self?.titleLbl.alpha = 0
-         }*/
+            /*UIView.animate(withDuration: 0.6)  { [weak self] in
+             //self?.titleLbl.alpha = 0
+             }*/
         case .expanded:
             do{
                 
             }
-        /*UIView.animate(withDuration: 0.6) { [weak self] in
-         //self?.titleLbl.alpha = 1
-         }*/
+            /*UIView.animate(withDuration: 0.6) { [weak self] in
+             //self?.titleLbl.alpha = 1
+             }*/
         }
     }
     
@@ -150,7 +153,7 @@ extension ProfileViewController: SOPullUpViewDelegate {
 extension ProfileViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if tableView == tblProfileData{
-        return profileDataArray.count
+            return profileDataArray.count
         }else{
             return arrayForTblDataView.count
         }
@@ -158,24 +161,22 @@ extension ProfileViewController: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         if tableView == tblProfileData{
-        guard let cell: ProfileViewCell = tableView.dequeueReusableCell(withIdentifier: "ProfileViewCell", for: indexPath as IndexPath) as? ProfileViewCell else {
-            fatalError("AcuityDetailDisplayCell cell is not found")
-        }
-        let profileData = profileDataArray[indexPath.row]
-        cell.displayData(title: profileData.title ?? "", value: profileData.value ?? "")
-        cell.selectionStyle = .none
-        
-        return cell
+            guard let cell: ProfileViewCell = tableView.dequeueReusableCell(withIdentifier: "ProfileViewCell", for: indexPath as IndexPath) as? ProfileViewCell else {
+                fatalError("AcuityDetailDisplayCell cell is not found")
+            }
+            let profileData = profileDataArray[indexPath.row]
+            cell.displayData(title: profileData.title ?? "", value: profileData.value ?? "")
+            cell.selectionStyle = .none
+            
+            return cell
         }else{
             guard let cell: ProfileAddOptionsDataView = tableView.dequeueReusableCell(withIdentifier: "ProfileAddOptionsDataView", for: indexPath as IndexPath) as? ProfileAddOptionsDataView else {
                 fatalError("AcuityDetailDisplayCell cell is not found")
             }
-           //"test test test test test test test test test test test test test test "
-            //cell.arrayOfData = ["test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test ","test","test","test","test"]
-        
+            
             //========================================================================//
             /*
-             HistoryDataDisplayModel will have [key:value]. Key will be sectionTitle and array will be Data array..
+             ProfileAddOptionsDataView will have [key:value]. Key will be Title and array will be Data array..
              */
             let txtObject = arrayForTblDataView[indexPath.row];
             cell.lblTitle.text = txtObject.first?.key ?? ""
@@ -188,10 +189,10 @@ extension ProfileViewController: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         
-            if tableView == tblHistoryOrMedicationData{
-                return HEIGHT_OF_ROW_IN_TBL_INPUT_VIEW;
-            }
-            return 50;
+        if tableView == tblHistoryOrMedicationData{
+            return HEIGHT_OF_ROW_IN_TBL_INPUT_VIEW;
+        }
+        return 50;
         
     }
     

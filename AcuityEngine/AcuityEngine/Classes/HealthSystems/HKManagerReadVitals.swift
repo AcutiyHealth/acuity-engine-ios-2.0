@@ -114,7 +114,7 @@ class HKManagerReadVitals: NSObject {
                             })
                             self.reporter?.manager.executeQuery(query!)
                         } catch {
-                            print("Quantity query issue")
+                            Log.d("Quantity query issue")
                             //print(error)
                             completion(false, HealthkitSetupError.dataTypeNotAvailable)
                         }

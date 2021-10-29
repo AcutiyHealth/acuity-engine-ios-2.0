@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="17701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="PCJ-X6-EXQ">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="19162" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="PCJ-X6-EXQ">
     <device id="retina4_0" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17703"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="19144"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -95,7 +95,7 @@
                                                                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                             <prototypes>
                                                                                 <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="AcuityPullUpMetricsDisplayCell" rowHeight="20" id="5pC-Va-ecJ" customClass="AcuityPullUpMetricsDisplayCell" customModule="AcuityEngine" customModuleProvider="target">
-                                                                                    <rect key="frame" x="0.0" y="28" width="121.5" height="20"/>
+                                                                                    <rect key="frame" x="0.0" y="44.5" width="121.5" height="20"/>
                                                                                     <autoresizingMask key="autoresizingMask"/>
                                                                                     <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="5pC-Va-ecJ" id="5ya-0I-Dcv">
                                                                                         <rect key="frame" x="0.0" y="0.0" width="121.5" height="20"/>
@@ -185,7 +185,7 @@
                                                                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                             <prototypes>
                                                                                 <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="AcuityPullUpMetricsDisplayCell" id="Oaa-WV-dPf" customClass="AcuityPullUpMetricsDisplayCell" customModule="AcuityEngine" customModuleProvider="target">
-                                                                                    <rect key="frame" x="0.0" y="28" width="121.5" height="44"/>
+                                                                                    <rect key="frame" x="0.0" y="44.5" width="121.5" height="44"/>
                                                                                     <autoresizingMask key="autoresizingMask"/>
                                                                                     <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="Oaa-WV-dPf" id="byH-lf-rFa">
                                                                                         <rect key="frame" x="0.0" y="0.0" width="121.5" height="44"/>
@@ -273,7 +273,7 @@
                                                                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                             <prototypes>
                                                                                 <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="AcuityPullUpMetricsDisplayCell" id="vAa-tz-62m" customClass="AcuityPullUpMetricsDisplayCell" customModule="AcuityEngine" customModuleProvider="target">
-                                                                                    <rect key="frame" x="0.0" y="28" width="121.5" height="44"/>
+                                                                                    <rect key="frame" x="0.0" y="44.5" width="121.5" height="44"/>
                                                                                     <autoresizingMask key="autoresizingMask"/>
                                                                                     <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="vAa-tz-62m" id="hMh-yZ-B13">
                                                                                         <rect key="frame" x="0.0" y="0.0" width="121.5" height="44"/>
@@ -366,7 +366,7 @@
                                                                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                             <prototypes>
                                                                                 <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="AcuityPullUpMetricsDisplayCell" id="y3D-ba-rIu" customClass="AcuityPullUpMetricsDisplayCell" customModule="AcuityEngine" customModuleProvider="target">
-                                                                                    <rect key="frame" x="0.0" y="28" width="121.5" height="44"/>
+                                                                                    <rect key="frame" x="0.0" y="44.5" width="121.5" height="44"/>
                                                                                     <autoresizingMask key="autoresizingMask"/>
                                                                                     <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="y3D-ba-rIu" id="vbe-Hr-qLy">
                                                                                         <rect key="frame" x="0.0" y="0.0" width="121.5" height="44"/>
@@ -463,7 +463,7 @@
                                                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                             <prototypes>
                                                                 <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="AcuityPullUpMetricsDisplayCell" id="Edc-cB-gRm" customClass="AcuityPullUpMetricsDisplayCell" customModule="AcuityEngine" customModuleProvider="target">
-                                                                    <rect key="frame" x="0.0" y="28" width="320" height="50"/>
+                                                                    <rect key="frame" x="0.0" y="44.5" width="320" height="50"/>
                                                                     <autoresizingMask key="autoresizingMask"/>
                                                                     <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="Edc-cB-gRm" id="Pt9-OH-5KY">
                                                                         <rect key="frame" x="0.0" y="0.0" width="320" height="50"/>
@@ -580,7 +580,7 @@
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <color key="tintColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
-                            <constraint firstItem="Cwe-Mb-KdE" firstAttribute="bottom" secondItem="Ozw-pf-cAr" secondAttribute="bottom" id="2ZL-lZ-NAv"/>
+                            <constraint firstAttribute="bottom" secondItem="Ozw-pf-cAr" secondAttribute="bottom" id="2ZL-lZ-NAv"/>
                             <constraint firstItem="Ozw-pf-cAr" firstAttribute="leading" secondItem="Cwe-Mb-KdE" secondAttribute="leading" id="2wW-0U-lvr"/>
                             <constraint firstItem="Ozw-pf-cAr" firstAttribute="top" secondItem="7IQ-uH-UkJ" secondAttribute="top" id="7BQ-XJ-HT1"/>
                             <constraint firstItem="Ozw-pf-cAr" firstAttribute="trailing" secondItem="Cwe-Mb-KdE" secondAttribute="trailing" id="eEW-kF-D8A"/>
@@ -697,7 +697,7 @@
                                                         <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                         <prototypes>
                                                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="AcuityDetailValueDisplayCell" id="3l8-GK-OwR" customClass="AcuityDetailValueDisplayCell" customModule="AcuityEngine" customModuleProvider="target">
-                                                                <rect key="frame" x="0.0" y="28" width="392" height="50"/>
+                                                                <rect key="frame" x="0.0" y="44.5" width="392" height="50"/>
                                                                 <autoresizingMask key="autoresizingMask"/>
                                                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="3l8-GK-OwR" id="rZF-WT-4m5">
                                                                     <rect key="frame" x="0.0" y="0.0" width="392" height="50"/>
@@ -756,7 +756,7 @@
                                                                 </connections>
                                                             </tableViewCell>
                                                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="AcuityDetailValueDisplayCellConditions" id="ZcV-df-nhP" customClass="AcuityDetailValueDisplayCell" customModule="AcuityEngine" customModuleProvider="target">
-                                                                <rect key="frame" x="0.0" y="78" width="392" height="50"/>
+                                                                <rect key="frame" x="0.0" y="94.5" width="392" height="50"/>
                                                                 <autoresizingMask key="autoresizingMask"/>
                                                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="ZcV-df-nhP" id="o2d-Vc-WMA">
                                                                     <rect key="frame" x="0.0" y="0.0" width="392" height="50"/>
@@ -804,7 +804,7 @@
                                                                 </connections>
                                                             </tableViewCell>
                                                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="AcuityDetailValueDisplayCellSymptoms" id="5t0-Wk-ymx" customClass="AcuityDetailValueDisplayCell" customModule="AcuityEngine" customModuleProvider="target">
-                                                                <rect key="frame" x="0.0" y="128" width="392" height="50"/>
+                                                                <rect key="frame" x="0.0" y="144.5" width="392" height="50"/>
                                                                 <autoresizingMask key="autoresizingMask"/>
                                                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="5t0-Wk-ymx" id="B2s-A5-OBd">
                                                                     <rect key="frame" x="0.0" y="0.0" width="392" height="50"/>
@@ -946,7 +946,7 @@
                                                         <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                         <prototypes>
                                                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="AcuityDetailValueDisplayCell" id="ezn-of-p0w" customClass="AcuityDetailValueDisplayCell" customModule="AcuityEngine" customModuleProvider="target">
-                                                                <rect key="frame" x="0.0" y="28" width="392" height="20.5"/>
+                                                                <rect key="frame" x="0.0" y="44.5" width="392" height="20.5"/>
                                                                 <autoresizingMask key="autoresizingMask"/>
                                                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="ezn-of-p0w" id="rxY-lZ-gR0">
                                                                     <rect key="frame" x="0.0" y="0.0" width="392" height="20.5"/>

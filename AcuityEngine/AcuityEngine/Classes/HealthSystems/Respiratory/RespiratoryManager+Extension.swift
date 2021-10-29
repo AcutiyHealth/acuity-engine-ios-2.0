@@ -25,7 +25,7 @@ extension RespiratoryManagerProtocol{
         
         // STEP 8.5: "Saves an array of objects to the HealthKit store."
         HKHealthStore().save([heartRateSampleData]) { (success: Bool, error: Error?) in
-            print("Heart rate \(heartRate) saved.")
+            Log.d("Heart rate \(heartRate) saved.")
         }
         
     } // end func writeHeartRateData

@@ -6,7 +6,7 @@
 //
 
 import UIKit
-import JGProgressHUD
+import SVProgressHUD
 
 
 var arrayMedicationSectionTitle = [Medication.vitamin,Medication.diabetes];
@@ -16,8 +16,7 @@ class AddMedicationsViewController: UIViewController,UITableViewDelegate,UITable
     @IBOutlet weak var lblTitle: UILabel!
     @IBOutlet weak var tblMedicationInputView: UITableView!
     @IBOutlet weak var tblMedicationDataView: UITableView!
-    var progrssHUD:JGProgressHUD = JGProgressHUD()
-    
+   
     var arrayForTblInputView:[MedicationInputModel] = []
     var arrayForTblDataView:[[Medication:[MedicationDataDisplayModel]]] = []
 
@@ -64,7 +63,7 @@ class AddMedicationsViewController: UIViewController,UITableViewDelegate,UITable
  
     func fetchMedicationDataFromDatabase(){
         //Global Queue
-        progrssHUD = showIndicatorInView(view: self.view)
+        SVProgressHUD.show()
         DispatchQueue.global(qos: .background).async {
        
             //Fetch data......
@@ -92,7 +91,8 @@ class AddMedicationsViewController: UIViewController,UITableViewDelegate,UITable
                     self.tblMedicationDataView.reloadData()
                     self.tblMedicationInputView.reloadData()
                     //Hide Progress HUD
-                    self.progrssHUD.dismiss(animated: true)
+                    //SVProgressHUD.dismiss()
+                    SVProgressHUD.dismiss()
                 }
             
         }
@@ -255,7 +255,8 @@ class AddMedicationsViewController: UIViewController,UITableViewDelegate,UITable
             
             //===========Global Queue========//
             //==========Add row in table and update table===========//
-            progrssHUD = showIndicatorInView(view: self.view)
+            //SVProgressHUD.show()
+            SVProgressHUD.show()
             DispatchQueue.global(qos: .background).async {
                 DBManager.shared.insertMedicationData(model: model) { [weak self] (success, error) in
                     if error == nil && success == true{
@@ -295,7 +296,8 @@ class AddMedicationsViewController: UIViewController,UITableViewDelegate,UITable
             
             //===========Global Queue========//
             //==========Add row in table and update table===========//
-            progrssHUD = showIndicatorInView(view: self.view)
+            //SVProgressHUD.show()
+            SVProgressHUD.show()
             DispatchQueue.global(qos: .background).async {
                 let isSuccess = DBManager.shared.deleteMedication(model: model)
                 DispatchQueue.main.async {
@@ -316,7 +318,8 @@ class AddMedicationsViewController: UIViewController,UITableViewDelegate,UITable
             self.tblMedicationDataView.reloadData()
             
             //Hide Progress HUD
-            self.progrssHUD.dismiss(animated: true)
+            //SVProgressHUD.dismiss()
+            SVProgressHUD.dismiss()
             
         }
     }

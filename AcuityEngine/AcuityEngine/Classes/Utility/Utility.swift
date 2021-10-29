@@ -6,20 +6,67 @@
 //
 
 import Foundation
-import JGProgressHUD
 
-//MARK: Show Indicator
-func showIndicatorInView(view:UIView)->JGProgressHUD{
-    let hud = JGProgressHUD()
-    hud.textLabel.text = "Loading"
-    hud.show(in: view)
-    return hud
+class Utility {
+    //UserDefaults
+    
+    class func setBoolForKey(_ value: Bool, key: String) {
+        UserDefaults.standard.set(value, forKey: key)
+        UserDefaults.standard.synchronize()
+    }
+    
+    class func fetchBool(forKey key: String) -> Bool {
+        return UserDefaults.standard.bool(forKey: key)
+    }
+    
+    class func setStringForKey(_ value: String, key: String) {
+        UserDefaults.standard.set(value, forKey: key)
+        UserDefaults.standard.synchronize()
+    }
+    
+    class func setIntegerForKey(_ value: Int, key: String) {
+        UserDefaults.standard.set(value, forKey: key)
+        UserDefaults.standard.synchronize()
+    }
+    
+    class func fetchInteger(forKey key: String) -> Int {
+        return UserDefaults.standard.integer(forKey: key)
+    }
+    
+    class func fetchString(forKey key: String) -> String {
+        return UserDefaults.standard.string(forKey: key)!
+    }
+    
+    class func setObjectForKey(_ value: Data, key: String) {
+        UserDefaults.standard.set(value, forKey: key)
+        UserDefaults.standard.synchronize()
+    }
+    class func fetchObject(forKey key: String) -> Any? {
+        return UserDefaults.standard.object(forKey: key)
+    }
+    
+    class func removeUserDefaults(key: String){
+        UserDefaults.standard.string(forKey: key)
+        UserDefaults.standard.removeObject(forKey:key)
+    }
+    
+    static func showAlertWithOKBtn(onViewController vc: UIViewController, title titleOfAlert:String = "\(Key.kAppName)" , message messageInAlert: String) {
+        
+        //Create alertController object with specific message
+        let alertController = UIAlertController(title: titleOfAlert, message: messageInAlert, preferredStyle: .alert)
+        
+        //Add OK button to alert and dismiss it on action
+        let alertAction = UIAlertAction(title: "OK", style: .default) { (action) in
+            
+            alertController.dismiss(animated: true, completion: nil)
+        }
+        alertController.addAction(alertAction)
+        
+        //Show alert to user
+        vc.present(alertController, animated: true, completion: nil)
+    }
 }
 
-func hideIndicator(){
-    let hud = JGProgressHUD()
-    hud.dismiss()
-}
 func setupViewBorderForAddSection(view:UIView){
     view.layer.borderWidth = 1
     view.layer.cornerRadius = 5
@@ -30,11 +77,11 @@ func roundCorners(view:UIView,_ corners: UIRectCorner, radius: CGFloat) {
     view.layer.borderWidth = 1
     view.layer.borderColor = UIColor.white.cgColor
     view.layer.cornerRadius = 0
-         let path = UIBezierPath(roundedRect: view.bounds, byRoundingCorners: corners, cornerRadii: CGSize(width: radius, height: radius))
-         let mask = CAShapeLayer()
-         mask.path = path.cgPath
+    let path = UIBezierPath(roundedRect: view.bounds, byRoundingCorners: corners, cornerRadii: CGSize(width: radius, height: radius))
+    let mask = CAShapeLayer()
+    mask.path = path.cgPath
     view.layer.mask = mask
-    }
+}
 /// Standardize the display of dates within the app.
 func createDefaultDateFormatter() -> DateFormatter {
     let formatter = DateFormatter()
@@ -54,6 +101,24 @@ func versionNumberString() -> String? {
     let infoDictionary = Bundle.main.infoDictionary
     let majorVersion = infoDictionary?["CFBundleShortVersionString"] as? String
     return majorVersion
+}
+
+//========================================================================================================
+//MARK: Birthdate and Age..
+//========================================================================================================
+func calculateAgeFromBirthDate(birthday:String)->Int{
+    
+    let dateFormater = DateFormatter()
+    dateFormater.dateFormat = "yyyy-MM-dd"
+    let birthdayDate = dateFormater.date(from: birthday)
+    let calendar: NSCalendar! = NSCalendar(calendarIdentifier: .gregorian)
+    let now = Date()
+    if let birthdayDate = birthdayDate{
+        let calcAge = calendar.components(.year, from: birthdayDate, to: now, options: [])
+        let age = calcAge.year
+        return age ?? 0
+    }
+    return 0
 }
 //MARK: Apply Animation For Adding View
 func animationForDetailViewWhenAdded(subviewToAdd:UIView, in   view:UIView){
@@ -102,12 +167,14 @@ func getThemeColor(index: String?,isForWheel:Bool) -> UIColor? {
         
     }
 }
+
+
 //MARK: Sorting Of Systems Based on Score
 func sortingOfSystemBasedONScore(item: [String:Any]) -> [[String:Any]] {
     var redColorElememnts : [[String:Any]] = []
     var yellowColorElememnts : [[String:Any]] = []
     var greenColorElememnts : [[String:Any]] = []
-   
+    
     let indexValue =  Double(item["score"] as? String ?? "") ?? 0
     if indexValue  > 0 && indexValue <= 75{
         redColorElememnts.append(item)
@@ -116,7 +183,7 @@ func sortingOfSystemBasedONScore(item: [String:Any]) -> [[String:Any]] {
     }else{
         greenColorElememnts.append(item)
     }
-
+    
     var finalArray: [[String:Any]] = []
     finalArray.append(contentsOf: redColorElememnts)
     finalArray.append(contentsOf: yellowColorElememnts)

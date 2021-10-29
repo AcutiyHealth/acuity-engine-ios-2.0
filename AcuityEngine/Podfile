@@ -9,7 +9,10 @@ target 'AcuityEngine' do
   pod 'SOPullUpView'
   pod 'Alamofire'
   pod 'JGProgressHUD'
+  pod 'JGProgressHUD'
   pod 'Charts'
+  pod 'PopupDialog'
+  pod 'SVProgressHUD'
   # Pods for AcuityEngine
 
 end

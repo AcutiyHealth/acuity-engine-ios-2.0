@@ -52,7 +52,7 @@ class MyWellScore: NSObject {
         dispatchGroup.notify(queue: .main) {
             
             DispatchQueue.main.async {
-                print("calculate my well score")
+                Log.d("calculate my well score")
                 
             }
         }
@@ -64,7 +64,7 @@ class MyWellScore: NSObject {
         let totalMaxScore = getTotalMaxScore()
         let abnormalFraction = totalWeightedSystemScore / totalMaxScore
         MyWellScore.sharedManager.myWellScore = abnormalFraction * 100
-        print("<--------------------MyWellScore.sharedManager.myWellScore-------------------->",MyWellScore.sharedManager.myWellScore)
+        Log.d("<--------------------MyWellScore.sharedManager.myWellScore-------------------->\(MyWellScore.sharedManager.myWellScore)")
     }
     
     func getTotalMaxScore()->Double{

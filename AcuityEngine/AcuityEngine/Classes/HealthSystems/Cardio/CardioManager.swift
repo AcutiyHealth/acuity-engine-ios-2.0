@@ -43,7 +43,7 @@ class CardioManager: NSObject {
             self.cardioData.cardioVital.systolicBloodPressureData.append(systolicBP)
             
             
-            print("---------\n bloodPressureSystolic \nValue \(systolicBP.value)\n Score \(systolicBP.score)\n Max Score\(systolicBP.maxScore ?? 0.0) \n---------")
+            //print("---------\n bloodPressureSystolic \nValue \(systolicBP.value)\n Score \(systolicBP.score)\n Max Score\(systolicBP.maxScore ?? 0.0) \n---------")
         }
         else if quantityType == QuantityType.bloodPressureDiastolic {
             

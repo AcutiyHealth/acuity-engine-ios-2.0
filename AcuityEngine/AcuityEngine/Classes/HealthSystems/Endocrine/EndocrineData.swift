@@ -24,7 +24,7 @@ class EndocrineData {
     
     
     func getWeightedSystemScore()->Double{
-        print("<--------------------Endocrine------------------>")
+        Log.d("<--------------------Endocrine------------------>")
         let score = totalSystemScoreWithDays(days: SegmentValueForGraph.OneDay)
         return (score * endocrineRelativeImportance)/100
     }
@@ -32,13 +32,13 @@ class EndocrineData {
     
     //Total/Final System Score
     func totalSystemScoreWithDays(days:SegmentValueForGraph) -> Double{
-        print("<--------------------Endocrine------------------>")
+        Log.d("<--------------------Endocrine------------------>")
         let arrayDayWiseSystemScore = systemScoreWithDays(days: days)
         //Calculate average system score for 7 days/30 days/3 months
         //Final system score for Cardio
         endocrineSystemScore = commonTotalSystemScoreWithDays(arrayDayWiseSystemScore: arrayDayWiseSystemScore)
         let calculatedScore = endocrineSystemScore
-        print("Endocrine calculatedScore",calculatedScore)
+        Log.d("Endocrine calculatedScore-\(calculatedScore)")
         return calculatedScore
     }
     
@@ -83,7 +83,7 @@ class EndocrineData {
         let totalMaxScore = maxScoreVitals  + maxConditionData  + maxLabData + maxsymptomData
         
         
-        print("totalMaxScore=======\(totalMaxScore) maxScoreVitals===\(maxScoreVitals)  maxConditionData===\(maxConditionData)  maxLabData === \(maxLabData) maxsymptomData===\(maxsymptomData)")
+        Log.d("totalMaxScore=======\(totalMaxScore) maxScoreVitals===\(maxScoreVitals)  maxConditionData===\(maxConditionData)  maxLabData === \(maxLabData) maxsymptomData===\(maxsymptomData)")
         return totalMaxScore
         
     }

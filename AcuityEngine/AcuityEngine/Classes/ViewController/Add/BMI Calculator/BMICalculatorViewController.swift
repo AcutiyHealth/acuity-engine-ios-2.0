@@ -174,9 +174,19 @@ class BMICalculatorViewController: UIViewController {
         let totalInches = (feet*12) + (inches);
         let temp = pounds / (totalInches * totalInches);
         BMIValue = (temp * 703)
-        lblTotalBMI.text =  "Your BMI Index: \(String(format: "%.2f", BMIValue))";
+        lblTotalBMI.attributedText =  createAttributeStringForBMIValue(txtStringBMIValue: String(format: "%.2f", BMIValue))
     }
     
+    func createAttributeStringForBMIValue(txtStringBMIValue:String)->NSMutableAttributedString{
+
+        let mainString = "Your BMI Index:  \(txtStringBMIValue)"
+        let rangeBMIValue = (mainString as NSString).range(of: txtStringBMIValue)
+
+        let mutableAttributedString = NSMutableAttributedString.init(string: mainString)
+        mutableAttributedString.addAttribute(NSAttributedString.Key.font, value: Fonts.kCellTitleFont, range: rangeBMIValue)
+      
+        return mutableAttributedString
+    }
     //========================================================================================================
     //MARK: Btn Save Click..
     //========================================================================================================
@@ -220,7 +230,7 @@ class BMICalculatorViewController: UIViewController {
                 completion(nil)
                 
             }else{
-                let message = "\(String(describing: vitalModel.name!.rawValue)) is not authorized. You can authorized it by making Turn on from Settings -> Health -> DATA -> \(Key.kAppName) -> Health Data"
+                let message = "\(String(describing: vitalModel.name!.rawValue)) is not authorized. \(AlertMessages.AUTHORIZE_HEALTH_DATA)"
                 self?.vitalsSavedFailed(message: message)
                 completion(error)
             }

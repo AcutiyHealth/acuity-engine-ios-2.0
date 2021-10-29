@@ -45,7 +45,7 @@ class CardioVital:VitalProtocol {
         let oxygenSaturation = (Double(oxygenSaturationData.average(\.score)).isNaN ? 0 : Double(oxygenSaturationData.average(\.score)))
         
         let totalVitalScore = heartRate  + systolicBloodPressur + diastolicBloodPressure + irregularRhythmNotification + highHeartRate + lowHeartRate + vo2max + oxygenSaturation
-        print("heartRate -> \(heartRate) \n systolicBloodPressur -> \(systolicBloodPressur) \n diastolicBloodPressure -> \(diastolicBloodPressure) \n irregularRhythmNotification -> \(irregularRhythmNotification) \n highHeartRate -> \(highHeartRate) \n lowHeartRate -> \(lowHeartRate) \n vo2max -> \(vo2max) oxygenSaturation -> \(oxygenSaturation)")
+        //print("heartRate -> \(heartRate) \n systolicBloodPressur -> \(systolicBloodPressur) \n diastolicBloodPressure -> \(diastolicBloodPressure) \n irregularRhythmNotification -> \(irregularRhythmNotification) \n highHeartRate -> \(highHeartRate) \n lowHeartRate -> \(lowHeartRate) \n vo2max -> \(vo2max) oxygenSaturation -> \(oxygenSaturation)")
         
         return totalVitalScore;
     }

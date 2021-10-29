@@ -24,7 +24,7 @@ class IDiseaseData {
     
     
     func getWeightedSystemScore()->Double{
-        print("<--------------------IDisease------------------>")
+        Log.d("<--------------------IDisease------------------>")
         let score = totalSystemScoreWithDays(days: SegmentValueForGraph.OneDay)
         return (score * iDiseaseRelativeImportance)/100
     }
@@ -32,13 +32,13 @@ class IDiseaseData {
     
     //Total/Final System Score
     func totalSystemScoreWithDays(days:SegmentValueForGraph) -> Double{
-        print("<--------------------IDisease------------------>")
+        Log.d("<--------------------IDisease------------------>")
         let arrayDayWiseSystemScore = systemScoreWithDays(days: days)
         //Calculate average system core for 7 days/30 days/3 months
         //Final system score for Cardio
         iDiseaseSystemScore = commonTotalSystemScoreWithDays(arrayDayWiseSystemScore: arrayDayWiseSystemScore)
         let calculatedScore = iDiseaseSystemScore
-        print("IDisease calculatedScore",calculatedScore)
+        Log.d("IDisease calculatedScore--\(calculatedScore)")
         return calculatedScore
     }
     

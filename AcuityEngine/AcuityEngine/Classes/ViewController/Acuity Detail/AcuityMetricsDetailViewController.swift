@@ -144,6 +144,7 @@ extension AcuityMetricsDetailViewController: UITableViewDelegate, UITableViewDat
             do{
                 cell = tableView.dequeueReusableCell(withIdentifier: "AcuityDetailValueDisplayCellSymptoms") as! AcuityDetailValueDisplayCell
                 let item = arrMedications[indexPath.row]
+                cell.btnArrowForDetail.isHidden  = true
                 cell.displayMedicationData(item: item)
                 cell.selectionStyle = .none
             }

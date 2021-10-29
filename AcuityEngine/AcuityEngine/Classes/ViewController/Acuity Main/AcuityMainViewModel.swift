@@ -6,10 +6,18 @@
 //
 
 import Foundation
-
+import UIKit
+import HealthKitReporter
+import SVProgressHUD
+protocol AcuityMainViewModelProtocol {
+    var showNoAgeDataAlert: ((Bool) -> Void)? { get set }
+    var noInternetAlert: ((Bool) -> Void)? { get set }
+    var displayPreventionData: (([SpecificRecommendations]) -> Void)? { get set }
+}
 class AcuityMainViewModel: NSObject {
-    
-   
+    var showNoAgeDataAlert: ((Bool) -> Void)?
+    var noInternetAlert: ((Bool) -> Void)?
+    var displayPreventionData: (([SpecificRecommendations]) -> Void)?
     var leadingMyWellConstraint,topMyWellConstraint,centerMyWellConstraint,lblScoreCenterConstraint,lblScoreTopConstraint,lblScoreBottomConstraint,lblScoreTextLeadingConstraint,lblScoreTextBottomConstraint: NSLayoutConstraint?
     
     var traillingMyWellConstraint,lblScoreTextCenterConstraint: NSLayoutConstraint?
@@ -35,11 +43,11 @@ class AcuityMainViewModel: NSObject {
         
         mainScoreView.removeConstraint(lblScoreTextLeadingConstraint!)
         mainScoreView.removeConstraint(lblScoreTextBottomConstraint!)
-//        if isAnimationConstraintAdded {
-//        mainScoreView.removeConstraint(traillingMyWellConstraint!)
-//        mainScoreView.removeConstraint(lblScoreTextCenterConstraint!)
-//        mainScoreView.removeConstraint(lblScoreTextLeadingConstraint!)
-//        }
+        //        if isAnimationConstraintAdded {
+        //        mainScoreView.removeConstraint(traillingMyWellConstraint!)
+        //        mainScoreView.removeConstraint(lblScoreTextCenterConstraint!)
+        //        mainScoreView.removeConstraint(lblScoreTextLeadingConstraint!)
+        //        }
     }
     func setTopLabel(mainScoreView:UIView,lblMyWell:UILabel,lblScoreText:UILabel,lblScore:UILabel,viewHeight:CGFloat){
         
@@ -50,7 +58,7 @@ class AcuityMainViewModel: NSObject {
             isAnimationConstraintAdded = false
         }
         
-       // UIView.animateKeyframes(withDuration: 0.7, delay: 0.0, options: .calculationModeLinear) { [self] in
+        // UIView.animateKeyframes(withDuration: 0.7, delay: 0.0, options: .calculationModeLinear) { [self] in
         UIView.animateKeyframes(withDuration: 0.7, delay: 0.0, options: .calculationModeLinear)  { [self] in
             
             mainScoreView.backgroundColor = .red
@@ -61,10 +69,10 @@ class AcuityMainViewModel: NSObject {
             lblMyWell.font = lblMyWell.font.withSize(viewHeight * 0.046) //UIFont.systemFont(ofSize: 26, weight: .semibold)
             
             lblScoreText.font = lblScoreText.font.withSize(viewHeight * 0.046)
-                //UIFont.systemFont(ofSize: 32, weight: .semibold)
-           
+            //UIFont.systemFont(ofSize: 32, weight: .semibold)
+            
             lblScore.font = lblScore.font.withSize(viewHeight * 0.046 + 12)
-                //UIFont.systemFont(ofSize: 32, weight: .semibold)
+            //UIFont.systemFont(ofSize: 32, weight: .semibold)
             
             
             lblMyWell.translatesAutoresizingMaskIntoConstraints = false
@@ -140,45 +148,45 @@ class AcuityMainViewModel: NSObject {
             mainScoreView.layoutIfNeeded()
         }
         /*UIView.animateKeyframes(withDuration: 0.5, delay: 0.0, options: .calculationModeLinear) { [self] in
-            isAnimationConstraintAdded = true
-            lblMyWell.font = lblMyWell.font.withSize(viewHeight * 0.046)
-            lblScoreText.font = lblScoreText.font.withSize(viewHeight * 0.046)
-            lblScore.font = lblScore.font.withSize(viewHeight * 0.046)
-            
-            mainScoreView.removeConstraint(leadingMyWellConstraint!)
-            mainScoreView.removeConstraint(topMyWellConstraint!)
-            mainScoreView.removeConstraint(centerMyWellConstraint!)
-            
-            mainScoreView.removeConstraint(lblScoreCenterConstraint!)
-            mainScoreView.removeConstraint(lblScoreTopConstraint!)
-            mainScoreView.removeConstraint(lblScoreBottomConstraint!)
-            
-            mainScoreView.removeConstraint(lblScoreTextLeadingConstraint!)
-            mainScoreView.removeConstraint(lblScoreTextBottomConstraint!)
-            
-            lblMyWell.translatesAutoresizingMaskIntoConstraints = false
-            lblScore.translatesAutoresizingMaskIntoConstraints = false
-            lblScoreText.translatesAutoresizingMaskIntoConstraints = false
-            
-            let margins = mainScoreView.layoutMarginsGuide
-            
-            
-            traillingMyWellConstraint = lblMyWell.trailingAnchor.constraint(equalTo: lblScoreText.leadingAnchor, constant: -4)
-            
-            lblScoreTextCenterConstraint = lblScoreText.centerXAnchor.constraint(equalTo: margins.centerXAnchor, constant: 30)
-            
-            lblScoreTextLeadingConstraint = lblScore.leadingAnchor.constraint(equalTo: lblScoreText.trailingAnchor, constant: 4)
-            topMyWellConstraint = lblMyWell.topAnchor.constraint(equalTo: margins.topAnchor, constant: 20)
-     
-            mainScoreView.addConstraint(traillingMyWellConstraint!)
-            mainScoreView.addConstraint(lblScoreTextCenterConstraint!)
-            mainScoreView.addConstraint(lblScoreTextLeadingConstraint!)
-            
-            mainScoreView.layoutIfNeeded()
-        } completion: { [self] (isSuccess) in
-            
-            
-        }*/
+         isAnimationConstraintAdded = true
+         lblMyWell.font = lblMyWell.font.withSize(viewHeight * 0.046)
+         lblScoreText.font = lblScoreText.font.withSize(viewHeight * 0.046)
+         lblScore.font = lblScore.font.withSize(viewHeight * 0.046)
+         
+         mainScoreView.removeConstraint(leadingMyWellConstraint!)
+         mainScoreView.removeConstraint(topMyWellConstraint!)
+         mainScoreView.removeConstraint(centerMyWellConstraint!)
+         
+         mainScoreView.removeConstraint(lblScoreCenterConstraint!)
+         mainScoreView.removeConstraint(lblScoreTopConstraint!)
+         mainScoreView.removeConstraint(lblScoreBottomConstraint!)
+         
+         mainScoreView.removeConstraint(lblScoreTextLeadingConstraint!)
+         mainScoreView.removeConstraint(lblScoreTextBottomConstraint!)
+         
+         lblMyWell.translatesAutoresizingMaskIntoConstraints = false
+         lblScore.translatesAutoresizingMaskIntoConstraints = false
+         lblScoreText.translatesAutoresizingMaskIntoConstraints = false
+         
+         let margins = mainScoreView.layoutMarginsGuide
+         
+         
+         traillingMyWellConstraint = lblMyWell.trailingAnchor.constraint(equalTo: lblScoreText.leadingAnchor, constant: -4)
+         
+         lblScoreTextCenterConstraint = lblScoreText.centerXAnchor.constraint(equalTo: margins.centerXAnchor, constant: 30)
+         
+         lblScoreTextLeadingConstraint = lblScore.leadingAnchor.constraint(equalTo: lblScoreText.trailingAnchor, constant: 4)
+         topMyWellConstraint = lblMyWell.topAnchor.constraint(equalTo: margins.topAnchor, constant: 20)
+         
+         mainScoreView.addConstraint(traillingMyWellConstraint!)
+         mainScoreView.addConstraint(lblScoreTextCenterConstraint!)
+         mainScoreView.addConstraint(lblScoreTextLeadingConstraint!)
+         
+         mainScoreView.layoutIfNeeded()
+         } completion: { [self] (isSuccess) in
+         
+         
+         }*/
     }
     func setupBodySystemData()->[[String:Any]] {
         var arrBodySystems:[[String:Any]] = []
@@ -368,7 +376,7 @@ class AcuityMainViewModel: NSObject {
         var redColorElememnts : [[String:Any]] = []
         var yellowColorElememnts : [[String:Any]] = []
         var greenColorElememnts : [[String:Any]] = []
- 
+        
         for item in bodySystemArray{
             let indexValue =  Double(item["score"] as? String ?? "") ?? 0
             if indexValue  > 0 && indexValue <= 75{
@@ -379,29 +387,129 @@ class AcuityMainViewModel: NSObject {
                 greenColorElememnts.append(item)
             }
         }
-            var finalArray: [[String:Any]] = []
-            finalArray.append(contentsOf: redColorElememnts)
-            finalArray.append(contentsOf: yellowColorElememnts)
-            finalArray.append(contentsOf: greenColorElememnts)
-            
-            
+        var finalArray: [[String:Any]] = []
+        finalArray.append(contentsOf: redColorElememnts)
+        finalArray.append(contentsOf: yellowColorElememnts)
+        finalArray.append(contentsOf: greenColorElememnts)
+        
+        
         return finalArray
     }
     
     func returnSortedArrayUsingIndexandSequence(bodySystemArray:[[String:Any]]) -> [[String:Any]] {
-      
+        
         var filterdBodySystemArray = bodySystemArray
         var finalArray: [[String:Any]] = []
         /*let filterMyWellData:[[String:Any]] = bodySystemArray.filter { $0["id"] as? String != SystemId.Id_MyWellScore}
-        if let index = bodySystemArray.firstIndex(where: {$0["id"] as? String != SystemId.Id_MyWellScore}) {
-            filterdBodySystemArray.remove(at: index)
-        }
-        if filterMyWellData.count > 0
-        {
-            finalArray.append(filterMyWellData.first!)
-        }*/
+         if let index = bodySystemArray.firstIndex(where: {$0["id"] as? String != SystemId.Id_MyWellScore}) {
+         filterdBodySystemArray.remove(at: index)
+         }
+         if filterMyWellData.count > 0
+         {
+         finalArray.append(filterMyWellData.first!)
+         }*/
         finalArray = sortDictionaryDataBasedOnScore(bodySystemArray: filterdBodySystemArray)
-       
+        
         return finalArray
+    }
+    
+    func arrangePreventionButtonNearWheel(btnPrevention:UIButton,view:UIView,wheel:RotaryWheel){
+        
+        btnPrevention.translatesAutoresizingMaskIntoConstraints = false
+        btnPrevention.setTitle("", for: .normal)
+        let margins = view.layoutMarginsGuide
+        let bottomConstraint = btnPrevention.bottomAnchor.constraint(equalTo: margins.topAnchor, constant: wheel.frame.origin.y-5);
+        let leftConstraint = btnPrevention.leftAnchor.constraint(equalTo: margins.leftAnchor, constant: 0);
+        let height = btnPrevention.heightAnchor.constraint(equalToConstant: 40)
+        let width = btnPrevention.widthAnchor.constraint(equalToConstant: 40)
+        view.addConstraint(bottomConstraint)
+        view.addConstraint(height)
+        view.addConstraint(width)
+        view.addConstraint(leftConstraint)
+        view.layoutIfNeeded()
+        
+        btnPrevention.addTarget(self, action: #selector(self.callApiForPreventionData), for: .touchUpInside)
+    }
+    
+    @objc func callApiForPreventionData(){
+        let age = readAgeFromHealthKit()
+        if age > 0{
+            if Reachability.isConnectedToNetwork(){
+                self.callApiForPreventionList(age: age)
+            }else{
+                noInternetAlert?(true)
+            }
+            
+        }else{
+            showNoAgeDataAlert?(true)
+        }
+    }
+    func callApiForPreventionList(age:Int) {
+        SVProgressHUD.show()
+        PreventionManager.shared.callPreventionWebserviceMethod { (responseModel) in
+            SVProgressHUD.dismiss()
+            switch responseModel.responseType {
+            case .success:
+                let preventionData = PreventionManager.shared.prevention
+                if let _ = preventionData{
+                    let preventionData = self.getPopupData(preventionData:preventionData!,age: age)
+                    self.displayPreventionData?(preventionData)
+                }
+                break
+            case .error:
+                print("error")
+                break
+            case .failure:
+                print("failure")
+                break
+            case .none:
+                break
+            }
+        }
+    }
+    private func readAgeFromHealthKit()-> Int {
+        do {
+            let reporter = try HealthKitReporter()
+            let characteristic = reporter.reader.characteristics()
+            let birthDay = characteristic.birthday ?? ""
+            let age = calculateAgeFromBirthDate(birthday: birthDay)
+            return age
+        } catch {
+            print(error)
+        }
+        return 0
+    }
+    func getPopupData(preventionData:PreventionModel,age:Int)->[SpecificRecommendations] {
+        let newAge = 11
+        var ageSpecificRecommendations = [SpecificRecommendations]()
+        for obj in 0..<(preventionData.specificRecommendations?.count ?? 0) {
+            let data = preventionData.specificRecommendations?[obj]
+            let min = data?.ageRange?.first ?? 0
+            let max = data?.ageRange?.last ?? 0
+            
+            let _ = data?.ageRange?.map{ _ in
+                if newAge < min || newAge > max{
+                    if let _ =  data{
+                        ageSpecificRecommendations.append(data!)
+                    }
+                }
+            }
+        }
+        return ageSpecificRecommendations
+        //showContactPopUp()
+    }
+    
+    //MARK: Get Center Btn Image Of Color
+    func getCenterBtnImageOfColor(index: String?) -> UIImage? {
+        let indexValue = Double(index ?? "") ?? 0
+        if indexValue > 0 && indexValue <= 75 {
+            return UIImage(named: AcuityImages.kRedRing)
+            
+        } else if indexValue > 75 && indexValue <= 85 {
+            return UIImage(named: AcuityImages.kYellowRing)
+            
+        } else {
+            return UIImage(named: AcuityImages.kGreenRing)
+        }
     }
 }

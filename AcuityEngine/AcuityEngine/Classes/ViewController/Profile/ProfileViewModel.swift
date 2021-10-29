@@ -20,15 +20,17 @@ class ProfileViewModel: NSObject {
             DispatchQueue.main.async {
                 /*
                  After fetching data from dataabse, prepare array of dicitonary. Dictionary will have key -> title of section and Value -> Array
-                 Filter data with Id of Histyory type and fetch Medication Name and MAke it's key. Sp E.g. If id = 1, name will be otherCondition and key will be of other condition. IT will have value which have Id = 1 in database..
+                 Filter data with Id of Medication type and fetch Medication Name and MAke it's key. Sp E.g. If id = 1, name will be Medication and key will be of Medication. It will have value(text) which have Id = 1 in database..
                  MedicationDataDisplayModel will have Id,name and textValue and TimeStamp...
                  */
                 for id in MedicationId.allCases {
+                    //Filter Data with Medication Id...
                     let filteredIdData = medicationData?.filter{$0.id == id}
                     if filteredIdData?.count ?? 0>0{
                         //Get name of filter data...
                         let name = filteredIdData?.first?.name?.rawValue
                         var arrStr:[String] = []
+                        //Get text value of filter data...
                         for item in filteredIdData! {
                             arrStr.append(item.txtValue ?? "")
                         }
@@ -57,15 +59,18 @@ class ProfileViewModel: NSObject {
             
             //Fetch data......
             var arrayForTblDataView:[[String:[String]]] = []
+            //Fetch data from Condition from Add Section
             let arrayOfFetchedConditionFromDatabase = DBManager.shared.loadOnConditionsOnly();
+            //Feth History Data......
             let historyData = DBManager.shared.loadHistories()
             //Main Queue......
             DispatchQueue.main.async {
                 /*
                  After fetching data from dataabse, prepare array of dicitonary. Dictionary will have key -> title of section and Value -> Array
-                 Filter data with Id of Histyory type and fetch Medication Name and MAke it's key. Sp E.g. If id = 1, name will be otherCondition and key will be of other condition. IT will have value which have Id = 1 in database..
+                 Filter data with Id of Histyory type and fetch History Name and MAke it's key. Sp E.g. If id = 1, name will be otherCondition and key will be of other condition. IT will have value which have Id = 1 in database..
                  MedicationDataDisplayModel will have Id,name and textValue and TimeStamp...
                  */
+                //Here Prepare one array of String and append string array to arrayForTblDataView with key Condition...
                 if arrayOfFetchedConditionFromDatabase!.count  > 0{
                     var arrStr:[String] = []
                     
@@ -74,11 +79,15 @@ class ProfileViewModel: NSObject {
                     }
                     arrayForTblDataView.append([AddOption.conditions.rawValue:arrStr])
                 }
+                
                 for id in OtherHistoryId.allCases {
+                    //Filter Data with History Id...
                     let filteredIdData = historyData?.filter{$0.id == id}
                     if filteredIdData?.count ?? 0>0{
                         //Get name of filter data...
                         let name = filteredIdData?.first?.name?.rawValue
+                        //Prepare array from value of specific history...
+                        //It will have name as key and value as array....
                         var arrStr:[String] = []
                         
                         for item in filteredIdData! {

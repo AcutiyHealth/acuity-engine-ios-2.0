@@ -84,9 +84,9 @@ enum MedicationValueText:String {
 }
 struct ImageSet {
     //static let wheel1 = UIImage(named:"wheel_option_1.png")
-    //static let wheel2 = UIImage(named:"wheel_option_2.png") //AppIcon
-    static let wheel1 = UIImage(named:"center_button.png")
-    static let wheel2 = UIImage(named:"center_button.png")
+    static let wheel2 = UIImage(named:"wheel_option_2.png") //AppIcon
+    //static let wheel1 = UIImage(named:"center_button.png")
+    //static let wheel2 = UIImage(named:"center_button.png")
 }
 enum PullUpType {
     case Detail
@@ -179,6 +179,15 @@ struct AlertMessages {
     static let BP_AND_HEARTRATE_SAVED = "Blood Pressure and Heart Rate saved in health kit"
     static let o2_AND_HEARTRATE_SAVED = "Oxygen Saturation and Heart Rate saved in health kit"
     static let MESSAGE_IN_ADD_OPTION_SCREEN = " use to know well score of person."
+    static let TITLE_NO_AGE_SET = "No Age Set"
+    static let TITLE_NETWORK_PROBLEM = "Network Problem"
+    static let DESCIPTION_NO_AGE_SET = "Set age in Health app to view prevention data"
+    static let AUTHORIZE_HEALTH_DATA = "You can authorized it by making Turn on from Settings -> Health -> DATA -> \(Key.kAppName ) -> Health Data"
+    static let MSG_ON_NOTIFICATION_SWITCH = "To on notification, go to Setting -> \(Key.kAppName) -> Notification"
+    static let TITLE_ON_NOTIFICATION_SWITCH = "Notification Is Off"
+    static let TERMINATOR_NOTIFICATION_TITLE = "Check Your Well Score"
+    static let TERMINATOR_NOTIFICATION_MESSAGE = "It's been a week you haven't open Acuity Engine App."
+    static let NETWORK_PROBLEM_MESSAGE = "Can't load data. There is internet connection problem"
 }
 struct WheelColor {
     static let BLUECOLORLABELTITLE = UIColor(red: 41.0 / 255.0, green: 121.0 / 255.0, blue: 255.0 / 255.0, alpha: 1.0)
@@ -203,6 +212,7 @@ enum ColorSchema {
     //Add Option Round view color...
     static let addOptionGrayColor =  UIColor(red: 1, green: 0.99, blue: 1, alpha: 0.22)
     
+    static let fourBoxColorInPullup = UIColor.white.withAlphaComponent(0.2)
     // Button Color
     static let buttonShadowColor = UIColor(red: 0, green: 0, blue: 0, alpha: 0.25)
     
@@ -212,11 +222,12 @@ enum ColorSchema {
     static let lightTextColor = UIColor(named: "light_text_color")
     
     //Main screen background
-//    static let kMainThemeColor =  UIColor(red: 25.0 / 255.0, green: 25 / 255.0, blue: 112 / 255.0, alpha: 1.0)
-//    static let kMainThemeColorForPullup =  UIColor(red: 61.0 / 255.0, green: 89 / 255.0, blue: 171 / 255.0, alpha: 0.3)
-    static let kMainThemeColor =  UIColor.black
+    //    static let kMainThemeColor =  UIColor(red: 25.0 / 255.0, green: 25 / 255.0, blue: 112 / 255.0, alpha: 1.0)
+    //    static let kMainThemeColorForPullup =  UIColor(red: 61.0 / 255.0, green: 89 / 255.0, blue: 171 / 255.0, alpha: 0.3)
+    //static let kMainThemeColor =  UIColor(red: 25.0 / 255.0, green: 25 / 255.0, blue: 112 / 255.0, alpha: 1.0)//UIColor.black
+    static let kMainThemeColor =  UIColor(red: 20.0 / 255.0, green: 41 / 255.0, blue: 113 / 255.0, alpha: 1.0)
     static let kMainThemeColorForPullup =  UIColor(red: 28.0 / 255.0, green: 28 / 255.0, blue: 30 / 255.0, alpha: 1)//rgba(28,28,30,255)
-
+    
 }//rgba(53, 85, 189, 1)
 
 struct ChartSize {
@@ -229,13 +240,13 @@ struct Screen{
     static let screenWidth = screenSize.size.width
     static let screenHeight = screenSize.size.height
     static let iPhone11ScreenHeight =
-        896
+    896
     static let iPhone11ScreenWidth =
-        414
+    414
     static let iPhoneSEHeight =
-        568
+    568
     static let iPhoneSEWidth =
-        320
+    320
 }
 
 struct Keys {
@@ -264,6 +275,9 @@ struct AcuityImages {
     static let kSDH = "disposition_information.png"
     static let kHeent = "heent.png"
     static let kMyWellScore = "mywellscore.png"
+    static let kRedRing = "red-ring.png"
+    static let kYellowRing = "yellow-ring.png"
+    static let kGreenRing = "green-ring.png"
 }
 
 struct Fonts {
@@ -288,8 +302,9 @@ struct Fonts {
     static let kValueFont = getFontAsPerDeviceSize(fontName: UIFont.SFProDisplayMedium(of: 18), fontSize: 18)
     
     //Profile
-    static let kAcuityProfileDetailFont = getFontAsPerDeviceSize(fontName: UIFont.SFProDisplayRegular(of: 16), fontSize: 16)
-    
+    static let kCellProfileDetailTitleFont = getFontAsPerDeviceSize(fontName: UIFont.SFProDisplayBold(of: 20), fontSize: 20)
+    static let kCellProfileDetailFont = getFontAsPerDeviceSize(fontName: UIFont.SFProDisplayRegular(of: 16), fontSize: 16)
+    static let kTermsNConditionFont = getFontAsPerDeviceSize(fontName: UIFont.SFProDisplayRegular(of: 14), fontSize: 14)
     //List in Add Section cell
     static let kCellTextFontListInAddSection = getFontAsPerDeviceSize(fontName: UIFont.SFProDisplaySemiBold(of: 18), fontSize: 18)
     static let kCellTitleFontListInAddSection = getFontAsPerDeviceSize(fontName: UIFont.SFProDisplayBold(of: 26), fontSize: 26)
@@ -308,7 +323,7 @@ struct Fonts {
 }
 //
 let VERSION_KEY = "version"
-
+let NUMBER_OF_DAYS_FOR_APP_OPEN = 7
 let dayArray = ["Mon","Tue","Wed","Thu","Fri","Sat","Sun"]
 
 struct DeviceSize {
@@ -324,5 +339,7 @@ struct Key {
     static let kAppleEmail = "appleEmail" as  String
     static let kAppleUserID = "appleUserID" as  String
     static let kAppName = Bundle.main.infoDictionary?["CFBundleDisplayName"] as? String ?? "AcuityEngine"
+    static let kIsNotificationOnOff = "isNotificationOnOff" as  String
+    static let kIsTerminatereminder = "isTerminatereminder" as  String
 }
 

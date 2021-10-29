@@ -8,9 +8,6 @@
 
 import Foundation
 
-//========================================================================================================
-// PRAGMA MARK:- RESPONSE_TYPE Enum
-//========================================================================================================
 enum RESPONSE_TYPE : Int {
     case success = 0
     // SUCCESS
@@ -20,9 +17,6 @@ enum RESPONSE_TYPE : Int {
 }
 
 
-//========================================================================================================
-// PRAGMA MARK:- APIResponseModel Class
-//========================================================================================================
 class APIResponseModel {
     var responseType: RESPONSE_TYPE?
     var object: AnyObject?
@@ -33,21 +27,14 @@ class APIResponseModel {
     var errorMessage:String? = ""
     var attributes: Attributes?
     var statusCode: Int? = 0
-    var requestModel: APIRequestModel?
 }
 
-//========================================================================================================
-// PRAGMA MARK:- Attributes Class
-//========================================================================================================
 class Attributes: Codable {
     var count: Int? = 0
     var offset: Int? = 0
     var limit: Int? = 0
 }
 
-//========================================================================================================
-// PRAGMA MARK:- APIError Class
-//========================================================================================================
 class APIError : Codable {
     let code:String?
     let message:String?

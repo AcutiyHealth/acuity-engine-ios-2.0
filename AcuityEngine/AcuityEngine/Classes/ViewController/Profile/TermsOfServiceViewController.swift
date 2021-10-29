@@ -12,7 +12,7 @@ class TermsOfServiceViewController: UIViewController {
     
     // MARK: - Outlet
     @IBOutlet weak var switchNotification: UISwitch!
-    @IBOutlet weak var lblNotification: UILabel!
+    @IBOutlet weak var txtView: UITextView!
     @IBOutlet weak var btnClose: UIButton!
    
     // MARK: - Controller Life Cycle
@@ -24,7 +24,7 @@ class TermsOfServiceViewController: UIViewController {
     }
     
     func setFontForLabel(){
-        lblNotification.font = Fonts.kCellTitleFont
+        txtView.font = Fonts.kTermsNConditionFont
     }
     
     //MARK:

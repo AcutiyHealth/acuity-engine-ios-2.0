@@ -100,7 +100,7 @@ class HKWriterManager {
                 print("Error Saving Sample \(quantityTypeIdentifier): \(error.localizedDescription)")
             } else {
                 completion(nil)
-                print("Successfully saved \(quantityTypeIdentifier) Sample")
+                Log.d("Successfully saved \(quantityTypeIdentifier) Sample")
             }
         }
         
@@ -186,7 +186,7 @@ class HKWriterManager {
                 print("Error Saving Sample \(diastolicType.identifier): \(error.localizedDescription)")
             } else {
                 completion(nil)
-                print("Successfully saved \(diastolicType.identifier) Sample")
+                Log.d("Successfully saved \(diastolicType.identifier) Sample")
             }
         }
     }
@@ -215,7 +215,7 @@ extension HKWriterManager{
                 print("Error Saving Sample \(caegoryTypeIdentifier): \(error.localizedDescription)")
             } else {
                 completion(nil)
-                print("Successfully saved \(caegoryTypeIdentifier) Sample")
+                Log.d("Successfully saved \(caegoryTypeIdentifier) Sample")
             }
         }
        

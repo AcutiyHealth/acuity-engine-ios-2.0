@@ -6,7 +6,7 @@
 //
 
 import UIKit
-import JGProgressHUD
+import SVProgressHUD
 
 let HEIGHT_OF_ROW_IN_TBL_INPUT_VIEW:CGFloat = UITableView.automaticDimension;
 let HEIGHT_OF_ROW_IN_TBL_DATA_VIEW:CGFloat = 40;
@@ -18,8 +18,7 @@ class AddOtherHistoriesViewController:UIViewController, UITableViewDelegate, UIT
     @IBOutlet weak var lblTitle: UILabel!
     @IBOutlet weak var tblOtherHistoryInputView: UITableView!
     @IBOutlet weak var tblOtherHistoryDataView: UITableView!
-    var progrssHUD:JGProgressHUD = JGProgressHUD()
-    
+   
     var arrayForTblInputView:[HistoryInputModel] = []
     var arrayForTblDataView:[[OtherHistory:[HistoryDataDisplayModel]]] = []
     
@@ -69,7 +68,7 @@ class AddOtherHistoriesViewController:UIViewController, UITableViewDelegate, UIT
     
     func fetchHistoryDataFromDatabase(){
         //Global Queue
-        progrssHUD = showIndicatorInView(view: self.view)
+        SVProgressHUD.show()
         DispatchQueue.global(qos: .background).async {
           
                 let historyData = DBManager.shared.loadHistories()
@@ -95,7 +94,7 @@ class AddOtherHistoriesViewController:UIViewController, UITableViewDelegate, UIT
                     self.tblOtherHistoryDataView.reloadData()
                     self.tblOtherHistoryInputView.reloadData()
                     //Hide Progress HUD
-                    self.progrssHUD.dismiss(animated: true)
+                    SVProgressHUD.dismiss()
                 }
             
         }
@@ -259,7 +258,7 @@ class AddOtherHistoriesViewController:UIViewController, UITableViewDelegate, UIT
             
             //===========Global Queue========//
             //==========Add row in table and update table===========//
-            progrssHUD = showIndicatorInView(view: self.view)
+            SVProgressHUD.show()
             DispatchQueue.global(qos: .background).async {
                 DBManager.shared.insertHistoryData(model: model) { [weak self] (success, error) in
                     if error == nil && success == true{
@@ -299,7 +298,7 @@ class AddOtherHistoriesViewController:UIViewController, UITableViewDelegate, UIT
             
             //===========Global Queue========//
             //==========Add row in table and update table===========//
-            progrssHUD = showIndicatorInView(view: self.view)
+            SVProgressHUD.show()
             DispatchQueue.global(qos: .background).async {
                 let isSuccess = DBManager.shared.deleteHistory(model: model)
                 DispatchQueue.main.async {
@@ -320,7 +319,7 @@ class AddOtherHistoriesViewController:UIViewController, UITableViewDelegate, UIT
             self.tblOtherHistoryDataView.reloadData()
             
             //Hide Progress HUD
-            self.progrssHUD.dismiss(animated: true)
+            SVProgressHUD.dismiss()
             
         }
     }

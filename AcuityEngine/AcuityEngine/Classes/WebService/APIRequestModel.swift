@@ -11,7 +11,7 @@ import UIKit
 //========================================================================================================
 // PRAGMA MARK:- HTTPMETHOD Enum
 //========================================================================================================
-enum HTTPMETHOD {
+/*enum HTTPMETHOD {
     case GET
     case POST
     case PUT
@@ -66,3 +66,4 @@ class APIRequestModel {
         return requestModel
     }
 }
+*/

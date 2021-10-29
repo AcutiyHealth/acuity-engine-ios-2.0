@@ -24,7 +24,7 @@ class FNEData {
     
     
     func getWeightedSystemScore()->Double{
-        print("<--------------------FNE------------------>")
+        Log.d("<--------------------FNE------------------>")
         let score = totalSystemScoreWithDays(days: SegmentValueForGraph.OneDay)
         return (score * fneRelativeImportance)/100
     }
@@ -32,13 +32,13 @@ class FNEData {
     
     //Total/Final System Score
     func totalSystemScoreWithDays(days:SegmentValueForGraph) -> Double{
-        print("<--------------------FNE------------------>")
+        Log.d("<--------------------FNE------------------>")
         let arrayDayWiseSystemScore = systemScoreWithDays(days: days)
         //Calculate average system core for 7 days/30 days/3 months
         //Final system score for Cardio
         fneSystemScore = commonTotalSystemScoreWithDays(arrayDayWiseSystemScore: arrayDayWiseSystemScore)
         let calculatedScore = fneSystemScore
-        print("FNE calculatedScore",calculatedScore)
+        Log.d("FNE calculatedScore--\(calculatedScore)")
         return calculatedScore
     }
     

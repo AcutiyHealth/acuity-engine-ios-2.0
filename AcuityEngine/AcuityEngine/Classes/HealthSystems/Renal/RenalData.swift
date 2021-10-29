@@ -24,7 +24,7 @@ class RenalData {
     
     
     func getWeightedSystemScore()->Double{
-        print("<--------------------Renal------------------>")
+        Log.d("<--------------------Renal------------------>")
         let score = totalSystemScoreWithDays(days: SegmentValueForGraph.OneDay)
         return (score * renalRelativeImportance)/100
     }
@@ -32,13 +32,13 @@ class RenalData {
     
     //Total/Final System Score
     func totalSystemScoreWithDays(days:SegmentValueForGraph) -> Double{
-        print("<--------------------Renal------------------>")
+        Log.d("<--------------------Renal------------------>")
         let arrayDayWiseSystemScore = systemScoreWithDays(days: days)
         //Calculate average system core for 7 days/30 days/3 months
         //Final system score for Cardio
         renalSystemScore = commonTotalSystemScoreWithDays(arrayDayWiseSystemScore: arrayDayWiseSystemScore)
         let calculatedScore = renalSystemScore
-        print("Renal calculatedScore",calculatedScore)
+        Log.d("Renal calculatedScore--\(calculatedScore)")
         return calculatedScore
     }
     
@@ -83,7 +83,7 @@ class RenalData {
         let totalMaxScore = maxScoreVitals  + maxConditionData  + maxLabData + maxsymptomData
         
         
-        print("totalMaxScore=======\(totalMaxScore) maxScoreVitals===\(maxScoreVitals)  maxConditionData===\(maxConditionData)  maxLabData === \(maxLabData) maxsymptomData===\(maxsymptomData)")
+        Log.d("totalMaxScore=======\(totalMaxScore) maxScoreVitals===\(maxScoreVitals)  maxConditionData===\(maxConditionData)  maxLabData === \(maxLabData) maxsymptomData===\(maxsymptomData)")
         return totalMaxScore
         
     }

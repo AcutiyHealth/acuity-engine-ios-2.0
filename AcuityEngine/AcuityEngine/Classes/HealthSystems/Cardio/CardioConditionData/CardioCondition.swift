@@ -73,7 +73,7 @@ class CardioCondition {
         
         arrayDayWiseScoreTotal = getScoreForConditions(array: cardioProblem, days: days)
         cardioProblem = []
-        print("condition arrayDayWiseScoreTotal------>",arrayDayWiseScoreTotal)
+//        print("condition arrayDayWiseScoreTotal------>",arrayDayWiseScoreTotal)
         return arrayDayWiseScoreTotal
     }
     //MARK: To display data in Pull up...

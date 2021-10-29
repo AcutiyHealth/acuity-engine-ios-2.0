@@ -24,7 +24,7 @@ class SDHData {
     
     
     func getWeightedSystemScore()->Double{
-        print("<--------------------SDH------------------>")
+        Log.d("<--------------------SDH------------------>")
         let score = totalSystemScoreWithDays(days: SegmentValueForGraph.OneDay)
         return (score * sdhRelativeImportance)/100
     }
@@ -32,13 +32,13 @@ class SDHData {
     
     //Total/Final System Score
     func totalSystemScoreWithDays(days:SegmentValueForGraph) -> Double{
-        print("<--------------------SDH------------------>")
+        Log.d("<--------------------SDH------------------>")
         let arrayDayWiseSystemScore = systemScoreWithDays(days: days)
         //Calculate average system core for 7 days/30 days/3 months
         //Final system score for Cardio
         sdhSystemScore = commonTotalSystemScoreWithDays(arrayDayWiseSystemScore: arrayDayWiseSystemScore)
         let calculatedScore = sdhSystemScore
-        print("SDH calculatedScore",calculatedScore)
+        Log.d("SDH calculatedScore--\(calculatedScore)")
         return calculatedScore
     }
     
@@ -83,7 +83,7 @@ class SDHData {
         let totalMaxScore = maxScoreVitals  + maxConditionData  + maxLabData + maxsymptomData
         
         
-        print("totalMaxScore=======\(totalMaxScore) maxScoreVitals===\(maxScoreVitals)  maxConditionData===\(maxConditionData)  maxLabData === \(maxLabData) maxsymptomData===\(maxsymptomData)")
+        Log.d("totalMaxScore=======\(totalMaxScore) maxScoreVitals===\(maxScoreVitals)  maxConditionData===\(maxConditionData)  maxLabData === \(maxLabData) maxsymptomData===\(maxsymptomData)")
         return totalMaxScore
         
     }

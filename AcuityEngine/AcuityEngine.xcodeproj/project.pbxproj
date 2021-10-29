@@ -16,6 +16,7 @@
 		7A22C1BA25E786F20028319D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7A22C1B925E786F20028319D /* Assets.xcassets */; };
 		7A22C1BD25E786F20028319D /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7A22C1BB25E786F20028319D /* LaunchScreen.storyboard */; };
 		7A22C22D25E788CE0028319D /* HealthKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7A22C22C25E788CE0028319D /* HealthKit.framework */; };
+		7A24B6C0272802440097D1EF /* NotificationModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A24B6BF272802440097D1EF /* NotificationModel.swift */; };
 		7A3086632702A35900C0A45B /* OtherHistoryDataTableHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A3086612702A35900C0A45B /* OtherHistoryDataTableHeaderView.swift */; };
 		7A3086642702A35900C0A45B /* OtherHistoryDataTableHeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7A3086622702A35900C0A45B /* OtherHistoryDataTableHeaderView.xib */; };
 		7A493DEC27142FEC00107785 /* MedicationDataTableHeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7A493DE927142FEC00107785 /* MedicationDataTableHeaderView.xib */; };
@@ -263,7 +264,11 @@
 		7A73086D26FF1EB2005F9F5E /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A73077726FF1EB2005F9F5E /* LoginViewController.swift */; };
 		7A73086E26FF1EB2005F9F5E /* Utility.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A73077926FF1EB2005F9F5E /* Utility.swift */; };
 		7A844E59270FE3CF00FBFF7F /* MedicationModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A844E58270FE3CF00FBFF7F /* MedicationModel.swift */; };
+		7A8601772720236B0089BC06 /* Logger.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A8601762720236B0089BC06 /* Logger.swift */; };
 		7A8D7CF2271DA90F00674C7C /* CALayer+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A8D7CF1271DA90F00674C7C /* CALayer+Extensions.swift */; };
+		7A8FCDB4272949CD0085AF1C /* Reachability.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A8FCDB3272949CD0085AF1C /* Reachability.swift */; };
+		7A9DC08E271E69D800F7B8E8 /* NotificationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A9DC08D271E69D800F7B8E8 /* NotificationManager.swift */; };
+		7AD6DDC8271ECF6900F7DA5C /* WebServiceConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AD6DDC7271ECF6900F7DA5C /* WebServiceConstants.swift */; };
 		7AD7E6FE26036E750076F14E /* SFProDisplay-Ultralight.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 7AD7E6F326036E750076F14E /* SFProDisplay-Ultralight.ttf */; };
 		7AD7E6FF26036E750076F14E /* BRUSHSCI_1.TTF in Resources */ = {isa = PBXBuildFile; fileRef = 7AD7E6F426036E750076F14E /* BRUSHSCI_1.TTF */; };
 		7AD7E70026036E750076F14E /* SFProDisplay-BoldItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 7AD7E6F526036E750076F14E /* SFProDisplay-BoldItalic.ttf */; };
@@ -276,6 +281,18 @@
 		7AD7E70726036E750076F14E /* SFProDisplay-Semibold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 7AD7E6FC26036E750076F14E /* SFProDisplay-Semibold.ttf */; };
 		7AD7E70826036E750076F14E /* SFProDisplay-LightItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 7AD7E6FD26036E750076F14E /* SFProDisplay-LightItalic.ttf */; };
 		7AE1446C2701D5A3000A6E20 /* OtherHistoryInputView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AE1446A2701D5A3000A6E20 /* OtherHistoryInputView.swift */; };
+		7AFA7F30272172D000C8D44F /* UserManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AFA7F2F272172D000C8D44F /* UserManager.swift */; };
+		7AFA7F39272178A600C8D44F /* Grades.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AFA7F32272178A600C8D44F /* Grades.swift */; };
+		7AFA7F3A272178A600C8D44F /* SpecificRecommendations.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AFA7F33272178A600C8D44F /* SpecificRecommendations.swift */; };
+		7AFA7F3B272178A600C8D44F /* GeneralRecommendations.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AFA7F34272178A600C8D44F /* GeneralRecommendations.swift */; };
+		7AFA7F3C272178A600C8D44F /* Categories.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AFA7F35272178A600C8D44F /* Categories.swift */; };
+		7AFA7F3D272178A600C8D44F /* Risks.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AFA7F36272178A600C8D44F /* Risks.swift */; };
+		7AFA7F3E272178A600C8D44F /* PreventionModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AFA7F37272178A600C8D44F /* PreventionModel.swift */; };
+		7AFA7F3F272178A600C8D44F /* Tools.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AFA7F38272178A600C8D44F /* Tools.swift */; };
+		7AFA7F4627217FB400C8D44F /* CustomPopUpVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AFA7F4127217FB400C8D44F /* CustomPopUpVC.swift */; };
+		7AFA7F4727217FB400C8D44F /* CustomPopUpVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7AFA7F4227217FB400C8D44F /* CustomPopUpVC.xib */; };
+		7AFA7F4827217FB400C8D44F /* CustomPopUpCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7AFA7F4427217FB400C8D44F /* CustomPopUpCell.xib */; };
+		7AFA7F4927217FB400C8D44F /* CustomPopUpCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AFA7F4527217FB400C8D44F /* CustomPopUpCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -293,6 +310,7 @@
 		7A22C1BE25E786F20028319D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		7A22C22A25E788CE0028319D /* AcuityEngine.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = AcuityEngine.entitlements; sourceTree = "<group>"; };
 		7A22C22C25E788CE0028319D /* HealthKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = HealthKit.framework; path = System/Library/Frameworks/HealthKit.framework; sourceTree = SDKROOT; };
+		7A24B6BF272802440097D1EF /* NotificationModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationModel.swift; sourceTree = "<group>"; };
 		7A3086612702A35900C0A45B /* OtherHistoryDataTableHeaderView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OtherHistoryDataTableHeaderView.swift; sourceTree = "<group>"; };
 		7A3086622702A35900C0A45B /* OtherHistoryDataTableHeaderView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = OtherHistoryDataTableHeaderView.xib; sourceTree = "<group>"; };
 		7A493DE927142FEC00107785 /* MedicationDataTableHeaderView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MedicationDataTableHeaderView.xib; sourceTree = "<group>"; };
@@ -551,7 +569,11 @@
 		7A73077726FF1EB2005F9F5E /* LoginViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		7A73077926FF1EB2005F9F5E /* Utility.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Utility.swift; sourceTree = "<group>"; };
 		7A844E58270FE3CF00FBFF7F /* MedicationModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MedicationModel.swift; sourceTree = "<group>"; };
+		7A8601762720236B0089BC06 /* Logger.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Logger.swift; sourceTree = "<group>"; };
 		7A8D7CF1271DA90F00674C7C /* CALayer+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CALayer+Extensions.swift"; sourceTree = "<group>"; };
+		7A8FCDB3272949CD0085AF1C /* Reachability.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Reachability.swift; sourceTree = "<group>"; };
+		7A9DC08D271E69D800F7B8E8 /* NotificationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationManager.swift; sourceTree = "<group>"; };
+		7AD6DDC7271ECF6900F7DA5C /* WebServiceConstants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WebServiceConstants.swift; sourceTree = "<group>"; };
 		7AD7E6F326036E750076F14E /* SFProDisplay-Ultralight.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SFProDisplay-Ultralight.ttf"; sourceTree = "<group>"; };
 		7AD7E6F426036E750076F14E /* BRUSHSCI_1.TTF */ = {isa = PBXFileReference; lastKnownFileType = file; path = BRUSHSCI_1.TTF; sourceTree = "<group>"; };
 		7AD7E6F526036E750076F14E /* SFProDisplay-BoldItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SFProDisplay-BoldItalic.ttf"; sourceTree = "<group>"; };
@@ -564,6 +586,18 @@
 		7AD7E6FC26036E750076F14E /* SFProDisplay-Semibold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SFProDisplay-Semibold.ttf"; sourceTree = "<group>"; };
 		7AD7E6FD26036E750076F14E /* SFProDisplay-LightItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SFProDisplay-LightItalic.ttf"; sourceTree = "<group>"; };
 		7AE1446A2701D5A3000A6E20 /* OtherHistoryInputView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OtherHistoryInputView.swift; sourceTree = "<group>"; };
+		7AFA7F2F272172D000C8D44F /* UserManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserManager.swift; sourceTree = "<group>"; };
+		7AFA7F32272178A600C8D44F /* Grades.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Grades.swift; sourceTree = "<group>"; };
+		7AFA7F33272178A600C8D44F /* SpecificRecommendations.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SpecificRecommendations.swift; sourceTree = "<group>"; };
+		7AFA7F34272178A600C8D44F /* GeneralRecommendations.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GeneralRecommendations.swift; sourceTree = "<group>"; };
+		7AFA7F35272178A600C8D44F /* Categories.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Categories.swift; sourceTree = "<group>"; };
+		7AFA7F36272178A600C8D44F /* Risks.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Risks.swift; sourceTree = "<group>"; };
+		7AFA7F37272178A600C8D44F /* PreventionModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PreventionModel.swift; sourceTree = "<group>"; };
+		7AFA7F38272178A600C8D44F /* Tools.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Tools.swift; sourceTree = "<group>"; };
+		7AFA7F4127217FB400C8D44F /* CustomPopUpVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomPopUpVC.swift; sourceTree = "<group>"; };
+		7AFA7F4227217FB400C8D44F /* CustomPopUpVC.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CustomPopUpVC.xib; sourceTree = "<group>"; };
+		7AFA7F4427217FB400C8D44F /* CustomPopUpCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CustomPopUpCell.xib; sourceTree = "<group>"; };
+		7AFA7F4527217FB400C8D44F /* CustomPopUpCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomPopUpCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -651,6 +685,7 @@
 		7A73060D26FF1EB1005F9F5E /* Classes */ = {
 			isa = PBXGroup;
 			children = (
+				7AFA7F2E272172D000C8D44F /* Manager */,
 				7A73060E26FF1EB1005F9F5E /* ViewModel */,
 				7A73061026FF1EB1005F9F5E /* Database */,
 				7A73062226FF1EB1005F9F5E /* Constants */,
@@ -709,6 +744,7 @@
 		7A73062226FF1EB1005F9F5E /* Constants */ = {
 			isa = PBXGroup;
 			children = (
+				7AD6DDC7271ECF6900F7DA5C /* WebServiceConstants.swift */,
 				7A73062326FF1EB1005F9F5E /* Constants.swift */,
 				7A73062426FF1EB1005F9F5E /* APIParamConstant.swift */,
 			);
@@ -751,6 +787,7 @@
 		7A73063426FF1EB1005F9F5E /* WebService */ = {
 			isa = PBXGroup;
 			children = (
+				7A8FCDB2272949BE0085AF1C /* Reachability */,
 				7A73063526FF1EB1005F9F5E /* WebServiceManager.swift */,
 				7A73063626FF1EB1005F9F5E /* APIRequestModel.swift */,
 				7A73063726FF1EB1005F9F5E /* DDWebService.swift */,
@@ -1510,6 +1547,7 @@
 		7A73072C26FF1EB1005F9F5E /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				7AFA7F31272178A600C8D44F /* PreventionModel */,
 				7A73072D26FF1EB1005F9F5E /* ProfileModels.swift */,
 				7A73072E26FF1EB1005F9F5E /* AcuityModels.swift */,
 				7A73072F26FF1EB1005F9F5E /* VitalModel.swift */,
@@ -1518,6 +1556,7 @@
 				7A73073226FF1EB1005F9F5E /* AppleUser.swift */,
 				7A59AFA727030D7400B2E384 /* HistoryModels.swift */,
 				7A844E58270FE3CF00FBFF7F /* MedicationModel.swift */,
+				7A24B6BF272802440097D1EF /* NotificationModel.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -1609,6 +1648,7 @@
 		7A73074E26FF1EB1005F9F5E /* ViewController */ = {
 			isa = PBXGroup;
 			children = (
+				7AFA7F4027217FB400C8D44F /* CustomPopUp */,
 				7A73074F26FF1EB1005F9F5E /* Base Controller */,
 				7A73075126FF1EB2005F9F5E /* Fetch Health Data */,
 				7A73075326FF1EB2005F9F5E /* Acuity Main */,
@@ -1757,9 +1797,18 @@
 		7A73077826FF1EB2005F9F5E /* Utility */ = {
 			isa = PBXGroup;
 			children = (
+				7A8601762720236B0089BC06 /* Logger.swift */,
 				7A73077926FF1EB2005F9F5E /* Utility.swift */,
 			);
 			path = Utility;
+			sourceTree = "<group>";
+		};
+		7A8FCDB2272949BE0085AF1C /* Reachability */ = {
+			isa = PBXGroup;
+			children = (
+				7A8FCDB3272949CD0085AF1C /* Reachability.swift */,
+			);
+			path = Reachability;
 			sourceTree = "<group>";
 		};
 		7AD7E6F226036E750076F14E /* Fonts */ = {
@@ -1788,6 +1837,48 @@
 				7A3086622702A35900C0A45B /* OtherHistoryDataTableHeaderView.xib */,
 			);
 			path = OtherHistory;
+			sourceTree = "<group>";
+		};
+		7AFA7F2E272172D000C8D44F /* Manager */ = {
+			isa = PBXGroup;
+			children = (
+				7A9DC08D271E69D800F7B8E8 /* NotificationManager.swift */,
+				7AFA7F2F272172D000C8D44F /* UserManager.swift */,
+			);
+			path = Manager;
+			sourceTree = "<group>";
+		};
+		7AFA7F31272178A600C8D44F /* PreventionModel */ = {
+			isa = PBXGroup;
+			children = (
+				7AFA7F32272178A600C8D44F /* Grades.swift */,
+				7AFA7F33272178A600C8D44F /* SpecificRecommendations.swift */,
+				7AFA7F34272178A600C8D44F /* GeneralRecommendations.swift */,
+				7AFA7F35272178A600C8D44F /* Categories.swift */,
+				7AFA7F36272178A600C8D44F /* Risks.swift */,
+				7AFA7F37272178A600C8D44F /* PreventionModel.swift */,
+				7AFA7F38272178A600C8D44F /* Tools.swift */,
+			);
+			path = PreventionModel;
+			sourceTree = "<group>";
+		};
+		7AFA7F4027217FB400C8D44F /* CustomPopUp */ = {
+			isa = PBXGroup;
+			children = (
+				7AFA7F4127217FB400C8D44F /* CustomPopUpVC.swift */,
+				7AFA7F4227217FB400C8D44F /* CustomPopUpVC.xib */,
+				7AFA7F4327217FB400C8D44F /* CustomPopUpCell */,
+			);
+			path = CustomPopUp;
+			sourceTree = "<group>";
+		};
+		7AFA7F4327217FB400C8D44F /* CustomPopUpCell */ = {
+			isa = PBXGroup;
+			children = (
+				7AFA7F4427217FB400C8D44F /* CustomPopUpCell.xib */,
+				7AFA7F4527217FB400C8D44F /* CustomPopUpCell.swift */,
+			);
+			path = CustomPopUpCell;
 			sourceTree = "<group>";
 		};
 		BE8F74FDC050DC06E099C075 /* Pods */ = {
@@ -1870,12 +1961,14 @@
 				7AD7E6FE26036E750076F14E /* SFProDisplay-Ultralight.ttf in Resources */,
 				7AD7E70526036E750076F14E /* SFProDisplay-Bold.ttf in Resources */,
 				7A73077D26FF1EB2005F9F5E /* Symptoms.txt in Resources */,
+				7AFA7F4727217FB400C8D44F /* CustomPopUpVC.xib in Resources */,
 				7A73077C26FF1EB2005F9F5E /* Vitals.txt in Resources */,
 				7A73084426FF1EB2005F9F5E /* AcuityDetailPullUp.storyboard in Resources */,
 				7A73077B26FF1EB2005F9F5E /* Conditions.txt in Resources */,
 				7AD7E70626036E750076F14E /* SFProDisplay-HeavyItalic.ttf in Resources */,
 				7AD7E70426036E750076F14E /* SFProDisplay-MediumItalic.ttf in Resources */,
 				7AD7E70726036E750076F14E /* SFProDisplay-Semibold.ttf in Resources */,
+				7AFA7F4827217FB400C8D44F /* CustomPopUpCell.xib in Resources */,
 				7AD7E70826036E750076F14E /* SFProDisplay-LightItalic.ttf in Resources */,
 				7A73078426FF1EB2005F9F5E /* AcuityEngine.sqlite in Resources */,
 				7AD7E70226036E750076F14E /* SFProDisplay-ThinItalic.ttf in Resources */,
@@ -1960,9 +2053,11 @@
 				7A7307D126FF1EB2005F9F5E /* RenalVital.swift in Sources */,
 				7A7307F926FF1EB2005F9F5E /* NeuroCondition.swift in Sources */,
 				7A7307C726FF1EB2005F9F5E /* CardioSymptomsPainData.swift in Sources */,
+				7A8601772720236B0089BC06 /* Logger.swift in Sources */,
 				7AE1446C2701D5A3000A6E20 /* OtherHistoryInputView.swift in Sources */,
 				7A73079026FF1EB2005F9F5E /* WebServiceManager.swift in Sources */,
 				7A7307B926FF1EB2005F9F5E /* SDHVitalsData.swift in Sources */,
+				7AFA7F3F272178A600C8D44F /* Tools.swift in Sources */,
 				7A73079C26FF1EB2005F9F5E /* MuscVital.swift in Sources */,
 				7A73078926FF1EB2005F9F5E /* TPKeyboardAvoidingScrollView.m in Sources */,
 				7A7307C926FF1EB2005F9F5E /* CardioManager.swift in Sources */,
@@ -1995,15 +2090,19 @@
 				7A7307C426FF1EB2005F9F5E /* CardioCondition.swift in Sources */,
 				7A7307FD26FF1EB2005F9F5E /* NeuroVital.swift in Sources */,
 				7A73086326FF1EB2005F9F5E /* AcuityMetricsDetailViewController.swift in Sources */,
+				7AFA7F39272178A600C8D44F /* Grades.swift in Sources */,
 				7A73083926FF1EB2005F9F5E /* HematoManager.swift in Sources */,
 				7A7307F226FF1EB2005F9F5E /* SymptomCalculation.swift in Sources */,
 				7A7307B126FF1EB2005F9F5E /* SkinVitalsData.swift in Sources */,
 				7A73080E26FF1EB2005F9F5E /* IDiseaseVital.swift in Sources */,
+				7AFA7F3D272178A600C8D44F /* Risks.swift in Sources */,
 				7A73080126FF1EB2005F9F5E /* NeuroLabData.swift in Sources */,
+				7AFA7F3C272178A600C8D44F /* Categories.swift in Sources */,
 				7A73086226FF1EB2005F9F5E /* AddSymptomViewController.swift in Sources */,
 				7A73081A26FF1EB2005F9F5E /* FNEManager.swift in Sources */,
 				7A7307F826FF1EB2005F9F5E /* NeuroConditionData.swift in Sources */,
 				7A7307CD26FF1EB2005F9F5E /* RenalConditionData.swift in Sources */,
+				7A24B6C0272802440097D1EF /* NotificationModel.swift in Sources */,
 				7A7307AA26FF1EB2005F9F5E /* SkinLabData.swift in Sources */,
 				7A7307CF26FF1EB2005F9F5E /* RenalData.swift in Sources */,
 				7A7307D326FF1EB2005F9F5E /* RenalLab.swift in Sources */,
@@ -2037,6 +2136,7 @@
 				7A7307A526FF1EB2005F9F5E /* GastrointestinalVitalData.swift in Sources */,
 				7A73081826FF1EB2005F9F5E /* FNESymptomsPainData.swift in Sources */,
 				7A7307EF26FF1EB2005F9F5E /* Metrix.swift in Sources */,
+				7AFA7F3E272178A600C8D44F /* PreventionModel.swift in Sources */,
 				7A73084126FF1EB2005F9F5E /* SymptomsModel.swift in Sources */,
 				7A7307D226FF1EB2005F9F5E /* RenalVitalData.swift in Sources */,
 				7A73086526FF1EB2005F9F5E /* AcuityMetricsValueViewModel.swift in Sources */,
@@ -2047,6 +2147,7 @@
 				7A73086626FF1EB2005F9F5E /* AcuityMetricsValueViewController.swift in Sources */,
 				7A7307DC26FF1EB2005F9F5E /* HeentLabData.swift in Sources */,
 				7A73080626FF1EB2005F9F5E /* GenitourinaryLab.swift in Sources */,
+				7AFA7F4627217FB400C8D44F /* CustomPopUpVC.swift in Sources */,
 				7A73078A26FF1EB2005F9F5E /* Array+Extensions.swift in Sources */,
 				7A73079826FF1EB2005F9F5E /* MuscLab.swift in Sources */,
 				7A73081326FF1EB2005F9F5E /* IDiseaseData.swift in Sources */,
@@ -2063,14 +2164,18 @@
 				7A73081126FF1EB2005F9F5E /* IDiseaseConditionData.swift in Sources */,
 				7A7307F426FF1EB2005F9F5E /* HKSetupAssistance.swift in Sources */,
 				7A7307A326FF1EB2005F9F5E /* GastrointestinalConditionData.swift in Sources */,
+				7AD6DDC8271ECF6900F7DA5C /* WebServiceConstants.swift in Sources */,
 				7A73080726FF1EB2005F9F5E /* GenitourinaryManager.swift in Sources */,
 				7A73083126FF1EB2005F9F5E /* RespiratoryManagerProtocol.swift in Sources */,
 				7A844E59270FE3CF00FBFF7F /* MedicationModel.swift in Sources */,
+				7AFA7F3A272178A600C8D44F /* SpecificRecommendations.swift in Sources */,
 				7A73084D26FF1EB2005F9F5E /* RotaryWheel.m in Sources */,
 				7A73081B26FF1EB2005F9F5E /* FNELabData.swift in Sources */,
 				7A7307DF26FF1EB2005F9F5E /* HeentCondition.swift in Sources */,
 				7A7307F626FF1EB2005F9F5E /* ReadMetricsList.swift in Sources */,
+				7AFA7F4927217FB400C8D44F /* CustomPopUpCell.swift in Sources */,
 				7A73086126FF1EB2005F9F5E /* SymptomsListViewController.swift in Sources */,
+				7AFA7F30272172D000C8D44F /* UserManager.swift in Sources */,
 				7A7307CC26FF1EB2005F9F5E /* CardioLabData.swift in Sources */,
 				7A73080A26FF1EB2005F9F5E /* GenitourinaryConditionData.swift in Sources */,
 				7A73078C26FF1EB2005F9F5E /* UIView+Extensions.swift in Sources */,
@@ -2081,6 +2186,7 @@
 				7A73079B26FF1EB2005F9F5E /* MuscVitalsData.swift in Sources */,
 				7A73083B26FF1EB2005F9F5E /* HematoSymptomsPainData.swift in Sources */,
 				7A73084A26FF1EB2005F9F5E /* VisualEffectView.swift in Sources */,
+				7A8FCDB4272949CD0085AF1C /* Reachability.swift in Sources */,
 				7A73078D26FF1EB2005F9F5E /* combine+Extensions.swift in Sources */,
 				7A7307BF26FF1EB2005F9F5E /* SystemConstant.swift in Sources */,
 				7A7307F026FF1EB2005F9F5E /* VitalCalculation.swift in Sources */,
@@ -2102,6 +2208,7 @@
 				7A7307B426FF1EB2005F9F5E /* SDHCondition.swift in Sources */,
 				7A73079226FF1EB2005F9F5E /* DDWebService.swift in Sources */,
 				7A7307DD26FF1EB2005F9F5E /* HeentLab.swift in Sources */,
+				7AFA7F3B272178A600C8D44F /* GeneralRecommendations.swift in Sources */,
 				7A7307FB26FF1EB2005F9F5E /* NeuroManager.swift in Sources */,
 				7A73082226FF1EB2005F9F5E /* RespiratoryManager.swift in Sources */,
 				7A73083E26FF1EB2005F9F5E /* AcuityModels.swift in Sources */,
@@ -2136,6 +2243,7 @@
 				7A73080426FF1EB2005F9F5E /* GenitourinaryData.swift in Sources */,
 				7A73084E26FF1EB2005F9F5E /* Chevron.m in Sources */,
 				7A73083326FF1EB2005F9F5E /* HematologyVitalData.swift in Sources */,
+				7A9DC08E271E69D800F7B8E8 /* NotificationManager.swift in Sources */,
 				7A7307FC26FF1EB2005F9F5E /* NeuroVitalsData.swift in Sources */,
 				7A22C1B825E786F10028319D /* AcuityEngine.xcdatamodeld in Sources */,
 				7A7307DB26FF1EB2005F9F5E /* HeentSymptoms.swift in Sources */,
@@ -2325,7 +2433,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = AcuityEngine/AcuityEngine.entitlements;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "iPhone Distribution";
 				CODE_SIGN_STYLE = Manual;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 56FBZFEBV5;
@@ -2335,10 +2443,10 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.1;
+				MARKETING_VERSION = 1.53;
 				PRODUCT_BUNDLE_IDENTIFIER = com.devdigital.acuityhealthengineenterprise;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE_SPECIFIER = "Acuity Engine development";
+				PROVISIONING_PROFILE_SPECIFIER = AcuityHealthEngineEnterpriseDistribution;
 				SWIFT_OBJC_BRIDGING_HEADER = "AcuityEngine/AcuityEngine-Bridging-Header.h";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 1;
@@ -2352,7 +2460,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = AcuityEngine/AcuityEngine.entitlements;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "iPhone Distribution";
 				CODE_SIGN_STYLE = Manual;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 56FBZFEBV5;
@@ -2362,10 +2470,10 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.1;
+				MARKETING_VERSION = 1.53;
 				PRODUCT_BUNDLE_IDENTIFIER = com.devdigital.acuityhealthengineenterprise;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE_SPECIFIER = "Acuity Engine development";
+				PROVISIONING_PROFILE_SPECIFIER = AcuityHealthEngineEnterpriseDistribution;
 				SWIFT_OBJC_BRIDGING_HEADER = "AcuityEngine/AcuityEngine-Bridging-Header.h";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 1;

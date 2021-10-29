@@ -29,8 +29,8 @@ class ProfileAddOptionsDataView: UITableViewCell,UITableViewDelegate,UITableView
     
     override func awakeFromNib() {
         super.awakeFromNib()
-        viewBg.backgroundColor = ColorSchema.addOptionGrayColor
-        lblTitle.font = Fonts.kCellHistoryDataTitleFontInAddSection
+        viewBg.backgroundColor = ColorSchema.fourBoxColorInPullup
+        lblTitle.font = Fonts.kCellProfileDetailTitleFont
         setupViewBorderForAddSection(view: viewBg)
         self.tblData.addObserver(self, forKeyPath: "contentSize", options: NSKeyValueObservingOptions.new, context: nil)
        
@@ -68,7 +68,7 @@ class ProfileAddOptionsDataView: UITableViewCell,UITableViewDelegate,UITableView
        
         let metrixItem = arrayOfData[indexPath.row]
         cell.titleLabel.text = metrixItem
-        cell.setFontForLabel(font:Fonts.kAcuityProfileDetailFont)
+        cell.setFontForLabel(font:Fonts.kCellProfileDetailFont)
         cell.selectionStyle = .none
         //cell.backgroundColor = UIColor.red
         return cell

@@ -30,7 +30,7 @@ class AcuityDetailPullUpViewModel: NSObject
     //MARK: Set background view of Conditions,lab,symptoms and vital
     func setBackgroundColorForMetricsView(view:UIView){
         view.layer.cornerRadius = 5;
-        view.backgroundColor = UIColor.white.withAlphaComponent(0.2)
+        view.backgroundColor = ColorSchema.fourBoxColorInPullup
     }
     //MARK: Make view of Conditions,lab,symptoms and vital selected
     func setBackgroundColorWhenViewSelcted(view:UIView){

@@ -399,7 +399,7 @@ class DBManager: NSObject {
                     let conditionId = condition.key
                     let conditionaName = condition.value
                     let timeStamp = 0//getTimeStampForCurrenTime()
-                    print("conditionId",conditionId)
+                    Log.d("conditionId--\(conditionId)")
                     query += "INSERT INTO \(tbl_conditions) (\(field_ConditionID),\(field_ConditionName),\(field_timeStamp)) VALUES (\(conditionId),'\(conditionaName)',\(timeStamp)) ;"
                 }
                 if !database.executeStatements(query) {

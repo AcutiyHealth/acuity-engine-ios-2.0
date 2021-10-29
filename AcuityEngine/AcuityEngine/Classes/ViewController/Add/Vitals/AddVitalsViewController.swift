@@ -344,7 +344,7 @@ class AddVitalsViewController: UIViewController {
                 completion(nil)
                 
             }else{
-                let message = "\(String(describing: vitalModel.name!.rawValue)) is not authorized. You can authorized it by making Turn on from Settings -> Health -> DATA -> \(Key.kAppName) -> Health Data"
+                let message = "\(String(describing: vitalModel.name!.rawValue)) is not authorized. \(AlertMessages.AUTHORIZE_HEALTH_DATA)"
                 self?.vitalsSavedFailed(message: message)
                 completion(error)
             }
@@ -361,7 +361,7 @@ class AddVitalsViewController: UIViewController {
                 completion(nil)
             }
             else{
-                let message = "\(String(describing: VitalsName.bloodPressure.rawValue)) is not authorized. You can authorized it by making Turn on from Settings -> Health -> DATA -> \(Key.kAppName ) -> Health Data"
+                let message = "\(String(describing: VitalsName.bloodPressure.rawValue)) is not authorized. \(AlertMessages.AUTHORIZE_HEALTH_DATA)"
                 self?.vitalsSavedFailed(message: message)
                 completion(error)
             }

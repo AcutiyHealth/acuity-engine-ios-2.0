@@ -24,7 +24,7 @@ class HematoData {
     
     
     func getWeightedSystemScore()->Double{
-        print("<--------------------Hemato------------------>")
+        Log.d("<--------------------Hemato------------------>")
         let score = totalSystemScoreWithDays(days: SegmentValueForGraph.OneDay)
         return (score * hematoRelativeImportance)/100
     }
@@ -32,13 +32,13 @@ class HematoData {
     
     //Total/Final System Score
     func totalSystemScoreWithDays(days:SegmentValueForGraph) -> Double{
-        print("<--------------------Hemato------------------>")
+        Log.d("<--------------------Hemato------------------>")
         let arrayDayWiseSystemScore = systemScoreWithDays(days: days)
         //Calculate average system core for 7 days/30 days/3 months
         //Final system score for Cardio
         hematoSystemScore = commonTotalSystemScoreWithDays(arrayDayWiseSystemScore: arrayDayWiseSystemScore)
         let calculatedScore = hematoSystemScore
-        print("Hemato calculatedScore",calculatedScore)
+        Log.d("Hemato calculatedScore--\(calculatedScore)")
         return calculatedScore
     }
     

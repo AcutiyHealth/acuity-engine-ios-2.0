@@ -24,7 +24,7 @@ class MuscData {
     
     
     func getWeightedSystemScore()->Double{
-        print("<--------------------Musc------------------>")
+        Log.d("<--------------------Musc------------------>")
         let score = totalSystemScoreWithDays(days: SegmentValueForGraph.OneDay)
         return (score * muscRelativeImportance)/100
     }
@@ -32,13 +32,13 @@ class MuscData {
     
     //Total/Final System Score
     func totalSystemScoreWithDays(days:SegmentValueForGraph) -> Double{
-        print("<--------------------Musc------------------>")
+        Log.d("<--------------------Musc------------------>")
         let arrayDayWiseSystemScore = systemScoreWithDays(days: days)
         //Calculate average system core for 7 days/30 days/3 months
         //Final system score for Cardio
         muscSystemScore = commonTotalSystemScoreWithDays(arrayDayWiseSystemScore: arrayDayWiseSystemScore)
         let calculatedScore = muscSystemScore
-        print("Musc calculatedScore",calculatedScore)
+        Log.d("Musc calculatedScore-\(calculatedScore)")
         return calculatedScore
     }
     
@@ -83,7 +83,7 @@ class MuscData {
         let totalMaxScore = maxScoreVitals  + maxConditionData  + maxLabData + maxsymptomData
         
         
-        print("totalMaxScore=======\(totalMaxScore) maxScoreVitals===\(maxScoreVitals)  maxConditionData===\(maxConditionData)  maxLabData === \(maxLabData) maxsymptomData===\(maxsymptomData)")
+        Log.d("totalMaxScore=======\(totalMaxScore) maxScoreVitals===\(maxScoreVitals)  maxConditionData===\(maxConditionData)  maxLabData === \(maxLabData) maxsymptomData===\(maxsymptomData)")
         return totalMaxScore
         
     }

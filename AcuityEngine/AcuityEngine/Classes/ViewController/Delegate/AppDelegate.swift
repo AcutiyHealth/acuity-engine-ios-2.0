@@ -9,16 +9,38 @@ import UIKit
 import CoreData
 
 @main
-class AppDelegate: UIResponder, UIApplicationDelegate {
-
-
+class AppDelegate: UIResponder, UIApplicationDelegate,UNUserNotificationCenterDelegate {
+    var window: UIWindow?
+    var isLocalNotificationGranted:Bool = false
+    static var shared: AppDelegate { return UIApplication.shared.delegate as! AppDelegate }
+       
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         
+        
+        WebServiceConstants.mode = .DEBUG
+        if Utility.fetchObject(forKey: Key.kIsNotificationOnOff) == nil{
+            Utility.setBoolForKey(true, key: Key.kIsNotificationOnOff)
+        }
+        //Set Notification Permisssion
+        setNotificationPermisssion()
         // Override point for customization after application launch.
         return true
     }
-
+    //========================================================================================================
+    //MARK: Set Notification Permisssion..
+    //========================================================================================================
+    func setNotificationPermisssion(){
+        // Override point for customization after application launch.
+        UNUserNotificationCenter.current().delegate = self
+        UNUserNotificationCenter.current().requestAuthorization(options: [.alert, .badge, .sound]) { (granted, error) in
+            if granted {
+                self.isLocalNotificationGranted = true
+                print("User gave permissions for local notifications")
+            }
+        }
+       
+    }
     // MARK: UISceneSession Lifecycle
 
     func application(_ application: UIApplication, configurationForConnecting connectingSceneSession: UISceneSession, options: UIScene.ConnectionOptions) -> UISceneConfiguration {

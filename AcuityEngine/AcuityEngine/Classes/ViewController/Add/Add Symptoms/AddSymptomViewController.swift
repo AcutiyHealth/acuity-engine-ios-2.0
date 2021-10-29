@@ -165,7 +165,7 @@ class AddSymptomViewController: UIViewController {
                         self?.showAlertForDataSaved(message:message,okAction: okAction!)
                         
                     }else{
-                        let message = "\(name) is not authorized. You can authorized it by making Turn on from Settings -> Health -> DATA -> \(Key.kAppName) -> Health Data"
+                        let message = "\(name) is not authorized.\(AlertMessages.AUTHORIZE_HEALTH_DATA)"
                         let okAction = UIAlertAction(title: "OK", style: .default, handler: nil)
                         self?.showAlertForDataSaved(message:message,okAction: okAction)
                     }

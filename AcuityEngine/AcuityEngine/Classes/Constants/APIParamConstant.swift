@@ -8,16 +8,16 @@
 import Foundation
 
 
-struct APIParameter {
+/*struct APIParameter {
     static let kSuccessStatus = "Symptoms Tracker"
     static let kMessage = "Conditions"
     static let kUnauthorizeStatus = "400"
     static let kAccessToken = "accessToken"
     static let kRefreshTokenMethod = "refreshToken"
     static let kAuthorization = ""
-
+    static let kRefreshToken = "refresh_token"
 }
-
+*/
 
 
 

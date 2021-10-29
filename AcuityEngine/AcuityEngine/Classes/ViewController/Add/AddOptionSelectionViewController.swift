@@ -103,18 +103,21 @@ extension AddOptionSelectionViewController: UITableViewDelegate, UITableViewData
             do{
                 openVitalViewController(title:AddOption.vitals.rawValue)
             }
-        case .medications:
-            do{
-                openMedicationScreen(title: AddOption.medications.rawValue)
-            }
-        case .otherHistory:
-            do{
-                openOtherHistoriesScreen(title: AddOption.otherHistory.rawValue)
-            }
+            /* case .medications:
+             do{
+             openMedicationScreen(title: AddOption.medications.rawValue)
+             }
+             case .otherHistory:
+             do{
+             openOtherHistoriesScreen(title: AddOption.otherHistory.rawValue)
+             }*/
             
         case .none:
             print("")
+        default:
+            break;
         }
+        
     }
     
     //========================================================================================================

@@ -26,7 +26,7 @@ class SkinData {
      Below method is used to caculate My well score. My well score need one day/today's data for calculation. So, we use totalSystemScoreWithDays with one day.
      */
     func getWeightedSystemScore()->Double{
-        print("<--------------------Skin------------------>")
+        Log.d("<--------------------Skin------------------>")
         let score = totalSystemScoreWithDays(days: SegmentValueForGraph.OneDay)
         return (score * skinRelativeImportance)/100
     }
@@ -34,13 +34,13 @@ class SkinData {
     
     //Total/Final System Score
     func totalSystemScoreWithDays(days:SegmentValueForGraph) -> Double{
-        print("<--------------------Skin------------------>")
+        Log.d("<--------------------Skin------------------>")
         let arrayDayWiseSystemScore = systemScoreWithDays(days: days)
         //Calculate average system core for 7 days/30 days/3 months
         //Final system score for Cardio
         skinSystemScore = commonTotalSystemScoreWithDays(arrayDayWiseSystemScore: arrayDayWiseSystemScore)
         let calculatedScore = skinSystemScore
-        print("Skin calculatedScore",calculatedScore)
+        Log.d("Skin calculatedScore-\(calculatedScore)")
         return calculatedScore
     }
     
@@ -85,7 +85,7 @@ class SkinData {
         let totalMaxScore = maxScoreVitals  + maxConditionData  + maxLabData + maxsymptomData
         
         
-        print("totalMaxScore=======\(totalMaxScore) maxScoreVitals===\(maxScoreVitals)  maxConditionData===\(maxConditionData)  maxLabData === \(maxLabData) maxsymptomData===\(maxsymptomData)")
+        Log.d("totalMaxScore=======\(totalMaxScore) maxScoreVitals===\(maxScoreVitals)  maxConditionData===\(maxConditionData)  maxLabData === \(maxLabData) maxsymptomData===\(maxsymptomData)")
         return totalMaxScore
         
     }

@@ -201,7 +201,7 @@ chevrons will be used for smooth rotating, using min, mid and max value.
      //whiteCircleImageView.layer.anchorPoint = CGPointMake(0.5f,0.5f);
      [_arrowDownImageView setBackgroundColor:[UIColor clearColor]];
     _arrowDownImageView.center = CGPointMake(_whiteCircleContainerView.center.x, _whiteCircleContainerView.center.y);
-     [_whiteCircleContainerView addSubview:_arrowDownImageView];
+     //[_whiteCircleContainerView addSubview:_arrowDownImageView];
    
     
     UIPanGestureRecognizer *whiteImageViewpanGestureRecognizer =[[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(recognizeWhiteCircleViewGesture:)];

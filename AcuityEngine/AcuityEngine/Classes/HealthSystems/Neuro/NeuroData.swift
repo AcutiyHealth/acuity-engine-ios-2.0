@@ -24,7 +24,7 @@ class NeuroData {
     
     
     func getWeightedSystemScore()->Double{
-        print("<--------------------Neuro------------------>")
+        Log.d("<--------------------Neuro------------------>")
         let score = totalSystemScoreWithDays(days: SegmentValueForGraph.OneDay)
         return (score * neuroRelativeImportance)/100
     }
@@ -32,13 +32,13 @@ class NeuroData {
     
     //Total/Final System Score
     func totalSystemScoreWithDays(days:SegmentValueForGraph) -> Double{
-        print("<--------------------Neuro------------------>")
+        Log.d("<--------------------Neuro------------------>")
         let arrayDayWiseSystemScore = systemScoreWithDays(days: days)
         //Calculate average system core for 7 days/30 days/3 months
         //Final system score for Cardio
         neuroSystemScore = commonTotalSystemScoreWithDays(arrayDayWiseSystemScore: arrayDayWiseSystemScore)
         let calculatedScore = neuroSystemScore
-        print("Neuro calculatedScore",calculatedScore)
+        Log.d("Neuro calculatedScore--\(calculatedScore)")
         return calculatedScore
     }
     
@@ -83,7 +83,7 @@ class NeuroData {
         let totalMaxScore = maxScoreVitals  + maxConditionData  + maxLabData + maxsymptomData
         
         
-        print("totalMaxScore=======\(totalMaxScore) maxScoreVitals===\(maxScoreVitals)  maxConditionData===\(maxConditionData)  maxLabData === \(maxLabData) maxsymptomData===\(maxsymptomData)")
+        Log.d("totalMaxScore=======\(totalMaxScore) maxScoreVitals===\(maxScoreVitals)  maxConditionData===\(maxConditionData)  maxLabData === \(maxLabData) maxsymptomData===\(maxsymptomData)")
         return totalMaxScore
         
     }
