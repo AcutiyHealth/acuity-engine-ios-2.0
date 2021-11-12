@@ -40,12 +40,13 @@ class AcuityMainViewController: PullUpViewController, UIScrollViewDelegate,Rotar
     @IBOutlet var subScoreView: UIView!
     @IBOutlet var stackProfileView: UIView!
     @IBOutlet var stackAddView: UIView!
-    
+    @IBOutlet var stackPreventionView: UIView!
     //SubScoreview Views
     @IBOutlet var lblScoreWhenPopup: UILabel!
     @IBOutlet var lblScoreTextWhenPopup: UILabel!
     
     @IBOutlet var btnPrevention: UIButton!
+    @IBOutlet var btnMedicin: UIButton!
     
     //save last selected index in wheel...
     var lastSelectedIndex = 0
@@ -217,6 +218,16 @@ class AcuityMainViewController: PullUpViewController, UIScrollViewDelegate,Rotar
             wheel?.transform(true, andselectedIndex: Int32(selSystem), andPreviousIndex: wheel?.currentValue ?? 0)
             
         }
+        else if btnWheelSelectionToggle == ToggleCaseForBtnSelection.refreshData.rawValue{
+            sortArrayBodySystemToShowMyWellDataOnTopInWheel()
+            MyWellScore.sharedManager.reorderDictionaryOfSystemScoreBasedOnScore()
+            btnRefreshSelected(selectedSystemIndex:0)
+            //            selSystem = viewModelAcuityMain.arrayIndexFromBodySystem(bodyStystem: arrSortedArray!, andAcuityId: acuityId ?? "0")
+            //
+            //            btnRefreshSelected(selectedSystemIndex: selSystem)
+            //            wheel?.transform(true, andselectedIndex: Int32(selSystem), andPreviousIndex: wheel?.currentValue ?? 0)
+            
+        }
         else{
             //When Center wheel button not selected.
             //Set up body system data with default value...
@@ -268,7 +279,7 @@ class AcuityMainViewController: PullUpViewController, UIScrollViewDelegate,Rotar
         btnWheelSelection.frame = CGRect(x: Int(innerView.frame.size.width)/2, y: Int(innerView.frame.size.height)/2, width: btnWheelSelectionWidth, height: btnWheelSelectionHeight)
         btnWheelSelection.center = wheel?.whiteCircleContainerView.center ?? CGPoint(x: 0, y: 0)
         //btnWheelSelection.setImage(ImageSet.wheel2, for: UIControl.State.selected)
-        btnWheelSelection.setImage(ImageSet.wheel2, for: UIControl.State.normal)
+        btnWheelSelection.setImage(ImageSet.wheel1, for: UIControl.State.normal)
         btnWheelSelection.addTarget(self, action: #selector(btnWheelSelectionClicked), for: UIControl.Event.touchUpInside)
         
         wheel?.addSubview(btnWheelSelection)
@@ -312,7 +323,7 @@ class AcuityMainViewController: PullUpViewController, UIScrollViewDelegate,Rotar
             do{
                 MyWellScore.sharedManager.reorderDictionaryOfSystemScoreBasedOnScore()
                 btnWheelSelected(selectedSystemIndex: 0)
-                
+                btnWheelSelection.setImage(ImageSet.wheel2, for: UIControl.State.normal)
                 self.openDetailPullUpViewController(withAnimation: false)
             }
             break;
@@ -320,9 +331,9 @@ class AcuityMainViewController: PullUpViewController, UIScrollViewDelegate,Rotar
             do{
                 
                 //======= Refresh Health Data For Calculation===========//
+                MyWellScore.sharedManager.reorderDictionaryOfSystemScoreBasedOnScore()
                 callLoadHealthData()
-                btnWheelSelectionToggle = 1;
-                btnWheelSelection.setImage(ImageSet.wheel2, for: UIControl.State.normal)
+                
             }
             break;
         default:
@@ -341,7 +352,17 @@ class AcuityMainViewController: PullUpViewController, UIScrollViewDelegate,Rotar
             
         }
     }
-    
+    func btnRefreshSelected(selectedSystemIndex:Int){
+        btnWheelSelectionToggle = 0;
+        sortArrayBodySystemToShowMyWellDataOnTopInWheel()
+        setupWheel(selSystem: selectedSystemIndex, bodyStystems: arrSortedArray ?? arrBodySystems, needToRotateChevron: true)
+        if arrSortedArray?.count ?? 0>0{
+            let item = arrSortedArray?[0]
+            let index:String = (item?["score"] as? String ?? "")
+            self.setBackGroundColorRoundView(index:index )
+            
+        }
+    }
     func btnWheelNotSelected(selectedSystemIndex:Int){
         
         setupWheel(selSystem: selectedSystemIndex, bodyStystems: arrBodySystems, needToRotateChevron: true)
@@ -357,6 +378,10 @@ class AcuityMainViewController: PullUpViewController, UIScrollViewDelegate,Rotar
     //========================================================================================================
     func sortArrayBodySystem(){
         arrSortedArray = viewModelAcuityMain.returnSortedArrayUsingIndexandSequence(bodySystemArray: arrBodySystems)
+        
+    }
+    func sortArrayBodySystemToShowMyWellDataOnTopInWheel(){
+        arrSortedArray = viewModelAcuityMain.reorderDictionaryAndShowMyWellScoreOnTop(bodySystemArray: arrBodySystems)
         
     }
     //========================================================================================================
@@ -559,7 +584,7 @@ class AcuityMainViewController: PullUpViewController, UIScrollViewDelegate,Rotar
     func setBackGroundColorRoundView(index:String){
         let themeColor = getThemeColor(index: index,isForWheel: true)
         wheel?.roundbackGroundView.backgroundColor = themeColor;
-        if btnWheelSelectionToggle == ToggleCaseForBtnSelection.showReorderWheel.rawValue{
+        if btnWheelSelectionToggle == ToggleCaseForBtnSelection.refreshData.rawValue{
             let image = viewModelAcuityMain.getCenterBtnImageOfColor(index: index)
             btnWheelSelection.setImage(image, for: .normal)
         }
@@ -578,6 +603,7 @@ class AcuityMainViewController: PullUpViewController, UIScrollViewDelegate,Rotar
         self.mainScoreView.isHidden = false
         self.subScoreView.isHidden = true
         self.stackAddView.isHidden = true
+        self.stackPreventionView.isHidden = true
         self.stackProfileView.isHidden = true
         self.pullUpController.isExpanded = false
         
@@ -589,6 +615,7 @@ class AcuityMainViewController: PullUpViewController, UIScrollViewDelegate,Rotar
         self.setMainScoreViewsLabelAnimationConstrinat(isFirstTime: false)
         self.mainScoreView.isHidden = false
         self.subScoreView.isHidden = true
+        self.stackPreventionView.isHidden = true
         self.stackAddView.isHidden = true
         self.stackProfileView.isHidden = true
         self.pullUpController.isExpanded = true
@@ -687,12 +714,24 @@ class AcuityMainViewController: PullUpViewController, UIScrollViewDelegate,Rotar
         }
     }
     //========================================================================================================
+    //MARK: Add Medicin Button Near wheel..
+    //========================================================================================================
+    @IBAction func btnMedicinNearWheelClicked(){
+        btnAddClickedCallBack()
+            if  pullUpController.pullUpVC.isKind(of: AddOptionSelectionViewController.self){
+                let vc = pullUpController.pullUpVC as? AddOptionSelectionViewController
+                vc?.isAnimationEnabledForSubView = false
+                vc?.openMedicationScreen(title: AddOption.medications.rawValue)
+            }
+     
+    }
+    //========================================================================================================
     //MARK: Add Prevention Button Near wheel..
     //========================================================================================================
     func addPreventionButtonNearWheel(){
         if let _ = wheel{
             btnPrevention.isHidden = false
-            viewModelAcuityMain.arrangePreventionButtonNearWheel(btnPrevention: btnPrevention, view: self.view, wheel: wheel!)
+            viewModelAcuityMain.arrangePreventionButtonNearWheel(btnPrevention: btnPrevention, view: self.view, scoreview: mainScoreView!)
             viewModelAcuityMain.displayPreventionData = { arrRecommondetions in
                 self.showPreventionPopUp(arrRecommondetions: arrRecommondetions)
             }
@@ -709,32 +748,57 @@ class AcuityMainViewController: PullUpViewController, UIScrollViewDelegate,Rotar
         }
     }
     func showPreventionPopUp(arrRecommondetions:[SpecificRecommendations]) {
-        let customPopUpVC = CustomPopUpVC(nibName: "CustomPopUpVC", bundle: nil)
+        /*let customPopUpVC = CustomPopUpVC(nibName: "CustomPopUpVC", bundle: nil)
+         
+         DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
+         // Create the dialog
+         customPopUpVC.arrRecommondetions = arrRecommondetions
+         
+         // your code here
+         customPopUpVC.subViewHeightConstraint?.constant = self.view.frame.size.height*2.2/3
+         //customPopUpVC.subViewWidthConstraint?.constant = self.view.frame.size.width-22
+         customPopUpVC.subView?.layoutIfNeeded()
+         
+         }
+         let popup = PopupDialog(viewController: customPopUpVC,
+         buttonAlignment: .horizontal,
+         transitionStyle: .zoomIn,
+         preferredWidth: self.view.frame.size.width-22,
+         tapGestureDismissal: true,
+         panGestureDismissal: false)
+         
+         customPopUpVC.btnCloseClickedCallback = {
+         popup.dismiss(nil)
+         }
+         
+         present(popup, animated: true, completion: nil)
+         */
         
-        DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
-            // Create the dialog
-            customPopUpVC.arrRecommondetions = arrRecommondetions
+        isProfileClicked = true
+        mainScoreView.isHidden = true
+        subScoreView.isHidden = true
+        stackAddView.isHidden = true
+        stackProfileView.isHidden = true
+        stackPreventionView.isHidden = false
+        animateScoreView(view: stackPreventionView)
+        
+        self.selectPullUpType = .Prevention
+        
+        if  (self.pullUpController.pullUpVC != nil),self.pullUpController.pullUpVC.isKind(of: PreventionListViewController.self){
             
-            // your code here
-            customPopUpVC.subViewHeightConstraint?.constant = self.view.frame.size.height*2.2/3
-            //customPopUpVC.subViewWidthConstraint?.constant = self.view.frame.size.width-22
-            customPopUpVC.subView?.layoutIfNeeded()
-            
-        }
-        let popup = PopupDialog(viewController: customPopUpVC,
-                                buttonAlignment: .horizontal,
-                                transitionStyle: .zoomIn,
-                                preferredWidth: self.view.frame.size.width-22,
-                                tapGestureDismissal: true,
-                                panGestureDismissal: false)
-        
-        customPopUpVC.btnCloseClickedCallback = {
-            popup.dismiss(nil)
+            if !pullUpController.isExpanded{
+                self.reloadCardView()
+                pullUpController.expanded()
+            }
+        }else{
+            self.reloadCardView()
+            pullUpController.expanded()
         }
         
-        present(popup, animated: true, completion: nil)
-        
-        
+        if  pullUpController.pullUpVC.isKind(of: PreventionListViewController.self){
+            let vc = pullUpController.pullUpVC as? PreventionListViewController
+            vc?.arrRecommondetions = arrRecommondetions
+        }
     }
 }
 
@@ -745,6 +809,7 @@ extension AcuityMainViewController:HeaderDelegate{
         subScoreView.isHidden = true
         stackAddView.isHidden = false
         stackProfileView.isHidden = true
+        self.stackPreventionView.isHidden = true
         animateScoreView(view: stackAddView)
         self.selectPullUpType = .Add
         if  (self.pullUpController.pullUpVC != nil),self.pullUpController.pullUpVC.isKind(of: AddOptionSelectionViewController.self){
@@ -763,6 +828,7 @@ extension AcuityMainViewController:HeaderDelegate{
         subScoreView.isHidden = true
         stackAddView.isHidden = true
         stackProfileView.isHidden = false
+        self.stackPreventionView.isHidden = true
         animateScoreView(view: stackProfileView)
         self.selectPullUpType = .Profile
         //if pullUpController.isE

@@ -412,14 +412,28 @@ class AcuityMainViewModel: NSObject {
         
         return finalArray
     }
-    
-    func arrangePreventionButtonNearWheel(btnPrevention:UIButton,view:UIView,wheel:RotaryWheel){
+    func reorderDictionaryAndShowMyWellScoreOnTop(bodySystemArray:[[String:Any]]) -> [[String:Any]] {
+        var finalArray: [[String:Any]] = bodySystemArray
+        let myWellScoreDict = finalArray.filter { dict in
+            return dict["id"] as! String == SystemId.Id_MyWellScore
+        }
+        if myWellScoreDict.count>0{
+            //let myWellScoreDictObject:[String:Any] = myWellScoreDict.first!
+            let index:Int = finalArray.firstIndex { dict in
+                return dict["id"] as! String == SystemId.Id_MyWellScore
+            }!
+            finalArray.remove(at: index)
+            finalArray.insert(myWellScoreDict.first!, at: 0)
+        }
+        return finalArray
+    }
+    func arrangePreventionButtonNearWheel(btnPrevention:UIButton,view:UIView,scoreview:UIView){
         
         btnPrevention.translatesAutoresizingMaskIntoConstraints = false
         btnPrevention.setTitle("", for: .normal)
-        let margins = view.layoutMarginsGuide
-        let bottomConstraint = btnPrevention.bottomAnchor.constraint(equalTo: margins.topAnchor, constant: wheel.frame.origin.y-5);
-        let leftConstraint = btnPrevention.leftAnchor.constraint(equalTo: margins.leftAnchor, constant: 0);
+        let margins = view.safeAreaLayoutGuide
+        let bottomConstraint = btnPrevention.bottomAnchor.constraint(equalTo: margins.topAnchor, constant: scoreview.frame.origin.y + scoreview.frame.size.height+5);
+        let leftConstraint = btnPrevention.leftAnchor.constraint(equalTo: margins.leftAnchor, constant: 10);
         let height = btnPrevention.heightAnchor.constraint(equalToConstant: 40)
         let width = btnPrevention.widthAnchor.constraint(equalToConstant: 40)
         view.addConstraint(bottomConstraint)
