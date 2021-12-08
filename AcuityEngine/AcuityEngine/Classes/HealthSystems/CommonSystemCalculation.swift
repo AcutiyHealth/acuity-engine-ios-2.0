@@ -185,6 +185,7 @@ func combineBPSystolicAndDiastolic(arraySystolic:[VitalCalculation],arrayDiastol
         }
         
         let newVitalModel = VitalsModel(title: VitalsName.bloodPressureSystolicDiastolic.rawValue, value: String(format: "%.2f", modelSystolic.value) , isBPModel: true, valueForDiastolic: String(format: "%.2f", diastolicValue), colorForDiastolic: diastolicColor)
+        newVitalModel.color = modelSystolic.getUIColorFromCalculatedValue()
         newVitalModel.startTime = modelSystolic.startTimeStamp
         newVitalModel.endTime = modelSystolic.endTimeStamp
         arrayVitalBPModel.append(newVitalModel)

@@ -15,6 +15,7 @@ class ProfileOptionSelectionViewController:UIViewController{
     @IBOutlet weak var profileOptionTableView: UITableView!
     @IBOutlet weak var handleArea: UIView!
     @IBOutlet weak var mainView: UIView!
+    @IBOutlet weak var btnLogOut: UIButton!
     @IBOutlet weak var visualEffectView: UIView!
     
     //Close button for Acuity detail value...
@@ -25,6 +26,7 @@ class ProfileOptionSelectionViewController:UIViewController{
     var termsVC : TermsOfServiceViewController?
     var settingVC : SettingsViewController?
     
+    var fullName = ""
     
     var profileOptionArray: Array<String> = [ProfileOption.profile.rawValue,ProfileOption.settings.rawValue,ProfileOption.termsOfService.rawValue]
     //var labelsAsStringForMonth: Array<String> = ["Week1","Week2","Week3","Week4"]
@@ -41,11 +43,42 @@ class ProfileOptionSelectionViewController:UIViewController{
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        let firstName = getFromKeyChain(key: Key.kAppleFirstName)
+        let lastName = getFromKeyChain(key: Key.kAppleLastName)
+        let userId = getFromKeyChain(key: Key.kAppleUserID)
+        let isLoggedIn = Utility.fetchObject(forKey: Key.kIsLoggedIn)
+        btnLogOut.isHidden = true
+        if (isLoggedIn != nil) == true && userId != ""{
+            //profileOptionArray.append(ProfileOption.logOut.rawValue)
+            btnLogOut.isHidden = false
+        }
+        fullName = (firstName + " " + lastName).trimmingCharacters(in: .whitespaces)
+        // Set Font For Button
+        setFontForButtonsAndLabel()
         profileOptionTableView.reloadData()
         
     }
-    
-    
+    //========================================================================================================
+    //MARK: Set Font For Button
+    //========================================================================================================
+    func setFontForButtonsAndLabel(){
+        btnLogOut.titleLabel?.font = Fonts.kCellTitleFont
+    }
+    //========================================================================================================
+    //MARK: Log Out
+    //========================================================================================================
+    @IBAction func btnLogOutClicked(_ sender: Any){
+        do{
+            Utility.setBoolForKey(false, key: Key.kIsLoggedIn)
+            //kIsSymptomseminder
+            var notificationModel = NotificationModel(identifier: Key.kIsSymptomseminder)
+            NotificationManager.shared.removeScheduledNotification(model: notificationModel)
+            //kIsTerminatereminder
+            notificationModel = NotificationModel(identifier: Key.kIsTerminatereminder)
+            NotificationManager.shared.removeScheduledNotification(model: notificationModel)
+            NotificationCenter.default.post(name: Notification.Name(NSNotificationName.logOutFromApp.rawValue), object: nil)
+        }
+    }
     
 }
 // MARK: - SOPullUpViewDelegate
@@ -57,8 +90,8 @@ extension ProfileOptionSelectionViewController: SOPullUpViewDelegate {
             UIView.animate(withDuration: 0.9) {
                 self.view.alpha = 0.2
             }
-            NotificationCenter.default.post(name: Notification.Name("pullUpClose"), object: nil)
-            NotificationCenter.default.post(name: Notification.Name("showAcuityDetailPopup"), object: nil)
+            NotificationCenter.default.post(name: Notification.Name(NSNotificationName.pullUpClose.rawValue), object: nil)
+            NotificationCenter.default.post(name:Notification.Name(NSNotificationName.showAcuityDetailPopup.rawValue), object: nil)
             
         case .expanded: break
             
@@ -74,15 +107,19 @@ extension ProfileOptionSelectionViewController: SOPullUpViewDelegate {
 
 extension ProfileOptionSelectionViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return profileOptionArray.count + 1
+        if fullName != ""{
+            return profileOptionArray.count + 1
+        }else{
+            return profileOptionArray.count
+        }
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        if indexPath.row == 0{
+        if indexPath.row == 0  && fullName != ""{
             let cell: UITableViewCell = tableView.dequeueReusableCell(withIdentifier: "ProfileDisplayCell", for: indexPath as IndexPath)
             let profileImage = cell.viewWithTag(1) as? UIImageView
             let nameLabel = cell.viewWithTag(2) as? UILabel
-            nameLabel?.text = "Test Test"
+            nameLabel?.text = fullName
             nameLabel?.font = Fonts.kCellTitleFont
             cell.selectionStyle = .none
             
@@ -92,8 +129,11 @@ extension ProfileOptionSelectionViewController: UITableViewDelegate, UITableView
             guard let cell: LabelDisplayCell = tableView.dequeueReusableCell(withIdentifier: "LabelDisplayCell", for: indexPath as IndexPath) as? LabelDisplayCell else {
                 fatalError("AcuityDetailDisplayCell cell is not found")
             }
-            
-            cell.titleLabel?.text = profileOptionArray[indexPath.row-1]
+            var index = indexPath.row
+            if fullName != ""{
+                index = indexPath.row-1
+            }
+            cell.titleLabel?.text = profileOptionArray[index]
             
             cell.selectionStyle = .none
             
@@ -103,7 +143,7 @@ extension ProfileOptionSelectionViewController: UITableViewDelegate, UITableView
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        if indexPath.row == 0{
+        if indexPath.row == 0  && fullName != ""{
             let cellHeight = getRowHeightAsPerDeviceSize(height:100)
             return cellHeight > 108 ? 108 : cellHeight
         }else{
@@ -112,8 +152,11 @@ extension ProfileOptionSelectionViewController: UITableViewDelegate, UITableView
         
     }
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        
-        switch ProfileOption(rawValue: profileOptionArray[indexPath.row-1]){
+        var index = indexPath.row
+        if fullName != ""{
+            index = indexPath.row-1
+        }
+        switch ProfileOption(rawValue: profileOptionArray[index]){
         case .profile:
             do{
                 openProfileViewController()
@@ -126,7 +169,10 @@ extension ProfileOptionSelectionViewController: UITableViewDelegate, UITableView
             do{
                 openTermsNServiceViewController()
             }
-            
+        case .logOut:
+            do{
+                
+            }
             
         case .none:
             print("")

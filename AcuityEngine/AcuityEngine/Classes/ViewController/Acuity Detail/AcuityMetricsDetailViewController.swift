@@ -19,8 +19,8 @@ class AcuityMetricsDetailViewController: UIViewController {
     
     //Condition data
     var arrConditions:[ConditionsModel] = []
-//    //Symptoms Data
-//    var arrSymptoms:[SymptomsModel] = []
+    //Symptoms Data
+    var arrSymptoms:[SymptomsModel] = []
     //Medications Data
     var arrMedications:[MedicationDataDisplayModel] = []
     //Lab Data
@@ -110,14 +110,18 @@ extension AcuityMetricsDetailViewController: UITableViewDelegate, UITableViewDat
             do{
                 return arrMedications.count
             }
+        case .Sympotms:
+            do{
+                return arrSymptoms.count
+            }
         case .LabData:
             do{
                 return arrLabs.count
             }
         default:
-        break;
+            break;
         }
-       return 0
+        return 0
     }
     
     
@@ -138,6 +142,14 @@ extension AcuityMetricsDetailViewController: UITableViewDelegate, UITableViewDat
                 cell = tableView.dequeueReusableCell(withIdentifier: "AcuityDetailValueDisplayCellConditions") as! AcuityDetailValueDisplayCell
                 let item = arrConditions[indexPath.row]
                 cell.displayConditionData(item: item)
+                cell.selectionStyle = .none
+            }
+        case .Sympotms:
+            do{
+                cell = tableView.dequeueReusableCell(withIdentifier: "AcuityDetailValueDisplayCellSymptoms") as! AcuityDetailValueDisplayCell
+                let item = arrSymptoms[indexPath.row]
+                //cell.btnArrowForDetail.isHidden  = true
+                cell.displaySymptomsData(item: item)
                 cell.selectionStyle = .none
             }
         case .Medication:
@@ -182,24 +194,24 @@ extension AcuityMetricsDetailViewController: UITableViewDelegate, UITableViewDat
                 detailValueVC?.metrixItem = AcuityDetailPulllUpModel(title: item.title ?? "", value: item.value ?? "", metrixType: (metrixType ?? .none)!)
             }
             
-        /*case .Sympotms:
+        case .Sympotms:
             do{
                 
                 let item = arrSymptoms[indexPath.row]
                 detailValueVC?.metrixItem = AcuityDetailPulllUpModel(title: item.title ?? "", value: item.textValue?.rawValue ?? "", metrixType: (metrixType ?? .none)!)
-            }*/
+            }
         case .LabData:
             do{
                 
                 let item = arrLabs[indexPath.row]
                 detailValueVC?.metrixItem = AcuityDetailPulllUpModel(title: item.title ?? "", value: item.value ?? "", metrixType: (metrixType ?? .none)!)
             }
-        /*case .Conditions:
-         do{
-         
-         let item = arrConditions[indexPath.row]
-         detailValueVC?.metrixItem = AcuityDetailPulllUpModel(title: item.title ?? "", value: item.textValue, metrixType: (metrixType ?? .none)!)
-         }*/
+            /*case .Conditions:
+             do{
+             
+             let item = arrConditions[indexPath.row]
+             detailValueVC?.metrixItem = AcuityDetailPulllUpModel(title: item.title ?? "", value: item.textValue, metrixType: (metrixType ?? .none)!)
+             }*/
         default:
             break;
         }
@@ -235,6 +247,6 @@ extension AcuityMetricsDetailViewController: UITableViewDelegate, UITableViewDat
             detailValueVC?.removeFromParent()
         }
     }
-   
+    
 }
 

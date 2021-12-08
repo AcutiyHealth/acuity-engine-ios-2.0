@@ -22,8 +22,7 @@ extension UIViewController {
             alert.popoverPresentationController?.sourceView = sourceView
             alert.popoverPresentationController?.sourceRect = sourceView?.frame ?? .zero
         }
-        
-        
+        alert.view.layoutIfNeeded()
         self.present(alert, animated: true, completion: nil)
     }
     
@@ -32,6 +31,7 @@ extension UIViewController {
         for action in actions {
             alert.addAction(action)
         }
+        alert.view.layoutIfNeeded()
         self.present(alert, animated: true, completion: nil)
     }
 }

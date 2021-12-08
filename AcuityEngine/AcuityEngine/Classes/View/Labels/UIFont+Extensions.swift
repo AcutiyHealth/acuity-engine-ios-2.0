@@ -65,4 +65,10 @@ extension UIFont {
     static func SFProDisplayRegular(of size: CGFloat = 14) -> UIFont {
         return UIFont.SFProDisplay(ofSize: size, weight: .regular)
     }
+    static func PoppinsDisplayRegular(of size: CGFloat = 14) -> UIFont {
+        return UIFont(name: "Poppins-Regular", size: size) ?? UIFont.SFProDisplay(ofSize: size, weight: .semiBold)
+    }
+    static func PoppinsDisplayBold(of size: CGFloat = 14) -> UIFont {
+        return UIFont(name: "Poppins-Bold", size: size) ?? UIFont.SFProDisplay(ofSize: size, weight: .semiBold)
+    }
 }

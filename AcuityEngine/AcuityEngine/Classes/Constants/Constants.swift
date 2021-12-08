@@ -57,7 +57,7 @@ enum SystemName:String {
     case MyWellScore = "MyWell  Score"
 }
 struct SystemId {
-    static let Id_Cardiovascular = "0"
+    static let Id_Cardiovascular = "112"
     static let Id_Respiratory = "15"
     static let Id_Renal = "20"
     static let Id_Gastrointestinal = "45"
@@ -71,7 +71,7 @@ struct SystemId {
     static let Id_InfectiousDisease = "98"
     static let Id_SocialDeterminantsofHealth = "248"
     static let Id_Heent = "111"
-    static let Id_MyWellScore = "112"
+    static let Id_MyWellScore = "0"
 }
 
 enum ConditionValueText:String {
@@ -83,7 +83,7 @@ enum MedicationValueText:String {
     case No = "No"
 }
 struct ImageSet {
-    //static let wheel1 = UIImage(named:"wheel_option_1.png")
+    static let wheel1 = UIImage(named:"wheel_option_1.png")
     static let wheel2 = UIImage(named:"wheel_option_2.png") //AppIcon
     //static let wheel1 = UIImage(named:"center_button.png")
     //static let wheel2 = UIImage(named:"center_button.png")
@@ -93,6 +93,8 @@ enum PullUpType {
     case Profile
     case Add
     case MyWellScore
+    case Prevention
+    case Medication
 }
 
 enum SegmentValueForGraph:String {
@@ -128,6 +130,7 @@ enum ProfileOption: String {
     case settings = "Settings"
     case profile = "Profile"
     case termsOfService = "Terms Of Service"
+    case logOut = "Log Out"
 }
 enum AddOption: String {
     case symptom = "Symptoms Tracker"
@@ -142,6 +145,8 @@ enum NSNotificationName: String {
     case showAcuityDetailPopup = "showAcuityDetailPopup"
     case refreshCircleView = "refreshCircleView"
     case refreshDataInCircle = "refreshDataInCircle"
+    case showSymptomsListScreen = "showSymptomsListScreen"
+    case logOutFromApp = "logOutFromApp"
 }
 //=============================Other History=================================================//
 enum OtherHistory:String {
@@ -161,13 +166,10 @@ enum OtherHistoryId:Int,CaseIterable {
 }
 //=============================Medications=================================================//
 enum Medication:String {
-    case vitamin = "Vitamin"
-    case diabetes = "Diabetes"
-    case none = "none"
+    case Medication = "Medication"
 }
 enum MedicationId:Int,CaseIterable {
-    case vitaminId = 1
-    case diabetesId = 2
+    case Medication = 1
 }
 //==============================================================================//
 struct ScreenTitle {
@@ -179,15 +181,31 @@ struct AlertMessages {
     static let BP_AND_HEARTRATE_SAVED = "Blood Pressure and Heart Rate saved in health kit"
     static let o2_AND_HEARTRATE_SAVED = "Oxygen Saturation and Heart Rate saved in health kit"
     static let MESSAGE_IN_ADD_OPTION_SCREEN = " use to know well score of person."
-    static let TITLE_NO_AGE_SET = "No Age Set"
+    static let TITLE_NO_AGE_SET = "No Age/Gender Set"
+    static let TITLE_ERROR = "Error"
     static let TITLE_NETWORK_PROBLEM = "Network Problem"
-    static let DESCIPTION_NO_AGE_SET = "Set age in Health app to view prevention data"
+    static let DESCIPTION_NO_AGE_SET = "Set age/gender in Health app to view prevention data"
+    static let ERROR_DATA_FETCH = "There is problem in data fetching."
+    static let ERROR_HISTORY_SAVE = "There is some error.History data can't save"
+    static let ERROR_MEDICATION_SAVE = "There is some error.Medication data can't save"
+    static let SUCCESS_HISTORY_SAVE = "History data saved succesfully."
+    static let SUCCESS_HISTORY_DELETE = "History data deleted succesfully."
+    static let SUCCESS_MEDICATION_SAVE = "Medication data saved succesfully."
+    static let SUCCESS_MEDICATION_DELETE = "Medication data deleted succesfully."
     static let AUTHORIZE_HEALTH_DATA = "You can authorized it by making Turn on from Settings -> Health -> DATA -> \(Key.kAppName ) -> Health Data"
     static let MSG_ON_NOTIFICATION_SWITCH = "To on notification, go to Setting -> \(Key.kAppName) -> Notification"
     static let TITLE_ON_NOTIFICATION_SWITCH = "Notification Is Off"
     static let TERMINATOR_NOTIFICATION_TITLE = "Check Your Well Score"
     static let TERMINATOR_NOTIFICATION_MESSAGE = "It's been a week you haven't open Acuity Engine App."
+    static let SYMPTOMS_NOTIFICATION_TITLE = "Are you still facing symptoms?"
+    static let SYMPTOMS_NOTIFICATION_MESSAGE = "Change your symptoms level in app."
     static let NETWORK_PROBLEM_MESSAGE = "Can't load data. There is internet connection problem"
+    static let DELETE_CONFIRMATION_TITLE = "Are you sure you want to delete this?"
+    static let DELETE_CONFIRMATION_MESSAGE = "There is no undo"
+}
+struct Titles{
+    static let BTN_DELETE = "Delete"
+    static let BTN_CANCEL = "Cancel"
 }
 struct WheelColor {
     static let BLUECOLORLABELTITLE = UIColor(red: 41.0 / 255.0, green: 121.0 / 255.0, blue: 255.0 / 255.0, alpha: 1.0)
@@ -290,8 +308,8 @@ struct Fonts {
     static let kAcuityDetailTitleFont = getFontAsPerDeviceSize(fontName: UIFont.SFProDisplayBold(of: 26), fontSize: 26)
     static let kAcuityDetailValueFont = getFontAsPerDeviceSize(fontName: UIFont.SFProDisplayBold(of: 26), fontSize: 26)
     static let kAcuityDetailSegmentFont = getFontAsPerDeviceSize(fontName: UIFont.SFProDisplayMedium(of: 13), fontSize: 13)
-    static let kAcuityDetailCellTitleFont = getFontAsPerDeviceSize(fontName: UIFont.SFProDisplayBold(of: 15), fontSize: 15)
-    static let kAcuityPullUpMetricCellFont = getFontAsPerDeviceSize(fontName: UIFont.SFProDisplayMedium(of: 12), fontSize: 12)
+    static let kAcuityDetailCellTitleFont = getFontAsPerDeviceSize(fontName: UIFont.SFProDisplayBold(of: 18), fontSize: 18)
+    static let kAcuityPullUpMetricCellFont = getFontAsPerDeviceSize(fontName: UIFont.SFProDisplayMedium(of: 14), fontSize: 14)
     static let kAcuityDetailCellFont = getFontAsPerDeviceSize(fontName: UIFont.SFProDisplayMedium(of: 15), fontSize: 15)
     static let kAcuitySystemCellFont = getFontAsPerDeviceSize(fontName: UIFont.SFProDisplayBold(of: 16), fontSize: 16)
     static let kAcuityMyWellTblCellTitleFont = getFontAsPerDeviceSize(fontName: UIFont.SFProDisplaySemiBold(of: 16), fontSize: 16)
@@ -319,13 +337,27 @@ struct Fonts {
     static let kAcuityAddOptionTitleFont = getFontAsPerDeviceSize(fontName: UIFont.SFProDisplayBold(of: 18), fontSize: 18)
     static let kAcuityAddOptionValueFont = getFontAsPerDeviceSize(fontName: UIFont.SFProDisplayMedium(of: 10), fontSize: 10)
     static let kAcuityAddDetailTitleFont = getFontAsPerDeviceSize(fontName: UIFont.SFProDisplayBold(of: 24), fontSize: 24)
-    
+    static let kAcuityAddOptionMaxLimitFont = getFontAsPerDeviceSize(fontName: UIFont.SFProDisplayRegular(of: 9), fontSize: 9)
+    //Onboarding
+    static let kAcuityOnBoardingTitleFont = getFontAsPerDeviceSize(fontName: UIFont.PoppinsDisplayBold(of: 18),fontSize: 18)
+    static let kAcuityOnBoardingSkipFont = getFontAsPerDeviceSize(fontName: UIFont.PoppinsDisplayRegular(of: 13),fontSize: 13)
 }
 //
 let VERSION_KEY = "version"
 let NUMBER_OF_DAYS_FOR_APP_OPEN = 7
+let NUMBER_OF_DAYS_FOR_APP_SYMPTOMS = 2
 let dayArray = ["Mon","Tue","Wed","Thu","Fri","Sat","Sun"]
-
+var vitalsArrayInConstant : [VitalModel] = [VitalModel(name: VitalsName.bloodPressure),
+                                            VitalModel(name: VitalsName.heartRate),
+                                            //VitalModel(name: VitalsName.vo2Max),
+                                            VitalModel(name: VitalsName.peakflowRate),
+                                            VitalModel(name: VitalsName.InhalerUsage),
+                                            VitalModel(name: VitalsName.temperature),
+                                            VitalModel(name: VitalsName.bloodSugar),
+                                            VitalModel(name: VitalsName.weight),
+                                            VitalModel(name: VitalsName.oxygenSaturation),
+                                            VitalModel(name: VitalsName.respiratoryRate),
+                                            VitalModel(name: VitalsName.BMI),]
 struct DeviceSize {
     static let screenRect = UIScreen.main.bounds
     static let screenWidth = screenRect.size.width
@@ -338,8 +370,13 @@ struct Key {
     static let kAppleLastName = "appleLastName" as  String
     static let kAppleEmail = "appleEmail" as  String
     static let kAppleUserID = "appleUserID" as  String
+    static let kAppleUser = "appleUser" as  String
     static let kAppName = Bundle.main.infoDictionary?["CFBundleDisplayName"] as? String ?? "AcuityEngine"
     static let kIsNotificationOnOff = "isNotificationOnOff" as  String
+    static let kPreventionData = "preventionData" as  String
     static let kIsTerminatereminder = "isTerminatereminder" as  String
+    static let kIsSymptomseminder = "isSymptomseminder" as  String
+    static let kIsLoggedIn = "isLoggedIn" as  String
+    static let kIsTutorialCardShown = "isTutorialCardShown" as  String
 }
 

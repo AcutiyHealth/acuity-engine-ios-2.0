@@ -18,6 +18,7 @@ class ProfileViewController: UIViewController {
     @IBOutlet weak var viewHistoryOrMedicationData: UIView!
     @IBOutlet weak var handleArea: UIView!
     @IBOutlet weak var heightConstraintFortblHistoryOrMedicationDataView: NSLayoutConstraint!
+    @IBOutlet weak var heightConstraintFortblProfileDataView: NSLayoutConstraint!
     let labelsAsStringForWeek: Array<String> = dayArray
     var profileViewModel = ProfileViewModel()
     var profileDataArray: [ProfileDataModel] = []
@@ -26,7 +27,7 @@ class ProfileViewController: UIViewController {
     var birthDate:String = "Not Set"
     var sex:String = "Not Set"
     var bloodType:String = "Not Set"
-   
+    let HEIGHT_OF_ROW_IN_PROFILE_TBL = 50
     // MARK: - Controller Life Cycle
     
     override func viewDidLoad() {
@@ -43,7 +44,7 @@ class ProfileViewController: UIViewController {
     //MARK: Fetch History And Medication Data..
     //========================================================================================================
     func fetchHistoryAndMedicationData(){
-        SVProgressHUD.show()
+        Utility.showSVProgress()
         DispatchQueue.global(qos: .background).async {
             
             self.profileViewModel.fetchHistoryData { success, error, arrayForTblDataView in
@@ -101,7 +102,9 @@ class ProfileViewController: UIViewController {
             
             //After fetching data set data to ProfileDataArray....
             setCharactristicDataToArray()
-            
+            //Set Height Of TableView
+            heightConstraintFortblProfileDataView.constant = CGFloat(profileDataArray.count * HEIGHT_OF_ROW_IN_PROFILE_TBL)
+            tblProfileData.reloadData()
         } catch {
             print(error)
         }
@@ -109,14 +112,22 @@ class ProfileViewController: UIViewController {
     
     func setCharactristicDataToArray(){
         
-        let profileData1 = ProfileDataModel(title: "First Name:", value: "Name")
-        let profileData2 = ProfileDataModel(title: "Last Name:", value: "Name")
+        let firstName = getFromKeyChain(key: Key.kAppleFirstName)
+        let lastName = getFromKeyChain(key: Key.kAppleLastName)
+        if firstName != ""{
+            let profileData1 = ProfileDataModel(title: "First Name:", value: firstName)
+            profileDataArray.append(profileData1)
+        }
+        if lastName != ""{
+            let profileData1 = ProfileDataModel(title: "Last Name:", value: lastName)
+            profileDataArray.append(profileData1)
+        }
         let profileData3 = ProfileDataModel(title: "Date of Birth:", value: birthDate)
         let profileData4 = ProfileDataModel(title: "Sex:", value: sex)
         let profileData5 = ProfileDataModel(title: "Blood Type:", value: bloodType)
-        
-        
-        profileDataArray = [profileData1,profileData2,profileData3,profileData4,profileData5]
+        profileDataArray.append(profileData3)
+        profileDataArray.append(profileData4)
+        profileDataArray.append(profileData5)
     }
 }
 
@@ -170,13 +181,13 @@ extension ProfileViewController: UITableViewDelegate, UITableViewDataSource {
             
             return cell
         }else{
-            guard let cell: ProfileAddOptionsDataView = tableView.dequeueReusableCell(withIdentifier: "ProfileAddOptionsDataView", for: indexPath as IndexPath) as? ProfileAddOptionsDataView else {
+            guard let cell: ProfileAddOptionsDataCell = tableView.dequeueReusableCell(withIdentifier: "ProfileAddOptionsDataCell", for: indexPath as IndexPath) as? ProfileAddOptionsDataCell else {
                 fatalError("AcuityDetailDisplayCell cell is not found")
             }
             
             //========================================================================//
             /*
-             ProfileAddOptionsDataView will have [key:value]. Key will be Title and array will be Data array..
+             ProfileAddOptionsDataCell will have [key:value]. Key will be Title and array will be Data array..
              */
             let txtObject = arrayForTblDataView[indexPath.row];
             cell.lblTitle.text = txtObject.first?.key ?? ""
@@ -192,7 +203,7 @@ extension ProfileViewController: UITableViewDelegate, UITableViewDataSource {
         if tableView == tblHistoryOrMedicationData{
             return HEIGHT_OF_ROW_IN_TBL_INPUT_VIEW;
         }
-        return 50;
+        return CGFloat(HEIGHT_OF_ROW_IN_PROFILE_TBL);
         
     }
     

@@ -18,7 +18,7 @@
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="S2h-Fn-49d">
-                        <rect key="frame" x="0.0" y="6" width="320" height="32"/>
+                        <rect key="frame" x="0.0" y="10" width="320" height="24"/>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                         <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -27,8 +27,8 @@
                 </subviews>
                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                 <constraints>
-                    <constraint firstAttribute="bottom" secondItem="S2h-Fn-49d" secondAttribute="bottom" constant="6" id="7KQ-aF-Vyh"/>
-                    <constraint firstItem="S2h-Fn-49d" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="6" id="FA8-kO-qPW"/>
+                    <constraint firstAttribute="bottom" secondItem="S2h-Fn-49d" secondAttribute="bottom" constant="10" id="7KQ-aF-Vyh"/>
+                    <constraint firstItem="S2h-Fn-49d" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="10" id="FA8-kO-qPW"/>
                     <constraint firstItem="S2h-Fn-49d" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" id="HMm-zc-WBI"/>
                     <constraint firstAttribute="trailing" secondItem="S2h-Fn-49d" secondAttribute="trailing" id="v5G-t8-UlY"/>
                 </constraints>

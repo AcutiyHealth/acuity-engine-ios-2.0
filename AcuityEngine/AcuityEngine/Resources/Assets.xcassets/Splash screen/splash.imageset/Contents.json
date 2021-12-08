@@ -1,12 +1,12 @@
 {
   "images" : [
     {
-      "filename" : "iPhone SE-1.png",
+      "filename" : "iPhone 5.png",
       "idiom" : "universal",
       "scale" : "1x"
     },
     {
-      "filename" : "iPhone SE.png",
+      "filename" : "iPhone XR.png",
       "idiom" : "universal",
       "scale" : "2x"
     },

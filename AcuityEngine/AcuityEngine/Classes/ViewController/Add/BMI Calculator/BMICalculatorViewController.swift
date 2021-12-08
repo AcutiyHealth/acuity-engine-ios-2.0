@@ -276,11 +276,9 @@ class BMICalculatorViewController: UIViewController {
         //show alert
         DispatchQueue.main.async {
             
-            
-            
             // Please enable camera access from Settings > AppName > Camera to take photos
             
-            let vc = self.parent
+            let vc = self.view.window?.rootViewController
             vc?.presentAlert(title: "\(Key.kAppName)",
                              message: message,
                              actions: okAction)

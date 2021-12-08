@@ -56,6 +56,7 @@ class AddSymptomViewController: UIViewController {
         setFontForLabel()
         //set rounded corner button.....
         setButtonRadiusAndBackgroundColor()
+        //Change Height Of Button For Non Notch Device
         if !UIDevice.current.hasNotch{
             btnHeight .constant = 50
         }
@@ -193,7 +194,7 @@ class AddSymptomViewController: UIViewController {
         //show alert
         DispatchQueue.main.async {
             
-            let vc = self.parent
+            let vc = self.view.window?.rootViewController
             vc?.presentAlert(title: "\(Key.kAppName)",
                              message: message,
                              actions: okAction)

@@ -136,6 +136,12 @@ chevrons will be used for smooth rotating, using min, mid and max value.
                 chevronImageView.image = [UIImage imageNamed:@"yellow_chevron"];
             }
         }
+        UIImageView *windowView = [[UIImageView alloc] initWithFrame:CGRectMake(0.0, -5.0,self.bounds.size.width*kChevronWidth/340,self.bounds.size.width*kChevronHeight/340)];
+        windowView.tag = 8888;
+        windowView.image = [UIImage imageNamed:@"AppIcon.png"];
+        windowView.hidden = YES;
+        windowView.userInteractionEnabled = NO;
+        windowView.backgroundColor = [UIColor whiteColor];
         
         UITapGestureRecognizer *tapGestureRecognizer =[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(recognizeChevronGesture:)];
         tapGestureRecognizer.delegate = (id)self;
@@ -156,6 +162,7 @@ chevrons will be used for smooth rotating, using min, mid and max value.
         [imageView setContentMode:UIViewContentModeScaleAspectFit];
         imageView.backgroundColor = UIColor.clearColor;
         [chevronView addSubview:chevronImageView];
+        [chevronView addSubview:windowView];
         [chevronView addSubview:imageView];
    
         [container addSubview:chevronView];
@@ -231,6 +238,8 @@ chevrons will be used for smooth rotating, using min, mid and max value.
     outSideBorderView.layer.borderWidth = 2;
     outSideBorderView.userInteractionEnabled = false;
     [container addSubview:outSideBorderView];
+    
+    
 }
 #pragma mark - Make Rounded view
 -(void)makeviewRounded:(UIView* )view{
@@ -438,6 +447,7 @@ This method will return color string based on index value.
         _arrowDownImageView.transform = CGAffineTransformRotate(_arrowDownImageView.transform, requiredRotationAngle);
         currentValue = selectedIndex;
         roundbackGroundView.backgroundColor = [RotaryWheel getThemeColor:[[arrBodySystems objectAtIndex:selectedSystem] objectForKey:@"score"]];
+        [self redrawWheel:currentValue];
         [self.delegate wheelDidChangeValue:selectedIndex];
     }
     else{
@@ -447,6 +457,7 @@ This method will return color string based on index value.
         if(currentValue > numberOfSections-1)
             currentValue = currentValue-numberOfSections;
         roundbackGroundView.backgroundColor = [RotaryWheel getThemeColor:[[arrBodySystems objectAtIndex:selectedSystem] objectForKey:@"score"]];
+        [self redrawWheel:currentValue];
         [self.delegate wheelDidChangeValue:currentValue];
     }
 }
@@ -463,11 +474,11 @@ This method will return color string based on index value.
 -(void)redrawWheel:(int)selectedNumber{
     int i = 0;
     NSArray *arrWheel = [container subviews];
-    
+    NSLog(@"selectedNumber--%d",selectedNumber);
     for (UIView *view in arrWheel){
         NSArray *arrView = view.subviews;
         for(int j=0;j<arrView.count;j++){
-            if([[arrView objectAtIndex:j] isKindOfClass:[UIImageView class]] && [[arrView objectAtIndex:j] tag] != 9999){
+            if([[arrView objectAtIndex:j] isKindOfClass:[UIImageView class]] && [[arrView objectAtIndex:j] tag] != 9999 && [[arrView objectAtIndex:j] tag] != 8888){
                 UIImageView *imgView = [arrView objectAtIndex:j];
                 
                 NSString *strThemeColor = [self getThemeColor:[[arrBodySystems objectAtIndex:i] objectForKey:@"score"]];
@@ -492,6 +503,26 @@ This method will return color string based on index value.
                     }
                 }
             }
+            /*if([[arrView objectAtIndex:j] isKindOfClass:[UIImageView class]] && [[arrView objectAtIndex:j] tag] == 9999){
+                UIImageView *imgView = [arrView objectAtIndex:j];
+                if(i == selectedNumber){
+                    imgView.hidden = YES;
+                    //imgView.frame = [[UIImageView alloc] initWithFrame:CGRectMake(15*self.bounds.size.width/kAcuityCircleWidth, y*self.bounds.size.width/kAcuityCircleWidth, 50*self.bounds.size.width/kAcuityCircleWidth,35*self.bounds.size.width/kAcuityCircleWidth)];
+                }else{
+                    imgView.hidden = NO;
+                    //imgView.image =  [UIImage imageNamed:[[arrBodySystems objectAtIndex:i] objectForKey:@"image"]];
+                }
+            }*/
+            /*if([[arrView objectAtIndex:j] isKindOfClass:[UIImageView class]] && [[arrView objectAtIndex:j] tag] == 8888){
+                UIImageView *imgView = [arrView objectAtIndex:j];
+                if(i == selectedNumber){
+                    imgView.hidden = NO;
+                   
+                }else{
+                    //imgView.image =  [UIImage imageNamed:[[arrBodySystems objectAtIndex:i] objectForKey:@"image"]];
+                    imgView.hidden = YES;
+                }
+            }*/
         }
         i++;
     }
@@ -520,7 +551,7 @@ currentValue is the value of selected system after rotation.
         float distance = [self calculateDistanceFromCenter:_prevPoint];
     
         // with below condition we can restrict or avoid any actions which is outside the wheel
-        if(distance >= 125.0f && distance <= 170.0f){
+        if(distance >= 30.0f && distance <= 170.0f){
         
             // calculate angle for start point
             float dx = _prevPoint.x - container.center.x;

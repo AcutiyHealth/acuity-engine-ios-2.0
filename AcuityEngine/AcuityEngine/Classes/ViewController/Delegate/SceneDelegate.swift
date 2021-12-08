@@ -11,46 +11,39 @@ import AuthenticationServices
 class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     
     var window: UIWindow?
+    static var shared: SceneDelegate { return UIApplication.shared.delegate as! SceneDelegate }
+    
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
         if let windowScene = scene as? UIWindowScene {
-            
-            WebServiceConstants.mode = .DEBUG
-            
             let window = UIWindow(windowScene: windowScene)
-            /*guard
-             let appleUserData = UserDefaults.standard.data(forKey: "appleUser"),
-             let appleUser = try? JSONDecoder().decode(AppleUser.self, from: appleUserData)
-             else { return }
-             
-             
-             let appleIDProvider = ASAuthorizationAppleIDProvider()
-             appleIDProvider.getCredentialState(forUserID: appleUser.userId) { (credentialState, error) in
-             switch credentialState {
-             case .authorized:
-             DispatchQueue.main.async {
-             // Override point for customization after application launch.
-             let storyboard = UIStoryboard(name: "Main", bundle: nil)
-             let navigationController = storyboard.instantiateInitialViewController() as UINavigationController
-             let rootViewController = storyboard.instantiateViewController(withIdentifier: "AcuityMainViewController") as! AcuityMainViewController
-             navigationController.viewControllers = [rootViewController]
-             self.window?.rootViewController = navigationController
-             
-             }
-             break // The Apple ID credential is valid.
-             case .revoked, .notFound:
-             // The Apple ID credential is either revoked or was not found, so show the sign-in UI.
-             break
-             default:
-             break
-             }
-             }
-             */
+            AppDelegate.shared.window = window
+            //Configure Notification......
+            configureUserNotifications()
             
             // Save App Version
             saveAppVersion()
+            //AppDelegate.shared.moveToLoginScreen()
+            let delayInSeconds = 0.10
+            DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + delayInSeconds) { [weak self] in
+                //AppDelegate.shared.moveToLoginScreen()
+                
+                //Tutorial Screen
+                let isTutorialCardShown = Utility.fetchObject(forKey: Key.kIsTutorialCardShown)
+                let isLoggedIn = Utility.fetchBool(forKey: Key.kIsLoggedIn)
+                if isTutorialCardShown == nil || (isTutorialCardShown != nil) == false{
+                    AppDelegate.shared.moveToTutorialScreen()
+                }
+                
+                else if (isLoggedIn) == false{
+                    AppDelegate.shared.moveToLoginScreen()
+                }
+                else{
+                    AppDelegate.shared.checkIfAppleUserIsStored()
+                }
+                window.makeKeyAndVisible()
+            }
             
-            window.makeKeyAndVisible()
-            AppDelegate.shared.window = window
+            
         }
     }
     
@@ -77,17 +70,22 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     func sceneDidBecomeActive(_ scene: UIScene) {
         // Called when the scene has moved from an inactive state to an active state.
         // Use this method to restart any tasks that were paused (or not yet started) when the scene was inactive.
-        if Utility.fetchBool(forKey: Key.kIsNotificationOnOff) && AppDelegate.shared.isLocalNotificationGranted {
-            UNUserNotificationCenter.current().removePendingNotificationRequests( withIdentifiers: [Key.kIsTerminatereminder])
-            
-            //Prepare Notification Model...
-            var dayComponent    = DateComponents()
-            dayComponent.day    = NUMBER_OF_DAYS_FOR_APP_OPEN // For removing one day (yesterday): -1
-            let theCalendar     = Calendar.current
-            let newDate        = theCalendar.date(byAdding: dayComponent, to: Date())
-            
-            let notificationModel = NotificationModel(title: AlertMessages.TERMINATOR_NOTIFICATION_TITLE, body: AlertMessages.TERMINATOR_NOTIFICATION_MESSAGE, triggerDate: newDate!, identifier: Key.kIsTerminatereminder, isRepeat: false)
-            NotificationManager.shared.setNotificationForAppOpen(model: notificationModel)
+        let isLoggedIn = Utility.fetchBool(forKey: Key.kIsLoggedIn)
+        if isLoggedIn{
+            if Utility.fetchBool(forKey: Key.kIsNotificationOnOff) && AppDelegate.shared.isLocalNotificationGranted {
+                UNUserNotificationCenter.current().removePendingNotificationRequests( withIdentifiers: [Key.kIsTerminatereminder])
+                
+                //Prepare Notification Model...
+                //            var dayComponent    = DateComponents()
+                //            dayComponent.day    = NUMBER_OF_DAYS_FOR_APP_OPEN // For removing one day (yesterday): -1
+                //            let theCalendar     = Calendar.current
+                //            let newDate        = theCalendar.date(byAdding: dayComponent, to: Date())
+                //
+                let notificationModel = NotificationModel(title: AlertMessages.TERMINATOR_NOTIFICATION_TITLE, body: AlertMessages.TERMINATOR_NOTIFICATION_MESSAGE, numberOfDays: NUMBER_OF_DAYS_FOR_APP_OPEN, identifier: Key.kIsTerminatereminder, isRepeat: true)
+                if notificationModel.numberOfDays ?? 0 > 0{
+                    NotificationManager.shared.setNotificationForAppOpen(model: notificationModel)
+                }
+            }
         }
     }
     
@@ -113,3 +111,36 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     
 }
 
+
+// MARK: - UNUserNotificationCenterDelegate
+extension SceneDelegate: UNUserNotificationCenterDelegate {
+    
+    private func configureUserNotifications() {
+        UNUserNotificationCenter.current().delegate = self
+    }
+    // This method will be called when app received push notifications in foreground
+    func userNotificationCenter(_ center: UNUserNotificationCenter, willPresent notification: UNNotification, withCompletionHandler completionHandler: @escaping (UNNotificationPresentationOptions) -> Void)
+    {
+        completionHandler([.alert, .badge, .sound])
+    }
+    // 1
+    func userNotificationCenter(
+        _ center: UNUserNotificationCenter,
+        didReceive response: UNNotificationResponse,
+        withCompletionHandler completionHandler: @escaping () -> Void
+    ) {
+        let request:UNNotificationRequest = response.notification.request
+        if request.identifier == Key.kIsSymptomseminder{
+            DispatchQueue.main.async {
+                if AppDelegate.shared.navigationController != nil{
+                    let topVC = AppDelegate.shared.navigationController.topViewController
+                    if ((topVC?.isKind(of: AcuityMainViewController.self)) != nil){
+                        NotificationCenter.default.post(name: Notification.Name(NSNotificationName.showSymptomsListScreen.rawValue), object: nil)
+                    }
+                }
+            }
+            
+        }
+        completionHandler()
+    }
+}

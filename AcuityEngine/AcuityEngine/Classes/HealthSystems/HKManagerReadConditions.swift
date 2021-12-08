@@ -36,7 +36,7 @@ class HKManagerReadConditions: NSObject
     }
     
     func saveDataInSystemsForCalculation(element:ConditionsModel){
-        print("saveConditionsData===========>")
+        //print("saveConditionsData===========>")
         //Save data for Cardio...
         CardioManager.sharedManager.saveConditionsData(element: element)
         //Save data for Respiratory...

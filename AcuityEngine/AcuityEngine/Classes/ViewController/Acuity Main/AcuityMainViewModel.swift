@@ -12,12 +12,12 @@ import SVProgressHUD
 protocol AcuityMainViewModelProtocol {
     var showNoAgeDataAlert: ((Bool) -> Void)? { get set }
     var noInternetAlert: ((Bool) -> Void)? { get set }
-    var displayPreventionData: (([SpecificRecommendations]) -> Void)? { get set }
+    var displayPreventionData: ((Bool),([SpecificRecommendations]) -> Void)? { get set }
 }
 class AcuityMainViewModel: NSObject {
     var showNoAgeDataAlert: ((Bool) -> Void)?
     var noInternetAlert: ((Bool) -> Void)?
-    var displayPreventionData: (([SpecificRecommendations]) -> Void)?
+    var displayPreventionData: (((Bool),[SpecificRecommendations]) -> Void)?
     var leadingMyWellConstraint,topMyWellConstraint,centerMyWellConstraint,lblScoreCenterConstraint,lblScoreTopConstraint,lblScoreBottomConstraint,lblScoreTextLeadingConstraint,lblScoreTextBottomConstraint: NSLayoutConstraint?
     
     var traillingMyWellConstraint,lblScoreTextCenterConstraint: NSLayoutConstraint?
@@ -338,6 +338,7 @@ class AcuityMainViewModel: NSObject {
         dictMyWellScore.image = AcuityImages.kMyWellScore
         dictMyWellScore.myWellScoreDataDictionary = metricMyWellScore
         
+        arrBodySystems.append(dictMyWellScore.dictionaryRepresentation())
         arrBodySystems.append(dictCardiovascular.dictionaryRepresentation())
         arrBodySystems.append(dictRespiratory.dictionaryRepresentation())
         arrBodySystems.append(dictRenal.dictionaryRepresentation())
@@ -354,7 +355,7 @@ class AcuityMainViewModel: NSObject {
         arrBodySystems.append(dictIntegumentary.dictionaryRepresentation())
         arrBodySystems.append(dictHeent.dictionaryRepresentation())
         arrBodySystems.append(dictSDH.dictionaryRepresentation())
-        arrBodySystems.append(dictMyWellScore.dictionaryRepresentation())
+        
         
         return arrBodySystems
     }
@@ -381,21 +382,32 @@ class AcuityMainViewModel: NSObject {
             let indexValue =  Double(item["score"] as? String ?? "") ?? 0
             if indexValue  > 0 && indexValue <= 75{
                 redColorElememnts.append(item)
+                
             }else if indexValue  > 75 && indexValue <= 85{
                 yellowColorElememnts.append(item)
             }else{
                 greenColorElememnts.append(item)
             }
         }
+        
+        let sortedredColorElememnts = redColorElememnts.sorted { scoreWiseSort(p1:$0, p2:$1) }
+        let sortedryellowColorElememnts = yellowColorElememnts.sorted { scoreWiseSort(p1:$0, p2:$1) }
+        let sortedgreenColorElememnts = greenColorElememnts.sorted { scoreWiseSort(p1:$0, p2:$1) }
+        
         var finalArray: [[String:Any]] = []
-        finalArray.append(contentsOf: redColorElememnts)
-        finalArray.append(contentsOf: yellowColorElememnts)
-        finalArray.append(contentsOf: greenColorElememnts)
+        finalArray.append(contentsOf: sortedredColorElememnts)
+        finalArray.append(contentsOf: sortedryellowColorElememnts)
+        finalArray.append(contentsOf: sortedgreenColorElememnts)
         
         
         return finalArray
     }
-    
+    func scoreWiseSort(p1:[String:Any], p2:[String:Any]) -> Bool {
+        guard let s1 = Double(p1["score"] as? String ?? "") , let s2 = Double(p2["score"] as? String ?? "") else {
+            return false
+        }
+        return s1 < s2
+    }
     func returnSortedArrayUsingIndexandSequence(bodySystemArray:[[String:Any]]) -> [[String:Any]] {
         
         var filterdBodySystemArray = bodySystemArray
@@ -434,8 +446,8 @@ class AcuityMainViewModel: NSObject {
         let margins = view.safeAreaLayoutGuide
         let bottomConstraint = btnPrevention.bottomAnchor.constraint(equalTo: margins.topAnchor, constant: scoreview.frame.origin.y + scoreview.frame.size.height+5);
         let leftConstraint = btnPrevention.leftAnchor.constraint(equalTo: margins.leftAnchor, constant: 10);
-        let height = btnPrevention.heightAnchor.constraint(equalToConstant: 40)
-        let width = btnPrevention.widthAnchor.constraint(equalToConstant: 40)
+        let height = btnPrevention.heightAnchor.constraint(equalToConstant: 50)
+        let width = btnPrevention.widthAnchor.constraint(equalToConstant: 50)
         view.addConstraint(bottomConstraint)
         view.addConstraint(height)
         view.addConstraint(width)
@@ -446,10 +458,35 @@ class AcuityMainViewModel: NSObject {
     }
     
     @objc func callApiForPreventionData(){
-        let age = readAgeFromHealthKit()
-        if age > 0{
+        let tupple = readAgeAndGenderFromHealthKit()
+        let age = tupple.0
+        let gender = tupple.1
+        if age > 0 && gender != ""{
             if Reachability.isConnectedToNetwork(){
-                self.callApiForPreventionList(age: age)
+                /*
+                 Check if data is in userdefault, load it from there....
+                 else load from api....
+                 */
+                if Utility.fetchObject(forKey: Key.kPreventionData) == nil{
+                    self.callApiForPreventionList(age: age,gender:gender )
+                }else{
+                    
+                    // Read/Get Data
+                    if let prevention = Utility.fetchObject(forKey: Key.kPreventionData) {
+                        do {
+                            // Create JSON Decoder
+                            let decoder = JSONDecoder()
+                            
+                            // Decode Note
+                            let preventionData = try decoder.decode([SpecificRecommendations].self, from: prevention as! Data)
+                            self.displayPreventionData?(true,preventionData)
+                        } catch {
+                            print("Unable to Decode Note (\(error))")
+                        }
+                    }
+                    
+                }
+                
             }else{
                 noInternetAlert?(true)
             }
@@ -458,56 +495,77 @@ class AcuityMainViewModel: NSObject {
             showNoAgeDataAlert?(true)
         }
     }
-    func callApiForPreventionList(age:Int) {
-        SVProgressHUD.show()
+    func callApiForPreventionList(age:Int,gender:String) {
+        Utility.showSVProgress()
         PreventionManager.shared.callPreventionWebserviceMethod { (responseModel) in
             SVProgressHUD.dismiss()
             switch responseModel.responseType {
             case .success:
                 let preventionData = PreventionManager.shared.prevention
                 if let _ = preventionData{
-                    let preventionData = self.getPopupData(preventionData:preventionData!,age: age)
-                    self.displayPreventionData?(preventionData)
+                    let preventionData = self.getPopupData(preventionData:preventionData!,age: age,gender:gender)
+                    do {
+                        // Create JSON Encoder
+                        let encoder = JSONEncoder()
+                        
+                        // Encode kPreventionData
+                        let prevention = try encoder.encode(preventionData)
+                        
+                        // Write/Set Data
+                        Utility.setObjectForKey(prevention, key:  Key.kPreventionData)
+                        
+                    } catch {
+                        print("Unable to Encode Note (\(error))")
+                        self.displayPreventionData?(false,[])
+                    }
+                    self.displayPreventionData?(true,preventionData)
                 }
                 break
             case .error:
                 print("error")
+                self.displayPreventionData?(false,[])
                 break
             case .failure:
                 print("failure")
+                self.displayPreventionData?(false,[])
                 break
             case .none:
                 break
             }
         }
     }
-    private func readAgeFromHealthKit()-> Int {
+    private func readAgeAndGenderFromHealthKit()-> (Int,String) {
         do {
             let reporter = try HealthKitReporter()
             let characteristic = reporter.reader.characteristics()
             let birthDay = characteristic.birthday ?? ""
+            let gender = ((characteristic.biologicalSex == "na" ? "":characteristic.biologicalSex)) ?? ""
             let age = calculateAgeFromBirthDate(birthday: birthDay)
-            return age
+            return (age,gender)
         } catch {
             print(error)
         }
-        return 0
+        return (0,"")
     }
-    func getPopupData(preventionData:PreventionModel,age:Int)->[SpecificRecommendations] {
-        let newAge = 11
+    func getPopupData(preventionData:PreventionModel,age:Int,gender:String)->[SpecificRecommendations] {
+        //let newAge = 11
         var ageSpecificRecommendations = [SpecificRecommendations]()
         for obj in 0..<(preventionData.specificRecommendations?.count ?? 0) {
             let data = preventionData.specificRecommendations?[obj]
             let min = data?.ageRange?.first ?? 0
             let max = data?.ageRange?.last ?? 0
             
-            let _ = data?.ageRange?.map{ _ in
-                if newAge < min || newAge > max{
+            // let _ = data?.ageRange?.map{ _ in
+            if age >= min && age <= max {
+                //print("data?.gender",data?.gender as Any)
+                // || data?.gender == "men and women"
+                if gender.lowercased() == data?.gender || data?.gender == "men and women"{
                     if let _ =  data{
                         ageSpecificRecommendations.append(data!)
                     }
                 }
             }
+            //}
         }
         return ageSpecificRecommendations
         //showContactPopUp()
@@ -525,5 +583,15 @@ class AcuityMainViewModel: NSObject {
         } else {
             return UIImage(named: AcuityImages.kGreenRing)
         }
+    }
+    //========================================================================================================
+    //MARK: Fetch Medication Data.
+    //========================================================================================================
+    func fetchMedicationData()->[MedicationDataDisplayModel]{
+        
+        var newArrMedications:[MedicationDataDisplayModel] = []
+        newArrMedications = DBManager.shared.loadMedications()
+        return newArrMedications
+        
     }
 }

@@ -43,14 +43,15 @@ class AcuityDetailPullUpViewController: UIViewController {
     @IBOutlet weak var lblLab: UILabel!
     
     //4 tile tableview...
+    //4 tile tableview...
     @IBOutlet weak var tblCondition: UITableView!
-    @IBOutlet weak var tblMedication: UITableView!
+    @IBOutlet weak var tblSymptom: UITableView!
     @IBOutlet weak var tblVitals: UITableView!
     @IBOutlet weak var tblLab: UITableView!
     
     //Handle view for Swipe up/down
     var handleHeight: CGFloat = 60
-    
+    var isAnimationEnabledForSubView:Bool = true
     //Object of Acuity detial value viewcontroller...
     var detailConditionVC : AcuityMetricsDetailViewController?
     //viewModel object..
@@ -89,7 +90,6 @@ class AcuityDetailPullUpViewController: UIViewController {
     var systemMetricsData:[String:Any]?
     var arrConditions:[ConditionsModel] = []
     var arrSymptoms:[SymptomsModel] = []
-    var arrMedication:[MedicationDataDisplayModel] = []
     var arrLabs:[LabModel] = []
     var arrVitals:[VitalsModel] = []
     
@@ -279,18 +279,19 @@ class AcuityDetailPullUpViewController: UIViewController {
             //generate array of conditions,lab,vital,symptoms
             self?.arrConditions = []
             self?.arrSymptoms = []
-            self?.arrMedication = []
+            self?.arrSymptoms = []
             self?.arrLabs = []
             self?.arrVitals = []
             
             let scoreTupple = self?.viewModelObj.prepareArrayFromAcuityModel(systemMetricsData: self?.systemMetricsData)
             self?.arrConditions = scoreTupple?.0 ?? [] //arrConditions
             //self.arrSymptoms = scoreTupple.1 //arrSymptoms
-            self?.arrMedication = scoreTupple?.1 ?? [] //arrSymptoms
+            self?.arrSymptoms = scoreTupple?.1 ?? [] //arrSymptoms
             self?.arrVitals = scoreTupple?.2  ?? []//arrVitals
             self?.arrLabs = scoreTupple?.3 ?? [] //arrLabs
             //=============Combine BP Systolic and Disastolic in One Entry in Vital Array.=============//
-            self?.arrVitals = self?.viewModelObj.combineBPSystolicandDisastolicInVitalArray(arrVital: self?.arrVitals ?? []) ?? []
+            let arrVitals = self?.viewModelObj.combineBPSystolicandDisastolicInVitalArray(arrVital: self?.arrVitals ?? []) ?? []
+            self?.arrVitals = self?.viewModelObj.combineOtherEntriesFromListOfVitalsInArrayForDisplay(arrVital: arrVitals) ?? []
             //=============Combine Free Condition with Add Section Condition Data.=============//
             self?.arrConditions = self?.viewModelObj.fetchFreeConditionDataAndCombineWithAddSectionCondition(arrConditions: self?.arrConditions ?? []) ?? []
             //reload tableview....
@@ -328,23 +329,23 @@ class AcuityDetailPullUpViewController: UIViewController {
         DispatchQueue.main.async {
             self.tblCondition.backgroundView = nil
             self.tblLab.backgroundView = nil
-            self.tblMedication.backgroundView = nil
+            self.tblSymptom.backgroundView = nil
             self.tblVitals.backgroundView = nil
             
             if self.arrConditions.count <= 0 {
-                self.viewModelObj.setNoDataInfoIfRecordsNotExists(tblView: self.tblCondition)
+                setNoDataInfoIfRecordsNotExists(tblView: self.tblCondition)
             }
             if self.arrLabs.count <= 0 {
-                self.viewModelObj.setNoDataInfoIfRecordsNotExists(tblView: self.tblLab)
+                setNoDataInfoIfRecordsNotExists(tblView: self.tblLab)
             }
             /*if arrSymptoms.count <= 0 {
-             viewModelObj.setNoDataInfoIfRecordsNotExists(tblView: tblMedication)
+             viewModelObj.setNoDataInfoIfRecordsNotExists(tblView: tblSymptom)
              }*/
-            if self.arrMedication.count <= 0 {
-                self.viewModelObj.setNoDataInfoIfRecordsNotExists(tblView: self.tblMedication)
+            if self.arrSymptoms.count <= 0 {
+                setNoDataInfoIfRecordsNotExists(tblView: self.tblSymptom)
             }
             if self.arrVitals.count <= 0 {
-                self.viewModelObj.setNoDataInfoIfRecordsNotExists(tblView: self.tblVitals)
+                setNoDataInfoIfRecordsNotExists(tblView: self.tblVitals)
             }
             self.reloadTables()
         }
@@ -354,7 +355,7 @@ class AcuityDetailPullUpViewController: UIViewController {
         
         reloadTableOnMainThread(tblName: tblLab)
         reloadTableOnMainThread(tblName: tblCondition)
-        reloadTableOnMainThread(tblName: tblMedication)
+        reloadTableOnMainThread(tblName: tblSymptom)
         reloadTableOnMainThread(tblName: tblVitals)
         
     }
@@ -410,7 +411,7 @@ class AcuityDetailPullUpViewController: UIViewController {
         }
     }
     @IBAction func viewMedicationClicked(_ sender: Any) {
-        if arrMedication.count>0{
+        if arrSymptoms.count>0{
             openValueDetailScreen(metrixType: .Medication)
         }
     }
@@ -437,7 +438,7 @@ extension AcuityDetailPullUpViewController: SOPullUpViewDelegate {
         switch status {
         case .collapsed:
             do{
-                NotificationCenter.default.post(name: Notification.Name("pullUpClose"), object: nil)
+                NotificationCenter.default.post(name: Notification.Name(NSNotificationName.pullUpClose.rawValue), object: nil)
             }
         case .expanded:
             do{
@@ -460,9 +461,9 @@ extension AcuityDetailPullUpViewController: UITableViewDelegate, UITableViewData
         if tableView == tblCondition && arrConditions.count>0 {
             let count = Int(tblCondition.frame.height/cellHeight)
             return arrConditions.count  >= count ? count : arrConditions.count
-        } else if  tableView == tblMedication && arrMedication.count>0{
-            let count = Int(tblMedication.frame.height/cellHeight)
-            return arrMedication.count >= count ? count : arrMedication.count
+        } else if  tableView == tblSymptom && arrSymptoms.count>0{
+            let count = Int(tblSymptom.frame.height/cellHeight)
+            return arrSymptoms.count >= count ? count : arrSymptoms.count
         } else if  tableView == tblVitals  && arrVitals.count>0{
             let count = Int(tblVitals.frame.height/cellHeight)
             return arrVitals.count  >= count ? count : arrVitals.count
@@ -486,20 +487,17 @@ extension AcuityDetailPullUpViewController: UITableViewDelegate, UITableViewData
                 cell.displayConditionData(item: metrixItem)
                 //cell.setFontForLabel(font: UIFont.SFProDisplayMedium(of: 12))
             }
-        } else if  tableView == tblMedication {
-            /*if arrSymptoms.count > indexPath.row{
-             let metrixItem = arrSymptoms[indexPath.row]
-             cell.displaySymptomsData(item: metrixItem)
-             //cell.setFontForLabel(font: UIFont.SFProDisplayMedium(of: 12))
-             }*/
-            if arrMedication.count > indexPath.row{
-                let metrixItem = arrMedication[indexPath.row]
-                cell.displayMedicationData(item: metrixItem)
+        } else if  tableView == tblSymptom {
+            if arrSymptoms.count > indexPath.row{
+                let metrixItem = arrSymptoms[indexPath.row]
+                cell.displaySymptomsData(item: metrixItem)
                 //cell.setFontForLabel(font: UIFont.SFProDisplayMedium(of: 12))
             }
+            
         } else if  tableView == tblVitals {
             if arrVitals.count > indexPath.row{
                 let metrixItem = arrVitals[indexPath.row]
+                //print("metrixItem.isBPModel",metrixItem.isBPModel)
                 cell.displayVitals(item: metrixItem)
                 //cell.setFontForLabel(font: UIFont.SFProDisplayMedium(of: 12))
             }
@@ -545,12 +543,15 @@ extension AcuityDetailPullUpViewController: UITableViewDelegate, UITableViewData
         case .Vitals:
             detailConditionVC?.arrVitals = self.arrVitals
             viewModelObj.setBackgroundColorWhenViewSelcted(view: viewVitals)
-        case .Medication:
-            detailConditionVC?.arrMedications = self.arrMedication
+        case .Sympotms:
+            detailConditionVC?.arrSymptoms = self.arrSymptoms
             viewModelObj.setBackgroundColorWhenViewSelcted(view: viewSymptom)
         case .LabData:
             detailConditionVC?.arrLabs = self.arrLabs
             viewModelObj.setBackgroundColorWhenViewSelcted(view: viewLab)
+        case .Medication:
+            detailConditionVC?.arrMedications = AppDelegate.shared.arrMedications
+            //viewModelObj.setBackgroundColorWhenViewSelcted(view: viewM)
         default:
             break;
         }
@@ -569,7 +570,11 @@ extension AcuityDetailPullUpViewController: UITableViewDelegate, UITableViewData
             self.detailConditionVC?.didMove(toParent: self)
             
             //Show animation when view added.....
-            animationForDetailViewWhenAdded(subviewToAdd: (detailConditionVC?.view)!, in: self.visualEffectView)
+            if isAnimationEnabledForSubView{
+                animationForDetailViewWhenAdded(subviewToAdd: (detailConditionVC?.view)!, in: self.visualEffectView)
+            }else{
+                self.visualEffectView.addSubview((detailConditionVC?.view)!)
+            }
             
             //when detail screen open make handle height small......
             handleHeightConstraint.constant = handleHeight;

@@ -406,7 +406,7 @@ class AddVitalsViewController: UIViewController {
         //show alert
         DispatchQueue.main.async {
             
-            let vc = self.parent
+            let vc = self.view.window?.rootViewController
             vc?.presentAlert(title: "\(Key.kAppName)",
                              message: message,
                              actions: okAction)

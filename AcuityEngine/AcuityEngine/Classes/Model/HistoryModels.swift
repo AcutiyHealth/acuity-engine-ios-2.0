@@ -13,7 +13,7 @@ class HistoryInputModel {
     var id: OtherHistoryId?
     var name: OtherHistory?
     var description: String?
-
+    
     //MARK: To display data in textfield views...
     init(id:OtherHistoryId,name:OtherHistory,description:String) {
         self.id = id;
@@ -27,7 +27,9 @@ class HistoryDataDisplayModel {
     var name: OtherHistory?
     var txtValue: String?
     var timeStamp: Double?
-
+    init(){
+        
+    }
     init(id:OtherHistoryId,txtValue:String,timeStamp:Double){
         self.id = id;
         self.txtValue = txtValue;
@@ -41,7 +43,7 @@ class HistoryDataDisplayModel {
         self.timeStamp = timeStamp
         
     }
-
+    
 }
 
 func getHistoryName(id:OtherHistoryId)->OtherHistory{
@@ -56,6 +58,6 @@ func getHistoryName(id:OtherHistoryId)->OtherHistory{
         return OtherHistory.socialHistory
     case OtherHistoryId.allergiesId:
         return OtherHistory.allergies
-
+        
     }
 }

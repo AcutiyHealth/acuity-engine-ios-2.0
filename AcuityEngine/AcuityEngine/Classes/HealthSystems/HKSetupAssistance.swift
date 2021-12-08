@@ -127,7 +127,7 @@ class HKSetupAssistance {
                         return
                     }
                     
-                    print("samples------>\(samples)")
+                    //print("samples------>\(samples)")
                     completion(samples,true,nil)
                 }
             }

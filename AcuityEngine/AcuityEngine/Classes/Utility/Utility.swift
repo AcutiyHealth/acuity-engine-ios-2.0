@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import SVProgressHUD
 
 class Utility {
     //UserDefaults
@@ -49,7 +50,13 @@ class Utility {
         UserDefaults.standard.string(forKey: key)
         UserDefaults.standard.removeObject(forKey:key)
     }
-    
+    static func showSVProgress(){
+        SVProgressHUD.show()
+        SVProgressHUD.setDefaultMaskType(.clear)
+    }
+    static func hideSVProgress(){
+        SVProgressHUD.dismiss()
+    }
     static func showAlertWithOKBtn(onViewController vc: UIViewController, title titleOfAlert:String = "\(Key.kAppName)" , message messageInAlert: String) {
         
         //Create alertController object with specific message
@@ -134,6 +141,18 @@ func animationForDetailViewWhenRemoved(from   view:UIView){
     transition.type = CATransitionType.push
     transition.subtype = CATransitionSubtype.fromLeft
     view.layer.add(transition, forKey: nil)
+}
+//MARK: set background view when no data available....
+func setNoDataInfoIfRecordsNotExists(tblView:UITableView,font:UIFont =  UIFont.systemFont(ofSize: 12),message:String = "No Records Found")
+{
+    let noDataLabel : UILabel = UILabel()
+    noDataLabel.frame = CGRect(x: 0, y: 0 , width: (tblView.bounds.width), height: (tblView.bounds.height))
+    noDataLabel.text = message
+    noDataLabel.font = font
+    noDataLabel.textColor = UIColor.white
+    noDataLabel.textAlignment = .center
+    tblView.backgroundView = noDataLabel
+    
 }
 //MARK: Animation For Score Label....
 func animateScoreView(view:UIView){

@@ -9,17 +9,7 @@ import Foundation
 
 class AcuityDetailPullUpViewModel: NSObject
 {
-    func setNoDataInfoIfRecordsNotExists(tblView:UITableView)
-    {
-        let noDataLabel : UILabel = UILabel()
-        noDataLabel.frame = CGRect(x: 0, y: 0 , width: (tblView.bounds.width), height: (tblView.bounds.height))
-        noDataLabel.text = "No Records Found"
-        noDataLabel.font = UIFont.systemFont(ofSize: 12)
-        noDataLabel.textColor = UIColor.white
-        noDataLabel.textAlignment = .center
-        tblView.backgroundView = noDataLabel
-        
-    }
+    
     func setBackGroundColorFor(viewSymptom:UIView,viewCondition:UIView,viewVital:UIView,viewLab:UIView){
         self.setBackgroundColorForMetricsView(view: viewCondition)
         self.setBackgroundColorForMetricsView(view: viewVital)
@@ -46,46 +36,119 @@ class AcuityDetailPullUpViewModel: NSObject
         viewCondition.layer.borderWidth = 0;
     }
     
-    func prepareArrayFromAcuityModel(systemMetricsData:[String:Any]?)->([ConditionsModel],[MedicationDataDisplayModel],[VitalsModel],[LabModel]){
+    func prepareArrayFromAcuityModel(systemMetricsData:[String:Any]?)->([ConditionsModel],[SymptomsModel],[VitalsModel],[LabModel]){
         //generate array of conditions,lab,vital,symptoms
         var arrConditions:[ConditionsModel] = []
-        //var arrSymptoms:[SymptomsModel] = []
-        var arrMedications:[MedicationDataDisplayModel] = []
+        var arrSymptoms:[SymptomsModel] = []
+        //var arrMedications:[MedicationDataDisplayModel] = []
         var arrLabs:[LabModel] = []
         var arrVitals:[VitalsModel] = []
         guard let arrCondition = systemMetricsData?[MetricsType.Conditions.rawValue] as? [ConditionsModel] else {
-            return (arrConditions,arrMedications,arrVitals,arrLabs)
+            return (arrConditions,arrSymptoms,arrVitals,arrLabs)
         }
-        arrMedications = self.fetchMedicationData() as [MedicationDataDisplayModel]
+        //arrMedications = self.fetchMedicationData() as [MedicationDataDisplayModel]
         
-//        guard let arrSymptom = systemMetricsData?[MetricsType.Sympotms.rawValue] as? [SymptomsModel] else {
-//            return (arrConditions,arrMedications,arrVitals,arrLabs)
-//        }
+        guard let arrSymptom = systemMetricsData?[MetricsType.Sympotms.rawValue] as? [SymptomsModel] else {
+            return (arrConditions,arrSymptoms,arrVitals,arrLabs)
+        }
         guard let arrLab = systemMetricsData?[MetricsType.LabData.rawValue] as? [LabModel] else {
-            return (arrConditions,arrMedications,arrVitals,arrLabs)
+            return (arrConditions,arrSymptoms,arrVitals,arrLabs)
         }
         guard let arrVital = systemMetricsData?[MetricsType.Vitals.rawValue] as? [VitalsModel] else {
-            return (arrConditions,arrMedications,arrVitals,arrLabs)
+            return (arrConditions,arrSymptoms,arrVitals,arrLabs)
         }
-        arrConditions = arrCondition
-        //arrSymptoms = arrSymptom
-        arrLabs = arrLab
-        arrVitals = arrVital
         
-        //Sorting of array...
-        arrConditions.sort {
-            $0.title ?? "" < $1.title ?? ""
+        let sortArrayTupple = self.sortArrayColorWise(arrConditions: arrCondition, arrVitals: arrVital, arrSymptoms: arrSymptom, arrLabs: arrLab)
+        
+        arrConditions = sortArrayTupple.0
+        arrSymptoms = sortArrayTupple.1
+        arrVitals = sortArrayTupple.2
+        arrLabs = sortArrayTupple.3
+        
+        /*//Sorting of array...
+         arrConditions.sort {
+         $0.title ?? "" < $1.title ?? ""
+         }
+         arrVitals.sort {
+         $0.title ?? "" < $1.title ?? ""
+         }
+         
+         arrSymptoms.sort {
+         $0.title ?? "" < $1.title ?? ""
+         }
+         arrLabs.sort {
+         $0.title ?? "" < $1.title ?? ""
+         }*/
+        
+        return (arrConditions,arrSymptoms,arrVitals,arrLabs)
+    }
+    
+    func sortArrayColorWise(arrConditions:[ConditionsModel],arrVitals:[VitalsModel],arrSymptoms:[SymptomsModel],arrLabs:[LabModel])->([ConditionsModel],[SymptomsModel],[VitalsModel],[LabModel]){
+        
+        var mutableArrSymptoms:[SymptomsModel] = []
+        var mutableArrVitals:[VitalsModel] = []
+        var mutableArrCondition:[ConditionsModel] = []
+        var mutableArrLabs:[LabModel] = []
+        
+        //Conditions..
+        let redColorArray = arrConditions.filter { model in
+            model.color == ChartColor.REDCOLOR
         }
-        arrVitals.sort {
-            $0.title ?? "" < $1.title ?? ""
+        let yellowColorArray = arrConditions.filter { model in
+            model.color == ChartColor.YELLOWCOLOR
         }
-        arrMedications.sort {
-            $0.name?.rawValue ?? "" < $1.name?.rawValue ?? ""
+        let greenColorArray = arrConditions.filter { model in
+            model.color == ChartColor.GREENCOLOR
         }
-        arrLabs.sort {
-            $0.title ?? "" < $1.title ?? ""
+        mutableArrCondition.append(contentsOf: redColorArray)
+        mutableArrCondition.append(contentsOf: yellowColorArray)
+        mutableArrCondition.append(contentsOf: greenColorArray)
+        
+        //Symptoms..
+        let redColorarrSymptoms = arrSymptoms.filter { model in
+            model.color == ChartColor.REDCOLOR
         }
-        return (arrConditions,arrMedications,arrVitals,arrLabs)
+        let yellowColorarrSymptoms = arrSymptoms.filter { model in
+            model.color == ChartColor.YELLOWCOLOR
+        }
+        let greenColorarrSymptoms = arrSymptoms.filter { model in
+            model.color == ChartColor.GREENCOLOR
+        }
+        mutableArrSymptoms.append(contentsOf: redColorarrSymptoms)
+        mutableArrSymptoms.append(contentsOf: yellowColorarrSymptoms)
+        mutableArrSymptoms.append(contentsOf: greenColorarrSymptoms)
+        
+        //Vitals...
+        let redColorarrVitals:[VitalsModel] = arrVitals.filter { model in
+            model.color == ChartColor.REDCOLOR
+        }
+        let yellowColorarrVitals = arrVitals.filter { model in
+            model.color == ChartColor.YELLOWCOLOR
+        }
+        let greenColorarrVitals = arrVitals.filter { model in
+            model.color == ChartColor.GREENCOLOR
+        }
+        mutableArrVitals.append(contentsOf: redColorarrVitals)
+        mutableArrVitals.append(contentsOf: yellowColorarrVitals)
+        mutableArrVitals.append(contentsOf: greenColorarrVitals)
+        
+        
+        //labs..
+        let redColorarrLabs = arrLabs.filter { model in
+            model.color == ChartColor.REDCOLOR
+        }
+        let yellowColorarrLabs = arrLabs.filter { model in
+            model.color == ChartColor.YELLOWCOLOR
+        }
+        let greenColorarrLabs = arrLabs.filter { model in
+            model.color == ChartColor.GREENCOLOR
+        }
+        mutableArrLabs.append(contentsOf: redColorarrLabs)
+        mutableArrLabs.append(contentsOf: yellowColorarrLabs)
+        mutableArrLabs.append(contentsOf: greenColorarrLabs)
+        
+        return (mutableArrCondition,mutableArrSymptoms,mutableArrVitals,mutableArrLabs)
+        
     }
     func setUpSegmentControl(segmentControl:UISegmentedControl){
         segmentControl.setTitle(SegmentValueForGraph.SevenDays.rawValue, forSegmentAt: 0)
@@ -243,7 +306,26 @@ class AcuityDetailPullUpViewModel: NSObject
         
         return (scoreText,arraySystemScore,metricDictionary)
     }
-    
+    func combineOtherEntriesFromListOfVitalsInArrayForDisplay(arrVital:[VitalsModel])->[VitalsModel]{
+        var arrVitals:[VitalsModel] = arrVital
+        let _ = vitalsArrayInConstant.map { vitalModel in
+            if vitalModel.name == VitalsName.bloodPressure{
+                vitalModel.name = VitalsName.bloodPressureSystolicDiastolic
+            }
+        }
+        for model in vitalsArrayInConstant{
+            print("model.name?.rawValue",model.name?.rawValue ?? "")
+            
+            let filteredArrVital =  arrVitals.filter { vitalModel in
+                return model.name?.rawValue ?? "" == vitalModel.title ?? ""
+            }
+            if filteredArrVital.count <= 0{
+                let modelForVitalsArrayObj = VitalsModel(title:  model.name?.rawValue ?? "", value: "--")
+                arrVitals.append(modelForVitalsArrayObj)
+            }
+        }
+        return arrVitals
+    }
     //========================================================================================================
     //MARK: Combine Free Condition with Add Section Condition Data.
     //========================================================================================================
@@ -275,13 +357,13 @@ class AcuityDetailPullUpViewModel: NSObject
     //MARK: Combine BP Systolic and Disastolic in One Entry in Vital Array.
     //========================================================================================================
     func combineBPSystolicandDisastolicInVitalArray(arrVital:[VitalsModel])->[VitalsModel]{
-        var arrVitals = arrVital
+        var newArrVitals:[VitalsModel] = []
         let vitalModelBP = VitalsModel()
         vitalModelBP.title = VitalsName.bloodPressureSystolicDiastolic.rawValue
         var indexBPSystolic = -1
         var indexBPDiastolic = -1
-        for index in 0..<(arrVitals.count) {
-            let vitalModel = arrVitals[index]
+        for index in 0..<(arrVital.count) {
+            let vitalModel = arrVital[index]
             
             if vitalModel.title == VitalsName.bloodPressureSystolic.rawValue{
                 vitalModelBP.value = vitalModel.value ?? ""
@@ -296,26 +378,16 @@ class AcuityDetailPullUpViewModel: NSObject
                 vitalModelBP.colorForDiastolic = vitalModel.color
                 indexBPDiastolic = index
                 //self.arrVitals.remove(at: index)
+            }else{
+                newArrVitals.append(vitalModel)
             }
             
         }
         
         if vitalModelBP.isBPModel,indexBPSystolic>=0,indexBPDiastolic>=0{
-            arrVitals.remove(at: indexBPSystolic)
-            arrVitals.remove(at: indexBPDiastolic)
-            arrVitals.insert(vitalModelBP, at: 0)
+            newArrVitals.insert(vitalModelBP, at: 0)
         }
-        return arrVitals
-    }
-    //========================================================================================================
-    //MARK: Fetch Medication Data.
-    //========================================================================================================
-    func fetchMedicationData()->[MedicationDataDisplayModel]{
-       
-            var newArrMedications:[MedicationDataDisplayModel] = []
-            newArrMedications = DBManager.shared.loadMedications()
-            return newArrMedications
-        
+        return newArrVitals
     }
     
 }

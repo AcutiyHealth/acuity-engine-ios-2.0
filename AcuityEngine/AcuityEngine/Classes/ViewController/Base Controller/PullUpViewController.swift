@@ -43,7 +43,7 @@ class PullUpViewController: UIViewController {
         
         pullUpController.dataSource = self
         pullUpController.setupCard(from: self.view)
-     
+        
         
     }
     //Remove view from it's super and add it again
@@ -52,7 +52,7 @@ class PullUpViewController: UIViewController {
         
         pullUpController.dataSource = self
         pullUpController.setupCardWithAnimation(from: self.view)
-     
+        
         
     }
     //remove current view from it's super view
@@ -79,11 +79,11 @@ extension PullUpViewController: SOPullUpViewDataSource {
     
     func pullUpViewCollapsedViewHeight() -> CGFloat {
         //if Screen.screenHeight < CGFloat(Screen.iPhone11ScreenHeight){
-            return bottomPadding + ((116 * Screen.screenHeight)/CGFloat(Screen.iPhoneSEHeight))
-//        }else{
-//            return bottomPadding + ((190 * Screen.screenHeight)/CGFloat(Screen.iPhone11ScreenHeight))
-//        }
-       
+        return bottomPadding + ((116 * Screen.screenHeight)/CGFloat(Screen.iPhoneSEHeight))
+        //        }else{
+        //            return bottomPadding + ((190 * Screen.screenHeight)/CGFloat(Screen.iPhone11ScreenHeight))
+        //        }
+        
     }
     
     func pullUpViewController() -> UIViewController {
@@ -103,9 +103,9 @@ extension PullUpViewController: SOPullUpViewDataSource {
             }
         case .Profile:
             do{
-               
+                
                 if  (self.pullUpController.pullUpVC != nil),self.pullUpController.pullUpVC.isKind(of: ProfileOptionSelectionViewController.self){
-                   
+                    
                     return self.pullUpController.pullUpVC
                 }else{
                     guard let profileVC = UIStoryboard(name: Storyboard.profile.rawValue, bundle: nil).instantiateViewController(withIdentifier: "ProfileOptionSelectionViewController") as? ProfileOptionSelectionViewController else {return vc}
@@ -115,7 +115,7 @@ extension PullUpViewController: SOPullUpViewDataSource {
                 }
             }
             //return UIViewController()
-        
+            
         case .Add:
             do{
                 if  (self.pullUpController.pullUpVC != nil),self.pullUpController.pullUpVC.isKind(of: AddOptionSelectionViewController.self){
@@ -126,16 +126,39 @@ extension PullUpViewController: SOPullUpViewDataSource {
                     return addVC
                 }
             }
+        case .Prevention:
+            do{
+                if  (self.pullUpController.pullUpVC != nil),self.pullUpController.pullUpVC.isKind(of: PreventionListViewController.self){
+                    return self.pullUpController.pullUpVC
+                }else{
+                    guard let preventionVC = UIStoryboard(name: Storyboard.main.rawValue, bundle: nil).instantiateViewController(withIdentifier: "PreventionListViewController") as? PreventionListViewController else {return vc}
+                    preventionVC.pullUpControl = self.pullUpController
+                    return preventionVC
+                }
+            }
+        case .Medication:
+            do{
+                if  (self.pullUpController.pullUpVC != nil),self.pullUpController.pullUpVC.isKind(of: MedicationListViewController.self){
+                    return self.pullUpController.pullUpVC
+                }else{
+                    guard let preventionVC = UIStoryboard(name: Storyboard.main.rawValue, bundle: nil).instantiateViewController(withIdentifier: "MedicationListViewController") as? MedicationListViewController else {return vc}
+                    preventionVC.pullUpControl = self.pullUpController
+                    return preventionVC
+                }
+            }
+            
         default:break
         }
- 
+        
         return vc
     }
     
     func pullUpViewExpandedViewHeight() -> CGFloat {
-        if Screen.screenHeight == CGFloat(Screen.iPhoneSEHeight){
-            return expandedViewHeight+5
-        }
-        return expandedViewHeight
+        //        if Screen.screenHeight == CGFloat(Screen.iPhoneSEHeight){
+        //            return expandedViewHeight+5
+        //        }
+        //        return expandedViewHeight + 30
+        
+        return UIScreen.main.bounds.height * 0.80
     }
 }

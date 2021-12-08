@@ -15,7 +15,7 @@ class MedicationInputModel {
     var description: String?
     
     //MARK: To display data in textfield views...
-    init(id:MedicationId,name:Medication,description:String) {
+    init(id:MedicationId = MedicationId.Medication,name:Medication,description:String) {
         self.id = id;
         self.name = name
         self.description = description
@@ -28,21 +28,15 @@ class MedicationDataDisplayModel {
     var txtValue: String?
     var timeStamp: Double?
     
-    init(id:MedicationId,txtValue:String,timeStamp:Double){
+    init(id:MedicationId = MedicationId.Medication,txtValue:String,timeStamp:Double){
         self.id = id;
         self.name = getMedicationName(id: id);
         self.txtValue = txtValue;
         self.timeStamp = timeStamp
-        self.name = getMedicationName(id: id)
     }
     
 }
 
 func getMedicationName(id:MedicationId)->Medication{
-    switch id {
-    case MedicationId.vitaminId:
-        return Medication.vitamin
-    case MedicationId.diabetesId:
-        return Medication.diabetes
-    }
+    return Medication.Medication
 }

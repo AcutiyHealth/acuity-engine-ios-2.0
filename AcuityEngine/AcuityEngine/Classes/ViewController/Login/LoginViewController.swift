@@ -10,8 +10,8 @@ import AuthenticationServices
 
 class LoginViewController: UIViewController {
     
- 
-        
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -32,7 +32,7 @@ class LoginViewController: UIViewController {
     
     // Perform acton on click of Sign in with Apple button
     @IBAction func actionHandleAppleSignin() {
-        
+       /*
         if #available(iOS 13.0, *) {
             let appleIDProvider = ASAuthorizationAppleIDProvider()
             let request = appleIDProvider.createRequest()
@@ -42,7 +42,8 @@ class LoginViewController: UIViewController {
             authorizationController.performRequests()
         } else {
             // Fallback on earlier versions
-        }
+        }*/
+        moveToHealhDataScreen()
     }
     
     //========================================================================================================
@@ -74,27 +75,34 @@ extension LoginViewController: ASAuthorizationControllerDelegate {
             
             if let nm = appleIDCredential.fullName?.familyName
             {
-                name = nm + " \(name)"
+                name = "\(name)"
                 setKeyChain(key: Key.kAppleLastName, value: name)
             }
             
             if let em = appleIDCredential.email
             {
-                setKeyChain(key: Key.kAppleEmail, value: em)
+                setKeyChain(key: Key.kAppleLastName, value: em)
             }
+            
             setKeyChain(key: Key.kAppleUserID, value: appleIDCredential.user)
-            moveToHealhDataScreen()
+//
+//            print("kAppleFirstName",getFromKeyChain(key: Key.kAppleFirstName))
+//            print("kAppleFirstName",getFromKeyChain(key: Key.kAppleLastName))
+//            print("kAppleFirstName",getFromKeyChain(key: Key.kAppleUserID))
+//
             //Write your code
         } else if let passwordCredential = authorization.credential as? ASPasswordCredential {
             let appleUsername = passwordCredential.user
+            setKeyChain(key: Key.kAppleFirstName, value: appleUsername)
             let applePassword = passwordCredential.password
-            moveToHealhDataScreen()
         }
+        moveToHealhDataScreen()
     }
     
-   @IBAction func moveToHealhDataScreen(){
+    @IBAction func moveToHealhDataScreen(){
+        Utility.setBoolForKey(true, key: Key.kIsLoggedIn)
         guard let detailVC = UIStoryboard(name: Storyboard.main.rawValue, bundle: nil).instantiateViewController(withIdentifier: "AcuityMainViewController")  as? AcuityMainViewController else {return }
-    //guard let detailVC = UIStoryboard(name: Storyboard.main.rawValue, bundle: nil).instantiateViewController(withIdentifier: "ProfiletempVC")  as? ProfiletempVC else {return }
+        //guard let detailVC = UIStoryboard(name: Storyboard.main.rawValue, bundle: nil).instantiateViewController(withIdentifier: "ProfiletempVC")  as? ProfiletempVC else {return }
         self.navigationController?.pushViewController(detailVC, animated: true)
     }
 }

@@ -48,7 +48,7 @@ class WebServiceConstants {
                 WebServiceConstants.kHTTPs = "https://"
                 
             } else if mode == .LIVE {
-                WebServiceConstants.kDomain = "www.hopdoc.com"
+                WebServiceConstants.kDomain = "data.uspreventiveservicestaskforce.org"
                 WebServiceConstants.kHTTPs = "https://"
             }
         }

@@ -14,6 +14,11 @@ class NotificationModel {
     var body: String?
     var triggerDate: Date?
     var isRepeat:Bool = false
+    var numberOfDays: Int?
+
+    init(identifier:String){
+        self.id = identifier;
+    }
     init(title:String,body:String,triggerDate:Date,identifier:String,isRepeat:Bool){
         self.id = identifier;
         self.title = title
@@ -21,5 +26,13 @@ class NotificationModel {
         self.triggerDate = triggerDate
         self.isRepeat = isRepeat
     }
-    
+
+   
+    init(title:String,body:String,numberOfDays:Int,identifier:String,isRepeat:Bool){
+        self.id = identifier;
+        self.title = title
+        self.body = body
+        self.numberOfDays = numberOfDays
+        self.isRepeat = isRepeat
+    }
 }

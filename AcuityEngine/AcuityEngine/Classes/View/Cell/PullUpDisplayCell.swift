@@ -98,7 +98,7 @@ class AcuityDetailValueDisplayCell: UITableViewCell {
     }
     func displayMedicationData(item:MedicationDataDisplayModel){
         titleLabel.text = item.txtValue
-        maxScore.isHidden = true
+        //maxScore.isHidden = true
     }
     func displayLabsData(item:LabModel){
         titleLabel.text = item.title
@@ -106,11 +106,19 @@ class AcuityDetailValueDisplayCell: UITableViewCell {
         maxScore.textColor = item.color
     }
     func displayVitals(item:VitalsModel){
-    
-        if item.isBPModel{
+        /*
+         Here we get Blood Pressure Diastolic and Blood Pressure Systolic data. So combine data in one row like 100/90 and label it with "BP".
+         */
+        
+        if item.isBPModel || item.title == VitalsName.bloodPressureSystolicDiastolic.rawValue{
             titleLabel.text = "BP"
             maxScore.textColor = UIColor.white
-            maxScore.attributedText = createAttributeStringForBp(item: item)
+            if item.value == "--"{
+                maxScore.text = item.value
+                maxScore.textColor = item.color
+            }else{
+                maxScore.attributedText = createAttributeStringForBp(item: item)
+            }
         }else{
             titleLabel.text = item.title
             maxScore.text = item.value
@@ -122,14 +130,27 @@ class AcuityDetailValueDisplayCell: UITableViewCell {
         //Remove .00 from string In BP...
         let strSystolic = (item.value ?? "").replacingOccurrences(of: ".00", with: "")
         let strDystolic = (item.valueForDiastolic ?? "").replacingOccurrences(of: ".00", with: "")
-        let mainString = "\(strSystolic) / \(strDystolic)"
+        /*let mainString = "\(strSystolic) / \(strDystolic)"
         let rangeSystolic = (mainString as NSString).range(of: strSystolic)
         let rangeDystolic = (mainString as NSString).range(of: strDystolic)
         let mutableAttributedString = NSMutableAttributedString.init(string: mainString)
         mutableAttributedString.addAttribute(NSAttributedString.Key.foregroundColor, value: item.color, range: rangeSystolic)
-        mutableAttributedString.addAttribute(NSAttributedString.Key.foregroundColor, value: item.colorForDiastolic, range: rangeDystolic)
+        mutableAttributedString.addAttribute(NSAttributedString.Key.foregroundColor, value: item.colorForDiastolic, range: rangeDystolic)*/
+        let rangeSystolic = (strSystolic as NSString).range(of: strSystolic)
+        var mutableAttributedStringSystolic = NSMutableAttributedString.init(string: strSystolic)
+        mutableAttributedStringSystolic.addAttribute(NSAttributedString.Key.foregroundColor, value: item.color, range: rangeSystolic)
+    
+        var mutableAttributedStringSlash = NSMutableAttributedString.init(string: " / ")
         
-        return mutableAttributedString
+        let rangeDystolic = (strDystolic as NSString).range(of: strDystolic)
+        
+        var mutableAttributedStringDystolic = NSMutableAttributedString.init(string: strDystolic)
+        mutableAttributedStringDystolic.addAttribute(NSAttributedString.Key.foregroundColor, value: item.colorForDiastolic, range: rangeDystolic)
+    
+        mutableAttributedStringSystolic.append(mutableAttributedStringSlash)
+        mutableAttributedStringSystolic.append(mutableAttributedStringDystolic)
+        
+        return mutableAttributedStringSystolic
     }
 }
 //MARK: - Detail Screen Of Pullup TableCell

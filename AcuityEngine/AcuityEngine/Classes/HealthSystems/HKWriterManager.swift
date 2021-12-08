@@ -7,7 +7,7 @@
 
 import Foundation
 import HealthKit
-
+import UserNotifications
 //@available(iOS 14.0, *)
 class HKWriterManager {
     
@@ -200,14 +200,18 @@ extension HKWriterManager{
         guard let caegoryTypeIdentifier = caegoryTypeIdentifier else {
             fatalError("No identifier found")
         }
-                
+        
         //Category Type
         guard let categoryType = HKObjectType.categoryType(forIdentifier: caegoryTypeIdentifier) else { return  }
         //Value for Category
         let value = getSymptomsValue(value: categoryValue)
+        //Set Notification...
+        if categoryValue != SymptomsTextValue.Not_Present{
+            setNotificationForSymptoms()
+        }
         //Create sample for Category
         let sample = HKCategorySample(type: categoryType, value: value, start: startdate, end: endDate)
-       
+        
         HKSetupAssistance.healthKitStore.save(sample) { (success, error) in
             
             if let error = error {
@@ -218,9 +222,27 @@ extension HKWriterManager{
                 Log.d("Successfully saved \(caegoryTypeIdentifier) Sample")
             }
         }
-       
+        
     }
-    
+    private func setNotificationForSymptoms(){
+      
+        DispatchQueue.main.async{
+            if Utility.fetchBool(forKey: Key.kIsNotificationOnOff) && AppDelegate.shared.isLocalNotificationGranted {
+                UNUserNotificationCenter.current().removePendingNotificationRequests( withIdentifiers: [Key.kIsSymptomseminder])
+                //
+                //                //Prepare Notification Model...
+                //                var dayComponent    = DateComponents()
+                //                dayComponent.day    = NUMBER_OF_DAYS_FOR_APP_SYMPTOMS // For removing one day (yesterday): -1
+                //                let theCalendar     = Calendar.current
+                //                let newDate        = theCalendar.date(byAdding: dayComponent, to: Date())
+                //
+                let notificationModel = NotificationModel(title: AlertMessages.SYMPTOMS_NOTIFICATION_TITLE, body: AlertMessages.SYMPTOMS_NOTIFICATION_MESSAGE, numberOfDays: NUMBER_OF_DAYS_FOR_APP_SYMPTOMS, identifier: Key.kIsSymptomseminder, isRepeat: true)
+                if notificationModel.numberOfDays ?? 0 > 0{
+                    NotificationManager.shared.setNotificationForSymptoms(model: notificationModel)
+                }
+            }
+        }
+    }
     private func getSymptomsValue(value:SymptomsTextValue) -> Int {
         
         switch value {
@@ -234,7 +256,7 @@ extension HKWriterManager{
             return 3
         case SymptomsTextValue.Severe:
             return 4
-      
+            
         }
     }
 }

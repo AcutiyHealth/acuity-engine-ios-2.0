@@ -32,7 +32,7 @@
                                             <rect key="frame" x="0.0" y="20" width="414" height="876"/>
                                             <subviews>
                                                 <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="WDe-Pb-7nu">
-                                                    <rect key="frame" x="0.0" y="0.0" width="414" height="876"/>
+                                                    <rect key="frame" x="0.0" y="10" width="414" height="786"/>
                                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                     <prototypes>
                                                         <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="LabelDisplayCell" rowHeight="60" id="QTk-yj-d5h" customClass="LabelDisplayCell" customModule="AcuityEngine" customModuleProvider="target">
@@ -114,13 +114,31 @@
                                                         <outlet property="delegate" destination="ap8-lm-Zay" id="S4G-4G-UXW"/>
                                                     </connections>
                                                 </tableView>
+                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="cXa-iY-rKD">
+                                                    <rect key="frame" x="0.0" y="796" width="414" height="80"/>
+                                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="80" id="YHJ-cD-r9M"/>
+                                                    </constraints>
+                                                    <fontDescription key="fontDescription" type="boldSystem" pointSize="30"/>
+                                                    <inset key="imageEdgeInsets" minX="-20" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                                    <state key="normal" title="Log Out" image="logout">
+                                                        <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                    </state>
+                                                    <connections>
+                                                        <action selector="btnLogOutClicked:" destination="ap8-lm-Zay" eventType="touchUpInside" id="KAL-gq-8by"/>
+                                                    </connections>
+                                                </button>
                                             </subviews>
                                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                             <constraints>
+                                                <constraint firstAttribute="bottom" secondItem="cXa-iY-rKD" secondAttribute="bottom" id="Edz-me-UQp"/>
                                                 <constraint firstAttribute="trailing" secondItem="WDe-Pb-7nu" secondAttribute="trailing" id="NAH-Ys-7bP"/>
-                                                <constraint firstItem="WDe-Pb-7nu" firstAttribute="top" secondItem="3yR-zE-Td5" secondAttribute="top" id="Q6a-8G-O69"/>
+                                                <constraint firstItem="WDe-Pb-7nu" firstAttribute="top" secondItem="3yR-zE-Td5" secondAttribute="top" constant="10" id="Q6a-8G-O69"/>
                                                 <constraint firstItem="WDe-Pb-7nu" firstAttribute="leading" secondItem="3yR-zE-Td5" secondAttribute="leading" id="Qv5-7u-AT4"/>
-                                                <constraint firstAttribute="bottom" secondItem="WDe-Pb-7nu" secondAttribute="bottom" id="oB9-Dk-uU9"/>
+                                                <constraint firstItem="cXa-iY-rKD" firstAttribute="top" secondItem="WDe-Pb-7nu" secondAttribute="bottom" id="WEF-YL-mZD"/>
+                                                <constraint firstItem="cXa-iY-rKD" firstAttribute="leading" secondItem="3yR-zE-Td5" secondAttribute="leading" id="skL-ds-14H"/>
+                                                <constraint firstAttribute="trailing" secondItem="cXa-iY-rKD" secondAttribute="trailing" id="wrI-Rj-Xgt"/>
                                             </constraints>
                                         </view>
                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="mcr-as-nJA" customClass="HandleView" customModule="AcuityEngine" customModuleProvider="target">
@@ -158,6 +176,7 @@
                     <navigationItem key="navigationItem" id="VCP-qs-Dii"/>
                     <size key="freeformSize" width="414" height="896"/>
                     <connections>
+                        <outlet property="btnLogOut" destination="cXa-iY-rKD" id="JaY-fI-gO5"/>
                         <outlet property="handleArea" destination="mcr-as-nJA" id="qby-mh-mbO"/>
                         <outlet property="mainView" destination="3yR-zE-Td5" id="zHu-pS-fGm"/>
                         <outlet property="profileOptionTableView" destination="WDe-Pb-7nu" id="7la-c3-8Nb"/>
@@ -358,15 +377,15 @@
                                                     <constraint firstAttribute="height" constant="300" id="bJ0-F4-Uae"/>
                                                 </constraints>
                                                 <prototypes>
-                                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="ProfileAddOptionsDataView" id="OIj-7S-Jw3" customClass="ProfileAddOptionsDataView" customModule="AcuityEngine" customModuleProvider="target">
-                                                        <rect key="frame" x="0.0" y="44.5" width="392" height="115.5"/>
+                                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="ProfileAddOptionsDataCell" id="OIj-7S-Jw3" customClass="ProfileAddOptionsDataCell" customModule="AcuityEngine" customModuleProvider="target">
+                                                        <rect key="frame" x="0.0" y="44.5" width="392" height="165.5"/>
                                                         <autoresizingMask key="autoresizingMask"/>
                                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="OIj-7S-Jw3" id="mvu-Gj-glF" userLabel="profileaddoptionocntentview">
-                                                            <rect key="frame" x="0.0" y="0.0" width="392" height="115.5"/>
+                                                            <rect key="frame" x="0.0" y="0.0" width="392" height="165.5"/>
                                                             <autoresizingMask key="autoresizingMask"/>
                                                             <subviews>
                                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="VQP-Hg-jmW" userLabel="subView">
-                                                                    <rect key="frame" x="0.0" y="5" width="392" height="105.5"/>
+                                                                    <rect key="frame" x="0.0" y="5" width="392" height="155.5"/>
                                                                     <subviews>
                                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1Bh-Uw-YVF">
                                                                             <rect key="frame" x="10" y="5" width="372" height="30"/>
@@ -377,24 +396,24 @@
                                                                             <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                                                             <nil key="highlightedColor"/>
                                                                         </label>
-                                                                        <tableView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" alwaysBounceVertical="YES" scrollEnabled="NO" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="HSi-by-nlw">
-                                                                            <rect key="frame" x="10" y="45" width="372" height="60.5"/>
+                                                                        <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="HSi-by-nlw">
+                                                                            <rect key="frame" x="10" y="45" width="372" height="110.5"/>
                                                                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                             <constraints>
-                                                                                <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="60" id="qrO-yu-lm6"/>
+                                                                                <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="110" id="qrO-yu-lm6"/>
                                                                             </constraints>
                                                                             <prototypes>
                                                                                 <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="LabelDisplayCell" id="659-f3-a1w" customClass="LabelDisplayCell" customModule="AcuityEngine" customModuleProvider="target">
-                                                                                    <rect key="frame" x="0.0" y="44.5" width="372" height="44"/>
+                                                                                    <rect key="frame" x="0.0" y="44.5" width="372" height="40.5"/>
                                                                                     <autoresizingMask key="autoresizingMask"/>
                                                                                     <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="659-f3-a1w" translatesAutoresizingMaskIntoConstraints="NO" id="6NT-KN-J08" userLabel="tbldatacontentview">
-                                                                                        <rect key="frame" x="0.0" y="0.0" width="372" height="44"/>
+                                                                                        <rect key="frame" x="0.0" y="0.0" width="372" height="40.5"/>
                                                                                         <subviews>
-                                                                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="wordWrap" minimumFontSize="9" translatesAutoresizingMaskIntoConstraints="NO" id="I1t-ut-mT4">
-                                                                                                <rect key="frame" x="0.0" y="0.0" width="372" height="41"/>
+                                                                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalCompressionResistancePriority="751" text="Label" textAlignment="natural" lineBreakMode="wordWrap" numberOfLines="0" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="I1t-ut-mT4">
+                                                                                                <rect key="frame" x="0.0" y="10" width="372" height="20.5"/>
                                                                                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                                                 <constraints>
-                                                                                                    <constraint firstAttribute="height" constant="24" id="6kn-4m-Bbc"/>
+                                                                                                    <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="20.5" id="Id3-y6-iWA"/>
                                                                                                 </constraints>
                                                                                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                                                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -405,8 +424,8 @@
                                                                                         <constraints>
                                                                                             <constraint firstItem="I1t-ut-mT4" firstAttribute="leading" secondItem="6NT-KN-J08" secondAttribute="leading" id="2qE-I5-eJe"/>
                                                                                             <constraint firstAttribute="trailing" secondItem="I1t-ut-mT4" secondAttribute="trailing" id="L95-8I-Eqa"/>
-                                                                                            <constraint firstAttribute="bottom" secondItem="I1t-ut-mT4" secondAttribute="bottom" constant="3" id="Xcd-Ij-1zZ"/>
-                                                                                            <constraint firstItem="I1t-ut-mT4" firstAttribute="top" secondItem="6NT-KN-J08" secondAttribute="top" id="bV1-Yj-Smb"/>
+                                                                                            <constraint firstAttribute="bottom" secondItem="I1t-ut-mT4" secondAttribute="bottom" constant="10" id="Xcd-Ij-1zZ"/>
+                                                                                            <constraint firstItem="I1t-ut-mT4" firstAttribute="top" secondItem="6NT-KN-J08" secondAttribute="top" constant="10" id="bV1-Yj-Smb"/>
                                                                                         </constraints>
                                                                                     </tableViewCellContentView>
                                                                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -505,6 +524,7 @@
                     <size key="freeformSize" width="414" height="896"/>
                     <connections>
                         <outlet property="heightConstraintFortblHistoryOrMedicationDataView" destination="bJ0-F4-Uae" id="nzd-NH-uSK"/>
+                        <outlet property="heightConstraintFortblProfileDataView" destination="JVp-rn-8jT" id="ale-1Q-Ej3"/>
                         <outlet property="tblHistoryOrMedicationData" destination="Bzj-xc-BNb" id="50a-Yh-f2g"/>
                         <outlet property="tblProfileData" destination="R6M-ss-dr1" id="51i-Tl-16I"/>
                     </connections>
@@ -595,7 +615,7 @@
                                                     <constraint firstAttribute="height" constant="300" id="jYG-es-ART"/>
                                                 </constraints>
                                                 <prototypes>
-                                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="ProfileAddOptionsDataView" id="H11-LP-CFm" customClass="ProfileAddOptionsDataView" customModule="AcuityEngine" customModuleProvider="target">
+                                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="ProfileAddOptionsDataCell" id="H11-LP-CFm" customClass="ProfileAddOptionsDataCell" customModule="AcuityEngine" customModuleProvider="target">
                                                         <rect key="frame" x="0.0" y="44.5" width="392" height="100.5"/>
                                                         <autoresizingMask key="autoresizingMask"/>
                                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="H11-LP-CFm" id="cQs-7T-5c6">
@@ -743,6 +763,7 @@
     <resources>
         <image name="add_profile_icon" width="35" height="35"/>
         <image name="detaildiscloure_arrow" width="11.5" height="18"/>
+        <image name="logout" width="32" height="32"/>
         <systemColor name="systemYellowColor">
             <color red="1" green="0.80000000000000004" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>

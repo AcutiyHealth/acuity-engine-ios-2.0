@@ -201,4 +201,5 @@ class MyWellScore: NSObject {
         let acuityMainModel = AcuityMainViewModel()
         dictionaryOfSystemScore = acuityMainModel.sortDictionaryDataBasedOnScore(bodySystemArray: dictionaryOfSystemScore)
     }
+
 }

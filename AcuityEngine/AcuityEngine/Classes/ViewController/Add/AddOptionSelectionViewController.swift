@@ -17,13 +17,14 @@ class AddOptionSelectionViewController:UIViewController{
     @IBOutlet weak var mainView: UIView!
     @IBOutlet weak var visualEffectView: UIView!
     
-    
+    //Set From Main View Controller.....
+    var isAnimationEnabledForSubView:Bool = true
     //Object of Profilevalue viewcontroller...
     var symptomsVC : SymptomsListViewController?
     var conditionsVC : ConditionsListViewController?
     var vitalsVC : VitalsListViewController?
     var medicationsVC : AddMedicationsViewController?
-    var historiesVC : AddOtherHistoriesViewController?
+    var historiesVC : HistoryTitleListViewController?
     
     var addOptionArray: Array<String> = [AddOption.vitals.rawValue,AddOption.symptom.rawValue,AddOption.conditions.rawValue,AddOption.medications.rawValue,AddOption.otherHistory.rawValue]
     //var labelsAsStringForMonth: Array<String> = ["Week1","Week2","Week3","Week4"]
@@ -53,8 +54,8 @@ extension AddOptionSelectionViewController: SOPullUpViewDelegate {
     func pullUpViewStatus(_ sender: UIViewController, didChangeTo status: PullUpStatus) {
         switch status {
         case .collapsed:
-            NotificationCenter.default.post(name: Notification.Name("pullUpClose"), object: nil)
-            NotificationCenter.default.post(name: Notification.Name("showAcuityDetailPopup"), object: nil)
+            NotificationCenter.default.post(name: Notification.Name(NSNotificationName.pullUpClose.rawValue), object: nil)
+            NotificationCenter.default.post(name:Notification.Name(NSNotificationName.showAcuityDetailPopup.rawValue), object: nil)
         case .expanded: break
             
         }
@@ -103,14 +104,14 @@ extension AddOptionSelectionViewController: UITableViewDelegate, UITableViewData
             do{
                 openVitalViewController(title:AddOption.vitals.rawValue)
             }
-            /* case .medications:
-             do{
-             openMedicationScreen(title: AddOption.medications.rawValue)
-             }
-             case .otherHistory:
-             do{
-             openOtherHistoriesScreen(title: AddOption.otherHistory.rawValue)
-             }*/
+        case .medications:
+            do{
+                openMedicationScreen(title: AddOption.medications.rawValue)
+            }
+        case .otherHistory:
+            do{
+                openOtherHistoriesScreen(title: AddOption.otherHistory.rawValue)
+            }
             
         case .none:
             print("")
@@ -124,7 +125,10 @@ extension AddOptionSelectionViewController: UITableViewDelegate, UITableViewData
     //MARK: Open Symptom Screen
     //========================================================================================================
     func openSymptomsViewController(title:String){
-        
+        if symptomsVC != nil{
+            self.symptomsVC?.view.removeFromSuperview()
+        }
+       
         //Add detail value view as child view
         symptomsVC = UIStoryboard(name: Storyboard.add.rawValue, bundle: nil).instantiateViewController(withIdentifier: "SymptomsListViewController") as? SymptomsListViewController
         setupTitleAndBackButtonForAllSubViewController(vc: (symptomsVC)!)
@@ -199,12 +203,21 @@ extension AddOptionSelectionViewController: UITableViewDelegate, UITableViewData
     func openOtherHistoriesScreen(title:String){
         
         //Add detail value view as child view
-        historiesVC = UIStoryboard(name: Storyboard.add.rawValue, bundle: nil).instantiateViewController(withIdentifier: "AddOtherHistoriesViewController") as? AddOtherHistoriesViewController
+        historiesVC = UIStoryboard(name: Storyboard.add.rawValue, bundle: nil).instantiateViewController(withIdentifier: "HistoryTitleListViewController") as? HistoryTitleListViewController
         guard (historiesVC != nil) else {
             return
         }
         setupTitleAndBackButtonForAllSubViewController(vc: historiesVC!)
         historiesVC?.lblTitle.text = title
+        historiesVC?.setHandler(handler: { [weak self] (open) in
+            if open ?? false{
+                self?.setupBackButton()
+                self?.visualEffectView.bringSubviewToFront((self?.handleArea)!)
+            }else{
+                self?.historiesVC?.view.removeFromSuperview()
+                self?.historiesVC?.removeFromParent()
+            }
+        })
         
     }
     //========================================================================================================
@@ -217,9 +230,13 @@ extension AddOptionSelectionViewController: UITableViewDelegate, UITableViewData
         mainView.isHidden = true
         let originY:CGFloat = 15
         vc.view.frame = CGRect(x: 0, y: originY, width: visualEffectView.frame.size.width, height: visualEffectView.frame.size.height-originY)
+        vc.view.removeFromSuperview()
         //Show animation when view added.....
-        animationForDetailViewWhenAdded(subviewToAdd: (vc.view)!, in: self.visualEffectView)
-        
+        if isAnimationEnabledForSubView{
+            animationForDetailViewWhenAdded(subviewToAdd: (vc.view)!, in: self.visualEffectView)
+        }else{
+            self.visualEffectView.addSubview((vc.view)!)
+        }
         vc.didMove(toParent: self)
         
         //Add close button target
@@ -268,6 +285,7 @@ extension AddOptionSelectionViewController: UITableViewDelegate, UITableViewData
         if symptomsVC != nil{
             if let _:UIView = symptomsVC?.view.viewWithTag(111) {
                 self.symptomsVC?.removeAddSymptomsViewController()
+                removeBackButton()
             }else{
                 removeSymptomsView()
                 
@@ -276,13 +294,25 @@ extension AddOptionSelectionViewController: UITableViewDelegate, UITableViewData
         if vitalsVC != nil{
             if let _:UIView = vitalsVC?.view.viewWithTag(111) {
                 self.vitalsVC?.removeAddVitalsViewController()
+                removeBackButton()
+            }else{
+                removeVitalView()
+            }
+        }
+        if historiesVC != nil{
+            if let _:UIView = historiesVC?.view.viewWithTag(222) {
+                self.historiesVC?.removeAddHistoryViewController()
+            }
+            else if let _:UIView = historiesVC?.view.viewWithTag(111) {
+                self.historiesVC?.removeHistoryValueViewController()
+                removeBackButton()
             }else{
                 removeVitalView()
             }
         }
         if conditionsVC != nil{
         }
-        removeBackButton()
+      
     }
     
     func removeVitalView(){
@@ -312,6 +342,10 @@ extension AddOptionSelectionViewController: UITableViewDelegate, UITableViewData
         medicationsVC = nil;
     }
     func removeHistoryView(){
+        //Show animation when view is removed.....
+        animationForDetailViewWhenRemoved(from: self.visualEffectView)
+        ////
+        self.historiesVC?.historyView?.removeFromSuperview()
         removeSubView(vc: historiesVC!)
         historiesVC = nil;
     }

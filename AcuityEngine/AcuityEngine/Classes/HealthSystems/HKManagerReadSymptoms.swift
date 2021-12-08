@@ -8,12 +8,13 @@
 import Foundation
 import HealthKit
 import HealthKitReporter
+import CloudKit
 
 class HKManagerReadSymptoms: NSObject
 {
     static let sharedManager = HKManagerReadSymptoms()
     private var reporter: HealthKitReporter?
-   
+    
     //private lazy var heartRateType: HKQuantityType? = HKObjectType.quantityType(forIdentifier: .heartRate)
     
     override init() {
@@ -72,8 +73,17 @@ class HKManagerReadSymptoms: NSObject
                                 DispatchQueue.main.async {
                                     
                                     if error == nil {
+                                        if results.count>0 && results.first != nil{
+                                            let lastElement:CategoryData = results.first!
+                                            //print("results.last",lastElement.identifier.description)
+                                            //print("results.last value",Double(lastElement.harmonized.value))
+                                            let elementValue = Double(lastElement.harmonized.value)
+                                            if elementValue != 1{
+                                                AppDelegate.shared.isSymptomsNotificationStop = false
+                                            }
+                                        }
                                         for element in results {
-                                            
+                                          
                                             let element:CategoryData = element
                                             //print(element.identifier , "" ,element.startTimestamp)
                                             //Save data for Cardio...
@@ -118,6 +128,7 @@ class HKManagerReadSymptoms: NSObject
                                             //Save data for Heent System...
                                             HeentManager.sharedManager.saveSymptomsData(category: category, element: element)
                                         }
+                                    
                                         dispatchGroup.leave()
                                         
                                         
