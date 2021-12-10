@@ -22,20 +22,7 @@ class AcuityDetailPullUpViewModel: NSObject
         view.layer.cornerRadius = 5;
         view.backgroundColor = ColorSchema.fourBoxColorInPullup
     }
-    //MARK: Make view of Conditions,lab,symptoms and vital selected
-    func setBackgroundColorWhenViewSelcted(view:UIView){
-        view.layer.borderColor = UIColor.white.cgColor
-        view.layer.borderWidth = 1;
-    }
-    
-    //MARK: Make view of Conditions,lab,symptoms and vital unselected
-    func setBackgroundColorWhenViewUnSelcted(viewSymptom:UIView,viewCondition:UIView,viewVital:UIView,viewLab:UIView){
-        viewLab.layer.borderWidth = 0;
-        viewVital.layer.borderWidth = 0;
-        viewSymptom.layer.borderWidth = 0;
-        viewCondition.layer.borderWidth = 0;
-    }
-    
+   
     func prepareArrayFromAcuityModel(systemMetricsData:[String:Any]?)->([ConditionsModel],[SymptomsModel],[VitalsModel],[LabModel]){
         //generate array of conditions,lab,vital,symptoms
         var arrConditions:[ConditionsModel] = []

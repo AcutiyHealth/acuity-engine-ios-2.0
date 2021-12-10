@@ -291,6 +291,8 @@
 		7AD7E70726036E750076F14E /* SFProDisplay-Semibold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 7AD7E6FC26036E750076F14E /* SFProDisplay-Semibold.ttf */; };
 		7AD7E70826036E750076F14E /* SFProDisplay-LightItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 7AD7E6FD26036E750076F14E /* SFProDisplay-LightItalic.ttf */; };
 		7AE1446C2701D5A3000A6E20 /* OtherHistoryInputView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AE1446A2701D5A3000A6E20 /* OtherHistoryInputView.swift */; };
+		7AE224FC27619CFD00725A26 /* OnboardingCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AE224FA27619CFD00725A26 /* OnboardingCollectionViewCell.swift */; };
+		7AE224FD27619CFD00725A26 /* OnboardingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AE224FB27619CFD00725A26 /* OnboardingViewController.swift */; };
 		7AFA7F30272172D000C8D44F /* UserManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AFA7F2F272172D000C8D44F /* UserManager.swift */; };
 		7AFA7F39272178A600C8D44F /* Grades.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AFA7F32272178A600C8D44F /* Grades.swift */; };
 		7AFA7F3A272178A600C8D44F /* SpecificRecommendations.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AFA7F33272178A600C8D44F /* SpecificRecommendations.swift */; };
@@ -604,6 +606,8 @@
 		7AD7E6FC26036E750076F14E /* SFProDisplay-Semibold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SFProDisplay-Semibold.ttf"; sourceTree = "<group>"; };
 		7AD7E6FD26036E750076F14E /* SFProDisplay-LightItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SFProDisplay-LightItalic.ttf"; sourceTree = "<group>"; };
 		7AE1446A2701D5A3000A6E20 /* OtherHistoryInputView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OtherHistoryInputView.swift; sourceTree = "<group>"; };
+		7AE224FA27619CFD00725A26 /* OnboardingCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OnboardingCollectionViewCell.swift; sourceTree = "<group>"; };
+		7AE224FB27619CFD00725A26 /* OnboardingViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OnboardingViewController.swift; sourceTree = "<group>"; };
 		7AFA7F2F272172D000C8D44F /* UserManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserManager.swift; sourceTree = "<group>"; };
 		7AFA7F32272178A600C8D44F /* Grades.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Grades.swift; sourceTree = "<group>"; };
 		7AFA7F33272178A600C8D44F /* SpecificRecommendations.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SpecificRecommendations.swift; sourceTree = "<group>"; };
@@ -1687,6 +1691,7 @@
 		7A73074E26FF1EB1005F9F5E /* ViewController */ = {
 			isa = PBXGroup;
 			children = (
+				7AE224F927619CFD00725A26 /* Onboarding */,
 				7AB33562272EA46800B05899 /* TutorialCards */,
 				7AFA7F4027217FB400C8D44F /* CustomPopUp */,
 				7A73074F26FF1EB1005F9F5E /* Base Controller */,
@@ -1890,6 +1895,16 @@
 				7A3086622702A35900C0A45B /* OtherHistoryDataTableHeaderView.xib */,
 			);
 			path = OtherHistory;
+			sourceTree = "<group>";
+		};
+		7AE224F927619CFD00725A26 /* Onboarding */ = {
+			isa = PBXGroup;
+			children = (
+				7AE224FA27619CFD00725A26 /* OnboardingCollectionViewCell.swift */,
+				7AE224FB27619CFD00725A26 /* OnboardingViewController.swift */,
+			);
+			name = Onboarding;
+			path = ../../../../../../../../../../Desktop/Onboarding;
 			sourceTree = "<group>";
 		};
 		7AFA7F2E272172D000C8D44F /* Manager */ = {
@@ -2199,6 +2214,7 @@
 				7A7307AC26FF1EB2005F9F5E /* SkinManager.swift in Sources */,
 				7A7307D026FF1EB2005F9F5E /* RenalManager.swift in Sources */,
 				7A73078B26FF1EB2005F9F5E /* UISegmentedControl+Extensions.swift in Sources */,
+				7AE224FC27619CFD00725A26 /* OnboardingCollectionViewCell.swift in Sources */,
 				7A74055F273F5339005CFE1F /* HistoryValueListViewController.swift in Sources */,
 				7A7307B226FF1EB2005F9F5E /* SkinConditionData.swift in Sources */,
 				7A73084C26FF1EB2005F9F5E /* PullUpDisplayCell.swift in Sources */,
@@ -2243,6 +2259,7 @@
 				7A73081C26FF1EB2005F9F5E /* FNELab.swift in Sources */,
 				7A73081026FF1EB2005F9F5E /* IDiseaseLabData.swift in Sources */,
 				7A73084926FF1EB2005F9F5E /* LabelTitle.swift in Sources */,
+				7AE224FD27619CFD00725A26 /* OnboardingViewController.swift in Sources */,
 				7A73081926FF1EB2005F9F5E /* FNESymptoms.swift in Sources */,
 				7A73081126FF1EB2005F9F5E /* IDiseaseConditionData.swift in Sources */,
 				7A7307F426FF1EB2005F9F5E /* HKSetupAssistance.swift in Sources */,

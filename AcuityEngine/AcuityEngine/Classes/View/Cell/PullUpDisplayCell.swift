@@ -331,11 +331,14 @@ class AddConditionCell: LabelDisplayCell {
     
 }
 //MARK: - Add Condition Selection Cell
-class AddOptionCell: UITableViewCell {
+class AddOptionCell: UICollectionViewCell {
     
     @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var valueLabel: UILabel!
     @IBOutlet weak var containerView: UIView!
+    
+    @IBOutlet weak var containerViewHeight: NSLayoutConstraint!
+    @IBOutlet weak var containerViewWidth: NSLayoutConstraint!
     override func awakeFromNib() {
         
         super.awakeFromNib()
@@ -346,9 +349,11 @@ class AddOptionCell: UITableViewCell {
     func setFontForLabel(){
         titleLabel.font = Fonts.kAcuityAddOptionTitleFont
         valueLabel.font = Fonts.kAcuityAddOptionValueFont
+        titleLabel.numberOfLines = 0
+        titleLabel.sizeToFit()
         valueLabel.numberOfLines = 0
         valueLabel.sizeToFit()
-        containerView.layer.cornerRadius = 20
+        containerView.layer.cornerRadius = 10
         containerView.backgroundColor = ColorSchema.addOptionGrayColor
     }
     

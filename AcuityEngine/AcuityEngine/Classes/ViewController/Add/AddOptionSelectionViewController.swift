@@ -16,7 +16,9 @@ class AddOptionSelectionViewController:UIViewController{
     @IBOutlet weak var handleArea: HandleView!
     @IBOutlet weak var mainView: UIView!
     @IBOutlet weak var visualEffectView: UIView!
+    @IBOutlet var collection: UICollectionView!
     
+    var size:CGFloat = 0;
     //Set From Main View Controller.....
     var isAnimationEnabledForSubView:Bool = true
     //Object of Profilevalue viewcontroller...
@@ -40,7 +42,8 @@ class AddOptionSelectionViewController:UIViewController{
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        collection.delegate = self
+        collection.dataSource = self
         addOptionTableView.reloadData()
         
     }
@@ -68,59 +71,123 @@ extension AddOptionSelectionViewController: SOPullUpViewDelegate {
 }
 
 // MARK: - UITableViewDelegate , UITableViewDataSource
-
-extension AddOptionSelectionViewController: UITableViewDelegate, UITableViewDataSource {
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+extension AddOptionSelectionViewController: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        let flowayout = collectionViewLayout as? UICollectionViewFlowLayout
+        let space: CGFloat = (flowayout?.minimumInteritemSpacing ?? 0.0) + (flowayout?.sectionInset.left ?? 0.0) + (flowayout?.sectionInset.right ?? 0.0)
+        let size:CGFloat = (collection.frame.size.width - space) / 2.0
+        print("collection size",size)
+        self.size = size
+        return CGSize(width: size, height: size/1.15)
+    }
+    
+    
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return addOptionArray.count
     }
     
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let cell: AddOptionCell = tableView.dequeueReusableCell(withIdentifier: "AddOptionCell", for: indexPath as IndexPath) as? AddOptionCell else {
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        guard let cell: AddOptionCell = collectionView.dequeueReusableCell(withReuseIdentifier: "AddOptionCell", for: indexPath as IndexPath) as? AddOptionCell else {
             fatalError("AcuityDetailDisplayCell cell is not found")
         }
-        cell.displayData(title: addOptionArray[indexPath.row])
-        
-        
-        cell.selectionStyle = .none
+        cell.containerViewWidth.constant = self.size
+        cell.containerViewHeight.constant = self.size - 20
+        cell.displayData(title: addOptionArray[indexPath.item])
         
         return cell
     }
-    
-    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return getRowHeightAsPerDeviceSize(height:80)
-    }
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        
-        switch AddOption(rawValue: addOptionArray[indexPath.row]){
-        case .symptom:
-            do{
-                openSymptomsViewController(title:AddOption.symptom.rawValue)
-            }
-        case .conditions:
-            do{
-                openConditionsViewController(title:AddOption.conditions.rawValue)
-            }
-        case .vitals:
-            do{
-                openVitalViewController(title:AddOption.vitals.rawValue)
-            }
-        case .medications:
-            do{
-                openMedicationScreen(title: AddOption.medications.rawValue)
-            }
-        case .otherHistory:
-            do{
-                openOtherHistoriesScreen(title: AddOption.otherHistory.rawValue)
-            }
-            
-        case .none:
-            print("")
-        default:
-            break;
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        guard let cell = collectionView.cellForItem(at: indexPath) as? AddOptionCell else {
+            return
         }
-        
+        Utility.setBackgroundColorWhenViewSelcted(view: cell.contentView)
+        let delayInSeconds = 0.15
+        DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + delayInSeconds) { [self] in
+            Utility.setBackgroundColorWhenViewUnSelcted(view: cell.contentView)
+            switch AddOption(rawValue: addOptionArray[indexPath.row]){
+            case .symptom:
+                do{
+                    openSymptomsViewController(title:AddOption.symptom.rawValue)
+                }
+            case .conditions:
+                do{
+                    openConditionsViewController(title:AddOption.conditions.rawValue)
+                }
+            case .vitals:
+                do{
+                    openVitalViewController(title:AddOption.vitals.rawValue)
+                }
+            case .medications:
+                do{
+                    openMedicationScreen(title: AddOption.medications.rawValue)
+                }
+            case .otherHistory:
+                do{
+                    openOtherHistoriesScreen(title: AddOption.otherHistory.rawValue)
+                }
+                
+            case .none:
+                print("")
+            default:
+                break;
+            }
+        }
     }
-    
+}
+
+extension AddOptionSelectionViewController {
+    /*
+     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+     return addOptionArray.count
+     }
+     
+     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+     guard let cell: AddOptionCell = tableView.dequeueReusableCell(withIdentifier: "AddOptionCell", for: indexPath as IndexPath) as? AddOptionCell else {
+     fatalError("AcuityDetailDisplayCell cell is not found")
+     }
+     cell.displayData(title: addOptionArray[indexPath.row])
+     
+     
+     cell.selectionStyle = .none
+     
+     return cell
+     }
+     
+     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+     return getRowHeightAsPerDeviceSize(height:80)
+     }
+     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+     
+     switch AddOption(rawValue: addOptionArray[indexPath.row]){
+     case .symptom:
+     do{
+     openSymptomsViewController(title:AddOption.symptom.rawValue)
+     }
+     case .conditions:
+     do{
+     openConditionsViewController(title:AddOption.conditions.rawValue)
+     }
+     case .vitals:
+     do{
+     openVitalViewController(title:AddOption.vitals.rawValue)
+     }
+     case .medications:
+     do{
+     openMedicationScreen(title: AddOption.medications.rawValue)
+     }
+     case .otherHistory:
+     do{
+     openOtherHistoriesScreen(title: AddOption.otherHistory.rawValue)
+     }
+     
+     case .none:
+     print("")
+     default:
+     break;
+     }
+     
+     }
+     */
     //========================================================================================================
     //MARK: Open Symptom Screen
     //========================================================================================================
@@ -128,7 +195,7 @@ extension AddOptionSelectionViewController: UITableViewDelegate, UITableViewData
         if symptomsVC != nil{
             self.symptomsVC?.view.removeFromSuperview()
         }
-       
+        
         //Add detail value view as child view
         symptomsVC = UIStoryboard(name: Storyboard.add.rawValue, bundle: nil).instantiateViewController(withIdentifier: "SymptomsListViewController") as? SymptomsListViewController
         setupTitleAndBackButtonForAllSubViewController(vc: (symptomsVC)!)
@@ -312,7 +379,7 @@ extension AddOptionSelectionViewController: UITableViewDelegate, UITableViewData
         }
         if conditionsVC != nil{
         }
-      
+        
     }
     
     func removeVitalView(){
@@ -369,3 +436,4 @@ extension AddOptionSelectionViewController: UITableViewDelegate, UITableViewData
         handleArea.btnBack!.isHidden = true
     }
 }
+

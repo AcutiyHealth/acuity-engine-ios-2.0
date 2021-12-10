@@ -539,16 +539,16 @@ extension AcuityDetailPullUpViewController: UITableViewDelegate, UITableViewData
         switch metrixType {
         case .Conditions:
             detailConditionVC?.arrConditions = self.arrConditions
-            viewModelObj.setBackgroundColorWhenViewSelcted(view: viewCondition)
+            Utility.setBackgroundColorWhenViewSelcted(view: viewCondition)
         case .Vitals:
             detailConditionVC?.arrVitals = self.arrVitals
-            viewModelObj.setBackgroundColorWhenViewSelcted(view: viewVitals)
+            Utility.setBackgroundColorWhenViewSelcted(view: viewVitals)
         case .Sympotms:
             detailConditionVC?.arrSymptoms = self.arrSymptoms
-            viewModelObj.setBackgroundColorWhenViewSelcted(view: viewSymptom)
+            Utility.setBackgroundColorWhenViewSelcted(view: viewSymptom)
         case .LabData:
             detailConditionVC?.arrLabs = self.arrLabs
-            viewModelObj.setBackgroundColorWhenViewSelcted(view: viewLab)
+            Utility.setBackgroundColorWhenViewSelcted(view: viewLab)
         case .Medication:
             detailConditionVC?.arrMedications = AppDelegate.shared.arrMedications
             //viewModelObj.setBackgroundColorWhenViewSelcted(view: viewM)
@@ -562,7 +562,7 @@ extension AcuityDetailPullUpViewController: UITableViewDelegate, UITableViewData
             self.addChild(detailConditionVC!)
             
             //Make setBackgroundColorWhenViewUnSelcted
-            viewModelObj.setBackgroundColorWhenViewUnSelcted(viewSymptom: viewSymptom, viewCondition: viewCondition, viewVital: viewVitals, viewLab: viewLab)
+            Utility.setBackgroundColorWhenViewUnSelcted(viewSymptom: viewSymptom, viewCondition: viewCondition, viewVital: viewVitals, viewLab: viewLab)
             
             detailConditionVC?.view.frame.size = CGSize(width: visualEffectView.frame.size.width, height: visualEffectView.frame.size.height)
             

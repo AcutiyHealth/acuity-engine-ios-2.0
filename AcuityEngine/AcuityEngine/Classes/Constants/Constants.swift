@@ -334,8 +334,8 @@ struct Fonts {
     static let kStartEndValueFont = getFontAsPerDeviceSize(fontName: UIFont.SFProDisplayMedium(of: 16), fontSize: 16)
     static let kAcuityBtnAdd = getFontAsPerDeviceSize(fontName: UIFont.SFProDisplayBold(of: 16), fontSize: 16)
     //Pull up
-    static let kAcuityAddOptionTitleFont = getFontAsPerDeviceSize(fontName: UIFont.SFProDisplayBold(of: 18), fontSize: 18)
-    static let kAcuityAddOptionValueFont = getFontAsPerDeviceSize(fontName: UIFont.SFProDisplayMedium(of: 10), fontSize: 10)
+    static let kAcuityAddOptionTitleFont = getFontAsPerDeviceSize(fontName: UIFont.SFProDisplayBold(of: 20), fontSize: 20)
+    static let kAcuityAddOptionValueFont = getFontAsPerDeviceSize(fontName: UIFont.SFProDisplayRegular(of: 14), fontSize: 14)
     static let kAcuityAddDetailTitleFont = getFontAsPerDeviceSize(fontName: UIFont.SFProDisplayBold(of: 24), fontSize: 24)
     static let kAcuityAddOptionMaxLimitFont = getFontAsPerDeviceSize(fontName: UIFont.SFProDisplayRegular(of: 9), fontSize: 9)
     //Onboarding

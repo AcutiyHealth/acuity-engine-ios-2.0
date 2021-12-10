@@ -72,6 +72,23 @@ class Utility {
         //Show alert to user
         vc.present(alertController, animated: true, completion: nil)
     }
+    //MARK: Make view of Conditions,lab,symptoms and vital selected
+    static func setBackgroundColorWhenViewSelcted(view:UIView){
+        view.layer.borderColor = UIColor.white.cgColor
+        view.layer.borderWidth = 1;
+    }
+    
+    //MARK: Make view of Conditions,lab,symptoms and vital unselected
+    static func setBackgroundColorWhenViewUnSelcted(viewSymptom:UIView,viewCondition:UIView,viewVital:UIView,viewLab:UIView){
+        viewLab.layer.borderWidth = 0;
+        viewVital.layer.borderWidth = 0;
+        viewSymptom.layer.borderWidth = 0;
+        viewCondition.layer.borderWidth = 0;
+    }
+    //MARK: Make view of Conditions,lab,symptoms and vital unselected
+    static func setBackgroundColorWhenViewUnSelcted(view:UIView){
+        view.layer.borderWidth = 0;
+    }
 }
 
 func setupViewBorderForAddSection(view:UIView){

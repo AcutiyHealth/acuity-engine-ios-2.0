@@ -112,6 +112,7 @@ class AddMedicationsViewController: UIViewController {
         let txtStr = (txtViewMedication.text ?? "").trimmingCharacters(in: .whitespaces)
         let medicationModel = MedicationDataDisplayModel(txtValue: txtStr, timeStamp: getTimeStampForCurrenTime())
         addMedication(medicationModel: medicationModel)
+        txtViewMedication.text  = ""
     }
     //MARK:- Add History Data
     func addMedication(medicationModel:MedicationDataDisplayModel) {
