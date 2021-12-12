@@ -11,15 +11,15 @@ import HealthKitReporter
 
 
 struct RespiratorySymptomsRelativeImportance {
-    static let chestPain:Double = 40
-    static let rapidHeartbeat:Double = 30
-    static let cough:Double = 60
-    static let fainting:Double = 25
-    static let shortnessOfBreath:Double = 60
-    static let runnyNose:Double = 100
-    static let soreThroat:Double = 100
-    static let fever:Double = 40
-    static let chills:Double = 40
+    static let chestPain:Double = 75
+    static let rapidHeartbeat:Double = 75
+    static let cough:Double = 100
+    static let fainting:Double = 40
+    static let shortnessOfBreath:Double = 100
+    static let runnyNose:Double = 50
+    static let soreThroat:Double = 50
+    static let fever:Double = 100
+    static let chills:Double = 50
 }
 
 class RespiratorySymptomsPainData:SymptomCalculation {

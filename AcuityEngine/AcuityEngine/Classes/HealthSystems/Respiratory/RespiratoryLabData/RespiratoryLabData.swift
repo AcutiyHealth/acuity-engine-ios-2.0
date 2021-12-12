@@ -12,7 +12,7 @@ import HealthKitReporter
 
 struct RespiratoryLabRelativeImportance {
     static let sodium:Double = 25
-    static let carbonDioxide:Double = 60
+    static let carbonDioxide:Double = 100
     static let chloride:Double = 25
     static let WBC:Double = 70
     static let neutrophil:Double = 70

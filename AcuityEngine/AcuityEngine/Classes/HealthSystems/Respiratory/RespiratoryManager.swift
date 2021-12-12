@@ -91,12 +91,19 @@ class RespiratoryManager: NSObject {
             self.respiratoryData.respiratoryVital.vO2MaxData.append(vo2Max)
             
         }
-        else if quantityType == QuantityType.inhalerUsage {
+        /*else if quantityType == QuantityType.inhalerUsage {
             
             let inhalerUsage = RespiratoryVitalsData(type: VitalsName.InhalerUsage)
             inhalerUsage.value = Double(element.harmonized.value)
             inhalerUsage.startTimeStamp = element.startTimestamp
             self.respiratoryData.respiratoryVital.inhalerUsageData.append(inhalerUsage)
+        }*/
+        else if quantityType == QuantityType.stepCount {
+            
+            let stepCount = RespiratoryVitalsData(type: VitalsName.steps)
+            stepCount.value = Double(element.harmonized.value)
+            stepCount.startTimeStamp = element.startTimestamp
+            self.respiratoryData.respiratoryVital.stepsData.append(stepCount)
         }
     }
     
@@ -104,15 +111,31 @@ class RespiratoryManager: NSObject {
     //Save Category Vitals data in respiratoryVital model
     func saveCategoryData(categoryType:CategoryType,value:Double,startTimeStamp:Double,endTimeStamp:Double){
         
-        if categoryType == CategoryType.irregularHeartRhythmEvent {
-            
-            let irregularRhymesNotification = RespiratoryVitalsData(type: VitalsName.irregularRhymesNotification)
-            irregularRhymesNotification.value = 1
-            irregularRhymesNotification.startTimeStamp = startTimeStamp
-            irregularRhymesNotification.endTimeStamp = endTimeStamp
-            self.respiratoryData.respiratoryVital.irregularRhythmNotificationData.append(irregularRhymesNotification)
-            
+        switch categoryType {
+        case .irregularHeartRhythmEvent:
+            do{
+                
+                let irregularRhymesNotification = RespiratoryVitalsData(type: VitalsName.irregularRhymesNotification)
+                irregularRhymesNotification.value = 1
+                irregularRhymesNotification.startTimeStamp = startTimeStamp
+                irregularRhymesNotification.endTimeStamp = endTimeStamp
+                self.respiratoryData.respiratoryVital.irregularRhythmNotificationData.append(irregularRhymesNotification)
+                
+            }
+        case .sleepAnalysis:
+            do{
+                
+                let sleepAnalysis = RespiratoryVitalsData(type: VitalsName.sleep)
+                sleepAnalysis.value = value
+                sleepAnalysis.startTimeStamp = startTimeStamp
+                sleepAnalysis.endTimeStamp = endTimeStamp
+                self.respiratoryData.respiratoryVital.sleepData.append(sleepAnalysis)
+                
+            }
+        default:
+            break
         }
+        
         
     }
     

@@ -12,13 +12,15 @@ import HealthKitReporter
 struct RespiratoryVitalRelativeImportance {
     static let bloodPressureSystolic:Double = 30
     static let bloodPressureDiastolic:Double = 30
-    static let respiratoryRate:Double = 80
-    static let oxygenSaturation:Double = 80
-    static let heartRate:Double = 30
-    static let irregularRhymesNotification:Double = 30
-    static let peakFlowRate:Double = 70
-    static let vo2Max:Double = 60
-    static let inhalerUsage:Double = 20
+    static let respiratoryRate:Double = 100
+    static let oxygenSaturation:Double = 100
+    static let heartRate:Double = 50
+    static let irregularRhymesNotification:Double = 50
+    static let peakFlowRate:Double = 100
+    static let vo2Max:Double = 100
+    static let steps:Double = 100
+    static let sleep:Double = 50
+    //static let inhalerUsage:Double = 20
 }
 
 class RespiratoryVitalsData:VitalCalculation {
@@ -45,8 +47,12 @@ class RespiratoryVitalsData:VitalCalculation {
             self.relativeValue = RespiratoryVitalRelativeImportance.peakFlowRate
         case .vo2Max:
             self.relativeValue = RespiratoryVitalRelativeImportance.vo2Max
-        case .InhalerUsage:
-            self.relativeValue = RespiratoryVitalRelativeImportance.inhalerUsage
+        case .steps:
+            self.relativeValue = RespiratoryVitalRelativeImportance.steps
+        case .sleep:
+            self.relativeValue = RespiratoryVitalRelativeImportance.sleep
+//        case .InhalerUsage:
+//            self.relativeValue = RespiratoryVitalRelativeImportance.inhalerUsage
         default:break
         }
         

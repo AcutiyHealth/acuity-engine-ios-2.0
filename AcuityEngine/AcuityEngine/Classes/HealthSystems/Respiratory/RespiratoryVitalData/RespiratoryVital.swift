@@ -18,7 +18,9 @@ class RespiratoryVital:VitalProtocol {
     var irregularRhythmNotificationData:[RespiratoryVitalsData] = []
     var peakFlowRateData:[RespiratoryVitalsData] = []
     var vO2MaxData:[RespiratoryVitalsData] = []
-    var inhalerUsageData:[RespiratoryVitalsData] = []
+    var stepsData:[RespiratoryVitalsData] = []
+    var sleepData:[RespiratoryVitalsData] = []
+    //var inhalerUsageData:[RespiratoryVitalsData] = []
     var totalScore:[Double] = []
     var arrayDayWiseScoreTotal:[Double] = []
     
@@ -34,10 +36,12 @@ class RespiratoryVital:VitalProtocol {
         let irregularRhythmNotification = (Double(irregularRhythmNotificationData.average(\.score)).isNaN ? 0 :  Double(irregularRhythmNotificationData.average(\.score)))
         let vo2max = (Double(vO2MaxData.average(\.score)).isNaN ? 0 : Double(vO2MaxData.average(\.score)))
         let peakFlowRate = (Double(peakFlowRateData.average(\.score)).isNaN ? 0 : Double(peakFlowRateData.average(\.score)))
-        let inhalerUsage = (Double(inhalerUsageData.average(\.score)).isNaN ? 0 : Double(inhalerUsageData.average(\.score)))
+        let steps = (Double(stepsData.average(\.score)).isNaN ? 0 : Double(stepsData.average(\.score)))
+        let sleep = (Double(sleepData.average(\.score)).isNaN ? 0 : Double(sleepData.average(\.score)))
+        //let inhalerUsage = (Double(inhalerUsageData.average(\.score)).isNaN ? 0 : Double(inhalerUsageData.average(\.score)))
         
         
-        let totalVitalScore = systolicBloodPressur + diastolicBloodPressure + irregularRhythmNotification + respiratoryRate + oxygenSaturation   + heartRate   + vo2max + peakFlowRate + inhalerUsage
+        let totalVitalScore = systolicBloodPressur + diastolicBloodPressure + irregularRhythmNotification + respiratoryRate + oxygenSaturation   + heartRate   + vo2max + peakFlowRate + sleep + steps
         
         return totalVitalScore;
     }
@@ -104,9 +108,12 @@ class RespiratoryVital:VitalProtocol {
             //vO2MaxData
             let scoreVO2MaxData = getScoreForVitalDataWithGivenDateRange(sampleItem: vO2MaxData, timeIntervalByLastMonth: timeIntervalByLastMonth, timeIntervalByNow: timeIntervalByNow)
             //inhalerUsageData
-            let scoreInhalerUsageData = getScoreForVitalDataWithGivenDateRange(sampleItem: inhalerUsageData, timeIntervalByLastMonth: timeIntervalByLastMonth, timeIntervalByNow: timeIntervalByNow)
-            
-            let totalScore = scoreSystolic + scoreDyastolic + scoreRespiratoryRateData + scoreOxygenSaturationData + scoreHeartRateData + scoreIrregularRhythmNotification + scorePeakFlowRateData + scoreVO2MaxData + scoreInhalerUsageData
+            //let scoreInhalerUsageData = getScoreForVitalDataWithGivenDateRange(sampleItem: inhalerUsageData, timeIntervalByLastMonth: timeIntervalByLastMonth, timeIntervalByNow: timeIntervalByNow)
+            //stepsData
+            let scorestepsData = getScoreForVitalDataWithGivenDateRange(sampleItem: stepsData, timeIntervalByLastMonth: timeIntervalByLastMonth, timeIntervalByNow: timeIntervalByNow)
+            //sleepData
+            let scoresleepData = getScoreForVitalDataWithGivenDateRange(sampleItem: sleepData, timeIntervalByLastMonth: timeIntervalByLastMonth, timeIntervalByNow: timeIntervalByNow)
+            let totalScore = scoreSystolic + scoreDyastolic + scoreRespiratoryRateData + scoreOxygenSaturationData + scoreHeartRateData + scoreIrregularRhythmNotification + scorePeakFlowRateData + scoreVO2MaxData + scoresleepData + scorestepsData
             arrayDayWiseScoreTotal.append(totalScore)
         }
         
@@ -124,9 +131,11 @@ class RespiratoryVital:VitalProtocol {
         let irregularRhythmNotification = RespiratoryVitalRelativeImportance.irregularRhymesNotification.getConvertedValueFromPercentage()
         let peakFlowRate = RespiratoryVitalRelativeImportance.peakFlowRate.getConvertedValueFromPercentage()
         let vo2max = RespiratoryVitalRelativeImportance.vo2Max.getConvertedValueFromPercentage()
-        let inhalerUsage = RespiratoryVitalRelativeImportance.inhalerUsage.getConvertedValueFromPercentage()
+        let sleep = RespiratoryVitalRelativeImportance.sleep.getConvertedValueFromPercentage()
+        let steps = RespiratoryVitalRelativeImportance.steps.getConvertedValueFromPercentage()
+        //let inhalerUsage = RespiratoryVitalRelativeImportance.inhalerUsage.getConvertedValueFromPercentage()
         
-        let totalVitalScore = systolicBloodPressur + diastolicBloodPressure  + heartRate + respiratoryRate + irregularRhythmNotification  + oxygenSaturation + peakFlowRate + vo2max + inhalerUsage
+        let totalVitalScore = systolicBloodPressur + diastolicBloodPressure  + heartRate + respiratoryRate + irregularRhythmNotification  + oxygenSaturation + peakFlowRate + vo2max + sleep + steps
         
         return totalVitalScore;
     }
@@ -164,7 +173,13 @@ class RespiratoryVital:VitalProtocol {
         filterVitalArrayToGetSingleDataWithSelectedSegmentInGraph(days: days, array: vO2MaxData)
         
         //inhalerUsageData
-        filterVitalArrayToGetSingleDataWithSelectedSegmentInGraph(days: days, array: inhalerUsageData)
+        //filterVitalArrayToGetSingleDataWithSelectedSegmentInGraph(days: days, array: inhalerUsageData)
+        
+        //stepsData
+        filterVitalArrayToGetSingleDataWithSelectedSegmentInGraph(days: days, array: stepsData)
+        
+        //sleepData
+        filterVitalArrayToGetSingleDataWithSelectedSegmentInGraph(days: days, array: sleepData)
         
         return arrVital
     }
@@ -223,12 +238,18 @@ class RespiratoryVital:VitalProtocol {
         case .vo2Max:
             filterArray = filterVitalArrayWithSelectedSegmentInGraph(days: days, array: vO2MaxData)
             
-        case .InhalerUsage:
-            filterArray = filterVitalArrayWithSelectedSegmentInGraph(days: days, array: inhalerUsageData)
-            
+//        case .InhalerUsage:
+//            filterArray = filterVitalArrayWithSelectedSegmentInGraph(days: days, array: inhalerUsageData)
+//
         case .peakflowRate:
             filterArray = filterVitalArrayWithSelectedSegmentInGraph(days: days, array: peakFlowRateData)
             
+        case .sleep:
+            filterArray = filterVitalArrayWithSelectedSegmentInGraph(days: days, array: sleepData)
+          
+        case .steps:
+            filterArray = filterVitalArrayWithSelectedSegmentInGraph(days: days, array: stepsData)
+          
         default:
             break
         }
