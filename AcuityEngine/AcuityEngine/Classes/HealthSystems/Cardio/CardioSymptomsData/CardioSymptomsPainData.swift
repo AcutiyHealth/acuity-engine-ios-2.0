@@ -11,19 +11,19 @@ import HealthKitReporter
 
 
 struct CardioSymptomsRelativeImportance {
-    static let chestPain:Double = 50
-    static let skippedHeartBeat:Double = 40
-    static let dizziness:Double = 20
+    static let chestPain:Double = 100
+    static let skippedHeartBeat:Double = 100
+    static let dizziness:Double = 50
     static let fatigue:Double = 40
-    static let rapidHeartbeat:Double = 40
-    static let fainting:Double = 40
+    static let rapidHeartbeat:Double = 100
+    static let fainting:Double = 50
     static let nausea:Double = 40
-    static let vomiting:Double = 10
-    static let memoryLapse:Double = 5
-    static let shortnessOfBreath:Double = 40
-    static let headache:Double = 30
-    static let heartburn:Double = 10
-    static let sleepChanges:Double = 5
+    static let vomiting:Double = 40
+    static let memoryLapse:Double = 30
+    static let shortnessOfBreath:Double = 90
+    static let headache:Double = 70
+    static let heartburn:Double = 30
+    static let sleepChanges:Double = 10
 }
 
 class CardioSymptomsPainData:SymptomCalculation {

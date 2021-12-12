@@ -107,5 +107,8 @@ enum VitalsName:String {
     case stepLength = "Step Length"
     case headPhoneAudioLevel = "Headphone Audio Levels"
     case bloodPressureSystolicDiastolic = "BP Systolic/Diastolic"
+    case steps = "Steps"
+    case sleep = "Sleep"
+    case waterIntake = "Water Intake"
 }
 

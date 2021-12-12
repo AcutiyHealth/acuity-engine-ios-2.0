@@ -28,6 +28,9 @@ class CardioVital:VitalProtocol {
     var lowHeartRateData:[CardioVitalsData] = []
     var vO2MaxData:[CardioVitalsData] = []
     var oxygenSaturationData:[CardioVitalsData] = []
+    var stepsData:[CardioVitalsData] = []
+    var sleepData:[CardioVitalsData] = []
+    var waterIntakeData:[CardioVitalsData] = []
     var totalScore:[Double] = []
     var arrayDayWiseScoreTotal:[Double] = []
     //For Dictionary Representation
@@ -39,12 +42,16 @@ class CardioVital:VitalProtocol {
         let systolicBloodPressur = (Double(systolicBloodPressureData.average(\.score)) .isNaN ? 0 : Double(systolicBloodPressureData.average(\.score)))
         let diastolicBloodPressure = (Double(diastolicBloodPressureData.average(\.score)).isNaN ? 0 : Double(diastolicBloodPressureData.average(\.score)))
         let irregularRhythmNotification = (Double(irregularRhythmNotificationData.average(\.score)).isNaN ? 0 :  Double(irregularRhythmNotificationData.average(\.score)))
-        let highHeartRate = (Double(highHeartRateData.average(\.score)).isNaN ? 0 : Double(highHeartRateData.average(\.score)))
-        let lowHeartRate = (Double(lowHeartRateData.average(\.score)).isNaN ? 0 : Double(lowHeartRateData.average(\.score)))
+        let _ = (Double(highHeartRateData.average(\.score)).isNaN ? 0 : Double(highHeartRateData.average(\.score)))
+        let _ = (Double(lowHeartRateData.average(\.score)).isNaN ? 0 : Double(lowHeartRateData.average(\.score)))
         let vo2max = (Double(vO2MaxData.average(\.score)).isNaN ? 0 : Double(vO2MaxData.average(\.score)))
         let oxygenSaturation = (Double(oxygenSaturationData.average(\.score)).isNaN ? 0 : Double(oxygenSaturationData.average(\.score)))
+        let steps = (Double(stepsData.average(\.score)).isNaN ? 0 : Double(stepsData.average(\.score)))
+        let sleep = (Double(sleepData.average(\.score)).isNaN ? 0 : Double(sleepData.average(\.score)))
+        let waterIntake = (Double(waterIntakeData.average(\.score)).isNaN ? 0 : Double(waterIntakeData.average(\.score)))
         
-        let totalVitalScore = heartRate  + systolicBloodPressur + diastolicBloodPressure + irregularRhythmNotification + highHeartRate + lowHeartRate + vo2max + oxygenSaturation
+        
+        let totalVitalScore = heartRate  + systolicBloodPressur + diastolicBloodPressure + irregularRhythmNotification + vo2max + oxygenSaturation + steps + sleep + waterIntake
         //print("heartRate -> \(heartRate) \n systolicBloodPressur -> \(systolicBloodPressur) \n diastolicBloodPressure -> \(diastolicBloodPressure) \n irregularRhythmNotification -> \(irregularRhythmNotification) \n highHeartRate -> \(highHeartRate) \n lowHeartRate -> \(lowHeartRate) \n vo2max -> \(vo2max) oxygenSaturation -> \(oxygenSaturation)")
         
         return totalVitalScore;
@@ -103,15 +110,21 @@ class CardioVital:VitalProtocol {
             //irregularRhythmNotificationData
             let scoreIrregularRhythmNotification = getScoreForVitalDataWithGivenDateRange(sampleItem: irregularRhythmNotificationData, timeIntervalByLastMonth: timeIntervalByLastMonth, timeIntervalByNow: timeIntervalByNow)
             //highHeartRateData
-            let scoreHighHeartRateData = getScoreForVitalDataWithGivenDateRange(sampleItem: highHeartRateData, timeIntervalByLastMonth: timeIntervalByLastMonth, timeIntervalByNow: timeIntervalByNow)
+            //let scoreHighHeartRateData = getScoreForVitalDataWithGivenDateRange(sampleItem: highHeartRateData, timeIntervalByLastMonth: timeIntervalByLastMonth, timeIntervalByNow: timeIntervalByNow)
             //lowHeartRateData
-            let scoreLowHeartRateData = getScoreForVitalDataWithGivenDateRange(sampleItem: lowHeartRateData, timeIntervalByLastMonth: timeIntervalByLastMonth, timeIntervalByNow: timeIntervalByNow)
+            //let scoreLowHeartRateData = getScoreForVitalDataWithGivenDateRange(sampleItem: lowHeartRateData, timeIntervalByLastMonth: timeIntervalByLastMonth, timeIntervalByNow: timeIntervalByNow)
             //vO2MaxData
             let scoreVO2MaxData = getScoreForVitalDataWithGivenDateRange(sampleItem: vO2MaxData, timeIntervalByLastMonth: timeIntervalByLastMonth, timeIntervalByNow: timeIntervalByNow)
             //oxygenSaturationData
             let scoreOxygenSaturationData = getScoreForVitalDataWithGivenDateRange(sampleItem: oxygenSaturationData, timeIntervalByLastMonth: timeIntervalByLastMonth, timeIntervalByNow: timeIntervalByNow)
+            //stepsData
+            let scorestepsData = getScoreForVitalDataWithGivenDateRange(sampleItem: stepsData, timeIntervalByLastMonth: timeIntervalByLastMonth, timeIntervalByNow: timeIntervalByNow)
+            //sleepData
+            let scoresleepData = getScoreForVitalDataWithGivenDateRange(sampleItem: sleepData, timeIntervalByLastMonth: timeIntervalByLastMonth, timeIntervalByNow: timeIntervalByNow)
+            //waterIntakeData
+            let scorewaterIntakeData = getScoreForVitalDataWithGivenDateRange(sampleItem: waterIntakeData, timeIntervalByLastMonth: timeIntervalByLastMonth, timeIntervalByNow: timeIntervalByNow)
             
-            let totalScore = scoreSystolic + scoreDyastolic + scoreHeartRateData + scoreIrregularRhythmNotification  + scoreHighHeartRateData + scoreLowHeartRateData + scoreVO2MaxData + scoreOxygenSaturationData
+            let totalScore = scoreSystolic + scoreDyastolic + scoreHeartRateData + scoreIrregularRhythmNotification  + scoreVO2MaxData + scoreOxygenSaturationData + scorestepsData + scoresleepData + scorewaterIntakeData
             arrayDayWiseScoreTotal.append(totalScore)
         }
         return arrayDayWiseScoreTotal
@@ -123,13 +136,16 @@ class CardioVital:VitalProtocol {
         let systolicBloodPressur = CardioVitalRelativeImportance.bloodPressureSystolic.getConvertedValueFromPercentage()
         let diastolicBloodPressure = CardioVitalRelativeImportance.bloodPressureDiastolic.getConvertedValueFromPercentage()
         let irregularRhythmNotification = CardioVitalRelativeImportance.irregularRhymesNotification.getConvertedValueFromPercentage()
-        let highHeartRate = CardioVitalRelativeImportance.highHeartRate.getConvertedValueFromPercentage()
-        let lowHeartRate = CardioVitalRelativeImportance.lowHeartRate.getConvertedValueFromPercentage()
+        //let highHeartRate = CardioVitalRelativeImportance.highHeartRate.getConvertedValueFromPercentage()
+        //let lowHeartRate = CardioVitalRelativeImportance.lowHeartRate.getConvertedValueFromPercentage()
         let vo2max = CardioVitalRelativeImportance.vo2Max.getConvertedValueFromPercentage()
         let oxygenSaturation = CardioVitalRelativeImportance.oxygenSaturation.getConvertedValueFromPercentage()
+        let steps = CardioVitalRelativeImportance.steps.getConvertedValueFromPercentage()
+        let sleep = CardioVitalRelativeImportance.sleep.getConvertedValueFromPercentage()
+        let waterIntake = CardioVitalRelativeImportance.waterIntake.getConvertedValueFromPercentage()
         
         
-        let totalVitalScore = heartRate  + systolicBloodPressur + diastolicBloodPressure + irregularRhythmNotification + highHeartRate + lowHeartRate + vo2max + oxygenSaturation
+        let totalVitalScore = heartRate  + systolicBloodPressur + diastolicBloodPressure + irregularRhythmNotification  + vo2max + oxygenSaturation + steps + sleep + waterIntake
         
         return totalVitalScore;
     }
@@ -155,16 +171,26 @@ class CardioVital:VitalProtocol {
         filterVitalArrayToGetSingleDataWithSelectedSegmentInGraph(days: days, array: irregularRhythmNotificationData)
         
         //highHeartRateData
-        filterVitalArrayToGetSingleDataWithSelectedSegmentInGraph(days: days, array: highHeartRateData)
+        //filterVitalArrayToGetSingleDataWithSelectedSegmentInGraph(days: days, array: highHeartRateData)
         
         //lowHeartRateData
-        filterVitalArrayToGetSingleDataWithSelectedSegmentInGraph(days: days, array: lowHeartRateData)
+        //filterVitalArrayToGetSingleDataWithSelectedSegmentInGraph(days: days, array: lowHeartRateData)
         
         //vO2MaxData
         filterVitalArrayToGetSingleDataWithSelectedSegmentInGraph(days: days, array: vO2MaxData)
         
         //oxygenSaturationData
         filterVitalArrayToGetSingleDataWithSelectedSegmentInGraph(days: days, array: oxygenSaturationData)
+        
+        //stepsData
+        filterVitalArrayToGetSingleDataWithSelectedSegmentInGraph(days: days, array: stepsData)
+        
+        //sleepData
+        filterVitalArrayToGetSingleDataWithSelectedSegmentInGraph(days: days, array: sleepData)
+        
+        //waterIntakeData
+        filterVitalArrayToGetSingleDataWithSelectedSegmentInGraph(days: days, array: waterIntakeData)
+        
         
         return arrVital
     }
@@ -214,17 +240,26 @@ class CardioVital:VitalProtocol {
         case .irregularRhymesNotification:
             filterArray = filterVitalArrayWithSelectedSegmentInGraph(days: days, array: irregularRhythmNotificationData)
             
-        case .highHeartRate:
-            filterArray = filterVitalArrayWithSelectedSegmentInGraph(days: days, array: highHeartRateData)
+        //case .highHeartRate:
+            //filterArray = filterVitalArrayWithSelectedSegmentInGraph(days: days, array: highHeartRateData)
             
-        case .lowHeartRate:
-            filterArray = filterVitalArrayWithSelectedSegmentInGraph(days: days, array: lowHeartRateData)
+        //case .lowHeartRate:
+            //filterArray = filterVitalArrayWithSelectedSegmentInGraph(days: days, array: lowHeartRateData)
             
         case .vo2Max:
             filterArray = filterVitalArrayWithSelectedSegmentInGraph(days: days, array: vO2MaxData)
             
         case .oxygenSaturation:
             filterArray = filterVitalArrayWithSelectedSegmentInGraph(days: days, array: oxygenSaturationData)
+            
+        case .steps:
+            filterArray = filterVitalArrayWithSelectedSegmentInGraph(days: days, array: stepsData)
+            
+        case .sleep:
+            filterArray = filterVitalArrayWithSelectedSegmentInGraph(days: days, array: sleepData)
+            
+        case .waterIntake:
+            filterArray = filterVitalArrayWithSelectedSegmentInGraph(days: days, array: waterIntakeData)
             
             
         default:

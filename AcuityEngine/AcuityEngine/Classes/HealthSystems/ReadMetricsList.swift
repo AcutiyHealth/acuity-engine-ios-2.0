@@ -45,7 +45,7 @@ func ReadSymptomsValue() -> [CategoryType]{
 }
 
 func ReadVitalsCategoryType()->[CategoryType]{
-    [CategoryType.highHeartRateEvent, CategoryType.lowHeartRateEvent, CategoryType.irregularHeartRhythmEvent]
+    [CategoryType.highHeartRateEvent, CategoryType.lowHeartRateEvent, CategoryType.irregularHeartRhythmEvent,CategoryType.sleepAnalysis]
 }
 func ReadCharactristicType()->[CharacteristicType]{
     [CharacteristicType.dateOfBirth,
@@ -67,7 +67,9 @@ func ReadVitalsQuantityType() -> [QuantityType]{
      QuantityType.oxygenSaturation,
      QuantityType.respiratoryRate,
      QuantityType.walkingStepLength,
-     QuantityType.headphoneAudioExposure
+     QuantityType.headphoneAudioExposure,
+     QuantityType.stepCount,
+     QuantityType.dietaryWater
     ]
 }
 

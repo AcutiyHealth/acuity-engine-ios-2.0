@@ -26,7 +26,9 @@ class HKManagerReadVitals: NSObject {
         super.init()
         
     }
-    
+    /*
+     https://docs.google.com/spreadsheets/d/1XDGg4u6Nvzrbv-BZLzwWlRcGAf6FsAecC_I2yKozHIE/edit#gid=946627644
+     */
     func resetData(){
         CardioManager.sharedManager.resetCardioData()
         RespiratoryManager.sharedManager.resetRespiratoryData()
@@ -92,8 +94,9 @@ class HKManagerReadVitals: NSObject {
                                 if error == nil {
                                     for element in results {
                                         
-                                        
-                                        if category == CategoryType.highHeartRateEvent || category == CategoryType.lowHeartRateEvent  || category == CategoryType.irregularHeartRhythmEvent {
+                                        //Bfeore there was use of highHeartRateEvent in cardio calculation.....Now client has removed it from  calculation....
+                                        //category == CategoryType.highHeartRateEvent || category == CategoryType.lowHeartRateEvent  ||
+                                        if  category == CategoryType.irregularHeartRhythmEvent {
                                             
                                             //save data For Cardio
                                             CardioManager.sharedManager.saveCategoryData(categoryType: category, value: 1, startTimeStamp: element.startTimestamp,endTimeStamp: element.endTimestamp)
@@ -104,6 +107,15 @@ class HKManagerReadVitals: NSObject {
                                             //Save data for FNE
                                             FNEManager.sharedManager.saveCategoryData(categoryType: category, value: 1, startTimeStamp: element.startTimestamp,endTimeStamp: element.endTimestamp)
                                             
+                                        }
+                                        else if category == CategoryType.sleepAnalysis{
+                                            //save data For Cardio
+                                            
+                                            let sleepTimeForOneDay = element.endTimestamp-element.startTimestamp
+                                            let hours = sleepTimeForOneDay/60/60
+                                            CardioManager.sharedManager.saveCategoryData(categoryType: category, value: hours, startTimeStamp: element.startTimestamp,endTimeStamp: element.endTimestamp)
+                                            //Save data for Respiratory
+                                            RespiratoryManager.sharedManager.saveCategoryData(categoryType: category, value: hours, startTimeStamp: element.startTimestamp,endTimeStamp: element.endTimestamp)
                                         }
                                     }
                                     dispatchGroup.leave()
@@ -187,7 +199,7 @@ class HKManagerReadVitals: NSObject {
                             }
                         })
                         
-                  
+                        
                     }
                     
                 }

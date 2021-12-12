@@ -21,7 +21,9 @@ class HKManagerReadSymptoms: NSObject
         super.init()
         
     }
-    
+    /*
+     https://docs.google.com/spreadsheets/d/1XDGg4u6Nvzrbv-BZLzwWlRcGAf6FsAecC_I2yKozHIE/edit#gid=946627644
+     */
     func readSymptomsData(days: SegmentValueForGraph,completion: @escaping (Bool, HealthkitSetupError?) -> Swift.Void) {
         
         

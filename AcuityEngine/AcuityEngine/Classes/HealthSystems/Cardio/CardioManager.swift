@@ -35,99 +35,131 @@ class CardioManager: NSObject {
     //MARK: saveVitals
     func saveQuantityInArray(quantityType:QuantityType,element:Quantity) {
         
-        if quantityType == QuantityType.bloodPressureSystolic {
+        switch quantityType {
+        case .bloodPressureSystolic:
+            do{
+                
+                let systolicBP = CardioVitalsData(type: VitalsName.bloodPressureSystolic)
+                systolicBP.value = Double(element.harmonized.value)
+                systolicBP.startTimeStamp = element.startTimestamp
+                self.cardioData.cardioVital.systolicBloodPressureData.append(systolicBP)
+                
+            }
+        case .bloodPressureDiastolic:
+            do{
+                
+                let diastolicBP = CardioVitalsData(type: VitalsName.bloodPressureDiastolic)
+                diastolicBP.value = Double(element.harmonized.value)
+                diastolicBP.startTimeStamp = element.startTimestamp
+                //print("diastolicBP date",getDateMediumFormat(time: diastolicBP.startTimeStamp))
+                self.cardioData.cardioVital.diastolicBloodPressureData.append(diastolicBP)
+                
+            }
+        case .vo2Max:
+            do{
+                
+                let vo2Max = CardioVitalsData(type: VitalsName.vo2Max)
+                vo2Max.value = Double(element.harmonized.value)
+                vo2Max.startTimeStamp = element.startTimestamp
+                self.cardioData.cardioVital.vO2MaxData.append(vo2Max)
+                
+            }
+        case .heartRate:
+            do{
+                
+                let heartRate = CardioVitalsData(type: VitalsName.heartRate)
+                heartRate.value = Double(element.harmonized.value)
+                heartRate.startTimeStamp = element.startTimestamp
+                self.cardioData.cardioVital.heartRateData.append(heartRate)
+                
+                //print("---------\n HeartRateData \nValue \(heartRate.value)\n Score \(heartRate.score)\n Max Score\(heartRate.maxScore ?? 0.0) \n---------")
+            }
+        case .oxygenSaturation:
+            do{
+                /*
+                 Multiply value with 100 because we get oxygen saturation value in Float from health app. Oxygen saturation 1- 100 will get 0.1-1 from health app
+                 */
+                let oxygenSaturation = CardioVitalsData(type: VitalsName.oxygenSaturation)
+                let newValue = Double(element.harmonized.value) * 100
+                oxygenSaturation.value = newValue
+                oxygenSaturation.startTimeStamp = element.startTimestamp
+                self.cardioData.cardioVital.oxygenSaturationData.append(oxygenSaturation)
+                
+                //print("---------\n HeartRateData \nValue \(heartRate.value)\n Score \(heartRate.score)\n Max Score\(heartRate.maxScore ?? 0.0) \n---------")
+            }
+        case .stepCount:
+            do{
+                
+                let stepCount = CardioVitalsData(type: VitalsName.steps)
+                let newValue = Double(element.harmonized.value)
+                stepCount.value = newValue
+                stepCount.startTimeStamp = element.startTimestamp
+                self.cardioData.cardioVital.stepsData.append(stepCount)
+                print("stepCount value",newValue)
+            }
             
-            let systolicBP = CardioVitalsData(type: VitalsName.bloodPressureSystolic)
-            systolicBP.value = Double(element.harmonized.value)
-            systolicBP.startTimeStamp = element.startTimestamp
-            self.cardioData.cardioVital.systolicBloodPressureData.append(systolicBP)
-            
-            
-            //print("---------\n bloodPressureSystolic \nValue \(systolicBP.value)\n Score \(systolicBP.score)\n Max Score\(systolicBP.maxScore ?? 0.0) \n---------")
+        case .dietaryWater:
+            do{
+                
+                let waterIntake = CardioVitalsData(type: VitalsName.waterIntake)
+                let newValue = Double(element.harmonized.value)
+                waterIntake.value = newValue
+                waterIntake.startTimeStamp = element.startTimestamp
+                self.cardioData.cardioVital.waterIntakeData.append(waterIntake)
+                print("waterIntake value",newValue)
+            }
+        default:
+            break;
         }
-        else if quantityType == QuantityType.bloodPressureDiastolic {
-            
-            let diastolicBP = CardioVitalsData(type: VitalsName.bloodPressureDiastolic)
-            diastolicBP.value = Double(element.harmonized.value)
-            diastolicBP.startTimeStamp = element.startTimestamp
-            //print("diastolicBP date",getDateMediumFormat(time: diastolicBP.startTimeStamp))
-            self.cardioData.cardioVital.diastolicBloodPressureData.append(diastolicBP)
-            
-            
-            
-            //print("---------\n bloodPressureDiastolic \nValue \(diastolicBP.value)\n Score \(diastolicBP.score)\n Max Score\(diastolicBP.maxScore ?? 0.0) \n---------")
-            
-        }
-        else if quantityType == QuantityType.vo2Max {
-            
-            let vo2Max = CardioVitalsData(type: VitalsName.vo2Max)
-            vo2Max.value = Double(element.harmonized.value)
-            vo2Max.startTimeStamp = element.startTimestamp
-            self.cardioData.cardioVital.vO2MaxData.append(vo2Max)
-            
-            
-            
-            //print("---------\n vO2MaxData \nValue \(vo2Max.value)\n Score \(vo2Max.score)\n Max Score\(vo2Max.maxScore ?? 0.0) \n---------")
-            //print("---------\n VO2MaxData \nValue \(vo2Max.value)\n Score \(vo2Max.score)\n Max Score\(vo2Max.maxScore ?? 0.0) \n---------")
-            
-        }
-        else if quantityType == QuantityType.heartRate {
-            
-            let heartRate = CardioVitalsData(type: VitalsName.heartRate)
-            heartRate.value = Double(element.harmonized.value)
-            heartRate.startTimeStamp = element.startTimestamp
-            self.cardioData.cardioVital.heartRateData.append(heartRate)
-            
-            //print("---------\n HeartRateData \nValue \(heartRate.value)\n Score \(heartRate.score)\n Max Score\(heartRate.maxScore ?? 0.0) \n---------")
-        }
-        else if quantityType == QuantityType.oxygenSaturation {
-            /*
-             Multiply value with 100 because we get oxygen saturation value in Float from health app. Oxygen saturation 1- 100 will get 0.1-1 from health app
-             */
-            let oxygenSaturation = CardioVitalsData(type: VitalsName.oxygenSaturation)
-            let newValue = Double(element.harmonized.value) * 100
-            oxygenSaturation.value = newValue
-            oxygenSaturation.startTimeStamp = element.startTimestamp
-            self.cardioData.cardioVital.oxygenSaturationData.append(oxygenSaturation)
-            
-            //print("---------\n HeartRateData \nValue \(heartRate.value)\n Score \(heartRate.score)\n Max Score\(heartRate.maxScore ?? 0.0) \n---------")
-        }
-        
-        //dispatchSemaphore.signal()
-        
         
     }
     
     func saveCategoryData(categoryType:CategoryType,value:Double,startTimeStamp:Double,endTimeStamp:Double){
         
-        if categoryType == CategoryType.highHeartRateEvent {
-            
-            let highHeartRate = CardioVitalsData(type: VitalsName.highHeartRate)
-            highHeartRate.value = 1
-            highHeartRate.startTimeStamp = startTimeStamp
-            highHeartRate.endTimeStamp = endTimeStamp
-            self.cardioData.cardioVital.highHeartRateData.append(highHeartRate)
-            
-            
-        } else  if categoryType == CategoryType.lowHeartRateEvent {
-            
-            let lowHeartRate = CardioVitalsData(type: VitalsName.lowHeartRate)
-            lowHeartRate.value = 1
-            lowHeartRate.startTimeStamp = startTimeStamp
-            lowHeartRate.endTimeStamp = endTimeStamp
-            self.cardioData.cardioVital.lowHeartRateData.append(lowHeartRate)
-            
-            
-        } else  if categoryType == CategoryType.irregularHeartRhythmEvent {
-            
-            let irregularRhymesNotification = CardioVitalsData(type: VitalsName.irregularRhymesNotification)
-            irregularRhymesNotification.value = 1
-            irregularRhymesNotification.startTimeStamp = startTimeStamp
-            irregularRhymesNotification.endTimeStamp = endTimeStamp
-            self.cardioData.cardioVital.irregularRhythmNotificationData.append(irregularRhymesNotification)
-            
+        /*if categoryType == CategoryType.highHeartRateEvent {
+         
+         let highHeartRate = CardioVitalsData(type: VitalsName.highHeartRate)
+         highHeartRate.value = 1
+         highHeartRate.startTimeStamp = startTimeStamp
+         highHeartRate.endTimeStamp = endTimeStamp
+         self.cardioData.cardioVital.highHeartRateData.append(highHeartRate)
+         
+         
+         } else  if categoryType == CategoryType.lowHeartRateEvent {
+         
+         let lowHeartRate = CardioVitalsData(type: VitalsName.lowHeartRate)
+         lowHeartRate.value = 1
+         lowHeartRate.startTimeStamp = startTimeStamp
+         lowHeartRate.endTimeStamp = endTimeStamp
+         self.cardioData.cardioVital.lowHeartRateData.append(lowHeartRate)
+         
+         
+         } else*/
+        switch categoryType {
+        case .irregularHeartRhythmEvent:
+            do{
+                
+                let irregularRhymesNotification = CardioVitalsData(type: VitalsName.irregularRhymesNotification)
+                irregularRhymesNotification.value = 1
+                irregularRhymesNotification.startTimeStamp = startTimeStamp
+                irregularRhymesNotification.endTimeStamp = endTimeStamp
+                self.cardioData.cardioVital.irregularRhythmNotificationData.append(irregularRhymesNotification)
+                
+            }
+        case .sleepAnalysis:
+            do{
+                
+                let sleep = CardioVitalsData(type: VitalsName.sleep)
+                sleep.value = value
+                sleep.startTimeStamp = startTimeStamp
+                sleep.endTimeStamp = endTimeStamp
+                self.cardioData.cardioVital.sleepData.append(sleep)
+                
+            }
+        default:
+            break
         }
-        
+       
     }
     //MARK: saveSymptomsData
     func saveSymptomsData(category:CategoryType,element:CategoryData){
@@ -185,7 +217,7 @@ class CardioManager: NSObject {
         let conditionData = CardioConditionData(type: conditionTypeData)
         conditionData.value = element.value.rawValue
         conditionData.startTimeStamp = element.startTime
-    
+        
         switch conditionType {
         case .hypertension:
             CardioManager.sharedManager.cardioData.cardioCondition.hyperTenstionData.append(conditionData)

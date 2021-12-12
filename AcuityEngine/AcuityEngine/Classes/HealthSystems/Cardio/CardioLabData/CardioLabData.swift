@@ -11,13 +11,13 @@ import HealthKitReporter
 
 
 struct CardioLabRelativeImportance {
-    static let potassiumLevel:Double = 40
-    static let sodium:Double = 30
-    static let chloride:Double = 20
-    static let albumin:Double = 30
+    static let potassiumLevel:Double = 100
+    static let sodium:Double = 50
+    static let chloride:Double = 40
+    static let albumin:Double = 40
     static let microalbumin:Double = 50
-    static let bPeptide:Double = 40
-    static let hemoglobin:Double = 30
+    static let bPeptide:Double = 100
+    static let hemoglobin:Double = 80
 }
 class CardioLabData:LabCalculation {
     

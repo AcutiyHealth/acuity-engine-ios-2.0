@@ -18,60 +18,69 @@ class VitalCalculation:Metrix {
                 self.calculatedValue = RYGValue.Green.rawValue
             }else{
                 switch title {
-                //age
+                    //age
                 case .age:
                     self.calculatedValue = getAgeValue().rawValue
-                //bloodPressure
+                    //bloodPressure
                 case .bloodPressure:
                     self.calculatedValue = getSBloodPressureValue().rawValue
-                //bloodPressureSystolic
+                    //bloodPressureSystolic
                 case .bloodPressureSystolic:
                     self.calculatedValue = getSBloodPressureValue().rawValue
-                //bloodPressureDiastolic
+                    //bloodPressureDiastolic
                 case .bloodPressureDiastolic:
                     self.calculatedValue = getDBloodPressureValue().rawValue
-                //BMI
+                    //BMI
                 case .BMI:
                     self.calculatedValue = getBMIValue().rawValue
-                //bloodSugar
+                    //bloodSugar
                 case .bloodSugar:
                     self.calculatedValue = getBloodSugarValue().rawValue
-                //heartRate
+                    //heartRate
                 case .heartRate:
                     self.calculatedValue = getHeartRateValue().rawValue
-                //headPhoneAudioLevel
+                    //headPhoneAudioLevel
                 case .headPhoneAudioLevel:
                     self.calculatedValue = getHeadphoneAudioLevel().rawValue
-                //highHeartRate
+                    //highHeartRate
                 case .highHeartRate:
                     self.calculatedValue = getHighHeartRateValue().rawValue
-                //lowHeartRate
+                    //lowHeartRate
                 case .lowHeartRate:
                     self.calculatedValue = getLowHeartRateValue().rawValue
-                //Temperature
+                    //Temperature
                 case .temperature:
                     self.calculatedValue = getTempratureValue().rawValue
-                //vo2Max
+                    //vo2Max
                 case .vo2Max:
                     self.calculatedValue = getVO2MaxValue().rawValue
-                //irregularRhymesNotification
+                    //irregularRhymesNotification
                 case .irregularRhymesNotification:
                     self.calculatedValue = getIrregularRythmValue().rawValue
-                //oxygenSaturation
+                    //oxygenSaturation
                 case .oxygenSaturation:
                     self.calculatedValue = getOxygenSaturationValue().rawValue
-                //respiratoryRate
+                    //respiratoryRate
                 case .respiratoryRate:
                     self.calculatedValue = getRespiratoryRateValue().rawValue
-                //InhalerUsage
+                    //InhalerUsage
                 case .InhalerUsage:
                     self.calculatedValue = getInhalerUsageValue().rawValue
-                //peakflowRate
+                    //peakflowRate
                 case .peakflowRate:
                     self.calculatedValue = getPeakFlowRateValue().rawValue
-                //stepLength
+                    //stepLength
                 case .stepLength:
                     self.calculatedValue = getstepLengthValue().rawValue
+                    //sleep
+                case .sleep:
+                    self.calculatedValue = getSleepCountValue().rawValue
+                    //steps
+                case .steps:
+                    self.calculatedValue = getstepCountValue().rawValue
+                    //waterIntake
+                case .waterIntake:
+                    self.calculatedValue = getWaterIntakeValue().rawValue
                 default: break
                 }
             }
@@ -104,7 +113,7 @@ class VitalCalculation:Metrix {
     }
     //Age Calculation
     private func getAgeValue() -> RYGValue{
-      
+        
         if value > 65  {
             return RYGValue.Red
         }
@@ -228,6 +237,42 @@ class VitalCalculation:Metrix {
         }
     }
     
+    //Step Count Value...
+    private func getstepCountValue() -> RYGValue{
+        
+        if value < 4000  {
+            return RYGValue.Red
+        } else if value >= 4000 && value <= 7999 {
+            return RYGValue.Yellow
+        } else{
+            return RYGValue.Green
+        }
+    }
+    
+    //Sleep Count Value...
+    private func getSleepCountValue() -> RYGValue{
+        
+        if value < 4  {
+            return RYGValue.Red
+        } else if value >= 4 && value <= 6 {
+            return RYGValue.Yellow
+        } else{
+            return RYGValue.Green
+        }
+    }
+    
+    //Water Intake Value...
+    private func getWaterIntakeValue() -> RYGValue{
+        
+        if value < 600  {
+            return RYGValue.Red
+        } else if value >= 600 && value <= 1499 {
+            return RYGValue.Yellow
+        } else{
+            return RYGValue.Green
+        }
+    }
+    
     //Oxygen saturation calculation
     private func getOxygenSaturationValue() -> RYGValue{
         
@@ -243,7 +288,7 @@ class VitalCalculation:Metrix {
     
     //Temprature calculation
     private func getTempratureValue() -> RYGValue{
-    
+        
         if value >= 100.4  {
             return RYGValue.Red
         } else if value >= 99 && value <= 100 {
@@ -255,7 +300,7 @@ class VitalCalculation:Metrix {
     }
     //   Inhaler usage calculation
     private func getInhalerUsageValue() -> RYGValue{
-      
+        
         if value > 2  {
             return RYGValue.Red
         } else if value >= 1 && value <= 2 {
@@ -266,7 +311,7 @@ class VitalCalculation:Metrix {
     }
     //getRespiratoryRateValue calculation
     private func getRespiratoryRateValue() -> RYGValue{
-       
+        
         if value > 20 || value < 12 {
             return RYGValue.Red
         } else if value >= 12 && value <= 17 {

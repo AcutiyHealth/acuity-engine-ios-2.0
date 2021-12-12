@@ -18,7 +18,9 @@ class HKManagerReadLab: NSObject
         super.init()
         
     }
-    
+    /*
+     https://docs.google.com/spreadsheets/d/1XDGg4u6Nvzrbv-BZLzwWlRcGAf6FsAecC_I2yKozHIE/edit#gid=946627644
+     */
     func readLabDataTemp(completion: @escaping (Bool, HealthkitSetupError?) -> Swift.Void){
         let dispatchGroup = DispatchGroup()
         dispatchGroup.enter()
