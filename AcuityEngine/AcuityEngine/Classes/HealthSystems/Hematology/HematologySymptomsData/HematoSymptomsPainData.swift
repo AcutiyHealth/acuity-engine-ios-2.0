@@ -17,12 +17,12 @@ import HealthKitReporter
  Shortness of breath*/
 
 struct HematoSymptomsRelativeImportance {
-    static let dizziness:Double = 50
-    static let fatigue:Double = 50
+    static let dizziness:Double = 100
+    static let fatigue:Double = 100
     static let rapidPoundingOrFlutteringHeartbeat:Double = 40
-    static let fainting:Double = 40
+    static let fainting:Double = 70
     static let chestPain:Double = 25
-    static let shortnessOfBreath:Double = 25
+    static let shortnessOfBreath:Double = 70
 }
 
 class HematoSymptomsPainData:SymptomCalculation {

@@ -20,6 +20,7 @@ struct EndocrineVitalRelativeImportance {
     static let heartRate:Double = 50
     static let bloodSugar:Double = 100
     static let temperature:Double = 50
+    static let sleep:Double = 50
 }
 
 class EndocrineVitalsData:VitalCalculation {
@@ -32,27 +33,30 @@ class EndocrineVitalsData:VitalCalculation {
         super.title = type
         super.systemName = SystemName.Endocrine
         switch type {
-        //bloodPressureSystolic
+            //bloodPressureSystolic
         case .bloodPressureSystolic:
             self.relativeValue = EndocrineVitalRelativeImportance.bloodPressureSystolic
-        //bloodPressureDiastolic
+            //bloodPressureDiastolic
         case .bloodPressureDiastolic:
             self.relativeValue = EndocrineVitalRelativeImportance.bloodPressureDiastolic
-        //heartRate
+            //heartRate
         case .heartRate:
             self.relativeValue = EndocrineVitalRelativeImportance.heartRate
-        //bloodSugar
+            //bloodSugar
         case .bloodSugar:
             self.relativeValue = EndocrineVitalRelativeImportance.bloodSugar
-        //temperature
+            //temperature
         case .temperature:
             self.relativeValue = EndocrineVitalRelativeImportance.temperature
+            //sleep
+        case .sleep:
+            self.relativeValue = EndocrineVitalRelativeImportance.sleep
             
         default:break
         }
         
     }
     
-  
+    
 }
 

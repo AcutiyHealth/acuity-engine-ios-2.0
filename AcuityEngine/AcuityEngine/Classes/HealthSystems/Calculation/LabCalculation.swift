@@ -316,7 +316,7 @@ class LabCalculation:Metrix {
         }else if value >= 6.1 && value <= 6.4  {
             return RYGValue.Yellow
         }
-        else if value >= 4 && value < 6  {
+        else if value >= 4 && value <= 6  {
             return RYGValue.Green
         }
         else {
@@ -414,10 +414,10 @@ class LabCalculation:Metrix {
         
         if value > 200 || value < 70{
             return RYGValue.Red
-        }else if value >= 110 && value <= 200{
+        }else if value > 126 && value <= 200{
             return RYGValue.Yellow
         }
-        else if value >= 70 && value <= 109  {
+        else if value >= 70 && value <= 126  {
             return RYGValue.Green
         }
         else {

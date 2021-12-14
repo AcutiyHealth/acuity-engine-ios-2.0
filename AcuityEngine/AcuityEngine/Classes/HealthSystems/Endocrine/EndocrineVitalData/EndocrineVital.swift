@@ -19,6 +19,7 @@ class EndocrineVital:VitalProtocol {
     var heartRateData:[EndocrineVitalsData] = []
     var bloodSugarData:[EndocrineVitalsData] = []
     var tempratureData:[EndocrineVitalsData] = []
+    var sleepData:[EndocrineVitalsData] = []
     
     var totalScore:[Double] = []
     var arrayDayWiseScoreTotal:[Double] = []
@@ -31,8 +32,9 @@ class EndocrineVital:VitalProtocol {
         let heartRate = (Double(heartRateData.average(\.score)).isNaN ? 0 : Double(heartRateData.average(\.score)))
         let bloodSugar = (Double(bloodSugarData.average(\.score)).isNaN ? 0 : Double(bloodSugarData.average(\.score)))
         let temprature = (Double(tempratureData.average(\.score)).isNaN ? 0 : Double(tempratureData.average(\.score)))
+        let sleep = (Double(tempratureData.average(\.score)).isNaN ? 0 : Double(tempratureData.average(\.score)))
         
-        let totalVitalScore = systolicBloodPressur + diastolicBloodPressure + heartRate + temprature + bloodSugar
+        let totalVitalScore = systolicBloodPressur + diastolicBloodPressure + heartRate + temprature + bloodSugar + sleep
         
         return totalVitalScore;
     }
@@ -73,8 +75,10 @@ class EndocrineVital:VitalProtocol {
             let scoreHeartRate = getScoreForVitalDataWithGivenDateRange(sampleItem: heartRateData, timeIntervalByLastMonth: timeIntervalByLastMonth, timeIntervalByNow: timeIntervalByNow)
             //bloodSugarData
             let scoreBloodSugar = getScoreForVitalDataWithGivenDateRange(sampleItem: bloodSugarData, timeIntervalByLastMonth: timeIntervalByLastMonth, timeIntervalByNow: timeIntervalByNow)
+            //sleep
+            let scoreSleep = getScoreForVitalDataWithGivenDateRange(sampleItem: sleepData, timeIntervalByLastMonth: timeIntervalByLastMonth, timeIntervalByNow: timeIntervalByNow)
             
-            let totalScore = scoreSystolic + scoreDyastolic + scoreTemprature + scoreHeartRate + scoreBloodSugar
+            let totalScore = scoreSystolic + scoreDyastolic + scoreTemprature + scoreHeartRate + scoreBloodSugar + scoreSleep
             arrayDayWiseScoreTotal.append(totalScore)
         }
         
@@ -87,8 +91,9 @@ class EndocrineVital:VitalProtocol {
         let temperature = EndocrineVitalRelativeImportance.temperature.getConvertedValueFromPercentage()
         let heartRate = EndocrineVitalRelativeImportance.heartRate.getConvertedValueFromPercentage()
         let bloodSugar = EndocrineVitalRelativeImportance.bloodSugar.getConvertedValueFromPercentage()
+        let sleep = EndocrineVitalRelativeImportance.sleep.getConvertedValueFromPercentage()
         
-        let totalVitalScore = systolicBloodPressur + diastolicBloodPressure  + temperature + heartRate + bloodSugar
+        let totalVitalScore = systolicBloodPressur + diastolicBloodPressure  + temperature + heartRate + bloodSugar + sleep
         
         return totalVitalScore;
     }
@@ -115,6 +120,9 @@ class EndocrineVital:VitalProtocol {
         //bloodSugarData
         filterVitalArrayToGetSingleDataWithSelectedSegmentInGraph(days: days, array: bloodSugarData)
         
+        //sleep
+        filterVitalArrayToGetSingleDataWithSelectedSegmentInGraph(days: days, array: sleepData)
+        
         return arrVital
     }
     
@@ -140,14 +148,14 @@ class EndocrineVital:VitalProtocol {
         var filterArray:[VitalCalculation] = []
         
         switch vitalsName {
-        //Systolic
+            //Systolic
         case .bloodPressureSystolic:
             filterArray = filterVitalArrayWithSelectedSegmentInGraph(days: days, array: systolicBloodPressureData)
-        //Diastolic
+            //Diastolic
         case .bloodPressureDiastolic:
             filterArray = filterVitalArrayWithSelectedSegmentInGraph(days: days, array: diastolicBloodPressureData)
             
-       //bloodPressureSystolicDiastolic
+            //bloodPressureSystolicDiastolic
         case .bloodPressureSystolicDiastolic:
             /* Note: Here we combine data of BP Systolic and Diastolic in one combine array..
              We execute loop for systeolic and get starttime stamp and match with diastolic array time stamp..
@@ -157,15 +165,18 @@ class EndocrineVital:VitalProtocol {
             let filterArrayDiastolic = filterVitalArrayWithSelectedSegmentInGraph(days: days, array: diastolicBloodPressureData)
             arrVital = combineBPSystolicAndDiastolic(arraySystolic: filterArraySystolic, arrayDiastolic: filterArrayDiastolic)
             
-        //temperature
+            //temperature
         case .temperature:
             filterArray = filterVitalArrayWithSelectedSegmentInGraph(days: days, array: tempratureData)
-        //heartRate
+            //heartRate
         case .heartRate:
             filterArray = filterVitalArrayWithSelectedSegmentInGraph(days: days, array: heartRateData)
-        //bloodSugar
+            //bloodSugar
         case .bloodSugar:
             filterArray = filterVitalArrayWithSelectedSegmentInGraph(days: days, array: bloodSugarData)
+            //sleep
+        case .sleep:
+            filterArray = filterVitalArrayWithSelectedSegmentInGraph(days: days, array: sleepData)
             
         default:
             break

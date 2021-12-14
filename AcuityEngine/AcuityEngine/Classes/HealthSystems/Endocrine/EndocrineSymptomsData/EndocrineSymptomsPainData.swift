@@ -21,14 +21,14 @@ import HealthKitReporter
 
 struct EndocrineSymptomsRelativeImportance {
     static let dizziness:Double = 40
-    static let fatigue:Double = 75
-    static let rapidPoundingOrFlutteringHeartbeat:Double = 50
-    static let hotFlashes:Double = 95
+    static let fatigue:Double = 100
+    static let rapidPoundingOrFlutteringHeartbeat:Double = 70
+    static let hotFlashes:Double = 100
     static let fainting:Double = 35
-    static let hairLoss:Double = 75
-    static let nausea:Double = 30
+    static let hairLoss:Double = 100
+    static let nausea:Double = 60
     static let vomiting:Double = 10
-    static let drySkin:Double = 40
+    static let drySkin:Double =  100
 }
 
 class EndocrineSymptomsPainData:SymptomCalculation {
