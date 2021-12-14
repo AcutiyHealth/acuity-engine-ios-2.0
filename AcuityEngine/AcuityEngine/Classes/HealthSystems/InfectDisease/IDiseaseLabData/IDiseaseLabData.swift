@@ -21,8 +21,8 @@ struct IDiseaseLabRelativeImportance {
     static let WBC:Double = 100
     static let neutrophil:Double = 100
     static let bloodGlucose:Double = 50
-    static let urineNitrites:Double = 97
-    static let urineBlood:Double = 75
+    static let urineNitrites:Double = 100
+    static let urineBlood:Double = 100
     static let anionGap:Double = 25
 }
 class IDiseaseLabData:LabCalculation {

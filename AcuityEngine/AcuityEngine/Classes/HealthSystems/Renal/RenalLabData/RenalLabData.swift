@@ -11,18 +11,18 @@ import HealthKitReporter
 
 
 struct RenalLabRelativeImportance {
-    static let BUN:Double = 70
-    static let creatinine:Double = 70
+    static let BUN:Double = 100
+    static let creatinine:Double = 100
     static let bloodGlucose:Double = 60
-    static let carbonDioxide:Double = 40
-    static let potassiumLevel:Double = 60
+    static let carbonDioxide:Double = 100
+    static let potassiumLevel:Double = 100
     static let calcium:Double = 30
     static let chloride:Double = 50
-    static let albumin:Double = 30
-    static let anionGap:Double = 40
-    static let hemoglobin:Double = 50
-    static let microalbumin:Double = 80
-    static let eGFR:Double = 80
+    static let albumin:Double = 60
+    static let anionGap:Double = 70
+    static let hemoglobin:Double = 80
+    static let microalbumin:Double = 100
+    static let eGFR:Double = 100
 }
 class RenalLabData:LabCalculation {
     

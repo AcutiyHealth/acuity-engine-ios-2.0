@@ -29,40 +29,53 @@ class FNEManager: NSObject {
     
     //Save Vitals Data in fneVital Model
     func saveQuantityInArray(quantityType:QuantityType,element:Quantity) {
-        //bloodPressureSystolic
-        if quantityType == QuantityType.bloodPressureSystolic {
+        switch quantityType {
+        case .bloodPressureSystolic:
+            do{
+                
+                let systolicBP = FNEVitalsData(type: VitalsName.bloodPressureSystolic)
+                systolicBP.value = Double(element.harmonized.value)
+                systolicBP.startTimeStamp = element.startTimestamp
+                self.fneData.fneVital.systolicBloodPressureData.append(systolicBP)
+                
+                //print("---------\n bloodPressureSystolic \nValue \(systolicBP.value)\n Score \(systolicBP.score)\n Max Score\(systolicBP.maxScore ?? 0.0) \n---------")
+            }
+        case .bloodPressureDiastolic:
+            do{
+                
+                let diastolicBP = FNEVitalsData(type: VitalsName.bloodPressureDiastolic)
+                diastolicBP.value = Double(element.harmonized.value)
+                diastolicBP.startTimeStamp = element.startTimestamp
+                self.fneData.fneVital.diastolicBloodPressureData.append(diastolicBP)
+            }
+        case .heartRate:
+            do{
+                
+                let heartRate = FNEVitalsData(type: VitalsName.heartRate)
+                heartRate.value = Double(element.harmonized.value)
+                heartRate.startTimeStamp = element.startTimestamp
+                self.fneData.fneVital.heartRateData.append(heartRate)
+            }
+        case .bodyMassIndex:
+            do{
+                
+                let bodyMassIndex = FNEVitalsData(type: VitalsName.BMI)
+                bodyMassIndex.value = Double(element.harmonized.value)
+                bodyMassIndex.startTimeStamp = element.startTimestamp
+                self.fneData.fneVital.BMIData.append(bodyMassIndex)
+            }
+        case .dietaryWater:
+            do{
+                let waterIntake = FNEVitalsData(type: VitalsName.waterIntake)
+                waterIntake.value = Double(element.harmonized.value)
+                waterIntake.startTimeStamp = element.startTimestamp
+                self.fneData.fneVital.waterIntakeData.append(waterIntake)
+            }
             
-            let systolicBP = FNEVitalsData(type: VitalsName.bloodPressureSystolic)
-            systolicBP.value = Double(element.harmonized.value)
-            systolicBP.startTimeStamp = element.startTimestamp
-            self.fneData.fneVital.systolicBloodPressureData.append(systolicBP)
-            
-            //print("---------\n bloodPressureSystolic \nValue \(systolicBP.value)\n Score \(systolicBP.score)\n Max Score\(systolicBP.maxScore ?? 0.0) \n---------")
+        default:
+            break
         }
-        //bloodPressureDiastolic
-        else if quantityType == QuantityType.bloodPressureDiastolic {
-            
-            let diastolicBP = FNEVitalsData(type: VitalsName.bloodPressureDiastolic)
-            diastolicBP.value = Double(element.harmonized.value)
-            diastolicBP.startTimeStamp = element.startTimestamp
-            self.fneData.fneVital.diastolicBloodPressureData.append(diastolicBP)
-        }
-        //heartRate
-        else if quantityType == QuantityType.heartRate {
-            
-            let heartRate = FNEVitalsData(type: VitalsName.heartRate)
-            heartRate.value = Double(element.harmonized.value)
-            heartRate.startTimeStamp = element.startTimestamp
-            self.fneData.fneVital.heartRateData.append(heartRate)
-        }
-        //bodyMassIndex
-        else if quantityType == QuantityType.bodyMassIndex {
-            
-            let bodyMassIndex = FNEVitalsData(type: VitalsName.BMI)
-            bodyMassIndex.value = Double(element.harmonized.value)
-            bodyMassIndex.startTimeStamp = element.startTimestamp
-            self.fneData.fneVital.BMIData.append(bodyMassIndex)
-        }
+        
     }
     
     func saveCategoryData(categoryType:CategoryType,value:Double,startTimeStamp:Double,endTimeStamp:Double){
@@ -87,33 +100,33 @@ class FNEManager: NSObject {
         symptomsData.endTimeStamp = element.endTimestamp
         
         switch category {
-        //fatigue
+            //fatigue
         case .fatigue:
             FNEManager.sharedManager.fneData.fneSymptoms.fatigueData.append(symptomsData)
-        //generalizedBodyAche
+            //generalizedBodyAche
         case .generalizedBodyAche:
             FNEManager.sharedManager.fneData.fneSymptoms.bodyAcheData.append(symptomsData)
-        //diarrhea
+            //diarrhea
         case .diarrhea:
             FNEManager.sharedManager.fneData.fneSymptoms.diarrheaData.append(symptomsData)
             
-        //nausea
+            //nausea
         case .nausea:
             FNEManager.sharedManager.fneData.fneSymptoms.nauseaData.append(symptomsData)
-        //vomiting
+            //vomiting
         case .vomiting:
             FNEManager.sharedManager.fneData.fneSymptoms.vomitingData.append(symptomsData)
-        //headache
+            //headache
         case .headache:
             FNEManager.sharedManager.fneData.fneSymptoms.headacheData.append(symptomsData)
             
-        //dizziness
+            //dizziness
         case .dizziness:
             FNEManager.sharedManager.fneData.fneSymptoms.dizzinessData.append(symptomsData)
-        //fainting
+            //fainting
         case .fainting:
             FNEManager.sharedManager.fneData.fneSymptoms.faintingData.append(symptomsData)
-        //hairLoss
+            //hairLoss
         case .hairLoss:
             FNEManager.sharedManager.fneData.fneSymptoms.hairLossData.append(symptomsData)
         default:
@@ -134,13 +147,13 @@ class FNEManager: NSObject {
         conditionData.startTimeStamp = element.startTime
         
         switch conditionType {
-        //electrolyteDisorders
+            //electrolyteDisorders
         case .electrolyteDisorders:
             FNEManager.sharedManager.fneData.fneCondition.electrolyteDisordersData.append(conditionData)
-        //underweightOrMalnutritionData
+            //underweightOrMalnutritionData
         case .underweightOrMalnutrition:
             FNEManager.sharedManager.fneData.fneCondition.underweightOrMalnutritionData.append(conditionData)
-        //overweightOrObesity
+            //overweightOrObesity
         case .overweightOrObesity:
             FNEManager.sharedManager.fneData.fneCondition.overweightOrObesityData.append(conditionData)
         case .kidneyDiease:
@@ -166,99 +179,99 @@ class FNEManager: NSObject {
         labData.startTimeStamp = timeStamp
         
         switch labCodeConstant {
-        
-        //bloodGlucose
+            
+            //bloodGlucose
         case .bloodGlucose:
             do{
                 labData.type = .bloodGlucose
                 FNEManager.sharedManager.fneData.fneLab.bloddGlucoseData.append(labData)
             }
-        //sodium
+            //sodium
         case .sodium:
             do{
                 labData.type = .sodium
                 FNEManager.sharedManager.fneData.fneLab.sodiumData.append(labData)
             }
-        //potassiumLevel
+            //potassiumLevel
         case .potassiumLevel:
             do{
                 labData.type = .potassiumLevel
                 FNEManager.sharedManager.fneData.fneLab.potassiumData.append(labData)
             }
-        //BUN
+            //BUN
         case .BUN:
             do{
                 labData.type = .BUN
                 FNEManager.sharedManager.fneData.fneLab.BUNData.append(labData)
             }
-        //creatinine
+            //creatinine
         case .creatinine:
             do{
                 labData.type = .creatinine
                 FNEManager.sharedManager.fneData.fneLab.creatinieData.append(labData)
             }
-        //eGFR
+            //eGFR
         case .eGFR:
             do{
                 labData.type = .eGFR
                 FNEManager.sharedManager.fneData.fneLab.eGFRData.append(labData)
             }
-        //albumin
+            //albumin
         case .albumin:
             do{
                 labData.type = .albumin
                 FNEManager.sharedManager.fneData.fneLab.albuminData.append(labData)
             }
-        //microalbuminCreatinineRatio
+            //microalbuminCreatinineRatio
         case .microalbuminCreatinineRatio:
             do{
                 labData.type = .microalbuminCreatinineRatio
                 FNEManager.sharedManager.fneData.fneLab.microAlbuminData.append(labData)
             }
-        //carbonDioxide
+            //carbonDioxide
         case .carbonDioxide:
             do{
                 labData.type = .carbonDioxide
                 FNEManager.sharedManager.fneData.fneLab.carbonDioxideData.append(labData)
             }
-        //anionGap
+            //anionGap
         case .anionGap:
             do{
                 labData.type = .anionGap
                 FNEManager.sharedManager.fneData.fneLab.anionGapData.append(labData)
             }
-        //calcium
+            //calcium
         case .calcium:
             do{
                 labData.type = .calcium
                 FNEManager.sharedManager.fneData.fneLab.calciumData.append(labData)
             }
-        //chloride
+            //chloride
         case .chloride:
             do{
                 labData.type = .chloride
                 FNEManager.sharedManager.fneData.fneLab.chlorideData.append(labData)
             }
             
-        //urineKetone
+            //urineKetone
         case .urineKetone:
             do{
                 labData.type = .urineKetone
                 FNEManager.sharedManager.fneData.fneLab.urineKenoteData.append(labData)
             }
-        //MCV
+            //MCV
         case .MCV:
             do{
                 labData.type = .MCV
                 FNEManager.sharedManager.fneData.fneLab.MCVData.append(labData)
             }
-        //AST
+            //AST
         case .AST:
             do{
                 labData.type = .AST
                 FNEManager.sharedManager.fneData.fneLab.ASTData.append(labData)
             }
-        //ALT
+            //ALT
         case .ALT:
             do{
                 labData.type = .ALT

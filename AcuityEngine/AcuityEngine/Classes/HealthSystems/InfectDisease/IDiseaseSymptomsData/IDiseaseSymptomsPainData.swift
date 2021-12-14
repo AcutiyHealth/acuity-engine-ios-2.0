@@ -11,13 +11,13 @@ import HealthKitReporter
 
 
 struct IDiseaseSymptomsRelativeImportance {
-    static let fever:Double = 80
-    static let diarrhea:Double = 80
-    static let fatigue:Double = 50
+    static let fever:Double = 100
+    static let diarrhea:Double = 100
+    static let fatigue:Double = 70
     static let cough:Double = 80
     static let nausea:Double = 70
     static let vomiting:Double = 70
-    static let chills:Double = 80
+    static let chills:Double = 100
     static let bladderIncontinence:Double = 50
     static let headache:Double = 20
     static let abdominalCramps:Double = 65

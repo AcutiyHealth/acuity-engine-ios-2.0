@@ -12,7 +12,7 @@ import UIKit
 class RenalVital:VitalProtocol {
     var systolicBloodPressureData:[RenalVitalsData] = []
     var diastolicBloodPressureData:[RenalVitalsData] = []
-    
+    var waterIntakeData:[RenalVitalsData] = []
     var totalScore:[Double] = []
     var arrayDayWiseScoreTotal:[Double] = []
     
@@ -22,8 +22,9 @@ class RenalVital:VitalProtocol {
     func totalVitalsScore() -> Double {
         let systolicBloodPressur = (Double(systolicBloodPressureData.average(\.score)) .isNaN ? 0 : Double(systolicBloodPressureData.average(\.score)))
         let diastolicBloodPressure = (Double(diastolicBloodPressureData.average(\.score)).isNaN ? 0 : Double(diastolicBloodPressureData.average(\.score)))
+        let waterIntake = (Double(waterIntakeData.average(\.score)).isNaN ? 0 : Double(waterIntakeData.average(\.score)))
         
-        let totalVitalScore = systolicBloodPressur + diastolicBloodPressure
+        let totalVitalScore = systolicBloodPressur + diastolicBloodPressure + waterIntake
         
         return totalVitalScore;
     }
@@ -68,7 +69,8 @@ class RenalVital:VitalProtocol {
             
             let scoreSystolic = getScoreForVitalDataWithGivenDateRange(sampleItem: systolicBloodPressureData, timeIntervalByLastMonth: timeIntervalByLastMonth, timeIntervalByNow: timeIntervalByNow)
             let scoreDyastolic = getScoreForVitalDataWithGivenDateRange(sampleItem: diastolicBloodPressureData, timeIntervalByLastMonth: timeIntervalByLastMonth, timeIntervalByNow: timeIntervalByNow)
-            let totalScore = scoreSystolic + scoreDyastolic
+            let scoreWaterIntake = getScoreForVitalDataWithGivenDateRange(sampleItem: waterIntakeData, timeIntervalByLastMonth: timeIntervalByLastMonth, timeIntervalByNow: timeIntervalByNow)
+            let totalScore = scoreSystolic + scoreDyastolic + scoreWaterIntake
             arrayDayWiseScoreTotal.append(totalScore)
         }
         
@@ -78,8 +80,9 @@ class RenalVital:VitalProtocol {
         
         let systolicBloodPressur = RenalVitalRelativeImportance.bloodPressureSystolic.getConvertedValueFromPercentage()
         let diastolicBloodPressure = RenalVitalRelativeImportance.bloodPressureDiastolic.getConvertedValueFromPercentage()
+        let waterIntake = RenalVitalRelativeImportance.waterIntake.getConvertedValueFromPercentage()
         
-        let totalVitalScore = systolicBloodPressur + diastolicBloodPressure
+        let totalVitalScore = systolicBloodPressur + diastolicBloodPressure + waterIntake
         
         return totalVitalScore;
     }
@@ -97,6 +100,9 @@ class RenalVital:VitalProtocol {
         
         //diastolicBloodPressureData
         filterVitalArrayToGetSingleDataWithSelectedSegmentInGraph(days: days, array: diastolicBloodPressureData)
+        
+        //waterIntakeData
+        filterVitalArrayToGetSingleDataWithSelectedSegmentInGraph(days: days, array: waterIntakeData)
         
         return arrVital
     }
@@ -129,6 +135,9 @@ class RenalVital:VitalProtocol {
         case .bloodPressureDiastolic:
             filterArray = filterVitalArrayWithSelectedSegmentInGraph(days: days, array: diastolicBloodPressureData)
             
+        case .waterIntake:
+            filterArray = filterVitalArrayWithSelectedSegmentInGraph(days: days, array: waterIntakeData)
+          
        //bloodPressureSystolicDiastolic
         case .bloodPressureSystolicDiastolic:
             /* Note: Here we combine data of BP Systolic and Diastolic in one combine array..

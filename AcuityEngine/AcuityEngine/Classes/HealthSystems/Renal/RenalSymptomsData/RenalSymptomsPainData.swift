@@ -15,10 +15,10 @@ struct RenalSymptomsRelativeImportance {
     static let rapidHeartbeat:Double = 30
     static let lowerBackPain:Double = 50
     static let dizziness:Double = 20
-    static let fatigue:Double = 30
+    static let fatigue:Double = 100
     static let fainting:Double = 20
-    static let nausea:Double = 30
-    static let vomiting:Double = 30
+    static let nausea:Double = 60
+    static let vomiting:Double = 40
 }
 
 class RenalSymptomsPainData:SymptomCalculation {

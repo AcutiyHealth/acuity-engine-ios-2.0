@@ -104,6 +104,7 @@ class RespiratoryManager: NSObject {
             stepCount.value = Double(element.harmonized.value)
             stepCount.startTimeStamp = element.startTimestamp
             self.respiratoryData.respiratoryVital.stepsData.append(stepCount)
+            Log.d("Respi stepCount=======\(stepCount.value) maxScoreVitals===\(stepCount.score) ")
         }
     }
     
@@ -130,7 +131,7 @@ class RespiratoryManager: NSObject {
                 sleepAnalysis.startTimeStamp = startTimeStamp
                 sleepAnalysis.endTimeStamp = endTimeStamp
                 self.respiratoryData.respiratoryVital.sleepData.append(sleepAnalysis)
-                
+                Log.d("Respi sleepAnalysis=======\(sleepAnalysis.value) maxScoreVitals===\(sleepAnalysis.score) ")
             }
         default:
             break

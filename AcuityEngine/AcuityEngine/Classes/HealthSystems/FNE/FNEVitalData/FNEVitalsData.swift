@@ -15,6 +15,7 @@ struct FNEVitalRelativeImportance {
     static let heartRate:Double = 100
     static let irregularRhymesNotification:Double = 80
     static let BMI:Double = 100
+    static let waterIntake:Double = 50
 }
 
 class FNEVitalsData:VitalCalculation {
@@ -35,6 +36,8 @@ class FNEVitalsData:VitalCalculation {
             self.relativeValue = FNEVitalRelativeImportance.irregularRhymesNotification
         case .BMI:
             self.relativeValue = FNEVitalRelativeImportance.BMI
+        case .waterIntake:
+            self.relativeValue = FNEVitalRelativeImportance.waterIntake
         default:break
         }
         

@@ -21,6 +21,7 @@ class FNEVital:VitalProtocol {
     var heartRateData:[FNEVitalsData] = []
     var irregularRhymesNotificationData:[FNEVitalsData] = []
     var BMIData:[FNEVitalsData] = []
+    var waterIntakeData:[FNEVitalsData] = []
     
     var totalScore:[Double] = []
     var arrayDayWiseScoreTotal:[Double] = []
@@ -33,8 +34,9 @@ class FNEVital:VitalProtocol {
         let irregularRhymesNotification = (Double(irregularRhymesNotificationData.average(\.score)) .isNaN ? 0 : Double(irregularRhymesNotificationData.average(\.score)))
         let heartRate = (Double(heartRateData.average(\.score)).isNaN ? 0 : Double(heartRateData.average(\.score)))
         let BMI = (Double(BMIData.average(\.score)) .isNaN ? 0 : Double(BMIData.average(\.score)))
-        
-        let totalVitalScore = systolicBloodPressur + diastolicBloodPressure + irregularRhymesNotification + heartRate + BMI
+        let waterIntake = (Double(waterIntakeData.average(\.score)) .isNaN ? 0 : Double(waterIntakeData.average(\.score)))
+       
+        let totalVitalScore = systolicBloodPressur + diastolicBloodPressure + irregularRhymesNotification + heartRate + BMI + waterIntake
         
         return totalVitalScore;
     }
@@ -86,8 +88,10 @@ class FNEVital:VitalProtocol {
             let scoreHeartRate = getScoreForVitalDataWithGivenDateRange(sampleItem: heartRateData, timeIntervalByLastMonth: timeIntervalByLastMonth, timeIntervalByNow: timeIntervalByNow)
             //BMIData
             let scoreBMI = getScoreForVitalDataWithGivenDateRange(sampleItem: BMIData, timeIntervalByLastMonth: timeIntervalByLastMonth, timeIntervalByNow: timeIntervalByNow)
+            //waterIntakeData
+            let scorewaterIntake = getScoreForVitalDataWithGivenDateRange(sampleItem: waterIntakeData, timeIntervalByLastMonth: timeIntervalByLastMonth, timeIntervalByNow: timeIntervalByNow)
             
-            let totalScore = scoreSystolic + scoreDyastolic + scoreIrregularRhymesNotification + scoreHeartRate + scoreBMI
+            let totalScore = scoreSystolic + scoreDyastolic + scoreIrregularRhymesNotification + scoreHeartRate + scoreBMI + scorewaterIntake
             arrayDayWiseScoreTotal.append(totalScore)
         }
         
@@ -100,9 +104,9 @@ class FNEVital:VitalProtocol {
         let heartRate = FNEVitalRelativeImportance.heartRate.getConvertedValueFromPercentage()
         let irregularRhymesNotification = FNEVitalRelativeImportance.irregularRhymesNotification.getConvertedValueFromPercentage()
         let BMI = FNEVitalRelativeImportance.BMI.getConvertedValueFromPercentage()
+        let waterIntake = FNEVitalRelativeImportance.waterIntake.getConvertedValueFromPercentage()
         
-        
-        let totalVitalScore = systolicBloodPressur + diastolicBloodPressure + irregularRhymesNotification + heartRate + BMI
+        let totalVitalScore = systolicBloodPressur + diastolicBloodPressure + irregularRhymesNotification + heartRate + BMI + waterIntake
         
         return totalVitalScore;
     }
@@ -128,6 +132,9 @@ class FNEVital:VitalProtocol {
         
         //BMIData
         filterVitalArrayToGetSingleDataWithSelectedSegmentInGraph(days: days, array: BMIData)
+        
+        //waterIntakeData
+        filterVitalArrayToGetSingleDataWithSelectedSegmentInGraph(days: days, array: waterIntakeData)
         
         return arrVital
     }
@@ -179,6 +186,9 @@ class FNEVital:VitalProtocol {
         case .BMI:
             filterArray = filterVitalArrayWithSelectedSegmentInGraph(days: days, array: BMIData)
             
+        case .waterIntake:
+            filterArray = filterVitalArrayWithSelectedSegmentInGraph(days: days, array: waterIntakeData)
+         
         default:
             break
         }

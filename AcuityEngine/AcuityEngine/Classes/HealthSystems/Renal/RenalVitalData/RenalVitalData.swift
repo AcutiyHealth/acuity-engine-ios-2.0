@@ -10,8 +10,9 @@ import HealthKitReporter
 // Available from 13.6
 
 struct RenalVitalRelativeImportance {
-    static let bloodPressureSystolic:Double = 70
-    static let bloodPressureDiastolic:Double = 70
+    static let bloodPressureSystolic:Double = 100
+    static let bloodPressureDiastolic:Double = 100
+    static let waterIntake:Double = 100
 }
 
 class RenalVitalsData:VitalCalculation {
@@ -26,6 +27,8 @@ class RenalVitalsData:VitalCalculation {
             self.relativeValue = RenalVitalRelativeImportance.bloodPressureSystolic
         case .bloodPressureDiastolic:
             self.relativeValue = RenalVitalRelativeImportance.bloodPressureDiastolic
+        case .waterIntake:
+            self.relativeValue = RenalVitalRelativeImportance.waterIntake
         default:break
         }
         

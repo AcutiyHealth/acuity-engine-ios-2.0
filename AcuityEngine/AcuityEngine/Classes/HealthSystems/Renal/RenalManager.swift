@@ -29,23 +29,36 @@ class RenalManager: NSObject {
     
     //Save Vitals Data in renalVital Model
     func saveQuantityInArray(quantityType:QuantityType,element:Quantity) {
-        
-        if quantityType == QuantityType.bloodPressureSystolic {
-            
-            let systolicBP = RenalVitalsData(type: VitalsName.bloodPressureSystolic)
-            systolicBP.value = Double(element.harmonized.value)
-            systolicBP.startTimeStamp = element.startTimestamp
-            self.renalData.renalVital.systolicBloodPressureData.append(systolicBP)
-            
-            Log.d("---------\n bloodPressureSystolic \nValue \(systolicBP.value)\n Score \(systolicBP.score)\n Max Score\(systolicBP.maxScore ) \n---------")
-        }
-        else if quantityType == QuantityType.bloodPressureDiastolic {
-            
-            let diastolicBP = RenalVitalsData(type: VitalsName.bloodPressureDiastolic)
-            diastolicBP.value = Double(element.harmonized.value)
-            diastolicBP.startTimeStamp = element.startTimestamp
-            self.renalData.renalVital.diastolicBloodPressureData.append(diastolicBP)
-            
+        switch quantityType {
+        case .bloodPressureSystolic:
+            do{
+                
+                let systolicBP = RenalVitalsData(type: VitalsName.bloodPressureSystolic)
+                systolicBP.value = Double(element.harmonized.value)
+                systolicBP.startTimeStamp = element.startTimestamp
+                self.renalData.renalVital.systolicBloodPressureData.append(systolicBP)
+                
+            }
+        case .bloodPressureDiastolic:
+            do{
+                
+                let diastolicBP = RenalVitalsData(type: VitalsName.bloodPressureDiastolic)
+                diastolicBP.value = Double(element.harmonized.value)
+                diastolicBP.startTimeStamp = element.startTimestamp
+                self.renalData.renalVital.diastolicBloodPressureData.append(diastolicBP)
+                
+            }
+        case .dietaryWater:
+            do{
+                
+                let waterIntake = RenalVitalsData(type: VitalsName.waterIntake)
+                waterIntake.value = Double(element.harmonized.value)
+                waterIntake.startTimeStamp = element.startTimestamp
+                self.renalData.renalVital.waterIntakeData.append(waterIntake)
+                Log.d("Renal=======\(waterIntake.value) maxScoreVitals===\(waterIntake.score) ")
+            }
+        default:
+            break
         }
         
     }
@@ -121,74 +134,74 @@ class RenalManager: NSObject {
         labData.startTimeStamp = timeStamp
         
         switch labCodeConstant {
-        
-        //BUN
+            
+            //BUN
         case .BUN:
             do{
                 labData.type = .BUN
                 RenalManager.sharedManager.renalData.renalLab.bunData.append(labData)
             }
-        //creatinine
+            //creatinine
         case .creatinine:
             do{
                 labData.type = .creatinine
                 RenalManager.sharedManager.renalData.renalLab.creatinineData.append(labData)
             }
-        //bloodGlucose
+            //bloodGlucose
         case .bloodGlucose:
             do{
                 labData.type = .bloodGlucose
                 RenalManager.sharedManager.renalData.renalLab.bloodGlucoseData.append(labData)
             }
-        //carbonDioxide
+            //carbonDioxide
         case .carbonDioxide:
             do{
                 labData.type = .carbonDioxide
                 RenalManager.sharedManager.renalData.renalLab.carbonDioxideData.append(labData)
             }
-        //potassiumLevel
+            //potassiumLevel
         case .potassiumLevel:
             do{
                 labData.type = .potassiumLevel
                 RenalManager.sharedManager.renalData.renalLab.potassiumLevelData.append(labData)
             }
-        //calcium
+            //calcium
         case .calcium:
             do{
                 labData.type = .calcium
                 RenalManager.sharedManager.renalData.renalLab.calciumData.append(labData)
             }
-        //chloride
+            //chloride
         case .chloride:
             do{
                 labData.type = .chloride
                 RenalManager.sharedManager.renalData.renalLab.chlorideData.append(labData)
             }
-        //albumin
+            //albumin
         case .albumin:
             do{
                 labData.type = .albumin
                 RenalManager.sharedManager.renalData.renalLab.albuminData.append(labData)
             }
-        //anionGap
+            //anionGap
         case .anionGap:
             do{
                 labData.type = .anionGap
                 RenalManager.sharedManager.renalData.renalLab.anionGapData.append(labData)
             }
-        //hemoglobin
+            //hemoglobin
         case .hemoglobin:
             do{
                 labData.type = .hemoglobin
                 RenalManager.sharedManager.renalData.renalLab.hemaglobinData.append(labData)
             }
-        //microalbuminCreatinineRatio
+            //microalbuminCreatinineRatio
         case .microalbuminCreatinineRatio:
             do{
                 labData.type = .microalbuminCreatinineRatio
                 RenalManager.sharedManager.renalData.renalLab.microalbuminData.append(labData)
             }
-        //eGFR
+            //eGFR
         case .eGFR:
             do{
                 labData.type = .eGFR

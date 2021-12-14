@@ -11,7 +11,7 @@ import HealthKitReporter
 
 struct IDiseaseVitalRelativeImportance {
     static let temprature:Double = 100
-    static let heartRate:Double = 70
+    static let heartRate:Double = 100
     static let oxygenSaturation:Double = 80
     static let bloodPressureSystolic:Double = 70
     static let bloodPressureDiastolic:Double = 70

@@ -21,14 +21,14 @@ import HealthKitReporter
 struct FNESymptomsRelativeImportance {
     static let fatigue:Double = 65
     static let generalizedBodyAche:Double = 40
-    static let diarrhea:Double = 85
+    static let diarrhea:Double = 100
     
     static let nausea:Double = 35
-    static let vomiting:Double = 85
+    static let vomiting:Double = 100
     static let headache:Double = 75
     
-    static let dizziness:Double = 40
-    static let fainting:Double = 40
+    static let dizziness:Double = 100
+    static let fainting:Double = 100
     static let hairLoss:Double = 75
 }
 

@@ -95,7 +95,7 @@ class CardioManager: NSObject {
                 stepCount.value = newValue
                 stepCount.startTimeStamp = element.startTimestamp
                 self.cardioData.cardioVital.stepsData.append(stepCount)
-                print("stepCount value",newValue)
+                Log.d("Cardio stepCount=======\(stepCount.value) maxScoreVitals===\(stepCount.score) ")
             }
             
         case .dietaryWater:
@@ -106,7 +106,7 @@ class CardioManager: NSObject {
                 waterIntake.value = newValue
                 waterIntake.startTimeStamp = element.startTimestamp
                 self.cardioData.cardioVital.waterIntakeData.append(waterIntake)
-                print("waterIntake value",newValue)
+                Log.d("Cardio stepCount=======\(waterIntake.value) maxScoreVitals===\(waterIntake.score) ")
             }
         default:
             break;
@@ -154,12 +154,12 @@ class CardioManager: NSObject {
                 sleep.startTimeStamp = startTimeStamp
                 sleep.endTimeStamp = endTimeStamp
                 self.cardioData.cardioVital.sleepData.append(sleep)
-                
+                Log.d("Cardio sleep=======\(sleep.value) sleep===\(sleep.score) ")
             }
         default:
             break
         }
-       
+        
     }
     //MARK: saveSymptomsData
     func saveSymptomsData(category:CategoryType,element:CategoryData){
