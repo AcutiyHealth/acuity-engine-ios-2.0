@@ -104,6 +104,7 @@ class AcuityDetailPullUpViewModel: NSObject
         mutableArrSymptoms.append(contentsOf: redColorarrSymptoms)
         mutableArrSymptoms.append(contentsOf: yellowColorarrSymptoms)
         mutableArrSymptoms.append(contentsOf: greenColorarrSymptoms)
+        mutableArrSymptoms = filterSymptomsToRemoveNotPresentData(arrSymtoms: mutableArrSymptoms)
         
         //Vitals...
         let redColorarrVitals:[VitalsModel] = arrVitals.filter { model in
@@ -136,6 +137,9 @@ class AcuityDetailPullUpViewModel: NSObject
         
         return (mutableArrCondition,mutableArrSymptoms,mutableArrVitals,mutableArrLabs)
         
+    }
+    func filterSymptomsToRemoveNotPresentData(arrSymtoms:[SymptomsModel])->[SymptomsModel]{
+        return arrSymtoms.filter{ $0.value != SymptomsValue.Not_Present }
     }
     func setUpSegmentControl(segmentControl:UISegmentedControl){
         segmentControl.setTitle(SegmentValueForGraph.SevenDays.rawValue, forSegmentAt: 0)

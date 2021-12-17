@@ -138,6 +138,7 @@ enum AddOption: String {
     case vitals = "Vitals"
     case medications = "Medications"
     case otherHistory = "Other Histories"
+    case preventionTracker = "Prevention Tracker"
 }
 enum NSNotificationName: String {
     case pullUpOpen = "pullUpOpen"
@@ -166,7 +167,7 @@ enum OtherHistoryId:Int,CaseIterable {
 }
 //=============================Medications=================================================//
 enum Medication:String {
-    case Medication = "Medication"
+    case Medication = "Medications"
 }
 enum MedicationId:Int,CaseIterable {
     case Medication = 1
@@ -335,7 +336,7 @@ struct Fonts {
     static let kAcuityBtnAdd = getFontAsPerDeviceSize(fontName: UIFont.SFProDisplayBold(of: 16), fontSize: 16)
     //Pull up
     static let kAcuityAddOptionTitleFont = getFontAsPerDeviceSize(fontName: UIFont.SFProDisplayBold(of: 20), fontSize: 20)
-    static let kAcuityAddOptionValueFont = getFontAsPerDeviceSize(fontName: UIFont.SFProDisplayRegular(of: 14), fontSize: 14)
+    static let kAcuityAddOptionValueFont = getFontAsPerDeviceSize(fontName: UIFont.SFProDisplayRegular(of: 13), fontSize: 13)
     static let kAcuityAddDetailTitleFont = getFontAsPerDeviceSize(fontName: UIFont.SFProDisplayBold(of: 24), fontSize: 24)
     static let kAcuityAddOptionMaxLimitFont = getFontAsPerDeviceSize(fontName: UIFont.SFProDisplayRegular(of: 9), fontSize: 9)
     //Onboarding

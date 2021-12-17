@@ -2538,7 +2538,7 @@
 				CODE_SIGN_ENTITLEMENTS = AcuityEngine/AcuityEngineDebug.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Distribution";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 2;
+				CURRENT_PROJECT_VERSION = 5;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_TEAM = 56FBZFEBV5;
 				INFOPLIST_FILE = AcuityEngine/Info.plist;
@@ -2566,7 +2566,7 @@
 				CODE_SIGN_ENTITLEMENTS = AcuityEngine/AcuityEngine.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Distribution";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 2;
+				CURRENT_PROJECT_VERSION = 5;
 				DEVELOPMENT_TEAM = 56FBZFEBV5;
 				INFOPLIST_FILE = AcuityEngine/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 13.6;

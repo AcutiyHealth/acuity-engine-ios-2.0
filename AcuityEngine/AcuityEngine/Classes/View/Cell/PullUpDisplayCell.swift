@@ -83,12 +83,13 @@ class AcuityDetailValueDisplayCell: UITableViewCell {
     func displayConditionData(item:ConditionsModel){
         titleLabel.text = item.title
         maxScore.textColor = item.color
-        switch item.value {
+        maxScore.isHidden = true
+        /*switch item.value {
         case .Yes:
             maxScore.text = ConditionValueText.Yes.rawValue
         default:
             maxScore.text = ConditionValueText.No.rawValue
-        }
+        }*/
         
     }
     func displaySymptomsData(item:SymptomsModel){
@@ -357,9 +358,9 @@ class AddOptionCell: UICollectionViewCell {
         containerView.backgroundColor = ColorSchema.addOptionGrayColor
     }
     
-    func displayData(title:String){
+    func displayData(title:String,description:String){
         titleLabel.text = title
-        valueLabel.text = "\(title)\(AlertMessages.MESSAGE_IN_ADD_OPTION_SCREEN)"
+        valueLabel.text = description
     }
     
     

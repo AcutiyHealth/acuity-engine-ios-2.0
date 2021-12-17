@@ -293,7 +293,7 @@ class AcuityDetailPullUpViewController: UIViewController {
             let arrVitals = self?.viewModelObj.combineBPSystolicandDisastolicInVitalArray(arrVital: self?.arrVitals ?? []) ?? []
             self?.arrVitals = self?.viewModelObj.combineOtherEntriesFromListOfVitalsInArrayForDisplay(arrVital: arrVitals) ?? []
             //=============Combine Free Condition with Add Section Condition Data.=============//
-            self?.arrConditions = self?.viewModelObj.fetchFreeConditionDataAndCombineWithAddSectionCondition(arrConditions: self?.arrConditions ?? []) ?? []
+            //self?.arrConditions = self?.viewModelObj.fetchFreeConditionDataAndCombineWithAddSectionCondition(arrConditions: self?.arrConditions ?? []) ?? []
             //reload tableview....
             self?.reloadTableView()
         }

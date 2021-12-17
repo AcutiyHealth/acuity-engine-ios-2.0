@@ -156,10 +156,13 @@ class AcuityMetricsValueViewModel: NSObject
         default:
         break
         }
-        
+        arrSymptoms = filterSymptomsToRemoveNotPresentData(arrSymtoms: arrSymptoms)
         return arrSymptoms
     }
-    
+    //MARK: - Filter Symptoms To Remove NotPresent Data
+    func filterSymptomsToRemoveNotPresentData(arrSymtoms:[SymptomsModel])->[SymptomsModel]{
+        return arrSymtoms.filter{ $0.value != SymptomsValue.Not_Present }
+    }
     func getVitals(title:String)->[VitalsModel] {
         var arrVitals:[VitalsModel] = []
         switch MyWellScore.sharedManager.selectedSystem {

@@ -94,6 +94,9 @@ extension MedicationListViewController: SOPullUpViewDelegate {
     func pullUpViewStatus(_ sender: UIViewController, didChangeTo status: PullUpStatus) {
         switch status {
         case .collapsed:
+            UIView.animate(withDuration: 0.9) {
+                self.view.alpha = 0.2
+            }
             NotificationCenter.default.post(name: Notification.Name(NSNotificationName.pullUpClose.rawValue), object: nil)
             NotificationCenter.default.post(name:Notification.Name(NSNotificationName.showAcuityDetailPopup.rawValue), object: nil)
         case .expanded: break

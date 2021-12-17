@@ -28,7 +28,7 @@ class AddOptionSelectionViewController:UIViewController{
     var medicationsVC : AddMedicationsViewController?
     var historiesVC : HistoryTitleListViewController?
     
-    var addOptionArray: Array<String> = [AddOption.vitals.rawValue,AddOption.symptom.rawValue,AddOption.conditions.rawValue,AddOption.medications.rawValue,AddOption.otherHistory.rawValue]
+    var addOptionArray: [[String:String]] = [["title":AddOption.vitals.rawValue,"description":"Please log your daily vitals to understand your wellness."],["title":AddOption.symptom.rawValue,"description":"A place for you to track your symptoms on a daily basis or chronically."],["title":AddOption.conditions.rawValue,"description":"Start Here to track any conditions you may have from our list."],["title":AddOption.medications.rawValue,"description":"A convenient way to note down what you take daily."],["title":AddOption.otherHistory.rawValue,"description":"Complete your data repository by noting other historical information about yourself."],["title":AddOption.preventionTracker.rawValue,"description":"Follow USPSTF guidelines on your recommended prevention."]]
     //var labelsAsStringForMonth: Array<String> = ["Week1","Week2","Week3","Week4"]
     // MARK: - Properties
     
@@ -44,8 +44,15 @@ class AddOptionSelectionViewController:UIViewController{
         super.viewDidLoad()
         collection.delegate = self
         collection.dataSource = self
-        addOptionTableView.reloadData()
-        
+
+        /*if let layout = collection?.collectionViewLayout as? UICollectionViewFlowLayout{
+                layout.minimumLineSpacing = 10
+            //layout.minimumInteritemSpacing = 10
+                //layout.sectionInset = UIEdgeInsets(top: 0, left: 10, bottom: 0, right: 10)
+                let size = CGSize(width:(collection!.bounds.width-20)/2, height: 250)
+                layout.itemSize = size
+            self.size = size.width - 30
+        }*/
     }
     
     
@@ -57,8 +64,15 @@ extension AddOptionSelectionViewController: SOPullUpViewDelegate {
     func pullUpViewStatus(_ sender: UIViewController, didChangeTo status: PullUpStatus) {
         switch status {
         case .collapsed:
+            UIView.animate(withDuration: 0.9) {
+                self.view.alpha = 0.2
+            }completion: { isCompleted in
+                //Refresh call
+                NotificationCenter.default.post(name:Notification.Name(NSNotificationName.refreshDataInCircle.rawValue), object: nil)
+            }
             NotificationCenter.default.post(name: Notification.Name(NSNotificationName.pullUpClose.rawValue), object: nil)
             NotificationCenter.default.post(name:Notification.Name(NSNotificationName.showAcuityDetailPopup.rawValue), object: nil)
+            
         case .expanded: break
             
         }
@@ -77,7 +91,8 @@ extension AddOptionSelectionViewController: UICollectionViewDelegate, UICollecti
         let space: CGFloat = (flowayout?.minimumInteritemSpacing ?? 0.0) + (flowayout?.sectionInset.left ?? 0.0) + (flowayout?.sectionInset.right ?? 0.0)
         let size:CGFloat = (collection.frame.size.width - space) / 2.0
         print("collection size",size)
-        self.size = size
+        print("self.view.frame",self.view.frame)
+        self.size = size - 1
         return CGSize(width: size, height: size/1.15)
     }
     
@@ -91,8 +106,10 @@ extension AddOptionSelectionViewController: UICollectionViewDelegate, UICollecti
             fatalError("AcuityDetailDisplayCell cell is not found")
         }
         cell.containerViewWidth.constant = self.size
-        cell.containerViewHeight.constant = self.size - 20
-        cell.displayData(title: addOptionArray[indexPath.item])
+        cell.containerViewHeight.constant = self.size - 15
+        cell.containerView.layoutIfNeeded()
+        let optionDict  = addOptionArray[indexPath.item]
+        cell.displayData(title: optionDict["title"] ?? "",description: optionDict["description"] ?? "")
         
         return cell
     }
@@ -104,7 +121,8 @@ extension AddOptionSelectionViewController: UICollectionViewDelegate, UICollecti
         let delayInSeconds = 0.15
         DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + delayInSeconds) { [self] in
             Utility.setBackgroundColorWhenViewUnSelcted(view: cell.contentView)
-            switch AddOption(rawValue: addOptionArray[indexPath.row]){
+            let optionDict = addOptionArray[indexPath.row]
+            switch AddOption(rawValue: optionDict["title"] ?? ""){
             case .symptom:
                 do{
                     openSymptomsViewController(title:AddOption.symptom.rawValue)
