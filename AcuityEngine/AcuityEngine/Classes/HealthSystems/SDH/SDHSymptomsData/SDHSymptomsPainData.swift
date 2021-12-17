@@ -22,9 +22,9 @@ struct SDHSymptomsRelativeImportance {
     static let chestPain:Double = 40
     static let dizziness:Double = 40
     static let fatigue:Double = 40
-    static let rapidHeartbeat:Double = 40
-    static let memoryLapse:Double = 80
-    static let shortnessOfBreath:Double = 50
+    static let rapidHeartbeat:Double = 70
+    static let memoryLapse:Double = 90
+    static let shortnessOfBreath:Double = 80
     static let headache:Double = 50
     static let sleepChanges:Double = 30
 }

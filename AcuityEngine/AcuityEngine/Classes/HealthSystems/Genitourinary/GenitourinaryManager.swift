@@ -60,6 +60,13 @@ class GenitourinaryManager: NSObject {
                 temperature.startTimeStamp = element.startTimestamp
                 self.genitourinaryData.genitourinaryVital.tempratureData.append(temperature)
             }
+        case .dietaryWater:
+            do{
+                let waterIntake = GenitourinaryVitalsData(type: VitalsName.waterIntake)
+                waterIntake.value = Double(element.harmonized.value)
+                waterIntake.startTimeStamp = element.startTimestamp
+                self.genitourinaryData.genitourinaryVital.waterIntakeData.append(waterIntake)
+            }
         default:
             break
         }

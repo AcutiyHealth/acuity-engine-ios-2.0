@@ -19,6 +19,9 @@ class SDHVital:VitalProtocol {
     var ageData:[SDHVitalsData] = []
     var BMIData:[SDHVitalsData] = []
     var oxygenSaturationData:[SDHVitalsData] = []
+    var stepsData:[SDHVitalsData] = []
+    var waterIntakeData:[SDHVitalsData] = []
+    var sleepData:[SDHVitalsData] = []
     
     var totalScore:[Double] = []
     var arrayDayWiseScoreTotal:[Double] = []
@@ -32,8 +35,11 @@ class SDHVital:VitalProtocol {
         let age = (Double(ageData.average(\.score)) .isNaN ? 0 : Double(ageData.average(\.score)))
         let BMI = (Double(BMIData.average(\.score)) .isNaN ? 0 : Double(BMIData.average(\.score)))
         let oxygenSaturation = (Double(oxygenSaturationData.average(\.score)) .isNaN ? 0 : Double(oxygenSaturationData.average(\.score)))
+        let steps = (Double(stepsData.average(\.score)) .isNaN ? 0 : Double(stepsData.average(\.score)))
+        let waterIntake = (Double(waterIntakeData.average(\.score)) .isNaN ? 0 : Double(waterIntakeData.average(\.score)))
+        let sleep = (Double(sleepData.average(\.score)) .isNaN ? 0 : Double(sleepData.average(\.score)))
         
-        let totalVitalScore = systolicBloodPressure + diastolicBloodPressure + age + BMI + oxygenSaturation;
+        let totalVitalScore = systolicBloodPressure + diastolicBloodPressure + age + BMI + oxygenSaturation + steps + waterIntake + sleep;
         return totalVitalScore;
     }
     
@@ -79,7 +85,16 @@ class SDHVital:VitalProtocol {
             //oxygenSaturation
             let scoreoxygenSaturation = getScoreForVitalDataWithGivenDateRange(sampleItem: oxygenSaturationData, timeIntervalByLastMonth: timeIntervalByLastMonth, timeIntervalByNow: timeIntervalByNow)
             
-            let totalScore = scoresystolicBloodPressure + scorediastolicBloodPressure + scoreAge + scoreBMI + scoreoxygenSaturation
+            //steps
+            let scoreSteps = getScoreForVitalDataWithGivenDateRange(sampleItem: stepsData, timeIntervalByLastMonth: timeIntervalByLastMonth, timeIntervalByNow: timeIntervalByNow)
+            
+            //waterIntake
+            let scorewaterIntakeData = getScoreForVitalDataWithGivenDateRange(sampleItem: waterIntakeData, timeIntervalByLastMonth: timeIntervalByLastMonth, timeIntervalByNow: timeIntervalByNow)
+            
+            //sleepData
+            let scoresleepData = getScoreForVitalDataWithGivenDateRange(sampleItem: sleepData, timeIntervalByLastMonth: timeIntervalByLastMonth, timeIntervalByNow: timeIntervalByNow)
+            
+            let totalScore = scoresystolicBloodPressure + scorediastolicBloodPressure + scoreAge + scoreBMI + scoreoxygenSaturation + scoresleepData + scorewaterIntakeData + scoreSteps
             arrayDayWiseScoreTotal.append(totalScore)
         }
         
@@ -97,8 +112,14 @@ class SDHVital:VitalProtocol {
         let BMI = SDHVitalRelativeImportance.BMI.getConvertedValueFromPercentage()
         //oxygenSaturation
         let oxygenSaturation = SDHVitalRelativeImportance.oxygenSaturation.getConvertedValueFromPercentage()
+        //steps
+        let steps = SDHVitalRelativeImportance.steps.getConvertedValueFromPercentage()
+        //waterIntake
+        let waterIntake = SDHVitalRelativeImportance.waterIntake.getConvertedValueFromPercentage()
+        //sleep
+        let sleep = SDHVitalRelativeImportance.sleep.getConvertedValueFromPercentage()
         
-        let totalVitalScore =  bloodPressureSystolic + bloodPressureDiastolic + age + BMI + oxygenSaturation
+        let totalVitalScore =  bloodPressureSystolic + bloodPressureDiastolic + age + BMI + oxygenSaturation + steps + waterIntake + sleep
         
         return totalVitalScore;
     }
@@ -124,6 +145,15 @@ class SDHVital:VitalProtocol {
         
         //oxygenSaturationData
         filterVitalArrayToGetSingleDataWithSelectedSegmentInGraph(days: days, array: oxygenSaturationData)
+        
+        //stepsData
+        filterVitalArrayToGetSingleDataWithSelectedSegmentInGraph(days: days, array: stepsData)
+        
+        //waterIntakeData
+        filterVitalArrayToGetSingleDataWithSelectedSegmentInGraph(days: days, array: waterIntakeData)
+        
+        //sleepData
+        filterVitalArrayToGetSingleDataWithSelectedSegmentInGraph(days: days, array: sleepData)
         return arrVital
     }
     func filterVitalArrayToGetSingleDataWithSelectedSegmentInGraph(days:SegmentValueForGraph,array:[VitalCalculation]){
@@ -149,13 +179,13 @@ class SDHVital:VitalProtocol {
         var filterArray:[VitalCalculation] = []
         
         switch vitalsName {
-        //Systolic
+            //Systolic
         case .bloodPressureSystolic:
             filterArray = filterVitalArrayWithSelectedSegmentInGraph(days: days, array: systolicBloodPressureData)
-        //Diastolic
+            //Diastolic
         case .bloodPressureDiastolic:
             filterArray = filterVitalArrayWithSelectedSegmentInGraph(days: days, array: diastolicBloodPressureData)
-        //bloodPressureSystolicDiastolic
+            //bloodPressureSystolicDiastolic
         case .bloodPressureSystolicDiastolic:
             
             /* Note: Here we combine data of BP Systolic and Diastolic in one combine array..
@@ -165,15 +195,24 @@ class SDHVital:VitalProtocol {
             let filterArraySystolic = filterVitalArrayWithSelectedSegmentInGraph(days: days, array: systolicBloodPressureData)
             let filterArrayDiastolic = filterVitalArrayWithSelectedSegmentInGraph(days: days, array: diastolicBloodPressureData)
             arrVital = combineBPSystolicAndDiastolic(arraySystolic: filterArraySystolic, arrayDiastolic: filterArrayDiastolic)
-        //age
+            //age
         case .age:
             filterArray = filterVitalArrayWithSelectedSegmentInGraph(days: days, array: ageData)
-        //BMI
+            //BMI
         case .BMI:
             filterArray = filterVitalArrayWithSelectedSegmentInGraph(days: days, array: BMIData)
-        //oxygenSaturation
+            //oxygenSaturation
         case .oxygenSaturation:
             filterArray = filterVitalArrayWithSelectedSegmentInGraph(days: days, array: oxygenSaturationData)
+            //stepsData
+        case .steps:
+            filterArray = filterVitalArrayWithSelectedSegmentInGraph(days: days, array: stepsData)
+            //sleepData
+        case .sleep:
+            filterArray = filterVitalArrayWithSelectedSegmentInGraph(days: days, array: sleepData)
+            //waterIntakeData
+        case .waterIntake:
+            filterArray = filterVitalArrayWithSelectedSegmentInGraph(days: days, array: waterIntakeData)
         default:
             break
         }

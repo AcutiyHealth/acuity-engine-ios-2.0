@@ -14,7 +14,7 @@ import HealthKitReporter
  carbon dioxide
  */
 struct NeuroLabRelativeImportance {
-    static let vitaminB12:Double = 40
+    static let vitaminB12:Double = 100
     static let sodium:Double = 35
     static let carbonDioxide:Double = 35
 }

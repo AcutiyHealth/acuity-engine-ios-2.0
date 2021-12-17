@@ -12,11 +12,14 @@ import HealthKitReporter
  body mass index
  */
 struct SDHVitalRelativeImportance {
-    static let bloodPressureSystolic:Double = 70
-    static let bloodPressureDiastolic:Double = 70
-    static let age:Double = 65
-    static let BMI:Double = 20
-    static let oxygenSaturation:Double = 75
+    static let bloodPressureSystolic:Double = 100
+    static let bloodPressureDiastolic:Double = 100
+    static let age:Double = 100
+    static let BMI:Double = 100
+    static let oxygenSaturation:Double = 100
+    static let steps:Double = 80
+    static let waterIntake:Double = 80
+    static let sleep:Double = 100
 }
 
 class SDHVitalsData:VitalCalculation {
@@ -26,21 +29,30 @@ class SDHVitalsData:VitalCalculation {
         super.title = type
         super.systemName = SystemName.SocialDeterminantsofHealth
         switch type {
-        //bloodPressureSystolic
+            //bloodPressureSystolic
         case .bloodPressureSystolic:
             self.relativeValue = SDHVitalRelativeImportance.bloodPressureSystolic
-        //bloodPressureDiastolic
+            //bloodPressureDiastolic
         case .bloodPressureDiastolic:
             self.relativeValue = SDHVitalRelativeImportance.bloodPressureDiastolic
-        //age
+            //age
         case .age:
             self.relativeValue = SDHVitalRelativeImportance.age
-        //BMI
+            //BMI
         case .BMI:
             self.relativeValue = SDHVitalRelativeImportance.BMI
-        //oxygenSaturation
+            //oxygenSaturation
         case .oxygenSaturation:
             self.relativeValue = SDHVitalRelativeImportance.oxygenSaturation
+            //steps
+        case .steps:
+            self.relativeValue = SDHVitalRelativeImportance.steps
+            //waterIntake
+        case .waterIntake:
+            self.relativeValue = SDHVitalRelativeImportance.waterIntake
+            //sleep
+        case .sleep:
+            self.relativeValue = SDHVitalRelativeImportance.sleep
         default:
             break
         }

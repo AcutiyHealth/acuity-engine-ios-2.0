@@ -38,7 +38,22 @@ class GastrointestinalManager: NSObject {
                 self.gastrointestinalData.gastrointestinalVital.bodyMassIndexData.append(bodyMassIndex)
                 
             }
-            
+        case .dietaryWater:
+            do{
+                let waterIntake = GastrointestinalVitalsData(type: VitalsName.waterIntake)
+                waterIntake.value = Double(element.harmonized.value)
+                waterIntake.startTimeStamp = element.startTimestamp
+                self.gastrointestinalData.gastrointestinalVital.waterIntakeData.append(waterIntake)
+                
+            }
+        case .stepCount:
+            do{
+                let steps = GastrointestinalVitalsData(type: VitalsName.steps)
+                steps.value = Double(element.harmonized.value)
+                steps.startTimeStamp = element.startTimestamp
+                self.gastrointestinalData.gastrointestinalVital.stepsData.append(steps)
+                
+            }
         default:
             break
         }

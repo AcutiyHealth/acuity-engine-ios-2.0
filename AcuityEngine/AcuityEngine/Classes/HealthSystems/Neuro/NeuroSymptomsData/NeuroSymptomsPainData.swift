@@ -22,15 +22,15 @@ import HealthKitReporter
 
 struct NeuroSymptomsRelativeImportance {
     static let moodChanges:Double = 100
-    static let dizziness:Double = 95
+    static let dizziness:Double = 100
     static let bodyAndMuscleAche:Double = 25
-    static let fatigue:Double = 40
-    static let fainting:Double = 75
-    static let nausea:Double = 30
-    static let vomiting:Double = 10
-    static let memoryLapse:Double = 80
-    static let headache:Double = 95
-    static let sleepChanges:Double = 65
+    static let fatigue:Double = 70
+    static let fainting:Double = 70
+    static let nausea:Double = 60
+    static let vomiting:Double = 60
+    static let memoryLapse:Double = 100
+    static let headache:Double = 100
+    static let sleepChanges:Double = 100
 }
 
 class NeuroSymptomsPainData:SymptomCalculation {

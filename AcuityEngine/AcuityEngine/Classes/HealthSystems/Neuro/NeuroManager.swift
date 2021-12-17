@@ -64,12 +64,30 @@ class NeuroManager: NSObject {
                 vo2Max.startTimeStamp = element.startTimestamp
                 self.neuroData.neuroVital.vo2MaxData.append(vo2Max)
             }
+        case .stepCount:
+            do{
+                let steps = NeuroVitalsData(type: VitalsName.steps)
+                steps.value = Double(element.harmonized.value)
+                steps.startTimeStamp = element.startTimestamp
+                self.neuroData.neuroVital.stepsData.append(steps)
+            }
         default:
             break
         }
         
     }
-    
+    func saveCategoryData(categoryType:CategoryType,value:Double,startTimeStamp:Double,endTimeStamp:Double){
+        
+        if categoryType == CategoryType.sleepAnalysis {
+            
+            let sleep = NeuroVitalsData(type: VitalsName.sleep)
+            sleep.value = value
+            sleep.startTimeStamp = startTimeStamp
+            sleep.endTimeStamp = endTimeStamp
+            self.neuroData.neuroVital.sleepData.append(sleep)
+         
+        }
+    }
     //Save Symptoms data in neuroData model
     func saveSymptomsData(category:CategoryType,element:CategoryData){
         

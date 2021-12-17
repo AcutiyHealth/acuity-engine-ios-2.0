@@ -72,10 +72,37 @@ class SDHManager: NSObject {
                 BMI.startTimeStamp = element.startTimestamp
                 self.sdhData.sdhVital.BMIData.append(BMI)
             }
+        case .stepCount:
+            do{
+                let steps = SDHVitalsData(type: VitalsName.steps)
+                steps.value = Double(element.harmonized.value)
+                steps.startTimeStamp = element.startTimestamp
+                self.sdhData.sdhVital.stepsData.append(steps)
+            }
+        case .dietaryWater:
+            do{
+                let waterIntake = SDHVitalsData(type: VitalsName.waterIntake)
+                waterIntake.value = Double(element.harmonized.value)
+                waterIntake.startTimeStamp = element.startTimestamp
+                self.sdhData.sdhVital.waterIntakeData.append(waterIntake)
+            }
         default:
             break
         }
         
+    }
+    
+    func saveCategoryData(categoryType:CategoryType,value:Double,startTimeStamp:Double,endTimeStamp:Double){
+        
+        if categoryType == CategoryType.sleepAnalysis {
+            
+            let sleep = SDHVitalsData(type: VitalsName.sleep)
+            sleep.value = value
+            sleep.startTimeStamp = startTimeStamp
+            sleep.endTimeStamp = endTimeStamp
+            self.sdhData.sdhVital.sleepData.append(sleep)
+         
+        }
     }
     //Save Vitals Data in sdhVital Model
     func saveAgeCharactesticInArray(element:Double) {

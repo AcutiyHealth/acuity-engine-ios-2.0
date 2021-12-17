@@ -20,13 +20,13 @@ import HealthKitReporter
  bloating*/
 
 struct GenitourinarySymptomsRelativeImportance {
-    static let fever:Double = 40
+    static let fever:Double = 70
     static let bladderIncontinence:Double = 100
     static let abdominalCramps:Double = 50
     static let dizziness:Double = 20
     static let fatigue:Double = 35
-    static let nausea:Double = 60
-    static let vomiting:Double = 60
+    static let nausea:Double = 70
+    static let vomiting:Double = 70
     static let chills:Double = 75
     static let bloating:Double = 50
 }

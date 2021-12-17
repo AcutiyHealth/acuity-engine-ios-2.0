@@ -21,16 +21,16 @@ import HealthKitReporter
  Heartburn*/
 
 struct GastrointestinalSymptomsRelativeImportance {
-    static let abdominalCramps:Double = 95
-    static let chestPain:Double = 40
+    static let abdominalCramps:Double = 100
+    static let chestPain:Double = 70
     static let cough:Double = 25
     static let diarrhea:Double = 100
     static let constipation:Double = 100
-    static let fatigue:Double = 35
-    static let bloating:Double = 50
-    static let nausea:Double = 75
+    static let fatigue:Double = 60
+    static let bloating:Double = 100
+    static let nausea:Double = 100
     static let vomiting:Double = 100
-    static let heartburn:Double = 85
+    static let heartburn:Double = 100
 }
 
 class GastrointestinalSymptomsPainData:SymptomCalculation {

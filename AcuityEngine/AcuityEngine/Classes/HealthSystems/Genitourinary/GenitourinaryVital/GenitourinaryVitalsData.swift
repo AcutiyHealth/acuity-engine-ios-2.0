@@ -16,6 +16,7 @@ struct GenitourinaryVitalRelativeImportance {
     static let temprature:Double = 100
     static let bloodPressureSystolic:Double = 70
     static let bloodPressureDiastolic:Double = 70
+    static let waterIntake:Double = 50
 }
 
 class GenitourinaryVitalsData:VitalCalculation {
@@ -40,6 +41,8 @@ class GenitourinaryVitalsData:VitalCalculation {
         //bloodPressureDiastolic
         case .bloodPressureDiastolic:
             self.relativeValue = GenitourinaryVitalRelativeImportance.bloodPressureDiastolic
+        case .waterIntake:
+            self.relativeValue = GenitourinaryVitalRelativeImportance.waterIntake
       
         default:
             break

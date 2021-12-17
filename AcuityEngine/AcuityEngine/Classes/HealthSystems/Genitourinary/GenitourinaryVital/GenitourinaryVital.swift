@@ -17,6 +17,7 @@ class GenitourinaryVital:VitalProtocol {
     var tempratureData:[GenitourinaryVitalsData] = []
     var systolicBloodPressureData:[GenitourinaryVitalsData] = []
     var diastolicBloodPressureData:[GenitourinaryVitalsData] = []
+    var waterIntakeData:[GenitourinaryVitalsData] = []
     
     var totalScore:[Double] = []
     var arrayDayWiseScoreTotal:[Double] = []
@@ -28,7 +29,8 @@ class GenitourinaryVital:VitalProtocol {
         let temprature = (Double(tempratureData.average(\.score)) .isNaN ? 0 : Double(tempratureData.average(\.score)))
         let systolicBloodPressure = (Double(systolicBloodPressureData.average(\.score)) .isNaN ? 0 : Double(systolicBloodPressureData.average(\.score)))
         let diastolicBloodPressure = (Double(diastolicBloodPressureData.average(\.score)) .isNaN ? 0 : Double(diastolicBloodPressureData.average(\.score)))
-        let totalVitalScore = heartRate + temprature + systolicBloodPressure + diastolicBloodPressure
+        let waterIntake = (Double(waterIntakeData.average(\.score)) .isNaN ? 0 : Double(waterIntakeData.average(\.score)))
+        let totalVitalScore = heartRate + temprature + systolicBloodPressure + diastolicBloodPressure + waterIntake
         return totalVitalScore;
     }
     
@@ -69,8 +71,11 @@ class GenitourinaryVital:VitalProtocol {
             
             //tempratureData
             let scoretemprature = getScoreForVitalDataWithGivenDateRange(sampleItem: tempratureData, timeIntervalByLastMonth: timeIntervalByLastMonth, timeIntervalByNow: timeIntervalByNow)
-      
-            let totalScore = scoresystolicBloodPressure + scorediastolicBloodPressure + scoreheartRate + scoretemprature
+            
+            //waterIntakeData
+            let scorewaterIntake = getScoreForVitalDataWithGivenDateRange(sampleItem: waterIntakeData, timeIntervalByLastMonth: timeIntervalByLastMonth, timeIntervalByNow: timeIntervalByNow)
+            
+            let totalScore = scoresystolicBloodPressure + scorediastolicBloodPressure + scoreheartRate + scoretemprature + scorewaterIntake
             arrayDayWiseScoreTotal.append(totalScore)
         }
         
@@ -85,8 +90,10 @@ class GenitourinaryVital:VitalProtocol {
         let bloodPressureSystolic = GenitourinaryVitalRelativeImportance.bloodPressureSystolic.getConvertedValueFromPercentage()
         //bloodPressureDiastolic
         let bloodPressureDiastolic = GenitourinaryVitalRelativeImportance.bloodPressureDiastolic.getConvertedValueFromPercentage()
+        //waterIntake
+        let waterIntake = GenitourinaryVitalRelativeImportance.waterIntake.getConvertedValueFromPercentage()
         
-        let totalVitalScore = heartRate + temprature + bloodPressureSystolic + bloodPressureDiastolic
+        let totalVitalScore = heartRate + temprature + bloodPressureSystolic + bloodPressureDiastolic + waterIntake
         
         return totalVitalScore;
     }
@@ -109,7 +116,10 @@ class GenitourinaryVital:VitalProtocol {
         
         //heartRateData
         filterVitalArrayToGetSingleDataWithSelectedSegmentInGraph(days: days, array: heartRateData)
-      
+        
+        //waterIntakeData
+        filterVitalArrayToGetSingleDataWithSelectedSegmentInGraph(days: days, array: waterIntakeData)
+        
         return arrVital
     }
     func filterVitalArrayToGetSingleDataWithSelectedSegmentInGraph(days:SegmentValueForGraph,array:[VitalCalculation]){
@@ -135,14 +145,14 @@ class GenitourinaryVital:VitalProtocol {
         var filterArray:[VitalCalculation] = []
         
         switch vitalsName {
-        //Systolic
+            //Systolic
         case .bloodPressureSystolic:
             filterArray = filterVitalArrayWithSelectedSegmentInGraph(days: days, array: systolicBloodPressureData)
-        //Diastolic
+            //Diastolic
         case .bloodPressureDiastolic:
             filterArray = filterVitalArrayWithSelectedSegmentInGraph(days: days, array: diastolicBloodPressureData)
-        //Bp Systolic/Diastolic
-       //bloodPressureSystolicDiastolic
+            //Bp Systolic/Diastolic
+            //bloodPressureSystolicDiastolic
         case .bloodPressureSystolicDiastolic:
             /* Note: Here we combine data of BP Systolic and Diastolic in one combine array..
              We execute loop for systeolic and get starttime stamp and match with diastolic array time stamp..
@@ -151,13 +161,16 @@ class GenitourinaryVital:VitalProtocol {
             let filterArraySystolic = filterVitalArrayWithSelectedSegmentInGraph(days: days, array: systolicBloodPressureData)
             let filterArrayDiastolic = filterVitalArrayWithSelectedSegmentInGraph(days: days, array: diastolicBloodPressureData)
             arrVital = combineBPSystolicAndDiastolic(arraySystolic: filterArraySystolic, arrayDiastolic: filterArrayDiastolic)
-        //temperature
+            //temperature
         case .temperature:
             filterArray = filterVitalArrayWithSelectedSegmentInGraph(days: days, array: tempratureData)
-        //heartRate
+            //heartRate
         case .heartRate:
             filterArray = filterVitalArrayWithSelectedSegmentInGraph(days: days, array: heartRateData)
-       
+            //waterIntake
+        case .waterIntake:
+            filterArray = filterVitalArrayWithSelectedSegmentInGraph(days: days, array: waterIntakeData)
+            
         default:
             break
         }

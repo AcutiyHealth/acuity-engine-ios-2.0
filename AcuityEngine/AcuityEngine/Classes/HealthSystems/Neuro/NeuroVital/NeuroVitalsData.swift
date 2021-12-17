@@ -14,29 +14,37 @@ import HealthKitReporter
 struct NeuroVitalRelativeImportance {
     static let bloodPressureSystolic:Double = 70
     static let bloodPressureDiastolic:Double = 70
-    static let bloodOxygenLevel:Double = 20
+    static let bloodOxygenLevel:Double = 70
     static let vo2Max:Double = 60
+    static let steps:Double = 80
+    static let sleep:Double = 100
 }
 
 class NeuroVitalsData:VitalCalculation {
-   
+    
     init(type:VitalsName) {
         super.init()
         super.title = type
         super.systemName = SystemName.Nuerological
         switch type {
-        //bloodPressureSystolic
+            //bloodPressureSystolic
         case .bloodPressureSystolic:
             self.relativeValue = NeuroVitalRelativeImportance.bloodPressureSystolic
-        //bloodPressureDiastolic
+            //bloodPressureDiastolic
         case .bloodPressureDiastolic:
             self.relativeValue = NeuroVitalRelativeImportance.bloodPressureDiastolic
-        //oxygenSaturation
+            //oxygenSaturation
         case .oxygenSaturation:
             self.relativeValue = NeuroVitalRelativeImportance.bloodOxygenLevel
-        //vo2Max
+            //vo2Max
         case .vo2Max:
             self.relativeValue = NeuroVitalRelativeImportance.vo2Max
+            //vo2Max
+        case .steps:
+            self.relativeValue = NeuroVitalRelativeImportance.steps
+            //vo2Max
+        case .sleep:
+            self.relativeValue = NeuroVitalRelativeImportance.sleep
         default:
             break
         }

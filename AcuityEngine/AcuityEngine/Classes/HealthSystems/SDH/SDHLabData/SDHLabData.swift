@@ -13,9 +13,9 @@ import HealthKitReporter
  Hemaglobin*/
 struct SDHLabRelativeImportance {
     static let albumin:Double = 40
-    static let BUN:Double = 30
-    static let creatinine:Double = 40
-    static let hemoglobin:Double = 40
+    static let BUN:Double = 100
+    static let creatinine:Double = 100
+    static let hemoglobin:Double = 80
 }
 class SDHLabData:LabCalculation {
     var type:LabType = .sodium{

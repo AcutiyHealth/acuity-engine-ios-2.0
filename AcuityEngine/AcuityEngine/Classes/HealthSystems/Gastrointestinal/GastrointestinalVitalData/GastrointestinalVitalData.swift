@@ -13,6 +13,8 @@ import HealthKitReporter
  */
 struct GastrointestinalVitalRelativeImportance {
     static let bodyMassIndex:Double = 95
+    static let steps:Double = 50
+    static let waterIntake:Double = 50
 }
 
 class GastrointestinalVitalsData:VitalCalculation {
@@ -25,15 +27,22 @@ class GastrointestinalVitalsData:VitalCalculation {
         super.title = type
         super.systemName = SystemName.Gastrointestinal
         switch type {
-        //bodyMassIndex
+            //bodyMassIndex
         case .BMI:
             self.relativeValue = GastrointestinalVitalRelativeImportance.bodyMassIndex
+            //steps
+        case .steps:
+            self.relativeValue = GastrointestinalVitalRelativeImportance.steps
+            
+            //waterIntake
+        case .waterIntake:
+            self.relativeValue = GastrointestinalVitalRelativeImportance.waterIntake
             
         default:
             break
         }
         
     }
-   
+    
 }
 

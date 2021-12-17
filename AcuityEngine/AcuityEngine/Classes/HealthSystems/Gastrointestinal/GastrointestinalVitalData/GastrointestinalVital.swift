@@ -10,7 +10,8 @@ import UIKit
 class GastrointestinalVital:VitalProtocol {
     /*body mass index*/
     var bodyMassIndexData:[GastrointestinalVitalsData] = []
-    
+    var waterIntakeData:[GastrointestinalVitalsData] = []
+    var stepsData:[GastrointestinalVitalsData] = []
     var totalScore:[Double] = []
     var arrayDayWiseScoreTotal:[Double] = []
     //For Dictionary Representation
@@ -18,8 +19,10 @@ class GastrointestinalVital:VitalProtocol {
     
     func totalVitalsScore() -> Double {
         let bodyMassIndex = (Double(bodyMassIndexData.average(\.score)) .isNaN ? 0 : Double(bodyMassIndexData.average(\.score)))
+        let steps = (Double(stepsData.average(\.score)) .isNaN ? 0 : Double(stepsData.average(\.score)))
+        let waterIntake = (Double(waterIntakeData.average(\.score)) .isNaN ? 0 : Double(waterIntakeData.average(\.score)))
         
-        let totalVitalScore = bodyMassIndex
+        let totalVitalScore = bodyMassIndex + steps + waterIntake
         
         return totalVitalScore;
     }
@@ -52,8 +55,12 @@ class GastrointestinalVital:VitalProtocol {
             
             //systolicBloodPressure
             let scorebodyMassIndex = getScoreForVitalDataWithGivenDateRange(sampleItem: bodyMassIndexData, timeIntervalByLastMonth: timeIntervalByLastMonth, timeIntervalByNow: timeIntervalByNow)
+            //stepsData
+            let scoresteps = getScoreForVitalDataWithGivenDateRange(sampleItem: stepsData, timeIntervalByLastMonth: timeIntervalByLastMonth, timeIntervalByNow: timeIntervalByNow)
+            //waterIntakeData
+            let scorewaterIntake = getScoreForVitalDataWithGivenDateRange(sampleItem: waterIntakeData, timeIntervalByLastMonth: timeIntervalByLastMonth, timeIntervalByNow: timeIntervalByNow)
             
-            let totalScore = scorebodyMassIndex
+            let totalScore = scorebodyMassIndex + scoresteps + scorewaterIntake
             arrayDayWiseScoreTotal.append(totalScore)
         }
         
@@ -62,8 +69,11 @@ class GastrointestinalVital:VitalProtocol {
     func getMaxVitalsScore() -> Double {
         
         let bodyMassIndex = GastrointestinalVitalRelativeImportance.bodyMassIndex.getConvertedValueFromPercentage()
+        let steps = GastrointestinalVitalRelativeImportance.steps.getConvertedValueFromPercentage()
+        let waterIntake = GastrointestinalVitalRelativeImportance.waterIntake.getConvertedValueFromPercentage()
         
-        let totalVitalScore = bodyMassIndex
+        
+        let totalVitalScore = bodyMassIndex + steps + waterIntake
         
         return totalVitalScore;
     }
@@ -76,7 +86,10 @@ class GastrointestinalVital:VitalProtocol {
         let days = MyWellScore.sharedManager.daysToCalculateSystemScore
         //bodyMassIndexData
         filterVitalArrayToGetSingleDataWithSelectedSegmentInGraph(days: days, array: bodyMassIndexData)
-        
+        //steps
+        filterVitalArrayToGetSingleDataWithSelectedSegmentInGraph(days: days, array: stepsData)
+        //waterIntakeData
+        filterVitalArrayToGetSingleDataWithSelectedSegmentInGraph(days: days, array: waterIntakeData)
         return arrVital
     }
     func filterVitalArrayToGetSingleDataWithSelectedSegmentInGraph(days:SegmentValueForGraph,array:[VitalCalculation]){
@@ -102,9 +115,16 @@ class GastrointestinalVital:VitalProtocol {
         var filterArray:[VitalCalculation] = []
         
         switch vitalsName {
-        //BMI
+            //BMI
         case .BMI:
             filterArray = filterVitalArrayWithSelectedSegmentInGraph(days: days, array: bodyMassIndexData)
+            //steps
+        case .steps:
+            filterArray = filterVitalArrayWithSelectedSegmentInGraph(days: days, array: stepsData)
+            
+            //waterIntake
+        case .waterIntake:
+            filterArray = filterVitalArrayWithSelectedSegmentInGraph(days: days, array: waterIntakeData)
             
         default:
             break

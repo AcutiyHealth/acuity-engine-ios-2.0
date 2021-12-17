@@ -17,6 +17,8 @@ class NeuroVital:VitalProtocol {
     var diastolicBloodPressureData:[NeuroVitalsData] = []
     var bloodOxygenLevelData:[NeuroVitalsData] = []
     var vo2MaxData:[NeuroVitalsData] = []
+    var stepsData:[NeuroVitalsData] = []
+    var sleepData:[NeuroVitalsData] = []
     
     var totalScore:[Double] = []
     var arrayDayWiseScoreTotal:[Double] = []
@@ -29,8 +31,10 @@ class NeuroVital:VitalProtocol {
         let diastolicBloodPressure = (Double(diastolicBloodPressureData.average(\.score)) .isNaN ? 0 : Double(diastolicBloodPressureData.average(\.score)))
         let bloodOxygenLevel = (Double(bloodOxygenLevelData.average(\.score)) .isNaN ? 0 : Double(bloodOxygenLevelData.average(\.score)))
         let vo2Max = (Double(vo2MaxData.average(\.score)) .isNaN ? 0 : Double(vo2MaxData.average(\.score)))
+        let steps = (Double(stepsData.average(\.score)) .isNaN ? 0 : Double(stepsData.average(\.score)))
+        let sleep = (Double(sleepData.average(\.score)) .isNaN ? 0 : Double(sleepData.average(\.score)))
         
-        let totalVitalScore = systolicBloodPressure + diastolicBloodPressure + bloodOxygenLevel + vo2Max
+        let totalVitalScore = systolicBloodPressure + diastolicBloodPressure + bloodOxygenLevel + vo2Max + steps + sleep
         return totalVitalScore;
     }
     
@@ -64,7 +68,13 @@ class NeuroVital:VitalProtocol {
             //vo2Max
             let scorevo2Max = getScoreForVitalDataWithGivenDateRange(sampleItem: vo2MaxData, timeIntervalByLastMonth: timeIntervalByLastMonth, timeIntervalByNow: timeIntervalByNow)
             
-            let totalScore = scoresystolicBloodPressure + scorediastolicBloodPressure + scorebloodOxygenLevel + scorevo2Max
+            //step
+            let scoresteps = getScoreForVitalDataWithGivenDateRange(sampleItem: stepsData, timeIntervalByLastMonth: timeIntervalByLastMonth, timeIntervalByNow: timeIntervalByNow)
+            
+            //sleep
+            let scoresleep = getScoreForVitalDataWithGivenDateRange(sampleItem: sleepData, timeIntervalByLastMonth: timeIntervalByLastMonth, timeIntervalByNow: timeIntervalByNow)
+            
+            let totalScore = scoresystolicBloodPressure + scorediastolicBloodPressure + scorebloodOxygenLevel + scorevo2Max + scoresteps + scoresleep
             arrayDayWiseScoreTotal.append(totalScore)
         }
         
@@ -80,8 +90,13 @@ class NeuroVital:VitalProtocol {
         let bloodOxygenLevel = NeuroVitalRelativeImportance.bloodOxygenLevel.getConvertedValueFromPercentage()
         //vo2Max
         let vo2Max = NeuroVitalRelativeImportance.vo2Max.getConvertedValueFromPercentage()
+        //steps
+        let steps = NeuroVitalRelativeImportance.steps.getConvertedValueFromPercentage()
+        //sleep
+        let sleep = NeuroVitalRelativeImportance.sleep.getConvertedValueFromPercentage()
         
-        let totalVitalScore = vo2Max + bloodOxygenLevel + bloodPressureSystolic + bloodPressureDiastolic
+        
+        let totalVitalScore = vo2Max + bloodOxygenLevel + bloodPressureSystolic + bloodPressureDiastolic + steps + sleep
         
         return totalVitalScore;
     }
@@ -113,6 +128,11 @@ class NeuroVital:VitalProtocol {
         //vo2MaxData
         filterVitalArrayToGetSingleDataWithSelectedSegmentInGraph(days: days, array: vo2MaxData)
         
+        //stepsData
+        filterVitalArrayToGetSingleDataWithSelectedSegmentInGraph(days: days, array: stepsData)
+        
+        //sleepData
+        filterVitalArrayToGetSingleDataWithSelectedSegmentInGraph(days: days, array: sleepData)
         return arrVital
     }
     func filterVitalArrayToGetSingleDataWithSelectedSegmentInGraph(days:SegmentValueForGraph,array:[VitalCalculation]){
@@ -138,28 +158,34 @@ class NeuroVital:VitalProtocol {
         var filterArray:[VitalCalculation] = []
         
         switch vitalsName {
-        //Systolic
+            //Systolic
         case .bloodPressureSystolic:
             filterArray = filterVitalArrayWithSelectedSegmentInGraph(days: days, array: systolicBloodPressureData)
-        //Diastolic
+            //Diastolic
         case .bloodPressureDiastolic:
             filterArray = filterVitalArrayWithSelectedSegmentInGraph(days: days, array: diastolicBloodPressureData)
-        //bloodPressureSystolicDiastolic
+            //bloodPressureSystolicDiastolic
         case .bloodPressureSystolicDiastolic:
             
-             /* Note: Here we combine data of BP Systolic and Diastolic in one combine array..
-              We execute loop for systeolic and get starttime stamp and match with diastolic array time stamp..
-              And create one array which contain entry from both array..
-              */
-             let filterArraySystolic = filterVitalArrayWithSelectedSegmentInGraph(days: days, array: systolicBloodPressureData)
-             let filterArrayDiastolic = filterVitalArrayWithSelectedSegmentInGraph(days: days, array: diastolicBloodPressureData)
-             arrVital = combineBPSystolicAndDiastolic(arraySystolic: filterArraySystolic, arrayDiastolic: filterArrayDiastolic)
-        //bloodOxygenLevelData
+            /* Note: Here we combine data of BP Systolic and Diastolic in one combine array..
+             We execute loop for systeolic and get starttime stamp and match with diastolic array time stamp..
+             And create one array which contain entry from both array..
+             */
+            let filterArraySystolic = filterVitalArrayWithSelectedSegmentInGraph(days: days, array: systolicBloodPressureData)
+            let filterArrayDiastolic = filterVitalArrayWithSelectedSegmentInGraph(days: days, array: diastolicBloodPressureData)
+            arrVital = combineBPSystolicAndDiastolic(arraySystolic: filterArraySystolic, arrayDiastolic: filterArrayDiastolic)
+            //bloodOxygenLevelData
         case .oxygenSaturation:
             filterArray = filterVitalArrayWithSelectedSegmentInGraph(days: days, array: bloodOxygenLevelData)
-        //vo2Max
+            //vo2Max
         case .vo2Max:
             filterArray = filterVitalArrayWithSelectedSegmentInGraph(days: days, array: vo2MaxData)
+            //stepsData
+        case .steps:
+            filterArray = filterVitalArrayWithSelectedSegmentInGraph(days: days, array: stepsData)
+            //sleepData
+        case .sleep:
+            filterArray = filterVitalArrayWithSelectedSegmentInGraph(days: days, array: sleepData)
             
         default:
             break
