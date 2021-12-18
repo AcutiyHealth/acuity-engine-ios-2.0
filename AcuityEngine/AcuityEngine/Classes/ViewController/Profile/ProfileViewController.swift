@@ -14,6 +14,8 @@ class ProfileViewController: UIViewController {
     
     // MARK: - Outlet
     @IBOutlet weak var tblProfileData: UITableView!
+    @IBOutlet weak var lblTopDescription: UILabel!
+    @IBOutlet weak var lblTopTitle: UILabel!
     @IBOutlet weak var tblHistoryOrMedicationData: UITableView!
     @IBOutlet weak var viewHistoryOrMedicationData: UIView!
     @IBOutlet weak var handleArea: UIView!
@@ -33,6 +35,8 @@ class ProfileViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        //Set font for label.....
+        setFontForLabel()
         //Read Basic Charactristic from Health Kit.....
         readBasicDetails()
         //===== Set Height of tblHistoryOrMedicationData as per ContentSize =========//
@@ -40,6 +44,10 @@ class ProfileViewController: UIViewController {
         self.fetchHistoryAndMedicationData()
     }
     
+    func setFontForLabel(){
+        lblTopTitle.font = Fonts.kValueFont
+        lblTopDescription.font = Fonts.kAcuityAddOptionValueFont
+    }
     //========================================================================================================
     //MARK: Fetch History And Medication Data..
     //========================================================================================================

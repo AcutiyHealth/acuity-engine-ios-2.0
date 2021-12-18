@@ -38,7 +38,7 @@
                                         </userDefinedRuntimeAttributes>
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="100.00" textAlignment="center" lineBreakMode="clip" baselineAdjustment="alignBaselines" minimumFontSize="18" translatesAutoresizingMaskIntoConstraints="NO" id="ZSF-PR-nZa" customClass="LabelTitle" customModule="AcuityEngine" customModuleProvider="target">
-                                        <rect key="frame" x="76" y="39" width="262" height="92"/>
+                                        <rect key="frame" x="149.5" y="39" width="115" height="92"/>
                                         <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="35"/>
                                         <color key="textColor" red="1" green="0.59607843140000005" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                         <nil key="highlightedColor"/>
@@ -49,7 +49,7 @@
                                         </userDefinedRuntimeAttributes>
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="score" textAlignment="center" lineBreakMode="wordWrap" baselineAdjustment="alignBaselines" minimumFontSize="18" translatesAutoresizingMaskIntoConstraints="NO" id="oZA-fc-ng0" customClass="LabelTitle" customModule="AcuityEngine" customModuleProvider="target">
-                                        <rect key="frame" x="338" y="97" width="56" height="25"/>
+                                        <rect key="frame" x="264.5" y="97" width="56" height="25"/>
                                         <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="35"/>
                                         <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <nil key="highlightedColor"/>
@@ -91,10 +91,10 @@
                                 </constraints>
                             </view>
                             <stackView hidden="YES" opaque="NO" contentMode="scaleToFill" alignment="center" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="xsb-dP-zG1" userLabel="stackview score">
-                                <rect key="frame" x="64.5" y="97" width="285" height="60"/>
+                                <rect key="frame" x="138.5" y="97" width="137.5" height="60"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="251" text="MyWell  Score" textAlignment="natural" lineBreakMode="clip" baselineAdjustment="alignBaselines" minimumFontSize="9" translatesAutoresizingMaskIntoConstraints="NO" id="LUG-EK-yTE" customClass="LabelTitle" customModule="AcuityEngine" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="9.5" width="217.5" height="41"/>
+                                        <rect key="frame" x="0.0" y="20" width="108.5" height="20.5"/>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                         <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -106,7 +106,7 @@
                                         </userDefinedRuntimeAttributes>
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="77" textAlignment="natural" lineBreakMode="clip" baselineAdjustment="alignBaselines" minimumFontSize="9" translatesAutoresizingMaskIntoConstraints="NO" id="mFL-b9-59D" customClass="LabelTitle" customModule="AcuityEngine" customModuleProvider="target">
-                                        <rect key="frame" x="227.5" y="0.0" width="57.5" height="60"/>
+                                        <rect key="frame" x="118.5" y="20" width="19" height="20.5"/>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                         <color key="textColor" red="1" green="0.59607843137254901" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
@@ -124,10 +124,10 @@
                                 </constraints>
                             </stackView>
                             <stackView hidden="YES" opaque="NO" contentMode="scaleToFill" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="jAW-Sn-xR1" userLabel="Stackview add">
-                                <rect key="frame" x="114" y="97" width="186" height="53"/>
+                                <rect key="frame" x="143.5" y="97" width="127.5" height="53"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="MyWell" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="nJj-lr-2jm" customClass="LabelTitle" customModule="AcuityEngine" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="0.0" width="114" height="53"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="55.5" height="53"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                         <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <nil key="highlightedColor"/>
@@ -138,7 +138,7 @@
                                         </userDefinedRuntimeAttributes>
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Add" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="UkG-Wt-uMI">
-                                        <rect key="frame" x="124" y="0.0" width="62" height="53"/>
+                                        <rect key="frame" x="65.5" y="0.0" width="62" height="53"/>
                                         <fontDescription key="fontDescription" name="BrushScriptMT" family="Brush Script MT" pointSize="42"/>
                                         <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <nil key="highlightedColor"/>
@@ -147,10 +147,10 @@
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </stackView>
                             <stackView hidden="YES" opaque="NO" contentMode="scaleToFill" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="zqI-uL-Sd7" userLabel="Stackview profile">
-                                <rect key="frame" x="98" y="97" width="218" height="53"/>
+                                <rect key="frame" x="127.5" y="97" width="159.5" height="53"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="MyWell" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="M3Q-ea-BUb" customClass="LabelTitle" customModule="AcuityEngine" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="0.0" width="114" height="53"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="55.5" height="53"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                         <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <nil key="highlightedColor"/>
@@ -161,7 +161,7 @@
                                         </userDefinedRuntimeAttributes>
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Profile" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ZJ5-c1-AeB">
-                                        <rect key="frame" x="124" y="0.0" width="94" height="53"/>
+                                        <rect key="frame" x="65.5" y="0.0" width="94" height="53"/>
                                         <fontDescription key="fontDescription" name="BrushScriptMT" family="Brush Script MT" pointSize="42"/>
                                         <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <nil key="highlightedColor"/>
@@ -170,10 +170,10 @@
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </stackView>
                             <stackView hidden="YES" opaque="NO" contentMode="scaleToFill" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="rPZ-ii-4wr" userLabel="Stackview prevention">
-                                <rect key="frame" x="75" y="97" width="264.5" height="53"/>
+                                <rect key="frame" x="104" y="97" width="206" height="53"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="MyWell" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="A4A-VA-NK2" customClass="LabelTitle" customModule="AcuityEngine" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="0.0" width="114" height="53"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="55.5" height="53"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                         <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <nil key="highlightedColor"/>
@@ -184,7 +184,7 @@
                                         </userDefinedRuntimeAttributes>
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Prevention" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bFt-7F-x9T">
-                                        <rect key="frame" x="124" y="0.0" width="140.5" height="53"/>
+                                        <rect key="frame" x="65.5" y="0.0" width="140.5" height="53"/>
                                         <fontDescription key="fontDescription" name="BrushScriptMT" family="Brush Script MT" pointSize="42"/>
                                         <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <nil key="highlightedColor"/>
@@ -193,10 +193,10 @@
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </stackView>
                             <stackView hidden="YES" opaque="NO" contentMode="scaleToFill" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="IAt-UC-tV1" userLabel="Stackview medication">
-                                <rect key="frame" x="69" y="97" width="276.5" height="53"/>
+                                <rect key="frame" x="98" y="97" width="218" height="53"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="MyWell" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="krh-NX-ajr" customClass="LabelTitle" customModule="AcuityEngine" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="0.0" width="114" height="53"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="55.5" height="53"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                         <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <nil key="highlightedColor"/>
@@ -207,7 +207,7 @@
                                         </userDefinedRuntimeAttributes>
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Medication" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Djw-QE-CD2">
-                                        <rect key="frame" x="124" y="0.0" width="152.5" height="53"/>
+                                        <rect key="frame" x="65.5" y="0.0" width="152.5" height="53"/>
                                         <fontDescription key="fontDescription" name="BrushScriptMT" family="Brush Script MT" pointSize="42"/>
                                         <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <nil key="highlightedColor"/>
@@ -530,7 +530,7 @@
                                 </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Welcome to Acuity Engine!" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="VbR-Ev-Hbv" customClass="LabelTitle" customModule="AcuityEngine" customModuleProvider="target">
-                                <rect key="frame" x="10" y="433" width="394" height="30"/>
+                                <rect key="frame" x="10" y="438" width="394" height="20.5"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -542,7 +542,7 @@
                                 </userDefinedRuntimeAttributes>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="To calculate health score you will have to" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="JbB-bz-Qw8" customClass="LabelTitle" customModule="AcuityEngine" customModuleProvider="target">
-                                <rect key="frame" x="10" y="734" width="394" height="18"/>
+                                <rect key="frame" x="10" y="731.5" width="394" height="20.5"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -908,7 +908,7 @@
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Home delivery and Online reservation systen for restaurants and cafes" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mit-T1-6nj">
                                                             <rect key="frame" x="0.0" y="90" width="381" height="36"/>
                                                             <fontDescription key="fontDescription" type="system" pointSize="15"/>
-                                                            <color key="textColor" red="0.51764705882352935" green="0.50980392156862742" blue="0.50980392156862742" alpha="1" colorSpace="calibratedRGB"/>
+                                                            <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="0.69999999999999996" colorSpace="custom" customColorSpace="calibratedRGB"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
                                                     </subviews>
@@ -1014,37 +1014,37 @@
     </scenes>
     <designables>
         <designable name="A4A-VA-NK2">
-            <size key="intrinsicContentSize" width="114" height="41"/>
+            <size key="intrinsicContentSize" width="55.5" height="20.5"/>
         </designable>
         <designable name="JbB-bz-Qw8">
-            <size key="intrinsicContentSize" width="275" height="18"/>
+            <size key="intrinsicContentSize" width="309.5" height="20.5"/>
         </designable>
         <designable name="LUG-EK-yTE">
-            <size key="intrinsicContentSize" width="217.5" height="41"/>
+            <size key="intrinsicContentSize" width="108.5" height="20.5"/>
         </designable>
         <designable name="M3Q-ea-BUb">
-            <size key="intrinsicContentSize" width="114" height="41"/>
+            <size key="intrinsicContentSize" width="55.5" height="20.5"/>
         </designable>
         <designable name="VbR-Ev-Hbv">
-            <size key="intrinsicContentSize" width="303" height="30"/>
+            <size key="intrinsicContentSize" width="203" height="20.5"/>
         </designable>
         <designable name="ZSF-PR-nZa">
-            <size key="intrinsicContentSize" width="332.5" height="119.5"/>
+            <size key="intrinsicContentSize" width="115" height="42"/>
         </designable>
         <designable name="dt5-Yn-Qwx">
-            <size key="intrinsicContentSize" width="114" height="41"/>
+            <size key="intrinsicContentSize" width="116.5" height="42"/>
         </designable>
         <designable name="krh-NX-ajr">
-            <size key="intrinsicContentSize" width="114" height="41"/>
+            <size key="intrinsicContentSize" width="55.5" height="20.5"/>
         </designable>
         <designable name="mFL-b9-59D">
-            <size key="intrinsicContentSize" width="57.5" height="60"/>
+            <size key="intrinsicContentSize" width="19" height="20.5"/>
         </designable>
         <designable name="nJj-lr-2jm">
-            <size key="intrinsicContentSize" width="114" height="41"/>
+            <size key="intrinsicContentSize" width="55.5" height="20.5"/>
         </designable>
         <designable name="oZA-fc-ng0">
-            <size key="intrinsicContentSize" width="56" height="26.5"/>
+            <size key="intrinsicContentSize" width="87.5" height="42"/>
         </designable>
     </designables>
     <resources>

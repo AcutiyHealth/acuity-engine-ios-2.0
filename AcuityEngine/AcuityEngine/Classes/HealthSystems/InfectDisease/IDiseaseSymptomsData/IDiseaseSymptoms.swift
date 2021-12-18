@@ -167,7 +167,7 @@ class IDiseaseSymptoms:SymptomsProtocol {
     
     func filterSymptomsArrayToGetSingleDataWithSelectedSegmentInGraph(days:SegmentValueForGraph,array:[SymptomCalculation]){
         var filteredArray:[SymptomCalculation] = []
-        filteredArray = filterSymptomsArrayWithSelectedSegmentInGraph(days: days, array: feverData)
+        filteredArray = filterSymptomsArrayWithSelectedSegmentInGraph(days: days, array: array)
         saveFilterDataInArraySymptoms(filteredArray: filteredArray)
         //return filteredArray
     }
