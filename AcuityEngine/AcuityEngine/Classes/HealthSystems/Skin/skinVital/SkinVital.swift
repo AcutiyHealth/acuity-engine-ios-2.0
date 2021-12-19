@@ -11,7 +11,7 @@ class SkinVital:VitalProtocol {
     /*Temperature*/
     
     var temperatureData:[SkinVitalsData] = []
-    
+    var waterIntakeData:[SkinVitalsData] = []
     var totalScore:[Double] = []
     var arrayDayWiseScoreTotal:[Double] = []
     //For Dictionary Representation
@@ -20,8 +20,9 @@ class SkinVital:VitalProtocol {
     func totalVitalsScore() -> Double {
         
         let temperature = (Double(temperatureData.average(\.score)) .isNaN ? 0 : Double(temperatureData.average(\.score)))
+        let waterIntake = (Double(waterIntakeData.average(\.score)) .isNaN ? 0 : Double(waterIntakeData.average(\.score)))
         
-        let totalVitalScore = temperature;
+        let totalVitalScore = temperature + waterIntake
         return totalVitalScore;
     }
     
@@ -54,8 +55,9 @@ class SkinVital:VitalProtocol {
             
             //temperatureData
             let scoretemperature = getScoreForVitalDataWithGivenDateRange(sampleItem: temperatureData, timeIntervalByLastMonth: timeIntervalByLastMonth, timeIntervalByNow: timeIntervalByNow)
-         
-            let totalScore = scoretemperature
+            //waterIntakeData
+            let scorewaterIntake = getScoreForVitalDataWithGivenDateRange(sampleItem: waterIntakeData, timeIntervalByLastMonth: timeIntervalByLastMonth, timeIntervalByNow: timeIntervalByNow)
+            let totalScore = scoretemperature + scorewaterIntake
             arrayDayWiseScoreTotal.append(totalScore)
         }
         
@@ -65,8 +67,10 @@ class SkinVital:VitalProtocol {
         
         //temperature
         let temperature = SkinVitalRelativeImportance.temperature.getConvertedValueFromPercentage()
+        //waterIntake
+        let waterIntake = SkinVitalRelativeImportance.waterIntake.getConvertedValueFromPercentage()
         
-        let totalVitalScore =  temperature
+        let totalVitalScore =  temperature + waterIntake
         
         return totalVitalScore;
     }
@@ -80,6 +84,9 @@ class SkinVital:VitalProtocol {
         
         //temperatureData
         filterVitalArrayToGetSingleDataWithSelectedSegmentInGraph(days: days, array: temperatureData)
+        
+        //waterIntakeData
+        filterVitalArrayToGetSingleDataWithSelectedSegmentInGraph(days: days, array: waterIntakeData)
         
         return arrVital
     }
@@ -106,10 +113,13 @@ class SkinVital:VitalProtocol {
         var filterArray:[VitalCalculation] = []
         
         switch vitalsName {
-        //temperatureData
+            //temperatureData
         case .temperature:
             filterArray = filterVitalArrayWithSelectedSegmentInGraph(days: days, array: temperatureData)
-     
+            //waterIntake
+        case .waterIntake:
+            filterArray = filterVitalArrayWithSelectedSegmentInGraph(days: days, array: waterIntakeData)
+            
         default:
             break
         }
