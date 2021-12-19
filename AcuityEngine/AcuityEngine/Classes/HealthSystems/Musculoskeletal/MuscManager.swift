@@ -34,12 +34,12 @@ class MuscManager: NSObject {
          body mass index
          */
         switch quantityType {
-        case .walkingStepLength:
+        case .stepCount:
             do{
-                let stepLength = MuscVitalsData(type: VitalsName.stepLength)
-                stepLength.value = Double(element.harmonized.value)
-                stepLength.startTimeStamp = element.startTimestamp
-                self.muscData.muscVital.stepLengthData.append(stepLength)
+                let stepCount = MuscVitalsData(type: VitalsName.steps)
+                stepCount.value = Double(element.harmonized.value)
+                stepCount.startTimeStamp = element.startTimestamp
+                self.muscData.muscVital.stepsData.append(stepCount)
                 
             }
         case .bodyMassIndex:
@@ -49,7 +49,13 @@ class MuscManager: NSObject {
                 BMI.startTimeStamp = element.startTimestamp
                 self.muscData.muscVital.BMIData.append(BMI)
             }
-            
+        case .dietaryWater:
+            do{
+                let waterIntake = MuscVitalsData(type: VitalsName.waterIntake)
+                waterIntake.value = Double(element.harmonized.value)
+                waterIntake.startTimeStamp = element.startTimestamp
+                self.muscData.muscVital.waterIntakeData.append(waterIntake)
+            }
         default:
             break
         }

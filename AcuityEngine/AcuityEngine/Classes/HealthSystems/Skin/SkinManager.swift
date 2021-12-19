@@ -41,7 +41,14 @@ class SkinManager: NSObject {
                 self.skinData.skinVital.temperatureData.append(temperature)
                 
             }
-            
+        case .dietaryWater:
+            do{
+                let waterIntake = SkinVitalsData(type: VitalsName.waterIntake)
+                waterIntake.value = Double(element.harmonized.value)
+                waterIntake.startTimeStamp = element.startTimestamp
+                self.skinData.skinVital.waterIntakeData.append(waterIntake)
+                
+            }
         default:
             break
         }

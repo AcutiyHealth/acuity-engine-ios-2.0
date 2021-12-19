@@ -16,10 +16,10 @@ import HealthKitReporter
  fever  */
 
 struct HeentSymptomsRelativeImportance {
-    static let chills:Double = 40
-    static let fever:Double = 40
-    static let dizziness:Double = 50
-    static let fatigue:Double = 30
+    static let fever:Double = 100
+    static let chills:Double = 70
+    static let dizziness:Double = 70
+    static let fatigue:Double = 70
     static let lossOfSmell:Double = 100
     static let runnyNose:Double = 100
     static let soreThroat:Double = 100

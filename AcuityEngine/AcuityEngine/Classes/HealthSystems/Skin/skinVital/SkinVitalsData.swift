@@ -14,6 +14,7 @@ import HealthKitReporter
  */
 struct SkinVitalRelativeImportance {
     static let temperature:Double = 100
+    static let waterIntake:Double = 80
 }
 
 class SkinVitalsData:VitalCalculation {
@@ -23,10 +24,13 @@ class SkinVitalsData:VitalCalculation {
         super.title = type
         super.systemName = SystemName.Integumentary
         switch type {
-        //stepLength
+            //stepLength
         case .temperature:
             self.relativeValue = SkinVitalRelativeImportance.temperature
-        
+            //waterIntake
+        case .waterIntake:
+            self.relativeValue = SkinVitalRelativeImportance.waterIntake
+            
         default:
             break
         }

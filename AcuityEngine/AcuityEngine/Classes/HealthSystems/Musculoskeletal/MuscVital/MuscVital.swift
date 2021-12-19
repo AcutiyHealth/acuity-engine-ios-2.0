@@ -11,8 +11,9 @@ class MuscVital:VitalProtocol {
     /*Step Length
      body mass index */
     
-    var stepLengthData:[MuscVitalsData] = []
+    var stepsData:[MuscVitalsData] = []
     var BMIData:[MuscVitalsData] = []
+    var waterIntakeData:[MuscVitalsData] = []
     
     var totalScore:[Double] = []
     var arrayDayWiseScoreTotal:[Double] = []
@@ -21,10 +22,11 @@ class MuscVital:VitalProtocol {
     
     func totalVitalsScore() -> Double {
         
-        let stepLength = (Double(stepLengthData.average(\.score)) .isNaN ? 0 : Double(stepLengthData.average(\.score)))
+        let steps = (Double(stepsData.average(\.score)) .isNaN ? 0 : Double(stepsData.average(\.score)))
         let BMI = (Double(BMIData.average(\.score)) .isNaN ? 0 : Double(BMIData.average(\.score)))
+        let waterIntake = (Double(waterIntakeData.average(\.score)) .isNaN ? 0 : Double(waterIntakeData.average(\.score)))
         
-        let totalVitalScore = stepLength + BMI;
+        let totalVitalScore = steps + BMI + waterIntake;
         return totalVitalScore;
     }
     
@@ -55,13 +57,16 @@ class MuscVital:VitalProtocol {
             
             now = day
             
-            //stepLengthData
-            let scorestepLength = getScoreForVitalDataWithGivenDateRange(sampleItem: stepLengthData, timeIntervalByLastMonth: timeIntervalByLastMonth, timeIntervalByNow: timeIntervalByNow)
+            //stepsData
+            let scoresteps = getScoreForVitalDataWithGivenDateRange(sampleItem: stepsData, timeIntervalByLastMonth: timeIntervalByLastMonth, timeIntervalByNow: timeIntervalByNow)
             
             //BMI
             let scoreBMI = getScoreForVitalDataWithGivenDateRange(sampleItem: BMIData, timeIntervalByLastMonth: timeIntervalByLastMonth, timeIntervalByNow: timeIntervalByNow)
             
-            let totalScore = scorestepLength + scoreBMI
+            //waterIntake
+            let scorewaterIntake = getScoreForVitalDataWithGivenDateRange(sampleItem: waterIntakeData, timeIntervalByLastMonth: timeIntervalByLastMonth, timeIntervalByNow: timeIntervalByNow)
+            
+            let totalScore =  scoreBMI + scoresteps + scorewaterIntake
             arrayDayWiseScoreTotal.append(totalScore)
         }
         
@@ -69,13 +74,17 @@ class MuscVital:VitalProtocol {
     }
     func getMaxVitalsScore() -> Double {
         
-        //stepLength
-        let stepLength = MuscVitalRelativeImportance.stepLength.getConvertedValueFromPercentage()
+        //steps
+        let steps = MuscVitalRelativeImportance.steps.getConvertedValueFromPercentage()
         
         //BMI
         let BMI = MuscVitalRelativeImportance.BMI.getConvertedValueFromPercentage()
         
-        let totalVitalScore =  stepLength  + BMI
+        //waterIntake
+        let waterIntake = MuscVitalRelativeImportance.waterIntake.getConvertedValueFromPercentage()
+        
+        
+        let totalVitalScore =  steps  + BMI + waterIntake
         
         return totalVitalScore;
     }
@@ -87,11 +96,14 @@ class MuscVital:VitalProtocol {
         arrVital = []
         let days = MyWellScore.sharedManager.daysToCalculateSystemScore
         
-        //stepLengthData
-        filterVitalArrayToGetSingleDataWithSelectedSegmentInGraph(days: days, array: stepLengthData)
+        //stepsData
+        filterVitalArrayToGetSingleDataWithSelectedSegmentInGraph(days: days, array: stepsData)
         
         //BMIData
         filterVitalArrayToGetSingleDataWithSelectedSegmentInGraph(days: days, array: BMIData)
+        
+        //waterIntakeData
+        filterVitalArrayToGetSingleDataWithSelectedSegmentInGraph(days: days, array: waterIntakeData)
         
         return arrVital
     }
@@ -118,12 +130,15 @@ class MuscVital:VitalProtocol {
         var filterArray:[VitalCalculation] = []
         
         switch vitalsName {
-        //stepLength
-        case .stepLength:
-            filterArray = filterVitalArrayWithSelectedSegmentInGraph(days: days, array: stepLengthData)
-        //BMI
+            //stepLength
+        case .stepsData:
+            filterArray = filterVitalArrayWithSelectedSegmentInGraph(days: days, array: stepsData)
+            //BMI
         case .BMI:
             filterArray = filterVitalArrayWithSelectedSegmentInGraph(days: days, array: BMIData)
+            //waterIntakeData
+        case .waterIntake:
+            filterArray = filterVitalArrayWithSelectedSegmentInGraph(days: days, array: waterIntakeData)
         default:
             break
         }

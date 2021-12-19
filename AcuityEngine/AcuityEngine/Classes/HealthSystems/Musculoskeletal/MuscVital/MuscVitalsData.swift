@@ -13,8 +13,10 @@ import HealthKitReporter
  body mass index
  */
 struct MuscVitalRelativeImportance {
-    static let stepLength:Double = 100
+   
     static let BMI:Double = 50
+    static let steps:Double = 100
+    static let waterIntake:Double = 50
 }
 
 class MuscVitalsData:VitalCalculation {
@@ -24,9 +26,9 @@ class MuscVitalsData:VitalCalculation {
         super.title = type
         super.systemName = SystemName.Musculatory
         switch type {
-        //stepLength
-        case .stepLength:
-            self.relativeValue = MuscVitalRelativeImportance.stepLength
+        //steps
+        case .steps:
+            self.relativeValue = MuscVitalRelativeImportance.steps
         //BMI
         case .BMI:
             self.relativeValue = MuscVitalRelativeImportance.BMI

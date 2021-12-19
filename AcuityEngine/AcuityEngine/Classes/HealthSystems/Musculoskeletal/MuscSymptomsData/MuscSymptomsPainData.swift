@@ -18,8 +18,8 @@ import HealthKitReporter
 
 struct MuscSymptomsRelativeImportance {
     static let chestPain:Double = 40
-    static let bodyMuscleAche:Double = 40
-    static let fatigue:Double = 40
+    static let bodyMuscleAche:Double = 100
+    static let fatigue:Double = 70
     static let lowerBackPain:Double = 100
     static let moodChanges:Double = 40
     static let sleepChanges:Double = 30
