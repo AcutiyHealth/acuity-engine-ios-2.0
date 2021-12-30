@@ -45,17 +45,20 @@ class VitalsListViewController: UIViewController {
         //List all vitals from Doc sheet for 14 systems..
         //VitalModel contain Name,quantityTypeIdentifier for each vital..
         //quantityTypeIdentifier will use to authorize and save in Healthkit...
-        vitalsArray = [VitalModel(name: VitalsName.bloodPressure),
-                       //VitalModel(name: VitalsName.heartRate),
-                       //VitalModel(name: VitalsName.vo2Max),
-                       VitalModel(name: VitalsName.peakflowRate),
-                       //VitalModel(name: VitalsName.InhalerUsage),
-                       VitalModel(name: VitalsName.temperature),
-                       VitalModel(name: VitalsName.bloodSugar),
-                       //VitalModel(name: VitalsName.weight),
-                       VitalModel(name: VitalsName.oxygenSaturation),
-                       VitalModel(name: VitalsName.respiratoryRate),
-                       VitalModel(name: VitalsName.BMI),]
+        vitalsArray = [
+            VitalModel(name: VitalsName.BMI),
+            VitalModel(name: VitalsName.bloodPressure),
+            VitalModel(name: VitalsName.bloodSugar),
+            VitalModel(name: VitalsName.oxygenSaturation),
+            VitalModel(name: VitalsName.temperature),
+            VitalModel(name: VitalsName.respiratoryRate),
+            VitalModel(name: VitalsName.peakflowRate),
+            //VitalModel(name: VitalsName.heartRate),
+            //VitalModel(name: VitalsName.vo2Max),
+            //VitalModel(name: VitalsName.InhalerUsage),
+            //VitalModel(name: VitalsName.weight),
+            
+        ]
         
         //============= Append BMI calculator ===========//
         

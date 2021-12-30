@@ -42,12 +42,6 @@ class VitalCalculation:Metrix {
                     //headPhoneAudioLevel
                 case .headPhoneAudioLevel:
                     self.calculatedValue = getHeadphoneAudioLevel().rawValue
-                    //highHeartRate
-                case .highHeartRate:
-                    self.calculatedValue = getHighHeartRateValue().rawValue
-                    //lowHeartRate
-                case .lowHeartRate:
-                    self.calculatedValue = getLowHeartRateValue().rawValue
                     //Temperature
                 case .temperature:
                     self.calculatedValue = getTempratureValue().rawValue
@@ -69,9 +63,6 @@ class VitalCalculation:Metrix {
                     //peakflowRate
                 case .peakflowRate:
                     self.calculatedValue = getPeakFlowRateValue().rawValue
-                    //stepLength
-                case .stepLength:
-                    self.calculatedValue = getstepLengthValue().rawValue
                     //sleep
                 case .sleep:
                     self.calculatedValue = getSleepCountValue().rawValue

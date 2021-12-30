@@ -44,7 +44,6 @@ class PullUpViewController: UIViewController {
         pullUpController.dataSource = self
         pullUpController.setupCard(from: self.view)
         
-        
     }
     //Remove view from it's super and add it again
     func reloadCardViewWithAnimation(){
@@ -79,7 +78,8 @@ extension PullUpViewController: SOPullUpViewDataSource {
     
     func pullUpViewCollapsedViewHeight() -> CGFloat {
         //if Screen.screenHeight < CGFloat(Screen.iPhone11ScreenHeight){
-        return bottomPadding + ((116 * Screen.screenHeight)/CGFloat(Screen.iPhoneSEHeight))
+        //return bottomPadding + ((116 * Screen.screenHeight)/CGFloat(Screen.iPhoneSEHeight))
+        return  Screen.screenHeight*0.075 +  Screen.screenHeight * 0.16 + 30 +  Screen.screenHeight * 0.20
         //        }else{
         //            return bottomPadding + ((190 * Screen.screenHeight)/CGFloat(Screen.iPhone11ScreenHeight))
         //        }

@@ -15,7 +15,7 @@ class VitalQuantityOrCategoryModel {
     
     var quantity: Quantity?
     var quantityType: QuantityType?
-    
+    var vitalName:VitalsName?
     var category: CategoryData?
     var categoryType: CategoryType?
     var categoryValue:Float = 0
@@ -23,11 +23,57 @@ class VitalQuantityOrCategoryModel {
     init(quantityType:QuantityType,quantity:Quantity) {
         self.quantity = quantity
         self.quantityType = quantityType
+        vitalName = getVitalName(quantityType: quantityType)
     }
     init(categoryType:CategoryType,categoryValue:Float,category:CategoryData) {
         self.categoryType = categoryType
         self.category = category
         self.categoryValue = categoryValue
+        vitalName = getVitalName(categoryType: categoryType)
+    }
+    func getVitalName(categoryType:CategoryType)->VitalsName{
+        switch categoryType {
+        case .irregularHeartRhythmEvent:
+            return .irregularRhymesNotification
+        case .sleepAnalysis:
+            return .sleep
+        default:
+            break
+        }
+        return VitalsName(rawValue: "")!
+    }
+    func getVitalName(quantityType:QuantityType)->VitalsName?{
+        switch quantityType {
+        case .bloodPressureSystolic:
+            return .bloodPressureSystolic
+        case .heartRate:
+            return .heartRate
+        case .bloodPressureDiastolic:
+            return .bloodPressureDiastolic
+        case .vo2Max:
+            return .vo2Max
+        case .peakExpiratoryFlowRate:
+            return .peakflowRate
+        case .bodyTemperature:
+            return .temperature
+        case .bloodGlucose:
+            return .bloodSugar
+        case .bodyMass:
+            return .weight
+        case .oxygenSaturation:
+            return .oxygenSaturation
+        case .respiratoryRate:
+            return .respiratoryRate
+        case .bodyMassIndex:
+            return .BMI
+        case .stepCount:
+            return .steps
+        case .dietaryWater:
+            return .waterIntake
+        default:
+            break
+        }
+        return VitalsName(rawValue: "")
     }
 }
 
@@ -140,6 +186,7 @@ class HKManagerReadVitals: NSObject {
                                             let hours = sleepTimeForOneDay/60/60
                                             let model = VitalQuantityOrCategoryModel(categoryType: category,categoryValue:Float(hours), category: element)
                                             cArrayOfVitalList.append(model)
+                                            print("sleep hours",hours)
                                             CardioManager.sharedManager.saveCategoryData(categoryType: category, value: hours, startTimeStamp: element.startTimestamp,endTimeStamp: element.endTimestamp)
                                             //Save data for Respiratory
                                             RespiratoryManager.sharedManager.saveCategoryData(categoryType: category, value: hours, startTimeStamp: element.startTimestamp,endTimeStamp: element.endTimestamp)
@@ -201,7 +248,7 @@ class HKManagerReadVitals: NSObject {
                 if success && error == nil {
                     //dispatchGroup.enter()
                     let characteristic = self.reporter?.reader.characteristics()
-                    let birthdate = characteristic?.birthday?.asDate(format: Date.iso8601)
+                    let birthdate = characteristic?.birthday?.asDate(format: Date.yyyyMMdd)
                     var age = 0;
                     
                     //2 - get today date
@@ -287,7 +334,7 @@ class HKManagerReadVitals: NSObject {
                             let sortDescriptor = NSSortDescriptor(key: HKSampleSortIdentifierStartDate,
                                                                   ascending: false)
                             
-                            
+                            var i = 0
                             for preferredUnit in preferredUnits {
                                 dispatchGroup.enter()
                                 do {
@@ -300,56 +347,60 @@ class HKManagerReadVitals: NSObject {
                                         if error == nil {
                                             DispatchQueue.main.async {
                                                 for element in results {
-                                                    //
-                                                    //CardioManager.sharedManager.saveElementInArray(unit: preferredUnit, element: element)
-                                                    //dispatchGroup.enter()
+                                                    
+//                                                    print("element , preferredUnit.identifier-------",preferredUnit.identifier,Double(element.harmonized.value))
+                                              
                                                     do {
-                                                        
+                                                       // for  _ in 0..<200{
+                                                            print("i-------",i)
+                                                            i = i + 1
+                                                       
                                                         let identifier =  try QuantityType.make(from: preferredUnit.identifier)
                                                         let model = VitalQuantityOrCategoryModel(quantityType: identifier, quantity: element)
                                                         cArrayOfVitalList.append(model)
                                                         //save data For Cardio
-                                                        /*CardioManager.sharedManager.saveQuantityInArray(quantityType: identifier, element: element)
-                                                         
-                                                         //save data For Respiratory
-                                                         RespiratoryManager.sharedManager.saveQuantityInArray(quantityType: identifier, element: element)
-                                                         
-                                                         //save data For Renal
-                                                         RenalManager.sharedManager.saveQuantityInArray(quantityType: identifier, element: element)
-                                                         
-                                                         //Save data for ID...
-                                                         IDiseaseManager.sharedManager.saveQuantityInArray(quantityType: identifier, element: element)
-                                                         
-                                                         //Save data for FNE...
-                                                         FNEManager.sharedManager.saveQuantityInArray(quantityType: identifier, element: element)
-                                                         
-                                                         //Save data for Hemato...
-                                                         HematoManager.sharedManager.saveQuantityInArray(quantityType: identifier, element: element)
-                                                         
-                                                         //Save data for Endocrine...
-                                                         EndocrineManager.sharedManager.saveQuantityInArray(quantityType: identifier, element: element)
-                                                         
-                                                         //Save data for Gastrointestinal...
-                                                         GastrointestinalManager.sharedManager.saveQuantityInArray(quantityType: identifier, element: element)
-                                                         
-                                                         //Save data for Genitourinary...
-                                                         GenitourinaryManager.sharedManager.saveQuantityInArray(quantityType: identifier, element: element)
-                                                         
-                                                         //Save data for Neuro System...
-                                                         NeuroManager.sharedManager.saveQuantityInArray(quantityType: identifier, element: element)
-                                                         
-                                                         //Save data for SDH System...
-                                                         SDHManager.sharedManager.saveQuantityInArray(quantityType: identifier, element: element)
-                                                         
-                                                         //Save data for Musc System...
-                                                         MuscManager.sharedManager.saveQuantityInArray(quantityType: identifier, element: element)
-                                                         
-                                                         //Save data for Skin System...
-                                                         SkinManager.sharedManager.saveQuantityInArray(quantityType: identifier, element: element)
-                                                         
-                                                         //Save data for Heent System...
-                                                         HeentManager.sharedManager.saveQuantityInArray(quantityType: identifier, element: element)*/
+                                                        CardioManager.sharedManager.saveQuantityInArray(quantityType: identifier, element: element)
                                                         
+                                                        //save data For Respiratory
+                                                        RespiratoryManager.sharedManager.saveQuantityInArray(quantityType: identifier, element: element)
+                                                        
+                                                        //save data For Renal
+                                                        RenalManager.sharedManager.saveQuantityInArray(quantityType: identifier, element: element)
+                                                        
+                                                        //Save data for ID...
+                                                        IDiseaseManager.sharedManager.saveQuantityInArray(quantityType: identifier, element: element)
+                                                        
+                                                        //Save data for FNE...
+                                                        FNEManager.sharedManager.saveQuantityInArray(quantityType: identifier, element: element)
+                                                        
+                                                        //Save data for Hemato...
+                                                        HematoManager.sharedManager.saveQuantityInArray(quantityType: identifier, element: element)
+                                                        
+                                                        //Save data for Endocrine...
+                                                        EndocrineManager.sharedManager.saveQuantityInArray(quantityType: identifier, element: element)
+                                                        
+                                                        //Save data for Gastrointestinal...
+                                                        GastrointestinalManager.sharedManager.saveQuantityInArray(quantityType: identifier, element: element)
+                                                        
+                                                        //Save data for Genitourinary...
+                                                        GenitourinaryManager.sharedManager.saveQuantityInArray(quantityType: identifier, element: element)
+                                                        
+                                                        //Save data for Neuro System...
+                                                        NeuroManager.sharedManager.saveQuantityInArray(quantityType: identifier, element: element)
+                                                        
+                                                        //Save data for SDH System...
+                                                        SDHManager.sharedManager.saveQuantityInArray(quantityType: identifier, element: element)
+                                                        
+                                                        //Save data for Musc System...
+                                                        MuscManager.sharedManager.saveQuantityInArray(quantityType: identifier, element: element)
+                                                        
+                                                        //Save data for Skin System...
+                                                        SkinManager.sharedManager.saveQuantityInArray(quantityType: identifier, element: element)
+                                                        
+                                                        //Save data for Heent System...
+                                                        HeentManager.sharedManager.saveQuantityInArray(quantityType: identifier, element: element)
+                                                            
+//                                                        }
                                                     } catch {
                                                         //print(error)
                                                     }
@@ -408,4 +459,3 @@ class HKManagerReadVitals: NSObject {
     
     
 }
-

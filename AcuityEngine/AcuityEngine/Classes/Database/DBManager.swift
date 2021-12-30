@@ -25,7 +25,10 @@ class DBManager: NSObject {
     let field_medicationType = "medicationType"
     let field_medicationText = "medicationText"
     let tbl_medication = "medications"
-    
+    //MyWellScore
+    let field_myWellScoreValue = "value"
+    let field_myWellScoreTimeStamp = "timeStamp"
+    let tbl_myWellScore = "MyWellScore"
     
     static let shared: DBManager = DBManager()
     
@@ -295,7 +298,7 @@ class DBManager: NSObject {
     //========================================================================================================
     //MARK: Medication..
     //========================================================================================================
-  
+    
     func insertMedicationData(model:MedicationDataDisplayModel,completionHandler: (_ success:Bool,_ error:Error?) -> Void) {
         if openDatabase() {
             
@@ -535,6 +538,61 @@ class DBManager: NSObject {
         }
         
         return deleted
+    }
+    
+    //MARK:- MyWellScore tables........
+    func insertMyWellScoreData(model:MyWellScoreModel,completionHandler: (_ success:Bool,_ error:Error?) -> Void) {
+        if openDatabase() {
+            
+            do {
+                
+                var query = ""
+                
+                query = "INSERT INTO \(tbl_myWellScore) (\(field_myWellScoreValue),\(field_myWellScoreTimeStamp)) VALUES (\(model.value),\(model.startTimeStamp)) ;"
+                
+                
+                if !database.executeStatements(query) {
+                    print("Failed to insert initial data into the database.")
+                    print(database.lastError() ?? NSError(), database.lastErrorMessage() as Any)
+                    completionHandler(false,database.lastError())
+                }
+                completionHandler(true,nil)
+            }
+            
+            
+            database.close()
+        }
+    }
+    
+    func loadMyWellScore() -> [MyWellScoreModel] {
+        var arrMywellscore: [MyWellScoreModel] = []
+        
+        // let query = "select * from conditions order by \(field_ConditionName) asc"
+        let query = "Select * From \(tbl_myWellScore)"
+        do {
+            
+            self.fetchResultSet(query: query, values: [], completionHandler: { (success, results:FMResultSet) in
+                if success{
+                    while (results.next()) {
+                        let mywellscore = prepareMyWellScoreModelFromResult(results: results)
+                        arrMywellscore.append(mywellscore)
+                    }
+                }
+            })
+            
+            
+        }
+        
+        return arrMywellscore
+    }
+    
+    func prepareMyWellScoreModelFromResult(results:FMResultSet)->MyWellScoreModel{
+        let value = Double((results.double(forColumn: field_myWellScoreValue)))
+        let timeStamp = Double((results.double(forColumn: field_timeStamp)))
+        
+        //============================================================================================//
+        let myWellScoreModel = MyWellScoreModel(value: value, timeStamp: timeStamp)
+        return myWellScoreModel
     }
     
 }

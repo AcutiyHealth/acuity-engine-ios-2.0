@@ -109,10 +109,6 @@ class CardioVital:VitalProtocol {
             let scoreHeartRateData = getScoreForVitalDataWithGivenDateRange(sampleItem: heartRateData, timeIntervalByLastMonth: timeIntervalByLastMonth, timeIntervalByNow: timeIntervalByNow)
             //irregularRhythmNotificationData
             let scoreIrregularRhythmNotification = getScoreForVitalDataWithGivenDateRange(sampleItem: irregularRhythmNotificationData, timeIntervalByLastMonth: timeIntervalByLastMonth, timeIntervalByNow: timeIntervalByNow)
-            //highHeartRateData
-            //let scoreHighHeartRateData = getScoreForVitalDataWithGivenDateRange(sampleItem: highHeartRateData, timeIntervalByLastMonth: timeIntervalByLastMonth, timeIntervalByNow: timeIntervalByNow)
-            //lowHeartRateData
-            //let scoreLowHeartRateData = getScoreForVitalDataWithGivenDateRange(sampleItem: lowHeartRateData, timeIntervalByLastMonth: timeIntervalByLastMonth, timeIntervalByNow: timeIntervalByNow)
             //vO2MaxData
             let scoreVO2MaxData = getScoreForVitalDataWithGivenDateRange(sampleItem: vO2MaxData, timeIntervalByLastMonth: timeIntervalByLastMonth, timeIntervalByNow: timeIntervalByNow)
             //oxygenSaturationData
@@ -169,13 +165,7 @@ class CardioVital:VitalProtocol {
         
         //irregularRhythmNotificationData
         filterVitalArrayToGetSingleDataWithSelectedSegmentInGraph(days: days, array: irregularRhythmNotificationData)
-        
-        //highHeartRateData
-        //filterVitalArrayToGetSingleDataWithSelectedSegmentInGraph(days: days, array: highHeartRateData)
-        
-        //lowHeartRateData
-        //filterVitalArrayToGetSingleDataWithSelectedSegmentInGraph(days: days, array: lowHeartRateData)
-        
+       
         //vO2MaxData
         filterVitalArrayToGetSingleDataWithSelectedSegmentInGraph(days: days, array: vO2MaxData)
         
@@ -239,13 +229,7 @@ class CardioVital:VitalProtocol {
             
         case .irregularRhymesNotification:
             filterArray = filterVitalArrayWithSelectedSegmentInGraph(days: days, array: irregularRhythmNotificationData)
-            
-        //case .highHeartRate:
-            //filterArray = filterVitalArrayWithSelectedSegmentInGraph(days: days, array: highHeartRateData)
-            
-        //case .lowHeartRate:
-            //filterArray = filterVitalArrayWithSelectedSegmentInGraph(days: days, array: lowHeartRateData)
-            
+     
         case .vo2Max:
             filterArray = filterVitalArrayWithSelectedSegmentInGraph(days: days, array: vO2MaxData)
             

@@ -56,22 +56,22 @@ enum SystemName:String {
     case Heent = "Head,Eyes,Ears,Nose,Throat"
     case MyWellScore = "MyWell  Score"
 }
-struct SystemId {
-    static let Id_Cardiovascular = "112"
-    static let Id_Respiratory = "15"
-    static let Id_Renal = "20"
-    static let Id_Gastrointestinal = "45"
-    static let Id_Genitourinary = "32"
-    static let Id_Endocrine = "46"
-    static let Id_Nuerological = "78"
-    static let Id_Hematology = "36"
-    static let Id_Musculatory = "23"
-    static let Id_Integumentary = "89"
-    static let Id_Fluids = "432"
-    static let Id_InfectiousDisease = "98"
-    static let Id_SocialDeterminantsofHealth = "248"
-    static let Id_Heent = "111"
-    static let Id_MyWellScore = "0"
+enum SystemId:String {
+    case Id_Cardiovascular = "112"
+    case Id_Respiratory = "15"
+    case Id_Renal = "20"
+    case Id_Gastrointestinal = "45"
+    case Id_Genitourinary = "32"
+    case Id_Endocrine = "46"
+    case Id_Nuerological = "78"
+    case Id_Hematology = "36"
+    case Id_Musculatory = "23"
+    case Id_Integumentary = "89"
+    case Id_Fluids = "432"
+    case Id_InfectiousDisease = "98"
+    case Id_SocialDeterminantsofHealth = "248"
+    case Id_Heent = "111"
+    case Id_MyWellScore = "0"
 }
 
 enum ConditionValueText:String {
@@ -310,7 +310,7 @@ struct Fonts {
     static let kAcuityDetailValueFont = getFontAsPerDeviceSize(fontName: UIFont.SFProDisplayBold(of: 26), fontSize: 26)
     static let kAcuityDetailSegmentFont = getFontAsPerDeviceSize(fontName: UIFont.SFProDisplayMedium(of: 13), fontSize: 13)
     static let kAcuityDetailCellTitleFont = getFontAsPerDeviceSize(fontName: UIFont.SFProDisplayBold(of: 18), fontSize: 18)
-    static let kAcuityPullUpMetricCellFont = getFontAsPerDeviceSize(fontName: UIFont.SFProDisplayMedium(of: 14), fontSize: 14)
+    static let kAcuityPullUpMetricCellFont = getFontAsPerDeviceSize(fontName: UIFont.SFProDisplayMedium(of: 13), fontSize: 13)
     static let kAcuityDetailCellFont = getFontAsPerDeviceSize(fontName: UIFont.SFProDisplayMedium(of: 15), fontSize: 15)
     static let kAcuitySystemCellFont = getFontAsPerDeviceSize(fontName: UIFont.SFProDisplayBold(of: 16), fontSize: 16)
     static let kAcuityMyWellTblCellTitleFont = getFontAsPerDeviceSize(fontName: UIFont.SFProDisplaySemiBold(of: 16), fontSize: 16)
@@ -348,17 +348,20 @@ let VERSION_KEY = "version"
 let NUMBER_OF_DAYS_FOR_APP_OPEN = 7
 let NUMBER_OF_DAYS_FOR_APP_SYMPTOMS = 2
 let dayArray = ["Mon","Tue","Wed","Thu","Fri","Sat","Sun"]
-var vitalsArrayInConstant : [VitalModel] = [VitalModel(name: VitalsName.bloodPressure),
-                                            VitalModel(name: VitalsName.heartRate),
-                                            //VitalModel(name: VitalsName.vo2Max),
-                                            VitalModel(name: VitalsName.peakflowRate),
-                                            VitalModel(name: VitalsName.InhalerUsage),
-                                            VitalModel(name: VitalsName.temperature),
-                                            VitalModel(name: VitalsName.bloodSugar),
-                                            VitalModel(name: VitalsName.weight),
-                                            VitalModel(name: VitalsName.oxygenSaturation),
-                                            VitalModel(name: VitalsName.respiratoryRate),
-                                            VitalModel(name: VitalsName.BMI),]
+var vitalsArrayFromCalculationInConstant : [VitalModel] = [VitalModel(name: VitalsName.bloodPressure),
+                                                           VitalModel(name: VitalsName.heartRate),
+                                                           VitalModel(name: VitalsName.irregularRhymesNotification),
+                                                           VitalModel(name: VitalsName.vo2Max),
+                                                           VitalModel(name: VitalsName.peakflowRate),
+                                                           VitalModel(name: VitalsName.temperature),
+                                                           VitalModel(name: VitalsName.bloodSugar),
+                                                           VitalModel(name: VitalsName.weight),
+                                                           VitalModel(name: VitalsName.oxygenSaturation),
+                                                           VitalModel(name: VitalsName.respiratoryRate),
+                                                           VitalModel(name: VitalsName.BMI),
+                                                           VitalModel(name: VitalsName.steps),
+                                                           VitalModel(name: VitalsName.sleep),
+                                                           VitalModel(name: VitalsName.waterIntake),]
 struct DeviceSize {
     static let screenRect = UIScreen.main.bounds
     static let screenWidth = screenRect.size.width

@@ -30,43 +30,22 @@ class AcuityDetailPullUpViewModel: NSObject
         //var arrMedications:[MedicationDataDisplayModel] = []
         var arrLabs:[LabModel] = []
         var arrVitals:[VitalsModel] = []
-        guard let arrCondition = systemMetricsData?[MetricsType.Conditions.rawValue] as? [ConditionsModel] else {
-            return (arrConditions,arrSymptoms,arrVitals,arrLabs)
-        }
+        
+        arrConditions = systemMetricsData?[MetricsType.Conditions.rawValue] as? [ConditionsModel] ?? []
         //arrMedications = self.fetchMedicationData() as [MedicationDataDisplayModel]
         
-        guard let arrSymptom = systemMetricsData?[MetricsType.Sympotms.rawValue] as? [SymptomsModel] else {
-            return (arrConditions,arrSymptoms,arrVitals,arrLabs)
-        }
-        guard let arrLab = systemMetricsData?[MetricsType.LabData.rawValue] as? [LabModel] else {
-            return (arrConditions,arrSymptoms,arrVitals,arrLabs)
-        }
-        guard let arrVital = systemMetricsData?[MetricsType.Vitals.rawValue] as? [VitalsModel] else {
-            return (arrConditions,arrSymptoms,arrVitals,arrLabs)
-        }
+        arrSymptoms = systemMetricsData?[MetricsType.Sympotms.rawValue] as? [SymptomsModel] ?? []
+        arrLabs = systemMetricsData?[MetricsType.LabData.rawValue] as? [LabModel] ?? []
+        arrVitals = systemMetricsData?[MetricsType.Vitals.rawValue] as? [VitalsModel] ?? []
         
-        let sortArrayTupple = self.sortArrayColorWise(arrConditions: arrCondition, arrVitals: arrVital, arrSymptoms: arrSymptom, arrLabs: arrLab)
+        
+        let sortArrayTupple = self.sortArrayColorWise(arrConditions: arrConditions, arrVitals: arrVitals, arrSymptoms: arrSymptoms, arrLabs: arrLabs)
         
         arrConditions = sortArrayTupple.0
         arrSymptoms = sortArrayTupple.1
         arrVitals = sortArrayTupple.2
         arrLabs = sortArrayTupple.3
-        
-        /*//Sorting of array...
-         arrConditions.sort {
-         $0.title ?? "" < $1.title ?? ""
-         }
-         arrVitals.sort {
-         $0.title ?? "" < $1.title ?? ""
-         }
-         
-         arrSymptoms.sort {
-         $0.title ?? "" < $1.title ?? ""
-         }
-         arrLabs.sort {
-         $0.title ?? "" < $1.title ?? ""
-         }*/
-        
+  
         return (arrConditions,arrSymptoms,arrVitals,arrLabs)
     }
     
@@ -168,7 +147,7 @@ class AcuityDetailPullUpViewModel: NSObject
         var scoreText = String(format: "0.00")
         var arraySystemScore:[Double] = []
         var metricDictionary:[String:Any] = [:]
-        print("<--------------------showScoreAndChartData-------------------->")
+
         switch MyWellScore.sharedManager.selectedSystem {
         case .Cardiovascular:
             do{
@@ -269,7 +248,13 @@ class AcuityDetailPullUpViewModel: NSObject
                 metricDictionary = HeentManager.sharedManager.heentData.dictionaryRepresentation()
                 arraySystemScore = HeentManager.sharedManager.heentData.arrayDayWiseSystemScore
             }
-            
+        case .MyWellScore:
+            do{
+                let systemScore = MyWellScore.sharedManager.myWellScore
+                scoreText = systemScore == 100.00 ? String(format: "%.0f", systemScore) : String(format: "%.2f", systemScore)
+                metricDictionary = MyWellScore.sharedManager.dictionaryRepresentation()   
+                arraySystemScore = MyWellScore.sharedManager.totalVitalsScoreForDays(days: MyWellScore.sharedManager.daysToCalculateSystemScore)
+            }
         default:
             break
         }
@@ -299,12 +284,12 @@ class AcuityDetailPullUpViewModel: NSObject
     }
     func combineOtherEntriesFromListOfVitalsInArrayForDisplay(arrVital:[VitalsModel])->[VitalsModel]{
         var arrVitals:[VitalsModel] = arrVital
-        let _ = vitalsArrayInConstant.map { vitalModel in
+        let _ = vitalsArrayFromCalculationInConstant.map { vitalModel in
             if vitalModel.name == VitalsName.bloodPressure{
                 vitalModel.name = VitalsName.bloodPressureSystolicDiastolic
             }
         }
-        for model in vitalsArrayInConstant{
+        for model in vitalsArrayFromCalculationInConstant{
             print("model.name?.rawValue",model.name?.rawValue ?? "")
             
             let filteredArrVital =  arrVitals.filter { vitalModel in
@@ -312,6 +297,21 @@ class AcuityDetailPullUpViewModel: NSObject
             }
             if filteredArrVital.count <= 0{
                 let modelForVitalsArrayObj = VitalsModel(title:  model.name?.rawValue ?? "", value: "--")
+                arrVitals.append(modelForVitalsArrayObj)
+            }
+        }
+        return arrVitals
+    }
+    func combineOtherEntriesFromListOfLabsInArrayForDisplay(arrVital:[LabModel])->[LabModel]{
+        var arrVitals:[LabModel] = arrVital
+        
+        for model in LabType.allCases{
+            
+            let filteredArrVital =  arrVitals.filter { vitalModel in
+                return model.rawValue == vitalModel.title ?? ""
+            }
+            if filteredArrVital.count <= 0{
+                let modelForVitalsArrayObj = LabModel(title:  model.rawValue , value: "--")
                 arrVitals.append(modelForVitalsArrayObj)
             }
         }

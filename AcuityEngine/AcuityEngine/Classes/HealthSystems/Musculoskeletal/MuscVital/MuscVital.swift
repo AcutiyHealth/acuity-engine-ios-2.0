@@ -130,8 +130,8 @@ class MuscVital:VitalProtocol {
         var filterArray:[VitalCalculation] = []
         
         switch vitalsName {
-            //stepLength
-        case .stepsData:
+            //steps count
+        case .steps:
             filterArray = filterVitalArrayWithSelectedSegmentInGraph(days: days, array: stepsData)
             //BMI
         case .BMI:

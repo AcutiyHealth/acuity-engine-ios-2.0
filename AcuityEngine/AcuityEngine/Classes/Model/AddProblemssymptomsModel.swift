@@ -262,7 +262,14 @@ func getSymptomsArray()->[SymptomsName]{
     return arrayOfSymptoms.sorted{ $0.rawValue < $1.rawValue }
 }
 
+class MyWellScoreModel:Metrix{
 
+    init(value:Double,timeStamp:Double) {
+        super.init()
+        super.startTimeStamp = timeStamp
+        super.value = value
+    }
+}
 
 
 

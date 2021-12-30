@@ -17,9 +17,12 @@ class MyWellScore: NSObject {
     var daysToCalculateSystemScore = SegmentValueForGraph.SevenDays
     var selectedSystem = SystemName.Cardiovascular
     var dictionaryOfSystemScore:[[String:Any]] = []
+    var arrayDayWiseMyWellScoreTotal:[Double] = []
+    
     //ViewModel Cardio
     private let viewModelCardio = CardioViewModel()
-    
+    var objAllVitals = AllSystemVitals()
+    var objAllLabs = AllSystemLabs()
     
     /*
      Load health data by value selected from Segment in Pullup segment control.
@@ -64,6 +67,15 @@ class MyWellScore: NSObject {
         let totalMaxScore = getTotalMaxScore()
         let abnormalFraction = totalWeightedSystemScore / totalMaxScore
         MyWellScore.sharedManager.myWellScore = abnormalFraction * 100
+        
+        //Save MyWellScore To Database......
+        let myWellModel = MyWellScoreModel(value: MyWellScore.sharedManager.myWellScore, timeStamp: getTimeStampForCurrenTime())
+        DBManager.shared.insertMyWellScoreData(model: myWellModel) { success, error in
+            
+        //Intialize allsysmtemvitals and labs object....
+        objAllVitals = AllSystemVitals()
+        objAllLabs = AllSystemLabs()
+        }
         Log.d("<--------------------MyWellScore.sharedManager.myWellScore-------------------->\(MyWellScore.sharedManager.myWellScore)")
     }
     
@@ -112,7 +124,7 @@ class MyWellScore: NSObject {
          My Well score calculate for Today/One day. So, when we get WeightedSystemScore, it has get method and in it calculate scroe for One Day.
          */
         //Cardio
-       
+        
         let cardioWeightedSystemScore = CardioManager.sharedManager.cardioData.cardioWeightedSystemScore
         let cardioSystemScore = CardioManager.sharedManager.cardioData.cardioSystemScore
         prepareDictionaryForSystemScore(systemName: SystemName.Cardiovascular, score: cardioSystemScore,image:AcuityImages.kCardiovascular)
@@ -181,7 +193,7 @@ class MyWellScore: NSObject {
         let heentWeightedSystemScore = HeentManager.sharedManager.heentData.heentWeightedSystemScore
         let heentSystemScore = HeentManager.sharedManager.heentData.heentSystemScore
         prepareDictionaryForSystemScore(systemName: SystemName.Heent, score: heentSystemScore,image:AcuityImages.kHeent)
-     
+        
         let totalWeightedSystemScore1 = cardioWeightedSystemScore + respiratoryWeightedSystemScore + renalWeightedSystemScore + iDiseaseWeightedSystemScore
         let totalWeightedSystemScore2 = fneWeightedSystemScore + hematoWeightedSystemScore + endocrineWeightedSystemScore
         let totalWeightedSystemScore3 = gastrointestinalWeightedSystemScore + genitourinaryWeightedSystemScore + neuroWeightedSystemScore
@@ -191,8 +203,8 @@ class MyWellScore: NSObject {
     }
     
     func prepareDictionaryForSystemScore(systemName:SystemName,score:Double,image:String){
-         let score = getStringToDisplayScore(score: score)
-   
+        let score = getStringToDisplayScore(score: score)
+        
         let dictCardio = [Keys.kSystemName:systemName.rawValue,Keys.kScore:score,Keys.kImage:image] as [String : Any];
         dictionaryOfSystemScore.append(dictCardio)
     }
@@ -201,5 +213,51 @@ class MyWellScore: NSObject {
         let acuityMainModel = AcuityMainViewModel()
         dictionaryOfSystemScore = acuityMainModel.sortDictionaryDataBasedOnScore(bodySystemArray: dictionaryOfSystemScore)
     }
-
+    //MARK:- Prepare array of MyWell Score for 7 Days/1 Month and 3 Month
+    func fetchMyWellScoreDataFromDatabse()->[MyWellScoreModel]{
+        
+        var arrMyWellScoreData:[MyWellScoreModel] = []
+        //Feth History Data......
+            arrMyWellScoreData = DBManager.shared.loadMyWellScore()
+         
+        return arrMyWellScoreData
+        
+    }
+    func totalVitalsScoreForDays(days:SegmentValueForGraph) -> [Double] {
+        
+        var arrMyWellScoreData:[MyWellScoreModel] = []
+        arrayDayWiseMyWellScoreTotal = []
+        
+        //Fetch Well Score Data From Database........
+        arrMyWellScoreData = fetchMyWellScoreDataFromDatabse()
+        
+        var now = MyWellScore.sharedManager.todaysDate
+        let getComponentAndLoop = getNumberOfTimesLoopToExecute(days: days)
+        let component:Calendar.Component = getComponentAndLoop["component"] as! Calendar.Component
+        let noOfTimesLoopExecute:Int = getComponentAndLoop["noOfTimesLoopExecute"] as! Int
+        
+        for _ in 0...noOfTimesLoopExecute-1{
+            
+            let day = Calendar.current.date(byAdding: component, value: -1, to: now)!
+            
+            let timeIntervalByLastMonth:Double = day.timeIntervalSince1970
+            //print("timeIntervalByLastMonth",getDateMediumFormat(time:timeIntervalByLastMonth))
+            let timeIntervalByNow:Double = now.timeIntervalSince1970
+            //print("timeIntervalByNow",getDateMediumFormat(time:timeIntervalByNow))
+            now = day
+            
+            let scoreMyWell = getScoreForMyWellDataWithGivenDateRange(sampleItem: arrMyWellScoreData, timeIntervalByLastMonth: timeIntervalByLastMonth, timeIntervalByNow: timeIntervalByNow)
+            
+            let totalScore = scoreMyWell == 0 ? 100 : scoreMyWell
+            arrayDayWiseMyWellScoreTotal.append(totalScore)
+        }
+        return arrayDayWiseMyWellScoreTotal
+    }
+    //MARK: To display data in Pull up...
+    func dictionaryRepresentation()->[String:Any]{
+       
+        let vitalDictionary = objAllVitals.dictionaryRepresentation()
+        return [MetricsType.LabData.rawValue:objAllLabs.dictionaryRepresentation(),MetricsType.Vitals.rawValue:vitalDictionary] as [String : Any]
+        
+    }
 }

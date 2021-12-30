@@ -63,7 +63,7 @@ class AcuityDetailPullUpViewController: UIViewController {
     var labelsAsStringForMonth: Array<String> = ["Week1","Week2","Week3","Week4"]
     var colorForChart: UIColor = UIColor.red
     
-    let cellHeight = (32 * Screen.screenHeight)/896
+    let cellHeight = (17.2 * Screen.screenHeight)/568//(28 * Screen.screenHeight)/896
     
     // MARK: - Properties
     
@@ -104,13 +104,12 @@ class AcuityDetailPullUpViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         setFontForLabel()
         setupSegmentControl()
         showButtonLooksForAllMetrics()
         if UIDevice.current.hasNotch{
             let bottom = UIApplication.shared.keyWindow?.safeAreaInsets.bottom ?? 0
-            viewOfMetricsBottomConstraint.constant = bottom + 5;
+            //viewOfMetricsBottomConstraint.constant = bottom + 5;
         }
         
         //change handle height for consistent swipe up...
@@ -118,6 +117,7 @@ class AcuityDetailPullUpViewController: UIViewController {
             // your code here
             self.setHandleViewHeight()
         }
+        handleAreaUserInteractionOff()
         
         print("viewDidLoad AcuityDetailPullUpViewController")
     }
@@ -163,18 +163,26 @@ class AcuityDetailPullUpViewController: UIViewController {
         displayDatailTitleFromAcuityModel(acuityModel: acuityModel)
         
         //=============================== When Any System Selected Out of 14 system ======================//
-        if acuityModel.id != SystemId.Id_MyWellScore {
+        if acuityModel.id != SystemId.Id_MyWellScore.rawValue {
             //self.topOfMyWellScoreTblConstraint.constant = originalChartHeight;
-            showTblMyWellScore(isShow: false)
-            self.showScoreAndChartData()
+            viewCondition.isHidden = false
+            viewSymptom.isHidden = false
+            viewVitals.isHidden = true
+            viewLab.isHidden = true
         }else{
+            viewCondition.isHidden = true
+            viewSymptom.isHidden = true
+            viewVitals.isHidden = false
+            viewLab.isHidden = false
+           
             //self.topOfMyWellScoreTblConstraint.constant = 0;
             
-            showTblMyWellScore(isShow: true)
+            //showTblMyWellScore(isShow: true)
             
-            self.showScoreAndChartDataForMyWellScore()
+            //self.showScoreAndChartDataForMyWellScore()
         }
-        
+        showTblMyWellScore(isShow: false)
+        self.showScoreAndChartData()
         self.reloadTableView()
         
     }
@@ -193,8 +201,9 @@ class AcuityDetailPullUpViewController: UIViewController {
     func displayDatailTitleFromAcuityModel(acuityModel:AcuityDisplayModel){
         systemMetricsData = acuityModel.metricDictionary
         lblTitle.text = acuityModel.name?.rawValue
+        
         //============== Dont's show score when MyWellScore tab in wheel is selected..=============//
-        lblScore.text =  acuityModel.id != SystemId.Id_MyWellScore ? acuityModel.score : ""
+        lblScore.text =  acuityModel.id != SystemId.Id_MyWellScore.rawValue ? acuityModel.score : ""
         MyWellScore.sharedManager.selectedSystem = acuityModel.name ?? SystemName.Cardiovascular
     }
     
@@ -290,8 +299,9 @@ class AcuityDetailPullUpViewController: UIViewController {
             self?.arrVitals = scoreTupple?.2  ?? []//arrVitals
             self?.arrLabs = scoreTupple?.3 ?? [] //arrLabs
             //=============Combine BP Systolic and Disastolic in One Entry in Vital Array.=============//
-            let arrVitals = self?.viewModelObj.combineBPSystolicandDisastolicInVitalArray(arrVital: self?.arrVitals ?? []) ?? []
-            self?.arrVitals = self?.viewModelObj.combineOtherEntriesFromListOfVitalsInArrayForDisplay(arrVital: arrVitals) ?? []
+            self?.arrVitals = self?.viewModelObj.combineBPSystolicandDisastolicInVitalArray(arrVital: self?.arrVitals ?? []) ?? []
+            //self?.arrVitals = self?.viewModelObj.combineOtherEntriesFromListOfVitalsInArrayForDisplay(arrVital: arrVitals) ?? []
+            self?.arrLabs = self?.viewModelObj.combineOtherEntriesFromListOfLabsInArrayForDisplay(arrVital: self?.arrLabs ?? []) ?? []
             //=============Combine Free Condition with Add Section Condition Data.=============//
             //self?.arrConditions = self?.viewModelObj.fetchFreeConditionDataAndCombineWithAddSectionCondition(arrConditions: self?.arrConditions ?? []) ?? []
             //reload tableview....
@@ -531,6 +541,9 @@ extension AcuityDetailPullUpViewController: UITableViewDelegate, UITableViewData
     //========================================================================================================
     
     func openValueDetailScreen(metrixType:MetricsType){
+       
+        //Stop Handle Area User Interaction......
+        handleAreaUserInteractionOn()
         
         //Add detail value view as child view
         detailConditionVC = UIStoryboard(name: Storyboard.acuityDetailPullUp.rawValue, bundle: nil).instantiateViewController(withIdentifier: "AcuityMetricsDetailViewController") as? AcuityMetricsDetailViewController
@@ -570,11 +583,11 @@ extension AcuityDetailPullUpViewController: UITableViewDelegate, UITableViewData
             self.detailConditionVC?.didMove(toParent: self)
             
             //Show animation when view added.....
-            if isAnimationEnabledForSubView{
-                animationForDetailViewWhenAdded(subviewToAdd: (detailConditionVC?.view)!, in: self.visualEffectView)
-            }else{
+//            if isAnimationEnabledForSubView{
+//                animationForDetailViewWhenAdded(subviewToAdd: (detailConditionVC?.view)!, in: self.visualEffectView)
+//            }else{
                 self.visualEffectView.addSubview((detailConditionVC?.view)!)
-            }
+//            }
             
             //when detail screen open make handle height small......
             handleHeightConstraint.constant = handleHeight;
@@ -596,7 +609,12 @@ extension AcuityDetailPullUpViewController: UITableViewDelegate, UITableViewData
                 }
             })
             visualEffectView.bringSubviewToFront(handleArea)
+            
+            if pullUpControl != nil && pullUpControl?.isExpanded == false{
+                pullUpControl?.expanded()
+            }
         }
+       
     }
     //========================================================================================================
     //MARK: Setup Back Button in Sub Detail Screen...
@@ -637,9 +655,20 @@ extension AcuityDetailPullUpViewController: UITableViewDelegate, UITableViewData
     }
     
     func removeDetailViewFromParent(){
-        animationForDetailViewWhenRemoved(from: self.visualEffectView)
+        //animationForDetailViewWhenRemoved(from: self.visualEffectView)
         detailConditionVC?.view.removeFromSuperview()
         detailConditionVC?.removeFromParent()
+        handleAreaUserInteractionOff()
+        if pullUpControl != nil && pullUpControl?.isExpanded == true{
+            pullUpControl?.collapsed()
+        }
+    }
+    
+    func handleAreaUserInteractionOff(){
+        self.handleArea.isUserInteractionEnabled = false;
+    }
+    func handleAreaUserInteractionOn(){
+        self.handleArea.isUserInteractionEnabled = true;
     }
     //MARK: Btn Back click
     @objc func btnBackClickedInAcuityValueViewController(){

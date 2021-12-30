@@ -141,7 +141,7 @@ enum SymptomsName:String {
     
 }
 
-enum LabType:String {
+enum LabType:String,CaseIterable {
     
     case anionGap = "Anion gap"
     case albumin = "Albumin"
@@ -206,4 +206,69 @@ enum LabCodeConstant:String{
     case vitaminB12 = "30904-7" //Need to import
     case WBC = "6690-0"
     
+}
+
+func getLabTypeFromCode(code:LabCodeConstant)->LabType{
+    switch code {
+    case .anionGap:
+        return .anionGap
+    case .albumin:
+        return .albumin
+    case .alkalinePhosphatase:
+        return .alkalinePhosphatase
+    case .AST:
+        return .AST
+    case .ALT:
+        return .ALT
+    case .bPeptide:
+        return .bPeptide
+    case .bloodGlucose:
+        return .bloodGlucose
+    case .b12Level:
+        return .b12Level
+    case .BUN:
+        return .BUN
+    case .creatinine:
+        return .creatinine
+    case .carbonDioxide:
+        return .carbonDioxide
+    case .chloride:
+        return .chloride
+    case .calcium:
+        return .calcium
+    case .eGFR:
+        return .eGFR
+    case .ESR:
+        return .ESR
+    case .hemoglobin:
+        return .hemoglobin
+    case .hemoglobinA1C:
+        return .hemoglobinA1C
+    case .microalbuminCreatinineRatio:
+        return .microalbuminCreatinineRatio
+    case .MCV:
+        return .MCV
+    case .neutrophil:
+        return .neutrophil
+    case .platelets:
+        return .platelets
+    case .potassiumLevel:
+        return .potassiumLevel
+    case .sodium:
+        return .sodium
+    case .TSH:
+        return .TSH
+    case .urineNitrites:
+        return .urineNitrites
+    case .urineBlood:
+        return .urineBlood
+    case .urineKetone:
+        return .urineKetone
+    case .vitaminB12:
+        return .vitaminB12
+    case .WBC:
+        return .WBC
+        
+    }
+   
 }

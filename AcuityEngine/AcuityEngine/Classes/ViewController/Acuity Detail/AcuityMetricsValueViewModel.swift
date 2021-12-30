@@ -30,6 +30,9 @@ class AcuityMetricsValueViewModel: NSObject
     
     func getLabData(title:String)->[LabModel] {
         var arrLab:[LabModel] = []
+        arrLab = MyWellScore.sharedManager.objAllLabs.getArrayDataForLabs(days:MyWellScore.sharedManager.daysToCalculateSystemScore, title: title)
+       
+        /*
         switch MyWellScore.sharedManager.selectedSystem {
         case .Cardiovascular:
             do{
@@ -90,7 +93,7 @@ class AcuityMetricsValueViewModel: NSObject
         default:
         break
         }
-        
+        */
         return arrLab
     }
     
@@ -165,6 +168,8 @@ class AcuityMetricsValueViewModel: NSObject
     }
     func getVitals(title:String)->[VitalsModel] {
         var arrVitals:[VitalsModel] = []
+        arrVitals = MyWellScore.sharedManager.objAllVitals.getArrayDataForVitals(days:MyWellScore.sharedManager.daysToCalculateSystemScore, title: title)
+        /*
         switch MyWellScore.sharedManager.selectedSystem {
         
         case .Cardiovascular:
@@ -225,7 +230,7 @@ class AcuityMetricsValueViewModel: NSObject
             }
         default:
         break
-        }
+        }*/
         return arrVitals
     }
     

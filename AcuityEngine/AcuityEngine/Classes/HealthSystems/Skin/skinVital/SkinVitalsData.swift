@@ -24,7 +24,7 @@ class SkinVitalsData:VitalCalculation {
         super.title = type
         super.systemName = SystemName.Integumentary
         switch type {
-            //stepLength
+            //temperature
         case .temperature:
             self.relativeValue = SkinVitalRelativeImportance.temperature
             //waterIntake

@@ -61,14 +61,7 @@ class HeentManager: NSObject {
                 self.heentData.heentVital.oxygenSaturationData.append(oxygenSaturation)
                 
             }
-        case .inhalerUsage:
-            do{
-                let inhalerUsage = HeentVitalsData(type: VitalsName.InhalerUsage)
-                inhalerUsage.value = Double(element.harmonized.value)
-                inhalerUsage.startTimeStamp = element.startTimestamp
-                self.heentData.heentVital.inhalerUsageData.append(inhalerUsage)
-                
-            }
+       
         default:
             break
         }

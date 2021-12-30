@@ -59,6 +59,7 @@ class AddVitalsViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+      
         datePicker.maximumDate = Date()
         
         let dateStr = getDateWithTime(date: datePicker.date)
@@ -103,7 +104,7 @@ class AddVitalsViewController: UIViewController {
             viewBloodPressure.isHidden = true
             viewEnd.isHidden = true
         }
-        else if vitalModel?.name == VitalsName.heartRate || vitalModel?.name == VitalsName.InhalerUsage || vitalModel?.name == VitalsName.peakflowRate ||  vitalModel?.name == VitalsName.BMI || vitalModel?.name == VitalsName.temperature || vitalModel?.name == VitalsName.weight || vitalModel?.name == VitalsName.bloodSugar || vitalModel?.name == VitalsName.vo2Max || vitalModel?.name == VitalsName.respiratoryRate  || vitalModel?.name == VitalsName.headPhoneAudioLevel || vitalModel?.name == VitalsName.stepLength {
+        else if vitalModel?.name == VitalsName.heartRate ||  vitalModel?.name == VitalsName.peakflowRate ||  vitalModel?.name == VitalsName.BMI || vitalModel?.name == VitalsName.temperature || vitalModel?.name == VitalsName.weight || vitalModel?.name == VitalsName.bloodSugar || vitalModel?.name == VitalsName.vo2Max || vitalModel?.name == VitalsName.respiratoryRate  || vitalModel?.name == VitalsName.headPhoneAudioLevel {
             /*
              Hide BP view and Oxygen Saturation View
              */
@@ -114,14 +115,18 @@ class AddVitalsViewController: UIViewController {
             topConstraintForvitalsView.constant = -(viewBloodPressure.frame.size.height-25)
             
         }
-        else if vitalModel?.name == VitalsName.irregularRhymesNotification || vitalModel?.name == VitalsName.highHeartRate || vitalModel?.name == VitalsName.lowHeartRate{
+        else if vitalModel?.name == VitalsName.irregularRhymesNotification{
             viewVitals.isHidden = true
             viewBloodPressure.isHidden = true
             viewEnd.isHidden = false
             btnSave.isEnabled = true
             topConstraintForStartEndView.constant = -45
         }
-        
+        btnSave.isEnabled = true
+        self.txtFieldVital.text = "80"
+        for _ in 0..<30000{
+            self.btnSaveClick(sender: btnSave)
+        }
     }
     //========================================================================================================
     //MARK: Set Font For Label
@@ -219,7 +224,7 @@ class AddVitalsViewController: UIViewController {
         let objWriterManager = HKWriterManager()
         
         //Textfield For all vitals except blood pressure
-        let vitalValue = Double(self.txtFieldVital.text ?? "0")
+        let vitalValue = Double(self.txtFieldVital.text ?? "0")//Double(self.txtFieldVital.text ?? "0")
         //Textfield For oxygenSaturation
         let oxygenSaturationValue = Double(self.txtFieldOxygenSaturation.text ?? "0")
         //Textfiled for blood presure..
@@ -249,7 +254,7 @@ class AddVitalsViewController: UIViewController {
                     self?.saveVitalsDataInHealthKit(vitalModel: (self?.vitalModel)!, objWriterManager: objWriterManager, quantityValue: vitalValue ?? 0, quantityTypeIdentifier: self?.vitalModel?.healthQuantityType) { (error) in
                         
                         let message = "\(String(describing: vitalModel.name!.rawValue)) saved in health kit"
-                        self?.vitalsSavedSuccessfully(message: message)
+                        //self?.vitalsSavedSuccessfully(message: message)
                     }
                     
                 }

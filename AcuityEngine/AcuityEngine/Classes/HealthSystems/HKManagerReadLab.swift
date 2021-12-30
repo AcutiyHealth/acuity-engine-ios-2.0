@@ -9,6 +9,8 @@ import Foundation
 import HealthKit
 import HealthKitReporter
 
+var cArrayOfLabList:[LabCalculation] = []
+
 class HKManagerReadLab: NSObject
 {
     static let sharedManager = HKManagerReadLab()
@@ -18,9 +20,7 @@ class HKManagerReadLab: NSObject
         super.init()
         
     }
-    /*
-     https://docs.google.com/spreadsheets/d/1XDGg4u6Nvzrbv-BZLzwWlRcGAf6FsAecC_I2yKozHIE/edit#gid=946627644
-     */
+    
     func readLabDataTemp(completion: @escaping (Bool, HealthkitSetupError?) -> Swift.Void){
         let dispatchGroup = DispatchGroup()
         dispatchGroup.enter()
@@ -97,6 +97,15 @@ class HKManagerReadLab: NSObject
                                     //code = "2951-2" // Comment this
                                     //if code == "2823-3"{ //Uncoment this....
                                     // access individual value in dictionary
+                                  
+                                    let labCodeConstant = LabCodeConstant(rawValue: code )
+                                    if labCodeConstant != nil {
+                                    let objLabCalculation = LabCalculation()
+                                    objLabCalculation.metricType = getLabTypeFromCode(code: labCodeConstant!)
+                                    objLabCalculation.value = value
+                                    objLabCalculation.startTimeStamp = Double(timeStampOfLabData)
+                                    cArrayOfLabList.append(objLabCalculation)
+                                    }
                                     //Save Data For Cardio..
                                     CardioManager.sharedManager.saveLabData(code: code, value: value, timeStamp: Double(timeStampOfLabData))
                                     //Save Data For Respiratory..

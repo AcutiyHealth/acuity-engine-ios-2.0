@@ -10,6 +10,8 @@
 		08B879B268566B06F141D3F3 /* Pods_AcuityEngine.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2674AE460659ECA36794A9A0 /* Pods_AcuityEngine.framework */; };
 		7A04F4F82705CFD50006123F /* AddOtherHistoriesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A04F4F72705CFD50006123F /* AddOtherHistoriesViewController.swift */; };
 		7A0C287D271919AC0021A7AC /* ProfiletempVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A0C287C271919AC0021A7AC /* ProfiletempVC.swift */; };
+		7A149A9E277A94470039B781 /* AllSystemLabs.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A149A9C277A94460039B781 /* AllSystemLabs.swift */; };
+		7A149A9F277A94470039B781 /* AllSystemVitals.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A149A9D277A94470039B781 /* AllSystemVitals.swift */; };
 		7A1A78552707F57800C8BA4E /* ConditionArray.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A1A78542707F57800C8BA4E /* ConditionArray.swift */; };
 		7A1DFE662716EC4000CEC87D /* ProfileAddOptionsDataView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A1DFE642716EC4000CEC87D /* ProfileAddOptionsDataView.swift */; };
 		7A22A234275E22480096A8E5 /* OnboaringSlide.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A22A233275E22480096A8E5 /* OnboaringSlide.swift */; };
@@ -198,7 +200,6 @@
 		7A73082026FF1EB2005F9F5E /* RespiratoryVital.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A73070626FF1EB1005F9F5E /* RespiratoryVital.swift */; };
 		7A73082126FF1EB2005F9F5E /* RespiratoryVitalData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A73070726FF1EB1005F9F5E /* RespiratoryVitalData.swift */; };
 		7A73082226FF1EB2005F9F5E /* RespiratoryManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A73070826FF1EB1005F9F5E /* RespiratoryManager.swift */; };
-		7A73082326FF1EB2005F9F5E /* RespiratoryValue.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A73070926FF1EB1005F9F5E /* RespiratoryValue.swift */; };
 		7A73082426FF1EB2005F9F5E /* RespiratoryConditionData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A73070B26FF1EB1005F9F5E /* RespiratoryConditionData.swift */; };
 		7A73082526FF1EB2005F9F5E /* RespiratoryCondition.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A73070C26FF1EB1005F9F5E /* RespiratoryCondition.swift */; };
 		7A73082626FF1EB2005F9F5E /* RespiratoryData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A73070D26FF1EB1005F9F5E /* RespiratoryData.swift */; };
@@ -313,6 +314,8 @@
 		5E581811A157C643B3DE3D9C /* Pods-AcuityEngine.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-AcuityEngine.release.xcconfig"; path = "Target Support Files/Pods-AcuityEngine/Pods-AcuityEngine.release.xcconfig"; sourceTree = "<group>"; };
 		7A04F4F72705CFD50006123F /* AddOtherHistoriesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddOtherHistoriesViewController.swift; sourceTree = "<group>"; };
 		7A0C287C271919AC0021A7AC /* ProfiletempVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfiletempVC.swift; sourceTree = "<group>"; };
+		7A149A9C277A94460039B781 /* AllSystemLabs.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AllSystemLabs.swift; sourceTree = "<group>"; };
+		7A149A9D277A94470039B781 /* AllSystemVitals.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AllSystemVitals.swift; sourceTree = "<group>"; };
 		7A1A78542707F57800C8BA4E /* ConditionArray.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConditionArray.swift; sourceTree = "<group>"; };
 		7A1DFE642716EC4000CEC87D /* ProfileAddOptionsDataView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProfileAddOptionsDataView.swift; sourceTree = "<group>"; };
 		7A22A233275E22480096A8E5 /* OnboaringSlide.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OnboaringSlide.swift; sourceTree = "<group>"; };
@@ -511,7 +514,6 @@
 		7A73070626FF1EB1005F9F5E /* RespiratoryVital.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RespiratoryVital.swift; sourceTree = "<group>"; };
 		7A73070726FF1EB1005F9F5E /* RespiratoryVitalData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RespiratoryVitalData.swift; sourceTree = "<group>"; };
 		7A73070826FF1EB1005F9F5E /* RespiratoryManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RespiratoryManager.swift; sourceTree = "<group>"; };
-		7A73070926FF1EB1005F9F5E /* RespiratoryValue.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RespiratoryValue.swift; sourceTree = "<group>"; };
 		7A73070B26FF1EB1005F9F5E /* RespiratoryConditionData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RespiratoryConditionData.swift; sourceTree = "<group>"; };
 		7A73070C26FF1EB1005F9F5E /* RespiratoryCondition.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RespiratoryCondition.swift; sourceTree = "<group>"; };
 		7A73070D26FF1EB1005F9F5E /* RespiratoryData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RespiratoryData.swift; sourceTree = "<group>"; };
@@ -850,6 +852,8 @@
 		7A73063C26FF1EB1005F9F5E /* HealthSystems */ = {
 			isa = PBXGroup;
 			children = (
+				7A149A9C277A94460039B781 /* AllSystemLabs.swift */,
+				7A149A9D277A94470039B781 /* AllSystemVitals.swift */,
 				7A73063D26FF1EB1005F9F5E /* Musculoskeletal */,
 				7A73064C26FF1EB1005F9F5E /* Gastrointestinal */,
 				7A73065B26FF1EB1005F9F5E /* Skin */,
@@ -1489,7 +1493,6 @@
 			children = (
 				7A73070526FF1EB1005F9F5E /* RespiratoryVitalData */,
 				7A73070826FF1EB1005F9F5E /* RespiratoryManager.swift */,
-				7A73070926FF1EB1005F9F5E /* RespiratoryValue.swift */,
 				7A73070A26FF1EB1005F9F5E /* RespiratoryCondition */,
 				7A73070D26FF1EB1005F9F5E /* RespiratoryData.swift */,
 				7A73071226FF1EB1005F9F5E /* RespiratoryManager+Extension.swift */,
@@ -2343,9 +2346,11 @@
 				7A7307A726FF1EB2005F9F5E /* GastrointestinalSymptoms.swift in Sources */,
 				7A73079326FF1EB2005F9F5E /* APIResponseModel.swift in Sources */,
 				7A73080426FF1EB2005F9F5E /* GenitourinaryData.swift in Sources */,
+				7A149A9E277A94470039B781 /* AllSystemLabs.swift in Sources */,
 				7A73084E26FF1EB2005F9F5E /* Chevron.m in Sources */,
 				7A73083326FF1EB2005F9F5E /* HematologyVitalData.swift in Sources */,
 				7A9DC08E271E69D800F7B8E8 /* NotificationManager.swift in Sources */,
+				7A149A9F277A94470039B781 /* AllSystemVitals.swift in Sources */,
 				7A7307FC26FF1EB2005F9F5E /* NeuroVitalsData.swift in Sources */,
 				7A22C1B825E786F10028319D /* AcuityEngine.xcdatamodeld in Sources */,
 				7A7307DB26FF1EB2005F9F5E /* HeentSymptoms.swift in Sources */,
@@ -2361,7 +2366,6 @@
 				7A7307F526FF1EB2005F9F5E /* HKManagerReadSymptoms.swift in Sources */,
 				7A73080926FF1EB2005F9F5E /* GenitourinaryVitalsData.swift in Sources */,
 				7A73081E26FF1EB2005F9F5E /* FNEConditionData.swift in Sources */,
-				7A73082326FF1EB2005F9F5E /* RespiratoryValue.swift in Sources */,
 				7A7307CE26FF1EB2005F9F5E /* RenalCondition.swift in Sources */,
 				7A7307D826FF1EB2005F9F5E /* HeentVital.swift in Sources */,
 				7A7307D726FF1EB2005F9F5E /* HeentVitalsData.swift in Sources */,
@@ -2536,7 +2540,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = AcuityEngine/AcuityEngineDebug.entitlements;
-				CODE_SIGN_IDENTITY = "iPhone Distribution";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Manual;
 				CURRENT_PROJECT_VERSION = 5;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
@@ -2550,7 +2554,7 @@
 				MARKETING_VERSION = 1.55;
 				PRODUCT_BUNDLE_IDENTIFIER = com.devdigital.acuityhealthengineenterprise;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE_SPECIFIER = AcuityHealthEngineEnterpriseDistribution;
+				PROVISIONING_PROFILE_SPECIFIER = "Acuity Engine development";
 				SWIFT_OBJC_BRIDGING_HEADER = "AcuityEngine/AcuityEngine-Bridging-Header.h";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 1;
@@ -2564,7 +2568,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = AcuityEngine/AcuityEngine.entitlements;
-				CODE_SIGN_IDENTITY = "iPhone Distribution";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Manual;
 				CURRENT_PROJECT_VERSION = 5;
 				DEVELOPMENT_TEAM = 56FBZFEBV5;
@@ -2577,7 +2581,7 @@
 				MARKETING_VERSION = 1.55;
 				PRODUCT_BUNDLE_IDENTIFIER = com.devdigital.acuityhealthengineenterprise;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE_SPECIFIER = AcuityHealthEngineEnterpriseDistribution;
+				PROVISIONING_PROFILE_SPECIFIER = "Acuity Engine development";
 				SWIFT_OBJC_BRIDGING_HEADER = "AcuityEngine/AcuityEngine-Bridging-Header.h";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 1;

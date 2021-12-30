@@ -12,13 +12,11 @@ class HeentVital:VitalProtocol {
      Headphone Audio Levels
      Temperature
      Oxygen saturation
-     Inhaler usage (times/day)
      */*/
     
     var headphoneAudioLevelsData:[HeentVitalsData] = []
     var temperatureData:[HeentVitalsData] = []
     var oxygenSaturationData:[HeentVitalsData] = []
-    var inhalerUsageData:[HeentVitalsData] = []
     
     var totalScore:[Double] = []
     var arrayDayWiseScoreTotal:[Double] = []
@@ -30,9 +28,8 @@ class HeentVital:VitalProtocol {
         let headphoneAudioLevels = (Double(headphoneAudioLevelsData.average(\.score)) .isNaN ? 0 : Double(headphoneAudioLevelsData.average(\.score)))
         let temperature = (Double(temperatureData.average(\.score)) .isNaN ? 0 : Double(temperatureData.average(\.score)))
         let oxygenSaturation = (Double(oxygenSaturationData.average(\.score)) .isNaN ? 0 : Double(oxygenSaturationData.average(\.score)))
-        let inhalerUsage = (Double(inhalerUsageData.average(\.score)) .isNaN ? 0 : Double(inhalerUsageData.average(\.score)))
-        
-        let totalVitalScore = headphoneAudioLevels + temperature + oxygenSaturation + inhalerUsage;
+       
+        let totalVitalScore = headphoneAudioLevels + temperature + oxygenSaturation ;
         return totalVitalScore;
     }
     
@@ -72,10 +69,8 @@ class HeentVital:VitalProtocol {
             //oxygenSaturation
             let scoreoxygenSaturation = getScoreForVitalDataWithGivenDateRange(sampleItem: oxygenSaturationData, timeIntervalByLastMonth: timeIntervalByLastMonth, timeIntervalByNow: timeIntervalByNow)
             
-            //inhalerUsage
-            let scoreinhalerUsage = getScoreForVitalDataWithGivenDateRange(sampleItem: inhalerUsageData, timeIntervalByLastMonth: timeIntervalByLastMonth, timeIntervalByNow: timeIntervalByNow)
         
-            let totalScore = scoreheadphoneAudioLevels + scoretemperature + scoreoxygenSaturation + scoreinhalerUsage
+            let totalScore = scoreheadphoneAudioLevels + scoretemperature + scoreoxygenSaturation
             arrayDayWiseScoreTotal.append(totalScore)
         }
         
@@ -89,10 +84,9 @@ class HeentVital:VitalProtocol {
         let headPhoneAudioLevel = HeentVitalRelativeImportance.headPhoneAudioLevel.getConvertedValueFromPercentage()
         //oxygenSaturation
         let oxygenSaturation = HeentVitalRelativeImportance.oxygenSaturation.getConvertedValueFromPercentage()
-        //InhalerUsage
-        let inhalerUsage = HeentVitalRelativeImportance.InhalerUsage.getConvertedValueFromPercentage()
+       
         
-        let totalVitalScore =  temperature + headPhoneAudioLevel + oxygenSaturation + inhalerUsage
+        let totalVitalScore =  temperature + headPhoneAudioLevel + oxygenSaturation
         
         return totalVitalScore;
     }
@@ -112,9 +106,6 @@ class HeentVital:VitalProtocol {
         
         //oxygenSaturation
         filterVitalArrayToGetSingleDataWithSelectedSegmentInGraph(days: days, array: oxygenSaturationData)
-        
-        //inhalerUsage
-        filterVitalArrayToGetSingleDataWithSelectedSegmentInGraph(days: days, array: inhalerUsageData)
         
         return arrVital
     }
@@ -153,11 +144,7 @@ class HeentVital:VitalProtocol {
         //oxygenSaturation
         case .oxygenSaturation:
             filterArray = filterVitalArrayWithSelectedSegmentInGraph(days: days, array: oxygenSaturationData)
-            
-        //InhalerUsage
-        case .InhalerUsage:
-            filterArray = filterVitalArrayWithSelectedSegmentInGraph(days: days, array: inhalerUsageData)
-            
+          
         default:
             break
         }

@@ -687,7 +687,9 @@ class AcuityMainViewController: PullUpViewController, UIScrollViewDelegate,Rotar
                 //IT's from PullViewController..When user change system in didSet it will change data...
                 self?.selectPullUpType = .Detail
                 self?.openDetailPullUpViewController(withAnimation: false)
-                self?.systemData = item
+                var localItem = item
+                localItem![Keys.kMetricDictionary] = self?.viewModelAcuityMain.getDictionaryForSelectedSystem(id:localItem![Keys.kAcuityId] as! String)
+                self?.systemData = localItem
                 
             }
             
@@ -737,10 +739,11 @@ class AcuityMainViewController: PullUpViewController, UIScrollViewDelegate,Rotar
                 
                 //set selected system data..
                 //IT's from PullViewController..When user change system in didSet it will change data...
-                
+                var localItem = item
+                localItem![Keys.kMetricDictionary] = self?.viewModelAcuityMain.getDictionaryForSelectedSystem(id:localItem![Keys.kAcuityId] as! String)
                 self?.selectPullUpType = .Detail
                 self?.openDetailPullUpViewController(withAnimation: true)
-                self?.systemData = item
+                self?.systemData = localItem
                 
             }
             

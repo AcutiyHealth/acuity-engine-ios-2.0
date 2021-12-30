@@ -18,7 +18,7 @@ struct HeentVitalRelativeImportance {
     static let headPhoneAudioLevel:Double = 80
     static let temperature:Double = 100
     static let oxygenSaturation:Double = 80
-    static let InhalerUsage:Double = 20
+    //static let InhalerUsage:Double = 20
 }
 
 class HeentVitalsData:VitalCalculation {
@@ -37,9 +37,6 @@ class HeentVitalsData:VitalCalculation {
         //oxygenSaturation
         case .oxygenSaturation:
             self.relativeValue = HeentVitalRelativeImportance.oxygenSaturation
-        //InhalerUsage
-        case .InhalerUsage:
-            self.relativeValue = HeentVitalRelativeImportance.InhalerUsage
         
         default:
             break
