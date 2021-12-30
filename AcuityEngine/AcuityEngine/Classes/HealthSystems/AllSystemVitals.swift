@@ -138,37 +138,7 @@ class AllSystemVitals {
             
             let waterIntakeData = CardioManager.sharedManager.cardioData.cardioVital.waterIntakeData
             let _ = filterVitalArrayToGetSingleDataWithSelectedSegmentInGraph(days: days, array: waterIntakeData,vitalName: VitalsName.waterIntake)
-            /*for model in vitalsArrayFromCalculationInConstant{
-             if model.name == VitalsName.bloodPressure || model.name == VitalsName.bloodPressureSystolicDiastolic{
-             let filteredArrSystolic =  cArrayOfVitalList.filter { vitalModel in
-             return VitalsName.bloodPressureSystolic == vitalModel.vitalName
-             }
-             let filteredArrDiastolic =  cArrayOfVitalList.filter { vitalModel in
-             return VitalsName.bloodPressureDiastolic == vitalModel.vitalName
-             }
-             let vitalArrayFromQuantityTypeSystolic =  createVitalArrayCalculationFromFilteredArray(days: days, filteredArrVital: filteredArrSystolic)
-             let filteredVitalCalculationArraySystolic =  filterVitalArrayToGetSingleDataWithSelectedSegmentInGraph(days: days, array: vitalArrayFromQuantityTypeSystolic)
-             
-             let vitalArrayFromQuantityTypeDystolic = createVitalArrayCalculationFromFilteredArray(days: days, filteredArrVital: filteredArrDiastolic)
-             let filteredVitalCalculationArrayDystolic = filterVitalArrayToGetSingleDataWithSelectedSegmentInGraph(days: days, array: vitalArrayFromQuantityTypeDystolic)
-             
-             if filteredVitalCalculationArraySystolic.count == 0 || filteredVitalCalculationArrayDystolic.count == 0{
-             vitalNameArrayHaveNoValue.append(VitalsName.bloodPressureSystolicDiastolic)
-             }
-             }
-             else{
-             let filteredArrVital =  cArrayOfVitalList.filter { vitalModel in
-             return model.name! == vitalModel.vitalName
-             }
-             
-             vitalCalculationArrayFromQuantity = createVitalArrayCalculationFromFilteredArray(days: days, filteredArrVital: filteredArrVital)
-             let filteredVitalCalculationArray =  filterVitalArrayToGetSingleDataWithSelectedSegmentInGraph(days: days, array: vitalCalculationArrayFromQuantity)
-             if filteredVitalCalculationArray.count == 0{
-             vitalNameArrayHaveNoValue.append(model.name)
-             }
-             }
-             
-             }*/
+            
             for name in vitalNameArrayHaveNoValue{
                 let vitalModel = VitalsModel(title: name.rawValue, value: "--")
                 arrVital.append(vitalModel)

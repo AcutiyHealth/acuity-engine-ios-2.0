@@ -91,7 +91,7 @@ class GastrointestinalData {
     //MARK: To display data in Pull up...
     func dictionaryRepresentation()->[String:Any]{
         
-        return [MetricsType.Conditions.rawValue:gastrointestinalCondition.dictionaryRepresentation(),MetricsType.Sympotms.rawValue:gastrointestinalSymptoms.dictionaryRepresentation(),MetricsType.LabData.rawValue:gastrointestinalLab.dictionaryRepresentation(),MetricsType.Vitals.rawValue:gastrointestinalVital.dictionaryRepresentation()] as [String : Any]
+        return [MetricsType.Conditions.rawValue:gastrointestinalCondition.dictionaryRepresentation(),MetricsType.Sympotms.rawValue:gastrointestinalSymptoms.dictionaryRepresentation()] as [String : Any]
         
     }
 }

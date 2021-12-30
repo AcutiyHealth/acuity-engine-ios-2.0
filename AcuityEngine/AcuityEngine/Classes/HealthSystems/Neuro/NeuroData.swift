@@ -91,7 +91,7 @@ class NeuroData {
     //MARK: To display data in Pull up...
     func dictionaryRepresentation()->[String:Any]{
         
-        return [MetricsType.Conditions.rawValue:neuroCondition.dictionaryRepresentation(),MetricsType.Sympotms.rawValue:neuroSymptoms.dictionaryRepresentation(),MetricsType.LabData.rawValue:neuroLab.dictionaryRepresentation(),MetricsType.Vitals.rawValue:neuroVital.dictionaryRepresentation()] as [String : Any]
+        return [MetricsType.Conditions.rawValue:neuroCondition.dictionaryRepresentation(),MetricsType.Sympotms.rawValue:neuroSymptoms.dictionaryRepresentation()] as [String : Any]
         
     }
 }

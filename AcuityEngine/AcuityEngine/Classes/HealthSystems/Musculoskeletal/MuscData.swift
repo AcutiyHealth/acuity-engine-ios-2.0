@@ -91,7 +91,7 @@ class MuscData {
     //MARK: To display data in Pull up...
     func dictionaryRepresentation()->[String:Any]{
         
-        return [MetricsType.Conditions.rawValue:muscCondition.dictionaryRepresentation(),MetricsType.Sympotms.rawValue:muscSymptoms.dictionaryRepresentation(),MetricsType.LabData.rawValue:muscLab.dictionaryRepresentation(),MetricsType.Vitals.rawValue:muscVital.dictionaryRepresentation()] as [String : Any]
+        return [MetricsType.Conditions.rawValue:muscCondition.dictionaryRepresentation(),MetricsType.Sympotms.rawValue:muscSymptoms.dictionaryRepresentation()] as [String : Any]
         
     }
 }

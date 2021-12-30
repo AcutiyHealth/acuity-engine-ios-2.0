@@ -91,7 +91,7 @@ class EndocrineData {
     //MARK: To display data in Pull up...
     func dictionaryRepresentation()->[String:Any]{
         
-        return [MetricsType.Conditions.rawValue:endocrineCondition.dictionaryRepresentation(),MetricsType.Sympotms.rawValue:endocrineSymptoms.dictionaryRepresentation(),MetricsType.LabData.rawValue:endocrineLab.dictionaryRepresentation(),MetricsType.Vitals.rawValue:endocrineVital.dictionaryRepresentation()] as [String : Any]
+        return [MetricsType.Conditions.rawValue:endocrineCondition.dictionaryRepresentation(),MetricsType.Sympotms.rawValue:endocrineSymptoms.dictionaryRepresentation()] as [String : Any]
         
     }
 }

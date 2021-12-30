@@ -93,7 +93,7 @@ class SkinData {
     //MARK: To display data in Pull up...
     func dictionaryRepresentation()->[String:Any]{
         
-        return [MetricsType.Conditions.rawValue:skinCondition.dictionaryRepresentation(),MetricsType.Sympotms.rawValue:skinSymptoms.dictionaryRepresentation(),MetricsType.LabData.rawValue:skinLab.dictionaryRepresentation(),MetricsType.Vitals.rawValue:skinVital.dictionaryRepresentation()] as [String : Any]
+        return [MetricsType.Conditions.rawValue:skinCondition.dictionaryRepresentation(),MetricsType.Sympotms.rawValue:skinSymptoms.dictionaryRepresentation()] as [String : Any]
         
     }
 }

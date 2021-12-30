@@ -91,7 +91,7 @@ class IDiseaseData {
     //MARK: To display data in Pull up...
     func dictionaryRepresentation()->[String:Any]{
         
-        return [MetricsType.Conditions.rawValue:iDiseaseCondition.dictionaryRepresentation(),MetricsType.Sympotms.rawValue:iDiseaseSymptoms.dictionaryRepresentation(),MetricsType.LabData.rawValue:iDiseaseLab.dictionaryRepresentation(),MetricsType.Vitals.rawValue:iDiseaseVital.dictionaryRepresentation()] as [String : Any]
+        return [MetricsType.Conditions.rawValue:iDiseaseCondition.dictionaryRepresentation(),MetricsType.Sympotms.rawValue:iDiseaseSymptoms.dictionaryRepresentation()] as [String : Any]
         
     }
 }

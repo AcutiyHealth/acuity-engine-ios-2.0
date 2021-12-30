@@ -93,7 +93,7 @@ class HeentData {
     //MARK: To display data in Pull up...
     func dictionaryRepresentation()->[String:Any]{
         
-        return [MetricsType.Conditions.rawValue:heentCondition.dictionaryRepresentation(),MetricsType.Sympotms.rawValue:heentSymptoms.dictionaryRepresentation(),MetricsType.LabData.rawValue:heentLab.dictionaryRepresentation(),MetricsType.Vitals.rawValue:heentVital.dictionaryRepresentation()] as [String : Any]
+        return [MetricsType.Conditions.rawValue:heentCondition.dictionaryRepresentation(),MetricsType.Sympotms.rawValue:heentSymptoms.dictionaryRepresentation()] as [String : Any]
         
     }
 }

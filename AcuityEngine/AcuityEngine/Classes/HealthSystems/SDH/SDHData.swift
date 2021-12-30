@@ -91,7 +91,7 @@ class SDHData {
     //MARK: To display data in Pull up...
     func dictionaryRepresentation()->[String:Any]{
         
-        return [MetricsType.Conditions.rawValue:sdhCondition.dictionaryRepresentation(),MetricsType.Sympotms.rawValue:sdhSymptoms.dictionaryRepresentation(),MetricsType.LabData.rawValue:sdhLab.dictionaryRepresentation(),MetricsType.Vitals.rawValue:sdhVital.dictionaryRepresentation()] as [String : Any]
+        return [MetricsType.Conditions.rawValue:sdhCondition.dictionaryRepresentation(),MetricsType.Sympotms.rawValue:sdhSymptoms.dictionaryRepresentation()] as [String : Any]
         
     }
 }

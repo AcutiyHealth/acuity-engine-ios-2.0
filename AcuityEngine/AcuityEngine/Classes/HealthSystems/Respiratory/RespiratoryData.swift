@@ -93,7 +93,7 @@ class RespiratoryData {
     //MARK: To display data in Pull up...
     func dictionaryRepresentation()->[String:Any]{
         
-        return [MetricsType.Conditions.rawValue:respiratoryCondition.dictionaryRepresentation(),MetricsType.Sympotms.rawValue:respiratorySymptoms.dictionaryRepresentation(),MetricsType.LabData.rawValue:respiratoryLab.dictionaryRepresentation(),MetricsType.Vitals.rawValue:respiratoryVital.dictionaryRepresentation()] as [String : Any]
+        return [MetricsType.Conditions.rawValue:respiratoryCondition.dictionaryRepresentation(),MetricsType.Sympotms.rawValue:respiratorySymptoms.dictionaryRepresentation()] as [String : Any]
         
     }
 }

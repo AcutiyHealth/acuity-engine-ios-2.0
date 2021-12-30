@@ -91,7 +91,7 @@ class GenitourinaryData {
     //MARK: To display data in Pull up...
     func dictionaryRepresentation()->[String:Any]{
         
-        return [MetricsType.Conditions.rawValue:genitourinaryCondition.dictionaryRepresentation(),MetricsType.Sympotms.rawValue:genitourinarySymptoms.dictionaryRepresentation(),MetricsType.LabData.rawValue:genitourinaryLab.dictionaryRepresentation(),MetricsType.Vitals.rawValue:genitourinaryVital.dictionaryRepresentation()] as [String : Any]
+        return [MetricsType.Conditions.rawValue:genitourinaryCondition.dictionaryRepresentation(),MetricsType.Sympotms.rawValue:genitourinarySymptoms.dictionaryRepresentation()] as [String : Any]
         
     }
 }
