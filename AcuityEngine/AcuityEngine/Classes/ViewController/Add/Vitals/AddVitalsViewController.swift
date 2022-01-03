@@ -11,6 +11,8 @@ import HealthKit
 class AddVitalsViewController: UIViewController {
     
     @IBOutlet weak var viewVitals: UIView!
+    @IBOutlet weak var sleepValueSubViewInviewVitals: UIView!
+    @IBOutlet weak var segmentControlSleep: UISegmentedControl!
     @IBOutlet weak var viewBloodPressure: UIView!
     @IBOutlet weak var viewOxygenSaturation: UIView!
     @IBOutlet weak var lblTitleBloodPressure: UILabel!
@@ -59,7 +61,7 @@ class AddVitalsViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-      
+        
         datePicker.maximumDate = Date()
         
         let dateStr = getDateWithTime(date: datePicker.date)
@@ -72,14 +74,15 @@ class AddVitalsViewController: UIViewController {
         setUpDesignForDateButtons()
         //Setup Toolbar For Number Pad...
         setupToolbarForNumberPad()
-        
+        //setUpSegmentControl
+        setUpSegmentControl(segmentControl: segmentControlSleep)
         if !UIDevice.current.hasNotch{
             btnHeight.constant = 50
         }
         
         //Setup Height Of Vital View according to device height...
         heightConstraintForvitalsView.constant = heightConstraintForvitalsView.constant + (heightConstraintForvitalsView.constant*(DeviceSize.screenHeight)/CGFloat(Screen.iPhoneSEHeight))/4.5
-        // Do any additional setup after loading the view.
+       
     }
     
     //========================================================================================================
@@ -104,7 +107,7 @@ class AddVitalsViewController: UIViewController {
             viewBloodPressure.isHidden = true
             viewEnd.isHidden = true
         }
-        else if vitalModel?.name == VitalsName.heartRate ||  vitalModel?.name == VitalsName.peakflowRate ||  vitalModel?.name == VitalsName.BMI || vitalModel?.name == VitalsName.temperature || vitalModel?.name == VitalsName.weight || vitalModel?.name == VitalsName.bloodSugar || vitalModel?.name == VitalsName.vo2Max || vitalModel?.name == VitalsName.respiratoryRate  || vitalModel?.name == VitalsName.headPhoneAudioLevel {
+        else if vitalModel?.name == VitalsName.heartRate ||  vitalModel?.name == VitalsName.peakflowRate ||  vitalModel?.name == VitalsName.BMI || vitalModel?.name == VitalsName.temperature || vitalModel?.name == VitalsName.weight || vitalModel?.name == VitalsName.bloodSugar || vitalModel?.name == VitalsName.vo2Max || vitalModel?.name == VitalsName.respiratoryRate  || vitalModel?.name == VitalsName.headPhoneAudioLevel  || vitalModel?.name == VitalsName.steps  || vitalModel?.name == VitalsName.waterIntake {
             /*
              Hide BP view and Oxygen Saturation View
              */
@@ -113,7 +116,8 @@ class AddVitalsViewController: UIViewController {
             viewOxygenSaturation.isHidden = true
             viewEnd.isHidden = true
             topConstraintForvitalsView.constant = -(viewBloodPressure.frame.size.height-25)
-            
+            viewVitalWithTextField.isHidden = false
+            sleepValueSubViewInviewVitals.isHidden = !viewVitalWithTextField.isHidden
         }
         else if vitalModel?.name == VitalsName.irregularRhymesNotification{
             viewVitals.isHidden = true
@@ -122,11 +126,18 @@ class AddVitalsViewController: UIViewController {
             btnSave.isEnabled = true
             topConstraintForStartEndView.constant = -45
         }
-        btnSave.isEnabled = true
-        self.txtFieldVital.text = "80"
-        for _ in 0..<30000{
-            self.btnSaveClick(sender: btnSave)
+        else if vitalModel?.name == VitalsName.sleep{
+            viewVitals.isHidden = false
+            viewBloodPressure.isHidden = true
+            viewOxygenSaturation.isHidden = true
+            viewEnd.isHidden = false
+            btnSave.isEnabled = true
+            viewVitalWithTextField.isHidden = true
+            sleepValueSubViewInviewVitals.isHidden = !viewVitalWithTextField.isHidden
+            topConstraintForvitalsView.constant = -(viewBloodPressure.frame.size.height-25)
+           
         }
+        
     }
     //========================================================================================================
     //MARK: Set Font For Label
@@ -160,7 +171,16 @@ class AddVitalsViewController: UIViewController {
         btnEnd.backgroundColor = UIColor.white.withAlphaComponent(0.2)
         btnStart.backgroundColor = UIColor.white.withAlphaComponent(0.2)
     }
+    //========================================================================================================
+    //MARK: SetUp Segment Control
+    //========================================================================================================
     
+    func setUpSegmentControl(segmentControl:UISegmentedControl){
+        segmentControl.defaultConfiguration(font: Fonts.kAcuityDetailCellFont, color: UIColor.white)
+        segmentControl.selectedConfiguration(font: Fonts.kAcuityDetailCellFont, color: UIColor.black)
+        segmentControl.selectedSegmentIndex = 0
+        //self.segmentClicked(segmentControl)
+    }
     //========================================================================================================
     //MARK: Setup Toolbar For Number Pad...
     //========================================================================================================
@@ -222,6 +242,14 @@ class AddVitalsViewController: UIViewController {
         
         //Create Object For HKWriterManager
         let objWriterManager = HKWriterManager()
+        if self.vitalModel?.name == VitalsName.sleep{
+            var sleepValue = 0
+            if segmentControlSleep.selectedSegmentIndex == 1{
+                sleepValue = 1
+            }
+            saveSleepData(sleepValue: sleepValue, objWriterManager: objWriterManager)
+            return
+        }
         
         //Textfield For all vitals except blood pressure
         let vitalValue = Double(self.txtFieldVital.text ?? "0")//Double(self.txtFieldVital.text ?? "0")
@@ -249,12 +277,14 @@ class AddVitalsViewController: UIViewController {
                     self?.vitalModel?.name == VitalsName.temperature ||
                     self?.vitalModel?.name == VitalsName.weight || self?.vitalModel?.name == VitalsName.bloodSugar ||
                     self?.vitalModel?.name == VitalsName.vo2Max ||
-                    self?.vitalModel?.name == VitalsName.respiratoryRate || self?.vitalModel?.name == VitalsName.stepLength {
+                    self?.vitalModel?.name == VitalsName.respiratoryRate || self?.vitalModel?.name == VitalsName.stepLength ||
+                    self?.vitalModel?.name == VitalsName.steps ||
+                    self?.vitalModel?.name == VitalsName.waterIntake {
                     
                     self?.saveVitalsDataInHealthKit(vitalModel: (self?.vitalModel)!, objWriterManager: objWriterManager, quantityValue: vitalValue ?? 0, quantityTypeIdentifier: self?.vitalModel?.healthQuantityType) { (error) in
                         
                         let message = "\(String(describing: vitalModel.name!.rawValue)) saved in health kit"
-                        //self?.vitalsSavedSuccessfully(message: message)
+                        self?.vitalsSavedSuccessfully(message: message)
                     }
                     
                 }
@@ -454,6 +484,34 @@ class AddVitalsViewController: UIViewController {
             btnSave.isEnabled = true
         }
         
+    }
+    //========================================================================================================
+    //MARK: Save Sleep Data
+    //========================================================================================================
+    
+    func saveSleepData(sleepValue:Int,objWriterManager:HKWriterManager){
+        guard let vitalModel = self.vitalModel else { return  }
+        
+        HKSetupAssistance.authorizeHealthKitForAddSymptoms(caegoryTypeIdentifier: vitalModel.healthCategoryType!) { [weak self] (success, error) in
+            if success{
+                objWriterManager.saveSleepData(categoryValue: sleepValue, caegoryTypeIdentifier: vitalModel.healthCategoryType!, startdate: self?.startDate ?? Date(), endDate: self?.endDate ?? Date()) { (error) in
+                    let name = String(describing: vitalModel.name!.rawValue)
+                    if (error == nil){
+                        //show alert
+                        let message = "\(name) saved in health kit"
+                        let okAction = self?.getOKActionForVitalList()
+                        self?.showAlertForDataSaved(message:message,okAction: okAction!)
+                        
+                    }else{
+                        let message = "\(name) is not authorized.\(AlertMessages.AUTHORIZE_HEALTH_DATA)"
+                        let okAction = UIAlertAction(title: "OK", style: .default, handler: nil)
+                        self?.showAlertForDataSaved(message:message,okAction: okAction)
+                    }
+                }
+            }else{
+                
+            }
+        }
     }
 }
 //========================================================================================================

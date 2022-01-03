@@ -78,6 +78,16 @@ class HKWriterManager {
         {
             quantity = saveBodyMass(value: value)
         }
+        //stepCount
+        else if quantityTypeIdentifier.rawValue == HKQuantityTypeIdentifier.stepCount.rawValue
+        {
+            quantity = saveStepCount(value: value)
+        }
+        //dietaryWater
+        else if quantityTypeIdentifier.rawValue == HKQuantityTypeIdentifier.dietaryWater.rawValue
+        {
+            quantity = saveWaterIntake(value: value)
+        }
         //step length
         if #available(iOS 14.0, *) {
             if quantityTypeIdentifier.rawValue == HKQuantityTypeIdentifier.walkingStepLength.rawValue
@@ -165,6 +175,16 @@ class HKWriterManager {
         let quantity = HKQuantity(unit: unit, doubleValue: Double(value))
         return quantity
     }
+    func saveStepCount(value:Double)->HKQuantity{
+        let unit:HKUnit = HKUnit.count()
+        let quantity = HKQuantity(unit: unit, doubleValue: Double(value))
+        return quantity
+    }
+    func saveWaterIntake(value:Double)->HKQuantity{
+        let unit:HKUnit = HKUnit.literUnit(with: HKMetricPrefix.milli)
+        let quantity = HKQuantity(unit: unit, doubleValue: Double(value))
+        return quantity
+    }
     func storeBloodPressure(systolic:Double,diastolic:Double,date: Date,
                             completion: @escaping (Error?) -> Swift.Void){
         let systolicType = HKQuantityType.quantityType(forIdentifier: .bloodPressureSystolic)!
@@ -189,6 +209,33 @@ class HKWriterManager {
                 Log.d("Successfully saved \(diastolicType.identifier) Sample")
             }
         }
+    }
+    
+    func saveSleepData(categoryValue: Int,caegoryTypeIdentifier:HKCategoryTypeIdentifier?,
+                          startdate: Date,endDate: Date,
+                          completion: @escaping (Error?) -> Swift.Void) {
+        
+        guard let caegoryTypeIdentifier = caegoryTypeIdentifier else {
+            fatalError("No identifier found")
+        }
+        
+        //Category Type
+        guard let categoryType = HKObjectType.categoryType(forIdentifier: caegoryTypeIdentifier) else { return  }
+       
+        //Create sample for Category
+        let sample = HKCategorySample(type: categoryType, value: categoryValue, start: startdate, end: endDate)
+        
+        HKSetupAssistance.healthKitStore.save(sample) { (success, error) in
+            
+            if let error = error {
+                completion(error)
+                print("Error Saving Sample \(caegoryTypeIdentifier): \(error.localizedDescription)")
+            } else {
+                completion(nil)
+                Log.d("Successfully saved \(caegoryTypeIdentifier) Sample")
+            }
+        }
+        
     }
 }
 

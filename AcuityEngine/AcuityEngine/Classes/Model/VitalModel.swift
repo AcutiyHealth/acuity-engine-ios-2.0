@@ -78,6 +78,12 @@ class VitalModel
             }
         case .headPhoneAudioLevel:
             healthQuantityType = .headphoneAudioExposure
+        case .steps:
+            healthQuantityType = .stepCount
+        case .waterIntake:
+            healthQuantityType = .dietaryWater
+        case .sleep:
+            healthCategoryType = .sleepAnalysis
         default:
             break
         }
