@@ -156,6 +156,7 @@ enum OtherHistory:String {
     case familyHistory = "Family History"
     case socialHistory = "Social History"
     case allergies = "Allergies"
+    case consults = "Consults"
     case none = "none"
 }
 enum OtherHistoryId:Int,CaseIterable {
@@ -164,6 +165,7 @@ enum OtherHistoryId:Int,CaseIterable {
     case familyHistoryId = 3
     case socialHistoryId = 4
     case allergiesId = 5
+    case consultsId = 6
 }
 //=============================Medications=================================================//
 enum Medication:String {

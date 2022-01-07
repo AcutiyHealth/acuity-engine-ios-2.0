@@ -58,6 +58,7 @@ func getHistoryName(id:OtherHistoryId)->OtherHistory{
         return OtherHistory.socialHistory
     case OtherHistoryId.allergiesId:
         return OtherHistory.allergies
-        
+    case OtherHistoryId.consultsId:
+        return OtherHistory.consults
     }
 }

@@ -13,7 +13,7 @@ import SVProgressHUD
 
 let HEIGHT_OF_ROW_IN_TBL_INPUT_VIEW:CGFloat = UITableView.automaticDimension;
 let HEIGHT_OF_ROW_IN_TBL_DATA_VIEW:CGFloat = 40;
-var arrayOtherHistorySectionTitle = [[OtherHistory.otherConditions:OtherHistoryId.otherConditionsId],[OtherHistory.familyHistory:OtherHistoryId.familyHistoryId],[OtherHistory.surgicalHistory:OtherHistoryId.surgicalHistoryId],[OtherHistory.socialHistory:OtherHistoryId.socialHistoryId],[OtherHistory.allergies:OtherHistoryId.allergiesId]];
+var arrayOtherHistorySectionTitle = [[OtherHistory.otherConditions:OtherHistoryId.otherConditionsId],[OtherHistory.familyHistory:OtherHistoryId.familyHistoryId],[OtherHistory.surgicalHistory:OtherHistoryId.surgicalHistoryId],[OtherHistory.socialHistory:OtherHistoryId.socialHistoryId],[OtherHistory.allergies:OtherHistoryId.allergiesId],[OtherHistory.consults:OtherHistoryId.consultsId]];
 
 typealias CompletionhistoryValueListViewOpen = (_ open: Bool?) -> Void
 class HistoryTitleListViewController: UIViewController {
