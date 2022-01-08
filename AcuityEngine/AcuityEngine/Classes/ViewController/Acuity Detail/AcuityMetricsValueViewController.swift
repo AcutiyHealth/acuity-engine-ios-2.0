@@ -144,7 +144,16 @@ extension AcuityMetricsValueViewController: UITableViewDelegate, UITableViewData
                 if item.isBPModel{
                     cell.displayValueDataForBPModel(item: item)
                 }else{
-                    cell.displayData(timeStamp: item.startTime, value: "\(String(describing: item.value ?? ""))", color: item.color)
+                    if item.title == VitalsName.sleep.rawValue{
+                        var valueTextToDisplay = "--"
+                        let doubleValue = Double(item.value ?? "0")! * 60 * 60
+                        valueTextToDisplay = doubleValue.asStringWithHoursAndMinutesOnly(style: .abbreviated)
+                        cell.displayData(timeStamp: item.startTime, value: "\(String(describing: valueTextToDisplay ))", color: item.color)
+                        
+                    }else{
+                        cell.displayData(timeStamp: item.startTime, value: "\(String(describing: item.value ?? ""))", color: item.color)
+                        
+                    }
                 }
                 
                 cell.selectionStyle = .none

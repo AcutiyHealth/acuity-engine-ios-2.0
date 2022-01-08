@@ -85,11 +85,11 @@ class AcuityDetailValueDisplayCell: UITableViewCell {
         maxScore.textColor = item.color
         maxScore.isHidden = true
         /*switch item.value {
-        case .Yes:
-            maxScore.text = ConditionValueText.Yes.rawValue
-        default:
-            maxScore.text = ConditionValueText.No.rawValue
-        }*/
+         case .Yes:
+         maxScore.text = ConditionValueText.Yes.rawValue
+         default:
+         maxScore.text = ConditionValueText.No.rawValue
+         }*/
         
     }
     func displaySymptomsData(item:SymptomsModel){
@@ -120,6 +120,13 @@ class AcuityDetailValueDisplayCell: UITableViewCell {
             }else{
                 maxScore.attributedText = createAttributeStringForBp(item: item)
             }
+        }
+        else if  item.title == VitalsName.sleep.rawValue{
+            titleLabel.text = item.title
+            guard let value = item.value else { return maxScore.text = "--" }
+            let doubleValue = Double(value)! * 60 * 60
+            maxScore.text = doubleValue.asStringWithHoursAndMinutesOnly(style: .abbreviated)
+            maxScore.textColor = item.color
         }else{
             titleLabel.text = item.title
             maxScore.text = item.value
@@ -132,22 +139,22 @@ class AcuityDetailValueDisplayCell: UITableViewCell {
         let strSystolic = (item.value ?? "").replacingOccurrences(of: ".00", with: "")
         let strDystolic = (item.valueForDiastolic ?? "").replacingOccurrences(of: ".00", with: "")
         /*let mainString = "\(strSystolic) / \(strDystolic)"
-        let rangeSystolic = (mainString as NSString).range(of: strSystolic)
-        let rangeDystolic = (mainString as NSString).range(of: strDystolic)
-        let mutableAttributedString = NSMutableAttributedString.init(string: mainString)
-        mutableAttributedString.addAttribute(NSAttributedString.Key.foregroundColor, value: item.color, range: rangeSystolic)
-        mutableAttributedString.addAttribute(NSAttributedString.Key.foregroundColor, value: item.colorForDiastolic, range: rangeDystolic)*/
+         let rangeSystolic = (mainString as NSString).range(of: strSystolic)
+         let rangeDystolic = (mainString as NSString).range(of: strDystolic)
+         let mutableAttributedString = NSMutableAttributedString.init(string: mainString)
+         mutableAttributedString.addAttribute(NSAttributedString.Key.foregroundColor, value: item.color, range: rangeSystolic)
+         mutableAttributedString.addAttribute(NSAttributedString.Key.foregroundColor, value: item.colorForDiastolic, range: rangeDystolic)*/
         let rangeSystolic = (strSystolic as NSString).range(of: strSystolic)
-        var mutableAttributedStringSystolic = NSMutableAttributedString.init(string: strSystolic)
+        let mutableAttributedStringSystolic = NSMutableAttributedString.init(string: strSystolic)
         mutableAttributedStringSystolic.addAttribute(NSAttributedString.Key.foregroundColor, value: item.color, range: rangeSystolic)
-    
-        var mutableAttributedStringSlash = NSMutableAttributedString.init(string: " / ")
+        
+        let mutableAttributedStringSlash = NSMutableAttributedString.init(string: " / ")
         
         let rangeDystolic = (strDystolic as NSString).range(of: strDystolic)
         
-        var mutableAttributedStringDystolic = NSMutableAttributedString.init(string: strDystolic)
+        let mutableAttributedStringDystolic = NSMutableAttributedString.init(string: strDystolic)
         mutableAttributedStringDystolic.addAttribute(NSAttributedString.Key.foregroundColor, value: item.colorForDiastolic, range: rangeDystolic)
-    
+        
         mutableAttributedStringSystolic.append(mutableAttributedStringSlash)
         mutableAttributedStringSystolic.append(mutableAttributedStringDystolic)
         
@@ -171,7 +178,7 @@ class AcuityPullUpMetricsDisplayCell: AcuityDetailValueDisplayCell {
         
         titleLabel.text =  item[Keys.kSystemName] as? String
         titleLabel.font =
-            Fonts.kAcuityMyWellTblCellTitleFont
+        Fonts.kAcuityMyWellTblCellTitleFont
         titleLabel.textColor =  UIColor.white
         maxScore.text = item[Keys.kScore] as? String
         //        if let score = item[Keys.kScore] as? Double{

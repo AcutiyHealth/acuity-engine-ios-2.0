@@ -167,8 +167,8 @@ class HKManagerReadVitals: NSObject {
                                         if  category == CategoryType.irregularHeartRhythmEvent {
                                             
                                             //save data For Cardio
-                                            let model = VitalQuantityOrCategoryModel(categoryType: category,categoryValue:1, category: element)
-                                            cArrayOfVitalList.append(model)
+                                            //let model = VitalQuantityOrCategoryModel(categoryType: category,categoryValue:1, category: element)
+                                            //cArrayOfVitalList.append(model)
                                             
                                             CardioManager.sharedManager.saveCategoryData(categoryType: category, value: 1, startTimeStamp: element.startTimestamp,endTimeStamp: element.endTimestamp)
                                             
@@ -184,15 +184,19 @@ class HKManagerReadVitals: NSObject {
                                             
                                             let sleepTimeForOneDay = element.endTimestamp-element.startTimestamp
                                             let hours = sleepTimeForOneDay/60/60
-                                            let model = VitalQuantityOrCategoryModel(categoryType: category,categoryValue:Float(hours), category: element)
-                                            cArrayOfVitalList.append(model)
-                                            print("sleep hours",hours)
-                                            CardioManager.sharedManager.saveCategoryData(categoryType: category, value: hours, startTimeStamp: element.startTimestamp,endTimeStamp: element.endTimestamp)
-                                            //Save data for Respiratory
-                                            RespiratoryManager.sharedManager.saveCategoryData(categoryType: category, value: hours, startTimeStamp: element.startTimestamp,endTimeStamp: element.endTimestamp)
-                                            //Save data for Respiratory
-                                            NeuroManager.sharedManager.saveCategoryData(categoryType: category, value: hours, startTimeStamp: element.startTimestamp,endTimeStamp: element.endTimestamp)
-                                            SDHManager.sharedManager.saveCategoryData(categoryType: category, value: hours, startTimeStamp: element.startTimestamp,endTimeStamp: element.endTimestamp)
+                                            let minutes = sleepTimeForOneDay/60
+                                            if minutes > 10{
+                                                //If minutes > 10 then only save hours....
+                                                //let model = VitalQuantityOrCategoryModel(categoryType: category,categoryValue:Float(hours), category: element)
+                                                //cArrayOfVitalList.append(model)
+                                                print("sleep hours",hours)
+                                                CardioManager.sharedManager.saveCategoryData(categoryType: category, value: hours, startTimeStamp: element.startTimestamp,endTimeStamp: element.endTimestamp)
+                                                //Save data for Respiratory
+                                                RespiratoryManager.sharedManager.saveCategoryData(categoryType: category, value: hours, startTimeStamp: element.startTimestamp,endTimeStamp: element.endTimestamp)
+                                                //Save data for Respiratory
+                                                NeuroManager.sharedManager.saveCategoryData(categoryType: category, value: hours, startTimeStamp: element.startTimestamp,endTimeStamp: element.endTimestamp)
+                                                SDHManager.sharedManager.saveCategoryData(categoryType: category, value: hours, startTimeStamp: element.startTimestamp,endTimeStamp: element.endTimestamp)
+                                            }
                                             
                                         }
                                     }
@@ -210,7 +214,6 @@ class HKManagerReadVitals: NSObject {
                         }
                     }
                     dispatchGroup.notify(queue: .main) {
-                        
                         DispatchQueue.main.async {
                             self.readCharactristicTypeVitalsData(days: days, characteristicType:  ReadCharactristicType(), completion: { (success, error) in
                                 if success && error==nil{
@@ -305,127 +308,33 @@ class HKManagerReadVitals: NSObject {
                         
                         if error == nil {
                             
-                            let now = MyWellScore.sharedManager.todaysDate
-                            var component = Calendar.Component.day
-                            var beforeDaysOrWeekOrMonth = 1
                             
-                            /*switch days {
-                             case .SevenDays:
-                             component = .day
-                             beforeDaysOrWeekOrMonth = 7
-                             case .ThirtyDays:
-                             component = .weekOfMonth
-                             beforeDaysOrWeekOrMonth = 4
-                             case .ThreeMonths:
-                             component = .month
-                             beforeDaysOrWeekOrMonth = 3
-                             
-                             }*/
-                            
-                            component = .month
-                            beforeDaysOrWeekOrMonth = 3
-                            let daysAgo = Calendar.current.date(byAdding: component, value: -beforeDaysOrWeekOrMonth, to: now)!
-                            
-                            print("daysAgo",daysAgo)
-                            let startOfDaysAgo = Calendar.current.startOfDay(for: daysAgo)
-                            let mostRecentPredicate = HKQuery.predicateForSamples(withStart: startOfDaysAgo, end: now, options: [])
-                            
-                            
-                            let sortDescriptor = NSSortDescriptor(key: HKSampleSortIdentifierStartDate,
-                                                                  ascending: false)
-                            
-                            var i = 0
                             for preferredUnit in preferredUnits {
                                 dispatchGroup.enter()
-                                do {
-                                    let query = try reporter.reader.quantityQuery(
-                                        type: try QuantityType.make(from: preferredUnit.identifier),
-                                        unit: preferredUnit.unit,
-                                        predicate: mostRecentPredicate, sortDescriptors: [sortDescriptor]
-                                        
-                                    ) { [weak self] (results, error) in
-                                        if error == nil {
-                                            DispatchQueue.main.async {
-                                                for element in results {
-                                                    
-//                                                    print("element , preferredUnit.identifier-------",preferredUnit.identifier,Double(element.harmonized.value))
-                                              
-                                                    do {
-                                                       // for  _ in 0..<200{
-                                                            print("i-------",i)
-                                                            i = i + 1
-                                                       
-                                                        let identifier =  try QuantityType.make(from: preferredUnit.identifier)
-                                                        let model = VitalQuantityOrCategoryModel(quantityType: identifier, quantity: element)
-                                                        cArrayOfVitalList.append(model)
-                                                        //save data For Cardio
-                                                        CardioManager.sharedManager.saveQuantityInArray(quantityType: identifier, element: element)
-                                                        
-                                                        //save data For Respiratory
-                                                        RespiratoryManager.sharedManager.saveQuantityInArray(quantityType: identifier, element: element)
-                                                        
-                                                        //save data For Renal
-                                                        RenalManager.sharedManager.saveQuantityInArray(quantityType: identifier, element: element)
-                                                        
-                                                        //Save data for ID...
-                                                        IDiseaseManager.sharedManager.saveQuantityInArray(quantityType: identifier, element: element)
-                                                        
-                                                        //Save data for FNE...
-                                                        FNEManager.sharedManager.saveQuantityInArray(quantityType: identifier, element: element)
-                                                        
-                                                        //Save data for Hemato...
-                                                        HematoManager.sharedManager.saveQuantityInArray(quantityType: identifier, element: element)
-                                                        
-                                                        //Save data for Endocrine...
-                                                        EndocrineManager.sharedManager.saveQuantityInArray(quantityType: identifier, element: element)
-                                                        
-                                                        //Save data for Gastrointestinal...
-                                                        GastrointestinalManager.sharedManager.saveQuantityInArray(quantityType: identifier, element: element)
-                                                        
-                                                        //Save data for Genitourinary...
-                                                        GenitourinaryManager.sharedManager.saveQuantityInArray(quantityType: identifier, element: element)
-                                                        
-                                                        //Save data for Neuro System...
-                                                        NeuroManager.sharedManager.saveQuantityInArray(quantityType: identifier, element: element)
-                                                        
-                                                        //Save data for SDH System...
-                                                        SDHManager.sharedManager.saveQuantityInArray(quantityType: identifier, element: element)
-                                                        
-                                                        //Save data for Musc System...
-                                                        MuscManager.sharedManager.saveQuantityInArray(quantityType: identifier, element: element)
-                                                        
-                                                        //Save data for Skin System...
-                                                        SkinManager.sharedManager.saveQuantityInArray(quantityType: identifier, element: element)
-                                                        
-                                                        //Save data for Heent System...
-                                                        HeentManager.sharedManager.saveQuantityInArray(quantityType: identifier, element: element)
-                                                            
-//                                                        }
-                                                    } catch {
-                                                        //print(error)
-                                                    }
-                                                    //dispatchSemaphore.wait()
-                                                }
-                                                dispatchGroup.leave()
-                                            }
-                                        } else {
-                                            //print("Error in quabtyt query")
-                                            //print(error as Any)
-                                            self?.readBloodPressureDone?()
-                                            completion(success, HealthkitSetupError.dataParsingError)
+                                if preferredUnit.identifier == QuantityType.stepCount.identifier {
+                                    self.callForStatasticsTypeWithAllSampleData(reporter: reporter,preferredUnit: preferredUnit) { success, error in
+                                        if success && error==nil{
+                                            completion(success, nil)
                                         }
-                                        
+                                        else{
+                                            completion(success, error)
+                                        }
                                     }
                                     
-                                    reporter.manager.executeQuery(query)
-                                    
-                                } catch {
-                                    //print("Quantity query issue")
-                                    //print(error)
-                                    completion(success, HealthkitSetupError.dataParsingError)
                                 }
-                                
-                                //dispatchGroup.leave()
+                                else{
+                                    do{
+                                        self.callForQunatityTypeWithAllSampleData(reporter: reporter,preferredUnit: preferredUnit) { success, error in
+                                            if success && error==nil{
+                                                completion(success, nil)
+                                            }
+                                            else{
+                                                completion(success, error)
+                                            }
+                                        }
+                                    }
+                                }
+                                dispatchGroup.leave()
                             }
                             dispatchGroup.notify(queue: .main) {
                                 
@@ -438,7 +347,9 @@ class HKManagerReadVitals: NSObject {
                         } else {
                             //print("Preffered unit issue")
                             //print(error as Any)
-                            completion(success, HealthkitSetupError.dataTypeNotAvailable)
+                            completion(success, HealthkitSetupError.invalidType((
+                                "Type Conversion issue in prefered units"
+                            )))
                         }
                     }
                     
@@ -456,6 +367,159 @@ class HKManagerReadVitals: NSObject {
         }
     }
     
+    func callForQunatityTypeWithAllSampleData(reporter:HealthKitReporter,preferredUnit:PreferredUnit,completion: @escaping (Bool, HealthkitSetupError?) -> Swift.Void){
+        do{
+            let dispatchGroup = DispatchGroup()
+            
+            dispatchGroup.enter()
+            do {
+                
+                let now = MyWellScore.sharedManager.todaysDate
+                var component = Calendar.Component.day
+                var beforeDaysOrWeekOrMonth = 1
+                
+                component = .month
+                beforeDaysOrWeekOrMonth = 3
+                let daysAgo = Calendar.current.date(byAdding: component, value: -beforeDaysOrWeekOrMonth, to: now)!
+                
+                print("daysAgo",daysAgo)
+                let startOfDaysAgo = Calendar.current.startOfDay(for: daysAgo)
+                let mostRecentPredicate = HKQuery.predicateForSamples(withStart: startOfDaysAgo, end: now, options: [])
+                
+                
+                let sortDescriptor = NSSortDescriptor(key: HKSampleSortIdentifierStartDate,
+                                                      ascending: false)
+                
+                let query = try reporter.reader.quantityQuery(
+                    type: try QuantityType.make(from: preferredUnit.identifier),
+                    unit: preferredUnit.unit,
+                    predicate: mostRecentPredicate, sortDescriptors: [sortDescriptor]
+                    
+                ) {  (results, error) in
+                    if error == nil {
+                        DispatchQueue.main.async {
+                            for element in results {
+                                
+                                do {
+                                    
+                                    let identifier =  try QuantityType.make(from: preferredUnit.identifier)
+                                    
+                                    //save data For Cardio
+                                    CardioManager.sharedManager.saveQuantityInArray(quantityType: identifier, element: element)
+                                    
+                                    //save data For Respiratory
+                                    RespiratoryManager.sharedManager.saveQuantityInArray(quantityType: identifier, element: element)
+                                    
+                                    //save data For Renal
+                                    RenalManager.sharedManager.saveQuantityInArray(quantityType: identifier, element: element)
+                                    
+                                    //Save data for ID...
+                                    IDiseaseManager.sharedManager.saveQuantityInArray(quantityType: identifier, element: element)
+                                    
+                                    //Save data for FNE...
+                                    FNEManager.sharedManager.saveQuantityInArray(quantityType: identifier, element: element)
+                                    
+                                    //Save data for Hemato...
+                                    HematoManager.sharedManager.saveQuantityInArray(quantityType: identifier, element: element)
+                                    
+                                    //Save data for Endocrine...
+                                    EndocrineManager.sharedManager.saveQuantityInArray(quantityType: identifier, element: element)
+                                    
+                                    //Save data for Gastrointestinal...
+                                    GastrointestinalManager.sharedManager.saveQuantityInArray(quantityType: identifier, element: element)
+                                    
+                                    //Save data for Genitourinary...
+                                    GenitourinaryManager.sharedManager.saveQuantityInArray(quantityType: identifier, element: element)
+                                    
+                                    //Save data for Neuro System...
+                                    NeuroManager.sharedManager.saveQuantityInArray(quantityType: identifier, element: element)
+                                    
+                                    //Save data for SDH System...
+                                    SDHManager.sharedManager.saveQuantityInArray(quantityType: identifier, element: element)
+                                    
+                                    //Save data for Musc System...
+                                    MuscManager.sharedManager.saveQuantityInArray(quantityType: identifier, element: element)
+                                    
+                                    //Save data for Skin System...
+                                    SkinManager.sharedManager.saveQuantityInArray(quantityType: identifier, element: element)
+                                    
+                                    //Save data for Heent System...
+                                    HeentManager.sharedManager.saveQuantityInArray(quantityType: identifier, element: element)
+                                    
+                                    //                                                        }
+                                } catch {
+                                    //print(error)
+                                }
+                                //dispatchSemaphore.wait()
+                            }
+                            dispatchGroup.leave()
+                        }
+                    } else {
+                        completion(true, HealthkitSetupError.dataParsingError)
+                    }
+                    
+                }
+                
+                reporter.manager.executeQuery(query)
+                
+            } catch {
+                completion(true, HealthkitSetupError.dataParsingError)
+            }
+            
+            //dispatchGroup.leave()
+        }
+    }
     
+    func callForStatasticsTypeWithAllSampleData(reporter:HealthKitReporter,preferredUnit:PreferredUnit,completion: @escaping (Bool, HealthkitSetupError?) -> Swift.Void){
+        do{
+            let dispatchGroup = DispatchGroup()
+            
+            let now = Date()
+            let component = Calendar.Component.month
+            let beforeDaysOrWeekOrMonth = 3
+            let daysAgo = Calendar.current.date(byAdding: component, value: -beforeDaysOrWeekOrMonth, to: now)!
+            
+            var interval = DateComponents()
+            interval.day = 1
+            let startOfDaysAgo = Calendar.current.startOfDay(for: daysAgo)
+            
+            var anchorComponents = Calendar.current.dateComponents([.day, .month, .year], from: now)
+            anchorComponents.hour = 0
+            let anchorDate = Calendar.current.date(from: anchorComponents)!
+            
+            let identifier  = try QuantityType.make(from: preferredUnit.identifier)
+            
+            //dispatchGroup.enter()
+            
+            if let statisticsQuery1 = try self.reporter?.reader.statisticsCollectionQuery(type: identifier, unit: preferredUnit.unit, anchorDate: anchorDate, enumerateFrom: startOfDaysAgo, enumerateTo: now, intervalComponents: interval, enumerationBlock: { statistics, error in
+                if error == nil {
+                    do {
+                        
+                        guard let statistics = statistics else { return  completion(true, HealthkitSetupError.dataParsingError) }
+                        /*if identifier == QuantityType.stepCount && statistics.harmonized.summary != nil{
+                         print(identifier,"------",statistics.harmonized.summary!)
+                         }
+                         else if statistics.harmonized.average != nil{
+                         print(identifier,"------",statistics.harmonized.average!)
+                         }*/
+                        CardioManager.sharedManager.saveStatasticsInArray(quantityType: identifier, element: statistics)
+                        
+                    }
+                    //dispatchGroup.leave()
+                } else {
+                    completion(true, HealthkitSetupError.dataParsingError)
+                }
+                
+            }
+            ) {
+                reporter.manager.executeQuery(statisticsQuery1)
+            }
+            
+        } catch {
+            completion(true, HealthkitSetupError.dataParsingError)
+        }
+        
+        //dispatchGroup.leave()
+    }
     
 }

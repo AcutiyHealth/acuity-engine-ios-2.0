@@ -192,6 +192,7 @@ class AllSystemVitals {
     func filterVitalArrayToGetSingleDataWithSelectedSegmentInGraph(days:SegmentValueForGraph,array:[VitalCalculation],vitalName:VitalsName)->[VitalCalculation] {
         var filteredArray:[VitalCalculation] = []
         filteredArray = filterVitalArrayWithSelectedSegmentInGraph(days: days, array: array)
+        filteredArray.sort(by:{ $0.startTimeStamp > $1.startTimeStamp})
         saveFilterDataInArrayVitals(days: days,filteredArray: filteredArray,vitalName: vitalName)
         return filteredArray
     }
@@ -304,6 +305,7 @@ class AllSystemVitals {
         default:
             break;
         }
+        filterArray.sort(by:{ $0.startTimeStamp > $1.startTimeStamp})
         for item in filterArray{
             arrVital.append(saveVitalsInArray(item: item))
         }

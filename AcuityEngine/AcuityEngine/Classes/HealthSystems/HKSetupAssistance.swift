@@ -14,6 +14,7 @@ enum HealthkitSetupError: Error {
     case noSampleFound
     case noDataFound
     case dataParsingError
+    case invalidType(String = "Invalid type")
 }
 
 

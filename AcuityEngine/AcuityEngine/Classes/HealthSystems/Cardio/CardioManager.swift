@@ -31,7 +31,25 @@ class CardioManager: NSObject {
         
         cardioData = CardioData()
     }
-    
+    //Save Vitals Data in genitourinaryVital Model
+    func saveStatasticsInArray(quantityType:QuantityType,element:Statistics) {
+        switch quantityType {
+        case .stepCount:
+            do{
+                guard let value = element.harmonized.summary  else {
+                    return
+                }
+                let stepCount = CardioVitalsData(type: VitalsName.steps)
+                let newValue = Double(value)
+                stepCount.value = newValue
+                stepCount.startTimeStamp = element.startTimestamp
+                self.cardioData.cardioVital.stepsData.append(stepCount)
+                Log.d("Cardio stepCount=======\(stepCount.value) maxScoreVitals===\(stepCount.score) ")
+            }
+            
+        default:break
+        }
+    }
     //MARK: saveVitals
     func saveQuantityInArray(quantityType:QuantityType,element:Quantity) {
         
