@@ -12,12 +12,12 @@ import SVProgressHUD
 protocol AcuityMainViewModelProtocol {
     var showNoAgeDataAlert: ((Bool) -> Void)? { get set }
     var noInternetAlert: ((Bool) -> Void)? { get set }
-    var displayPreventionData: ((Bool),([SpecificRecommendations]) -> Void)? { get set }
+    var displayPreventionData: ((Bool),([PreventionTrackerModel]) -> Void)? { get set }
 }
 class AcuityMainViewModel: NSObject {
     var showNoAgeDataAlert: ((Bool) -> Void)?
     var noInternetAlert: ((Bool) -> Void)?
-    var displayPreventionData: (((Bool),[SpecificRecommendations]) -> Void)?
+    var displayPreventionData: (((Bool),[PreventionTrackerModel]) -> Void)?
     var leadingMyWellConstraint,topMyWellConstraint,centerMyWellConstraint,lblScoreCenterConstraint,lblScoreTopConstraint,lblScoreBottomConstraint,lblScoreTextLeadingConstraint,lblScoreTextBottomConstraint: NSLayoutConstraint?
     
     var traillingMyWellConstraint,lblScoreTextCenterConstraint: NSLayoutConstraint?
@@ -465,121 +465,25 @@ class AcuityMainViewModel: NSObject {
         view.addConstraint(leftConstraint)
         view.layoutIfNeeded()
         
-        btnPrevention.addTarget(self, action: #selector(self.callApiForPreventionData), for: .touchUpInside)
+        btnPrevention.addTarget(self, action: #selector(self.loadPreventionDataFromDatabase), for: .touchUpInside)
     }
     
-    @objc func callApiForPreventionData(){
-        let tupple = readAgeAndGenderFromHealthKit()
-        let age = tupple.0
-        let gender = tupple.1
+    @objc func loadPreventionDataFromDatabase(){
+        let age = ProfileSharedData.shared.age
+        let gender = ProfileSharedData.shared.sex
         if age > 0 && gender != ""{
-            if Reachability.isConnectedToNetwork(){
-                /*
-                 Check if data is in userdefault, load it from there....
-                 else load from api....
-                 */
-                if Utility.fetchObject(forKey: Key.kPreventionData) == nil{
-                    self.callApiForPreventionList(age: age,gender:gender )
-                }else{
-                    
-                    // Read/Get Data
-                    if let prevention = Utility.fetchObject(forKey: Key.kPreventionData) {
-                        do {
-                            // Create JSON Decoder
-                            let decoder = JSONDecoder()
-                            
-                            // Decode Note
-                            let preventionData = try decoder.decode([SpecificRecommendations].self, from: prevention as! Data)
-                            self.displayPreventionData?(true,preventionData)
-                        } catch {
-                            print("Unable to Decode Note (\(error))")
-                        }
-                    }
-                    
-                }
-                
-            }else{
-                noInternetAlert?(true)
-            }
+            
+            let data = DBManager.shared.loadYesAndNOPreventionsOnly()
+            //if data.count>0{
+            var preventionTrackerModelData =  Utility.shared.filterPreventionDataForAgeAndGender(preventionData: data, age: age, gender: gender)
+            //Sort To Display No value First and Yes value last
+            preventionTrackerModelData.sort(by:{$0.selectedValue.rawValue < $1.selectedValue.rawValue})
+            self.displayPreventionData?(true,preventionTrackerModelData)
+            //}
             
         }else{
             showNoAgeDataAlert?(true)
         }
-    }
-    func callApiForPreventionList(age:Int,gender:String) {
-        Utility.showSVProgress()
-        PreventionManager.shared.callPreventionWebserviceMethod { (responseModel) in
-            SVProgressHUD.dismiss()
-            switch responseModel.responseType {
-            case .success:
-                let preventionData = PreventionManager.shared.prevention
-                if let _ = preventionData{
-                    let preventionData = self.getPopupData(preventionData:preventionData!,age: age,gender:gender)
-                    do {
-                        // Create JSON Encoder
-                        let encoder = JSONEncoder()
-                        
-                        // Encode kPreventionData
-                        let prevention = try encoder.encode(preventionData)
-                        
-                        // Write/Set Data
-                        Utility.setObjectForKey(prevention, key:  Key.kPreventionData)
-                        
-                    } catch {
-                        print("Unable to Encode Note (\(error))")
-                        self.displayPreventionData?(false,[])
-                    }
-                    self.displayPreventionData?(true,preventionData)
-                }
-                break
-            case .error:
-                print("error")
-                self.displayPreventionData?(false,[])
-                break
-            case .failure:
-                print("failure")
-                self.displayPreventionData?(false,[])
-                break
-            case .none:
-                break
-            }
-        }
-    }
-    private func readAgeAndGenderFromHealthKit()-> (Int,String) {
-        do {
-            let reporter = try HealthKitReporter()
-            let characteristic = reporter.reader.characteristics()
-            let birthDay = characteristic.birthday ?? ""
-            let gender = ((characteristic.biologicalSex == "na" ? "":characteristic.biologicalSex)) ?? ""
-            let age = calculateAgeFromBirthDate(birthday: birthDay)
-            return (age,gender)
-        } catch {
-            print(error)
-        }
-        return (0,"")
-    }
-    func getPopupData(preventionData:PreventionModel,age:Int,gender:String)->[SpecificRecommendations] {
-        //let newAge = 11
-        var ageSpecificRecommendations = [SpecificRecommendations]()
-        for obj in 0..<(preventionData.specificRecommendations?.count ?? 0) {
-            let data = preventionData.specificRecommendations?[obj]
-            let min = data?.ageRange?.first ?? 0
-            let max = data?.ageRange?.last ?? 0
-            
-            // let _ = data?.ageRange?.map{ _ in
-            if age >= min && age <= max {
-                //print("data?.gender",data?.gender as Any)
-                // || data?.gender == "men and women"
-                if gender.lowercased() == data?.gender || data?.gender == "men and women"{
-                    if let _ =  data{
-                        ageSpecificRecommendations.append(data!)
-                    }
-                }
-            }
-            //}
-        }
-        return ageSpecificRecommendations
-        //showContactPopUp()
     }
     
     //MARK: Get Center Btn Image Of Color
@@ -605,4 +509,5 @@ class AcuityMainViewModel: NSObject {
         return newArrMedications
         
     }
+    
 }

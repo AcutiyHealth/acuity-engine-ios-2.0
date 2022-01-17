@@ -9,7 +9,7 @@ import Foundation
 import CFNetwork
 import SystemConfiguration
 import Alamofire
-//import J
+import SVProgressHUD
 
 class WebServiceManager : NSObject {
     
@@ -30,7 +30,13 @@ class WebServiceManager : NSObject {
     }
     
     func showUnathorizedMessage (message:String?) {
-        //SVProgressHUD.dismiss()
+        SVProgressHUD.dismiss()
+        let alertController = UIAlertController(title: "\(Key.kAppName)", message: message, preferredStyle: .alert)
+        let alertAction = UIAlertAction(title: "OK", style: .default) { (action) in
+            print("Action")
+        }
+        alertController.addAction(alertAction)
+        alertController.showOnWindow()
         //UserManager.shared.setLoginScreenAsRootView(message: message!)
     }
     
@@ -77,7 +83,7 @@ class WebServiceManager : NSObject {
                 completion(responseModel)
                 
             } else if(statusCode == APIParameter.kUnauthorizeStatus) {
-                self.showUnathorizedMessage(message: response[APIParameter.kMessage] as? String)
+                //self.showUnathorizedMessage(message: response[APIParameter.kMessage] as? String)
                 return
                 
                 //                let responseModel = APIResponseModel()

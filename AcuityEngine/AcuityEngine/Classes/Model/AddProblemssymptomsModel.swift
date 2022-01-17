@@ -263,13 +263,24 @@ func getSymptomsArray()->[SymptomsName]{
 }
 
 class MyWellScoreModel:Metrix{
-
+    
     init(value:Double,timeStamp:Double) {
         super.init()
         super.startTimeStamp = timeStamp
         super.value = value
     }
 }
-
+class PreventionTrackerModel {
+    
+    var specificRecommendation:SpecificRecommendations?
+    //var timeStamp: Double = 0
+    var selectedValue:PreventionTrackerValue = .NotApplicable
+    
+    init(specificRecommendation:SpecificRecommendations,selectedValue:PreventionTrackerValue) {
+        self.specificRecommendation = specificRecommendation
+        self.selectedValue = selectedValue
+    }
+  
+}
 
 

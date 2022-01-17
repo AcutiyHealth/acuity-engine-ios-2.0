@@ -9,7 +9,6 @@
 /* Begin PBXBuildFile section */
 		08B879B268566B06F141D3F3 /* Pods_AcuityEngine.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2674AE460659ECA36794A9A0 /* Pods_AcuityEngine.framework */; };
 		7A04F4F82705CFD50006123F /* AddOtherHistoriesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A04F4F72705CFD50006123F /* AddOtherHistoriesViewController.swift */; };
-		7A0C287D271919AC0021A7AC /* ProfiletempVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A0C287C271919AC0021A7AC /* ProfiletempVC.swift */; };
 		7A149A9E277A94470039B781 /* AllSystemLabs.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A149A9C277A94460039B781 /* AllSystemLabs.swift */; };
 		7A149A9F277A94470039B781 /* AllSystemVitals.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A149A9D277A94470039B781 /* AllSystemVitals.swift */; };
 		7A1A78552707F57800C8BA4E /* ConditionArray.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A1A78542707F57800C8BA4E /* ConditionArray.swift */; };
@@ -26,10 +25,13 @@
 		7A2B4E60272FF42700B5C56B /* PreventionListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A2B4E5F272FF42700B5C56B /* PreventionListViewController.swift */; };
 		7A3086632702A35900C0A45B /* OtherHistoryDataTableHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A3086612702A35900C0A45B /* OtherHistoryDataTableHeaderView.swift */; };
 		7A3086642702A35900C0A45B /* OtherHistoryDataTableHeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7A3086622702A35900C0A45B /* OtherHistoryDataTableHeaderView.xib */; };
+		7A3492432791188500E2BAD2 /* ProfileSharedData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A3492422791188500E2BAD2 /* ProfileSharedData.swift */; };
+		7A39A2B2278D9CE700991AFA /* AlertController+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A39A2B1278D9CE700991AFA /* AlertController+Extensions.swift */; };
 		7A45154627449A8B002ED97F /* MedicationListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A45154527449A8B002ED97F /* MedicationListViewController.swift */; };
 		7A493DEC27142FEC00107785 /* MedicationDataTableHeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7A493DE927142FEC00107785 /* MedicationDataTableHeaderView.xib */; };
 		7A493DED27142FEC00107785 /* MedicationInputView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A493DEA27142FEC00107785 /* MedicationInputView.swift */; };
 		7A493DEE27142FEC00107785 /* MedicationDataTableHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A493DEB27142FEC00107785 /* MedicationDataTableHeaderView.swift */; };
+		7A571520278A756100F663C5 /* AddPreventionFromListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A57151F278A756100F663C5 /* AddPreventionFromListViewController.swift */; };
 		7A59AFA827030D7400B2E384 /* HistoryModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A59AFA727030D7400B2E384 /* HistoryModels.swift */; };
 		7A6BEE27271AE4BE007A1972 /* ProfileViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A6BEE26271AE4BE007A1972 /* ProfileViewModel.swift */; };
 		7A73077A26FF1EB2005F9F5E /* CardioViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A73060F26FF1EB1005F9F5E /* CardioViewModel.swift */; };
@@ -291,8 +293,8 @@
 		7AD7E70726036E750076F14E /* SFProDisplay-Semibold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 7AD7E6FC26036E750076F14E /* SFProDisplay-Semibold.ttf */; };
 		7AD7E70826036E750076F14E /* SFProDisplay-LightItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 7AD7E6FD26036E750076F14E /* SFProDisplay-LightItalic.ttf */; };
 		7AE1446C2701D5A3000A6E20 /* OtherHistoryInputView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AE1446A2701D5A3000A6E20 /* OtherHistoryInputView.swift */; };
-		7AE224FC27619CFD00725A26 /* OnboardingCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AE224FA27619CFD00725A26 /* OnboardingCollectionViewCell.swift */; };
-		7AE224FD27619CFD00725A26 /* OnboardingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AE224FB27619CFD00725A26 /* OnboardingViewController.swift */; };
+		7AE64E4C2789928A00E68641 /* OnboardingCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AE64E4A2789928A00E68641 /* OnboardingCollectionViewCell.swift */; };
+		7AE64E4D2789928A00E68641 /* OnboardingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AE64E4B2789928A00E68641 /* OnboardingViewController.swift */; };
 		7AFA7F30272172D000C8D44F /* UserManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AFA7F2F272172D000C8D44F /* UserManager.swift */; };
 		7AFA7F39272178A600C8D44F /* Grades.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AFA7F32272178A600C8D44F /* Grades.swift */; };
 		7AFA7F3A272178A600C8D44F /* SpecificRecommendations.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AFA7F33272178A600C8D44F /* SpecificRecommendations.swift */; };
@@ -312,7 +314,6 @@
 		2E9A2C77FCE70E2F05B2179B /* Pods-AcuityEngine.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-AcuityEngine.debug.xcconfig"; path = "Target Support Files/Pods-AcuityEngine/Pods-AcuityEngine.debug.xcconfig"; sourceTree = "<group>"; };
 		5E581811A157C643B3DE3D9C /* Pods-AcuityEngine.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-AcuityEngine.release.xcconfig"; path = "Target Support Files/Pods-AcuityEngine/Pods-AcuityEngine.release.xcconfig"; sourceTree = "<group>"; };
 		7A04F4F72705CFD50006123F /* AddOtherHistoriesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddOtherHistoriesViewController.swift; sourceTree = "<group>"; };
-		7A0C287C271919AC0021A7AC /* ProfiletempVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfiletempVC.swift; sourceTree = "<group>"; };
 		7A149A9C277A94460039B781 /* AllSystemLabs.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AllSystemLabs.swift; sourceTree = "<group>"; };
 		7A149A9D277A94470039B781 /* AllSystemVitals.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AllSystemVitals.swift; sourceTree = "<group>"; };
 		7A1A78542707F57800C8BA4E /* ConditionArray.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConditionArray.swift; sourceTree = "<group>"; };
@@ -329,10 +330,13 @@
 		7A2B4E5F272FF42700B5C56B /* PreventionListViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PreventionListViewController.swift; sourceTree = "<group>"; };
 		7A3086612702A35900C0A45B /* OtherHistoryDataTableHeaderView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OtherHistoryDataTableHeaderView.swift; sourceTree = "<group>"; };
 		7A3086622702A35900C0A45B /* OtherHistoryDataTableHeaderView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = OtherHistoryDataTableHeaderView.xib; sourceTree = "<group>"; };
+		7A3492422791188500E2BAD2 /* ProfileSharedData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileSharedData.swift; sourceTree = "<group>"; };
+		7A39A2B1278D9CE700991AFA /* AlertController+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AlertController+Extensions.swift"; sourceTree = "<group>"; };
 		7A45154527449A8B002ED97F /* MedicationListViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MedicationListViewController.swift; sourceTree = "<group>"; };
 		7A493DE927142FEC00107785 /* MedicationDataTableHeaderView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MedicationDataTableHeaderView.xib; sourceTree = "<group>"; };
 		7A493DEA27142FEC00107785 /* MedicationInputView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MedicationInputView.swift; sourceTree = "<group>"; };
 		7A493DEB27142FEC00107785 /* MedicationDataTableHeaderView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MedicationDataTableHeaderView.swift; sourceTree = "<group>"; };
+		7A57151F278A756100F663C5 /* AddPreventionFromListViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddPreventionFromListViewController.swift; sourceTree = "<group>"; };
 		7A59AFA727030D7400B2E384 /* HistoryModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryModels.swift; sourceTree = "<group>"; };
 		7A6AF7FD25E7A2C2001FB132 /* AcuityEngine-Bridging-Header.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "AcuityEngine-Bridging-Header.h"; sourceTree = "<group>"; };
 		7A6BEE26271AE4BE007A1972 /* ProfileViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewModel.swift; sourceTree = "<group>"; };
@@ -606,8 +610,8 @@
 		7AD7E6FC26036E750076F14E /* SFProDisplay-Semibold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SFProDisplay-Semibold.ttf"; sourceTree = "<group>"; };
 		7AD7E6FD26036E750076F14E /* SFProDisplay-LightItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SFProDisplay-LightItalic.ttf"; sourceTree = "<group>"; };
 		7AE1446A2701D5A3000A6E20 /* OtherHistoryInputView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OtherHistoryInputView.swift; sourceTree = "<group>"; };
-		7AE224FA27619CFD00725A26 /* OnboardingCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OnboardingCollectionViewCell.swift; sourceTree = "<group>"; };
-		7AE224FB27619CFD00725A26 /* OnboardingViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OnboardingViewController.swift; sourceTree = "<group>"; };
+		7AE64E4A2789928A00E68641 /* OnboardingCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OnboardingCollectionViewCell.swift; sourceTree = "<group>"; };
+		7AE64E4B2789928A00E68641 /* OnboardingViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OnboardingViewController.swift; sourceTree = "<group>"; };
 		7AFA7F2F272172D000C8D44F /* UserManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserManager.swift; sourceTree = "<group>"; };
 		7AFA7F32272178A600C8D44F /* Grades.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Grades.swift; sourceTree = "<group>"; };
 		7AFA7F33272178A600C8D44F /* SpecificRecommendations.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SpecificRecommendations.swift; sourceTree = "<group>"; };
@@ -724,6 +728,14 @@
 			path = AcuityEngine/Classes/View/Medication;
 			sourceTree = SOURCE_ROOT;
 		};
+		7A57151E278A753500F663C5 /* Prevention */ = {
+			isa = PBXGroup;
+			children = (
+				7A57151F278A756100F663C5 /* AddPreventionFromListViewController.swift */,
+			);
+			path = Prevention;
+			sourceTree = "<group>";
+		};
 		7A73060D26FF1EB1005F9F5E /* Classes */ = {
 			isa = PBXGroup;
 			children = (
@@ -822,6 +834,7 @@
 				7A73063226FF1EB1005F9F5E /* UIViewController+Alert.swift */,
 				7A73063326FF1EB1005F9F5E /* UIStoryboard+Instantiable.swift */,
 				7A8D7CF1271DA90F00674C7C /* CALayer+Extensions.swift */,
+				7A39A2B1278D9CE700991AFA /* AlertController+Extensions.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -1692,7 +1705,7 @@
 		7A73074E26FF1EB1005F9F5E /* ViewController */ = {
 			isa = PBXGroup;
 			children = (
-				7AE224F927619CFD00725A26 /* Onboarding */,
+				7AE64E492789928A00E68641 /* Onboarding */,
 				7AB33562272EA46800B05899 /* TutorialCards */,
 				7AFA7F4027217FB400C8D44F /* CustomPopUp */,
 				7A73074F26FF1EB1005F9F5E /* Base Controller */,
@@ -1746,6 +1759,7 @@
 		7A73075926FF1EB2005F9F5E /* Add */ = {
 			isa = PBXGroup;
 			children = (
+				7A57151E278A753500F663C5 /* Prevention */,
 				7A73075A26FF1EB2005F9F5E /* Vitals */,
 				7A73075E26FF1EB2005F9F5E /* AddOptionSelectionViewController.swift */,
 				7A73075F26FF1EB2005F9F5E /* medications */,
@@ -1827,7 +1841,7 @@
 			isa = PBXGroup;
 			children = (
 				7A73077226FF1EB2005F9F5E /* ProfileViewController.swift */,
-				7A0C287C271919AC0021A7AC /* ProfiletempVC.swift */,
+				7A3492422791188500E2BAD2 /* ProfileSharedData.swift */,
 				7A73077326FF1EB2005F9F5E /* TermsOfServiceViewController.swift */,
 				7A73077426FF1EB2005F9F5E /* ProfileOptionSelectionViewController.swift */,
 				7A73077526FF1EB2005F9F5E /* SettingsViewController.swift */,
@@ -1897,14 +1911,14 @@
 			path = OtherHistory;
 			sourceTree = "<group>";
 		};
-		7AE224F927619CFD00725A26 /* Onboarding */ = {
+		7AE64E492789928A00E68641 /* Onboarding */ = {
 			isa = PBXGroup;
 			children = (
-				7AE224FA27619CFD00725A26 /* OnboardingCollectionViewCell.swift */,
-				7AE224FB27619CFD00725A26 /* OnboardingViewController.swift */,
+				7AE64E4A2789928A00E68641 /* OnboardingCollectionViewCell.swift */,
+				7AE64E4B2789928A00E68641 /* OnboardingViewController.swift */,
 			);
 			name = Onboarding;
-			path = ../../../../../../../../../../Desktop/Onboarding;
+			path = "../../../../../../acuity-engine-ios-2.0/AcuityEngine/AcuityEngine/Classes/ViewController/Onboarding";
 			sourceTree = "<group>";
 		};
 		7AFA7F2E272172D000C8D44F /* Manager */ = {
@@ -2128,10 +2142,12 @@
 				7A7307EE26FF1EB2005F9F5E /* SystemDataProtocol.swift in Sources */,
 				7A7307A626FF1EB2005F9F5E /* GastrointestinalManager.swift in Sources */,
 				7A73082D26FF1EB2005F9F5E /* RespiratorySymptomCalculation.swift in Sources */,
+				7A571520278A756100F663C5 /* AddPreventionFromListViewController.swift in Sources */,
 				7A7307AB26FF1EB2005F9F5E /* SkinLab.swift in Sources */,
 				7A73081226FF1EB2005F9F5E /* IDiseaseCondition.swift in Sources */,
 				7A73079426FF1EB2005F9F5E /* KeyChainUtility.swift in Sources */,
 				7A73085826FF1EB2005F9F5E /* SceneDelegate.swift in Sources */,
+				7AE64E4D2789928A00E68641 /* OnboardingViewController.swift in Sources */,
 				7A7307D626FF1EB2005F9F5E /* RenalSymptomsPainData.swift in Sources */,
 				7A73085E26FF1EB2005F9F5E /* BMICalculatorViewController.swift in Sources */,
 				7A73080F26FF1EB2005F9F5E /* IDiseaseLab.swift in Sources */,
@@ -2147,6 +2163,7 @@
 				7A73082426FF1EB2005F9F5E /* RespiratoryConditionData.swift in Sources */,
 				7A7307D126FF1EB2005F9F5E /* RenalVital.swift in Sources */,
 				7A7307F926FF1EB2005F9F5E /* NeuroCondition.swift in Sources */,
+				7A3492432791188500E2BAD2 /* ProfileSharedData.swift in Sources */,
 				7A7307C726FF1EB2005F9F5E /* CardioSymptomsPainData.swift in Sources */,
 				7A8601772720236B0089BC06 /* Logger.swift in Sources */,
 				7AE1446C2701D5A3000A6E20 /* OtherHistoryInputView.swift in Sources */,
@@ -2171,7 +2188,6 @@
 				7A73081F26FF1EB2005F9F5E /* FNEData.swift in Sources */,
 				7A73079126FF1EB2005F9F5E /* APIRequestModel.swift in Sources */,
 				7A7307E126FF1EB2005F9F5E /* HKWriterManager.swift in Sources */,
-				7A0C287D271919AC0021A7AC /* ProfiletempVC.swift in Sources */,
 				7A73085626FF1EB2005F9F5E /* AcuityMainViewModel.swift in Sources */,
 				7A7307AF26FF1EB2005F9F5E /* SkinSymptoms.swift in Sources */,
 				7A73085726FF1EB2005F9F5E /* AppDelegate.swift in Sources */,
@@ -2184,6 +2200,7 @@
 				7A73082B26FF1EB2005F9F5E /* RespiratorySymptomsPainData.swift in Sources */,
 				7A73078F26FF1EB2005F9F5E /* UIStoryboard+Instantiable.swift in Sources */,
 				7A7307C426FF1EB2005F9F5E /* CardioCondition.swift in Sources */,
+				7A39A2B2278D9CE700991AFA /* AlertController+Extensions.swift in Sources */,
 				7A7307FD26FF1EB2005F9F5E /* NeuroVital.swift in Sources */,
 				7A73086326FF1EB2005F9F5E /* AcuityMetricsDetailViewController.swift in Sources */,
 				7AFA7F39272178A600C8D44F /* Grades.swift in Sources */,
@@ -2214,7 +2231,6 @@
 				7A7307AC26FF1EB2005F9F5E /* SkinManager.swift in Sources */,
 				7A7307D026FF1EB2005F9F5E /* RenalManager.swift in Sources */,
 				7A73078B26FF1EB2005F9F5E /* UISegmentedControl+Extensions.swift in Sources */,
-				7AE224FC27619CFD00725A26 /* OnboardingCollectionViewCell.swift in Sources */,
 				7A74055F273F5339005CFE1F /* HistoryValueListViewController.swift in Sources */,
 				7A7307B226FF1EB2005F9F5E /* SkinConditionData.swift in Sources */,
 				7A73084C26FF1EB2005F9F5E /* PullUpDisplayCell.swift in Sources */,
@@ -2259,7 +2275,6 @@
 				7A73081C26FF1EB2005F9F5E /* FNELab.swift in Sources */,
 				7A73081026FF1EB2005F9F5E /* IDiseaseLabData.swift in Sources */,
 				7A73084926FF1EB2005F9F5E /* LabelTitle.swift in Sources */,
-				7AE224FD27619CFD00725A26 /* OnboardingViewController.swift in Sources */,
 				7A73081926FF1EB2005F9F5E /* FNESymptoms.swift in Sources */,
 				7A73081126FF1EB2005F9F5E /* IDiseaseConditionData.swift in Sources */,
 				7A7307F426FF1EB2005F9F5E /* HKSetupAssistance.swift in Sources */,
@@ -2338,6 +2353,7 @@
 				7A7307BA26FF1EB2005F9F5E /* SDHSymptomsPainData.swift in Sources */,
 				7A73080226FF1EB2005F9F5E /* GenitourinarySymptomsPainData.swift in Sources */,
 				7A73083626FF1EB2005F9F5E /* HematoConditionData.swift in Sources */,
+				7AE64E4C2789928A00E68641 /* OnboardingCollectionViewCell.swift in Sources */,
 				7A73078226FF1EB2005F9F5E /* FMDatabasePool.m in Sources */,
 				7A7307A726FF1EB2005F9F5E /* GastrointestinalSymptoms.swift in Sources */,
 				7A73079326FF1EB2005F9F5E /* APIResponseModel.swift in Sources */,

@@ -94,7 +94,7 @@ extension ProfileOptionSelectionViewController: SOPullUpViewDelegate {
             NotificationCenter.default.post(name:Notification.Name(NSNotificationName.showAcuityDetailPopup.rawValue), object: nil)
             
         case .expanded: break
-            
+        default:break
         }
     }
     

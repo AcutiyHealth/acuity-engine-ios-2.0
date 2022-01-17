@@ -7,9 +7,11 @@
 
 import Foundation
 import SVProgressHUD
+import HealthKitReporter
 
 class Utility {
     //UserDefaults
+    static let shared = Utility()
     
     class func setBoolForKey(_ value: Bool, key: String) {
         UserDefaults.standard.set(value, forKey: key)
@@ -30,8 +32,17 @@ class Utility {
         UserDefaults.standard.synchronize()
     }
     
+    class func setDoubleForKey(_ value: Double, key: String) {
+        UserDefaults.standard.set(value, forKey: key)
+        UserDefaults.standard.synchronize()
+    }
+    
     class func fetchInteger(forKey key: String) -> Int {
         return UserDefaults.standard.integer(forKey: key)
+    }
+    
+    class func fetchDouble(forKey key: String) -> Double {
+        return UserDefaults.standard.double(forKey: key)
     }
     
     class func fetchString(forKey key: String) -> String {
@@ -50,14 +61,15 @@ class Utility {
         UserDefaults.standard.string(forKey: key)
         UserDefaults.standard.removeObject(forKey:key)
     }
-    static func showSVProgress(){
+    
+    class func showSVProgress(){
         SVProgressHUD.show()
         SVProgressHUD.setDefaultMaskType(.clear)
     }
-    static func hideSVProgress(){
+    class func hideSVProgress(){
         SVProgressHUD.dismiss()
     }
-    static func showAlertWithOKBtn(onViewController vc: UIViewController, title titleOfAlert:String = "\(Key.kAppName)" , message messageInAlert: String) {
+    class func showAlertWithOKBtn(onViewController vc: UIViewController, title titleOfAlert:String = "\(Key.kAppName)" , message messageInAlert: String) {
         
         //Create alertController object with specific message
         let alertController = UIAlertController(title: titleOfAlert, message: messageInAlert, preferredStyle: .alert)
@@ -71,6 +83,11 @@ class Utility {
         
         //Show alert to user
         vc.present(alertController, animated: true, completion: nil)
+    }
+    class func getDateForDayOrMonth(from startDate:Date, component:Calendar.Component, numberOfBeforeOrAfterDays:Int)->Date{
+        
+        let daysAgo = Calendar.current.date(byAdding: component, value: numberOfBeforeOrAfterDays, to: startDate)!
+        return daysAgo
     }
     //MARK: Make view of Conditions,lab,symptoms and vital selected
     static func setBackgroundColorWhenViewSelcted(view:UIView){
@@ -88,6 +105,32 @@ class Utility {
     //MARK: Make view of Conditions,lab,symptoms and vital unselected
     static func setBackgroundColorWhenViewUnSelcted(view:UIView){
         view.layer.borderWidth = 0;
+    }
+    
+    //MARK: Filter prevention data based on age and gender...
+    func filterPreventionDataForAgeAndGender(preventionData:[PreventionTrackerModel],age:Int,gender:String)->[PreventionTrackerModel] {
+        //let newAge = 11
+        var ageSpecificRecommendations: [PreventionTrackerModel] = []
+        for obj in 0..<(preventionData.count) {
+            let objPrevention = preventionData[obj]
+            let data = objPrevention.specificRecommendation
+            let min = data?.ageRange?.first ?? 0
+            let max = data?.ageRange?.last ?? 0
+            
+            // let _ = data?.ageRange?.map{ _ in
+            if age >= min && age <= max {
+                //print("data?.gender",data?.gender as Any)
+                // || data?.gender == "men and women"
+                if gender.lowercased() == data?.gender || data?.gender == "men and women"{
+                    if let _ =  data{
+                        ageSpecificRecommendations.append(objPrevention)
+                    }
+                }
+            }
+            //}
+        }
+        return ageSpecificRecommendations
+        //showContactPopUp()
     }
 }
 

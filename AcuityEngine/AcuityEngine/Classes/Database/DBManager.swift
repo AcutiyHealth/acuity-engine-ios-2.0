@@ -29,6 +29,19 @@ class DBManager: NSObject {
     let field_myWellScoreValue = "value"
     let field_myWellScoreTimeStamp = "timeStamp"
     let tbl_myWellScore = "MyWellScore"
+    //PreventionTracker
+    let field_pt_id = "id"
+    let field_pt_title = "title"
+    let field_pt_grade = "grade"
+    let field_pt_gender = "gender"
+    let field_pt_sex = "sex"
+    let field_pt_ageRange = "ageRange"
+    let tbl_preventionTracker = "preventionTracker"
+    //SelectedPreventionTracker
+    let field_spt_id = "id"
+    let field_spt_selectedValue = "selectedValue"
+    let field_spt_timeStamp = "timeStamp"
+    let tbl_selectedPreventionTracker = "selectedPreventionTracker"
     
     static let shared: DBManager = DBManager()
     
@@ -383,8 +396,9 @@ class DBManager: NSObject {
         
         return deleted
     }
-    
-    //MARK:- Condition
+    //========================================================================================================
+    //MARK: Condition..
+    //========================================================================================================
     func insertConditionData(completionHandler: (_ success:Bool,_ error:Error?) -> Void) {
         if openDatabase() {
             
@@ -539,8 +553,9 @@ class DBManager: NSObject {
         
         return deleted
     }
-    
-    //MARK:- MyWellScore tables........
+    //========================================================================================================
+    //MARK: MyWellScore..
+    //========================================================================================================
     func insertMyWellScoreData(model:MyWellScoreModel,completionHandler: (_ success:Bool,_ error:Error?) -> Void) {
         if openDatabase() {
             
@@ -593,6 +608,175 @@ class DBManager: NSObject {
         //============================================================================================//
         let myWellScoreModel = MyWellScoreModel(value: value, timeStamp: timeStamp)
         return myWellScoreModel
+    }
+    //========================================================================================================
+    //MARK: PreventionTracker..
+    //========================================================================================================
+    func insertPreventionData(arrPreventionTracker:[PreventionTrackerModel],completionHandler: (_ success:Bool,_ error:Error?) -> Void) {
+        if openDatabase() {
+            
+            do {
+                
+                var query = ""
+                
+                for preventionTracker in arrPreventionTracker{
+                    //PreventionTracker
+                    /* let field_pt_id = "id"
+                     let field_pt_title = "title"
+                     let tbl_preventionTracker = "preventionTracker"
+                     //SelectedPreventionTracker
+                     let field_spt_id = "id"
+                     let field_spt_selectedValue = "selectedValue"
+                     let field_spt_timeStamp = "timeStamp"
+                     let tbl_selectedPreventionTracker = "selectedPreventionTracker"*/
+                    var strAge:String = ""
+                    guard let recommondetion = preventionTracker.specificRecommendation else { return  }
+                    if  recommondetion.ageRange != nil{
+                        for ageData in recommondetion.ageRange!{
+                            strAge = "\(strAge)\(ageData),"
+                        }
+                        if strAge.last == ","
+                        {
+                            strAge.removeLast() //Remove last ,
+                        }
+                    }
+                    query += "INSERT INTO \(tbl_preventionTracker) (\(field_pt_id),\(field_pt_title),\(field_pt_grade),\(field_pt_gender),\(field_pt_sex),\(field_pt_ageRange)) VALUES (\(recommondetion.id ?? 0),'\(recommondetion.title ?? "")','\(recommondetion.grade ?? "")','\(recommondetion.gender ?? "")','\(recommondetion.sex ?? "")','\(strAge)') ;"
+                }
+                if !database.executeStatements(query) {
+                    print("Failed to insert initial data into the database.")
+                    print(database.lastError() ?? NSError(), database.lastErrorMessage() as Any)
+                    completionHandler(false,database.lastError())
+                }
+                completionHandler(true,nil)
+            }
+            
+            
+            database.close()
+            
+        }
+        
+    }
+    func loadAllPreventionData() -> [PreventionTrackerModel] {
+        var preventions: [PreventionTrackerModel] = []
+        
+        // let query = "select * from conditions order by \(field_ConditionName) asc"
+        //let query = "SELECT \(tbl_preventionTracker).\(field_pt_id),\(tbl_preventionTracker).\(field_pt_title),\(tbl_preventionTracker).\(field_pt_grade),\(tbl_preventionTracker).\(field_pt_gender),\(tbl_preventionTracker).\(field_pt_sex),\(tbl_preventionTracker).\(field_pt_ageRange),\(tbl_selectedPreventionTracker).\(field_spt_selectedValue) FROM  \(tbl_preventionTracker) INNER JOIN \(tbl_selectedPreventionTracker) ON \(tbl_preventionTracker).\(field_pt_id) = \(tbl_selectedPreventionTracker).\(field_spt_id);"
+        let query = "SELECT \(tbl_preventionTracker).\(field_pt_id),\(tbl_preventionTracker).\(field_pt_title),\(tbl_preventionTracker).\(field_pt_grade),\(tbl_preventionTracker).\(field_pt_gender),\(tbl_preventionTracker).\(field_pt_sex),\(tbl_preventionTracker).\(field_pt_ageRange) FROM  \(tbl_preventionTracker);"
+        do {
+            
+            self.fetchResultSet(query: query, values: [], completionHandler: { (success, results:FMResultSet) in
+                if success{
+                    while (results.next()) {
+                        let prevention = preparePreventionTrackerModelFromResult(results: results,isSelectedValueSetFromColumn: false)
+                        preventions.append(prevention)
+                    }
+                }
+            })
+            
+            
+        }
+        
+        return preventions
+    }
+    
+    func loadYesAndNOPreventionsOnly() -> [PreventionTrackerModel] {
+        var preventions: [PreventionTrackerModel] = []
+        
+        let query = "SELECT \(tbl_preventionTracker).\(field_pt_id),\(tbl_preventionTracker).\(field_pt_title),\(tbl_preventionTracker).\(field_pt_grade),\(tbl_preventionTracker).\(field_pt_gender),\(tbl_preventionTracker).\(field_pt_sex),\(tbl_preventionTracker).\(field_pt_ageRange),\(tbl_selectedPreventionTracker).\(field_spt_selectedValue) FROM  \(tbl_preventionTracker) INNER JOIN \(tbl_selectedPreventionTracker) ON \(tbl_preventionTracker).\(field_pt_id) = \(tbl_selectedPreventionTracker).\(field_spt_id) where \(field_spt_selectedValue)=\(PreventionTrackerValue.Yes.rawValue) OR \(field_spt_selectedValue)=\(PreventionTrackerValue.No.rawValue)"
+        
+        do {
+            
+            self.fetchResultSet(query: query, values: [], completionHandler: { (success, results:FMResultSet) in
+                if success{
+                    while results.next() {
+                        let prevention = preparePreventionTrackerModelFromResult(results: results,isSelectedValueSetFromColumn: true)
+                        preventions.append(prevention)
+                    }
+                }
+            })
+            
+        }
+        
+        return preventions
+    }
+    
+    func loadYesPreventionsOnly() -> [PreventionTrackerModel] {
+        var preventions: [PreventionTrackerModel] = []
+        
+        let query = "SELECT \(tbl_preventionTracker).\(field_pt_id),\(tbl_preventionTracker).\(field_pt_title),\(tbl_preventionTracker).\(field_pt_grade),\(tbl_preventionTracker).\(field_pt_gender),\(tbl_preventionTracker).\(field_pt_sex),\(tbl_preventionTracker).\(field_pt_ageRange),\(tbl_selectedPreventionTracker).\(field_spt_selectedValue) FROM  \(tbl_preventionTracker) INNER JOIN \(tbl_selectedPreventionTracker) ON \(tbl_preventionTracker).\(field_pt_id) = \(tbl_selectedPreventionTracker).\(field_spt_id) where \(field_spt_selectedValue)=\(PreventionTrackerValue.Yes.rawValue)"
+        
+        do {
+            
+            self.fetchResultSet(query: query, values: [], completionHandler: { (success, results:FMResultSet) in
+                if success{
+                    while results.next() {
+                        let prevention = preparePreventionTrackerModelFromResult(results: results, isSelectedValueSetFromColumn: true)
+                        preventions.append(prevention)
+                    }
+                }
+            })
+            
+        }
+        
+        return preventions
+    }
+    func preparePreventionTrackerModelFromResult(results:FMResultSet,isSelectedValueSetFromColumn:Bool)->PreventionTrackerModel{
+        var selectedValue = 0
+        
+        let id = Int((results.int(forColumn: field_pt_id)))
+        let title =  String((results.string(forColumn: field_pt_title)))
+        let grade =  String((results.string(forColumn: field_pt_grade)))
+        let gender =  String((results.string(forColumn: field_pt_gender)))
+        let sex =  String((results.string(forColumn: field_pt_sex)))
+        let ageRange =  String((results.string(forColumn: field_pt_ageRange)))
+        var arrayAge:[Int] = []
+        if ageRange.count > 0{
+            let arrayStrAge = ageRange.components(separatedBy: ",")
+            arrayAge = arrayStrAge.map { Int($0)!}
+        }
+        if isSelectedValueSetFromColumn{
+            selectedValue = Int((results.int(forColumn: field_spt_selectedValue)))
+        }
+        //let startTime = Double((results.double(forColumn: field_timeStamp)))
+        let specificRecommendation = SpecificRecommendations(id: id, title: title, grade: grade, gender: gender, sex: sex, ageRange: arrayAge)
+        let prevention = PreventionTrackerModel(specificRecommendation: specificRecommendation, selectedValue: PreventionTrackerValue(rawValue: selectedValue)! )
+        return prevention
+    }
+    
+    
+    func insertOrReplacePreventionTrackerSelectionalue(withID ID: Int, selectedValue: PreventionTrackerValue) {
+        if openDatabase() {
+            let timeStamp =  getTimeStampForCurrenTime()
+            let query =  "INSERT OR REPLACE INTO \(tbl_selectedPreventionTracker) (\(field_spt_id),\(field_spt_selectedValue),\(field_spt_timeStamp)) VALUES  (?,?,?)"
+            
+            do {
+                try database.executeUpdate(query, values: [ID,selectedValue.rawValue,timeStamp])
+            }
+            catch {
+                print(error.localizedDescription)
+            }
+            
+            database.close()
+        }
+    }
+    
+    func deleteFromSelectedPrenevetionTracker(withID ID: Int) -> Bool {
+        var deleted = false
+        
+        
+        let query = "delete from \(tbl_selectedPreventionTracker) where \(field_spt_id)=?"
+        
+        do {
+            updateResultSet(query: query, values: [ID]) {(success,error) in
+                if success{
+                    deleted = true
+                }
+            }
+            
+            
+        }
+        
+        return deleted
     }
     
 }

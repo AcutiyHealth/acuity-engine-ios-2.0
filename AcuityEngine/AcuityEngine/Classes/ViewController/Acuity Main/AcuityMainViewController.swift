@@ -842,9 +842,9 @@ class AcuityMainViewController: PullUpViewController, UIScrollViewDelegate,Rotar
             btnPrevention.isHidden = false
             btnMedicin.isHidden = false
             viewModelAcuityMain.arrangePreventionButtonNearWheel(btnPrevention: btnPrevention, view: self.view, scoreview: mainScoreView!)
-            viewModelAcuityMain.displayPreventionData = { success,arrRecommondetions in
+            viewModelAcuityMain.displayPreventionData = { success,arrPreventionTracker in
                 if success{
-                    self.showPreventionPopUp(arrRecommondetions: arrRecommondetions)
+                    self.showPreventionPopUp(arrPreventionTracker: arrPreventionTracker)
                 }else{
                     Utility.showAlertWithOKBtn(onViewController: self, title: AlertMessages.TITLE_ERROR, message: AlertMessages.ERROR_DATA_FETCH)
                 }
@@ -861,12 +861,12 @@ class AcuityMainViewController: PullUpViewController, UIScrollViewDelegate,Rotar
             }
         }
     }
-    func showPreventionPopUp(arrRecommondetions:[SpecificRecommendations]) {
+    func showPreventionPopUp(arrPreventionTracker:[PreventionTrackerModel]) {
         /*let customPopUpVC = CustomPopUpVC(nibName: "CustomPopUpVC", bundle: nil)
          
          DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
          // Create the dialog
-         customPopUpVC.arrRecommondetions = arrRecommondetions
+         customPopUpVC.arrPreventionTracker = arrPreventionTracker
          
          // your code here
          customPopUpVC.subViewHeightConstraint?.constant = self.view.frame.size.height*2.2/3
@@ -912,7 +912,7 @@ class AcuityMainViewController: PullUpViewController, UIScrollViewDelegate,Rotar
         
         if  pullUpController.pullUpVC.isKind(of: PreventionListViewController.self){
             let vc = pullUpController.pullUpVC as? PreventionListViewController
-            vc?.arrRecommondetions = arrRecommondetions
+            vc?.arrPreventionTracker = arrPreventionTracker
         }
     }
 }

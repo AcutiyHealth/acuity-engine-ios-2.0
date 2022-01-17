@@ -7,6 +7,21 @@
 
 import Foundation
 struct PreventionModel: Codable {
+    let specificRecommendations : [SpecificRecommendations]?
+    
+    enum CodingKeys: String, CodingKey {
+        case specificRecommendations = "specificRecommendations"
+    }
+
+    init(from decoder: Decoder) throws {
+        let values = try decoder.container(keyedBy: CodingKeys.self)
+        specificRecommendations = try values.decodeIfPresent([SpecificRecommendations].self, forKey: .specificRecommendations)
+       
+    }
+
+}
+/*
+struct PreventionModel: Codable {
     let note : String?
     let specificRecommendations : [SpecificRecommendations]?
     let grades : Grades?
@@ -38,3 +53,4 @@ struct PreventionModel: Codable {
     }
 
 }
+*/

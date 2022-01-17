@@ -10,6 +10,8 @@ import Foundation
 import HealthKitReporter
 import SOPullUpView
 import SVProgressHUD
+
+
 class ProfileViewController: UIViewController {
     
     // MARK: - Outlet
@@ -61,10 +63,15 @@ class ProfileViewController: UIViewController {
                     self.profileViewModel.fetchMedicationData { success, error, arrayForTblDataView in
                         if success{
                             self.arrayForTblDataView.append(contentsOf: arrayForTblDataView)
-                            DispatchQueue.main.async {
-                                //Hide Progress HUD
-                                SVProgressHUD.dismiss()
-                                self.tblHistoryOrMedicationData.reloadData()
+                            self.profileViewModel.fetchPreventionTrackerData { success, error, arrayForTblDataView in
+                                if success{
+                                    self.arrayForTblDataView.append(contentsOf: arrayForTblDataView)
+                                    DispatchQueue.main.async {
+                                        //Hide Progress HUD
+                                        SVProgressHUD.dismiss()
+                                        self.tblHistoryOrMedicationData.reloadData()
+                                    }
+                                }
                             }
                         }
                     }
@@ -96,25 +103,22 @@ class ProfileViewController: UIViewController {
     //========================================================================================================
     private func readBasicDetails() {
         do {
-            let reporter = try HealthKitReporter()
-            let characteristic = reporter.reader.characteristics()
-            var birthDay = characteristic.birthday ?? ""
-            let age = calculateAgeFromBirthDate(birthday: birthDay)
-            
+            var birthDay = ProfileSharedData.shared.birthDate
+            let age = ProfileSharedData.shared.age
+            let bloodGroup = ProfileSharedData.shared.bloodType
+            let gender = ProfileSharedData.shared.sex
             if age > 0{
                 birthDay = "\(birthDay)/\(String(describing: age))"
             }
-            birthDate = characteristic.birthday == "na" ? "Not Set":birthDay
-            sex = ((characteristic.biologicalSex == "na" ? "Not Set":characteristic.biologicalSex)) ?? ""
-            bloodType = ((characteristic.bloodType == "na" ? "Not Set":characteristic.bloodType)) ?? ""
+            birthDate = birthDay == "" ? "Not Set":birthDay
+            sex = ((gender == "" ? "Not Set":gender))
+            bloodType = ((bloodGroup == "" ? "Not Set":bloodGroup))
             
             //After fetching data set data to ProfileDataArray....
             setCharactristicDataToArray()
             //Set Height Of TableView
             heightConstraintFortblProfileDataView.constant = CGFloat(profileDataArray.count * HEIGHT_OF_ROW_IN_PROFILE_TBL)
             tblProfileData.reloadData()
-        } catch {
-            print(error)
         }
     }
     
@@ -159,6 +163,7 @@ extension ProfileViewController: SOPullUpViewDelegate {
             /*UIView.animate(withDuration: 0.6) { [weak self] in
              //self?.titleLbl.alpha = 1
              }*/
+        default:break
         }
     }
     

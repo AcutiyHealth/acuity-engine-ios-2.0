@@ -30,7 +30,11 @@ enum SymptomsValue:Double {
     case Not_Present = 0
     
 }
-
+enum PreventionTrackerValue:Int {
+    case NotApplicable = 0
+    case No = 1
+    case Yes = 2
+}
 enum SymptomsTextValue:String {
     case Severe = "Severe"
     case Moderate = "Moderate"
@@ -143,6 +147,7 @@ enum AddOption: String {
 enum NSNotificationName: String {
     case pullUpOpen = "pullUpOpen"
     case pullUpClose = "pullUpClose"
+    case pullUpHalfOpened = "pullUpHalfOpened"
     case showAcuityDetailPopup = "showAcuityDetailPopup"
     case refreshCircleView = "refreshCircleView"
     case refreshDataInCircle = "refreshDataInCircle"
@@ -379,10 +384,11 @@ struct Key {
     static let kAppleUser = "appleUser" as  String
     static let kAppName = Bundle.main.infoDictionary?["CFBundleDisplayName"] as? String ?? "AcuityEngine"
     static let kIsNotificationOnOff = "isNotificationOnOff" as  String
-    static let kPreventionData = "preventionData" as  String
+    static let kPreventionDataSyncDateInApp = "preventionDataSyncDateInApp" as  String
     static let kIsTerminatereminder = "isTerminatereminder" as  String
     static let kIsSymptomseminder = "isSymptomseminder" as  String
     static let kIsLoggedIn = "isLoggedIn" as  String
     static let kIsTutorialCardShown = "isTutorialCardShown" as  String
+    
 }
 

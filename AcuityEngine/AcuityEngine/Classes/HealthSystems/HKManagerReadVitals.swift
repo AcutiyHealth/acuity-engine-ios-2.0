@@ -250,7 +250,7 @@ class HKManagerReadVitals: NSObject {
             ){ (success, error) in
                 if success && error == nil {
                     //dispatchGroup.enter()
-                    let characteristic = self.reporter?.reader.characteristics()
+                    /*let characteristic = self.reporter?.reader.characteristics()
                     let birthdate = characteristic?.birthday?.asDate(format: Date.yyyyMMdd)
                     var age = 0;
                     
@@ -266,6 +266,9 @@ class HKManagerReadVitals: NSObject {
                         
                         age = components.year ?? 0
                     }
+                    print("age",age)*/
+                    ProfileSharedData.shared.readBasicDetails()
+                    let age = ProfileSharedData.shared.age
                     print("age",age)
                     //save data For SDH
                     SDHManager.sharedManager.saveAgeCharactesticInArray(element: Double(age))

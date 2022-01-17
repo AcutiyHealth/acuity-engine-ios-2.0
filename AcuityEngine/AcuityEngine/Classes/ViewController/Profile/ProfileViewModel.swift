@@ -8,6 +8,7 @@
 import Foundation
 
 class ProfileViewModel: NSObject {
+    //MARK: Fetch Medication Data
     func fetchMedicationData(completionHandler: @escaping(_ success:Bool,_ error:Error?,_ arrayForTblDataView:[[String:[String]]]) -> Void){
         //Global Queue
         
@@ -52,6 +53,43 @@ class ProfileViewModel: NSObject {
          It has key of Section Title and Value are Array Of Input Data in Textfield which convert into model and save in database..
          */
     }
+    //MARK: Fetch Prevention Tracker Data
+    func fetchPreventionTrackerData(completionHandler: @escaping(_ success:Bool,_ error:Error?,_ arrayForTblDataView:[[String:[String]]]) -> Void){
+        //Global Queue
+        
+        DispatchQueue.global(qos: .background).async {
+            
+            //Fetch data......
+            var arrayForTblDataView:[[String:[String]]] = []
+            var preventionTrackerData = DBManager.shared.loadYesPreventionsOnly()
+            preventionTrackerData = Utility.shared.filterPreventionDataForAgeAndGender(preventionData: preventionTrackerData, age: ProfileSharedData.shared.age, gender: ProfileSharedData.shared.sex)
+            //Main Queue......
+            DispatchQueue.main.async {
+                /*
+                 After fetching data from dataabse, prepare array of dicitonary. Dictionary will have key -> title of section and Value -> Array
+                 Filter data with Id of Medication type and fetch Medication Name and MAke it's key. Sp E.g. If id = 1, name will be Medication and key will be of Medication. It will have value(text) which have Id = 1 in database..
+                 MedicationDataDisplayModel will have Id,name and textValue and TimeStamp...
+                 */
+                if preventionTrackerData.count>0{
+                    var arrTitle:[String] = []
+                    let _ = preventionTrackerData.map { objPreventionTracker in
+                        arrTitle.append(objPreventionTracker.specificRecommendation?.title ?? "")
+                    }
+                    arrayForTblDataView.append([AddOption.preventionTracker.rawValue:arrTitle])
+                }
+                completionHandler(true,nil,arrayForTblDataView)
+            }
+            
+        }
+        /*
+         Ex. of arrayForTblDataView = [[AcuityEngine.Medication.otherConditions: [AcuityEngine.MedicationDataDisplayModel]], [AcuityEngine.Medication.surgicalMedication: []],
+         [AcuityEngine.Medication.familyMedication: [AcuityEngine.MedicationDataDisplayModel]],
+         [AcuityEngine.Medication.socialMedication: []],
+         [AcuityEngine.Medication.allergies: [AcuityEngine.MedicationDataDisplayModel]]]
+         It has key of Section Title and Value are Array Of Input Data in Textfield which convert into model and save in database..
+         */
+    }
+    //MARK: Fetch History And Condition Data
     func fetchHistoryData(completionHandler: @escaping(_ success:Bool,_ error:Error?,_ arrayForTblDataView:[[String:[String]]]) -> Void){
         //Global Queue
         

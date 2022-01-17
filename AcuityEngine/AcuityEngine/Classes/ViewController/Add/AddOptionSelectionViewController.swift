@@ -27,6 +27,7 @@ class AddOptionSelectionViewController:UIViewController{
     var vitalsVC : VitalsListViewController?
     var medicationsVC : AddMedicationsViewController?
     var historiesVC : HistoryTitleListViewController?
+    var preventionVC : AddPreventionFromListViewController?
     
     var addOptionArray: [[String:String]] = [["title":AddOption.vitals.rawValue,"description":"Please log your daily vitals to understand your wellness."],["title":AddOption.symptom.rawValue,"description":"A place for you to track your symptoms on a daily basis or chronically."],["title":AddOption.conditions.rawValue,"description":"Start Here to track any conditions you may have from our list."],["title":AddOption.medications.rawValue,"description":"A convenient way to note down what you take daily."],["title":AddOption.otherHistory.rawValue,"description":"Complete your data repository by noting other historical information about yourself."],["title":AddOption.preventionTracker.rawValue,"description":"Follow USPSTF guidelines on your recommended prevention."]]
     //var labelsAsStringForMonth: Array<String> = ["Week1","Week2","Week3","Week4"]
@@ -44,15 +45,15 @@ class AddOptionSelectionViewController:UIViewController{
         super.viewDidLoad()
         collection.delegate = self
         collection.dataSource = self
-
+        
         /*if let layout = collection?.collectionViewLayout as? UICollectionViewFlowLayout{
-                layout.minimumLineSpacing = 10
-            //layout.minimumInteritemSpacing = 10
-                //layout.sectionInset = UIEdgeInsets(top: 0, left: 10, bottom: 0, right: 10)
-                let size = CGSize(width:(collection!.bounds.width-20)/2, height: 250)
-                layout.itemSize = size
-            self.size = size.width - 30
-        }*/
+         layout.minimumLineSpacing = 10
+         //layout.minimumInteritemSpacing = 10
+         //layout.sectionInset = UIEdgeInsets(top: 0, left: 10, bottom: 0, right: 10)
+         let size = CGSize(width:(collection!.bounds.width-20)/2, height: 250)
+         layout.itemSize = size
+         self.size = size.width - 30
+         }*/
     }
     
     
@@ -74,7 +75,7 @@ extension AddOptionSelectionViewController: SOPullUpViewDelegate {
             NotificationCenter.default.post(name:Notification.Name(NSNotificationName.showAcuityDetailPopup.rawValue), object: nil)
             
         case .expanded: break
-            
+        default:break
         }
         
     }
@@ -143,7 +144,10 @@ extension AddOptionSelectionViewController: UICollectionViewDelegate, UICollecti
                 do{
                     openOtherHistoriesScreen(title: AddOption.otherHistory.rawValue)
                 }
-                
+            case .preventionTracker:
+                do{
+                    openPreventionTrackerScreen(title: AddOption.otherHistory.rawValue)
+                }
             case .none:
                 print("")
             default:
@@ -306,6 +310,19 @@ extension AddOptionSelectionViewController {
         
     }
     //========================================================================================================
+    //MARK: Open Prevention Tracker Screen
+    //========================================================================================================
+    func openPreventionTrackerScreen(title:String){
+        
+        //Add detail value view as child view
+        preventionVC = UIStoryboard(name: Storyboard.add.rawValue, bundle: nil).instantiateViewController(withIdentifier: "AddPreventionFromListViewController") as? AddPreventionFromListViewController
+        guard (preventionVC != nil) else {
+            return
+        }
+        setupTitleAndBackButtonForAllSubViewController(vc: preventionVC!)
+        //preventionVC?.lblTitle.text = title
+    }
+    //========================================================================================================
     //MARK: Setup Title And BackButton For All SubViewController
     //========================================================================================================
     func setupTitleAndBackButtonForAllSubViewController(vc:UIViewController){
@@ -360,6 +377,9 @@ extension AddOptionSelectionViewController {
         }
         if historiesVC != nil{
             removeHistoryView()
+        }
+        if preventionVC != nil{
+            removePreventionView()
         }
     }
     //========================================================================================================
@@ -434,7 +454,10 @@ extension AddOptionSelectionViewController {
         removeSubView(vc: historiesVC!)
         historiesVC = nil;
     }
-    
+    func removePreventionView(){
+        removeSubView(vc: preventionVC!)
+        preventionVC = nil;
+    }
     func removeSubView(vc:UIViewController){
         //Show animation when view is removed.....
         animationForDetailViewWhenRemoved(from: self.visualEffectView)

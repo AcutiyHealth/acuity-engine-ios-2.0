@@ -8,6 +8,7 @@
 import Foundation
 import UIKit
 import SOPullUpView
+import SwiftUI
 
 class PreventionListViewController:UIViewController{
     
@@ -16,7 +17,7 @@ class PreventionListViewController:UIViewController{
     @IBOutlet weak var handleArea: HandleView!
     @IBOutlet weak var mainView: UIView!
     @IBOutlet weak var visualEffectView: UIView!
-    @IBOutlet weak var tblTitle: UITableView! {
+    @IBOutlet weak var tblPreventionTracker: UITableView! {
         didSet{
             setTbl()
         }
@@ -25,12 +26,12 @@ class PreventionListViewController:UIViewController{
     @IBOutlet weak var subView: UIView!
     @IBOutlet weak var lblTitle: UILabel!
     @IBOutlet weak var subViewHeightConstraint:NSLayoutConstraint!
-    var arrRecommondetions = [SpecificRecommendations]() {
+    var arrPreventionTracker = [PreventionTrackerModel]() {
         didSet{
             loadFirstRecommondetion()
         }
     }
-    var arrTitle = [String]()
+    var filteredArrPreventionTracker = [PreventionTrackerModel]()
     var btnCloseClickedCallback: (() -> Void)!
     
     // MARK: - Properties
@@ -46,18 +47,18 @@ class PreventionListViewController:UIViewController{
         super.viewDidLoad()
         
         // Do any additional setup after loading the view.
-        tblTitle.delegate = self
-        tblTitle.dataSource = self
+        tblPreventionTracker.delegate = self
+        tblPreventionTracker.dataSource = self
         
         lblTitle.text = "Prevention Recommendations By Grade"
         lblTitle.font = Fonts.kAcuityAddOptionTitleFont
         lblTitle.textColor = UIColor.white
         
-        self.view.backgroundColor = UIColor.white.withAlphaComponent(0.2)
+        //self.view.backgroundColor = UIColor.white.withAlphaComponent(0.2)
     }
     
     func setTbl(){
-        tblTitle.register(UINib(nibName: "CustomPopUpCell", bundle: nil), forCellReuseIdentifier: NSStringFromClass(CustomPopUpCell.classForCoder()))
+        tblPreventionTracker.register(UINib(nibName: "CustomPopUpCell", bundle: nil), forCellReuseIdentifier: NSStringFromClass(CustomPopUpCell.classForCoder()))
         setUpSegmentControl(segmentControl: segmentControl)
     }
     func setUpSegmentControl(segmentControl:UISegmentedControl){
@@ -72,7 +73,13 @@ class PreventionListViewController:UIViewController{
         //self.segmentClicked(segmentControl)
     }
     func loadFirstRecommondetion(){
+        //DispatchQueue.main.async {
+        tblPreventionTracker.backgroundView = nil
+        if arrPreventionTracker.count<0{
+            setNoDataInfoIfRecordsNotExists(tblView: self.tblPreventionTracker)
+        }
         filterARecommondetions()
+        //}
     }
     @IBAction func btnCloseClicked(sender:UIButton){
         if let _ = btnCloseClickedCallback{
@@ -89,51 +96,59 @@ class PreventionListViewController:UIViewController{
         
     }
     func filterARecommondetions(){
-        arrTitle = []
-        for obj in 0..<(arrRecommondetions.count ) {
-            let data = arrRecommondetions[obj]
-            
+        filteredArrPreventionTracker = []
+        for obj in 0..<(arrPreventionTracker.count ) {
+            let objPreventionModel = arrPreventionTracker[obj]
+            guard let data = objPreventionModel.specificRecommendation else { return  }
             //let _ = data.ageRange?.map{ _ in
             if  data.grade == "A"{
-                arrTitle.append(data.title ?? "")
+                filteredArrPreventionTracker.append(objPreventionModel)
             }
             //}
         }
-        self.tblTitle.reloadData()
+        self.tblPreventionTracker.reloadData()
     }
     
     func filterBRecommondetions(){
-        arrTitle = []
-        for obj in 0..<(arrRecommondetions.count ) {
-            let data = arrRecommondetions[obj]
-            
+        filteredArrPreventionTracker = []
+        for obj in 0..<(arrPreventionTracker.count ) {
+            let objPreventionModel = arrPreventionTracker[obj]
+            guard let data = objPreventionModel.specificRecommendation else { return  }
             //let _ = data.ageRange?.map{ _ in
             if  data.grade == "B"{
-                arrTitle.append(data.title ?? "")
+                filteredArrPreventionTracker.append(objPreventionModel)
             }
             //}
             
         }
-        self.tblTitle.reloadData()
+        self.tblPreventionTracker.reloadData()
     }
 }
 
 extension PreventionListViewController: UITableViewDelegate,UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return arrTitle.count
+        return filteredArrPreventionTracker.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tblTitle.dequeueReusableCell(withIdentifier: NSStringFromClass(CustomPopUpCell.classForCoder()), for: indexPath) as! CustomPopUpCell
-        let titleStr:String = arrTitle[indexPath.row]
+        let cell = tblPreventionTracker.dequeueReusableCell(withIdentifier: NSStringFromClass(CustomPopUpCell.classForCoder()), for: indexPath) as! CustomPopUpCell
+        let objRecommondetions = filteredArrPreventionTracker[indexPath.row]
+        guard let specificRecommendation = objRecommondetions.specificRecommendation else { return cell }
+        let titleStr:String = specificRecommendation.title ?? ""
         let end = titleStr.lastIndex(of: ":")
         let start = titleStr.startIndex
         let str1 = "\(titleStr[start..<(end!)]):"
         let range = (titleStr as NSString).range(of: str1)
         let mutableAttributedString = NSMutableAttributedString.init(string: titleStr)
         mutableAttributedString.addAttribute(NSAttributedString.Key.font, value: Fonts.kAcuityBtnAdd, range:range)
-        //mutableAttributedString.addAttribute(NSAttributedString.Key.font, value: Fonts.kCellProfileDetailFont, range: NSRange(location: range.hashValue, length: titleStr.count-1))
         
+        //mutableAttributedString.addAttribute(NSAttributedString.Key.font, value: Fonts.kCellProfileDetailFont, range: NSRange(location: range.hashValue, length: titleStr.count-1))
+        if objRecommondetions.selectedValue == .No{
+            cell.lblTitle.textColor = ChartColor.REDCOLOR
+        }
+        else{
+            cell.lblTitle.textColor = UIColor.white
+        }
         cell.lblTitle.attributedText = mutableAttributedString
         return cell
     }
@@ -159,7 +174,7 @@ extension PreventionListViewController: SOPullUpViewDelegate {
             NotificationCenter.default.post(name: Notification.Name(NSNotificationName.pullUpClose.rawValue), object: nil)
             NotificationCenter.default.post(name:Notification.Name(NSNotificationName.showAcuityDetailPopup.rawValue), object: nil)
         case .expanded: break
-            
+        default:break
         }
         
     }
