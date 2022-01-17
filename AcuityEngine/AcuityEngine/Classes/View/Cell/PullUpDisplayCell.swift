@@ -374,4 +374,44 @@ class AddOptionCell: UICollectionViewCell {
 }
 //==========================================================================================//
 
+//MARK: - Add Prevention Tracker Selection Cell
+class AddPreventionTrackerSelectionCell: UITableViewCell {
+    
+    @IBOutlet weak var titleLabel: UILabel!
+    @IBOutlet weak var valueSegmentControl: UISegmentedControl!
+    @IBOutlet weak var containerView: UIView!
+  
+    override func awakeFromNib() {
+        
+        super.awakeFromNib()
+        setFontForLabel()
+        setUpSegmentControl(segmentControl: valueSegmentControl)
+        // Initialization code
+    }
+    func setUpSegmentControl(segmentControl:UISegmentedControl){
+        segmentControl.defaultConfiguration(font: Fonts.kAcuityDetailSegmentFont, color: UIColor.white)
+        segmentControl.selectedConfiguration(font: Fonts.kAcuityDetailSegmentFont, color: UIColor.black)
+    }
+    func setFontForLabel(){
+        titleLabel.font = Fonts.kCellTextFontListInAddSection
+        titleLabel.numberOfLines = 0
+        titleLabel.sizeToFit()
+    }
+    
+    func displayData(title:String,preventionTrackerValue:PreventionTrackerValue){
+        titleLabel.text = title
+        switch preventionTrackerValue {
+        case .No:
+            valueSegmentControl.selectedSegmentIndex = 1
+        case .Yes:
+            valueSegmentControl.selectedSegmentIndex = 0
+        default:
+            valueSegmentControl.selectedSegmentIndex = 2
+        }
+    }
+    
+    
+}
+//==========================================================================================//
+
 
