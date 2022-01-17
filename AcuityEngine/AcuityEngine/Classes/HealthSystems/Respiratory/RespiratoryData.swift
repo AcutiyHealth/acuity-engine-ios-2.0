@@ -26,7 +26,7 @@ class RespiratoryData {
      Below method is used to caculate My well score. My well score need one day/today's data for calculation. So, we use totalSystemScoreWithDays with one day.
      */
     func getWeightedSystemScore()->Double{
-        print("<--------------------Respirratory------------------>")
+        Log.d("<--------------------Respirratory------------------>")
         let score = totalSystemScoreWithDays(days: SegmentValueForGraph.OneDay)
         return (score * respiratoryRelativeImportance)/100
     }

@@ -270,7 +270,6 @@
 		7A73086C26FF1EB2005F9F5E /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A73077526FF1EB2005F9F5E /* SettingsViewController.swift */; };
 		7A73086D26FF1EB2005F9F5E /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A73077726FF1EB2005F9F5E /* LoginViewController.swift */; };
 		7A73086E26FF1EB2005F9F5E /* Utility.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A73077926FF1EB2005F9F5E /* Utility.swift */; };
-		7A74055B273F4DD1005CFE1F /* tempfile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A74055A273F4DD1005CFE1F /* tempfile.swift */; };
 		7A74055D273F5324005CFE1F /* HistoryTitleListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A74055C273F5324005CFE1F /* HistoryTitleListViewController.swift */; };
 		7A74055F273F5339005CFE1F /* HistoryValueListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A74055E273F5338005CFE1F /* HistoryValueListViewController.swift */; };
 		7A844E59270FE3CF00FBFF7F /* MedicationModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A844E58270FE3CF00FBFF7F /* MedicationModel.swift */; };
@@ -586,7 +585,6 @@
 		7A73077526FF1EB2005F9F5E /* SettingsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
 		7A73077726FF1EB2005F9F5E /* LoginViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		7A73077926FF1EB2005F9F5E /* Utility.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Utility.swift; sourceTree = "<group>"; };
-		7A74055A273F4DD1005CFE1F /* tempfile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = tempfile.swift; sourceTree = "<group>"; };
 		7A74055C273F5324005CFE1F /* HistoryTitleListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryTitleListViewController.swift; sourceTree = "<group>"; };
 		7A74055E273F5338005CFE1F /* HistoryValueListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryValueListViewController.swift; sourceTree = "<group>"; };
 		7A844E58270FE3CF00FBFF7F /* MedicationModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MedicationModel.swift; sourceTree = "<group>"; };
@@ -1797,7 +1795,6 @@
 			isa = PBXGroup;
 			children = (
 				7A04F4F72705CFD50006123F /* AddOtherHistoriesViewController.swift */,
-				7A74055A273F4DD1005CFE1F /* tempfile.swift */,
 				7A74055C273F5324005CFE1F /* HistoryTitleListViewController.swift */,
 				7A74055E273F5338005CFE1F /* HistoryValueListViewController.swift */,
 			);
@@ -2317,7 +2314,6 @@
 				7A73083E26FF1EB2005F9F5E /* AcuityModels.swift in Sources */,
 				7A73085126FF1EB2005F9F5E /* Header.swift in Sources */,
 				7A73079526FF1EB2005F9F5E /* SwiftKeychainDist.swift in Sources */,
-				7A74055B273F4DD1005CFE1F /* tempfile.swift in Sources */,
 				7A73085926FF1EB2005F9F5E /* AddVitalsViewController.swift in Sources */,
 				7A73078E26FF1EB2005F9F5E /* UIViewController+Alert.swift in Sources */,
 				7A73080B26FF1EB2005F9F5E /* GenitourinaryCondition.swift in Sources */,
@@ -2540,9 +2536,9 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = AcuityEngine/AcuityEngineDebug.entitlements;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "iPhone Distribution";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 5;
+				CURRENT_PROJECT_VERSION = 1;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_TEAM = 56FBZFEBV5;
 				INFOPLIST_FILE = AcuityEngine/Info.plist;
@@ -2551,10 +2547,10 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.55;
+				MARKETING_VERSION = 1.56;
 				PRODUCT_BUNDLE_IDENTIFIER = com.devdigital.acuityhealthengineenterprise;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE_SPECIFIER = "Acuity Engine development";
+				PROVISIONING_PROFILE_SPECIFIER = AcuityHealthEngineEnterpriseDistribution;
 				SWIFT_OBJC_BRIDGING_HEADER = "AcuityEngine/AcuityEngine-Bridging-Header.h";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 1;
@@ -2568,9 +2564,9 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = AcuityEngine/AcuityEngine.entitlements;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "iPhone Distribution";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 5;
+				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 56FBZFEBV5;
 				INFOPLIST_FILE = AcuityEngine/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 13.6;
@@ -2578,10 +2574,10 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.55;
+				MARKETING_VERSION = 1.56;
 				PRODUCT_BUNDLE_IDENTIFIER = com.devdigital.acuityhealthengineenterprise;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE_SPECIFIER = "Acuity Engine development";
+				PROVISIONING_PROFILE_SPECIFIER = AcuityHealthEngineEnterpriseDistribution;
 				SWIFT_OBJC_BRIDGING_HEADER = "AcuityEngine/AcuityEngine-Bridging-Header.h";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 1;

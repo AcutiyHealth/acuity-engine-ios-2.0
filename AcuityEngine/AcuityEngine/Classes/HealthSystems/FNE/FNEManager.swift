@@ -26,7 +26,23 @@ class FNEManager: NSObject {
     func resetFNEData(){
         fneData = FNEData()
     }
-    
+    //MARK: Statastics Data
+    func saveStatasticsInArray(quantityType:QuantityType,element:Statistics) {
+        switch quantityType {
+            
+        case .dietaryWater:
+            do{
+                guard let value = element.harmonized.summary  else {
+                    return
+                }
+                let waterIntake = FNEVitalsData(type: VitalsName.waterIntake)
+                waterIntake.value = Double(value)
+                waterIntake.startTimeStamp = element.startTimestamp
+                self.fneData.fneVital.waterIntakeData.append(waterIntake)
+            }
+        default:break
+        }
+    }
     //Save Vitals Data in fneVital Model
     func saveQuantityInArray(quantityType:QuantityType,element:Quantity) {
         switch quantityType {
@@ -63,13 +79,6 @@ class FNEManager: NSObject {
                 bodyMassIndex.value = Double(element.harmonized.value)
                 bodyMassIndex.startTimeStamp = element.startTimestamp
                 self.fneData.fneVital.BMIData.append(bodyMassIndex)
-            }
-        case .dietaryWater:
-            do{
-                let waterIntake = FNEVitalsData(type: VitalsName.waterIntake)
-                waterIntake.value = Double(element.harmonized.value)
-                waterIntake.startTimeStamp = element.startTimestamp
-                self.fneData.fneVital.waterIntakeData.append(waterIntake)
             }
             
         default:

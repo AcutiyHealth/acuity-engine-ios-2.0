@@ -311,7 +311,7 @@ class HKManagerReadVitals: NSObject {
                             
                             for preferredUnit in preferredUnits {
                                 dispatchGroup.enter()
-                                if preferredUnit.identifier == QuantityType.stepCount.identifier {
+                                if preferredUnit.identifier == QuantityType.stepCount.identifier || preferredUnit.identifier == QuantityType.dietaryWater.identifier {
                                     self.callForStatasticsTypeWithAllSampleData(reporter: reporter,preferredUnit: preferredUnit) { success, error in
                                         if success && error==nil{
                                             completion(success, nil)
@@ -382,14 +382,15 @@ class HKManagerReadVitals: NSObject {
                 beforeDaysOrWeekOrMonth = 3
                 let daysAgo = Calendar.current.date(byAdding: component, value: -beforeDaysOrWeekOrMonth, to: now)!
                 
-                print("daysAgo",daysAgo)
+                //print("daysAgo",daysAgo)
                 let startOfDaysAgo = Calendar.current.startOfDay(for: daysAgo)
                 let mostRecentPredicate = HKQuery.predicateForSamples(withStart: startOfDaysAgo, end: now, options: [])
                 
                 
                 let sortDescriptor = NSSortDescriptor(key: HKSampleSortIdentifierStartDate,
                                                       ascending: false)
-                
+                //print("preferredUnit.identifier",preferredUnit.identifier)
+                //print("preferredUnit.unit",preferredUnit.unit)
                 let query = try reporter.reader.quantityQuery(
                     type: try QuantityType.make(from: preferredUnit.identifier),
                     unit: preferredUnit.unit,
@@ -403,7 +404,8 @@ class HKManagerReadVitals: NSObject {
                                 do {
                                     
                                     let identifier =  try QuantityType.make(from: preferredUnit.identifier)
-                                    
+                                    //print("element value",Double(element.harmonized.value))
+                                    //print("element unit",(element.harmonized.unit))
                                     //save data For Cardio
                                     CardioManager.sharedManager.saveQuantityInArray(quantityType: identifier, element: element)
                                     
@@ -502,8 +504,27 @@ class HKManagerReadVitals: NSObject {
                          else if statistics.harmonized.average != nil{
                          print(identifier,"------",statistics.harmonized.average!)
                          }*/
+                        //Save data for Cardio System...
                         CardioManager.sharedManager.saveStatasticsInArray(quantityType: identifier, element: statistics)
-                        
+                        //Save data for Respiratory System...
+                        RespiratoryManager.sharedManager.saveStatasticsInArray(quantityType: identifier, element: statistics)
+                        //Save data for Gastrointestinal System...
+                        RenalManager.sharedManager.saveStatasticsInArray(quantityType: identifier, element: statistics)
+                        //Save data for Gastrointestinal System...
+                        FNEManager.sharedManager.saveStatasticsInArray(quantityType: identifier, element: statistics)
+                        //Save data for Gastrointestinal System...
+                        GastrointestinalManager.sharedManager.saveStatasticsInArray(quantityType: identifier, element: statistics)
+                        //Save data for Gastrointestinal System...
+                        GenitourinaryManager.sharedManager.saveStatasticsInArray(quantityType: identifier, element: statistics)
+                        //Save data for Neuro System...
+                        NeuroManager.sharedManager.saveStatasticsInArray(quantityType: identifier, element: statistics)
+                        //Save data for SDH System...
+                        SDHManager.sharedManager.saveStatasticsInArray(quantityType: identifier, element: statistics)
+                        //Save data for Musc System...
+                        MuscManager.sharedManager.saveStatasticsInArray(quantityType: identifier, element: statistics)
+                        //Save data for Gastrointestinal System...
+                        SkinManager.sharedManager.saveStatasticsInArray(quantityType: identifier, element: statistics)
+                      
                     }
                     //dispatchGroup.leave()
                 } else {

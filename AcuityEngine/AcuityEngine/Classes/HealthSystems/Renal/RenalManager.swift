@@ -26,7 +26,23 @@ class RenalManager: NSObject {
     func resetRenalData(){
         renalData = RenalData()
     }
-    
+    //MARK: Statastics Data
+    func saveStatasticsInArray(quantityType:QuantityType,element:Statistics) {
+        switch quantityType {
+            
+        case .dietaryWater:
+            do{
+                guard let value = element.harmonized.summary  else {
+                    return
+                }
+                let waterIntake = RenalVitalsData(type: VitalsName.waterIntake)
+                waterIntake.value = Double(value)
+                waterIntake.startTimeStamp = element.startTimestamp
+                self.renalData.renalVital.waterIntakeData.append(waterIntake)
+            }
+        default:break
+        }
+    }
     //Save Vitals Data in renalVital Model
     func saveQuantityInArray(quantityType:QuantityType,element:Quantity) {
         switch quantityType {
@@ -48,15 +64,7 @@ class RenalManager: NSObject {
                 self.renalData.renalVital.diastolicBloodPressureData.append(diastolicBP)
                 
             }
-        case .dietaryWater:
-            do{
-                
-                let waterIntake = RenalVitalsData(type: VitalsName.waterIntake)
-                waterIntake.value = Double(element.harmonized.value)
-                waterIntake.startTimeStamp = element.startTimestamp
-                self.renalData.renalVital.waterIntakeData.append(waterIntake)
-                Log.d("Renal=======\(waterIntake.value) maxScoreVitals===\(waterIntake.score) ")
-            }
+            
         default:
             break
         }

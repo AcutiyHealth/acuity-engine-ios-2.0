@@ -48,7 +48,7 @@ class HKManagerReadLab: NSObject
                         
                         let sourceString = String(data: prettyPrintedSourceData, encoding: .utf8) ?? "Unable to display FHIR source."
                         
-                        print(unescapeJSONString(sourceString))
+                        //print(unescapeJSONString(sourceString))
                         if let dictionary = sourceObject as? [String: AnyObject] {
                             //Fetch Value of Lab Data
                             let valueQuantity = dictionary["valueQuantity"] as? [String: AnyObject]
@@ -59,7 +59,7 @@ class HKManagerReadLab: NSObject
                             if timeStampOfLabData == 0{
                                  timeStampOfLabData = issueDate?.iso8601withFractionalSecondsNew?.timeIntervalSince1970 ?? 0
                             }
-                            print("timeStampOfLabData",timeStampOfLabData)
+                            //print("timeStampOfLabData",timeStampOfLabData)
                             
                             //Code for  Lab Data
                             let dictionaryCode = dictionary["code"] as? [String: AnyObject]

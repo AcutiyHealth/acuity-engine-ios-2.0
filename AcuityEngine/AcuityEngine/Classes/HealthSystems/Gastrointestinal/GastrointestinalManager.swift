@@ -27,6 +27,32 @@ class GastrointestinalManager: NSObject {
         gastrointestinalData = GastrointestinalData()
     }
     
+    func saveStatasticsInArray(quantityType:QuantityType,element:Statistics) {
+        switch quantityType {
+        case .stepCount:
+            do{
+                guard let value = element.harmonized.summary  else {
+                    return
+                }
+                let steps = GastrointestinalVitalsData(type: VitalsName.steps)
+                steps.value = Double(value)
+                steps.startTimeStamp = element.startTimestamp
+                self.gastrointestinalData.gastrointestinalVital.stepsData.append(steps)
+            }
+        case .dietaryWater:
+            do{
+                guard let value = element.harmonized.summary  else {
+                    return
+                }
+                let waterIntake = GastrointestinalVitalsData(type: VitalsName.waterIntake)
+                waterIntake.value = Double(value)
+                waterIntake.startTimeStamp = element.startTimestamp
+                self.gastrointestinalData.gastrointestinalVital.waterIntakeData.append(waterIntake)
+                
+            }
+        default:break
+        }
+    }
     //Save Vitals Data in gastrointestinalVital Model
     func saveQuantityInArray(quantityType:QuantityType,element:Quantity) {
         switch quantityType {
@@ -38,22 +64,14 @@ class GastrointestinalManager: NSObject {
                 self.gastrointestinalData.gastrointestinalVital.bodyMassIndexData.append(bodyMassIndex)
                 
             }
-        case .dietaryWater:
-            do{
-                let waterIntake = GastrointestinalVitalsData(type: VitalsName.waterIntake)
-                waterIntake.value = Double(element.harmonized.value)
-                waterIntake.startTimeStamp = element.startTimestamp
-                self.gastrointestinalData.gastrointestinalVital.waterIntakeData.append(waterIntake)
-                
-            }
-        case .stepCount:
-            do{
-                let steps = GastrointestinalVitalsData(type: VitalsName.steps)
-                steps.value = Double(element.harmonized.value)
-                steps.startTimeStamp = element.startTimestamp
-                self.gastrointestinalData.gastrointestinalVital.stepsData.append(steps)
-                
-            }
+            /*case .stepCount:
+             do{
+             let steps = GastrointestinalVitalsData(type: VitalsName.steps)
+             steps.value = Double(element.harmonized.value)
+             steps.startTimeStamp = element.startTimestamp
+             self.gastrointestinalData.gastrointestinalVital.stepsData.append(steps)
+             
+             }*/
         default:
             break
         }
@@ -71,36 +89,36 @@ class GastrointestinalManager: NSObject {
         symptomsData.endTimeStamp = element.endTimestamp
         
         switch category {
-        //abdominalCramps
+            //abdominalCramps
         case .abdominalCramps:
             GastrointestinalManager.sharedManager.gastrointestinalData.gastrointestinalSymptoms.abdominalCrampsData.append(symptomsData)
-        //chestTightnessOrPain
+            //chestTightnessOrPain
         case .chestTightnessOrPain:
             GastrointestinalManager.sharedManager.gastrointestinalData.gastrointestinalSymptoms.chestPainData.append(symptomsData)
-        //coughing
+            //coughing
         case .coughing:
             GastrointestinalManager.sharedManager.gastrointestinalData.gastrointestinalSymptoms.coughData.append(symptomsData)
             
-        //diarrhea
+            //diarrhea
         case .diarrhea:
             GastrointestinalManager.sharedManager.gastrointestinalData.gastrointestinalSymptoms.diarrheaData.append(symptomsData)
-        //constipation
+            //constipation
         case .constipation:
             GastrointestinalManager.sharedManager.gastrointestinalData.gastrointestinalSymptoms.constipationData.append(symptomsData)
-        //fatigue
+            //fatigue
         case .fatigue:
             GastrointestinalManager.sharedManager.gastrointestinalData.gastrointestinalSymptoms.fatigueData.append(symptomsData)
             
-        //bloating
+            //bloating
         case .bloating:
             GastrointestinalManager.sharedManager.gastrointestinalData.gastrointestinalSymptoms.bloatingData.append(symptomsData)
-        //nausea
+            //nausea
         case .nausea:
             GastrointestinalManager.sharedManager.gastrointestinalData.gastrointestinalSymptoms.nauseaData.append(symptomsData)
-        //vomiting
+            //vomiting
         case .vomiting:
             GastrointestinalManager.sharedManager.gastrointestinalData.gastrointestinalSymptoms.vomitingData.append(symptomsData)
-        //heartburn
+            //heartburn
         case .heartburn:
             GastrointestinalManager.sharedManager.gastrointestinalData.gastrointestinalSymptoms.heartburnData.append(symptomsData)
         default:
@@ -132,39 +150,39 @@ class GastrointestinalManager: NSObject {
          diabetes
          */
         switch conditionType {
-        //GERD
+            //GERD
         case .GERD:
             GastrointestinalManager.sharedManager.gastrointestinalData.gastrointestinalCondition.GERDData.append(conditionData)
-        //hyperlipidemia
+            //hyperlipidemia
         case .hyperlipidemia:
             GastrointestinalManager.sharedManager.gastrointestinalData.gastrointestinalCondition.hyperlipidemiaData.append(conditionData)
-        //ulcerativeColitis
+            //ulcerativeColitis
         case .ulcerativeColitis:
             GastrointestinalManager.sharedManager.gastrointestinalData.gastrointestinalCondition.ulcerativeColitisData.append(conditionData)
-        //crohnsDisease
+            //crohnsDisease
         case .crohnsDisease:
             GastrointestinalManager.sharedManager.gastrointestinalData.gastrointestinalCondition.crohnsDiseaseData.append(conditionData)
             
-        //gastroentritis
+            //gastroentritis
         case .gastroentritis:
             GastrointestinalManager.sharedManager.gastrointestinalData.gastrointestinalCondition.gastroentritisData.append(conditionData)
-        //irritableBowelDisease
+            //irritableBowelDisease
         case .irritableBowelDisease:
             GastrointestinalManager.sharedManager.gastrointestinalData.gastrointestinalCondition.irritableBowelDiseaseData.append(conditionData)
-        //overweightOrObesity
+            //overweightOrObesity
         case .overweightOrObesity:
             GastrointestinalManager.sharedManager.gastrointestinalData.gastrointestinalCondition.overweightData.append(conditionData)
-        //sleepApnea
+            //sleepApnea
         case .sleepApnea:
             GastrointestinalManager.sharedManager.gastrointestinalData.gastrointestinalCondition.sleepApneaData.append(conditionData)
             
-        //underweightOrMalnutrition
+            //underweightOrMalnutrition
         case .underweightOrMalnutrition:
             GastrointestinalManager.sharedManager.gastrointestinalData.gastrointestinalCondition.underweightMalnutritionData.append(conditionData)
-        //liverDisease
+            //liverDisease
         case .liverDisease:
             GastrointestinalManager.sharedManager.gastrointestinalData.gastrointestinalCondition.liverDiseaseData.append(conditionData)
-        //diabetes
+            //diabetes
         case .diabetes:
             GastrointestinalManager.sharedManager.gastrointestinalData.gastrointestinalCondition.diabetesData.append(conditionData)
         default:
@@ -181,56 +199,56 @@ class GastrointestinalManager: NSObject {
         labData.startTimeStamp = timeStamp
         
         switch labCodeConstant {
-        
-        //bloodGlucose
+            
+            //bloodGlucose
         case .bloodGlucose:
             do{
                 labData.type = .bloodGlucose
                 GastrointestinalManager.sharedManager.gastrointestinalData.gastrointestinalLab.bloodGlucoseData.append(labData)
             }
-        //sodium
+            //sodium
         case .sodium:
             do{
                 labData.type = .sodium
                 GastrointestinalManager.sharedManager.gastrointestinalData.gastrointestinalLab.sodiumData.append(labData)
             }
-        //potassiumLevel
+            //potassiumLevel
         case .potassiumLevel:
             do{
                 labData.type = .potassiumLevel
                 GastrointestinalManager.sharedManager.gastrointestinalData.gastrointestinalLab.potassiumLevelData.append(labData)
             }
-        //chloride
+            //chloride
         case .chloride:
             do{
                 labData.type = .chloride
                 GastrointestinalManager.sharedManager.gastrointestinalData.gastrointestinalLab.chlorideData.append(labData)
             }
-        //BUN
+            //BUN
         case .BUN:
             do{
                 labData.type = .BUN
                 GastrointestinalManager.sharedManager.gastrointestinalData.gastrointestinalLab.BUNData.append(labData)
             }
-        //creatinine
+            //creatinine
         case .creatinine:
             do{
                 labData.type = .creatinine
                 GastrointestinalManager.sharedManager.gastrointestinalData.gastrointestinalLab.creatinineData.append(labData)
             }
-        //albumin
+            //albumin
         case .albumin:
             do{
                 labData.type = .albumin
                 GastrointestinalManager.sharedManager.gastrointestinalData.gastrointestinalLab.albuminData.append(labData)
             }
-        //AST
+            //AST
         case .AST:
             do{
                 labData.type = .AST
                 GastrointestinalManager.sharedManager.gastrointestinalData.gastrointestinalLab.ASTData.append(labData)
             }
-        //ALT
+            //ALT
         case .ALT:
             do{
                 labData.type = .ALT

@@ -26,7 +26,22 @@ class SkinManager: NSObject {
     func resetSkinData(){
         skinData = SkinData()
     }
-    
+    func saveStatasticsInArray(quantityType:QuantityType,element:Statistics) {
+        switch quantityType {
+            
+        case .dietaryWater:
+            do{
+                guard let value = element.harmonized.summary  else {
+                    return
+                }
+                let waterIntake = SkinVitalsData(type: VitalsName.waterIntake)
+                waterIntake.value = Double(value)
+                waterIntake.startTimeStamp = element.startTimestamp
+                self.skinData.skinVital.waterIntakeData.append(waterIntake)       
+            }
+        default:break
+        }
+    }
     //Save Vitals Data in skinVital Model
     func saveQuantityInArray(quantityType:QuantityType,element:Quantity) {
         /*
@@ -36,19 +51,17 @@ class SkinManager: NSObject {
         case .bodyTemperature:
             do{
                 let temperature = SkinVitalsData(type: VitalsName.temperature)
-                temperature.value = Double(element.harmonized.value)
+                var value = Double(element.harmonized.value)
+                if element.harmonized.unit == "degC"{
+                    //convert value to fahrenheit
+                    value = convertDegCelciusToDahrenheit(temprature: value)
+                }
+                temperature.value = value
                 temperature.startTimeStamp = element.startTimestamp
                 self.skinData.skinVital.temperatureData.append(temperature)
                 
             }
-        case .dietaryWater:
-            do{
-                let waterIntake = SkinVitalsData(type: VitalsName.waterIntake)
-                waterIntake.value = Double(element.harmonized.value)
-                waterIntake.startTimeStamp = element.startTimestamp
-                self.skinData.skinVital.waterIntakeData.append(waterIntake)
-                
-            }
+            
         default:
             break
         }
@@ -64,21 +77,21 @@ class SkinManager: NSObject {
         symptomsData.endTimeStamp = element.endTimestamp
         
         switch category {
-        //acne
+            //acne
         case .acne:
             SkinManager.sharedManager.skinData.skinSymptoms.acneData.append(symptomsData)
-        //drySkin
+            //drySkin
         case .drySkin:
             SkinManager.sharedManager.skinData.skinSymptoms.drySkinData.append(symptomsData)
             
-        //hairLoss
+            //hairLoss
         case .hairLoss:
             SkinManager.sharedManager.skinData.skinSymptoms.hairLossData.append(symptomsData)
-        //chills
+            //chills
         case .chills:
             SkinManager.sharedManager.skinData.skinSymptoms.chillsData.append(symptomsData)
             
-        //fever
+            //fever
         case .fever:
             SkinManager.sharedManager.skinData.skinSymptoms.feverData.append(symptomsData)
             
@@ -99,16 +112,16 @@ class SkinManager: NSObject {
         conditionData.startTimeStamp = element.startTime
         
         switch conditionType {
-        //rashOrAcne
+            //rashOrAcne
         case .rashOrAcne:
             SkinManager.sharedManager.skinData.skinCondition.rashOrAcneData.append(conditionData)
-        //psoriasisEczema
+            //psoriasisEczema
         case .psoriasisEczema:
             SkinManager.sharedManager.skinData.skinCondition.psoriasisEczemaData.append(conditionData)
-        //cellulitis
+            //cellulitis
         case .cellulitis:
             SkinManager.sharedManager.skinData.skinCondition.cellulitisData.append(conditionData)
-        //diabetes
+            //diabetes
         case .diabetes:
             SkinManager.sharedManager.skinData.skinCondition.diabetesData.append(conditionData)
             
@@ -126,20 +139,20 @@ class SkinManager: NSObject {
         labData.startTimeStamp = timeStamp
         
         switch labCodeConstant {
-        
-        //alkalinePhosphatase
+            
+            //alkalinePhosphatase
         case .WBC:
             do{
                 labData.type = .WBC
                 SkinManager.sharedManager.skinData.skinLab.WBCData.append(labData)
             }
-        //neutrophil
+            //neutrophil
         case .neutrophil:
             do{
                 labData.type = .neutrophil
                 SkinManager.sharedManager.skinData.skinLab.neutrophilData.append(labData)
             }
-        //ESR
+            //ESR
         case .ESR:
             do{
                 labData.type = .ESR

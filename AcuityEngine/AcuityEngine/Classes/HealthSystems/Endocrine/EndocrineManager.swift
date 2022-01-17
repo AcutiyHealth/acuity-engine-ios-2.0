@@ -55,18 +55,26 @@ class EndocrineManager: NSObject {
             }
         case .bloodGlucose:
             do{
-                /*
-                 Note: Logic for Blood Sugar is remaining
-                 */
+                
                 let bloodSugar = EndocrineVitalsData(type: VitalsName.bloodSugar)
-                bloodSugar.value = Double(element.harmonized.value)
+                var value = Double(element.harmonized.value)
+                if element.harmonized.unit.contains("mmol"){
+                    //convert value to fahrenheit
+                    value = convertGlucoseFromMMOLTOMG(glucoseValue: value)
+                }
+                bloodSugar.value = value
                 bloodSugar.startTimeStamp = element.startTimestamp
                 self.endocrineData.endocrineVital.bloodSugarData.append(bloodSugar)
             }
         case .bodyTemperature:
             do{
                 let temperature = EndocrineVitalsData(type: VitalsName.temperature)
-                temperature.value = Double(element.harmonized.value)
+                var value = Double(element.harmonized.value)
+                if element.harmonized.unit == "degC"{
+                    //convert value to fahrenheit
+                    value = convertDegCelciusToDahrenheit(temprature: value)
+                }
+                temperature.value = value
                 temperature.startTimeStamp = element.startTimestamp
                 self.endocrineData.endocrineVital.tempratureData.append(temperature)
             }

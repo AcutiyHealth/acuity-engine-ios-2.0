@@ -26,7 +26,31 @@ class SDHManager: NSObject {
     func resetSDHData(){
         sdhData = SDHData()
     }
-    
+    func saveStatasticsInArray(quantityType:QuantityType,element:Statistics) {
+        switch quantityType {
+        case .stepCount:
+            do{
+                guard let value = element.harmonized.summary  else {
+                    return
+                }
+                let steps = SDHVitalsData(type: VitalsName.steps)
+                steps.value = Double(value)
+                steps.startTimeStamp = element.startTimestamp
+                self.sdhData.sdhVital.stepsData.append(steps)
+            }
+        case .dietaryWater:
+            do{
+                guard let value = element.harmonized.summary  else {
+                    return
+                }
+                let waterIntake = SDHVitalsData(type: VitalsName.waterIntake)
+                waterIntake.value = Double(value)
+                waterIntake.startTimeStamp = element.startTimestamp
+                self.sdhData.sdhVital.waterIntakeData.append(waterIntake)
+            }
+        default:break
+        }
+    }
     //Save Vitals Data in sdhVital Model
     func saveQuantityInArray(quantityType:QuantityType,element:Quantity) {
         /*
@@ -55,7 +79,7 @@ class SDHManager: NSObject {
             
         case .oxygenSaturation:
             do{
-               
+                
                 /*
                  Multiply value with 100 because we get oxygen saturation value in Float from health app. Oxygen saturation 1- 100 will get 0.1-1 from health app
                  */
@@ -72,20 +96,14 @@ class SDHManager: NSObject {
                 BMI.startTimeStamp = element.startTimestamp
                 self.sdhData.sdhVital.BMIData.append(BMI)
             }
-        case .stepCount:
-            do{
-                let steps = SDHVitalsData(type: VitalsName.steps)
-                steps.value = Double(element.harmonized.value)
-                steps.startTimeStamp = element.startTimestamp
-                self.sdhData.sdhVital.stepsData.append(steps)
-            }
-        case .dietaryWater:
-            do{
-                let waterIntake = SDHVitalsData(type: VitalsName.waterIntake)
-                waterIntake.value = Double(element.harmonized.value)
-                waterIntake.startTimeStamp = element.startTimestamp
-                self.sdhData.sdhVital.waterIntakeData.append(waterIntake)
-            }
+            /*case .stepCount:
+             do{
+             let steps = SDHVitalsData(type: VitalsName.steps)
+             steps.value = Double(element.harmonized.value)
+             steps.startTimeStamp = element.startTimestamp
+             self.sdhData.sdhVital.stepsData.append(steps)
+             }*/
+            
         default:
             break
         }
@@ -101,7 +119,7 @@ class SDHManager: NSObject {
             sleep.startTimeStamp = startTimeStamp
             sleep.endTimeStamp = endTimeStamp
             self.sdhData.sdhVital.sleepData.append(sleep)
-         
+            
         }
     }
     //Save Vitals Data in sdhVital Model
@@ -119,31 +137,31 @@ class SDHManager: NSObject {
         symptomsData.endTimeStamp = element.endTimestamp
         
         switch category {
-        //chestTightnessOrPain
+            //chestTightnessOrPain
         case .chestTightnessOrPain:
             SDHManager.sharedManager.sdhData.sdhSymptoms.chestPainData.append(symptomsData)
-        //dizziness
+            //dizziness
         case .dizziness:
             SDHManager.sharedManager.sdhData.sdhSymptoms.dizzinessData.append(symptomsData)
             
-        //fatigue
+            //fatigue
         case .fatigue:
             SDHManager.sharedManager.sdhData.sdhSymptoms.fatigueData.append(symptomsData)
-        //rapidHeartBeat
+            //rapidHeartBeat
         case .rapidPoundingOrFlutteringHeartbeat:
             SDHManager.sharedManager.sdhData.sdhSymptoms.rapidHeartBeatData.append(symptomsData)
             
-        //memoryLapse
+            //memoryLapse
         case .memoryLapse:
             SDHManager.sharedManager.sdhData.sdhSymptoms.memoryLapseData.append(symptomsData)
-        //shortnessOfBreath
+            //shortnessOfBreath
         case .shortnessOfBreath:
             SDHManager.sharedManager.sdhData.sdhSymptoms.shortnessOfBreathData.append(symptomsData)
             
-        //headache
+            //headache
         case .headache:
             SDHManager.sharedManager.sdhData.sdhSymptoms.headacheData.append(symptomsData)
-        //sleepChanges
+            //sleepChanges
         case .sleepChanges:
             SDHManager.sharedManager.sdhData.sdhSymptoms.sleepChangesData.append(symptomsData)
         default:
@@ -163,25 +181,25 @@ class SDHManager: NSObject {
         conditionData.startTimeStamp = element.startTime
         
         switch conditionType {
-        //single
+            //single
         case .single:
             SDHManager.sharedManager.sdhData.sdhCondition.singleData.append(conditionData)
-        //sedintaryLifestyle
+            //sedintaryLifestyle
         case .sedintaryLifestyle:
             SDHManager.sharedManager.sdhData.sdhCondition.sedintaryLifestyleData.append(conditionData)
-        //unsafeHousing
+            //unsafeHousing
         case .unsafeHousing:
             SDHManager.sharedManager.sdhData.sdhCondition.unsafeHousingData.append(conditionData)
-        //overweightOrObesity
+            //overweightOrObesity
         case .overweightOrObesity:
             SDHManager.sharedManager.sdhData.sdhCondition.overweightData.append(conditionData)
-        //unemployed
+            //unemployed
         case .unemployed:
             SDHManager.sharedManager.sdhData.sdhCondition.unemployedData.append(conditionData)
-        //smoking
+            //smoking
         case .smoking:
             SDHManager.sharedManager.sdhData.sdhCondition.smokingData.append(conditionData)
-        //diabetes
+            //diabetes
         case .diabetes:
             SDHManager.sharedManager.sdhData.sdhCondition.diabetesData.append(conditionData)
         default:
@@ -198,31 +216,31 @@ class SDHManager: NSObject {
         labData.startTimeStamp = timeStamp
         
         switch labCodeConstant {
-        /*
-         Albumin Level
-         BUN
-         creatinine
-         Hemaglobin
-         */
-        //albumin
+            /*
+             Albumin Level
+             BUN
+             creatinine
+             Hemaglobin
+             */
+            //albumin
         case .albumin:
             do{
                 labData.type = .albumin
                 SDHManager.sharedManager.sdhData.sdhLab.albuminLevelData.append(labData)
             }
-        //BUN
+            //BUN
         case .BUN:
             do{
                 labData.type = .BUN
                 SDHManager.sharedManager.sdhData.sdhLab.BUNData.append(labData)
             }
-        //creatinine
+            //creatinine
         case .creatinine:
             do{
                 labData.type = .creatinine
                 SDHManager.sharedManager.sdhData.sdhLab.creatinineData.append(labData)
             }
-        //hemoglobin
+            //hemoglobin
         case .hemoglobin:
             do{
                 labData.type = .hemoglobin

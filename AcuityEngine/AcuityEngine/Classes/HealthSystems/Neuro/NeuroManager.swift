@@ -26,7 +26,23 @@ class NeuroManager: NSObject {
     func resetNeuroData(){
         neuroData = NeuroData()
     }
-    
+    //Save Vitals Data in genitourinaryVital Model
+    func saveStatasticsInArray(quantityType:QuantityType,element:Statistics) {
+        switch quantityType {
+        case .stepCount:
+            do{
+                guard let value = element.harmonized.summary  else {
+                    return
+                }
+                let steps = NeuroVitalsData(type: VitalsName.steps)
+                steps.value = Double(value)
+                steps.startTimeStamp = element.startTimestamp
+                self.neuroData.neuroVital.stepsData.append(steps)
+            }
+            
+        default:break
+        }
+    }
     //Save Vitals Data in neuroVital Model
     func saveQuantityInArray(quantityType:QuantityType,element:Quantity) {
         switch quantityType {
@@ -64,13 +80,13 @@ class NeuroManager: NSObject {
                 vo2Max.startTimeStamp = element.startTimestamp
                 self.neuroData.neuroVital.vo2MaxData.append(vo2Max)
             }
-        case .stepCount:
+        /*case .stepCount:
             do{
                 let steps = NeuroVitalsData(type: VitalsName.steps)
                 steps.value = Double(element.harmonized.value)
                 steps.startTimeStamp = element.startTimestamp
                 self.neuroData.neuroVital.stepsData.append(steps)
-            }
+            }*/
         default:
             break
         }

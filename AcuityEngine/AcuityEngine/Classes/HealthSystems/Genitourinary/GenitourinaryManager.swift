@@ -26,7 +26,23 @@ class GenitourinaryManager: NSObject {
     func resetGenitourinaryData(){
         genitourinaryData = GenitourinaryData()
     }
-    
+    //MARK: Statastics Data
+    func saveStatasticsInArray(quantityType:QuantityType,element:Statistics) {
+        switch quantityType {
+            
+        case .dietaryWater:
+            do{
+                guard let value = element.harmonized.summary  else {
+                    return
+                }
+                let waterIntake = GenitourinaryVitalsData(type: VitalsName.waterIntake)
+                waterIntake.value = Double(value)
+                waterIntake.startTimeStamp = element.startTimestamp
+                self.genitourinaryData.genitourinaryVital.waterIntakeData.append(waterIntake)
+            }
+        default:break
+        }
+    }
     //Save Vitals Data in genitourinaryVital Model
     func saveQuantityInArray(quantityType:QuantityType,element:Quantity) {
         switch quantityType {
@@ -56,17 +72,16 @@ class GenitourinaryManager: NSObject {
         case .bodyTemperature:
             do{
                 let temperature = GenitourinaryVitalsData(type: VitalsName.temperature)
-                temperature.value = Double(element.harmonized.value)
+                var value = Double(element.harmonized.value)
+                if element.harmonized.unit == "degC"{
+                    //convert value to fahrenheit
+                    value = convertDegCelciusToDahrenheit(temprature: value)
+                }
+                temperature.value = value
                 temperature.startTimeStamp = element.startTimestamp
                 self.genitourinaryData.genitourinaryVital.tempratureData.append(temperature)
             }
-        case .dietaryWater:
-            do{
-                let waterIntake = GenitourinaryVitalsData(type: VitalsName.waterIntake)
-                waterIntake.value = Double(element.harmonized.value)
-                waterIntake.startTimeStamp = element.startTimestamp
-                self.genitourinaryData.genitourinaryVital.waterIntakeData.append(waterIntake)
-            }
+            
         default:
             break
         }
@@ -82,31 +97,31 @@ class GenitourinaryManager: NSObject {
         symptomsData.endTimeStamp = element.endTimestamp
         
         switch category {
-        //fever
+            //fever
         case .fever:
             GenitourinaryManager.sharedManager.genitourinaryData.genitourinarySymptoms.feverData.append(symptomsData)
-        //bladderIncontinence
+            //bladderIncontinence
         case .bladderIncontinence:
             GenitourinaryManager.sharedManager.genitourinaryData.genitourinarySymptoms.bladderIncontinenceData.append(symptomsData)
-        //abdominalCramps
+            //abdominalCramps
         case .abdominalCramps:
             GenitourinaryManager.sharedManager.genitourinaryData.genitourinarySymptoms.abdominalCrampsData.append(symptomsData)
-        //dizziness
+            //dizziness
         case .dizziness:
             GenitourinaryManager.sharedManager.genitourinaryData.genitourinarySymptoms.dizzinessData.append(symptomsData)
-        //fatigue
+            //fatigue
         case .fatigue:
             GenitourinaryManager.sharedManager.genitourinaryData.genitourinarySymptoms.fatigueData.append(symptomsData)
-        //nausea
+            //nausea
         case .nausea:
             GenitourinaryManager.sharedManager.genitourinaryData.genitourinarySymptoms.nauseaData.append(symptomsData)
-        //vomiting
+            //vomiting
         case .vomiting:
             GenitourinaryManager.sharedManager.genitourinaryData.genitourinarySymptoms.vomitingData.append(symptomsData)
-        //chills
+            //chills
         case .chills:
             GenitourinaryManager.sharedManager.genitourinaryData.genitourinarySymptoms.chillsData.append(symptomsData)
-        //bloating
+            //bloating
         case .bloating:
             GenitourinaryManager.sharedManager.genitourinaryData.genitourinarySymptoms.bloatingData.append(symptomsData)
         default:
@@ -126,19 +141,19 @@ class GenitourinaryManager: NSObject {
         conditionData.startTimeStamp = element.startTime
         
         switch conditionType {
-        //UTI
+            //UTI
         case .UTI:
             GenitourinaryManager.sharedManager.genitourinaryData.genitourinaryCondition.UTIData.append(conditionData)
-        //urinaryProblems
+            //urinaryProblems
         case .urinaryProblems:
             GenitourinaryManager.sharedManager.genitourinaryData.genitourinaryCondition.urinaryProblemsData.append(conditionData)
-        //kidneyStones
+            //kidneyStones
         case .kidneyStones:
             GenitourinaryManager.sharedManager.genitourinaryData.genitourinaryCondition.kidneyStonesData.append(conditionData)
-        //kidneyDiease
+            //kidneyDiease
         case .kidneyDiease:
             GenitourinaryManager.sharedManager.genitourinaryData.genitourinaryCondition.kidneyDiseaseData.append(conditionData)
-        //diabetes
+            //diabetes
         case .diabetes:
             GenitourinaryManager.sharedManager.genitourinaryData.genitourinaryCondition.diabetesData.append(conditionData)
         default:
@@ -155,32 +170,32 @@ class GenitourinaryManager: NSObject {
         labData.startTimeStamp = timeStamp
         
         switch labCodeConstant {
-        
-        //WBC
+            
+            //WBC
         case .WBC:
             do{
                 labData.type = .WBC
                 GenitourinaryManager.sharedManager.genitourinaryData.genitourinaryLab.WBCData.append(labData)
             }
-        //neutrophil
+            //neutrophil
         case .neutrophil:
             do{
                 labData.type = .neutrophil
                 GenitourinaryManager.sharedManager.genitourinaryData.genitourinaryLab.neutrophilData.append(labData)
             }
-        //urineNitrites
+            //urineNitrites
         case .urineNitrites:
             do{
                 labData.type = .urineNitrites
                 GenitourinaryManager.sharedManager.genitourinaryData.genitourinaryLab.urineNitritesData.append(labData)
             }
-        //urineKetone
+            //urineKetone
         case .urineKetone:
             do{
                 labData.type = .urineKetone
                 GenitourinaryManager.sharedManager.genitourinaryData.genitourinaryLab.urineKetoneData.append(labData)
             }
-        //urineBlood
+            //urineBlood
         case .urineBlood:
             do{
                 labData.type = .urineBlood
