@@ -195,16 +195,24 @@ class AcuityMainViewController: PullUpViewController, UIScrollViewDelegate,Rotar
                     //Do my well score caclulation....
                     MyWellScore.sharedManager.myWellScoreCalculation()
                     AppDelegate.shared.arrMedications = self?.viewModelAcuityMain.fetchMedicationData() ?? []
-                    self?.setUpAcuityCircleView()
-                    //Hide Progress HUD
-                    SVProgressHUD.dismiss()
-                    //Stop Notification If All Symptoms Are Not Present...
-                    if AppDelegate.shared.isSymptomsNotificationStop{
-                        Log.d("removeScheduledNotification------removeScheduledNotification")
-                        let notificationModel = NotificationModel(identifier: Key.kIsSymptomseminder)
-                        NotificationManager.shared.removeScheduledNotification(model: notificationModel)
+                    
+                    //Delay is put because MyWell Score in MainViewModel use it's dictionary data for vitals and labs.
+                    //Vitals in AllSystemVitla class use data from all 14 system data....
+                    //So, to complete process of setting data in 14 system delay is set....
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
+                        // Put your code which should be executed with a delay here
+                        
+                        self?.setUpAcuityCircleView()
+                        //Hide Progress HUD
+                        SVProgressHUD.dismiss()
+                        //Stop Notification If All Symptoms Are Not Present...
+                        if AppDelegate.shared.isSymptomsNotificationStop{
+                            Log.d("removeScheduledNotification------removeScheduledNotification")
+                            let notificationModel = NotificationModel(identifier: Key.kIsSymptomseminder)
+                            NotificationManager.shared.removeScheduledNotification(model: notificationModel)
+                        }
+                        completion(success,error)
                     }
-                    completion(success,error)
                 }
                 
             }
@@ -298,7 +306,7 @@ class AcuityMainViewController: PullUpViewController, UIScrollViewDelegate,Rotar
         
         wheel?.addSubview(btnWheelSelection)
         wheel?.whiteCircleContainerView?.addSubview(innerView)
- 
+        
         //================ Keep arrowDownImageView on topmost ==========================//
         //wheel?.whiteCircleContainerView?.bringSubviewToFront((wheel?.arrowDownImageView)!)
         
@@ -416,7 +424,7 @@ class AcuityMainViewController: PullUpViewController, UIScrollViewDelegate,Rotar
             let item = arrBodySystems[0]
             let index:String = (item["score"] as? String ?? "")
             self.setBackGroundColorRoundView(index:index )
-            print("btnWheelNotSelected",item["name"]!,index)
+            //Log.d("btnWheelNotSelected",item["name"]!,index)
         }
     }
     //========================================================================================================

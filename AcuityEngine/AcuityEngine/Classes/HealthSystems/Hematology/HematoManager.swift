@@ -51,7 +51,12 @@ class HematoManager: NSObject {
         else if quantityType == QuantityType.bodyTemperature {
             
             let temperature = HematoVitalsData(type: VitalsName.temperature)
-            temperature.value = Double(element.harmonized.value)
+            var value = Double(element.harmonized.value)
+            if element.harmonized.unit == "degC"{
+                //convert value to fahrenheit
+                value = convertDegCelciusToDahrenheit(temprature: value)
+            }
+            temperature.value = value
             temperature.startTimeStamp = element.startTimestamp
             self.hematoData.hematoVital.tempratureData.append(temperature)
         }

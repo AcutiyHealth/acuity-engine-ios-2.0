@@ -58,7 +58,6 @@ func ReadVitalsQuantityType() -> [QuantityType]{
      QuantityType.bloodPressureDiastolic,
      QuantityType.vo2Max,
      QuantityType.peakExpiratoryFlowRate,
-     QuantityType.inhalerUsage,
      QuantityType.bodyTemperature,
      QuantityType.bodyMassIndex,
      QuantityType.heartRate,

@@ -291,7 +291,14 @@ func getTimeStampForCurrenTime()->Double{
     let timestamp = Date().timeIntervalSince1970
     return timestamp
 }
-
+//MARK: Convert Celcius to fahrenheit
+func convertDegCelciusToDahrenheit(temprature:Double)->Double{
+    return (temprature * 9/5) + 32
+}
+//MARK:  mmol/dl  to mg/dL
+func convertGlucoseFromMMOLTOMG(glucoseValue:Double)->Double{
+    return 18 * glucoseValue
+}
 //MARK: Daywise Filter
 func getNumberOfTimesLoopToExecute(days:SegmentValueForGraph)->[String:AnyObject]{
     let now = MyWellScore.sharedManager.todaysDate
@@ -386,7 +393,6 @@ func getScoreForMyWellDataWithGivenDateRange(sampleItem:[Metrix],timeIntervalByL
     filteredArray = sampleItem.filter { item in
         filterMatricsForVitalOrLab(sampleItem: item, timeIntervalByLastMonth: timeIntervalByLastMonth, timeIntervalByNow: timeIntervalByNow)
     }
-    
     let averageScore = (Double(filteredArray.average(\.value)).isNaN ? 0 :  Double(filteredArray.average(\.value)))
     return averageScore
 }

@@ -26,86 +26,89 @@ class RespiratoryManager: NSObject {
     func resetRespiratoryData(){
         respiratoryData = RespiratoryData()
     }
-    
+    //MARK: Statastics Data
+    func saveStatasticsInArray(quantityType:QuantityType,element:Statistics) {
+        switch quantityType {
+        case .stepCount:
+            do{
+                guard let value = element.harmonized.summary  else {
+                    return
+                }
+                let stepCount = RespiratoryVitalsData(type: VitalsName.steps)
+                stepCount.value = Double(value)
+                stepCount.startTimeStamp = element.startTimestamp
+                self.respiratoryData.respiratoryVital.stepsData.append(stepCount)
+            }
+            
+        default:break
+        }
+    }
     //Save Vitals Data in respiratoryVital Model
     func saveQuantityInArray(quantityType:QuantityType,element:Quantity) {
+        switch quantityType {
+        case .bloodPressureSystolic:
+            do{
+                let systolicBP = RespiratoryVitalsData(type: VitalsName.bloodPressureSystolic)
+                systolicBP.value = Double(element.harmonized.value)
+                systolicBP.startTimeStamp = element.startTimestamp
+                self.respiratoryData.respiratoryVital.systolicBloodPressureData.append(systolicBP)
+                
+            }
+        case .bloodPressureDiastolic:
+            do{
+                let diastolicBP = RespiratoryVitalsData(type: VitalsName.bloodPressureDiastolic)
+                diastolicBP.value = Double(element.harmonized.value)
+                diastolicBP.startTimeStamp = element.startTimestamp
+                self.respiratoryData.respiratoryVital.diastolicBloodPressureData.append(diastolicBP)
+            }
+        case .respiratoryRate:
+            do{
+                let respiratoryRate = RespiratoryVitalsData(type: VitalsName.respiratoryRate)
+                respiratoryRate.value = Double(element.harmonized.value)
+                respiratoryRate.startTimeStamp = element.startTimestamp
+                self.respiratoryData.respiratoryVital.respiratoryRateData.append(respiratoryRate)
+            }
+        case .oxygenSaturation:
+            do{
+                /*
+                 Multiply value with 100 because we get oxygen saturation value in Float from health app. Oxygen saturation 1- 100 will get 0.1-1 from health app
+                 */
+                let oxygenSaturation = RespiratoryVitalsData(type: VitalsName.oxygenSaturation)
+                let newValue = Double(element.harmonized.value) * 100
+                oxygenSaturation.value = newValue
+                oxygenSaturation.startTimeStamp = element.startTimestamp
+                self.respiratoryData.respiratoryVital.oxygenSaturationData.append(oxygenSaturation)
+                
+            }
+        case .heartRate:
+            do{
+                let heartRate = RespiratoryVitalsData(type: VitalsName.heartRate)
+                heartRate.value = Double(element.harmonized.value)
+                heartRate.startTimeStamp = element.startTimestamp
+                self.respiratoryData.respiratoryVital.heartRateData.append(heartRate)
+                
+            }
+        case .peakExpiratoryFlowRate:
+            do{
+                
+                let peakExpiratoryFlowRate = RespiratoryVitalsData(type: VitalsName.peakflowRate)
+                peakExpiratoryFlowRate.value = Double(element.harmonized.value)
+                peakExpiratoryFlowRate.startTimeStamp = element.startTimestamp
+                self.respiratoryData.respiratoryVital.peakFlowRateData.append(peakExpiratoryFlowRate)
+                
+            }
+        case .vo2Max:
+            do{
+                
+                let vo2Max = RespiratoryVitalsData(type: VitalsName.vo2Max)
+                vo2Max.value = Double(element.harmonized.value)
+                vo2Max.startTimeStamp = element.startTimestamp
+                self.respiratoryData.respiratoryVital.vO2MaxData.append(vo2Max)
+                
+            }
+        default: break
+        }
         
-        if quantityType == QuantityType.bloodPressureSystolic {
-            
-            let systolicBP = RespiratoryVitalsData(type: VitalsName.bloodPressureSystolic)
-            systolicBP.value = Double(element.harmonized.value)
-            systolicBP.startTimeStamp = element.startTimestamp
-            self.respiratoryData.respiratoryVital.systolicBloodPressureData.append(systolicBP)
-            
-            //print("---------\n bloodPressureSystolic \nValue \(systolicBP.value)\n Score \(systolicBP.score)\n Max Score\(systolicBP.maxScore ?? 0.0) \n---------")
-        }
-        else if quantityType == QuantityType.bloodPressureDiastolic {
-            
-            let diastolicBP = RespiratoryVitalsData(type: VitalsName.bloodPressureDiastolic)
-            diastolicBP.value = Double(element.harmonized.value)
-            diastolicBP.startTimeStamp = element.startTimestamp
-            self.respiratoryData.respiratoryVital.diastolicBloodPressureData.append(diastolicBP)
-            
-        }
-        else if quantityType == QuantityType.respiratoryRate {
-            
-            let respiratoryRate = RespiratoryVitalsData(type: VitalsName.respiratoryRate)
-            respiratoryRate.value = Double(element.harmonized.value)
-            respiratoryRate.startTimeStamp = element.startTimestamp
-            self.respiratoryData.respiratoryVital.respiratoryRateData.append(respiratoryRate)
-            
-        }
-        else if quantityType == QuantityType.oxygenSaturation {
-            
-             /*
-              Multiply value with 100 because we get oxygen saturation value in Float from health app. Oxygen saturation 1- 100 will get 0.1-1 from health app
-              */
-            let oxygenSaturation = RespiratoryVitalsData(type: VitalsName.oxygenSaturation)
-            let newValue = Double(element.harmonized.value) * 100
-            oxygenSaturation.value = newValue
-            oxygenSaturation.startTimeStamp = element.startTimestamp
-            self.respiratoryData.respiratoryVital.oxygenSaturationData.append(oxygenSaturation)
-            
-        }
-        else if quantityType == QuantityType.heartRate {
-            
-            let heartRate = RespiratoryVitalsData(type: VitalsName.heartRate)
-            heartRate.value = Double(element.harmonized.value)
-            heartRate.startTimeStamp = element.startTimestamp
-            self.respiratoryData.respiratoryVital.heartRateData.append(heartRate)
-            
-        }
-        else if quantityType == QuantityType.peakExpiratoryFlowRate {
-            
-            let peakExpiratoryFlowRate = RespiratoryVitalsData(type: VitalsName.peakflowRate)
-            peakExpiratoryFlowRate.value = Double(element.harmonized.value)
-            peakExpiratoryFlowRate.startTimeStamp = element.startTimestamp
-            self.respiratoryData.respiratoryVital.peakFlowRateData.append(peakExpiratoryFlowRate)
-            
-        }
-        else if quantityType == QuantityType.vo2Max {
-            
-            let vo2Max = RespiratoryVitalsData(type: VitalsName.vo2Max)
-            vo2Max.value = Double(element.harmonized.value)
-            vo2Max.startTimeStamp = element.startTimestamp
-            self.respiratoryData.respiratoryVital.vO2MaxData.append(vo2Max)
-            
-        }
-        /*else if quantityType == QuantityType.inhalerUsage {
-            
-            let inhalerUsage = RespiratoryVitalsData(type: VitalsName.InhalerUsage)
-            inhalerUsage.value = Double(element.harmonized.value)
-            inhalerUsage.startTimeStamp = element.startTimestamp
-            self.respiratoryData.respiratoryVital.inhalerUsageData.append(inhalerUsage)
-        }*/
-        else if quantityType == QuantityType.stepCount {
-            
-            let stepCount = RespiratoryVitalsData(type: VitalsName.steps)
-            stepCount.value = Double(element.harmonized.value)
-            stepCount.startTimeStamp = element.startTimestamp
-            self.respiratoryData.respiratoryVital.stepsData.append(stepCount)
-            Log.d("Respi stepCount=======\(stepCount.value) maxScoreVitals===\(stepCount.score) ")
-        }
     }
     
     
@@ -217,31 +220,31 @@ class RespiratoryManager: NSObject {
         labData.startTimeStamp = timeStamp
         
         switch labCodeConstant {
-        //sodium
+            //sodium
         case .sodium:
             do{
                 labData.type = .sodium
                 RespiratoryManager.sharedManager.respiratoryData.respiratoryLab.sodiumData.append(labData)
             }
-        //chloride
+            //chloride
         case .chloride:
             do{
                 labData.type = .chloride
                 RespiratoryManager.sharedManager.respiratoryData.respiratoryLab.chlorideData.append(labData)
             }
-        //carbonDioxide
+            //carbonDioxide
         case .carbonDioxide:
             do{
                 labData.type = .carbonDioxide
                 RespiratoryManager.sharedManager.respiratoryData.respiratoryLab.carbonDioxideData.append(labData)
             }
-        //WBC
+            //WBC
         case .WBC:
             do{
                 labData.type = .WBC
                 RespiratoryManager.sharedManager.respiratoryData.respiratoryLab.WBCData.append(labData)
             }
-        //neutrophil
+            //neutrophil
         case .neutrophil:
             do{
                 labData.type = .neutrophil

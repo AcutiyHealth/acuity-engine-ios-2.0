@@ -100,12 +100,14 @@ class AddVitalsViewController: UIViewController {
             viewBloodPressure.isHidden = false
             viewEnd.isHidden = true
             viewOxygenSaturation.isHidden = true
+            sleepValueSubViewInviewVitals.isHidden = true
         }
         else if vitalModel?.name == VitalsName.oxygenSaturation {
             viewOxygenSaturation.isHidden = false
             viewVitals.isHidden = false
             viewBloodPressure.isHidden = true
             viewEnd.isHidden = true
+            sleepValueSubViewInviewVitals.isHidden = true
         }
         else if vitalModel?.name == VitalsName.heartRate ||  vitalModel?.name == VitalsName.peakflowRate ||  vitalModel?.name == VitalsName.BMI || vitalModel?.name == VitalsName.temperature || vitalModel?.name == VitalsName.weight || vitalModel?.name == VitalsName.bloodSugar || vitalModel?.name == VitalsName.vo2Max || vitalModel?.name == VitalsName.respiratoryRate  || vitalModel?.name == VitalsName.headPhoneAudioLevel  || vitalModel?.name == VitalsName.steps  || vitalModel?.name == VitalsName.waterIntake {
             /*

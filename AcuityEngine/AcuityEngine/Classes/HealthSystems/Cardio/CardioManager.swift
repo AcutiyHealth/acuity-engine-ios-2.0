@@ -46,7 +46,17 @@ class CardioManager: NSObject {
                 self.cardioData.cardioVital.stepsData.append(stepCount)
                 Log.d("Cardio stepCount=======\(stepCount.value) maxScoreVitals===\(stepCount.score) ")
             }
-            
+        case .dietaryWater:
+            do{
+                guard let value = element.harmonized.summary  else {
+                    return
+                }
+                let waterIntake = CardioVitalsData(type: VitalsName.waterIntake)
+                let newValue = Double(value)
+                waterIntake.value = newValue
+                waterIntake.startTimeStamp = element.startTimestamp
+                self.cardioData.cardioVital.waterIntakeData.append(waterIntake)
+            }
         default:break
         }
     }
@@ -116,16 +126,7 @@ class CardioManager: NSObject {
                 Log.d("Cardio stepCount=======\(stepCount.value) maxScoreVitals===\(stepCount.score) ")
             }
             
-        case .dietaryWater:
-            do{
-                
-                let waterIntake = CardioVitalsData(type: VitalsName.waterIntake)
-                let newValue = Double(element.harmonized.value)
-                waterIntake.value = newValue
-                waterIntake.startTimeStamp = element.startTimestamp
-                self.cardioData.cardioVital.waterIntakeData.append(waterIntake)
-                Log.d("Cardio stepCount=======\(waterIntake.value) maxScoreVitals===\(waterIntake.score) ")
-            }
+         
         default:
             break;
         }

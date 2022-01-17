@@ -167,28 +167,7 @@ class AllSystemVitals {
         return arrVital
     }
     
-    func createVitalArrayCalculationFromFilteredArray(days:SegmentValueForGraph,filteredArrVital:[VitalQuantityOrCategoryModel])->[VitalCalculation]{
-        var arrayVitalCalculation:[VitalCalculation] = []
-        let _ = filteredArrVital.map { objModel in
-            let objVitalCalculation = VitalCalculation()
-            objVitalCalculation.title = objModel.vitalName!
-            if objModel.quantity != nil{
-                objVitalCalculation.value = Double(objModel.quantity?.harmonized.value ?? -1)
-                objVitalCalculation.startTimeStamp = objModel.quantity?.startTimestamp ?? 0
-                objVitalCalculation.endTimeStamp = objModel.quantity?.endTimestamp ?? 0
-            }else{
-                objVitalCalculation.value = Double(objModel.categoryValue)
-                objVitalCalculation.startTimeStamp = objModel.category?.startTimestamp ?? 0
-                objVitalCalculation.endTimeStamp = objModel.category?.endTimestamp ?? 0
-            }
-            
-            arrayVitalCalculation.append(objVitalCalculation)
-            
-        }
-        return arrayVitalCalculation
-        
-        
-    }
+
     func filterVitalArrayToGetSingleDataWithSelectedSegmentInGraph(days:SegmentValueForGraph,array:[VitalCalculation],vitalName:VitalsName)->[VitalCalculation] {
         var filteredArray:[VitalCalculation] = []
         filteredArray = filterVitalArrayWithSelectedSegmentInGraph(days: days, array: array)

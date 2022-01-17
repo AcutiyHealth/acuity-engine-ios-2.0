@@ -37,7 +37,7 @@ class IDiseaseManager: NSObject {
             systolicBP.startTimeStamp = element.startTimestamp
             self.iDiseaseData.iDiseaseVital.systolicBloodPressureData.append(systolicBP)
             
-            print("---------\n bloodPressureSystolic \nValue \(systolicBP.value)\n Score \(systolicBP.score)\n Max Score\(systolicBP.maxScore ) \n---------")
+            //print("---------\n bloodPressureSystolic \nValue \(systolicBP.value)\n Score \(systolicBP.score)\n Max Score\(systolicBP.maxScore ) \n---------")
         }
         else if quantityType == QuantityType.bloodPressureDiastolic {
             
@@ -50,7 +50,12 @@ class IDiseaseManager: NSObject {
         else if quantityType == QuantityType.bodyTemperature {
             
             let temperature = IDiseaseVitalsData(type: VitalsName.temperature)
-            temperature.value = Double(element.harmonized.value)
+            var value = Double(element.harmonized.value)
+            if element.harmonized.unit == "degC"{
+                //convert value to fahrenheit
+                value = convertDegCelciusToDahrenheit(temprature: value)
+            }
+            temperature.value = value
             temperature.startTimeStamp = element.startTimestamp
             self.iDiseaseData.iDiseaseVital.temperatureData.append(temperature)
         }

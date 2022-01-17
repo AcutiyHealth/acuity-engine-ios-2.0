@@ -26,7 +26,32 @@ class MuscManager: NSObject {
     func resetMuscData(){
         muscData = MuscData()
     }
-    
+    func saveStatasticsInArray(quantityType:QuantityType,element:Statistics) {
+        switch quantityType {
+        case .stepCount:
+            do{
+                guard let value = element.harmonized.summary  else {
+                    return
+                }
+                let stepCount = MuscVitalsData(type: VitalsName.steps)
+                stepCount.value = Double(value)
+                stepCount.startTimeStamp = element.startTimestamp
+                self.muscData.muscVital.stepsData.append(stepCount)
+                Log.d("Musc stepCount=======\(stepCount.value) maxScoreVitals===\(stepCount.score) ")
+            }
+        case .dietaryWater:
+            do{
+                guard let value = element.harmonized.summary  else {
+                    return
+                }
+                let waterIntake = MuscVitalsData(type: VitalsName.waterIntake)
+                waterIntake.value = Double(value)
+                waterIntake.startTimeStamp = element.startTimestamp
+                self.muscData.muscVital.waterIntakeData.append(waterIntake)
+            }
+        default:break
+        }
+    }
     //Save Vitals Data in muscVital Model
     func saveQuantityInArray(quantityType:QuantityType,element:Quantity) {
         /*
@@ -34,14 +59,14 @@ class MuscManager: NSObject {
          body mass index
          */
         switch quantityType {
-        case .stepCount:
+        /*case .stepCount:
             do{
                 let stepCount = MuscVitalsData(type: VitalsName.steps)
                 stepCount.value = Double(element.harmonized.value)
                 stepCount.startTimeStamp = element.startTimestamp
                 self.muscData.muscVital.stepsData.append(stepCount)
                 
-            }
+            }*/
         case .bodyMassIndex:
             do{
                 let BMI = MuscVitalsData(type: VitalsName.BMI)
@@ -49,13 +74,7 @@ class MuscManager: NSObject {
                 BMI.startTimeStamp = element.startTimestamp
                 self.muscData.muscVital.BMIData.append(BMI)
             }
-        case .dietaryWater:
-            do{
-                let waterIntake = MuscVitalsData(type: VitalsName.waterIntake)
-                waterIntake.value = Double(element.harmonized.value)
-                waterIntake.startTimeStamp = element.startTimestamp
-                self.muscData.muscVital.waterIntakeData.append(waterIntake)
-            }
+       
         default:
             break
         }

@@ -44,7 +44,12 @@ class HeentManager: NSObject {
         case .bodyTemperature:
             do{
                 let temperature = HeentVitalsData(type: VitalsName.temperature)
-                temperature.value = Double(element.harmonized.value)
+                var value = Double(element.harmonized.value)
+                if element.harmonized.unit == "degC"{
+                    //convert value to fahrenheit
+                    value = convertDegCelciusToDahrenheit(temprature: value)
+                }
+                temperature.value = value
                 temperature.startTimeStamp = element.startTimestamp
                 self.heentData.heentVital.temperatureData.append(temperature)
                 
