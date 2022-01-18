@@ -32,29 +32,29 @@ class CardioManager: NSObject {
         cardioData = CardioData()
     }
     //Save Vitals Data in genitourinaryVital Model
-    func saveStatasticsInArray(quantityType:QuantityType,element:Statistics) {
+    func saveStatasticsInArray(quantityType:QuantityType,value:Double,startTimestamp:Double) {
         switch quantityType {
         case .stepCount:
             do{
-                guard let value = element.harmonized.summary  else {
-                    return
-                }
+//                guard let value = element.harmonized.summary  else {
+//                    return
+//                }
                 let stepCount = CardioVitalsData(type: VitalsName.steps)
                 let newValue = Double(value)
                 stepCount.value = newValue
-                stepCount.startTimeStamp = element.startTimestamp
+                stepCount.startTimeStamp = startTimestamp
                 self.cardioData.cardioVital.stepsData.append(stepCount)
                 Log.d("Cardio stepCount=======\(stepCount.value) maxScoreVitals===\(stepCount.score) ")
             }
         case .dietaryWater:
             do{
-                guard let value = element.harmonized.summary  else {
-                    return
-                }
+//                guard let value = element.harmonized.summary  else {
+//                    return
+//                }
                 let waterIntake = CardioVitalsData(type: VitalsName.waterIntake)
                 let newValue = Double(value)
                 waterIntake.value = newValue
-                waterIntake.startTimeStamp = element.startTimestamp
+                waterIntake.startTimeStamp = startTimestamp
                 self.cardioData.cardioVital.waterIntakeData.append(waterIntake)
             }
         default:break
@@ -115,16 +115,16 @@ class CardioManager: NSObject {
                 
                 //print("---------\n HeartRateData \nValue \(heartRate.value)\n Score \(heartRate.score)\n Max Score\(heartRate.maxScore ?? 0.0) \n---------")
             }
-        case .stepCount:
+        /*case .stepCount:
             do{
                 
                 let stepCount = CardioVitalsData(type: VitalsName.steps)
                 let newValue = Double(element.harmonized.value)
                 stepCount.value = newValue
-                stepCount.startTimeStamp = element.startTimestamp
+                stepCount.startTimeStamp = startTimestamp
                 self.cardioData.cardioVital.stepsData.append(stepCount)
                 Log.d("Cardio stepCount=======\(stepCount.value) maxScoreVitals===\(stepCount.score) ")
-            }
+            }*/
             
          
         default:
@@ -173,7 +173,7 @@ class CardioManager: NSObject {
                 sleep.startTimeStamp = startTimeStamp
                 sleep.endTimeStamp = endTimeStamp
                 self.cardioData.cardioVital.sleepData.append(sleep)
-                Log.d("Cardio sleep=======\(sleep.value) sleep===\(sleep.score) ")
+                //Log.d("Cardio sleep=======\(sleep.value) sleep===\(sleep.score) ")
             }
         default:
             break

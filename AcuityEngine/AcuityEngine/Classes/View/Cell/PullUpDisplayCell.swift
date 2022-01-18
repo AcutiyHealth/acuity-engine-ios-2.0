@@ -123,8 +123,8 @@ class AcuityDetailValueDisplayCell: UITableViewCell {
         }
         else if  item.title == VitalsName.sleep.rawValue{
             titleLabel.text = item.title
-            guard let value = item.value else { return maxScore.text = "--" }
-            let doubleValue = Double(value)! * 60 * 60
+            guard let value = item.value,let numerValue = Double(value) else { return maxScore.text = "--" }
+            let doubleValue = numerValue * 60 * 60
             maxScore.text = doubleValue.asStringWithHoursAndMinutesOnly(style: .abbreviated)
             maxScore.textColor = item.color
         }else{

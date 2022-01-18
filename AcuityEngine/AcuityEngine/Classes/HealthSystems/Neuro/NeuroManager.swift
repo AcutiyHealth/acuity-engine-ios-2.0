@@ -27,16 +27,16 @@ class NeuroManager: NSObject {
         neuroData = NeuroData()
     }
     //Save Vitals Data in genitourinaryVital Model
-    func saveStatasticsInArray(quantityType:QuantityType,element:Statistics) {
+    func saveStatasticsInArray(quantityType:QuantityType,value:Double,startTimestamp:Double) {
         switch quantityType {
         case .stepCount:
             do{
-                guard let value = element.harmonized.summary  else {
+                /*guard let value = element.harmonized.summary  else {
                     return
-                }
+                }*/
                 let steps = NeuroVitalsData(type: VitalsName.steps)
                 steps.value = Double(value)
-                steps.startTimeStamp = element.startTimestamp
+                steps.startTimeStamp = startTimestamp
                 self.neuroData.neuroVital.stepsData.append(steps)
             }
             

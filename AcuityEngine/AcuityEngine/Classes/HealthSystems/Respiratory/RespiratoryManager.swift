@@ -27,16 +27,16 @@ class RespiratoryManager: NSObject {
         respiratoryData = RespiratoryData()
     }
     //MARK: Statastics Data
-    func saveStatasticsInArray(quantityType:QuantityType,element:Statistics) {
+    func saveStatasticsInArray(quantityType:QuantityType,value:Double,startTimestamp:Double) {
         switch quantityType {
         case .stepCount:
             do{
-                guard let value = element.harmonized.summary  else {
+                /*guard let value = element.harmonized.summary  else {
                     return
-                }
+                }*/
                 let stepCount = RespiratoryVitalsData(type: VitalsName.steps)
                 stepCount.value = Double(value)
-                stepCount.startTimeStamp = element.startTimestamp
+                stepCount.startTimeStamp = startTimestamp
                 self.respiratoryData.respiratoryVital.stepsData.append(stepCount)
             }
             
@@ -134,7 +134,7 @@ class RespiratoryManager: NSObject {
                 sleepAnalysis.startTimeStamp = startTimeStamp
                 sleepAnalysis.endTimeStamp = endTimeStamp
                 self.respiratoryData.respiratoryVital.sleepData.append(sleepAnalysis)
-                Log.d("Respi sleepAnalysis=======\(sleepAnalysis.value) maxScoreVitals===\(sleepAnalysis.score) ")
+                //Log.d("Respi sleepAnalysis=======\(sleepAnalysis.value) maxScoreVitals===\(sleepAnalysis.score) ")
             }
         default:
             break

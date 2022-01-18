@@ -63,6 +63,7 @@ class MyWellScore: NSObject {
     
     //MARK: My Well Score calculation
     func myWellScoreCalculation(){
+        //daysToCalculateSystemScore = SegmentValueForGraph.OneDay
         let totalWeightedSystemScore = getTotalWeightedSystemScore()
         let totalMaxScore = getTotalMaxScore()
         let abnormalFraction = totalWeightedSystemScore / totalMaxScore

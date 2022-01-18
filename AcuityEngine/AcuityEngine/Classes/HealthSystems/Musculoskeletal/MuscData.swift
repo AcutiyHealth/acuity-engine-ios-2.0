@@ -38,7 +38,7 @@ class MuscData {
         //Final system score for Cardio
         muscSystemScore = commonTotalSystemScoreWithDays(arrayDayWiseSystemScore: arrayDayWiseSystemScore)
         let calculatedScore = muscSystemScore
-        Log.d("Musc calculatedScore-\(calculatedScore)")
+        //Log.d("Musc calculatedScore-\(calculatedScore)")
         return calculatedScore
     }
     
@@ -83,7 +83,7 @@ class MuscData {
         let totalMaxScore = maxScoreVitals  + maxConditionData  + maxLabData + maxsymptomData
         
         
-        Log.d("totalMaxScore=======\(totalMaxScore) maxScoreVitals===\(maxScoreVitals)  maxConditionData===\(maxConditionData)  maxLabData === \(maxLabData) maxsymptomData===\(maxsymptomData)")
+        ////Log.d("totalMaxScore=======\(totalMaxScore) maxScoreVitals===\(maxScoreVitals)  maxConditionData===\(maxConditionData)  maxLabData === \(maxLabData) maxsymptomData===\(maxsymptomData)")
         return totalMaxScore
         
     }

@@ -507,9 +507,9 @@ func filterMatricsForSymptoms(sampleItem:Metrix,timeIntervalByLastMonth:Double,t
     let timeIntervalStart = sampleItem.startTimeStamp
     let timeIntervalEnd = sampleItem.endTimeStamp
     if (timeIntervalStart >= timeIntervalByLastMonth && timeIntervalStart <= timeIntervalByNow) || (timeIntervalEnd >= timeIntervalByLastMonth && timeIntervalEnd <= timeIntervalByNow) || (timeIntervalStart <= timeIntervalByNow && timeIntervalEnd >= timeIntervalByNow){
-        print("item startTime",sampleItem.startTimeStamp)
-        print("item endTimeStamp",sampleItem.endTimeStamp)
-        print("sampleItem Symptoms----->",sampleItem.value)
+        //print("item startTime",sampleItem.startTimeStamp)
+        //print("item endTimeStamp",sampleItem.endTimeStamp)
+        //print("sampleItem Symptoms----->",sampleItem.value)
         return true
     }
     return false

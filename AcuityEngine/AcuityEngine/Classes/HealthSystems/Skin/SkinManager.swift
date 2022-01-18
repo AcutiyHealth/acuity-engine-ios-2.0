@@ -26,17 +26,17 @@ class SkinManager: NSObject {
     func resetSkinData(){
         skinData = SkinData()
     }
-    func saveStatasticsInArray(quantityType:QuantityType,element:Statistics) {
+    func saveStatasticsInArray(quantityType:QuantityType,value:Double,startTimestamp:Double) {
         switch quantityType {
             
         case .dietaryWater:
             do{
-                guard let value = element.harmonized.summary  else {
+                /*guard let value = element.harmonized.summary  else {
                     return
-                }
+                }*/
                 let waterIntake = SkinVitalsData(type: VitalsName.waterIntake)
                 waterIntake.value = Double(value)
-                waterIntake.startTimeStamp = element.startTimestamp
+                 waterIntake.startTimeStamp = startTimestamp
                 self.skinData.skinVital.waterIntakeData.append(waterIntake)       
             }
         default:break

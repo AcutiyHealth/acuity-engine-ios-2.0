@@ -26,26 +26,26 @@ class SDHManager: NSObject {
     func resetSDHData(){
         sdhData = SDHData()
     }
-    func saveStatasticsInArray(quantityType:QuantityType,element:Statistics) {
+    func saveStatasticsInArray(quantityType:QuantityType,value:Double,startTimestamp:Double) {
         switch quantityType {
         case .stepCount:
             do{
-                guard let value = element.harmonized.summary  else {
+                /*guard let value = element.harmonized.summary  else {
                     return
-                }
+                }*/
                 let steps = SDHVitalsData(type: VitalsName.steps)
                 steps.value = Double(value)
-                steps.startTimeStamp = element.startTimestamp
+                steps.startTimeStamp = startTimestamp
                 self.sdhData.sdhVital.stepsData.append(steps)
             }
         case .dietaryWater:
             do{
-                guard let value = element.harmonized.summary  else {
+                /*guard let value = element.harmonized.summary  else {
                     return
-                }
+                }*/
                 let waterIntake = SDHVitalsData(type: VitalsName.waterIntake)
                 waterIntake.value = Double(value)
-                waterIntake.startTimeStamp = element.startTimestamp
+                 waterIntake.startTimeStamp = startTimestamp
                 self.sdhData.sdhVital.waterIntakeData.append(waterIntake)
             }
         default:break

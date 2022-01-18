@@ -26,27 +26,27 @@ class MuscManager: NSObject {
     func resetMuscData(){
         muscData = MuscData()
     }
-    func saveStatasticsInArray(quantityType:QuantityType,element:Statistics) {
+    func saveStatasticsInArray(quantityType:QuantityType,value:Double,startTimestamp:Double) {
         switch quantityType {
         case .stepCount:
             do{
-                guard let value = element.harmonized.summary  else {
-                    return
-                }
+                //                guard let value = element.harmonized.summary  else {
+                //                    return
+                //                }
                 let stepCount = MuscVitalsData(type: VitalsName.steps)
                 stepCount.value = Double(value)
-                stepCount.startTimeStamp = element.startTimestamp
+                stepCount.startTimeStamp = startTimestamp
                 self.muscData.muscVital.stepsData.append(stepCount)
-                Log.d("Musc stepCount=======\(stepCount.value) maxScoreVitals===\(stepCount.score) ")
+                //Log.d("Musc stepCount=======\(stepCount.value) maxScoreVitals===\(stepCount.score) ")
             }
         case .dietaryWater:
             do{
-                guard let value = element.harmonized.summary  else {
-                    return
-                }
+                /*guard let value = element.harmonized.summary  else {
+                 return
+                 }*/
                 let waterIntake = MuscVitalsData(type: VitalsName.waterIntake)
                 waterIntake.value = Double(value)
-                waterIntake.startTimeStamp = element.startTimestamp
+                waterIntake.startTimeStamp = startTimestamp
                 self.muscData.muscVital.waterIntakeData.append(waterIntake)
             }
         default:break
@@ -59,14 +59,14 @@ class MuscManager: NSObject {
          body mass index
          */
         switch quantityType {
-        /*case .stepCount:
-            do{
-                let stepCount = MuscVitalsData(type: VitalsName.steps)
-                stepCount.value = Double(element.harmonized.value)
-                stepCount.startTimeStamp = element.startTimestamp
-                self.muscData.muscVital.stepsData.append(stepCount)
-                
-            }*/
+            /*case .stepCount:
+             do{
+             let stepCount = MuscVitalsData(type: VitalsName.steps)
+             stepCount.value = Double(element.harmonized.value)
+             stepCount.startTimeStamp = startTimestamp
+             self.muscData.muscVital.stepsData.append(stepCount)
+             
+             }*/
         case .bodyMassIndex:
             do{
                 let BMI = MuscVitalsData(type: VitalsName.BMI)
@@ -74,7 +74,7 @@ class MuscManager: NSObject {
                 BMI.startTimeStamp = element.startTimestamp
                 self.muscData.muscVital.BMIData.append(BMI)
             }
-       
+            
         default:
             break
         }
@@ -89,24 +89,24 @@ class MuscManager: NSObject {
         symptomsData.endTimeStamp = element.endTimestamp
         
         switch category {
-        //chestTightnessOrPain
+            //chestTightnessOrPain
         case .chestTightnessOrPain:
             MuscManager.sharedManager.muscData.muscSymptoms.chestPainData.append(symptomsData)
-        //generalizedBodyAche
+            //generalizedBodyAche
         case .generalizedBodyAche:
             MuscManager.sharedManager.muscData.muscSymptoms.bodyAcheData.append(symptomsData)
             
-        //fatigue
+            //fatigue
         case .fatigue:
             MuscManager.sharedManager.muscData.muscSymptoms.fatigueData.append(symptomsData)
-        //lowerBackPain
+            //lowerBackPain
         case .lowerBackPain:
             MuscManager.sharedManager.muscData.muscSymptoms.lowerBackPainData.append(symptomsData)
             
-        //moodChanges
+            //moodChanges
         case .moodChanges:
             MuscManager.sharedManager.muscData.muscSymptoms.moodChangeData.append(symptomsData)
-        //sleepChanges
+            //sleepChanges
         case .sleepChanges:
             MuscManager.sharedManager.muscData.muscSymptoms.sleepChangesData.append(symptomsData)
         default:
@@ -126,25 +126,25 @@ class MuscManager: NSObject {
         conditionData.startTimeStamp = element.startTime
         
         switch conditionType {
-        //muscularSprain
+            //muscularSprain
         case .muscularSprain:
             MuscManager.sharedManager.muscData.muscCondition.muscularSprainData.append(conditionData)
-        //osteoporosis
+            //osteoporosis
         case .osteoporosis:
             MuscManager.sharedManager.muscData.muscCondition.osteoporosisData.append(conditionData)
-        //osteoarthritis
+            //osteoarthritis
         case .osteoarthritis:
             MuscManager.sharedManager.muscData.muscCondition.osteoarthritisData.append(conditionData)
-        //rheumatoidArthritis
+            //rheumatoidArthritis
         case .rheumatoidArthritis:
             MuscManager.sharedManager.muscData.muscCondition.rheumatoidArthritisData.append(conditionData)
-        //Gout
+            //Gout
         case .Gout:
             MuscManager.sharedManager.muscData.muscCondition.GoutData.append(conditionData)
-        //HxOfStroke
+            //HxOfStroke
         case .HxOfStroke:
             MuscManager.sharedManager.muscData.muscCondition.HxOfStrokeData.append(conditionData)
-        //neuropathy
+            //neuropathy
         case .neuropathy:
             MuscManager.sharedManager.muscData.muscCondition.neuropathyData.append(conditionData)
         default:
@@ -161,38 +161,38 @@ class MuscManager: NSObject {
         labData.startTimeStamp = timeStamp
         
         switch labCodeConstant {
-        /*
-         Alkaline Phosphatase
-         Potassium level
-         chloride
-         Calcium
-         ESR
-         */
-        //alkalinePhosphatase
+            /*
+             Alkaline Phosphatase
+             Potassium level
+             chloride
+             Calcium
+             ESR
+             */
+            //alkalinePhosphatase
         case .alkalinePhosphatase:
             do{
                 labData.type = .alkalinePhosphatase
                 MuscManager.sharedManager.muscData.muscLab.alkalinePhosphataseData.append(labData)
             }
-        //potassiumLevel
+            //potassiumLevel
         case .potassiumLevel:
             do{
                 labData.type = .potassiumLevel
                 MuscManager.sharedManager.muscData.muscLab.potassiumLevelData.append(labData)
             }
-        //chloride
+            //chloride
         case .chloride:
             do{
                 labData.type = .chloride
                 MuscManager.sharedManager.muscData.muscLab.chlorideData.append(labData)
             }
-        //calcium
+            //calcium
         case .calcium:
             do{
                 labData.type = .calcium
                 MuscManager.sharedManager.muscData.muscLab.calciumData.append(labData)
             }
-        //ESR
+            //ESR
         case .ESR:
             do{
                 labData.type = .ESR

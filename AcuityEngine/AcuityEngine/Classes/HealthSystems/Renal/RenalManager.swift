@@ -27,17 +27,17 @@ class RenalManager: NSObject {
         renalData = RenalData()
     }
     //MARK: Statastics Data
-    func saveStatasticsInArray(quantityType:QuantityType,element:Statistics) {
+    func saveStatasticsInArray(quantityType:QuantityType,value:Double,startTimestamp:Double) {
         switch quantityType {
             
         case .dietaryWater:
             do{
-                guard let value = element.harmonized.summary  else {
+                /*guard let value = element.harmonized.summary  else {
                     return
-                }
+                }*/
                 let waterIntake = RenalVitalsData(type: VitalsName.waterIntake)
                 waterIntake.value = Double(value)
-                waterIntake.startTimeStamp = element.startTimestamp
+                 waterIntake.startTimeStamp = startTimestamp
                 self.renalData.renalVital.waterIntakeData.append(waterIntake)
             }
         default:break

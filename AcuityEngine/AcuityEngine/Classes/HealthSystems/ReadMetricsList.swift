@@ -70,7 +70,12 @@ func ReadVitalsQuantityType() -> [QuantityType]{
      QuantityType.dietaryWater
     ]
 }
-
+func readVitalsQuantityTypeSumData()->[QuantityType]{
+    [
+     QuantityType.stepCount,
+     QuantityType.dietaryWater
+    ]
+}
 func ReadLabDataCategoryType() -> [QuantityType]{
     [QuantityType.oxygenSaturation,QuantityType.dietaryPotassium,QuantityType.dietaryMagnesium]
 }

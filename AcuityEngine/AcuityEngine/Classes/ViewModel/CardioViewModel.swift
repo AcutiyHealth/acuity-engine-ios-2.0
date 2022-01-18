@@ -49,6 +49,14 @@ class CardioViewModel: CardioViewModelProtocol {
             dispatchGroup.leave()
         }
         
+        //Read vital data......
+        /*dispatchGroup.enter()
+        HKManagerReadVitals.sharedManager.readQuantityTypeVitalsSumData(days: days, quantityType: readVitalsQuantityTypeSumData()) { (success, error) in
+            //CardioManager.sharedManager.cardioData.totalScore()
+            successValue = success
+            errorValue = error
+            dispatchGroup.leave()
+        }*/
         //Read Symptoms data......
         dispatchGroup.enter()
         HKManagerReadSymptoms.sharedManager.readSymptomsData(days: days, completion: { (success, error) in
