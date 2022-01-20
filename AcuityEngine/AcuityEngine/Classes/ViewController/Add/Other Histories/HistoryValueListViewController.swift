@@ -64,7 +64,7 @@ class HistoryValueListViewController: UIViewController {
                     if success{
                         self.arrayForTblDataView = historyData ?? []
                         if self.arrayForTblDataView.count <= 0{
-                            setNoDataInfoIfRecordsNotExists(tblView: self.tblHistory,font: Fonts.kCellHistoryDataValueFontInAddSection)
+                            Utility.setNoDataInfoIfRecordsNotExists(tblView: self.tblHistory,font: Fonts.kCellHistoryDataValueFontInAddSection)
                         }
                         self.tblHistory.reloadData()
                         //Hide Progress HUD
@@ -145,7 +145,7 @@ extension HistoryValueListViewController:UITableViewDelegate,UITableViewDataSour
         DispatchQueue.main.async { //please do all interface updates in main thread only
             self.tblHistory.backgroundView = nil
             if self.arrayForTblDataView.count <= 0{
-                setNoDataInfoIfRecordsNotExists(tblView: self.tblHistory,font: Fonts.kCellHistoryDataValueFontInAddSection)
+                Utility.setNoDataInfoIfRecordsNotExists(tblView: self.tblHistory,font: Fonts.kCellHistoryDataValueFontInAddSection)
             }
             self.tblHistory.reloadData()
             

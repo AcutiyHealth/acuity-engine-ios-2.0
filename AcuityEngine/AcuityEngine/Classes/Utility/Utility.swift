@@ -89,6 +89,63 @@ class Utility {
         let daysAgo = Calendar.current.date(byAdding: component, value: numberOfBeforeOrAfterDays, to: startDate)!
         return daysAgo
     }
+    class func roundCorners(view:UIView,_ corners: UIRectCorner, radius: CGFloat) {
+        view.layer.borderWidth = 1
+        view.layer.borderColor = UIColor.white.cgColor
+        view.layer.cornerRadius = 0
+        let path = UIBezierPath(roundedRect: view.bounds, byRoundingCorners: corners, cornerRadii: CGSize(width: radius, height: radius))
+        let mask = CAShapeLayer()
+        mask.path = path.cgPath
+        view.layer.mask = mask
+    }
+    /// Standardize the display of dates within the app.
+    class func createDefaultDateFormatter() -> DateFormatter {
+        let formatter = DateFormatter()
+        formatter.dateStyle = .short
+        formatter.timeStyle = .medium
+        return formatter
+    }
+    /// Used to unescape the FHIR JSON prior to displaying it in the FHIR Source view.
+    class func unescapeJSONString(_ string: String) -> String {
+        return string.replacingOccurrences(of: "\\/", with: "/").replacingOccurrences(of: "\\\\", with: "\\")
+    }
+    //========================================================================================================
+    //MARK: Birthdate and Age..
+    //========================================================================================================
+    class func calculateAgeFromBirthDate(birthday:String)->Int{
+        
+        let dateFormater = DateFormatter()
+        dateFormater.dateFormat = "yyyy-MM-dd"
+        let birthdayDate = dateFormater.date(from: birthday)
+        let calendar: NSCalendar! = NSCalendar(calendarIdentifier: .gregorian)
+        let now = Date()
+        if let birthdayDate = birthdayDate{
+            let calcAge = calendar.components(.year, from: birthdayDate, to: now, options: [])
+            let age = calcAge.year
+            return age ?? 0
+        }
+        return 0
+    }
+    //MARK: set background view when no data available....
+    class func setNoDataInfoIfRecordsNotExists(tblView:UITableView,font:UIFont =  UIFont.systemFont(ofSize: 12),message:String = "No Records Found")
+    {
+        let noDataLabel : UILabel = UILabel()
+        noDataLabel.frame = CGRect(x: 0, y: 0 , width: (tblView.bounds.width), height: (tblView.bounds.height))
+        noDataLabel.text = message
+        noDataLabel.font = font
+        noDataLabel.textColor = UIColor.white
+        noDataLabel.textAlignment = .center
+        tblView.backgroundView = noDataLabel
+        
+    }
+    //========================================================================================================
+    //MARK: Version Number String..
+    //========================================================================================================
+    func versionNumberString() -> String? {
+        let infoDictionary = Bundle.main.infoDictionary
+        let majorVersion = infoDictionary?["CFBundleShortVersionString"] as? String
+        return majorVersion
+    }
     //MARK: Make view of Conditions,lab,symptoms and vital selected
     static func setBackgroundColorWhenViewSelcted(view:UIView){
         view.layer.borderColor = UIColor.white.cgColor
@@ -132,61 +189,41 @@ class Utility {
         return ageSpecificRecommendations
         //showContactPopUp()
     }
-}
-
-func setupViewBorderForAddSection(view:UIView){
-    view.layer.borderWidth = 1
-    view.layer.cornerRadius = 5
-    view.layer.borderColor = UIColor.white.cgColor
-    view.backgroundColor = UIColor.white.withAlphaComponent(0.3)
-}
-func roundCorners(view:UIView,_ corners: UIRectCorner, radius: CGFloat) {
-    view.layer.borderWidth = 1
-    view.layer.borderColor = UIColor.white.cgColor
-    view.layer.cornerRadius = 0
-    let path = UIBezierPath(roundedRect: view.bounds, byRoundingCorners: corners, cornerRadii: CGSize(width: radius, height: radius))
-    let mask = CAShapeLayer()
-    mask.path = path.cgPath
-    view.layer.mask = mask
-}
-/// Standardize the display of dates within the app.
-func createDefaultDateFormatter() -> DateFormatter {
-    let formatter = DateFormatter()
-    formatter.dateStyle = .short
-    formatter.timeStyle = .medium
-    return formatter
-}
-
-/// Used to unescape the FHIR JSON prior to displaying it in the FHIR Source view.
-func unescapeJSONString(_ string: String) -> String {
-    return string.replacingOccurrences(of: "\\/", with: "/").replacingOccurrences(of: "\\\\", with: "\\")
-}
-//========================================================================================================
-//MARK: Version Number String..
-//========================================================================================================
-func versionNumberString() -> String? {
-    let infoDictionary = Bundle.main.infoDictionary
-    let majorVersion = infoDictionary?["CFBundleShortVersionString"] as? String
-    return majorVersion
-}
-
-//========================================================================================================
-//MARK: Birthdate and Age..
-//========================================================================================================
-func calculateAgeFromBirthDate(birthday:String)->Int{
-    
-    let dateFormater = DateFormatter()
-    dateFormater.dateFormat = "yyyy-MM-dd"
-    let birthdayDate = dateFormater.date(from: birthday)
-    let calendar: NSCalendar! = NSCalendar(calendarIdentifier: .gregorian)
-    let now = Date()
-    if let birthdayDate = birthdayDate{
-        let calcAge = calendar.components(.year, from: birthdayDate, to: now, options: [])
-        let age = calcAge.year
-        return age ?? 0
+    //MARK: Chart Segment Color
+    func getThemeColor(index: String?,isForWheel:Bool) -> UIColor? {
+        let indexValue = Double(index ?? "") ?? 0
+        if indexValue > 0 && indexValue <= 75 {
+            if isForWheel{
+                return WheelColor.REDCOLOR
+            }else{
+                return ChartColor.REDCOLOR
+            }
+        } else if indexValue > 75 && indexValue <= 85 {
+            if isForWheel{
+                return WheelColor.YELLOWCOLOR
+            }else{
+                return ChartColor.YELLOWCOLOR
+            }
+            
+        } else {
+            if isForWheel{
+                return WheelColor.GREENCOLOR
+            }else{
+                return ChartColor.GREENCOLOR
+            }
+            
+        }
     }
-    return 0
+    
+    func setupViewBorderForAddSection(view:UIView){
+        view.layer.borderWidth = 1
+        view.layer.cornerRadius = 5
+        view.layer.borderColor = UIColor.white.cgColor
+        view.backgroundColor = UIColor.white.withAlphaComponent(0.3)
+    }
 }
+
+
 //MARK: Apply Animation For Adding View
 func animationForDetailViewWhenAdded(subviewToAdd:UIView, in   view:UIView){
     let transition = CATransition()
@@ -202,48 +239,12 @@ func animationForDetailViewWhenRemoved(from   view:UIView){
     transition.subtype = CATransitionSubtype.fromLeft
     view.layer.add(transition, forKey: nil)
 }
-//MARK: set background view when no data available....
-func setNoDataInfoIfRecordsNotExists(tblView:UITableView,font:UIFont =  UIFont.systemFont(ofSize: 12),message:String = "No Records Found")
-{
-    let noDataLabel : UILabel = UILabel()
-    noDataLabel.frame = CGRect(x: 0, y: 0 , width: (tblView.bounds.width), height: (tblView.bounds.height))
-    noDataLabel.text = message
-    noDataLabel.font = font
-    noDataLabel.textColor = UIColor.white
-    noDataLabel.textAlignment = .center
-    tblView.backgroundView = noDataLabel
-    
-}
+
 //MARK: Animation For Score Label....
 func animateScoreView(view:UIView){
     view.alpha = 0.0
     UIView.animate(withDuration: 0.5) {
         view.alpha = 1.0
-    }
-}
-//MARK: Chart Segment Color
-func getThemeColor(index: String?,isForWheel:Bool) -> UIColor? {
-    let indexValue = Double(index ?? "") ?? 0
-    if indexValue > 0 && indexValue <= 75 {
-        if isForWheel{
-            return WheelColor.REDCOLOR
-        }else{
-            return ChartColor.REDCOLOR
-        }
-    } else if indexValue > 75 && indexValue <= 85 {
-        if isForWheel{
-            return WheelColor.YELLOWCOLOR
-        }else{
-            return ChartColor.YELLOWCOLOR
-        }
-        
-    } else {
-        if isForWheel{
-            return WheelColor.GREENCOLOR
-        }else{
-            return ChartColor.GREENCOLOR
-        }
-        
     }
 }
 

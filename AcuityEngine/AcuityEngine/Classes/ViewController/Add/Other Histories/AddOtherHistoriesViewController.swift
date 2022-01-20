@@ -28,7 +28,7 @@ class AddOtherHistoriesViewController:UIViewController,UITextViewDelegate {
         //Setup Toolbar For Number Pad...
         setupToolbarForNumberPad()
         //
-        setupViewBorderForAddSection(view: viewHistory)
+        Utility.shared.setupViewBorderForAddSection(view: viewHistory)
         //Change Height Of Button For Non Notch Device
         if !UIDevice.current.hasNotch{
             btnHeight .constant = 50

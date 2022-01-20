@@ -28,7 +28,7 @@ class OtherHistoryInputView: UITableViewCell,UITextFieldDelegate {
         //
         txtFieldHistoryText.delegate = self
         //Set border view......
-        setupViewBorderForAddSection(view: viewTxtFieldHistory)
+        Utility.shared.setupViewBorderForAddSection(view: viewTxtFieldHistory)
         btnAdd.layer.addBorder(edge: UIRectEdge.left, color: UIColor.white, thickness: 0.5)
         //Set Font For textfield and button......
         txtFieldHistoryText.font = Fonts.kStartEndValueFont

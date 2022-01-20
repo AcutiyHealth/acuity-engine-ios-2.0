@@ -28,8 +28,8 @@ class MedicationInputView: UITableViewCell,UITextFieldDelegate {
         //
         txtFieldMedicationText.delegate = self
         //Set border view......
-        setupViewBorderForAddSection(view: viewTxtFieldMedication)
-        //setupViewBorderForAddSection(view: btnAdd)
+        Utility.shared.setupViewBorderForAddSection(view: viewTxtFieldMedication)
+        //Utility.shared.setupViewBorderForAddSection(view: btnAdd)
         btnAdd.layer.addBorder(edge: UIRectEdge.left, color: UIColor.white, thickness: 0.5)
         //Set Font For textfield and button......
         txtFieldMedicationText.font = Fonts.kStartEndValueFont

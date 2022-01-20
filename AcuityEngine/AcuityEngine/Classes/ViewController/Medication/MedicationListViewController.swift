@@ -56,7 +56,7 @@ class MedicationListViewController:UIViewController{
         
         if self.arrMedications.count <= 0{
             tblTitle.separatorColor = UIColor.clear
-            setNoDataInfoIfRecordsNotExists(tblView: self.tblTitle,font: Fonts.kCellHistoryDataValueFontInAddSection)
+            Utility.setNoDataInfoIfRecordsNotExists(tblView: self.tblTitle,font: Fonts.kCellHistoryDataValueFontInAddSection)
         }
         //Reload
         tblTitle.reloadData()

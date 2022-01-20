@@ -31,7 +31,7 @@ class ProfileAddOptionsDataCell: UITableViewCell,UITableViewDelegate,UITableView
         super.awakeFromNib()
         viewBg.backgroundColor = ColorSchema.fourBoxColorInPullup
         lblTitle.font = Fonts.kCellProfileDetailTitleFont
-        setupViewBorderForAddSection(view: viewBg)
+        Utility.shared.setupViewBorderForAddSection(view: viewBg)
         tblData.backgroundColor = UIColor.white.withAlphaComponent(0.1)
         //self.tblData.addObserver(self, forKeyPath: "contentSize", options: NSKeyValueObservingOptions.new, context: nil)
         

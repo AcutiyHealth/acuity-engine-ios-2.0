@@ -103,6 +103,7 @@ class ProfileViewController: UIViewController {
     //========================================================================================================
     private func readBasicDetails() {
         do {
+            ProfileSharedData.shared.readBasicDetails()
             var birthDay = ProfileSharedData.shared.birthDate
             let age = ProfileSharedData.shared.age
             let bloodGroup = ProfileSharedData.shared.bloodType

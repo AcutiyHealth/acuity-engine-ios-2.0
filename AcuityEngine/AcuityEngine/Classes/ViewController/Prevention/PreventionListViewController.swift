@@ -50,7 +50,7 @@ class PreventionListViewController:UIViewController{
         tblPreventionTracker.delegate = self
         tblPreventionTracker.dataSource = self
         
-        lblTitle.text = "Prevention Recommendations By Grade"
+        lblTitle.text = "USPSTF Prevention Recommendations for you."
         lblTitle.font = Fonts.kAcuityAddOptionTitleFont
         lblTitle.textColor = UIColor.white
         
@@ -74,10 +74,6 @@ class PreventionListViewController:UIViewController{
     }
     func loadFirstRecommondetion(){
         //DispatchQueue.main.async {
-        tblPreventionTracker.backgroundView = nil
-        if arrPreventionTracker.count<0{
-            setNoDataInfoIfRecordsNotExists(tblView: self.tblPreventionTracker)
-        }
         filterARecommondetions()
         //}
     }
@@ -106,6 +102,7 @@ class PreventionListViewController:UIViewController{
             }
             //}
         }
+        setTblBackGroundWhenNoDataAvaialable()
         self.tblPreventionTracker.reloadData()
     }
     
@@ -121,7 +118,22 @@ class PreventionListViewController:UIViewController{
             //}
             
         }
+        setTblBackGroundWhenNoDataAvaialable()
         self.tblPreventionTracker.reloadData()
+    }
+    
+    func setTblBackGroundWhenNoDataAvaialable(){
+        tblPreventionTracker.backgroundView = nil
+        if filteredArrPreventionTracker.count<=0{
+            setTblSeperatorStyle(separatorStyle: .none)
+            Utility.setNoDataInfoIfRecordsNotExists(tblView: self.tblPreventionTracker,font: UIFont.systemFont(ofSize: 15))
+        }else{
+            setTblSeperatorStyle(separatorStyle: .singleLine)
+        }
+    }
+    
+    func setTblSeperatorStyle(separatorStyle:UITableViewCell.SeparatorStyle){
+        tblPreventionTracker.separatorStyle = separatorStyle
     }
 }
 

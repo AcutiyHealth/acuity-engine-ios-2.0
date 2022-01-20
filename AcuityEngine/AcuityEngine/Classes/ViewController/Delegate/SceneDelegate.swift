@@ -53,7 +53,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     
     func saveAppVersion() {
         let defaults = UserDefaults.standard
-        let currentVersion = versionNumberString()
+        let currentVersion = Utility.versionNumberString()
         defaults.set(currentVersion, forKey: VERSION_KEY)
     }
     

@@ -158,10 +158,10 @@ class AddVitalsViewController: UIViewController {
         btnStart.titleLabel?.font =  Fonts.kStartEndValueFont
         
         
-        setupViewBorderForAddSection(view: viewBP1)
-        setupViewBorderForAddSection(view: viewBP2)
-        setupViewBorderForAddSection(view: viewVitalWithTextField)
-        setupViewBorderForAddSection(view: viewOxygenSaturationWithTextField)
+        Utility.shared.setupViewBorderForAddSection(view: viewBP1)
+        Utility.shared.setupViewBorderForAddSection(view: viewBP2)
+        Utility.shared.setupViewBorderForAddSection(view: viewVitalWithTextField)
+        Utility.shared.setupViewBorderForAddSection(view: viewOxygenSaturationWithTextField)
     }
     //========================================================================================================
     //MARK: SetUp Design For Date Buttons

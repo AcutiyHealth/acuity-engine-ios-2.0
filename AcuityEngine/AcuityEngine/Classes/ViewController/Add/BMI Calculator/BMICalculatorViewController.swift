@@ -94,9 +94,9 @@ class BMICalculatorViewController: UIViewController {
         btnStart.titleLabel?.font =  Fonts.kStartEndValueFont
         
         
-        setupViewBorderForAddSection(view: viewWeight)
-        setupViewBorderForAddSection(view: viewHeightFeet)
-        setupViewBorderForAddSection(view: viewHeightInches)
+        Utility.shared.setupViewBorderForAddSection(view: viewWeight)
+        Utility.shared.setupViewBorderForAddSection(view: viewHeightFeet)
+        Utility.shared.setupViewBorderForAddSection(view: viewHeightInches)
         
     }
     //========================================================================================================

@@ -50,6 +50,7 @@ class AddPreventionFromListViewController:UIViewController{
     }
     
     func callApiForPreventionData(){
+        ProfileSharedData.shared.readBasicDetails()
         let age = ProfileSharedData.shared.age
         let gender = ProfileSharedData.shared.sex
         if age > 0 && gender != ""{

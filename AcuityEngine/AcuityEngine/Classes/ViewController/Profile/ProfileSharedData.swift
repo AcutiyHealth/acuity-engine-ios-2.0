@@ -20,7 +20,7 @@ class ProfileSharedData {
             let reporter = try HealthKitReporter()
             let characteristic = reporter.reader.characteristics()
             let birthDay = characteristic.birthday ?? ""
-            let age = calculateAgeFromBirthDate(birthday: birthDay)
+            let age = Utility.calculateAgeFromBirthDate(birthday: birthDay)
          
             self.age = age
             self.birthDate = characteristic.birthday == "na" ? "":birthDay

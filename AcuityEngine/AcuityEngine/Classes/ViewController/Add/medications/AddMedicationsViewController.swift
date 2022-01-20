@@ -25,7 +25,7 @@ class AddMedicationsViewController: UIViewController {
         //Set Font For LAbel
         setFontForLabels()
         //
-        setupViewBorderForAddSection(view: viewMedication)
+        Utility.shared.setupViewBorderForAddSection(view: viewMedication)
         //Change Height Of Button For Non Notch Device
         if !UIDevice.current.hasNotch{
             btnHeight .constant = 50
@@ -95,7 +95,7 @@ class AddMedicationsViewController: UIViewController {
                     self.arrayForTblDataView.append(contentsOf: medicationData!)
                 }
                 if self.arrayForTblDataView.count <= 0{
-                    setNoDataInfoIfRecordsNotExists(tblView: self.tblMedication,font: Fonts.kCellHistoryDataValueFontInAddSection)
+                    Utility.setNoDataInfoIfRecordsNotExists(tblView: self.tblMedication,font: Fonts.kCellHistoryDataValueFontInAddSection)
                 }
                 self.tblMedication.reloadData()
                 
@@ -208,7 +208,7 @@ extension AddMedicationsViewController:UITableViewDelegate,UITableViewDataSource
         DispatchQueue.main.async { //please do all interface updates in main thread only
             self.tblMedication.backgroundView = nil
             if self.arrayForTblDataView.count <= 0{
-                setNoDataInfoIfRecordsNotExists(tblView: self.tblMedication,font: Fonts.kCellHistoryDataValueFontInAddSection)
+                Utility.setNoDataInfoIfRecordsNotExists(tblView: self.tblMedication,font: Fonts.kCellHistoryDataValueFontInAddSection)
             }
             self.tblMedication.reloadData()
             

@@ -147,6 +147,7 @@ enum AddOption: String {
 enum NSNotificationName: String {
     case pullUpOpen = "pullUpOpen"
     case pullUpClose = "pullUpClose"
+    case makeWheeInteractiveAtpullUpClose = "makeWheeInteractiveAtpullUpClose"
     case pullUpHalfOpened = "pullUpHalfOpened"
     case showAcuityDetailPopup = "showAcuityDetailPopup"
     case refreshCircleView = "refreshCircleView"
@@ -341,6 +342,7 @@ struct Fonts {
     static let kStartEndTitleFont = getFontAsPerDeviceSize(fontName: UIFont.SFProDisplaySemiBold(of: 18), fontSize: 18)
     static let kStartEndValueFont = getFontAsPerDeviceSize(fontName: UIFont.SFProDisplayMedium(of: 16), fontSize: 16)
     static let kAcuityBtnAdd = getFontAsPerDeviceSize(fontName: UIFont.SFProDisplayBold(of: 16), fontSize: 16)
+    static let kCellTextFontPreventionListInAddSection = getFontAsPerDeviceSize(fontName: UIFont.SFProDisplayMedium(of: 16), fontSize: 16)
     //Pull up
     static let kAcuityAddOptionTitleFont = getFontAsPerDeviceSize(fontName: UIFont.SFProDisplayBold(of: 20), fontSize: 20)
     static let kAcuityAddOptionValueFont = getFontAsPerDeviceSize(fontName: UIFont.SFProDisplayRegular(of: 13), fontSize: 13)
