@@ -13,7 +13,7 @@ class ProfileOptionSelectionViewController:UIViewController{
     
     // MARK: - Outlet
     @IBOutlet weak var profileOptionTableView: UITableView!
-    @IBOutlet weak var handleArea: UIView!
+    @IBOutlet weak var handleArea: HandleView!
     @IBOutlet weak var mainView: UIView!
     @IBOutlet weak var btnLogOut: UIButton!
     @IBOutlet weak var visualEffectView: UIView!
@@ -193,6 +193,7 @@ extension ProfileOptionSelectionViewController: UITableViewDelegate, UITableView
         
         //Add close button target
         setUpCloseButton()
+        setupBackButton()
         //Hide main view of Detail Pullup class
         mainView.isHidden = true
         
@@ -212,7 +213,7 @@ extension ProfileOptionSelectionViewController: UITableViewDelegate, UITableView
         settingVC?.didMove(toParent: self)
         //Add close button target
         setUpCloseButton()
-        
+        setupBackButton()
         //Hide main view of Detail Pullup class
         mainView.isHidden = true
         
@@ -233,14 +234,17 @@ extension ProfileOptionSelectionViewController: UITableViewDelegate, UITableView
         
         //Add close button target
         setUpCloseButton()
-        
+        setupBackButton()
         //Hide main view of Detail Pullup class
         mainView.isHidden = true
         
         visualEffectView.bringSubviewToFront(handleArea)
     }
-    
-    func setUpCloseButton(){
+    func setupBackButton(){
+        handleArea.btnBack!.isHidden = false
+        handleArea.btnBack!.addTarget(self, action: #selector(btnCloseClickedInProfileViewController), for: UIControl.Event.touchUpInside)
+    }
+    /*func setUpCloseButton(){
         //Add close button target
         
         
@@ -255,14 +259,25 @@ extension ProfileOptionSelectionViewController: UITableViewDelegate, UITableView
         
         handleArea.addSubview(btnClose!)
         
+    }*/
+    func setUpCloseButton(){
+        handleArea.btnClose!.isHidden = false
+        handleArea.btnClose!.addTarget(self, action: #selector(btnCloseClickedInProfileViewController), for: UIControl.Event.touchUpInside)
+        
     }
-    
+    func removeBackButton(){
+        handleArea.btnBack!.isHidden = true
+    }
+    func removeCloseButton(){
+        handleArea.btnClose!.isHidden = true
+    }
     //MARK: Btn close click
     @objc func btnCloseClickedInProfileViewController(){
         //Show animation when view is removed.....
         animationForDetailViewWhenRemoved(from: self.visualEffectView)
-        
-        btnClose?.removeFromSuperview()
+        removeBackButton()
+        removeCloseButton()
+        //btnClose?.removeFromSuperview()
         if profileVC != nil{
             profileVC?.view.removeFromSuperview()
             profileVC?.removeFromParent()

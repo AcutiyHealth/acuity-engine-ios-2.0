@@ -24,7 +24,14 @@ public class SOPullUpControl {
     
     // Variable determines the next state of the card expressing that the card starts and collapased
     var nextState: PullUpStatus {
-        return cardVisible ? .collapsed : .expanded
+        if cardVisible{
+            return .collapsed //Card is expanded, so make it collapse
+        }else if cardHalfOpened{
+            return .collapsed // (if you want to make collapse->half open->expanded....expanded...)Here I need .collapse->half, half open->collapse
+        }else{
+            return .halfOpened //Card is collapse, so make it half open
+        }
+        
     }
     
     // Variable determines the height of main view
@@ -49,10 +56,13 @@ public class SOPullUpControl {
     
     // Starting and end card heights will be determined later
     var endCardHeight:CGFloat = 0.0
+    var halfOpenedCardHeight:CGFloat = 0.0
     var startCardHeight:CGFloat = 0.0
     
     // Current visible state of the card
     var cardVisible = false
+    // Current visible state of the card
+    public var cardHalfOpened = false
     
     // Empty property animator array
     var runningAnimations = [UIViewPropertyAnimator]()
@@ -62,10 +72,12 @@ public class SOPullUpControl {
     // main view
     var parentView: UIView?
     public var isExpanded: Bool = false
+    public var isHalfOpened: Bool = false
     public func setupCard(from view: UIView) {
         
         endCardHeight   = (dataSource?.pullUpViewExpandedViewHeight?()) ?? defaultpullUpViewHeight
         startCardHeight = dataSource?.pullUpViewCollapsedViewHeight() ?? 0.0
+        halfOpenedCardHeight = dataSource?.pullUpViewHalfOpenedViewHeight() ?? 0.0
         
         parentView = view
         // Add Visual Effects View
@@ -127,12 +139,20 @@ public class SOPullUpControl {
      // used to change the status of pullUpView to expanded
     public func expanded() {
         isExpanded = true
+        isHalfOpened = false
         animateTransitionIfNeeded(state: .expanded, duration: 0.9)
     }
     
-    // used to change the status of pullUpView to collapsed
+    // used to change the status of pullUpView to half opened
     public func collapsed() {
         isExpanded = false
+        isHalfOpened = false
+        animateTransitionIfNeeded(state: .collapsed, duration: 0.9)
+    }
+    // used to change the status of pullUpView to collapsed
+    public func halfOpened() {
+        isExpanded = false
+        isHalfOpened = true
         animateTransitionIfNeeded(state: .collapsed, duration: 0.9)
     }
 }

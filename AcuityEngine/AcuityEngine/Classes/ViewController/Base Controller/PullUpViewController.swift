@@ -77,6 +77,16 @@ class PullUpViewController: UIViewController {
 extension PullUpViewController: SOPullUpViewDataSource {
     
     func pullUpViewCollapsedViewHeight() -> CGFloat {
+        if Screen.screenHeight < CGFloat(Screen.iPhone11ScreenHeight){
+            return bottomPadding + ((116 * Screen.screenHeight)/CGFloat(Screen.iPhoneSEHeight))
+            //return  Screen.screenHeight*0.075 +  Screen.screenHeight * 0.16 + 30 +  Screen.screenHeight * 0.20
+        }else{
+            return bottomPadding + ((190 * Screen.screenHeight)/CGFloat(Screen.iPhone11ScreenHeight))
+        }
+        
+    }
+    
+    func pullUpViewHalfOpenedViewHeight() -> CGFloat {
         //if Screen.screenHeight < CGFloat(Screen.iPhone11ScreenHeight){
         //return bottomPadding + ((116 * Screen.screenHeight)/CGFloat(Screen.iPhoneSEHeight))
         return  Screen.screenHeight*0.075 +  Screen.screenHeight * 0.16 + 30 +  Screen.screenHeight * 0.20
@@ -85,7 +95,6 @@ extension PullUpViewController: SOPullUpViewDataSource {
         //        }
         
     }
-    
     func pullUpViewController() -> UIViewController {
         let vc = UIViewController()
         switch selectPullUpType {

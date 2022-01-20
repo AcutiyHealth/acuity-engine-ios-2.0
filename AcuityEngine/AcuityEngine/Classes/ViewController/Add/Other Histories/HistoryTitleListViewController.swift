@@ -112,12 +112,12 @@ extension HistoryTitleListViewController:UITableViewDelegate,UITableViewDataSour
             valueListHistoryVC?.removeFromParent()
         }
         
-        if let parentVC = self.parent {
+        /*if let parentVC = self.parent {
             if let parentVC = parentVC as? AddOptionSelectionViewController {
                 // parentVC is someViewController
                 parentVC.removeBackButton()
             }
-        }
+        }*/
     }
     
     func removeAddHistoryViewController(){

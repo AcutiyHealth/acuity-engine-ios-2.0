@@ -38,6 +38,8 @@ class AcuityDetailPullUpViewModel: NSObject
         arrLabs = systemMetricsData?[MetricsType.LabData.rawValue] as? [LabModel] ?? []
         arrVitals = systemMetricsData?[MetricsType.Vitals.rawValue] as? [VitalsModel] ?? []
         
+        //=============Combine BP Systolic and Disastolic in One Entry in Vital Array.=============//
+        arrVitals = self.combineBPSystolicandDisastolicInVitalArray(arrVital: arrVitals )
         
         let sortArrayTupple = self.sortArrayColorWise(arrConditions: arrConditions, arrVitals: arrVitals, arrSymptoms: arrSymptoms, arrLabs: arrLabs)
         

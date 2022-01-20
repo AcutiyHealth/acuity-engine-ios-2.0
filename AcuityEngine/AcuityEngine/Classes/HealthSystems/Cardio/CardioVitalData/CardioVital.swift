@@ -121,9 +121,9 @@ class CardioVital:VitalProtocol {
             let scorewaterIntakeData = getScoreForVitalDataWithGivenDateRange(sampleItem: waterIntakeData, timeIntervalByLastMonth: timeIntervalByLastMonth, timeIntervalByNow: timeIntervalByNow)
             
             let totalScore = scoreSystolic + scoreDyastolic + scoreHeartRateData + scoreIrregularRhythmNotification  + scoreVO2MaxData + scoreOxygenSaturationData + scorestepsData + scoresleepData + scorewaterIntakeData
-            print("scorestepsData--day",scorestepsData,days)
-            print("scorestepsData--day",stepsData,days)
-            print("totalScore--day",totalScore,days)
+//            print("scorestepsData--day",scorestepsData,days)
+//            print("scorestepsData--day",stepsData,days)
+//            print("totalScore--day",totalScore,days)
             arrayDayWiseScoreTotal.append(totalScore)
         }
         return arrayDayWiseScoreTotal

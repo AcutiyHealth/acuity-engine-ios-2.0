@@ -299,7 +299,7 @@ class HKManagerReadVitals: NSObject {
                 toWrite: types
             ){ (success, error) in
                 if success && error == nil {
-                    let sumQuantityDataArray = readVitalsQuantityTypeSumData()
+                    let sumQuantityDataArray = ReadVitalsQuantityTypeSumData()
                     types = quantityType.filter { !sumQuantityDataArray.contains($0) }
                     //dispatchGroup.enter()
                     reporter.manager.preferredUnits(for: types) { (preferredUnits, error) in
@@ -425,22 +425,8 @@ class HKManagerReadVitals: NSObject {
                             }
                             dispatchGroup.notify(queue: .main) {
                                 
-                                /* DispatchQueue.main.async {
-                                 self.readQuantityTypeVitalsSumData(days: days, quantityType:  readVitalsQuantityTypeSumData(), completion: { (success, error) in
-                                 if success && error==nil{
-                                 completion(success, nil)
-                                 }
-                                 else{
-                                 completion(success, error)
-                                 }
-                                 })
-                                 
-                                 
-                                 }*/
-                                
-                                
                                 DispatchQueue.main.async {
-                                    self.readQuantityTypeVitalsSumData(days: days, quantityType:  readVitalsQuantityTypeSumData(), completion: { (success, error) in
+                                    self.readQuantityTypeVitalsSumData(days: days, quantityType:  ReadVitalsQuantityTypeSumData(), completion: { (success, error) in
                                         if success && error==nil{
                                             completion(success, nil)
                                         }
@@ -451,6 +437,8 @@ class HKManagerReadVitals: NSObject {
                                     
                                     
                                 }
+                                
+                                
                             }
                             
                             

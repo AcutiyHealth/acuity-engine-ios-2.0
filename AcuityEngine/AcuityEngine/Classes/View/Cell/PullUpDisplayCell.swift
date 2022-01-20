@@ -185,7 +185,7 @@ class AcuityPullUpMetricsDisplayCell: AcuityDetailValueDisplayCell {
         //            maxScore.text = getStringToDisplayScore(score: score)
         //        }
         maxScore.font =  Fonts.kAcuityMyWellTblValueFont
-        maxScore.textColor =  getThemeColor(index: maxScore.text, isForWheel: false)
+        maxScore.textColor =  Utility.shared.getThemeColor(index: maxScore.text, isForWheel: false)
         imageIcon.image =  UIImage(named: item[Keys.kImage] as? String ?? "")
     }
 }
@@ -393,13 +393,23 @@ class AddPreventionTrackerSelectionCell: UITableViewCell {
         segmentControl.selectedConfiguration(font: Fonts.kAcuityDetailSegmentFont, color: UIColor.black)
     }
     func setFontForLabel(){
-        titleLabel.font = Fonts.kCellTextFontListInAddSection
+        titleLabel.font = Fonts.kCellTextFontPreventionListInAddSection
         titleLabel.numberOfLines = 0
         titleLabel.sizeToFit()
     }
     
     func displayData(title:String,preventionTrackerValue:PreventionTrackerValue){
-        titleLabel.text = title
+        //titleLabel.text = title
+        let titleStr:String = title
+        let end = titleStr.lastIndex(of: ":")
+        let start = titleStr.startIndex
+        let str1 = "\(titleStr[start..<(end!)]):"
+        let range = (titleStr as NSString).range(of: str1)
+        let mutableAttributedString = NSMutableAttributedString.init(string: titleStr)
+        mutableAttributedString.addAttribute(NSAttributedString.Key.font, value: Fonts.kCellHistoryDataTitleFontInAddSection, range:range)
+        
+      
+        titleLabel.attributedText = mutableAttributedString
         switch preventionTrackerValue {
         case .No:
             valueSegmentControl.selectedSegmentIndex = 1

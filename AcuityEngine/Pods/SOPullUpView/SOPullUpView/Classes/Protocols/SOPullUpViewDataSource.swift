@@ -12,6 +12,9 @@ import Foundation
     /// This function used to take the height when the pullUpView is collapsed.
     func pullUpViewCollapsedViewHeight() -> CGFloat
     
+    /// This function used to take the height when the pullUpView is halfopened.
+    func pullUpViewHalfOpenedViewHeight() -> CGFloat
+    
     /// This function used to take the SOPullUpMainViewController to be displayed.
 
     func pullUpViewController() -> UIViewController
@@ -27,5 +30,6 @@ import Foundation
 
 public enum PullUpStatus {
   case collapsed
+  case halfOpened
   case expanded
 }

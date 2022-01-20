@@ -70,7 +70,7 @@ func ReadVitalsQuantityType() -> [QuantityType]{
      QuantityType.dietaryWater
     ]
 }
-func readVitalsQuantityTypeSumData()->[QuantityType]{
+func ReadVitalsQuantityTypeSumData()->[QuantityType]{
     [
      QuantityType.stepCount,
      QuantityType.dietaryWater

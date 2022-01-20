@@ -8,12 +8,12 @@
 import Foundation
 @available(iOS 10.0, *)
 extension SOPullUpControl {
-
+    
     // Handle tap gesture recognizer
     @objc
     public func handleCardTap(recognzier:UITapGestureRecognizer) {
         switch recognzier.state {
-        // Animate card when tap finishes
+            // Animate card when tap finishes
         case .ended:
             animateTransitionIfNeeded(state: nextState, duration: 0.9)
         default:
@@ -31,7 +31,14 @@ extension SOPullUpControl {
         case .changed:
             let translation = recognizer.translation(in: self.pullUpVC.view)
             var fractionComplete = translation.y / endCardHeight
-            fractionComplete = cardVisible ? fractionComplete : -fractionComplete
+            if cardVisible{
+                //fractionComplete = fractionComplete
+            }else if cardHalfOpened==true{
+                fractionComplete = fractionComplete/2
+            }else{
+                fractionComplete = -fractionComplete
+            }
+            //fractionComplete = cardVisible ? fractionComplete : -fractionComplete
             updateInteractiveTransition(fractionCompleted: fractionComplete)
         case .ended:
             // End animation when pan ends
@@ -42,75 +49,107 @@ extension SOPullUpControl {
     }
     
     func animateTransitionIfNeeded (state:PullUpStatus, duration:TimeInterval) {
-         // Check if frame animator is empty
+        // Check if frame animator is empty
         //self.visualEffectView.backgroundColor = UIColor.clear
-         if runningAnimations.isEmpty {
-             // Create a UIViewPropertyAnimator depending on the state of the popover view
-             let frameAnimator = UIViewPropertyAnimator(duration: duration, dampingRatio: 1) {
-                 switch state {
-                 case .expanded:
-                     // If expanding set popover y to the ending height and blur background
+        if runningAnimations.isEmpty {
+            // Create a UIViewPropertyAnimator depending on the state of the popover view
+            let frameAnimator = UIViewPropertyAnimator(duration: duration, dampingRatio: 1) {
+                switch state {
+                case .expanded:
+                    // If expanding set popover y to the ending height and blur background
                     self.pullUpVC.view.frame.origin.y = self.heightView - self.endCardHeight
-                   //  self.visualEffectView.effect = UIBlurEffect(style: .extraLight)
-                 case .collapsed:
-                     // If collapsed set popover y to the starting height and remove background blur
+                    //  self.visualEffectView.effect = UIBlurEffect(style: .extraLight)
+                case .halfOpened:
+                    // If expanding set popover y to the ending height and blur background
+                    self.pullUpVC.view.frame.origin.y = self.heightView - self.halfOpenedCardHeight
+                    //  self.visualEffectView.effect = UIBlurEffect(style: .extraLight)
+                case .collapsed:
+                    // If collapsed set popover y to the starting height and remove background blur
                     self.pullUpVC.view.frame.origin.y =  self.heightView -    self.startCardHeight
                     // self.visualEffectView.effect = UIBlurEffect(style: .extraLight)
-                 }
-             }
-             // Complete animation frame
-             frameAnimator.addCompletion { _ in
-                 self.cardVisible = !self.cardVisible
-                 self.runningAnimations.removeAll()
-             }
-             // Start animation
-             frameAnimator.startAnimation()
-             // Append animation to running animations
-             runningAnimations.append(frameAnimator)
-         }
+                }
+            }
+            // Complete animation frame
+            frameAnimator.addCompletion { _ in
+                /*
+                 This will be called after delegates...
+                 So it will set next state of pullup...So after delegate calles and if user tap handle again, collapse will set according to this variables...
+                 NOTE: If we want to expanded pullup from halfOpened, we call function expand() from code directly...
+                 This below code mostly set collapse->halfOpend and halfOpened->collapse
+                 */
+                if self.cardVisible == false && self.cardHalfOpened == false{
+                    //self.cardVisible = true
+                    //If pullup not expanded and half opened meanse -> collapsed, make it half opened for nextstate..
+                    self.cardHalfOpened = true
+                }else if self.cardHalfOpened == true && self.cardVisible == false{
+                    //If pullup half opened and not expande...make it collapsed again for next state...
+                    self.cardVisible = false
+                    self.cardHalfOpened = false
+                }else{
+                    //Make pullup -> collapsed
+                    self.cardVisible = false
+                    self.cardHalfOpened = false
+                }
+                //self.cardVisible = !self.cardVisible
+                self.runningAnimations.removeAll()
+            }
+            // Start animation
+            frameAnimator.startAnimation()
+            // Append animation to running animations
+            runningAnimations.append(frameAnimator)
+        }
         spreadDelegate(state: state)
-     }
+    }
     
     func spreadDelegate(state:PullUpStatus) {
         switch state {
         case .expanded:
-            delegate?.pullUpViewStatus(pullUpVC, didChangeTo: .expanded)
+            do{
+                
+                self.cardHalfOpened = false
+                self.cardVisible = false
+                
+                delegate?.pullUpViewStatus(pullUpVC, didChangeTo: .expanded)
+            }
         case .collapsed:
             delegate?.pullUpViewStatus(pullUpVC, didChangeTo: .collapsed)
+        case .halfOpened:
+            delegate?.pullUpViewStatus(pullUpVC, didChangeTo: .halfOpened)
+        }
+        
+    }
+    
+    // Function to start interactive animations when view is dragged
+    func startInteractiveTransition(state:PullUpStatus, duration:TimeInterval) {
+        // If animation is empty start new animation
+        if runningAnimations.isEmpty {
+            animateTransitionIfNeeded(state: state, duration: duration)
+        }
+        // For each animation in runningAnimations
+        for animator in runningAnimations {
+            // Pause animation and update the progress to the fraction complete percentage
+            animator.pauseAnimation()
+            animationProgressWhenInterrupted = animator.fractionComplete
+            //print("animationProgressWhenInterrupted==\(animationProgressWhenInterrupted)")
         }
     }
-     
-     // Function to start interactive animations when view is dragged
-     func startInteractiveTransition(state:PullUpStatus, duration:TimeInterval) {
-         // If animation is empty start new animation
-         if runningAnimations.isEmpty {
-             animateTransitionIfNeeded(state: state, duration: duration)
-         }
-         // For each animation in runningAnimations
-         for animator in runningAnimations {
-             // Pause animation and update the progress to the fraction complete percentage
-             animator.pauseAnimation()
-             animationProgressWhenInterrupted = animator.fractionComplete
-            //print("animationProgressWhenInterrupted==\(animationProgressWhenInterrupted)")
-         }
-     }
-     
-     // Funtion to update transition when view is dragged
-     func updateInteractiveTransition(fractionCompleted:CGFloat) {
-         // For each animation in runningAnimations
-         for animator in runningAnimations {
-             // Update the fraction complete value to the current progress
-             animator.fractionComplete = fractionCompleted + animationProgressWhenInterrupted
+    
+    // Funtion to update transition when view is dragged
+    func updateInteractiveTransition(fractionCompleted:CGFloat) {
+        // For each animation in runningAnimations
+        for animator in runningAnimations {
+            // Update the fraction complete value to the current progress
+            animator.fractionComplete = fractionCompleted + animationProgressWhenInterrupted
             //print("animator.fractionComplete==\(fractionCompleted)")
-         }
-     }
-     
-     // Function to continue an interactive transisiton
-     func continueInteractiveTransition () {
-         // For each animation in runningAnimations
-         for animator in runningAnimations {
-             // Continue the animation forwards or backwards
-             animator.continueAnimation(withTimingParameters: nil, durationFactor: 0)
-         }
-     }
+        }
+    }
+    
+    // Function to continue an interactive transisiton
+    func continueInteractiveTransition () {
+        // For each animation in runningAnimations
+        for animator in runningAnimations {
+            // Continue the animation forwards or backwards
+            animator.continueAnimation(withTimingParameters: nil, durationFactor: 0)
+        }
+    }
 }

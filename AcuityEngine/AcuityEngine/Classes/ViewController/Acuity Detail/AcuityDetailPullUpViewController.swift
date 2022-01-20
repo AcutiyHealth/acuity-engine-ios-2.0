@@ -53,10 +53,10 @@ class AcuityDetailPullUpViewController: UIViewController {
     var handleHeight: CGFloat = 60
     var isAnimationEnabledForSubView:Bool = true
     //Object of Acuity detial value viewcontroller...
-    var detailConditionVC : AcuityMetricsDetailViewController?
+    var metrixDetailVC : AcuityMetricsDetailViewController?
     //viewModel object..
     var viewModelObj = AcuityDetailPullUpViewModel()
-    
+    var previousPullupState:PullUpStatus = .collapsed
     fileprivate var labelLeadingMarginInitialConstant: CGFloat!
     
     let labelsAsStringForWeek: Array<String> = dayArray
@@ -117,7 +117,7 @@ class AcuityDetailPullUpViewController: UIViewController {
             // your code here
             self.setHandleViewHeight()
         }
-        handleAreaUserInteractionOff()
+        //handleAreaUserInteractionOff()
         
         print("viewDidLoad AcuityDetailPullUpViewController")
     }
@@ -174,7 +174,7 @@ class AcuityDetailPullUpViewController: UIViewController {
             viewSymptom.isHidden = true
             viewVitals.isHidden = false
             viewLab.isHidden = false
-           
+            
             //self.topOfMyWellScoreTblConstraint.constant = 0;
             
             //showTblMyWellScore(isShow: true)
@@ -298,9 +298,7 @@ class AcuityDetailPullUpViewController: UIViewController {
             self?.arrSymptoms = scoreTupple?.1 ?? [] //arrSymptoms
             self?.arrVitals = scoreTupple?.2  ?? []//arrVitals
             self?.arrLabs = scoreTupple?.3 ?? [] //arrLabs
-            //=============Combine BP Systolic and Disastolic in One Entry in Vital Array.=============//
-            self?.arrVitals = self?.viewModelObj.combineBPSystolicandDisastolicInVitalArray(arrVital: self?.arrVitals ?? []) ?? []
-            //self?.arrVitals = self?.viewModelObj.combineOtherEntriesFromListOfVitalsInArrayForDisplay(arrVital: arrVitals) ?? []
+           
             self?.arrLabs = self?.viewModelObj.combineOtherEntriesFromListOfLabsInArrayForDisplay(arrVital: self?.arrLabs ?? []) ?? []
             //=============Combine Free Condition with Add Section Condition Data.=============//
             //self?.arrConditions = self?.viewModelObj.fetchFreeConditionDataAndCombineWithAddSectionCondition(arrConditions: self?.arrConditions ?? []) ?? []
@@ -327,7 +325,7 @@ class AcuityDetailPullUpViewController: UIViewController {
     func setColorForScoreAndChart(){
         
         //change background color with system selection..
-        let themeColor = getThemeColor(index:  lblScore.text,isForWheel: false)
+        let themeColor = Utility.shared.getThemeColor(index:  lblScore.text,isForWheel: false)
         lblScore.textColor = themeColor;
         colorForChart = themeColor ?? UIColor.red
     }
@@ -343,19 +341,19 @@ class AcuityDetailPullUpViewController: UIViewController {
             self.tblVitals.backgroundView = nil
             
             if self.arrConditions.count <= 0 {
-                setNoDataInfoIfRecordsNotExists(tblView: self.tblCondition)
+                Utility.setNoDataInfoIfRecordsNotExists(tblView: self.tblCondition)
             }
             if self.arrLabs.count <= 0 {
-                setNoDataInfoIfRecordsNotExists(tblView: self.tblLab)
+                Utility.setNoDataInfoIfRecordsNotExists(tblView: self.tblLab)
             }
             /*if arrSymptoms.count <= 0 {
-             viewModelObj.setNoDataInfoIfRecordsNotExists(tblView: tblSymptom)
+             viewModelObj.Utility.setNoDataInfoIfRecordsNotExists(tblView: tblSymptom)
              }*/
             if self.arrSymptoms.count <= 0 {
-                setNoDataInfoIfRecordsNotExists(tblView: self.tblSymptom)
+                Utility.setNoDataInfoIfRecordsNotExists(tblView: self.tblSymptom)
             }
             if self.arrVitals.count <= 0 {
-                setNoDataInfoIfRecordsNotExists(tblView: self.tblVitals)
+                Utility.setNoDataInfoIfRecordsNotExists(tblView: self.tblVitals)
             }
             self.reloadTables()
         }
@@ -448,13 +446,38 @@ extension AcuityDetailPullUpViewController: SOPullUpViewDelegate {
         switch status {
         case .collapsed:
             do{
-                NotificationCenter.default.post(name: Notification.Name(NSNotificationName.pullUpClose.rawValue), object: nil)
+                handleAreaUserInteractionOn()
+                //DispatchQueue.main.asyncAfter(deadline: .now() + 0.6) {
+                // your code here
+                
+                self.removeDetailScreenAtCollapseWithAnimation()
+                /*
+                 We are storing previousPullupState because when pullup half open and tap handle, it will collapse. So every time pullUpClose was fire and animation of mainscoreview happen..
+                 To avaoid this, we check if previousPullupState not half opened state, then fire pullUpClose otherwise not...
+                 */
+                if previousPullupState != .halfOpened{
+                    previousPullupState = .collapsed
+                    NotificationCenter.default.post(name: Notification.Name(NSNotificationName.pullUpClose.rawValue), object: nil)
+                }
+                //When collapse - make wheel interactive...
+                NotificationCenter.default.post(name: Notification.Name(NSNotificationName.makeWheeInteractiveAtpullUpClose.rawValue), object: nil)
+            }
+        case .halfOpened:
+            do{
+                //handleAreaUserInteractionOff()
+                previousPullupState = .halfOpened
+                //When hald opened - make wheel disable...
+                NotificationCenter.default.post(name: Notification.Name(NSNotificationName.pullUpHalfOpened.rawValue), object: nil)
             }
         case .expanded:
             do{
+                handleAreaUserInteractionOn()
+                previousPullupState = .expanded
                 NotificationCenter.default.post(name: Notification.Name("pullUpOpen"), object: nil)
             }
+        default:break
         }
+        
     }
     
     func pullUpHandleArea(_ sender: UIViewController) -> UIView {
@@ -541,29 +564,29 @@ extension AcuityDetailPullUpViewController: UITableViewDelegate, UITableViewData
     //========================================================================================================
     
     func openValueDetailScreen(metrixType:MetricsType){
-       
+        
         //Stop Handle Area User Interaction......
         handleAreaUserInteractionOn()
         
         //Add detail value view as child view
-        detailConditionVC = UIStoryboard(name: Storyboard.acuityDetailPullUp.rawValue, bundle: nil).instantiateViewController(withIdentifier: "AcuityMetricsDetailViewController") as? AcuityMetricsDetailViewController
+        metrixDetailVC = UIStoryboard(name: Storyboard.acuityDetailPullUp.rawValue, bundle: nil).instantiateViewController(withIdentifier: "AcuityMetricsDetailViewController") as? AcuityMetricsDetailViewController
         
         
         switch metrixType {
         case .Conditions:
-            detailConditionVC?.arrConditions = self.arrConditions
+            metrixDetailVC?.arrConditions = self.arrConditions
             Utility.setBackgroundColorWhenViewSelcted(view: viewCondition)
         case .Vitals:
-            detailConditionVC?.arrVitals = self.arrVitals
+            metrixDetailVC?.arrVitals = self.arrVitals
             Utility.setBackgroundColorWhenViewSelcted(view: viewVitals)
         case .Sympotms:
-            detailConditionVC?.arrSymptoms = self.arrSymptoms
+            metrixDetailVC?.arrSymptoms = self.arrSymptoms
             Utility.setBackgroundColorWhenViewSelcted(view: viewSymptom)
         case .LabData:
-            detailConditionVC?.arrLabs = self.arrLabs
+            metrixDetailVC?.arrLabs = self.arrLabs
             Utility.setBackgroundColorWhenViewSelcted(view: viewLab)
         case .Medication:
-            detailConditionVC?.arrMedications = AppDelegate.shared.arrMedications
+            metrixDetailVC?.arrMedications = AppDelegate.shared.arrMedications
             //viewModelObj.setBackgroundColorWhenViewSelcted(view: viewM)
         default:
             break;
@@ -572,34 +595,34 @@ extension AcuityDetailPullUpViewController: UITableViewDelegate, UITableViewData
         let delayInSeconds = 0.15
         DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + delayInSeconds) { [self] in
             
-            self.addChild(detailConditionVC!)
+            self.addChild(metrixDetailVC!)
             
             //Make setBackgroundColorWhenViewUnSelcted
             Utility.setBackgroundColorWhenViewUnSelcted(viewSymptom: viewSymptom, viewCondition: viewCondition, viewVital: viewVitals, viewLab: viewLab)
             
-            detailConditionVC?.view.frame.size = CGSize(width: visualEffectView.frame.size.width, height: visualEffectView.frame.size.height)
+            metrixDetailVC?.view.frame.size = CGSize(width: visualEffectView.frame.size.width, height: visualEffectView.frame.size.height)
             
             
-            self.detailConditionVC?.didMove(toParent: self)
+            self.metrixDetailVC?.didMove(toParent: self)
             
             //Show animation when view added.....
-//            if isAnimationEnabledForSubView{
-//                animationForDetailViewWhenAdded(subviewToAdd: (detailConditionVC?.view)!, in: self.visualEffectView)
-//            }else{
-                self.visualEffectView.addSubview((detailConditionVC?.view)!)
-//            }
+            //            if isAnimationEnabledForSubView{
+            //                animationForDetailViewWhenAdded(subviewToAdd: (metrixDetailVC?.view)!, in: self.visualEffectView)
+            //            }else{
+            self.visualEffectView.addSubview((metrixDetailVC?.view)!)
+            //            }
             
             //when detail screen open make handle height small......
             handleHeightConstraint.constant = handleHeight;
             
             
             //PAss metrix Item to display data...
-            detailConditionVC?.metrixType = metrixType
+            metrixDetailVC?.metrixType = metrixType
             setUpCloseButton()
             
             //Hide main view of Detail Pullup class
             mainView.isHidden = true
-            detailConditionVC?.setHandler(handler: { [weak self] (open) in
+            metrixDetailVC?.setHandler(handler: { [weak self] (open) in
                 if open ?? false{
                     self?.visualEffectView.bringSubviewToFront((self?.handleArea)!)
                     self?.setupBackButton()
@@ -614,7 +637,7 @@ extension AcuityDetailPullUpViewController: UITableViewDelegate, UITableViewData
                 pullUpControl?.expanded()
             }
         }
-       
+        
     }
     //========================================================================================================
     //MARK: Setup Back Button in Sub Detail Screen...
@@ -642,26 +665,47 @@ extension AcuityDetailPullUpViewController: UITableViewDelegate, UITableViewData
     
     //MARK: Btn close click
     @objc func btnCloseClickedInAcuityValueViewController(){
-        if detailConditionVC != nil{
+        pullUpControl?.collapsed()
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.9) {
+            self.collapsePullupControlFromDetailScreen()
+        }
+    }
+    func removeDetailScreenAtCollapseWithAnimation(){
+        if metrixDetailVC != nil{
             
             handleArea.btnClose?.isHidden = true
             handleArea.btnBack?.isHidden = true
-            mainView.isHidden = false
+            self.mainView.isHidden = false
             //Remove Detail View
             removeDetailViewFromParent()
             //set handle view height to pull up consistently...
             setHandleViewHeight()
+            
         }
     }
     
     func removeDetailViewFromParent(){
         //animationForDetailViewWhenRemoved(from: self.visualEffectView)
-        detailConditionVC?.view.removeFromSuperview()
-        detailConditionVC?.removeFromParent()
-        handleAreaUserInteractionOff()
-        if pullUpControl != nil && pullUpControl?.isExpanded == true{
-            pullUpControl?.collapsed()
+        
+        mainView.alpha = 0.0
+        UIView.animate(withDuration: 0.9) {
+            self.metrixDetailVC?.view.alpha = 0.2
+        } completion: { success in
+            self.metrixDetailVC?.view.alpha = 0.0
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
+             //your code here
+            
+            self.mainView.alpha = 1
+            self.metrixDetailVC?.view.removeFromSuperview()
+            self.metrixDetailVC?.removeFromParent()
+            }
+            //            if self.pullUpControl != nil && self.pullUpControl?.isExpanded == true{
+            //                self.pullUpControl?.collapsed()
+            //            }
         }
+        
+        //handleAreaUserInteractionOff()
+        
     }
     
     func handleAreaUserInteractionOff(){
@@ -672,10 +716,10 @@ extension AcuityDetailPullUpViewController: UITableViewDelegate, UITableViewData
     }
     //MARK: Btn Back click
     @objc func btnBackClickedInAcuityValueViewController(){
-        if detailConditionVC != nil{
-            if let _:UIView = detailConditionVC?.view.viewWithTag(111) {
+        if metrixDetailVC != nil{
+            if let _:UIView = metrixDetailVC?.view.viewWithTag(111) {
                 handleArea.btnBack?.isHidden = true
-                self.detailConditionVC?.removeDetailValueViewController()
+                self.metrixDetailVC?.removeDetailValueViewController()
             }
             
         }

@@ -118,6 +118,10 @@ class AllSystemVitals {
             let peakFlowRateData = RespiratoryManager.sharedManager.respiratoryData.respiratoryVital.peakFlowRateData
             let _ = filterVitalArrayToGetSingleDataWithSelectedSegmentInGraph(days: days, array: peakFlowRateData,vitalName: VitalsName.peakflowRate)
             
+            let respiratoryRateData = RespiratoryManager.sharedManager.respiratoryData.respiratoryVital.respiratoryRateData
+            let _ = filterVitalArrayToGetSingleDataWithSelectedSegmentInGraph(days: days, array: respiratoryRateData,vitalName: VitalsName.respiratoryRate)
+            
+            
             let temperatureData = IDiseaseManager.sharedManager.iDiseaseData.iDiseaseVital.temperatureData
             let _ = filterVitalArrayToGetSingleDataWithSelectedSegmentInGraph(days: days, array: temperatureData,vitalName: VitalsName.temperature)
             
@@ -129,6 +133,13 @@ class AllSystemVitals {
             
             let headphoneAudioLevelsData = HeentManager.sharedManager.heentData.heentVital.headphoneAudioLevelsData
             let _ = filterVitalArrayToGetSingleDataWithSelectedSegmentInGraph(days: days, array: headphoneAudioLevelsData,vitalName: VitalsName.headPhoneAudioLevel)
+            
+            let BMIData = FNEManager.sharedManager.fneData.fneVital.BMIData
+            let _ = filterVitalArrayToGetSingleDataWithSelectedSegmentInGraph(days: days, array: BMIData,vitalName: VitalsName.BMI)
+            
+            let ageData = SDHManager.sharedManager.sdhData.sdhVital.ageData
+            let _ = filterVitalArrayToGetSingleDataWithSelectedSegmentInGraph(days: days, array: ageData,vitalName: VitalsName.age)
+            
             
             let stepsData = CardioManager.sharedManager.cardioData.cardioVital.stepsData
             let _ = filterVitalArrayToGetSingleDataWithSelectedSegmentInGraph(days: days, array: stepsData,vitalName: VitalsName.steps)

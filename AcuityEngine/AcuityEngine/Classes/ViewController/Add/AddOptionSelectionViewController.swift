@@ -222,11 +222,12 @@ extension AddOptionSelectionViewController {
         symptomsVC = UIStoryboard(name: Storyboard.add.rawValue, bundle: nil).instantiateViewController(withIdentifier: "SymptomsListViewController") as? SymptomsListViewController
         setupTitleAndBackButtonForAllSubViewController(vc: (symptomsVC)!)
         symptomsVC?.lblTitle.text = title
-        
+        self.setupBackButton()
+        self.visualEffectView.bringSubviewToFront((self.handleArea)!)
         symptomsVC?.setHandler(handler: { [weak self] (open) in
             if open ?? false{
-                self?.setupBackButton()
-                self?.visualEffectView.bringSubviewToFront((self?.handleArea)!)
+//                self?.setupBackButton()
+//                self?.visualEffectView.bringSubviewToFront((self?.handleArea)!)
             }else{
                 self?.symptomsVC?.view.removeFromSuperview()
                 self?.symptomsVC?.removeFromParent()
@@ -246,11 +247,12 @@ extension AddOptionSelectionViewController {
         }
         setupTitleAndBackButtonForAllSubViewController(vc: (vitalsVC)!)
         vitalsVC?.lblTitle.text = title
-        
+        self.setupBackButton()
+        self.visualEffectView.bringSubviewToFront((self.handleArea)!)
         vitalsVC?.setHandler(handler: { [weak self] (open) in
             if open ?? false{
-                self?.setupBackButton()
-                self?.visualEffectView.bringSubviewToFront((self?.handleArea)!)
+//                self.setupBackButton()
+//                self.visualEffectView.bringSubviewToFront((self?.handleArea)!)
             }else{
                 self?.vitalsVC?.view.removeFromSuperview()
                 self?.vitalsVC?.removeFromParent()
@@ -270,7 +272,8 @@ extension AddOptionSelectionViewController {
         }
         setupTitleAndBackButtonForAllSubViewController(vc: conditionsVC!)
         conditionsVC?.lblTitle.text = title
-        
+        self.setupBackButton()
+        self.visualEffectView.bringSubviewToFront((self.handleArea)!)
     }
     //========================================================================================================
     //MARK: Open Medication Screen
@@ -282,9 +285,11 @@ extension AddOptionSelectionViewController {
         guard (medicationsVC != nil) else {
             return
         }
+        
         setupTitleAndBackButtonForAllSubViewController(vc: medicationsVC!)
         medicationsVC?.lblTitle.text = title
-        
+        self.setupBackButton()
+        self.visualEffectView.bringSubviewToFront((self.handleArea)!)
     }
     //========================================================================================================
     //MARK: Open Other Histories Screen
@@ -298,10 +303,12 @@ extension AddOptionSelectionViewController {
         }
         setupTitleAndBackButtonForAllSubViewController(vc: historiesVC!)
         historiesVC?.lblTitle.text = title
+        self.setupBackButton()
+        self.visualEffectView.bringSubviewToFront((self.handleArea)!)
         historiesVC?.setHandler(handler: { [weak self] (open) in
             if open ?? false{
-                self?.setupBackButton()
-                self?.visualEffectView.bringSubviewToFront((self?.handleArea)!)
+//                self?.setupBackButton()
+//                self?.visualEffectView.bringSubviewToFront((self?.handleArea)!)
             }else{
                 self?.historiesVC?.view.removeFromSuperview()
                 self?.historiesVC?.removeFromParent()
@@ -320,6 +327,8 @@ extension AddOptionSelectionViewController {
             return
         }
         setupTitleAndBackButtonForAllSubViewController(vc: preventionVC!)
+        self.setupBackButton()
+        self.visualEffectView.bringSubviewToFront((self.handleArea)!)
         //preventionVC?.lblTitle.text = title
     }
     //========================================================================================================
@@ -390,7 +399,8 @@ extension AddOptionSelectionViewController {
         if symptomsVC != nil{
             if let _:UIView = symptomsVC?.view.viewWithTag(111) {
                 self.symptomsVC?.removeAddSymptomsViewController()
-                removeBackButton()
+                //removeBackButton()
+                self.setupBackButton()
             }else{
                 removeSymptomsView()
                 
@@ -399,7 +409,8 @@ extension AddOptionSelectionViewController {
         if vitalsVC != nil{
             if let _:UIView = vitalsVC?.view.viewWithTag(111) {
                 self.vitalsVC?.removeAddVitalsViewController()
-                removeBackButton()
+                //removeBackButton()
+                self.setupBackButton()
             }else{
                 removeVitalView()
             }
@@ -410,14 +421,21 @@ extension AddOptionSelectionViewController {
             }
             else if let _:UIView = historiesVC?.view.viewWithTag(111) {
                 self.historiesVC?.removeHistoryValueViewController()
-                removeBackButton()
+                //removeBackButton()
+                self.setupBackButton()
             }else{
-                removeVitalView()
+                removeHistoryView()
             }
         }
         if conditionsVC != nil{
+            removeConditionView()
         }
-        
+        if medicationsVC != nil{
+            removeMedicationView()
+        }
+        if preventionVC != nil{
+            removePreventionView()
+        }
     }
     
     func removeVitalView(){

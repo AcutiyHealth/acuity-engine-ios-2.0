@@ -73,9 +73,9 @@ class MyWellScore: NSObject {
         let myWellModel = MyWellScoreModel(value: MyWellScore.sharedManager.myWellScore, timeStamp: getTimeStampForCurrenTime())
         DBManager.shared.insertMyWellScoreData(model: myWellModel) { success, error in
             
-        //Intialize allsysmtemvitals and labs object....
-        objAllVitals = AllSystemVitals()
-        objAllLabs = AllSystemLabs()
+            //Intialize allsysmtemvitals and labs object....
+            objAllVitals = AllSystemVitals()
+            objAllLabs = AllSystemLabs()
         }
         Log.d("<--------------------MyWellScore.sharedManager.myWellScore-------------------->\(MyWellScore.sharedManager.myWellScore)")
     }
@@ -199,7 +199,20 @@ class MyWellScore: NSObject {
         let totalWeightedSystemScore2 = fneWeightedSystemScore + hematoWeightedSystemScore + endocrineWeightedSystemScore
         let totalWeightedSystemScore3 = gastrointestinalWeightedSystemScore + genitourinaryWeightedSystemScore + neuroWeightedSystemScore
         let totalWeightedSystemScore4 = sdhWeightedSystemScore + muscWeightedSystemScore + skinWeightedSystemScore + heentWeightedSystemScore
-        
+        /*print("cardioWeightedSystemScore---systemscore",cardioWeightedSystemScore,cardioSystemScore)
+        print("respiratoryWeightedSystemScore---systemscore",respiratoryWeightedSystemScore,respiratorySystemScore)
+        print("renalWeightedSystemScore---systemscore",renalWeightedSystemScore,renalSystemScore)
+        print("iDiseaseWeightedSystemScore---systemscore",iDiseaseWeightedSystemScore,iDiseaseSystemScore)
+        print("fneWeightedSystemScore---systemscore",fneWeightedSystemScore,fneSystemScore)
+        print("hematoWeightedSystemScore---systemscore",hematoWeightedSystemScore,hematoSystemScore)
+        print("endocrineWeightedSystemScore---systemscore",endocrineWeightedSystemScore,endocrineSystemScore)
+        print("gastrointestinalWeightedSystemScore---systemscore",gastrointestinalWeightedSystemScore,gastrointestinalSystemScore)
+        print("genitourinaryWeightedSystemScore---systemscore",genitourinaryWeightedSystemScore,genitourinarySystemScore)
+        print("neuroWeightedSystemScore---systemscore",neuroWeightedSystemScore,neuroSystemScore)
+        print("sdhWeightedSystemScore---systemscore",sdhWeightedSystemScore,sdhSystemScore)
+        print("muscWeightedSystemScore---systemscore",muscWeightedSystemScore,muscSystemScore)
+        print("skinWeightedSystemScore---systemscore",skinWeightedSystemScore,skinSystemScore)
+        print("heentWeightedSystemScore---systemscore",heentWeightedSystemScore,heentSystemScore)*/
         return totalWeightedSystemScore1 + totalWeightedSystemScore2 + totalWeightedSystemScore3 + totalWeightedSystemScore4
     }
     
@@ -219,8 +232,8 @@ class MyWellScore: NSObject {
         
         var arrMyWellScoreData:[MyWellScoreModel] = []
         //Feth History Data......
-            arrMyWellScoreData = DBManager.shared.loadMyWellScore()
-         
+        arrMyWellScoreData = DBManager.shared.loadMyWellScore()
+        
         return arrMyWellScoreData
         
     }
@@ -256,7 +269,7 @@ class MyWellScore: NSObject {
     }
     //MARK: To display data in Pull up...
     func dictionaryRepresentation()->[String:Any]{
-       
+        
         let vitalDictionary = objAllVitals.dictionaryRepresentation()
         return [MetricsType.LabData.rawValue:objAllLabs.dictionaryRepresentation(),MetricsType.Vitals.rawValue:vitalDictionary] as [String : Any]
         

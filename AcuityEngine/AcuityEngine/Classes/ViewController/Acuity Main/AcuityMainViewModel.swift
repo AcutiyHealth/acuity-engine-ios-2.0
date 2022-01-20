@@ -49,7 +49,7 @@ class AcuityMainViewModel: NSObject {
         //        mainScoreView.removeConstraint(lblScoreTextLeadingConstraint!)
         //        }
     }
-    func setTopLabel(mainScoreView:UIView,lblMyWell:UILabel,lblScoreText:UILabel,lblScore:UILabel,viewHeight:CGFloat){
+    func setTopLabelWhenPullupCollapsed(mainScoreView:UIView,lblMyWell:UILabel,lblScoreText:UILabel,lblScore:UILabel,viewHeight:CGFloat){
         
         if isAnimationConstraintAdded {
             mainScoreView.removeConstraint(traillingMyWellConstraint!)
@@ -111,7 +111,7 @@ class AcuityMainViewModel: NSObject {
         }
     }
     
-    func setTopLabelAnimation(mainScoreView:UIView,lblMyWell:UILabel,lblScoreText:UILabel,lblScore:UILabel,viewHeight:CGFloat) {
+    func setTopLabelAnimationWhenPullupExpanded(mainScoreView:UIView,lblMyWell:UILabel,lblScoreText:UILabel,lblScore:UILabel,viewHeight:CGFloat) {
         UIView.animateKeyframes(withDuration: 0.7, delay: 0.00, options: .calculationModeLinear) { [self] in
             isAnimationConstraintAdded = true
             lblMyWell.font = lblMyWell.font.withSize(viewHeight * 0.046)
@@ -202,7 +202,7 @@ class AcuityMainViewModel: NSObject {
     func setupBodySystemData()->[[String:Any]] {
         var arrBodySystems:[[String:Any]] = []
         
-        //let metricDictionary = CardioManager.sharedManager.cardioData.dictionaryRepresentation()
+        let metricDictionary = CardioManager.sharedManager.cardioData.dictionaryRepresentation()
         
         let dictCardiovascular =   AcuityDisplayModel()
         dictCardiovascular.id = SystemId.Id_Cardiovascular.rawValue
@@ -210,7 +210,7 @@ class AcuityMainViewModel: NSObject {
         dictCardiovascular.score = String(format: "%.2f", (CardioManager.sharedManager.cardioData.cardioSystemScore))
         //dictCardiovascular.index = "89"
         dictCardiovascular.image = AcuityImages.kCardiovascular
-        //dictCardiovascular.metricDictionary = metricDictionary
+        dictCardiovascular.metricDictionary = metricDictionary
         
         let metricRespiratory = RespiratoryManager.sharedManager.respiratoryData.dictionaryRepresentation()
         let dictRespiratory =   AcuityDisplayModel()
@@ -469,6 +469,7 @@ class AcuityMainViewModel: NSObject {
     }
     
     @objc func loadPreventionDataFromDatabase(){
+        ProfileSharedData.shared.readBasicDetails()
         let age = ProfileSharedData.shared.age
         let gender = ProfileSharedData.shared.sex
         if age > 0 && gender != ""{

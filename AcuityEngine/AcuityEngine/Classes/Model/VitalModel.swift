@@ -93,28 +93,32 @@ class VitalModel
 
 
 enum VitalsName:String {
+    //Use in Algoritham...
     case age = "Age"
     case heartRate = "Heart Rate"
-    case bloodPressure = "Blood Pressure"
     case bloodPressureSystolic = "Blood Pressure Systolic"
     case bloodPressureDiastolic = "Blood Pressure Diastolic"
-    case highHeartRate = "High Heart Rate"
-    case lowHeartRate = "Low Heart Rate"
     case vo2Max = "VO2 Max"
     case irregularRhymesNotification = "Irregular Rhymes Notification"
     case respiratoryRate = "Respiratory Rate (breaths/min)"
     case peakflowRate = "Peak Flow Rate(L/min)"
-    case InhalerUsage = "Inhaler Usage (times/day)"
     case temperature = "Temperature"
     case BMI = "BMI"
     case bloodSugar = "Blood Sugar"
-    case weight = "Weight"
     case oxygenSaturation = "Oxygen Saturation"
-    case stepLength = "Step Length"
     case headPhoneAudioLevel = "Headphone Audio Levels"
-    case bloodPressureSystolicDiastolic = "BP Systolic/Diastolic"
     case steps = "Steps"
     case sleep = "Sleep"
     case waterIntake = "Water Intake"
+    //In display
+    case bloodPressure = "Blood Pressure"
+    case bloodPressureSystolicDiastolic = "BP Systolic/Diastolic"
+    //In Add section
+    case weight = "Weight"
+    //Not in use
+    case highHeartRate = "High Heart Rate"
+    case lowHeartRate = "Low Heart Rate"
+    case InhalerUsage = "Inhaler Usage (times/day)"
+    case stepLength = "Step Length"
 }
 

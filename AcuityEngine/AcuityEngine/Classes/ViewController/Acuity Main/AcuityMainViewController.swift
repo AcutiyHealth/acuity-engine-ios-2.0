@@ -11,6 +11,7 @@ import UIKit
 import HealthKitReporter
 import PopupDialog
 import SVProgressHUD
+import SOPullUpView
 
 let btnWheelSelectionWidth = 55
 let btnWheelSelectionHeight = 55
@@ -60,7 +61,7 @@ class AcuityMainViewController: PullUpViewController, UIScrollViewDelegate,Rotar
     var wheel: RotaryWheel?
     var  windowImgView = UIImageView()
     var strSelectedAcuityId: String?
-    
+ 
     //ViewModel AcuityMain VC
     private let viewModelAcuityMain = AcuityMainViewModel()
     
@@ -68,7 +69,7 @@ class AcuityMainViewController: PullUpViewController, UIScrollViewDelegate,Rotar
     
     var traillingMyWellConstraint,lblScoreTextCenterConstraint,lblScoreTextTopConstraint: NSLayoutConstraint?
     var isAnimationConstraintAdded: Bool = false
-    var isProfileClicked:Bool = false
+    var isOtherMenuOptionClicked:Bool = false
     //MARK: viewDidLoad
     override func viewDidLoad() {
         
@@ -94,9 +95,18 @@ class AcuityMainViewController: PullUpViewController, UIScrollViewDelegate,Rotar
         self.expandedViewHeight = viewModelAcuityMain.getExpandedViewHeight(expandedViewHeight: (self.expandedViewHeight), headerViewHeight: subScoreView.frame.maxY)
         self.reloadCardView()
         //========================================================================================================
+        //Here first mainscoreview constraint set at time of pullup-expand
+        setMainScoreViewsLabelAnimationConstrinatWhenPullupExpanded(isFirstTime: true)
+        /*Here mainscore view constraint removed which we set in pullup-expand and set constraint at time of pullup-collapse..
+         At load of screen, pullup will be collapsed so we set constraint for pullup-collapse.
+        */
+        self.setMainScoreViewsLabelConstrinatWhenPullupCollapsed(isFirstTime: true)
+        //========================================================================================================
         //Add notification for Pullup view open/close
         NotificationCenter.default.addObserver(self, selector: #selector(self.showSubScoreViewWithAnimation), name: Notification.Name(NSNotificationName.pullUpOpen.rawValue), object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(self.showMainScoreViewWithAnimation), name: Notification.Name(NSNotificationName.pullUpClose.rawValue), object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(self.makeWheelEnableAfterHPullupCollapsed), name: Notification.Name(NSNotificationName.makeWheeInteractiveAtpullUpClose.rawValue), object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(self.makeWheelDisableAfterHalfOpenedPullup), name: Notification.Name(NSNotificationName.pullUpHalfOpened.rawValue), object: nil)
         //Add notification for show AcuityDetailPopup when close Profile or Add Popup
         NotificationCenter.default.addObserver(self, selector: #selector(self.showAcuityDetailPopup), name: Notification.Name(NSNotificationName.showAcuityDetailPopup.rawValue), object: nil)
         //Add notification when segment change from popup
@@ -106,8 +116,7 @@ class AcuityMainViewController: PullUpViewController, UIScrollViewDelegate,Rotar
         NotificationCenter.default.addObserver(self, selector: #selector(self.openSymptomsFromNotification), name: Notification.Name(NSNotificationName.showSymptomsListScreen.rawValue), object: nil)
         //When Logout Clicked In Profile Screen
         NotificationCenter.default.addObserver(self, selector: #selector(self.btnLogOutClickedInProfileOptionScreen), name: Notification.Name(NSNotificationName.logOutFromApp.rawValue), object: nil)
-        setMainScoreViewsLabelAnimationConstrinat(isFirstTime: true)
-        self.setMainScoreViewsLabelConstrinat(isFirstTime: true)
+        
     }
     
     
@@ -127,6 +136,8 @@ class AcuityMainViewController: PullUpViewController, UIScrollViewDelegate,Rotar
         NotificationCenter.default.removeObserver(self,name: Notification.Name(NSNotificationName.refreshDataInCircle.rawValue), object: nil)
         NotificationCenter.default.removeObserver(self,name: Notification.Name(NSNotificationName.showSymptomsListScreen.rawValue), object: nil)
         NotificationCenter.default.removeObserver(self,name: Notification.Name(NSNotificationName.logOutFromApp.rawValue), object: nil)
+        NotificationCenter.default.removeObserver(self,name: Notification.Name(NSNotificationName.pullUpHalfOpened.rawValue), object: nil)
+        NotificationCenter.default.removeObserver(self,name: Notification.Name(NSNotificationName.makeWheeInteractiveAtpullUpClose.rawValue), object: nil)
     }
     //========================================================================================================
     //MARK: Notifications Methods..
@@ -136,15 +147,38 @@ class AcuityMainViewController: PullUpViewController, UIScrollViewDelegate,Rotar
             
         })
     }
+    @objc func makeWheelDisableAfterHalfOpenedPullup(){
+        //Make wheel touch disable......
+        if wheel != nil{
+            wheel?.isEnabled = false
+        }
+       
+    }
+    @objc func makeWheelEnableAfterHPullupCollapsed(){
+        //Make wheel touch disable......
+        if wheel != nil{
+            wheel?.isEnabled = true
+        }
+       
+    }
     @objc func showMainScoreViewWithAnimation(){
-        if isProfileClicked {
+        //Make wheel touch enabled......
+        if wheel != nil{
+            wheel?.isEnabled = true
+        }
+        // if previousStateOfPullup != .halfOpened{
+        //After collapsing of  Profile or Add Popup, remove main scror view contraint and set it again....
+        if isOtherMenuOptionClicked {
             self.removeMainScoreViewConstraintWhenaProfileOrAddClick(mainScoreView: mainScoreView, lblMyWell: lblMyWell, lblScoreText: lblScoreText, lblScore: lblScore, viewHeight: self.view.frame.height)
         }
+        //Show  score view at time of pullup - collapsed
         showMainScoreView()
         animateScoreView(view: self.mainScoreView)
-        
+       
+        //}
     }
     @objc func showSubScoreViewWithAnimation(){
+
         self.removeMainScoreViewConstraintWhenaProfileOrAddClick(mainScoreView: mainScoreView, lblMyWell: lblMyWell, lblScoreText: lblScoreText, lblScore: lblScore, viewHeight: self.view.frame.height)
         showSubScoreView()
         animateScoreView(view: self.subScoreView)
@@ -195,13 +229,7 @@ class AcuityMainViewController: PullUpViewController, UIScrollViewDelegate,Rotar
                     //Do my well score caclulation....
                     MyWellScore.sharedManager.myWellScoreCalculation()
                     AppDelegate.shared.arrMedications = self?.viewModelAcuityMain.fetchMedicationData() ?? []
-                    
-                    //Delay is put because MyWell Score in MainViewModel use it's dictionary data for vitals and labs.
-                    //Vitals in AllSystemVitla class use data from all 14 system data....
-                    //So, to complete process of setting data in 14 system delay is set....
                     DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
-                        // Put your code which should be executed with a delay here
-                        
                         self?.setUpAcuityCircleView()
                         //Hide Progress HUD
                         SVProgressHUD.dismiss()
@@ -424,7 +452,7 @@ class AcuityMainViewController: PullUpViewController, UIScrollViewDelegate,Rotar
             let item = arrBodySystems[0]
             let index:String = (item["score"] as? String ?? "")
             self.setBackGroundColorRoundView(index:index )
-            //Log.d("btnWheelNotSelected",item["name"]!,index)
+            print("btnWheelNotSelected",item["name"]!,index)
         }
     }
     //========================================================================================================
@@ -447,16 +475,17 @@ class AcuityMainViewController: PullUpViewController, UIScrollViewDelegate,Rotar
     //========================================================================================================
     //MARK: Set Score View Constraint For Animation
     //========================================================================================================
-    func setMainScoreViewsLabelConstrinat(isFirstTime:Bool){
-        //viewModelAcuityMain.setTopLabel(mainScoreView: mainScoreView, lblMyWell: lblMyWell, lblScoreText: lblScoreText, lblScore: lblScore, viewHeight: self.view.frame.height)
-        setTopLabel(isFirstTime:isFirstTime)
-    }
-    func setMainScoreViewsLabelAnimationConstrinat(isFirstTime:Bool){
-        //viewModelAcuityMain.setTopLabelAnimation(mainScoreView: mainScoreView, lblMyWell: lblMyWell, lblScoreText: lblScoreText, lblScore: lblScore, viewHeight: self.view.frame.height)
-        setTopLabelAnimation(isFirstTime:isFirstTime)
-    }
-    func setTopLabel(isFirstTime:Bool) {
+    func setMainScoreViewsLabelConstrinatWhenPullupCollapsed(isFirstTime:Bool){
+        //viewModelAcuityMain.setTopLabelWhenPullupCollapsed(mainScoreView: mainScoreView, lblMyWell: lblMyWell, lblScoreText: lblScoreText, lblScore: lblScore, viewHeight: self.view.frame.height)
         
+        setTopLabelWhenPullupCollapsed(isFirstTime:isFirstTime)
+    }
+    func setMainScoreViewsLabelAnimationConstrinatWhenPullupExpanded(isFirstTime:Bool){
+        //viewModelAcuityMain.setTopLabelAnimationWhenPullupExpanded(mainScoreView: mainScoreView, lblMyWell: lblMyWell, lblScoreText: lblScoreText, lblScore: lblScore, viewHeight: self.view.frame.height)
+        setTopLabelAnimationWhenPullupExpanded(isFirstTime:isFirstTime)
+    }
+    func setTopLabelWhenPullupCollapsed(isFirstTime:Bool) {
+        //Remove constraint set in pullup-expanded
         if isAnimationConstraintAdded {
             mainScoreView.removeConstraint(traillingMyWellConstraint!)
             mainScoreView.removeConstraint(lblScoreTextCenterConstraint!)
@@ -466,7 +495,9 @@ class AcuityMainViewController: PullUpViewController, UIScrollViewDelegate,Rotar
             mainScoreView.removeConstraint(lblScoreTextTopConstraint!)
             isAnimationConstraintAdded = false
         }
+        //Set constraint for mainScoreView when pullup-collapse
         var animationDuration  = 0.7
+        //when first time - set animation without duration..
         if isFirstTime{
             animationDuration = 0.0
         }
@@ -491,43 +522,51 @@ class AcuityMainViewController: PullUpViewController, UIScrollViewDelegate,Rotar
             lblScoreText.translatesAutoresizingMaskIntoConstraints = false
             
             let margins = mainScoreView.layoutMarginsGuide
-            
-            
-            //leadingMyWellConstraint = lblMyWell.leadingAnchor.constraint(equalTo: margins.leadingAnchor, constant: 20)
+            //lblMyWell - top
             topMyWellConstraint = lblMyWell.topAnchor.constraint(equalTo: margins.topAnchor, constant: 0)
+            topMyWellConstraint?.identifier = "1"
+            //lblMyWell - centerX
             centerMyWellConstraint = lblMyWell.centerXAnchor.constraint(equalTo: margins.centerXAnchor, constant: 0)
-            
+            centerMyWellConstraint?.identifier = "2"
+            //lblScore(100) - centerX
             lblScoreCenterConstraint = lblScore.centerXAnchor.constraint(equalTo: lblMyWell.centerXAnchor, constant: 0)
+            lblScoreCenterConstraint?.identifier = "3"
+            //lblScore - top
             lblScoreTopConstraint = lblScore.topAnchor.constraint(equalTo: lblMyWell.bottomAnchor, constant: 0)
+            lblScoreTopConstraint?.identifier = "4"
+            //lblScore - bottom
             lblScoreBottomConstraint = lblScore.bottomAnchor.constraint(equalTo: margins.bottomAnchor, constant: 5)
-            
+            lblScoreBottomConstraint?.identifier = "5"
+            //lblScoreText - leading
             lblScoreTextLeadingConstraint = lblScoreText.leadingAnchor.constraint(equalTo: lblScore.trailingAnchor, constant: 4)
-            
-            /*let height1 = lblMyWell.heightAnchor.constraint(equalTo: margins.heightAnchor, multiplier: 0.39)
-             let height2 = lblScore.heightAnchor.constraint(equalTo: margins.heightAnchor, multiplier: 0.6)
-             let height3 = lblScoreText.heightAnchor.constraint(equalTo: lblScore.heightAnchor, multiplier: 0.42)*/
+            lblScoreTextLeadingConstraint?.identifier = "6"
+            //lblScoreText - centerY
             lblScoreTextCenterYConstraint = lblScoreText.centerYAnchor.constraint(equalTo: lblScore.centerYAnchor, constant: lblScore.font.pointSize/lblScoreText.font.pointSize + (self.view.frame.height/CGFloat(Screen.iPhoneSEHeight))*2)
-            //mainScoreView.addConstraint(leadingMyWellConstraint!)
+            lblScoreTextCenterYConstraint?.identifier = "7"
+            
+            for constrin in mainScoreView.constraints{
+                if constrin.identifier == "1" || constrin.identifier == "2" || constrin.identifier == "3" || constrin.identifier == "4" || constrin.identifier == "5" || constrin.identifier == "6"  || constrin.identifier == "7"{
+                    mainScoreView.removeConstraint(constrin)
+                }
+            }
             mainScoreView.addConstraint(topMyWellConstraint!)
             mainScoreView.addConstraint(centerMyWellConstraint!)
             
             mainScoreView.addConstraint(lblScoreCenterConstraint!)
             mainScoreView.addConstraint(lblScoreTopConstraint!)
             mainScoreView.addConstraint(lblScoreBottomConstraint!)
-            //            mainScoreView.addConstraint(height3)
-            //            mainScoreView.addConstraint(height1)
-            //            mainScoreView.addConstraint(height2)
+            
             mainScoreView.addConstraint(lblScoreTextLeadingConstraint!)
             mainScoreView.addConstraint(lblScoreTextCenterYConstraint!)
             
             mainScoreView.layoutIfNeeded()
-        } completion: { [self] (isSuccess) in
+        } completion: { (isSuccess) in
             
             
         }
     }
     
-    func setTopLabelAnimation(isFirstTime:Bool) {
+    func setTopLabelAnimationWhenPullupExpanded(isFirstTime:Bool) {
         var animationDuration  = 0.7
         if isFirstTime{
             animationDuration = 0.0
@@ -547,24 +586,37 @@ class AcuityMainViewController: PullUpViewController, UIScrollViewDelegate,Rotar
             lblScoreText.translatesAutoresizingMaskIntoConstraints = false
             
             let margins = mainScoreView.layoutMarginsGuide
-            
+            //lblMyWell - top
             topMyWellConstraint = lblMyWell.topAnchor.constraint(equalTo: margins.topAnchor, constant: (self.view.frame.height/CGFloat(Screen.iPhoneSEHeight)) * 8)
+            topMyWellConstraint?.identifier = "11"
+            //lblScore - centerY
             lblScoreTopConstraint = lblScore.centerYAnchor.constraint(equalTo: lblMyWell.centerYAnchor, constant: 0)
+            lblScoreTopConstraint?.identifier = "12"
+            //lblScoreText - top
             lblScoreTextTopConstraint = lblScoreText.topAnchor.constraint(equalTo: lblMyWell.topAnchor, constant: 0)
-            
+            lblScoreTextTopConstraint?.identifier = "13"
+            //lblMyWell - trailing
             traillingMyWellConstraint = lblMyWell.trailingAnchor.constraint(equalTo: lblScoreText.leadingAnchor, constant: -4)
-            
+            traillingMyWellConstraint?.identifier = "14"
+            //lblScoreText - centerX
             lblScoreTextCenterConstraint = lblScoreText.centerXAnchor.constraint(equalTo: margins.centerXAnchor, constant: (self.view.frame.width/CGFloat(Screen.iPhoneSEWidth)) * 10)
-            //centerXAnchor.constraint(equalTo: margins.centerXAnchor, constant: 20)
-            //(self.view.frame.width/CGFloat(Screen.iPhoneSEWidth)) * 16))
+            lblScoreTextCenterConstraint?.identifier = "15"
+            //lblScore - leading
             lblScoreTextLeadingConstraint = lblScore.leadingAnchor.constraint(equalTo: lblScoreText.trailingAnchor, constant: 4)
+            lblScoreTextLeadingConstraint?.identifier = "16"
             
+            for constrin in mainScoreView.constraints{
+                if constrin.identifier == "11" || constrin.identifier == "12" || constrin.identifier == "13" || constrin.identifier == "14" || constrin.identifier == "15" || constrin.identifier == "16" {
+                    mainScoreView.removeConstraint(constrin)
+                }
+            }
             mainScoreView.addConstraint(traillingMyWellConstraint!)
             mainScoreView.addConstraint(lblScoreTextCenterConstraint!)
             mainScoreView.addConstraint(lblScoreTextLeadingConstraint!)
             mainScoreView.addConstraint(topMyWellConstraint!)
             mainScoreView.addConstraint(lblScoreTopConstraint!)
             mainScoreView.addConstraint(lblScoreTextTopConstraint!)
+            
             mainScoreView.layoutIfNeeded()
         } completion: { [self] (isSuccess) in
             
@@ -582,11 +634,7 @@ class AcuityMainViewController: PullUpViewController, UIScrollViewDelegate,Rotar
         
         mainScoreView.removeConstraint(lblScoreTextLeadingConstraint!)
         mainScoreView.removeConstraint(lblScoreTextCenterYConstraint!)
-        //        if isAnimationConstraintAdded {
-        //        mainScoreView.removeConstraint(traillingMyWellConstraint!)
-        //        mainScoreView.removeConstraint(lblScoreTextCenterConstraint!)
-        //        mainScoreView.removeConstraint(lblScoreTextLeadingConstraint!)
-        //        }
+       
     }
     //========================================================================================================
     //MARK: Set Double Tap For Profile And Add Button
@@ -627,7 +675,7 @@ class AcuityMainViewController: PullUpViewController, UIScrollViewDelegate,Rotar
         lblScoreWhenPopup.text = lblScore.text
         
         //Set text color according to score....
-        let themeColor = getThemeColor(index: lblScore.text, isForWheel: true)
+        let themeColor = Utility.shared.getThemeColor(index: lblScore.text, isForWheel: true)
         lblScore.textColor = themeColor
         lblScoreWhenPopup.textColor = lblScore.textColor
         
@@ -636,7 +684,7 @@ class AcuityMainViewController: PullUpViewController, UIScrollViewDelegate,Rotar
     
     //MARK: Set background color in round view
     func setBackGroundColorRoundView(index:String){
-        let themeColor = getThemeColor(index: index,isForWheel: true)
+        let themeColor = Utility.shared.getThemeColor(index: index,isForWheel: true)
         wheel?.roundbackGroundView.backgroundColor = themeColor;
         if btnWheelSelectionToggle == ToggleCaseForBtnSelection.refreshData.rawValue{
             let image = viewModelAcuityMain.getCenterBtnImageOfColor(index: index)
@@ -653,7 +701,7 @@ class AcuityMainViewController: PullUpViewController, UIScrollViewDelegate,Rotar
     func showMainScoreView(){
         //activeTopConstraint()
         //setUpTopLabelNormal()
-        self.setMainScoreViewsLabelConstrinat(isFirstTime: false)
+        self.setMainScoreViewsLabelConstrinatWhenPullupCollapsed(isFirstTime: false)
         self.mainScoreView.isHidden = false
         self.subScoreView.isHidden = true
         self.stackAddView.isHidden = true
@@ -667,7 +715,7 @@ class AcuityMainViewController: PullUpViewController, UIScrollViewDelegate,Rotar
     func showSubScoreView(){
         //inActiveTopConstraint()
         //setUpTopLabels()
-        self.setMainScoreViewsLabelAnimationConstrinat(isFirstTime: false)
+        self.setMainScoreViewsLabelAnimationConstrinatWhenPullupExpanded(isFirstTime: false)
         self.mainScoreView.isHidden = false
         self.subScoreView.isHidden = true
         self.stackPreventionView.isHidden = true
@@ -695,8 +743,8 @@ class AcuityMainViewController: PullUpViewController, UIScrollViewDelegate,Rotar
                 //IT's from PullViewController..When user change system in didSet it will change data...
                 self?.selectPullUpType = .Detail
                 self?.openDetailPullUpViewController(withAnimation: false)
-                var localItem = item
-                localItem![Keys.kMetricDictionary] = self?.viewModelAcuityMain.getDictionaryForSelectedSystem(id:localItem![Keys.kAcuityId] as! String)
+                let localItem = item
+                //localItem![Keys.kMetricDictionary] = self?.viewModelAcuityMain.getDictionaryForSelectedSystem(id:localItem![Keys.kAcuityId] as! String)
                 self?.systemData = localItem
                 
             }
@@ -747,8 +795,8 @@ class AcuityMainViewController: PullUpViewController, UIScrollViewDelegate,Rotar
                 
                 //set selected system data..
                 //IT's from PullViewController..When user change system in didSet it will change data...
-                var localItem = item
-                localItem![Keys.kMetricDictionary] = self?.viewModelAcuityMain.getDictionaryForSelectedSystem(id:localItem![Keys.kAcuityId] as! String)
+                let localItem = item
+                //localItem![Keys.kMetricDictionary] = self?.viewModelAcuityMain.getDictionaryForSelectedSystem(id:localItem![Keys.kAcuityId] as! String)
                 self?.selectPullUpType = .Detail
                 self?.openDetailPullUpViewController(withAnimation: true)
                 self?.systemData = localItem
@@ -809,7 +857,7 @@ class AcuityMainViewController: PullUpViewController, UIScrollViewDelegate,Rotar
          //vc?.isAnimationEnabledForSubView = false
          //vc?.openMedicationScreen(title: AddOption.medications.rawValue)
          }*/
-        isProfileClicked = true
+        isOtherMenuOptionClicked = true
         mainScoreView.isHidden = true
         subScoreView.isHidden = true
         stackAddView.isHidden = true
@@ -862,33 +910,8 @@ class AcuityMainViewController: PullUpViewController, UIScrollViewDelegate,Rotar
         }
     }
     func showPreventionPopUp(arrPreventionTracker:[PreventionTrackerModel]) {
-        /*let customPopUpVC = CustomPopUpVC(nibName: "CustomPopUpVC", bundle: nil)
-         
-         DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
-         // Create the dialog
-         customPopUpVC.arrPreventionTracker = arrPreventionTracker
-         
-         // your code here
-         customPopUpVC.subViewHeightConstraint?.constant = self.view.frame.size.height*2.2/3
-         //customPopUpVC.subViewWidthConstraint?.constant = self.view.frame.size.width-22
-         customPopUpVC.subView?.layoutIfNeeded()
-         
-         }
-         let popup = PopupDialog(viewController: customPopUpVC,
-         buttonAlignment: .horizontal,
-         transitionStyle: .zoomIn,
-         preferredWidth: self.view.frame.size.width-22,
-         tapGestureDismissal: true,
-         panGestureDismissal: false)
-         
-         customPopUpVC.btnCloseClickedCallback = {
-         popup.dismiss(nil)
-         }
-         
-         present(popup, animated: true, completion: nil)
-         */
-        
-        isProfileClicked = true
+        //Here isOtherMenuOptionClicked is true for all 4-5 icon visible near by wheel in screen
+        isOtherMenuOptionClicked = true
         mainScoreView.isHidden = true
         subScoreView.isHidden = true
         stackAddView.isHidden = true
@@ -919,7 +942,7 @@ class AcuityMainViewController: PullUpViewController, UIScrollViewDelegate,Rotar
 
 extension AcuityMainViewController:HeaderDelegate{
     func btnAddClickedCallBack() {
-        isProfileClicked = true
+        isOtherMenuOptionClicked = true
         mainScoreView.isHidden = true
         subScoreView.isHidden = true
         stackAddView.isHidden = false
@@ -932,14 +955,16 @@ extension AcuityMainViewController:HeaderDelegate{
             if !pullUpController.isExpanded{
                 self.reloadCardView()
                 pullUpController.expanded()
+                pullUpController.cardHalfOpened = false
             }
         }else{
             self.reloadCardView()
             pullUpController.expanded()
+            pullUpController.cardHalfOpened = false
         }
     }
     func btnProfileClickedCallBack() {
-        isProfileClicked = true
+        isOtherMenuOptionClicked = true
         mainScoreView.isHidden = true
         subScoreView.isHidden = true
         stackAddView.isHidden = true
@@ -953,10 +978,12 @@ extension AcuityMainViewController:HeaderDelegate{
             if !pullUpController.isExpanded{
                 self.reloadCardView()
                 pullUpController.expanded()
+                pullUpController.cardHalfOpened = false
             }
         }else{
             self.reloadCardView()
             pullUpController.expanded()
+            pullUpController.cardHalfOpened = false
         }
         
         
