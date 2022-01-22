@@ -14,6 +14,8 @@ extension UIView {
         layer.mask = mask
     }
 }
+public let pullUpAnimationTime:Double = 0.8
+public let pullUpViewFadeAnimationTimeAtCollapse:Double = 0.4
 @available(iOS 10.0, *)
 
 public class SOPullUpControl {
@@ -120,7 +122,7 @@ public class SOPullUpControl {
     // used to hide the pullUpView from parentView
     public func animation() {
         pullUpVC.view.alpha = 0.0
-        UIView.animate(withDuration: 0.8) { [weak self] in
+        UIView.animate(withDuration: pullUpAnimationTime-0.3) { [weak self] in
             self?.pullUpVC.view.alpha = 1.0
         }
     }
@@ -140,19 +142,21 @@ public class SOPullUpControl {
     public func expanded() {
         isExpanded = true
         isHalfOpened = false
-        animateTransitionIfNeeded(state: .expanded, duration: 0.9)
+        animateTransitionIfNeeded(state: .expanded, duration: pullUpAnimationTime)
     }
     
     // used to change the status of pullUpView to half opened
     public func collapsed() {
         isExpanded = false
         isHalfOpened = false
-        animateTransitionIfNeeded(state: .collapsed, duration: 0.9)
+        animateTransitionIfNeeded(state: .collapsed, duration: pullUpAnimationTime)
     }
     // used to change the status of pullUpView to collapsed
     public func halfOpened() {
         isExpanded = false
         isHalfOpened = true
-        animateTransitionIfNeeded(state: .collapsed, duration: 0.9)
+        self.cardHalfOpened = false
+        self.cardVisible = false
+        animateTransitionIfNeeded(state: .halfOpened, duration: pullUpAnimationTime)
     }
 }

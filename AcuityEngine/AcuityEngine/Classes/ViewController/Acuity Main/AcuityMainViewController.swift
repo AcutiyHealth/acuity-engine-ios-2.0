@@ -106,7 +106,7 @@ class AcuityMainViewController: PullUpViewController, UIScrollViewDelegate,Rotar
         NotificationCenter.default.addObserver(self, selector: #selector(self.showSubScoreViewWithAnimation), name: Notification.Name(NSNotificationName.pullUpOpen.rawValue), object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(self.showMainScoreViewWithAnimation), name: Notification.Name(NSNotificationName.pullUpClose.rawValue), object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(self.makeWheelEnableAfterHPullupCollapsed), name: Notification.Name(NSNotificationName.makeWheeInteractiveAtpullUpClose.rawValue), object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(self.makeWheelDisableAfterHalfOpenedPullup), name: Notification.Name(NSNotificationName.pullUpHalfOpened.rawValue), object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(self.showMainScoreViewWithAnimation), name: Notification.Name(NSNotificationName.pullUpHalfOpened.rawValue), object: nil)
         //Add notification for show AcuityDetailPopup when close Profile or Add Popup
         NotificationCenter.default.addObserver(self, selector: #selector(self.showAcuityDetailPopup), name: Notification.Name(NSNotificationName.showAcuityDetailPopup.rawValue), object: nil)
         //Add notification when segment change from popup
@@ -186,7 +186,7 @@ class AcuityMainViewController: PullUpViewController, UIScrollViewDelegate,Rotar
     }
     //MARK:Add notification for show AcuityDetailPopup when close Profile or Add Popup
     @objc func showAcuityDetailPopup(){
-        DispatchQueue.main.asyncAfter(deadline: .now() + 0.6) {
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
             // your code here
             self.openPullUpControllerWithSystemData()
         }
@@ -496,7 +496,7 @@ class AcuityMainViewController: PullUpViewController, UIScrollViewDelegate,Rotar
             isAnimationConstraintAdded = false
         }
         //Set constraint for mainScoreView when pullup-collapse
-        var animationDuration  = 0.7
+        var animationDuration  = pullUpAnimationTime - 0.2
         //when first time - set animation without duration..
         if isFirstTime{
             animationDuration = 0.0
@@ -567,7 +567,7 @@ class AcuityMainViewController: PullUpViewController, UIScrollViewDelegate,Rotar
     }
     
     func setTopLabelAnimationWhenPullupExpanded(isFirstTime:Bool) {
-        var animationDuration  = 0.7
+        var animationDuration  = pullUpAnimationTime - 0.2
         if isFirstTime{
             animationDuration = 0.0
         }

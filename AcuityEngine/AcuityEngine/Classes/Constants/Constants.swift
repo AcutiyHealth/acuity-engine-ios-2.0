@@ -8,6 +8,8 @@
 import Foundation
 import UIKit
 
+//public let pullUpAnimationTime:Double = 0.8
+
 enum RYGValue:Double {
     case Red = 1
     case Yellow = 0.5

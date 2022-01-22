@@ -59,7 +59,7 @@ class PreventionListViewController:UIViewController{
     
     func setTbl(){
         tblPreventionTracker.register(UINib(nibName: "CustomPopUpCell", bundle: nil), forCellReuseIdentifier: NSStringFromClass(CustomPopUpCell.classForCoder()))
-        setUpSegmentControl(segmentControl: segmentControl)
+        //setUpSegmentControl(segmentControl: segmentControl)
     }
     func setUpSegmentControl(segmentControl:UISegmentedControl){
         
@@ -73,9 +73,8 @@ class PreventionListViewController:UIViewController{
         //self.segmentClicked(segmentControl)
     }
     func loadFirstRecommondetion(){
-        //DispatchQueue.main.async {
-        filterARecommondetions()
-        //}
+        setTblBackGroundWhenNoDataAvaialable()
+        self.tblPreventionTracker.reloadData()
     }
     @IBAction func btnCloseClicked(sender:UIButton){
         if let _ = btnCloseClickedCallback{
@@ -124,7 +123,7 @@ class PreventionListViewController:UIViewController{
     
     func setTblBackGroundWhenNoDataAvaialable(){
         tblPreventionTracker.backgroundView = nil
-        if filteredArrPreventionTracker.count<=0{
+        if arrPreventionTracker.count<=0{
             setTblSeperatorStyle(separatorStyle: .none)
             Utility.setNoDataInfoIfRecordsNotExists(tblView: self.tblPreventionTracker,font: UIFont.systemFont(ofSize: 15))
         }else{
@@ -139,12 +138,12 @@ class PreventionListViewController:UIViewController{
 
 extension PreventionListViewController: UITableViewDelegate,UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return filteredArrPreventionTracker.count
+        return arrPreventionTracker.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tblPreventionTracker.dequeueReusableCell(withIdentifier: NSStringFromClass(CustomPopUpCell.classForCoder()), for: indexPath) as! CustomPopUpCell
-        let objRecommondetions = filteredArrPreventionTracker[indexPath.row]
+        let objRecommondetions = arrPreventionTracker[indexPath.row]
         guard let specificRecommendation = objRecommondetions.specificRecommendation else { return cell }
         let titleStr:String = specificRecommendation.title ?? ""
         let end = titleStr.lastIndex(of: ":")
@@ -180,8 +179,8 @@ extension PreventionListViewController: SOPullUpViewDelegate {
     func pullUpViewStatus(_ sender: UIViewController, didChangeTo status: PullUpStatus) {
         switch status {
         case .collapsed:
-            UIView.animate(withDuration: 0.9) {
-                self.view.alpha = 0.2
+            UIView.animate(withDuration: pullUpViewFadeAnimationTimeAtCollapse) {
+                self.view.alpha = 0.4
             }
             NotificationCenter.default.post(name: Notification.Name(NSNotificationName.pullUpClose.rawValue), object: nil)
             NotificationCenter.default.post(name:Notification.Name(NSNotificationName.showAcuityDetailPopup.rawValue), object: nil)

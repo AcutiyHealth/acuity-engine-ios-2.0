@@ -298,7 +298,7 @@ class AcuityDetailPullUpViewController: UIViewController {
             self?.arrSymptoms = scoreTupple?.1 ?? [] //arrSymptoms
             self?.arrVitals = scoreTupple?.2  ?? []//arrVitals
             self?.arrLabs = scoreTupple?.3 ?? [] //arrLabs
-           
+            
             self?.arrLabs = self?.viewModelObj.combineOtherEntriesFromListOfLabsInArrayForDisplay(arrVital: self?.arrLabs ?? []) ?? []
             //=============Combine Free Condition with Add Section Condition Data.=============//
             //self?.arrConditions = self?.viewModelObj.fetchFreeConditionDataAndCombineWithAddSectionCondition(arrConditions: self?.arrConditions ?? []) ?? []
@@ -446,7 +446,6 @@ extension AcuityDetailPullUpViewController: SOPullUpViewDelegate {
         switch status {
         case .collapsed:
             do{
-                handleAreaUserInteractionOn()
                 //DispatchQueue.main.asyncAfter(deadline: .now() + 0.6) {
                 // your code here
                 
@@ -460,18 +459,19 @@ extension AcuityDetailPullUpViewController: SOPullUpViewDelegate {
                     NotificationCenter.default.post(name: Notification.Name(NSNotificationName.pullUpClose.rawValue), object: nil)
                 }
                 //When collapse - make wheel interactive...
-                NotificationCenter.default.post(name: Notification.Name(NSNotificationName.makeWheeInteractiveAtpullUpClose.rawValue), object: nil)
+                //NotificationCenter.default.post(name: Notification.Name(NSNotificationName.makeWheeInteractiveAtpullUpClose.rawValue), object: nil)
             }
         case .halfOpened:
             do{
                 //handleAreaUserInteractionOff()
-                previousPullupState = .halfOpened
-                //When hald opened - make wheel disable...
-                NotificationCenter.default.post(name: Notification.Name(NSNotificationName.pullUpHalfOpened.rawValue), object: nil)
+             
+                if previousPullupState != .collapsed{
+                    previousPullupState = .halfOpened
+                    NotificationCenter.default.post(name: Notification.Name(NSNotificationName.pullUpHalfOpened.rawValue), object: nil)
+                }
             }
         case .expanded:
             do{
-                handleAreaUserInteractionOn()
                 previousPullupState = .expanded
                 NotificationCenter.default.post(name: Notification.Name("pullUpOpen"), object: nil)
             }
@@ -564,10 +564,7 @@ extension AcuityDetailPullUpViewController: UITableViewDelegate, UITableViewData
     //========================================================================================================
     
     func openValueDetailScreen(metrixType:MetricsType){
-        
-        //Stop Handle Area User Interaction......
-        handleAreaUserInteractionOn()
-        
+      
         //Add detail value view as child view
         metrixDetailVC = UIStoryboard(name: Storyboard.acuityDetailPullUp.rawValue, bundle: nil).instantiateViewController(withIdentifier: "AcuityMetricsDetailViewController") as? AcuityMetricsDetailViewController
         
@@ -619,13 +616,14 @@ extension AcuityDetailPullUpViewController: UITableViewDelegate, UITableViewData
             //PAss metrix Item to display data...
             metrixDetailVC?.metrixType = metrixType
             setUpCloseButton()
-            
+            setupBackButton()
+            self.visualEffectView.bringSubviewToFront((self.handleArea)!)
             //Hide main view of Detail Pullup class
             mainView.isHidden = true
             metrixDetailVC?.setHandler(handler: { [weak self] (open) in
                 if open ?? false{
-                    self?.visualEffectView.bringSubviewToFront((self?.handleArea)!)
-                    self?.setupBackButton()
+                    //                    self?.visualEffectView.bringSubviewToFront((self?.handleArea)!)
+                    //                    self?.setupBackButton()
                 }else{
                     //Remove Detail View
                     removeDetailViewFromParent()
@@ -665,10 +663,13 @@ extension AcuityDetailPullUpViewController: UITableViewDelegate, UITableViewData
     
     //MARK: Btn close click
     @objc func btnCloseClickedInAcuityValueViewController(){
-        pullUpControl?.collapsed()
-        DispatchQueue.main.asyncAfter(deadline: .now() + 0.9) {
-            self.collapsePullupControlFromDetailScreen()
+        
+        if self.pullUpControl != nil && self.pullUpControl?.isExpanded == true{
+            self.pullUpControl?.halfOpened()
         }
+        //DispatchQueue.main.asyncAfter(deadline: .now() + pullUpAnimationTime/2) {
+            self.removeDetailScreenAtCollapseWithAnimation()
+        //}
     }
     func removeDetailScreenAtCollapseWithAnimation(){
         if metrixDetailVC != nil{
@@ -688,40 +689,34 @@ extension AcuityDetailPullUpViewController: UITableViewDelegate, UITableViewData
         //animationForDetailViewWhenRemoved(from: self.visualEffectView)
         
         mainView.alpha = 0.0
-        UIView.animate(withDuration: 0.9) {
+        UIView.animate(withDuration: 0.3) {
             self.metrixDetailVC?.view.alpha = 0.2
         } completion: { success in
             self.metrixDetailVC?.view.alpha = 0.0
-            DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
-             //your code here
             
             self.mainView.alpha = 1
             self.metrixDetailVC?.view.removeFromSuperview()
             self.metrixDetailVC?.removeFromParent()
-            }
-            //            if self.pullUpControl != nil && self.pullUpControl?.isExpanded == true{
-            //                self.pullUpControl?.collapsed()
-            //            }
+            
         }
         
-        //handleAreaUserInteractionOff()
-        
     }
-    
-    func handleAreaUserInteractionOff(){
-        self.handleArea.isUserInteractionEnabled = false;
-    }
-    func handleAreaUserInteractionOn(){
-        self.handleArea.isUserInteractionEnabled = true;
-    }
+
     //MARK: Btn Back click
     @objc func btnBackClickedInAcuityValueViewController(){
         if metrixDetailVC != nil{
+            //Here we check if back button is clicked in metrix value view controller?
+            //If yes, back button need to be hidden and remove that view from MetrixDetailVC by calling method removeDetailValueViewController()
+            //view of metrix value view controller has tag 111 in MetrixDetailVC as subview..
             if let _:UIView = metrixDetailVC?.view.viewWithTag(111) {
-                handleArea.btnBack?.isHidden = true
+                //handleArea.btnBack?.isHidden = true
                 self.metrixDetailVC?.removeDetailValueViewController()
             }
-            
+            else{
+                //If we are in metrixdetail screen, both have back and close button...in both we will half open the pullup..
+                //So code for back and close button will be same...
+                self.btnCloseClickedInAcuityValueViewController()
+            }
         }
     }
 }

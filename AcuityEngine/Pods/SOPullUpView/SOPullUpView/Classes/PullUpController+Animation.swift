@@ -15,7 +15,7 @@ extension SOPullUpControl {
         switch recognzier.state {
             // Animate card when tap finishes
         case .ended:
-            animateTransitionIfNeeded(state: nextState, duration: 0.9)
+            animateTransitionIfNeeded(state: nextState, duration: pullUpAnimationTime)
         default:
             break
         }
@@ -27,7 +27,7 @@ extension SOPullUpControl {
         switch recognizer.state {
         case .began:
             // Start animation if pan begins
-            startInteractiveTransition(state: nextState, duration: 0.9)
+            startInteractiveTransition(state: nextState, duration: pullUpAnimationTime)
         case .changed:
             let translation = recognizer.translation(in: self.pullUpVC.view)
             var fractionComplete = translation.y / endCardHeight
@@ -51,7 +51,11 @@ extension SOPullUpControl {
     func animateTransitionIfNeeded (state:PullUpStatus, duration:TimeInterval) {
         // Check if frame animator is empty
         //self.visualEffectView.backgroundColor = UIColor.clear
+        //pullUpVC.view.isUserInteractionEnabled = false
+        //Below removeAll line is added newly....it wasn't before..
+        self.runningAnimations.removeAll()
         if runningAnimations.isEmpty {
+            
             // Create a UIViewPropertyAnimator depending on the state of the popover view
             let frameAnimator = UIViewPropertyAnimator(duration: duration, dampingRatio: 1) {
                 switch state {
@@ -71,6 +75,7 @@ extension SOPullUpControl {
             }
             // Complete animation frame
             frameAnimator.addCompletion { _ in
+                //self.pullUpVC.view.isUserInteractionEnabled = true
                 /*
                  This will be called after delegates...
                  So it will set next state of pullup...So after delegate calles and if user tap handle again, collapse will set according to this variables...
@@ -81,15 +86,15 @@ extension SOPullUpControl {
                     //self.cardVisible = true
                     //If pullup not expanded and half opened meanse -> collapsed, make it half opened for nextstate..
                     self.cardHalfOpened = true
-                }else if self.cardHalfOpened == true && self.cardVisible == false{
-                    //If pullup half opened and not expande...make it collapsed again for next state...
-                    self.cardVisible = false
-                    self.cardHalfOpened = false
-                }else{
-                    //Make pullup -> collapsed
-                    self.cardVisible = false
-                    self.cardHalfOpened = false
-                }
+                }/*else if self.cardHalfOpened == true && self.cardVisible == false{
+                  //If pullup half opened and not expande...make it collapsed again for next state...
+                  self.cardVisible = true
+                  //self.cardHalfOpened = false
+                  }*/else{
+                      //Make pullup -> collapsed
+                      self.cardVisible = false
+                      self.cardHalfOpened = false
+                  }
                 //self.cardVisible = !self.cardVisible
                 self.runningAnimations.removeAll()
             }
@@ -105,7 +110,8 @@ extension SOPullUpControl {
         switch state {
         case .expanded:
             do{
-                
+                //Here spreadDelegate will call before frameAnimator.addCompletion
+                //So by making this both variable make self.cardHalfOpened = true, so when again handle tap nextState will call and in it for self.cardHalfOpened = true, collapse will be state...So to make collapse from expand, we set like this...
                 self.cardHalfOpened = false
                 self.cardVisible = false
                 

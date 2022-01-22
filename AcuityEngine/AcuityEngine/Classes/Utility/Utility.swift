@@ -141,7 +141,7 @@ class Utility {
     //========================================================================================================
     //MARK: Version Number String..
     //========================================================================================================
-    func versionNumberString() -> String? {
+    class func versionNumberString() -> String? {
         let infoDictionary = Bundle.main.infoDictionary
         let majorVersion = infoDictionary?["CFBundleShortVersionString"] as? String
         return majorVersion

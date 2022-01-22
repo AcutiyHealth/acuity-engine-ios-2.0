@@ -65,8 +65,8 @@ extension AddOptionSelectionViewController: SOPullUpViewDelegate {
     func pullUpViewStatus(_ sender: UIViewController, didChangeTo status: PullUpStatus) {
         switch status {
         case .collapsed:
-            UIView.animate(withDuration: 0.9) {
-                self.view.alpha = 0.2
+            UIView.animate(withDuration: pullUpViewFadeAnimationTimeAtCollapse) {
+                self.view.alpha = 0.4
             }completion: { isCompleted in
                 //Refresh call
                 NotificationCenter.default.post(name:Notification.Name(NSNotificationName.refreshDataInCircle.rawValue), object: nil)
