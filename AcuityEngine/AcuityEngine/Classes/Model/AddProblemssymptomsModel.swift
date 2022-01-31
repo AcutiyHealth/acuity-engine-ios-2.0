@@ -127,10 +127,17 @@ class Symptoms {
     
     var title: SymptomsName?
     var healthCategoryType: HKCategoryTypeIdentifier?
+    var endTimeStamp:Double = 0
     init(title:SymptomsName) {
         self.title = title
         getObjectType(name: (self.title ?? SymptomsName(rawValue: ""))!)
     }
+    init(healthCategoryType:HKCategoryTypeIdentifier,endTimeStamp:Double) {
+        self.healthCategoryType = healthCategoryType
+        self.endTimeStamp = endTimeStamp
+        //print("healthCategoryType",healthCategoryType)
+    }
+    //Get Category Type From Symptoms Name
     func getObjectType(name:SymptomsName){
         
         switch name {

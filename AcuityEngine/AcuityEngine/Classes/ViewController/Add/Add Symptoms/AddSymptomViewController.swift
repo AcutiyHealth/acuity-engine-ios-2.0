@@ -163,6 +163,8 @@ class AddSymptomViewController: UIViewController {
                         //show alert
                         let message = "\(name) saved in health kit"
                         let okAction = self?.getOKActionForSymptomsList()
+                        symptomsModel.endTimeStamp = self?.endDate.timeIntervalSince1970 ?? 0
+                        self?.saveActiveSymptomsInArray(symptoms: symptomsModel, symptomValue: symptomValue)
                         self?.showAlertForDataSaved(message:message,okAction: okAction!)
                         
                     }else{
@@ -189,6 +191,35 @@ class AddSymptomViewController: UIViewController {
         return okAction
     }
     
+    func saveActiveSymptomsInArray(symptoms:Symptoms,symptomValue:SymptomsTextValue){
+        //First filter arrayOfActiveSymptoms with current symptoms's healthcategorytype..
+        var filterActiveSymptoms =  HKManagerReadSymptoms.sharedManager.arrayOfActiveSymptoms.filter({$0.healthCategoryType==symptoms.healthCategoryType})
+        
+        if filterActiveSymptoms.count <= 0,symptomValue != .Not_Present{
+            HKManagerReadSymptoms.sharedManager.arrayOfActiveSymptoms.append(symptoms)
+        }
+        else {
+            if filterActiveSymptoms.count > 0{
+                //If data is already present, filter by endTimeStamp..
+                filterActiveSymptoms.sort(by: {$0.endTimeStamp>$1.endTimeStamp})
+                let mostRecentActiveSymptoms = filterActiveSymptoms.first!
+                //if current symptoms endDate is older than recent symptoms, do nothing....
+                if mostRecentActiveSymptoms.endTimeStamp > symptoms.endTimeStamp{
+                    return
+                }
+                //if current symptoms endDate is older than recent symptoms and data for recent symptoms is .Not present..
+                //Remove from arrayOfActiveSymptoms to make it unhighlited...
+                if symptomValue == .Not_Present{
+                    let firstIndexOfSymtom = HKManagerReadSymptoms.sharedManager.arrayOfActiveSymptoms.firstIndex(where: {$0.healthCategoryType==symptoms.healthCategoryType})
+                    HKManagerReadSymptoms.sharedManager.arrayOfActiveSymptoms.remove(at: firstIndexOfSymtom!)
+                }else{
+                    //if current symptoms endDate is grater than recent symptoms and data for recent symptoms is  not .Not present..
+                    //add it in arrayOfActiveSymptoms to make it highlited...
+                    HKManagerReadSymptoms.sharedManager.arrayOfActiveSymptoms.append(symptoms)
+                }
+            }
+        }
+    }
     func showAlertForDataSaved(message:String,okAction:UIAlertAction){
         
         //show alert

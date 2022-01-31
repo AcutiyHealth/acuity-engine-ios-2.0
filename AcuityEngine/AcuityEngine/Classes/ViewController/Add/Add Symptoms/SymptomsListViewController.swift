@@ -70,6 +70,13 @@ extension SymptomsListViewController:UITableViewDelegate,UITableViewDataSource{
             fatalError("LabelInListAddSectionCell cell is not found")
         }
         let symptomsData = symptomArray[indexPath.row]
+        let filterActiveSymptoms = HKManagerReadSymptoms.sharedManager.arrayOfActiveSymptoms.filter({$0.healthCategoryType==symptomsData.healthCategoryType})
+        if filterActiveSymptoms.count>0{
+            cell.titleLabel.backgroundColor  = UIColor.white.withAlphaComponent(0.2)
+        }
+        else{
+            cell.titleLabel.backgroundColor = UIColor.clear
+        }
         cell.displayData(title: symptomsData.title?.rawValue ?? "")
         cell.selectionStyle = .none
         
@@ -114,7 +121,7 @@ extension SymptomsListViewController:UITableViewDelegate,UITableViewDataSource{
     func removeAddSymptomsViewController(){
         //Show animation when view removed from superview.......
         animationForDetailViewWhenRemoved(from: self.view)
-        
+        tblSymptoms.reloadData()
         //
         if addSymptomsVC != nil{
             symptomView.isHidden = false

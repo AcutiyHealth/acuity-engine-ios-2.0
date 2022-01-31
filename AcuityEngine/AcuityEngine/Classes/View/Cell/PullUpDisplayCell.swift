@@ -251,6 +251,8 @@ class LabelInListAddSectionCell: LabelDisplayCell {
         
         super.awakeFromNib()
         setFontForLabel(font:Fonts.kCellTextFontListInAddSection)
+        titleLabel.layer.cornerRadius = 5;
+        titleLabel.layer.masksToBounds = true
         // Initialization code
     }
     override func displayData(title:String){
@@ -259,7 +261,6 @@ class LabelInListAddSectionCell: LabelDisplayCell {
         }else{
             titleLabel.text = title
         }
-        
     }
 }
 //MARK: - Add symptoms Selection Cell

@@ -464,7 +464,7 @@ extension AcuityDetailPullUpViewController: SOPullUpViewDelegate {
         case .halfOpened:
             do{
                 //handleAreaUserInteractionOff()
-             
+                
                 if previousPullupState != .collapsed{
                     previousPullupState = .halfOpened
                     NotificationCenter.default.post(name: Notification.Name(NSNotificationName.pullUpHalfOpened.rawValue), object: nil)
@@ -564,7 +564,7 @@ extension AcuityDetailPullUpViewController: UITableViewDelegate, UITableViewData
     //========================================================================================================
     
     func openValueDetailScreen(metrixType:MetricsType){
-      
+        
         //Add detail value view as child view
         metrixDetailVC = UIStoryboard(name: Storyboard.acuityDetailPullUp.rawValue, bundle: nil).instantiateViewController(withIdentifier: "AcuityMetricsDetailViewController") as? AcuityMetricsDetailViewController
         
@@ -668,7 +668,7 @@ extension AcuityDetailPullUpViewController: UITableViewDelegate, UITableViewData
             self.pullUpControl?.halfOpened()
         }
         //DispatchQueue.main.asyncAfter(deadline: .now() + pullUpAnimationTime/2) {
-            self.removeDetailScreenAtCollapseWithAnimation()
+        self.removeDetailScreenAtCollapseWithAnimation()
         //}
     }
     func removeDetailScreenAtCollapseWithAnimation(){
@@ -689,7 +689,7 @@ extension AcuityDetailPullUpViewController: UITableViewDelegate, UITableViewData
         //animationForDetailViewWhenRemoved(from: self.visualEffectView)
         
         mainView.alpha = 0.0
-        UIView.animate(withDuration: 0.3) {
+        UIView.animate(withDuration: pullUpViewFadeAnimationTimeAtCollapse) {
             self.metrixDetailVC?.view.alpha = 0.2
         } completion: { success in
             self.metrixDetailVC?.view.alpha = 0.0
@@ -701,7 +701,7 @@ extension AcuityDetailPullUpViewController: UITableViewDelegate, UITableViewData
         }
         
     }
-
+    
     //MARK: Btn Back click
     @objc func btnBackClickedInAcuityValueViewController(){
         if metrixDetailVC != nil{

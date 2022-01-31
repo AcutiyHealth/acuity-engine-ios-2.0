@@ -284,7 +284,7 @@
                                                     <autoresizingMask key="autoresizingMask"/>
                                                     <subviews>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ATS-zf-aYg">
-                                                            <rect key="frame" x="11" y="0.0" width="386" height="60"/>
+                                                            <rect key="frame" x="11" y="5" width="386" height="50"/>
                                                             <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                             <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -302,9 +302,9 @@
                                                     </subviews>
                                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                     <constraints>
-                                                        <constraint firstAttribute="bottom" secondItem="ATS-zf-aYg" secondAttribute="bottom" id="FH1-2f-mc3"/>
+                                                        <constraint firstAttribute="bottom" secondItem="ATS-zf-aYg" secondAttribute="bottom" constant="5" id="FH1-2f-mc3"/>
                                                         <constraint firstAttribute="trailing" secondItem="ATS-zf-aYg" secondAttribute="trailing" constant="17" id="Mrd-oQ-2sT"/>
-                                                        <constraint firstItem="ATS-zf-aYg" firstAttribute="top" secondItem="8pT-Ge-hhm" secondAttribute="top" id="Z7V-eF-WRf"/>
+                                                        <constraint firstItem="ATS-zf-aYg" firstAttribute="top" secondItem="8pT-Ge-hhm" secondAttribute="top" constant="5" id="Z7V-eF-WRf"/>
                                                         <constraint firstAttribute="trailingMargin" secondItem="vzu-Z1-eL5" secondAttribute="trailing" constant="-14" id="dwO-CP-bkz"/>
                                                         <constraint firstItem="ATS-zf-aYg" firstAttribute="leading" secondItem="8pT-Ge-hhm" secondAttribute="leading" constant="11" id="kif-Ho-Vys"/>
                                                         <constraint firstItem="vzu-Z1-eL5" firstAttribute="centerY" secondItem="8pT-Ge-hhm" secondAttribute="centerY" id="pbp-tK-pFU"/>
@@ -354,7 +354,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="khH-an-rJj" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2349" y="214"/>
+            <point key="canvasLocation" x="2996" y="196"/>
         </scene>
         <!--Add Vitals View Controller-->
         <scene sceneID="4QQ-ni-tqe">
@@ -2212,22 +2212,22 @@
     </scenes>
     <designables>
         <designable name="8bz-X0-qxv">
-            <size key="intrinsicContentSize" width="50" height="40"/>
+            <size key="intrinsicContentSize" width="37" height="30"/>
         </designable>
         <designable name="AD7-VZ-8Mf">
-            <size key="intrinsicContentSize" width="50" height="40"/>
+            <size key="intrinsicContentSize" width="37" height="30"/>
         </designable>
         <designable name="NGH-WW-uch">
-            <size key="intrinsicContentSize" width="95" height="40"/>
+            <size key="intrinsicContentSize" width="37" height="30"/>
         </designable>
         <designable name="PMF-BQ-Txd">
-            <size key="intrinsicContentSize" width="50" height="40"/>
+            <size key="intrinsicContentSize" width="37" height="30"/>
         </designable>
         <designable name="Vr1-zf-Wlb">
-            <size key="intrinsicContentSize" width="50" height="40"/>
+            <size key="intrinsicContentSize" width="37" height="30"/>
         </designable>
         <designable name="qWi-94-XA7">
-            <size key="intrinsicContentSize" width="50" height="40"/>
+            <size key="intrinsicContentSize" width="37" height="30"/>
         </designable>
     </designables>
     <resources>
