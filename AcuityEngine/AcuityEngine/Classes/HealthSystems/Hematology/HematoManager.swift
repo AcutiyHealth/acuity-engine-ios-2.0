@@ -28,13 +28,13 @@ class HematoManager: NSObject {
     }
     
     //Save Vitals Data in hematoVital Model
-    func saveQuantityInArray(quantityType:QuantityType,element:Quantity) {
+    func saveQuantityInArray(quantityType:QuantityType,value:Double,startTimestamp:Double,unit:String) {
         //bloodPressureSystolic
         if quantityType == QuantityType.bloodPressureSystolic {
             
             let systolicBP = HematoVitalsData(type: VitalsName.bloodPressureSystolic)
-            systolicBP.value = Double(element.harmonized.value)
-            systolicBP.startTimeStamp = element.startTimestamp
+            systolicBP.value = Double(value)
+            systolicBP.startTimeStamp = startTimestamp
             self.hematoData.hematoVital.systolicBloodPressureData.append(systolicBP)
             
             print("---------\n bloodPressureSystolic \nValue \(systolicBP.value)\n Score \(systolicBP.score)\n Max Score\(systolicBP.maxScore ) \n---------")
@@ -43,29 +43,29 @@ class HematoManager: NSObject {
         else if quantityType == QuantityType.bloodPressureDiastolic {
             
             let diastolicBP = HematoVitalsData(type: VitalsName.bloodPressureDiastolic)
-            diastolicBP.value = Double(element.harmonized.value)
-            diastolicBP.startTimeStamp = element.startTimestamp
+            diastolicBP.value = Double(value)
+            diastolicBP.startTimeStamp = startTimestamp
             self.hematoData.hematoVital.diastolicBloodPressureData.append(diastolicBP)
         }
         //bodyTemperature
         else if quantityType == QuantityType.bodyTemperature {
             
             let temperature = HematoVitalsData(type: VitalsName.temperature)
-            var value = Double(element.harmonized.value)
-            if element.harmonized.unit == "degC"{
+            var value = Double(value)
+            if unit == "degC"{
                 //convert value to fahrenheit
                 value = convertDegCelciusToDahrenheit(temprature: value)
             }
             temperature.value = value
-            temperature.startTimeStamp = element.startTimestamp
+            temperature.startTimeStamp = startTimestamp
             self.hematoData.hematoVital.tempratureData.append(temperature)
         }
         //bodyMassIndex
         else if quantityType == QuantityType.bodyMassIndex {
             
             let bodyMassIndex = HematoVitalsData(type: VitalsName.BMI)
-            bodyMassIndex.value = Double(element.harmonized.value)
-            bodyMassIndex.startTimeStamp = element.startTimestamp
+            bodyMassIndex.value = Double(value)
+            bodyMassIndex.startTimeStamp = startTimestamp
             self.hematoData.hematoVital.BMIData.append(bodyMassIndex)
         }
     }
@@ -79,23 +79,23 @@ class HematoManager: NSObject {
         symptomsData.endTimeStamp = element.endTimestamp
         
         switch category {
-        //dizziness
+            //dizziness
         case .dizziness:
             HematoManager.sharedManager.hematoData.hematoSymptoms.dizzinessData.append(symptomsData)
-        //fatigue
+            //fatigue
         case .fatigue:
             HematoManager.sharedManager.hematoData.hematoSymptoms.fatigueData.append(symptomsData)
-        //rapidPoundingOrFlutteringHeartbeat
+            //rapidPoundingOrFlutteringHeartbeat
         case .rapidPoundingOrFlutteringHeartbeat:
             HematoManager.sharedManager.hematoData.hematoSymptoms.rapidHeartBeatData.append(symptomsData)
             
-        //fainting
+            //fainting
         case .fainting:
             HematoManager.sharedManager.hematoData.hematoSymptoms.faintingData.append(symptomsData)
-        //chestTightnessOrPain
+            //chestTightnessOrPain
         case .chestTightnessOrPain:
             HematoManager.sharedManager.hematoData.hematoSymptoms.chestPainData.append(symptomsData)
-        //shortnessOfBreath
+            //shortnessOfBreath
         case .shortnessOfBreath:
             HematoManager.sharedManager.hematoData.hematoSymptoms.shortnessOfBreathData.append(symptomsData)
         default:
@@ -135,50 +135,50 @@ class HematoManager: NSObject {
         labData.startTimeStamp = timeStamp
         
         switch labCodeConstant {
-        
-        //hemoglobin
+            
+            //hemoglobin
         case .hemoglobin:
             do{
                 labData.type = .hemoglobin
                 HematoManager.sharedManager.hematoData.hematoLab.hemaglobinData.append(labData)
             }
-        //platelets
+            //platelets
         case .platelets:
             do{
                 labData.type = .platelets
                 HematoManager.sharedManager.hematoData.hematoLab.plateletsData.append(labData)
             }
-        //WBC
+            //WBC
         case .WBC:
             do{
                 labData.type = .WBC
                 HematoManager.sharedManager.hematoData.hematoLab.WBCData.append(labData)
             }
-        //neutrophil
+            //neutrophil
         case .neutrophil:
             do{
                 labData.type = .neutrophil
                 HematoManager.sharedManager.hematoData.hematoLab.neutrophilData.append(labData)
             }
-        //MCV
+            //MCV
         case .MCV:
             do{
                 labData.type = .MCV
                 HematoManager.sharedManager.hematoData.hematoLab.MCVData.append(labData)
             }
-        //alkalinePhosphatase
+            //alkalinePhosphatase
         case .alkalinePhosphatase:
             do{
                 labData.type = .alkalinePhosphatase
                 HematoManager.sharedManager.hematoData.hematoLab.alkalinePhosphataseData.append(labData)
             }
-        //anionGap
+            //anionGap
         case .anionGap:
             do{
                 labData.type = .anionGap
                 HematoManager.sharedManager.hematoData.hematoLab.anionGapData.append(labData)
             }
-        //b12Level
+            //b12Level
         case .b12Level:
             do{
                 labData.type = .b12Level

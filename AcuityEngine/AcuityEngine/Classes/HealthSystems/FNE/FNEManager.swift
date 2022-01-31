@@ -44,14 +44,14 @@ class FNEManager: NSObject {
         }
     }
     //Save Vitals Data in fneVital Model
-    func saveQuantityInArray(quantityType:QuantityType,element:Quantity) {
+    func saveQuantityInArray(quantityType:QuantityType,value:Double,startTimestamp:Double) {
         switch quantityType {
         case .bloodPressureSystolic:
             do{
                 
                 let systolicBP = FNEVitalsData(type: VitalsName.bloodPressureSystolic)
-                systolicBP.value = Double(element.harmonized.value)
-                systolicBP.startTimeStamp = element.startTimestamp
+                systolicBP.value = Double(value)
+                systolicBP.startTimeStamp = startTimestamp
                 self.fneData.fneVital.systolicBloodPressureData.append(systolicBP)
                 
                 //print("---------\n bloodPressureSystolic \nValue \(systolicBP.value)\n Score \(systolicBP.score)\n Max Score\(systolicBP.maxScore ?? 0.0) \n---------")
@@ -60,24 +60,24 @@ class FNEManager: NSObject {
             do{
                 
                 let diastolicBP = FNEVitalsData(type: VitalsName.bloodPressureDiastolic)
-                diastolicBP.value = Double(element.harmonized.value)
-                diastolicBP.startTimeStamp = element.startTimestamp
+                diastolicBP.value = Double(value)
+                diastolicBP.startTimeStamp = startTimestamp
                 self.fneData.fneVital.diastolicBloodPressureData.append(diastolicBP)
             }
         case .heartRate:
             do{
                 
                 let heartRate = FNEVitalsData(type: VitalsName.heartRate)
-                heartRate.value = Double(element.harmonized.value)
-                heartRate.startTimeStamp = element.startTimestamp
+                heartRate.value = Double(value.rounded())
+                heartRate.startTimeStamp = startTimestamp
                 self.fneData.fneVital.heartRateData.append(heartRate)
             }
         case .bodyMassIndex:
             do{
                 
                 let bodyMassIndex = FNEVitalsData(type: VitalsName.BMI)
-                bodyMassIndex.value = Double(element.harmonized.value)
-                bodyMassIndex.startTimeStamp = element.startTimestamp
+                bodyMassIndex.value = Double(value)
+                bodyMassIndex.startTimeStamp = startTimestamp
                 self.fneData.fneVital.BMIData.append(bodyMassIndex)
             }
             

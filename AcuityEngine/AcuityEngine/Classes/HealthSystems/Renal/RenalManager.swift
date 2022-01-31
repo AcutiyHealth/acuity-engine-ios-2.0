@@ -44,14 +44,14 @@ class RenalManager: NSObject {
         }
     }
     //Save Vitals Data in renalVital Model
-    func saveQuantityInArray(quantityType:QuantityType,element:Quantity) {
+    func saveQuantityInArray(quantityType:QuantityType,value:Double,startTimestamp:Double) {
         switch quantityType {
         case .bloodPressureSystolic:
             do{
                 
                 let systolicBP = RenalVitalsData(type: VitalsName.bloodPressureSystolic)
-                systolicBP.value = Double(element.harmonized.value)
-                systolicBP.startTimeStamp = element.startTimestamp
+                systolicBP.value = Double(value)
+                systolicBP.startTimeStamp = startTimestamp
                 self.renalData.renalVital.systolicBloodPressureData.append(systolicBP)
                 
             }
@@ -59,8 +59,8 @@ class RenalManager: NSObject {
             do{
                 
                 let diastolicBP = RenalVitalsData(type: VitalsName.bloodPressureDiastolic)
-                diastolicBP.value = Double(element.harmonized.value)
-                diastolicBP.startTimeStamp = element.startTimestamp
+                diastolicBP.value = Double(value)
+                diastolicBP.startTimeStamp = startTimestamp
                 self.renalData.renalVital.diastolicBloodPressureData.append(diastolicBP)
                 
             }

@@ -44,41 +44,41 @@ class GenitourinaryManager: NSObject {
         }
     }
     //Save Vitals Data in genitourinaryVital Model
-    func saveQuantityInArray(quantityType:QuantityType,element:Quantity) {
+    func saveQuantityInArray(quantityType:QuantityType,value:Double,startTimestamp:Double,unit:String) {
         switch quantityType {
         case .bloodPressureSystolic:
             do{
                 let systolicBP = GenitourinaryVitalsData(type: VitalsName.bloodPressureSystolic)
-                systolicBP.value = Double(element.harmonized.value)
-                systolicBP.startTimeStamp = element.startTimestamp
+                systolicBP.value = Double(value)
+                systolicBP.startTimeStamp = startTimestamp
                 self.genitourinaryData.genitourinaryVital.systolicBloodPressureData.append(systolicBP)
                 
             }
         case .bloodPressureDiastolic:
             do{
                 let diastolicBP = GenitourinaryVitalsData(type: VitalsName.bloodPressureDiastolic)
-                diastolicBP.value = Double(element.harmonized.value)
-                diastolicBP.startTimeStamp = element.startTimestamp
+                diastolicBP.value = Double(value)
+                diastolicBP.startTimeStamp = startTimestamp
                 self.genitourinaryData.genitourinaryVital.diastolicBloodPressureData.append(diastolicBP)
             }
             
         case .heartRate:
             do{
                 let heartRate = GenitourinaryVitalsData(type: VitalsName.heartRate)
-                heartRate.value = Double(element.harmonized.value)
-                heartRate.startTimeStamp = element.startTimestamp
+                heartRate.value = Double(value.rounded())
+                heartRate.startTimeStamp = startTimestamp
                 self.genitourinaryData.genitourinaryVital.heartRateData.append(heartRate)
             }
         case .bodyTemperature:
             do{
                 let temperature = GenitourinaryVitalsData(type: VitalsName.temperature)
-                var value = Double(element.harmonized.value)
-                if element.harmonized.unit == "degC"{
+                var value = Double(value)
+                if unit == "degC"{
                     //convert value to fahrenheit
                     value = convertDegCelciusToDahrenheit(temprature: value)
                 }
                 temperature.value = value
-                temperature.startTimeStamp = element.startTimestamp
+                temperature.startTimeStamp = startTimestamp
                 self.genitourinaryData.genitourinaryVital.tempratureData.append(temperature)
             }
             

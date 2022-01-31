@@ -40,7 +40,7 @@ public struct Statistics: Identifiable, Sample {
     public let harmonized: Harmonized
     public let sources: [Source]?
 
-    init(statistics: HKStatistics, unit: HKUnit) throws {
+   public init(statistics: HKStatistics, unit: HKUnit) throws {
         self.identifier = statistics.quantityType.identifier
         self.startTimestamp = statistics.startDate.timeIntervalSince1970
         self.endTimestamp = statistics.endDate.timeIntervalSince1970

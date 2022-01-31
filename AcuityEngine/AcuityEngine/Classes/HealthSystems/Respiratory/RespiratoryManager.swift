@@ -44,28 +44,28 @@ class RespiratoryManager: NSObject {
         }
     }
     //Save Vitals Data in respiratoryVital Model
-    func saveQuantityInArray(quantityType:QuantityType,element:Quantity) {
+    func saveQuantityInArray(quantityType:QuantityType,value:Double,startTimestamp:Double) {
         switch quantityType {
         case .bloodPressureSystolic:
             do{
                 let systolicBP = RespiratoryVitalsData(type: VitalsName.bloodPressureSystolic)
-                systolicBP.value = Double(element.harmonized.value)
-                systolicBP.startTimeStamp = element.startTimestamp
+                systolicBP.value = Double(value)
+                systolicBP.startTimeStamp = startTimestamp
                 self.respiratoryData.respiratoryVital.systolicBloodPressureData.append(systolicBP)
                 
             }
         case .bloodPressureDiastolic:
             do{
                 let diastolicBP = RespiratoryVitalsData(type: VitalsName.bloodPressureDiastolic)
-                diastolicBP.value = Double(element.harmonized.value)
-                diastolicBP.startTimeStamp = element.startTimestamp
+                diastolicBP.value = Double(value)
+                diastolicBP.startTimeStamp = startTimestamp
                 self.respiratoryData.respiratoryVital.diastolicBloodPressureData.append(diastolicBP)
             }
         case .respiratoryRate:
             do{
                 let respiratoryRate = RespiratoryVitalsData(type: VitalsName.respiratoryRate)
-                respiratoryRate.value = Double(element.harmonized.value)
-                respiratoryRate.startTimeStamp = element.startTimestamp
+                respiratoryRate.value = Double(value)
+                respiratoryRate.startTimeStamp = startTimestamp
                 self.respiratoryData.respiratoryVital.respiratoryRateData.append(respiratoryRate)
             }
         case .oxygenSaturation:
@@ -74,17 +74,17 @@ class RespiratoryManager: NSObject {
                  Multiply value with 100 because we get oxygen saturation value in Float from health app. Oxygen saturation 1- 100 will get 0.1-1 from health app
                  */
                 let oxygenSaturation = RespiratoryVitalsData(type: VitalsName.oxygenSaturation)
-                let newValue = Double(element.harmonized.value) * 100
+                let newValue = Double(value) * 100
                 oxygenSaturation.value = newValue
-                oxygenSaturation.startTimeStamp = element.startTimestamp
+                oxygenSaturation.startTimeStamp = startTimestamp
                 self.respiratoryData.respiratoryVital.oxygenSaturationData.append(oxygenSaturation)
                 
             }
         case .heartRate:
             do{
                 let heartRate = RespiratoryVitalsData(type: VitalsName.heartRate)
-                heartRate.value = Double(element.harmonized.value)
-                heartRate.startTimeStamp = element.startTimestamp
+                heartRate.value = Double(value.rounded())
+                heartRate.startTimeStamp = startTimestamp
                 self.respiratoryData.respiratoryVital.heartRateData.append(heartRate)
                 
             }
@@ -92,8 +92,8 @@ class RespiratoryManager: NSObject {
             do{
                 
                 let peakExpiratoryFlowRate = RespiratoryVitalsData(type: VitalsName.peakflowRate)
-                peakExpiratoryFlowRate.value = Double(element.harmonized.value)
-                peakExpiratoryFlowRate.startTimeStamp = element.startTimestamp
+                peakExpiratoryFlowRate.value = Double(value)
+                peakExpiratoryFlowRate.startTimeStamp = startTimestamp
                 self.respiratoryData.respiratoryVital.peakFlowRateData.append(peakExpiratoryFlowRate)
                 
             }
@@ -101,8 +101,8 @@ class RespiratoryManager: NSObject {
             do{
                 
                 let vo2Max = RespiratoryVitalsData(type: VitalsName.vo2Max)
-                vo2Max.value = Double(element.harmonized.value)
-                vo2Max.startTimeStamp = element.startTimestamp
+                vo2Max.value = Double(value)
+                vo2Max.startTimeStamp = startTimestamp
                 self.respiratoryData.respiratoryVital.vO2MaxData.append(vo2Max)
                 
             }

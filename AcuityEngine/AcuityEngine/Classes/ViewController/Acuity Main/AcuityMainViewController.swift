@@ -229,7 +229,7 @@ class AcuityMainViewController: PullUpViewController, UIScrollViewDelegate,Rotar
                     //Do my well score caclulation....
                     MyWellScore.sharedManager.myWellScoreCalculation()
                     AppDelegate.shared.arrMedications = self?.viewModelAcuityMain.fetchMedicationData() ?? []
-                    DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
                         self?.setUpAcuityCircleView()
                         //Hide Progress HUD
                         SVProgressHUD.dismiss()

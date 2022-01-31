@@ -53,7 +53,7 @@ class MuscManager: NSObject {
         }
     }
     //Save Vitals Data in muscVital Model
-    func saveQuantityInArray(quantityType:QuantityType,element:Quantity) {
+    func saveQuantityInArray(quantityType:QuantityType,value:Double,startTimestamp:Double) {
         /*
          Step Length
          body mass index
@@ -70,8 +70,8 @@ class MuscManager: NSObject {
         case .bodyMassIndex:
             do{
                 let BMI = MuscVitalsData(type: VitalsName.BMI)
-                BMI.value = Double(element.harmonized.value)
-                BMI.startTimeStamp = element.startTimestamp
+                BMI.value = Double(value)
+                BMI.startTimeStamp = startTimestamp
                 self.muscData.muscVital.BMIData.append(BMI)
             }
             

@@ -44,21 +44,21 @@ class NeuroManager: NSObject {
         }
     }
     //Save Vitals Data in neuroVital Model
-    func saveQuantityInArray(quantityType:QuantityType,element:Quantity) {
+    func saveQuantityInArray(quantityType:QuantityType,value:Double,startTimestamp:Double) {
         switch quantityType {
         case .bloodPressureSystolic:
             do{
                 let systolicBP = NeuroVitalsData(type: VitalsName.bloodPressureSystolic)
-                systolicBP.value = Double(element.harmonized.value)
-                systolicBP.startTimeStamp = element.startTimestamp
+                systolicBP.value = Double(value)
+                systolicBP.startTimeStamp = startTimestamp
                 self.neuroData.neuroVital.systolicBloodPressureData.append(systolicBP)
                 
             }
         case .bloodPressureDiastolic:
             do{
                 let diastolicBP = NeuroVitalsData(type: VitalsName.bloodPressureDiastolic)
-                diastolicBP.value = Double(element.harmonized.value)
-                diastolicBP.startTimeStamp = element.startTimestamp
+                diastolicBP.value = Double(value)
+                diastolicBP.startTimeStamp = startTimestamp
                 self.neuroData.neuroVital.diastolicBloodPressureData.append(diastolicBP)
             }
             
@@ -68,16 +68,16 @@ class NeuroManager: NSObject {
                  Multiply value with 100 because we get oxygen saturation value in Float from health app. Oxygen saturation 1- 100 will get 0.1-1 from health app
                  */
                 let oxygenSaturation = NeuroVitalsData(type: VitalsName.oxygenSaturation)
-                let newValue = Double(element.harmonized.value) * 100
+                let newValue = Double(value) * 100
                 oxygenSaturation.value = newValue
-                oxygenSaturation.startTimeStamp = element.startTimestamp
+                oxygenSaturation.startTimeStamp = startTimestamp
                 self.neuroData.neuroVital.bloodOxygenLevelData.append(oxygenSaturation)
             }
         case .vo2Max:
             do{
                 let vo2Max = NeuroVitalsData(type: VitalsName.vo2Max)
-                vo2Max.value = Double(element.harmonized.value)
-                vo2Max.startTimeStamp = element.startTimestamp
+                vo2Max.value = Double(value)
+                vo2Max.startTimeStamp = startTimestamp
                 self.neuroData.neuroVital.vo2MaxData.append(vo2Max)
             }
         /*case .stepCount:

@@ -37,13 +37,13 @@ class SkinManager: NSObject {
                 let waterIntake = SkinVitalsData(type: VitalsName.waterIntake)
                 waterIntake.value = Double(value)
                  waterIntake.startTimeStamp = startTimestamp
-                self.skinData.skinVital.waterIntakeData.append(waterIntake)       
+                self.skinData.skinVital.waterIntakeData.append(waterIntake)
             }
         default:break
         }
     }
     //Save Vitals Data in skinVital Model
-    func saveQuantityInArray(quantityType:QuantityType,element:Quantity) {
+    func saveQuantityInArray(quantityType:QuantityType,value:Double,startTimestamp:Double,unit:String) {
         /*
          bodyTemperature
          */
@@ -51,13 +51,13 @@ class SkinManager: NSObject {
         case .bodyTemperature:
             do{
                 let temperature = SkinVitalsData(type: VitalsName.temperature)
-                var value = Double(element.harmonized.value)
-                if element.harmonized.unit == "degC"{
+                var value = Double(value)
+                if unit == "degC"{
                     //convert value to fahrenheit
                     value = convertDegCelciusToDahrenheit(temprature: value)
                 }
                 temperature.value = value
-                temperature.startTimeStamp = element.startTimestamp
+                temperature.startTimeStamp = startTimestamp
                 self.skinData.skinVital.temperatureData.append(temperature)
                 
             }

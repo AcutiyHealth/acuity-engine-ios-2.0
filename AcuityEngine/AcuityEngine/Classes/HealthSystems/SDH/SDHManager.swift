@@ -52,7 +52,7 @@ class SDHManager: NSObject {
         }
     }
     //Save Vitals Data in sdhVital Model
-    func saveQuantityInArray(quantityType:QuantityType,element:Quantity) {
+    func saveQuantityInArray(quantityType:QuantityType,value:Double,startTimestamp:Double) {
         /*
          S Blood pressure
          D Blood pressure
@@ -64,16 +64,16 @@ class SDHManager: NSObject {
         case .bloodPressureSystolic:
             do{
                 let systolicBP = SDHVitalsData(type: VitalsName.bloodPressureSystolic)
-                systolicBP.value = Double(element.harmonized.value)
-                systolicBP.startTimeStamp = element.startTimestamp
+                systolicBP.value = Double(value)
+                systolicBP.startTimeStamp = startTimestamp
                 self.sdhData.sdhVital.systolicBloodPressureData.append(systolicBP)
                 
             }
         case .bloodPressureDiastolic:
             do{
                 let diastolicBP = SDHVitalsData(type: VitalsName.bloodPressureDiastolic)
-                diastolicBP.value = Double(element.harmonized.value)
-                diastolicBP.startTimeStamp = element.startTimestamp
+                diastolicBP.value = Double(value)
+                diastolicBP.startTimeStamp = startTimestamp
                 self.sdhData.sdhVital.diastolicBloodPressureData.append(diastolicBP)
             }
             
@@ -84,16 +84,16 @@ class SDHManager: NSObject {
                  Multiply value with 100 because we get oxygen saturation value in Float from health app. Oxygen saturation 1- 100 will get 0.1-1 from health app
                  */
                 let oxygenSaturation = SDHVitalsData(type: VitalsName.oxygenSaturation)
-                let newValue = Double(element.harmonized.value) * 100
+                let newValue = Double(value) * 100
                 oxygenSaturation.value = newValue
-                oxygenSaturation.startTimeStamp = element.startTimestamp
+                oxygenSaturation.startTimeStamp = startTimestamp
                 self.sdhData.sdhVital.oxygenSaturationData.append(oxygenSaturation)
             }
         case .bodyMassIndex:
             do{
                 let BMI = SDHVitalsData(type: VitalsName.BMI)
-                BMI.value = Double(element.harmonized.value)
-                BMI.startTimeStamp = element.startTimestamp
+                BMI.value = Double(value)
+                BMI.startTimeStamp = startTimestamp
                 self.sdhData.sdhVital.BMIData.append(BMI)
             }
             /*case .stepCount:

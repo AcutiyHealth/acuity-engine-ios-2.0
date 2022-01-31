@@ -13,6 +13,7 @@ import CloudKit
 class HKManagerReadSymptoms: NSObject
 {
     static let sharedManager = HKManagerReadSymptoms()
+    var arrayOfActiveSymptoms: [Symptoms] = []
     private var reporter: HealthKitReporter?
     
     //private lazy var heartRateType: HKQuantityType? = HKObjectType.quantityType(forIdentifier: .heartRate)
@@ -37,7 +38,7 @@ class HKManagerReadSymptoms: NSObject
                 toWrite: types
             ){ (success, error) in
                 if success && error == nil {
-                    
+                    self.arrayOfActiveSymptoms = []
                     let now = MyWellScore.sharedManager.todaysDate
                     var component = Calendar.Component.day
                     var beforeDaysOrWeekOrMonth = 1
@@ -75,17 +76,27 @@ class HKManagerReadSymptoms: NSObject
                                 DispatchQueue.main.async {
                                     
                                     if error == nil {
+                                        /*
+                                         As we have functionality to show local notification for symptoms, if any symptoms are present...
+                                         So, in categoryQuery, it will execute for every category and we get results for every category..Results migh have multiple data for same category. So, we get data in descending order, most recent on first..
+                                         We, check if first data from result have "not present" value then we stop notification else for Severe,moderate etc. value, we start/continue local notification..
+                                         */
                                         if results.count>0 && results.first != nil{
                                             let lastElement:CategoryData = results.first!
                                             //print("results.last",lastElement.identifier.description)
                                             //print("results.last value",Double(lastElement.harmonized.value))
                                             let elementValue = Double(lastElement.harmonized.value)
                                             if elementValue != 1{
+                                                //To start/stop local notification
                                                 AppDelegate.shared.isSymptomsNotificationStop = false
+                                                //Prepare active symtoms list..
+                                                let identifier = lastElement.identifier
+                                                print("lastElement.endTimestamp",lastElement.identifier,lastElement.endTimestamp)
+                                                self.arrayOfActiveSymptoms.append(Symptoms(healthCategoryType:HKCategoryTypeIdentifier(rawValue: identifier), endTimeStamp: lastElement.endTimestamp))
                                             }
                                         }
                                         for element in results {
-                                          
+                                            
                                             let element:CategoryData = element
                                             //print(element.identifier , "" ,element.startTimestamp)
                                             //Save data for Cardio...
@@ -130,7 +141,7 @@ class HKManagerReadSymptoms: NSObject
                                             //Save data for Heent System...
                                             HeentManager.sharedManager.saveSymptomsData(category: category, element: element)
                                         }
-                                    
+                                        
                                         dispatchGroup.leave()
                                         
                                         

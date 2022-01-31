@@ -28,7 +28,7 @@ class HeentManager: NSObject {
     }
     
     //Save Vitals Data in heentVital Model
-    func saveQuantityInArray(quantityType:QuantityType,element:Quantity) {
+    func saveQuantityInArray(quantityType:QuantityType,value:Double,startTimestamp:Double,unit:String) {
         /*
          bodyTemperature
          */
@@ -36,21 +36,21 @@ class HeentManager: NSObject {
         case .headphoneAudioExposure:
             do{
                 let headPhoneAudioLevel = HeentVitalsData(type: VitalsName.headPhoneAudioLevel)
-                headPhoneAudioLevel.value = Double(element.harmonized.value)
-                headPhoneAudioLevel.startTimeStamp = element.startTimestamp
+                headPhoneAudioLevel.value = Double(value)
+                headPhoneAudioLevel.startTimeStamp = startTimestamp
                 self.heentData.heentVital.headphoneAudioLevelsData.append(headPhoneAudioLevel)
                 
             }
         case .bodyTemperature:
             do{
                 let temperature = HeentVitalsData(type: VitalsName.temperature)
-                var value = Double(element.harmonized.value)
-                if element.harmonized.unit == "degC"{
+                var value = Double(value)
+                if unit == "degC"{
                     //convert value to fahrenheit
                     value = convertDegCelciusToDahrenheit(temprature: value)
                 }
                 temperature.value = value
-                temperature.startTimeStamp = element.startTimestamp
+                temperature.startTimeStamp = startTimestamp
                 self.heentData.heentVital.temperatureData.append(temperature)
                 
             }
@@ -60,9 +60,9 @@ class HeentManager: NSObject {
                  Multiply value with 100 because we get oxygen saturation value in Float from health app. Oxygen saturation 1- 100 will get 0.1-1 from health app
                  */
                 let oxygenSaturation = HeentVitalsData(type: VitalsName.oxygenSaturation)
-                let newValue = Double(element.harmonized.value) * 100
+                let newValue = Double(value) * 100
                 oxygenSaturation.value = newValue
-                oxygenSaturation.startTimeStamp = element.startTimestamp
+                oxygenSaturation.startTimeStamp = startTimestamp
                 self.heentData.heentVital.oxygenSaturationData.append(oxygenSaturation)
                 
             }

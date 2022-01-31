@@ -44,7 +44,7 @@ class CardioManager: NSObject {
                 stepCount.value = newValue
                 stepCount.startTimeStamp = startTimestamp
                 self.cardioData.cardioVital.stepsData.append(stepCount)
-                Log.d("Cardio stepCount=======\(stepCount.value) maxScoreVitals===\(stepCount.score) ")
+                //Log.d("Cardio stepCount=======\(stepCount.value) maxScoreVitals===\(stepCount.score) ")
             }
         case .dietaryWater:
             do{
@@ -61,15 +61,15 @@ class CardioManager: NSObject {
         }
     }
     //MARK: saveVitals
-    func saveQuantityInArray(quantityType:QuantityType,element:Quantity) {
+    func saveQuantityInArray(quantityType:QuantityType,value:Double,startTimestamp:Double) {
         
         switch quantityType {
         case .bloodPressureSystolic:
             do{
                 
                 let systolicBP = CardioVitalsData(type: VitalsName.bloodPressureSystolic)
-                systolicBP.value = Double(element.harmonized.value)
-                systolicBP.startTimeStamp = element.startTimestamp
+                systolicBP.value = Double(value)
+                systolicBP.startTimeStamp = startTimestamp
                 self.cardioData.cardioVital.systolicBloodPressureData.append(systolicBP)
                 
             }
@@ -77,8 +77,8 @@ class CardioManager: NSObject {
             do{
                 
                 let diastolicBP = CardioVitalsData(type: VitalsName.bloodPressureDiastolic)
-                diastolicBP.value = Double(element.harmonized.value)
-                diastolicBP.startTimeStamp = element.startTimestamp
+                diastolicBP.value = Double(value)
+                diastolicBP.startTimeStamp = startTimestamp
                 //print("diastolicBP date",getDateMediumFormat(time: diastolicBP.startTimeStamp))
                 self.cardioData.cardioVital.diastolicBloodPressureData.append(diastolicBP)
                 
@@ -87,8 +87,8 @@ class CardioManager: NSObject {
             do{
                 
                 let vo2Max = CardioVitalsData(type: VitalsName.vo2Max)
-                vo2Max.value = Double(element.harmonized.value)
-                vo2Max.startTimeStamp = element.startTimestamp
+                vo2Max.value = Double(value)
+                vo2Max.startTimeStamp = startTimestamp
                 self.cardioData.cardioVital.vO2MaxData.append(vo2Max)
                 
             }
@@ -96,8 +96,8 @@ class CardioManager: NSObject {
             do{
                 
                 let heartRate = CardioVitalsData(type: VitalsName.heartRate)
-                heartRate.value = Double(element.harmonized.value)
-                heartRate.startTimeStamp = element.startTimestamp
+                heartRate.value = Double(value.rounded())
+                heartRate.startTimeStamp = startTimestamp
                 self.cardioData.cardioVital.heartRateData.append(heartRate)
                 
                 //print("---------\n HeartRateData \nValue \(heartRate.value)\n Score \(heartRate.score)\n Max Score\(heartRate.maxScore ?? 0.0) \n---------")
@@ -108,9 +108,9 @@ class CardioManager: NSObject {
                  Multiply value with 100 because we get oxygen saturation value in Float from health app. Oxygen saturation 1- 100 will get 0.1-1 from health app
                  */
                 let oxygenSaturation = CardioVitalsData(type: VitalsName.oxygenSaturation)
-                let newValue = Double(element.harmonized.value) * 100
+                let newValue = Double(value) * 100
                 oxygenSaturation.value = newValue
-                oxygenSaturation.startTimeStamp = element.startTimestamp
+                oxygenSaturation.startTimeStamp = startTimestamp
                 self.cardioData.cardioVital.oxygenSaturationData.append(oxygenSaturation)
                 
                 //print("---------\n HeartRateData \nValue \(heartRate.value)\n Score \(heartRate.score)\n Max Score\(heartRate.maxScore ?? 0.0) \n---------")

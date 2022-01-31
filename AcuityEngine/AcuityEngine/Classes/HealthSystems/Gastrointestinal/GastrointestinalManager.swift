@@ -54,13 +54,13 @@ class GastrointestinalManager: NSObject {
         }
     }
     //Save Vitals Data in gastrointestinalVital Model
-    func saveQuantityInArray(quantityType:QuantityType,element:Quantity) {
+    func saveQuantityInArray(quantityType:QuantityType,value:Double,startTimestamp:Double) {
         switch quantityType {
         case .bodyMassIndex:
             do{
                 let bodyMassIndex = GastrointestinalVitalsData(type: VitalsName.BMI)
-                bodyMassIndex.value = Double(element.harmonized.value)
-                bodyMassIndex.startTimeStamp = element.startTimestamp
+                bodyMassIndex.value = Double(value)
+                bodyMassIndex.startTimeStamp = startTimestamp
                 self.gastrointestinalData.gastrointestinalVital.bodyMassIndexData.append(bodyMassIndex)
                 
             }

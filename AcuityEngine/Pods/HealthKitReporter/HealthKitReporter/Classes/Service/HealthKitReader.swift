@@ -17,7 +17,7 @@ typealias HKStatisticsCollectionHandler = (
 typealias AnchoredObjectQueryHandler = (
     HKAnchoredObjectQuery, [HKSample]?, [HKDeletedObject]?, HKQueryAnchor?, Error?
 ) -> Void
-typealias StatisticsCollectionHandler = (
+public typealias StatisticsCollectionHandler = (
     HKStatisticsCollection?, Error?
 ) -> Void
 
@@ -416,6 +416,68 @@ public class HealthKitReader {
      - Parameter enumerationBlock: returns a block with statistics on every iteration
      - Throws: HealthKitError.invalidType
      */
+    public func statisticsCollectionQuery(
+        type: String,
+        unit: String,
+        quantitySamplePredicate: NSPredicate? = .allSamples,
+        anchorDate: Date,
+        enumerateFrom: Date,
+        enumerateTo: Date,
+        intervalComponents: DateComponents,
+        monitorUpdates: Bool = false,
+        resultsHandler: @escaping StatisticsCollectionHandler
+    ) throws -> StatisticsCollectionQuery {
+       /* guard let quantityType = type.original as? HKQuantityType else {
+            throw HealthKitError.invalidType(
+                "\(type) can not be represented as HKQuantityType"
+            )
+        }*/
+        let quantityType = HKQuantityType.quantityType(forIdentifier: HKQuantityTypeIdentifier(rawValue: type) )
+        guard let quantityType = quantityType else {
+            throw HealthKitError.invalidType(
+                "\(type) can not be represented as HKQuantityType"
+            )
+        }
+        /*let resultsHandler: StatisticsCollectionHandler = { (data, error) in
+            guard
+                error == nil,
+                let result = data
+            else {
+                enumerationBlock(nil, error)
+                return
+            }
+            result.enumerateStatistics(
+                from: enumerateFrom,
+                to: enumerateTo
+            ) { (data, stop) in
+                do {
+                    let statistics = try Statistics(
+                        statistics: data,
+                        unit: HKUnit.init(from: unit)
+                    )
+                    enumerationBlock(statistics, nil)
+                } catch {
+                    enumerationBlock(nil, error)
+                }
+            }
+        }*/
+        let query = HKStatisticsCollectionQuery(
+            quantityType: quantityType,
+            quantitySamplePredicate: quantitySamplePredicate,
+            options: quantityType.statisticsOptions,
+            anchorDate: anchorDate,
+            intervalComponents: intervalComponents
+        )
+        query.initialResultsHandler = { (_, result, error) in
+            resultsHandler(result, error)
+        }
+        if monitorUpdates {
+            query.statisticsUpdateHandler = { (_, _, result, error) in
+                resultsHandler(result, error)
+            }
+        }
+        return query
+    }
     public func statisticsCollectionQuery(
         type: QuantityType,
         unit: String,

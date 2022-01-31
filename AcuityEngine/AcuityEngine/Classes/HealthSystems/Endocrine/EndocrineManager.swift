@@ -28,54 +28,54 @@ class EndocrineManager: NSObject {
     }
     
     //Save Vitals Data in endocrineVital Model
-    func saveQuantityInArray(quantityType:QuantityType,element:Quantity) {
+    func saveQuantityInArray(quantityType:QuantityType,value:Double,startTimestamp:Double,unit:String) {
         switch quantityType {
         case .bloodPressureSystolic:
             do{
                 let systolicBP = EndocrineVitalsData(type: VitalsName.bloodPressureSystolic)
-                systolicBP.value = Double(element.harmonized.value)
-                systolicBP.startTimeStamp = element.startTimestamp
+                systolicBP.value = Double(value)
+                systolicBP.startTimeStamp = startTimestamp
                 self.endocrineData.endocrineVital.systolicBloodPressureData.append(systolicBP)
                 
             }
         case .bloodPressureDiastolic:
             do{
                 let diastolicBP = EndocrineVitalsData(type: VitalsName.bloodPressureDiastolic)
-                diastolicBP.value = Double(element.harmonized.value)
-                diastolicBP.startTimeStamp = element.startTimestamp
+                diastolicBP.value = Double(value)
+                diastolicBP.startTimeStamp = startTimestamp
                 self.endocrineData.endocrineVital.diastolicBloodPressureData.append(diastolicBP)
             }
             
         case .heartRate:
             do{
                 let heartRate = EndocrineVitalsData(type: VitalsName.heartRate)
-                heartRate.value = Double(element.harmonized.value)
-                heartRate.startTimeStamp = element.startTimestamp
+                heartRate.value = Double(value.rounded())
+                heartRate.startTimeStamp = startTimestamp
                 self.endocrineData.endocrineVital.heartRateData.append(heartRate)
             }
         case .bloodGlucose:
             do{
                 
                 let bloodSugar = EndocrineVitalsData(type: VitalsName.bloodSugar)
-                var value = Double(element.harmonized.value)
-                if element.harmonized.unit.contains("mmol"){
+                var value = Double(value)
+                if unit.contains("mmol"){
                     //convert value to fahrenheit
                     value = convertGlucoseFromMMOLTOMG(glucoseValue: value)
                 }
                 bloodSugar.value = value
-                bloodSugar.startTimeStamp = element.startTimestamp
+                bloodSugar.startTimeStamp = startTimestamp
                 self.endocrineData.endocrineVital.bloodSugarData.append(bloodSugar)
             }
         case .bodyTemperature:
             do{
                 let temperature = EndocrineVitalsData(type: VitalsName.temperature)
-                var value = Double(element.harmonized.value)
-                if element.harmonized.unit == "degC"{
+                var value = Double(value)
+                if unit == "degC"{
                     //convert value to fahrenheit
                     value = convertDegCelciusToDahrenheit(temprature: value)
                 }
                 temperature.value = value
-                temperature.startTimeStamp = element.startTimestamp
+                temperature.startTimeStamp = startTimestamp
                 self.endocrineData.endocrineVital.tempratureData.append(temperature)
             }
         default:
