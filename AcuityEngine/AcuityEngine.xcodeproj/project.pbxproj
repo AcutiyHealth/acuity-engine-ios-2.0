@@ -3,11 +3,13 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 52;
+	objectVersion = 51;
 	objects = {
 
 /* Begin PBXBuildFile section */
 		08B879B268566B06F141D3F3 /* Pods_AcuityEngine.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2674AE460659ECA36794A9A0 /* Pods_AcuityEngine.framework */; };
+		1886EEBB27A7BC0000FA13C4 /* OnboardingCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1886EEB927A7BBFF00FA13C4 /* OnboardingCollectionViewCell.swift */; };
+		1886EEBC27A7BC0000FA13C4 /* OnboardingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1886EEBA27A7BBFF00FA13C4 /* OnboardingViewController.swift */; };
 		7A04F4F82705CFD50006123F /* AddOtherHistoriesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A04F4F72705CFD50006123F /* AddOtherHistoriesViewController.swift */; };
 		7A149A9E277A94470039B781 /* AllSystemLabs.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A149A9C277A94460039B781 /* AllSystemLabs.swift */; };
 		7A149A9F277A94470039B781 /* AllSystemVitals.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A149A9D277A94470039B781 /* AllSystemVitals.swift */; };
@@ -20,8 +22,6 @@
 		7A22C22D25E788CE0028319D /* HealthKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7A22C22C25E788CE0028319D /* HealthKit.framework */; };
 		7A24B6C0272802440097D1EF /* NotificationModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A24B6BF272802440097D1EF /* NotificationModel.swift */; };
 		7A293E32274C6C7000B31BF6 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 7A293E31274C6C7000B31BF6 /* GoogleService-Info.plist */; };
-		7A293E36274C6D9E00B31BF6 /* FirebaseAnalyticsWithoutAdIdSupport in Frameworks */ = {isa = PBXBuildFile; productRef = 7A293E35274C6D9E00B31BF6 /* FirebaseAnalyticsWithoutAdIdSupport */; };
-		7A293E38274C6D9E00B31BF6 /* FirebaseCrashlytics in Frameworks */ = {isa = PBXBuildFile; productRef = 7A293E37274C6D9E00B31BF6 /* FirebaseCrashlytics */; };
 		7A2B4E60272FF42700B5C56B /* PreventionListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A2B4E5F272FF42700B5C56B /* PreventionListViewController.swift */; };
 		7A3086632702A35900C0A45B /* OtherHistoryDataTableHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A3086612702A35900C0A45B /* OtherHistoryDataTableHeaderView.swift */; };
 		7A3086642702A35900C0A45B /* OtherHistoryDataTableHeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7A3086622702A35900C0A45B /* OtherHistoryDataTableHeaderView.xib */; };
@@ -293,8 +293,6 @@
 		7AD7E70726036E750076F14E /* SFProDisplay-Semibold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 7AD7E6FC26036E750076F14E /* SFProDisplay-Semibold.ttf */; };
 		7AD7E70826036E750076F14E /* SFProDisplay-LightItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 7AD7E6FD26036E750076F14E /* SFProDisplay-LightItalic.ttf */; };
 		7AE1446C2701D5A3000A6E20 /* OtherHistoryInputView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AE1446A2701D5A3000A6E20 /* OtherHistoryInputView.swift */; };
-		7AE64E4C2789928A00E68641 /* OnboardingCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AE64E4A2789928A00E68641 /* OnboardingCollectionViewCell.swift */; };
-		7AE64E4D2789928A00E68641 /* OnboardingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AE64E4B2789928A00E68641 /* OnboardingViewController.swift */; };
 		7AFA7F30272172D000C8D44F /* UserManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AFA7F2F272172D000C8D44F /* UserManager.swift */; };
 		7AFA7F39272178A600C8D44F /* Grades.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AFA7F32272178A600C8D44F /* Grades.swift */; };
 		7AFA7F3A272178A600C8D44F /* SpecificRecommendations.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AFA7F33272178A600C8D44F /* SpecificRecommendations.swift */; };
@@ -310,6 +308,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		1886EEB927A7BBFF00FA13C4 /* OnboardingCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OnboardingCollectionViewCell.swift; sourceTree = "<group>"; };
+		1886EEBA27A7BBFF00FA13C4 /* OnboardingViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OnboardingViewController.swift; sourceTree = "<group>"; };
 		2674AE460659ECA36794A9A0 /* Pods_AcuityEngine.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_AcuityEngine.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		2E9A2C77FCE70E2F05B2179B /* Pods-AcuityEngine.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-AcuityEngine.debug.xcconfig"; path = "Target Support Files/Pods-AcuityEngine/Pods-AcuityEngine.debug.xcconfig"; sourceTree = "<group>"; };
 		5E581811A157C643B3DE3D9C /* Pods-AcuityEngine.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-AcuityEngine.release.xcconfig"; path = "Target Support Files/Pods-AcuityEngine/Pods-AcuityEngine.release.xcconfig"; sourceTree = "<group>"; };
@@ -610,8 +610,6 @@
 		7AD7E6FC26036E750076F14E /* SFProDisplay-Semibold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SFProDisplay-Semibold.ttf"; sourceTree = "<group>"; };
 		7AD7E6FD26036E750076F14E /* SFProDisplay-LightItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SFProDisplay-LightItalic.ttf"; sourceTree = "<group>"; };
 		7AE1446A2701D5A3000A6E20 /* OtherHistoryInputView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OtherHistoryInputView.swift; sourceTree = "<group>"; };
-		7AE64E4A2789928A00E68641 /* OnboardingCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OnboardingCollectionViewCell.swift; sourceTree = "<group>"; };
-		7AE64E4B2789928A00E68641 /* OnboardingViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OnboardingViewController.swift; sourceTree = "<group>"; };
 		7AFA7F2F272172D000C8D44F /* UserManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserManager.swift; sourceTree = "<group>"; };
 		7AFA7F32272178A600C8D44F /* Grades.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Grades.swift; sourceTree = "<group>"; };
 		7AFA7F33272178A600C8D44F /* SpecificRecommendations.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SpecificRecommendations.swift; sourceTree = "<group>"; };
@@ -632,8 +630,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				7A22C22D25E788CE0028319D /* HealthKit.framework in Frameworks */,
-				7A293E38274C6D9E00B31BF6 /* FirebaseCrashlytics in Frameworks */,
-				7A293E36274C6D9E00B31BF6 /* FirebaseAnalyticsWithoutAdIdSupport in Frameworks */,
 				08B879B268566B06F141D3F3 /* Pods_AcuityEngine.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -641,6 +637,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		1886EEB827A7BBFF00FA13C4 /* Onboarding */ = {
+			isa = PBXGroup;
+			children = (
+				1886EEB927A7BBFF00FA13C4 /* OnboardingCollectionViewCell.swift */,
+				1886EEBA27A7BBFF00FA13C4 /* OnboardingViewController.swift */,
+			);
+			path = Onboarding;
+			sourceTree = "<group>";
+		};
 		7A1DFE622716EC1800CEC87D /* Profile */ = {
 			isa = PBXGroup;
 			children = (
@@ -1705,7 +1710,7 @@
 		7A73074E26FF1EB1005F9F5E /* ViewController */ = {
 			isa = PBXGroup;
 			children = (
-				7AE64E492789928A00E68641 /* Onboarding */,
+				1886EEB827A7BBFF00FA13C4 /* Onboarding */,
 				7AB33562272EA46800B05899 /* TutorialCards */,
 				7AFA7F4027217FB400C8D44F /* CustomPopUp */,
 				7A73074F26FF1EB1005F9F5E /* Base Controller */,
@@ -1911,16 +1916,6 @@
 			path = OtherHistory;
 			sourceTree = "<group>";
 		};
-		7AE64E492789928A00E68641 /* Onboarding */ = {
-			isa = PBXGroup;
-			children = (
-				7AE64E4A2789928A00E68641 /* OnboardingCollectionViewCell.swift */,
-				7AE64E4B2789928A00E68641 /* OnboardingViewController.swift */,
-			);
-			name = Onboarding;
-			path = "../../../../../../acuity-engine-ios-2.0/AcuityEngine/AcuityEngine/Classes/ViewController/Onboarding";
-			sourceTree = "<group>";
-		};
 		7AFA7F2E272172D000C8D44F /* Manager */ = {
 			isa = PBXGroup;
 			children = (
@@ -1992,8 +1987,6 @@
 			);
 			name = AcuityEngine;
 			packageProductDependencies = (
-				7A293E35274C6D9E00B31BF6 /* FirebaseAnalyticsWithoutAdIdSupport */,
-				7A293E37274C6D9E00B31BF6 /* FirebaseCrashlytics */,
 			);
 			productName = AcuityEngine;
 			productReference = 7A22C1AA25E786F10028319D /* AcuityEngine.app */;
@@ -2023,7 +2016,6 @@
 			);
 			mainGroup = 7A22C1A125E786F10028319D;
 			packageReferences = (
-				7A293E34274C6D9E00B31BF6 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
 			);
 			productRefGroup = 7A22C1AB25E786F10028319D /* Products */;
 			projectDirPath = "";
@@ -2147,7 +2139,6 @@
 				7A73081226FF1EB2005F9F5E /* IDiseaseCondition.swift in Sources */,
 				7A73079426FF1EB2005F9F5E /* KeyChainUtility.swift in Sources */,
 				7A73085826FF1EB2005F9F5E /* SceneDelegate.swift in Sources */,
-				7AE64E4D2789928A00E68641 /* OnboardingViewController.swift in Sources */,
 				7A7307D626FF1EB2005F9F5E /* RenalSymptomsPainData.swift in Sources */,
 				7A73085E26FF1EB2005F9F5E /* BMICalculatorViewController.swift in Sources */,
 				7A73080F26FF1EB2005F9F5E /* IDiseaseLab.swift in Sources */,
@@ -2233,6 +2224,7 @@
 				7A73078B26FF1EB2005F9F5E /* UISegmentedControl+Extensions.swift in Sources */,
 				7A74055F273F5339005CFE1F /* HistoryValueListViewController.swift in Sources */,
 				7A7307B226FF1EB2005F9F5E /* SkinConditionData.swift in Sources */,
+				1886EEBC27A7BC0000FA13C4 /* OnboardingViewController.swift in Sources */,
 				7A73084C26FF1EB2005F9F5E /* PullUpDisplayCell.swift in Sources */,
 				7A7307BD26FF1EB2005F9F5E /* SDHData.swift in Sources */,
 				7A73079626FF1EB2005F9F5E /* MuscConditionData.swift in Sources */,
@@ -2353,7 +2345,6 @@
 				7A7307BA26FF1EB2005F9F5E /* SDHSymptomsPainData.swift in Sources */,
 				7A73080226FF1EB2005F9F5E /* GenitourinarySymptomsPainData.swift in Sources */,
 				7A73083626FF1EB2005F9F5E /* HematoConditionData.swift in Sources */,
-				7AE64E4C2789928A00E68641 /* OnboardingCollectionViewCell.swift in Sources */,
 				7A73078226FF1EB2005F9F5E /* FMDatabasePool.m in Sources */,
 				7A7307A726FF1EB2005F9F5E /* GastrointestinalSymptoms.swift in Sources */,
 				7A73079326FF1EB2005F9F5E /* APIResponseModel.swift in Sources */,
@@ -2402,6 +2393,7 @@
 				7A7307AD26FF1EB2005F9F5E /* SkinData.swift in Sources */,
 				7A73086726FF1EB2005F9F5E /* AcuityDetailPullUpViewController.swift in Sources */,
 				7A7307FE26FF1EB2005F9F5E /* NeuroSymptomsPainData.swift in Sources */,
+				1886EEBB27A7BC0000FA13C4 /* OnboardingCollectionViewCell.swift in Sources */,
 				7A7307ED26FF1EB2005F9F5E /* MyWellScore.swift in Sources */,
 				7A73078526FF1EB2005F9F5E /* Constants.swift in Sources */,
 			);
@@ -2622,30 +2614,6 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
-
-/* Begin XCRemoteSwiftPackageReference section */
-		7A293E34274C6D9E00B31BF6 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/firebase/firebase-ios-sdk";
-			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 8.0.0;
-			};
-		};
-/* End XCRemoteSwiftPackageReference section */
-
-/* Begin XCSwiftPackageProductDependency section */
-		7A293E35274C6D9E00B31BF6 /* FirebaseAnalyticsWithoutAdIdSupport */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 7A293E34274C6D9E00B31BF6 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
-			productName = FirebaseAnalyticsWithoutAdIdSupport;
-		};
-		7A293E37274C6D9E00B31BF6 /* FirebaseCrashlytics */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 7A293E34274C6D9E00B31BF6 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
-			productName = FirebaseCrashlytics;
-		};
-/* End XCSwiftPackageProductDependency section */
 
 /* Begin XCVersionGroup section */
 		7A22C1B625E786F10028319D /* AcuityEngine.xcdatamodeld */ = {
