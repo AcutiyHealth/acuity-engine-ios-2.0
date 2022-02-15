@@ -408,8 +408,17 @@ class AddVitalsViewController: UIViewController {
     //MARK: Show Alert For Success of Data Save in Healthkit
     //========================================================================================================
     func vitalsSavedSuccessfully(message:String){
-        let okAction = self.getOKActionForVitalList()
-        self.showAlertForDataSaved(message:message,okAction: okAction)
+        DispatchQueue.main.async {
+            if let parentVC = self.parent {
+                if let parentVC = parentVC as? VitalsListViewController {
+                    // parentVC is someViewController
+                    parentVC.removeAddVitalsViewController()
+                }
+            }
+        }
+       
+//        let okAction = self.getOKActionForVitalList()
+//        self.showAlertForDataSaved(message:message,okAction: okAction)
     }
     //========================================================================================================
     //MARK: Show Alert For Fail of Data Save in Healthkit

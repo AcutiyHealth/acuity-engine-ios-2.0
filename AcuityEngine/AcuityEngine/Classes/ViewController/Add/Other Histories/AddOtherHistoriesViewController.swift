@@ -112,8 +112,15 @@ class AddOtherHistoriesViewController:UIViewController,UITextViewDelegate {
     //MARK: Show Alert For Success of Data Save in Healthkit
     //========================================================================================================
     func historysSavedSuccessfully(message:String){
-        let okAction = self.getOKActionForhistoryList()
-        self.showAlertForDataSaved(message:message,okAction: okAction)
+        DispatchQueue.main.async {
+            if let parentVC = self.parent {
+                if let parentVC = parentVC as? HistoryValueListViewController {
+                    parentVC.removeAddHistoryViewController()
+                }
+            }
+        }
+//        let okAction = self.getOKActionForhistoryList()
+//        self.showAlertForDataSaved(message:message,okAction: okAction)
     }
     //========================================================================================================
     //MARK:Get OK Action For historyList

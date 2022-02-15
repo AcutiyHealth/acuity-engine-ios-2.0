@@ -266,7 +266,7 @@ class AcuityDetailPullUpViewController: UIViewController {
             do{
                 segmentControl.selectedSegmentIndex = 2
                 //chart.xLabels = [0,1,2]
-                //self.segmentClicked(segmentControl)
+                //self.segmentClicked(segmentControl) 
             }
         case .OneDay:
             break

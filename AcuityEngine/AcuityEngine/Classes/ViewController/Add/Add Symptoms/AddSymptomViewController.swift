@@ -224,11 +224,17 @@ class AddSymptomViewController: UIViewController {
         
         //show alert
         DispatchQueue.main.async {
-            
-            let vc = self.view.window?.rootViewController
-            vc?.presentAlert(title: "\(Key.kAppName)",
-                             message: message,
-                             actions: okAction)
+            if let parentVC = self.parent {
+                if let parentVC = parentVC as? SymptomsListViewController {
+                    // parentVC is someViewController
+                    parentVC.removeAddSymptomsViewController()
+                }
+            }
+//
+//            let vc = self.view.window?.rootViewController
+//            vc?.presentAlert(title: "\(Key.kAppName)",
+//                             message: message,
+//                             actions: okAction)
         }
     }
 }
